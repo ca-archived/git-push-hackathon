@@ -32,7 +32,7 @@ CyberAgentが主催する、ネイティブエンジニア向け学生限定ハ�
 
 以下の基準を満たしてない場合は、評価をしません。
 
-- 機能の要件を満たしていない
+- お題の基本要件を満たしていない
 - ビルドができない
 - コピペだと思われるソースコードの使用
 
@@ -47,6 +47,15 @@ CyberAgentが主催する、ネイティブエンジニア向け学生限定ハ�
 |iOS|Android|
 |:---:|:---:|
 |<img src="./assets/sample_ios.gif" alt="GitHub Client Sample iOS" width="250">|<img src="./assets/sample_android.gif" alt="GitHub Client Sample Android" width="250">|
+
+### 基本要件
+
+GIFの挙動を参考に、
+
+- OAuth認証をもちいたログイン
+- 一覧の表示
+
+を実装してください。
 
 ## クレジット
 - [CodeHub - A Client for GitHub / Dillon Buchanan](https://itunes.apple.com/jp/app/codehub-a-client-for-github/id707173885?mt=8)
