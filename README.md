@@ -75,7 +75,7 @@
 
 ## クレジット
 - [CodeHub - A Client for GitHub / Dillon Buchanan](https://itunes.apple.com/jp/app/codehub-a-client-for-github/id707173885?mt=8)
-- [FastHub for GitHub / Fast Access](https://play.google.com/store/apps/details?id=com.fastaccess.githuib&hl=ja)
+- [FastHub for GitHub / Fast Access](https://play.google.com/store/apps/details?id=com.fastaccess.github)
 
 ## 主催者
 
