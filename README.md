@@ -30,6 +30,15 @@
 
 を実装してください。
 
+### 開発について
+
+評価のためにこちらでプロジェクトをビルドする際、依存解決などの工程が必要な場合は、自身のフォルダにREADMEを作成し工程を記載してください。  
+ツールなどによって作成された依存パッケージは、リポジトリに含めなくても構いません。  
+こちらでビルドする際に、**依存を解決できなかった場合も審査対象になりません** のでご注意ください。  
+
+アプリの作成に使用するClient IDやClient Secretは、ご自身で作成してください。  
+評価のためにビルドする際は、こちらで作成したものを使いますのでリポジトリに含めないようにし、READMEにClient IDやClient Secretを記載するべき箇所、またはファイル名を記載してください。  
+
 ### sample
 
 |iOS|Android|
@@ -72,7 +81,8 @@
 
 ## FAQ
 
-質問などあれば[issueを作成](https://github.com/CyberAgent/git-push-hackathon/issues/new)してください。
+質問などあれば[issueを作成](https://github.com/CyberAgent/git-push-hackathon/issues/new)してください。  
+回答済みのissueはCloseせずに残していただいて構いません。
 
 ## クレジット
 - [CodeHub - A Client for GitHub / Dillon Buchanan](https://itunes.apple.com/jp/app/codehub-a-client-for-github/id707173885?mt=8)
