@@ -18,6 +18,13 @@
 		469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722E9200E32EF008325C4 /* GitHubConstant.swift */; };
 		469722EB200E39A9008325C4 /* GitHubConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722E9200E32EF008325C4 /* GitHubConstant.swift */; };
 		469722ED200E39E3008325C4 /* GitMeEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722EC200E39E3008325C4 /* GitMeEntityTests.swift */; };
+		469722F5200E4037008325C4 /* StoryboardInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722F4200E4037008325C4 /* StoryboardInstantiable.swift */; };
+		469722F7200E40FA008325C4 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722F6200E40FA008325C4 /* NibLoadable.swift */; };
+		469722F9200E414D008325C4 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722F8200E414D008325C4 /* Reusable.swift */; };
+		469722FB200E41CD008325C4 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722FA200E41CD008325C4 /* UIView+Extensions.swift */; };
+		469722FD200E4263008325C4 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722FC200E4263008325C4 /* UITableView+Extensions.swift */; };
+		469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */; };
+		46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46972300200E44CD008325C4 /* UIApplication+Extensions.swift */; };
 		46BF3B45200DB924003C2EAE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B43200DB924003C2EAE /* RxSwift.framework */; };
 		46BF3B46200DB924003C2EAE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B44200DB924003C2EAE /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +63,13 @@
 		469722E6200E2F35008325C4 /* ClientKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ClientKey.plist; sourceTree = "<group>"; };
 		469722E9200E32EF008325C4 /* GitHubConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubConstant.swift; sourceTree = "<group>"; };
 		469722EC200E39E3008325C4 /* GitMeEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitMeEntityTests.swift; sourceTree = "<group>"; };
+		469722F4200E4037008325C4 /* StoryboardInstantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiable.swift; sourceTree = "<group>"; };
+		469722F6200E40FA008325C4 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		469722F8200E414D008325C4 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		469722FA200E41CD008325C4 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		469722FC200E4263008325C4 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
+		46972300200E44CD008325C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		46BF3B43200DB924003C2EAE /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		46BF3B44200DB924003C2EAE /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +189,9 @@
 		469722EE200E3D97008325C4 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				469722F4200E4037008325C4 /* StoryboardInstantiable.swift */,
+				469722F6200E40FA008325C4 /* NibLoadable.swift */,
+				469722F8200E414D008325C4 /* Reusable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -182,6 +199,10 @@
 		469722EF200E3D9E008325C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				469722FA200E41CD008325C4 /* UIView+Extensions.swift */,
+				469722FC200E4263008325C4 /* UITableView+Extensions.swift */,
+				469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */,
+				46972300200E44CD008325C4 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -407,8 +428,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */,
+				469722FB200E41CD008325C4 /* UIView+Extensions.swift in Sources */,
+				469722F9200E414D008325C4 /* Reusable.swift in Sources */,
 				469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */,
+				469722FD200E4263008325C4 /* UITableView+Extensions.swift in Sources */,
 				4695C955200DAC3E0097F066 /* ViewController.swift in Sources */,
+				469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */,
+				469722F5200E4037008325C4 /* StoryboardInstantiable.swift in Sources */,
+				469722F7200E40FA008325C4 /* NibLoadable.swift in Sources */,
 				4695C953200DAC3E0097F066 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
