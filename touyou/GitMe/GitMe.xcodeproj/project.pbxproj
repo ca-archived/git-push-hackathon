@@ -16,6 +16,8 @@
 		4695C973200DAC3E0097F066 /* GitMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4695C972200DAC3E0097F066 /* GitMeUITests.swift */; };
 		469722E7200E2F35008325C4 /* ClientKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 469722E6200E2F35008325C4 /* ClientKey.plist */; };
 		469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722E9200E32EF008325C4 /* GitHubConstant.swift */; };
+		469722EB200E39A9008325C4 /* GitHubConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722E9200E32EF008325C4 /* GitHubConstant.swift */; };
+		469722ED200E39E3008325C4 /* GitMeEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722EC200E39E3008325C4 /* GitMeEntityTests.swift */; };
 		46BF3B45200DB924003C2EAE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B43200DB924003C2EAE /* RxSwift.framework */; };
 		46BF3B46200DB924003C2EAE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B44200DB924003C2EAE /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +55,7 @@
 		4695C974200DAC3E0097F066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469722E6200E2F35008325C4 /* ClientKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ClientKey.plist; sourceTree = "<group>"; };
 		469722E9200E32EF008325C4 /* GitHubConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubConstant.swift; sourceTree = "<group>"; };
+		469722EC200E39E3008325C4 /* GitMeEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitMeEntityTests.swift; sourceTree = "<group>"; };
 		46BF3B43200DB924003C2EAE /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		46BF3B44200DB924003C2EAE /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,13 +111,18 @@
 		4695C951200DAC3E0097F066 /* GitMe */ = {
 			isa = PBXGroup;
 			children = (
-				469722E8200E32CC008325C4 /* Entity */,
 				469722E5200E2EDB008325C4 /* Assets */,
 				469722E4200E2EC7008325C4 /* SupportFiles */,
+				469722EF200E3D9E008325C4 /* Extensions */,
+				469722EE200E3D97008325C4 /* Protocols */,
+				469722F3200E3E88008325C4 /* ViewController */,
+				469722F2200E3E80008325C4 /* Presenter */,
+				469722F1200E3E75008325C4 /* UseCase */,
+				469722F0200E3E4A008325C4 /* DataStore */,
+				469722E8200E32CC008325C4 /* Entity */,
 				4695C952200DAC3E0097F066 /* AppDelegate.swift */,
 				4695C954200DAC3E0097F066 /* ViewController.swift */,
 				4695C956200DAC3E0097F066 /* Main.storyboard */,
-				4695C95B200DAC3E0097F066 /* LaunchScreen.storyboard */,
 			);
 			path = GitMe;
 			sourceTree = "<group>";
@@ -124,6 +132,7 @@
 			children = (
 				4695C967200DAC3E0097F066 /* GitMeTests.swift */,
 				4695C969200DAC3E0097F066 /* Info.plist */,
+				469722EC200E39E3008325C4 /* GitMeEntityTests.swift */,
 			);
 			path = GitMeTests;
 			sourceTree = "<group>";
@@ -142,6 +151,7 @@
 			children = (
 				4695C95E200DAC3E0097F066 /* Info.plist */,
 				469722E6200E2F35008325C4 /* ClientKey.plist */,
+				4695C95B200DAC3E0097F066 /* LaunchScreen.storyboard */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -160,6 +170,48 @@
 				469722E9200E32EF008325C4 /* GitHubConstant.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		469722EE200E3D97008325C4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		469722EF200E3D9E008325C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		469722F0200E3E4A008325C4 /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataStore;
+			sourceTree = "<group>";
+		};
+		469722F1200E3E75008325C4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		469722F2200E3E80008325C4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		469722F3200E3E88008325C4 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		46BF3B42200DB924003C2EAE /* Frameworks */ = {
@@ -365,6 +417,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				469722ED200E39E3008325C4 /* GitMeEntityTests.swift in Sources */,
+				469722EB200E39A9008325C4 /* GitHubConstant.swift in Sources */,
 				4695C968200DAC3E0097F066 /* GitMeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,7 +588,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.touyou.GitMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -553,7 +607,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.touyou.GitMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

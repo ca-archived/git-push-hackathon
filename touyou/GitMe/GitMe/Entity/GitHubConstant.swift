@@ -21,13 +21,13 @@ class GitHubConstant {
         return NSDictionary(contentsOfFile: filePath)
     }
 
-    static internal var clientKey: String {
+    static internal var clientId: String {
 
-        guard let _clientKey = GitHubConstant.clientPlist?["client_key"] as? String else {
+        guard let _clientId = GitHubConstant.clientPlist?["client_id"] as? String else {
 
-            fatalError("Please set client key.")
+            fatalError("Please set client id.")
         }
-        return _clientKey
+        return _clientId
     }
 
     static internal var clientSecret: String {
