@@ -16,3 +16,5 @@ $ make
 ```
 
 をしてCarthageのライブラリをインストールしてください。
+
+その後プロジェクトのSupportFilesの中に`ClientKey.plist`を作成し、Root直下に`client_id`をKeyにClient IDのStringと、`client_secret`をKeyにClient SecretのStringを追加してください。
