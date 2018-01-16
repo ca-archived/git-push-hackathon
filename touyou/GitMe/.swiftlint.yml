@@ -1,0 +1,26 @@
+disabled_rules:
+# コードの記載のない改行を許可したい
+- trailing_whitespace
+# ネスト1つで怒られるのでDisableにしたい
+- nesting
+- trailing_newline
+- vertical_whitespace
+
+# 追加したOSSライブラリは対象に含めたくない
+excluded:
+- Pods/
+- Podfile
+- Podfile.lock
+
+# 1行あたりの文字数制限を300に変更
+# プロジェクト作成時にデフォルトで追加されるコメントをひっかけないため
+line_length: 300
+
+# 変数名の長さのMAXとMINを変更
+variable_name:
+  max_length:
+    warning: 60
+    error: 80
+  min_length:
+    warning: 1
+    error: 0
