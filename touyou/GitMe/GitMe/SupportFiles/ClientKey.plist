@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   ClientKey.plist
-   GitMe
-
-   Created by 藤井陽介 on 2018/01/16.
-   Copyright (c) 2018 touyou. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-    
-    </dict>
+<dict>
+	<key>client_id</key>
+	<string>e39c71d128f1f423309c</string>
+	<key>client_secret</key>
+	<string>c33bc5fe726f79ab5144fec9421929604a64f1ec</string>
+</dict>
 </plist>
