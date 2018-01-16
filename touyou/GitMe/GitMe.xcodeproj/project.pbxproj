@@ -14,6 +14,7 @@
 		4695C95D200DAC3E0097F066 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4695C95B200DAC3E0097F066 /* LaunchScreen.storyboard */; };
 		4695C968200DAC3E0097F066 /* GitMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4695C967200DAC3E0097F066 /* GitMeTests.swift */; };
 		4695C973200DAC3E0097F066 /* GitMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4695C972200DAC3E0097F066 /* GitMeUITests.swift */; };
+		469722E7200E2F35008325C4 /* ClientKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 469722E6200E2F35008325C4 /* ClientKey.plist */; };
 		46BF3B45200DB924003C2EAE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B43200DB924003C2EAE /* RxSwift.framework */; };
 		46BF3B46200DB924003C2EAE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B44200DB924003C2EAE /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		4695C96E200DAC3E0097F066 /* GitMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4695C972200DAC3E0097F066 /* GitMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitMeUITests.swift; sourceTree = "<group>"; };
 		4695C974200DAC3E0097F066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		469722E6200E2F35008325C4 /* ClientKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ClientKey.plist; sourceTree = "<group>"; };
 		46BF3B43200DB924003C2EAE /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		46BF3B44200DB924003C2EAE /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,12 +106,12 @@
 		4695C951200DAC3E0097F066 /* GitMe */ = {
 			isa = PBXGroup;
 			children = (
+				469722E5200E2EDB008325C4 /* Assets */,
+				469722E4200E2EC7008325C4 /* SupportFiles */,
 				4695C952200DAC3E0097F066 /* AppDelegate.swift */,
 				4695C954200DAC3E0097F066 /* ViewController.swift */,
 				4695C956200DAC3E0097F066 /* Main.storyboard */,
-				4695C959200DAC3E0097F066 /* Assets.xcassets */,
 				4695C95B200DAC3E0097F066 /* LaunchScreen.storyboard */,
-				4695C95E200DAC3E0097F066 /* Info.plist */,
 			);
 			path = GitMe;
 			sourceTree = "<group>";
@@ -130,6 +132,23 @@
 				4695C974200DAC3E0097F066 /* Info.plist */,
 			);
 			path = GitMeUITests;
+			sourceTree = "<group>";
+		};
+		469722E4200E2EC7008325C4 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4695C95E200DAC3E0097F066 /* Info.plist */,
+				469722E6200E2F35008325C4 /* ClientKey.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		469722E5200E2EDB008325C4 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4695C959200DAC3E0097F066 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		46BF3B42200DB924003C2EAE /* Frameworks */ = {
@@ -252,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4695C95D200DAC3E0097F066 /* LaunchScreen.storyboard in Resources */,
+				469722E7200E2F35008325C4 /* ClientKey.plist in Resources */,
 				4695C95A200DAC3E0097F066 /* Assets.xcassets in Resources */,
 				4695C958200DAC3E0097F066 /* Main.storyboard in Resources */,
 			);
@@ -497,7 +517,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = GitMe/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GitMe/SupportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.touyou.GitMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -516,7 +536,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = GitMe/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GitMe/SupportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.touyou.GitMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
