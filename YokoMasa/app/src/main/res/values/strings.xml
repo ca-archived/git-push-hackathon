@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">GitHub Feed</string>
+    <string name="login">ログイン</string>
+    <string name="login_description">このアプリケーションをご利用になるにはGitHubにログインする必要があります。</string>
+    <string name="login_waiting">ログイン中・・・</string>
+    <string name="login_succeeded">ログイン完了</string>
+
+    <string name="feed_timeline">グローバル</string>
+    <string name="feed_current_user_public">パブリック</string>
+    <string name="feed_current_user">プライベート</string>
+    <string name="feed_current_user_action">アクション</string>
+    <string name="feed_current_user_organization">組織</string>
+    <string name="feed_nothing_to_show">フィードはありません。</string>
+</resources>

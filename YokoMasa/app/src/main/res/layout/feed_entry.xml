@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/FeedEntryLayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/feed_entry_image"
+            android:layout_width="@dimen/feed_entry_thumbnail_size"
+            android:layout_height="@dimen/feed_entry_thumbnail_size" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/feed_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
