@@ -1,7 +1,22 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.20'
+    ext {
+        kotlin_version = '1.2.20'
+        rxkotlin_version = '2.2.0'
+        rxlifecycle_version = '2.2.0'
+        retrofit_version = '2.3.0'
+        okhttp_version = '3.5.0'
+        moshi_version = '1.5.0'
+        stetho_version = '1.5.0'
+        support_lib_version = '27.0.2'
+        mockito_verion = '2.8.9'
+        powermock_version = '1.7.3'
+        dagger_version = '2.14.1'
+        leakcanary_version = '1.5.4'
+        robolectric_version = '3.3.2'
+        buildTool_version = '27.0.2'
+    }
 
     repositories {
         google()
@@ -10,6 +25,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
