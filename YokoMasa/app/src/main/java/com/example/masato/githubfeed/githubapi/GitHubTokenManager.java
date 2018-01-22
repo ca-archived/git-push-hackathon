@@ -1,9 +1,11 @@
 package com.example.masato.githubfeed.githubapi;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.util.HandyHttpURLConnection;
 import com.example.masato.githubfeed.util.HttpConnectionPool;
 
@@ -28,19 +30,21 @@ import java.util.concurrent.ExecutorService;
 
 public class GitHubTokenManager {
 
-    private static String CLIENT_ID = "client_id";
-    private static String CLIENT_SECRET = "client_secret";
     private static String LOGIN_URL = "https://github.com/login/oauth/access_token";
     private static String PREF_TOKEN_KEY = "token";
 
+    private Context context;
     private SharedPreferences preferences;
     private ExecutorService executorService;
 
     public void fetchToken(final String code, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(LOGIN_URL, executorService);
+        String clientId = context.getResources().getString(R.string.client_id);
+        String clientSecret = context.getResources().getString(R.string.client_secret);
+
         connection.setHeader("Accept", "application/json");
-        connection.addParams("client_id", CLIENT_ID);
-        connection.addParams("client_secret", CLIENT_SECRET);
+        connection.addParams("client_id", clientId);
+        connection.addParams("client_secret", clientSecret);
         connection.addParams("code", code);
         connection.postRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override
@@ -86,8 +90,9 @@ public class GitHubTokenManager {
         return preferences.getString(PREF_TOKEN_KEY, null);
     }
 
-    GitHubTokenManager(SharedPreferences preferences, ExecutorService executorService){
-        this.preferences = preferences;
+    GitHubTokenManager(Context context, ExecutorService executorService){
+        this.preferences = context.getSharedPreferences("token", Context.MODE_PRIVATE);
+        this.context = context;
         this.executorService = executorService;
     }
 

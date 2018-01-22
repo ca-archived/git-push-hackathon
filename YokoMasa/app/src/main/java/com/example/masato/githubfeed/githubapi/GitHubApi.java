@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.githubapi;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -20,8 +21,8 @@ public class GitHubApi {
 
     private static GitHubApi api;
 
-    public static void init(SharedPreferences preferences, GitHubApiCallback callback) {
-        api = new GitHubApi(preferences, callback);
+    public static void init(Context context, GitHubApiCallback callback) {
+        api = new GitHubApi(context, callback);
     }
 
     public static GitHubApi getApi() {
@@ -80,9 +81,9 @@ public class GitHubApi {
         }
     }
 
-    private GitHubApi(SharedPreferences preferences, GitHubApiCallback callback) {
+    private GitHubApi(Context context, GitHubApiCallback callback) {
         this.executorService = Executors.newFixedThreadPool(4);
-        this.tokenManager = new GitHubTokenManager(preferences, executorService);
+        this.tokenManager = new GitHubTokenManager(context, executorService);
         checkToken(callback);
     }
 }

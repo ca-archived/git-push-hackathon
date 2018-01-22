@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public void initGitHubApi() {
-        GitHubApi.init(getSharedPreferences("token", Context.MODE_PRIVATE), presenter);
+        GitHubApi.init(getApplicationContext(), presenter);
     }
 
     @Override
