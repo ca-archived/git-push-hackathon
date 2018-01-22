@@ -60,9 +60,6 @@
                                                 <size key="value" width="1" height="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="touchUpInsideLoginButton:" destination="HIp-59-Q7G" eventType="touchUpInside" id="hfs-dC-vDt"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,6 +101,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fwc-Hq-iTd"/>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="h42-MD-dC6" id="kfu-7k-xqb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DkD-2p-XlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

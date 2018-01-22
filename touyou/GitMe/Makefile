@@ -1,1 +1,2 @@
-carthage update --platform ios --cache-builds
+all:
+	carthage update --platform ios --cache-builds
