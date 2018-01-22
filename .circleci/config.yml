@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-27-alpha
+    environment:
+      JVM_OPTS: -Xmx4000m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "halu5071/build.gradle" }}-{{ checksum  "halu5071/presentation/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: |
+                cd halu5071
+                ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "halu5071/build.gradle" }}-{{ checksum  "halu5071/presentation/build.gradle" }}
+      - run:
+          name: Lint
+          command: |
+                 cd halu5071
+                 ./gradlew lint
+      - run:
+          name: Build for Debug
+          command: |
+                 cd halu5071
+                 ./gradlew assembleDebug
+
+      - run:
+          name: Unit Test
+          command: |
+                cd halu5071
+                 ./gradlew testDebugUnitTest
+
+
+dependencies:
+  pre:
+    - mkdir $ANDROID_HOME/licenses
+    - echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> $ANDROID_HOME/licenses/android-sdk-license
