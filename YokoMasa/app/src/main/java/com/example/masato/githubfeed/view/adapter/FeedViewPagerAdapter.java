@@ -22,16 +22,7 @@ public class FeedViewPagerAdapter extends FragmentStatePagerAdapter {
     private List<FeedFragment> feedFragments = new ArrayList<>();
 
     public void addFragment(FeedFragment feedFragment) {
-        feedFragment.getArguments().putInt("number", feedFragments.size());
         feedFragments.add(feedFragment);
-    }
-
-    public void addFeedEntries(int fragmentNumber, List<FeedEntry> feedEntries) {
-        feedFragments.get(fragmentNumber).addFeedEntries(feedEntries);
-    }
-
-    public void disableRefreshing(int fragmentNumber) {
-        feedFragments.get(fragmentNumber).disableRefreshing();
     }
 
     @Override

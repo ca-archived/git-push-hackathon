@@ -37,21 +37,24 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
     private static final int FEED_ENTRY_VIEW = 1;
     private static final int LOADING_VIEW = 2;
     private static final int NOTHING_TO_SHOW_VIEW = 3;
+    private static final int PREFETCH_THRESHOLD = 15;
 
     private List<FeedEntry> feedEntries = new ArrayList<>();
-    private FetchRequestListener listener;
     private LayoutInflater inflater;
+    private OnFeedRefreshedListener listener;
     private String feedUrl;
     private int currentPage = 1;
     private boolean feedFetching = false;
     private boolean feedMaxedOut = false;
     private boolean refreshing = false;
 
-    public void addFeedEntries(List<FeedEntry> feedEntries) {
+    public void setOnFeedRefreshedListener(OnFeedRefreshedListener listener) {
+        this.listener = listener;
+    }
+
+    private void addFeedEntries(List<FeedEntry> feedEntries) {
         if (refreshing) {
-            this.feedEntries.clear();
-            this.feedEntries.addAll(feedEntries);
-            refreshing = false;
+            refreshFeedEntries(feedEntries);
         } else {
             if (feedEntries.size() == 0) {
                 feedMaxedOut = true;
@@ -63,11 +66,20 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void refreshEntries() {
+    private void refreshFeedEntries(List<FeedEntry> feedEntries) {
+        this.feedEntries.clear();
+        this.feedEntries.addAll(feedEntries);
+        if (listener != null) {
+            listener.onRefreshed();
+        }
+        refreshing = false;
+    }
+
+    public void refresh() {
         if (!refreshing && !feedFetching) {
             refreshing = true;
             feedFetching = true;
-            listener.onFeedFetchRequested(feedUrl, 1);
+            fetchFeed(1);
             currentPage = 1;
             feedMaxedOut = false;
         }
@@ -115,7 +127,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
     private void bindFeedEntryView(FeedEntryViewViewHolder viewHolder, int position) {
         FeedEntry feedEntry = feedEntries.get(position);
         if (feedEntry.thumbnail == null) {
-            loadThumbnail(feedEntry, viewHolder);
+            fetchThumbnail(feedEntry, viewHolder);
         } else {
             viewHolder.thumbnail.setImageBitmap(feedEntry.thumbnail);
         }
@@ -142,7 +154,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void loadThumbnail(final FeedEntry feedEntry, final FeedEntryViewViewHolder viewHolder) {
+    private void fetchThumbnail(final FeedEntry feedEntry, final FeedEntryViewViewHolder viewHolder) {
         GitHubApi.getApi().getBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
             @Override
             public void onSuccess(Object object) {
@@ -157,21 +169,35 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         });
     }
 
+    private void fetchFeed(int page) {
+        GitHubApi.getApi().getFeedList(feedUrl, page, new GitHubApiCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                List<FeedEntry> feedEntries = (List<FeedEntry>) object;
+                addFeedEntries(feedEntries);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
+
     private void fetchFeedIfNeeded(int position) {
-        if (feedFetching || refreshing) {
+        if (feedFetching) {
             return;
         }
         int remaining = getItemCount() - position;
-        if (remaining < 10 && !feedMaxedOut) {
-            listener.onFeedFetchRequested(feedUrl, currentPage + 1);
+        if (remaining < PREFETCH_THRESHOLD && !feedMaxedOut) {
+            fetchFeed(currentPage + 1);
             feedFetching = true;
             currentPage++;
         }
     }
 
-    public FeedRecyclerViewAdapter(String feedUrl, LayoutInflater inflater, FetchRequestListener listener) {
+    public FeedRecyclerViewAdapter(String feedUrl, LayoutInflater inflater) {
         this.inflater = inflater;
-        this.listener = listener;
         this.feedUrl = feedUrl;
     }
 
@@ -199,7 +225,8 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface FetchRequestListener {
-        public void onFeedFetchRequested(String url, int page);
+    public interface OnFeedRefreshedListener {
+        void onRefreshed();
     }
+
 }

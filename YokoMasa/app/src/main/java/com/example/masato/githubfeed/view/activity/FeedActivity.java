@@ -30,12 +30,10 @@ import java.util.Set;
  * Created by Masato on 2018/01/19.
  */
 
-public class FeedActivity extends AppCompatActivity implements FeedFragment.FeedFetchRequestListener,
-        ViewPager.OnPageChangeListener, FeedView {
+public class FeedActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, FeedView {
 
     private FeedPresenter presenter;
     private ViewPager viewPager;
-    private PagerTitleStrip pagerTitleStrip;
     private FeedViewPagerAdapter adapter;
 
     @Override
@@ -44,7 +42,6 @@ public class FeedActivity extends AppCompatActivity implements FeedFragment.Feed
         setContentView(R.layout.activity_feed);
         presenter = new FeedPresenter(this);
         viewPager = (ViewPager) findViewById(R.id.feed_view_pager);
-        pagerTitleStrip = (PagerTitleStrip) findViewById(R.id.feed_pager_title_strip);
         preparePager();
     }
 
@@ -81,21 +78,6 @@ public class FeedActivity extends AppCompatActivity implements FeedFragment.Feed
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
-
-    @Override
-    public void onFeedFetchRequest(int fragmentNumber, String url, int page) {
-        presenter.onFeedFetchRequested(fragmentNumber, url, page);
-    }
-
-    @Override
-    public void addFeedEntry(int fragmentNumber, List<FeedEntry> feedEntries) {
-        adapter.addFeedEntries(fragmentNumber, feedEntries);
-    }
-
-    @Override
-    public void disableRefreshing(int fragmentNumber) {
-        adapter.disableRefreshing(fragmentNumber);
     }
 
 }

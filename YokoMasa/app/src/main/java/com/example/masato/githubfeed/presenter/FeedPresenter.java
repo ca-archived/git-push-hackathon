@@ -21,26 +21,6 @@ public class FeedPresenter implements Presenter {
 
     }
 
-    public void onFeedFetchRequested(final int fragmentNumber, String url, int page) {
-        GitHubApi.getApi().getFeedList(url, page, new GitHubApiCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                List<FeedEntry> feedEntries = (List<FeedEntry>) object;
-                view.disableRefreshing(fragmentNumber);
-                view.addFeedEntry(fragmentNumber, feedEntries);
-            }
-
-            @Override
-            public void onError(String message) {
-
-            }
-        });
-    }
-
-    public void fetchFeed(int fragmentNumber, String url, int page) {
-
-    }
-
     public FeedPresenter(FeedView feedView) {
         this.view = feedView;
     }

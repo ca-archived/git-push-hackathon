@@ -9,7 +9,5 @@ import java.util.List;
  */
 
 public interface FeedView {
-    public void addFeedEntry(int fragmentNumber, List<FeedEntry> feedEntries);
 
-    public void disableRefreshing(int fragmentNumber);
 }
