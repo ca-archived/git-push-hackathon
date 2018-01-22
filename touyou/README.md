@@ -18,3 +18,7 @@ $ make
 をしてCarthageのライブラリをインストールしてください。
 
 その後プロジェクトのSupportFilesの中に`ClientKey.plist`を作成し、Root直下に`client_id`をKeyにClient IDのStringと、`client_secret`をKeyにClient SecretのStringを追加してください。
+
+以下のようになっていれば大丈夫です。
+
+![](Assets/desc1.png)
