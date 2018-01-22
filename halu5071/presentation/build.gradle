@@ -10,6 +10,23 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        def CLIENT_ID
+        def CLIENT_SECRET
+
+        def file = project.file("gradle.properties")
+        if (file.exists()) {
+            def properties = new Properties()
+            properties.load(file.newDataInputStream())
+            CLIENT_ID = properties.get("CLIENT_ID")
+            CLIENT_SECRET = properties.get("CLIENT_SECRET")
+        } else {
+            CLIENT_ID = System.getenv("CLIENT_ID")
+            CLIENT_SECRET = System.getenv("CLIENT_SECRET")
+        }
+
+        buildConfigField 'String', 'CLIENT_ID', "$CLIENT_ID"
+        buildConfigField 'String', 'CLIENT_SECRET', "$CLIENT_SECRET"
     }
     buildTypes {
         release {
