@@ -16,7 +16,7 @@ import com.example.masato.githubfeed.view.MainView;
 import java.util.Iterator;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity implements MainView {
 
     private MainPresenter presenter;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public void initGitHubApi() {
-        GitHubApi.init(getApplicationContext(), presenter);
+        GitHubApi.init(getSharedPreferences("token", Context.MODE_PRIVATE), getResources());
     }
 
     @Override

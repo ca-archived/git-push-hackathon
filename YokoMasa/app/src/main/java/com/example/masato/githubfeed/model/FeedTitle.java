@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.model;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.masato.githubfeed.R;
 
@@ -25,10 +26,10 @@ public class FeedTitle {
             R.string.feed_current_user_organization
     };
 
-    public static String getTitleFromIdentifier(String identifier, Context context) {
+    public static String getTitleFromIdentifier(String identifier, Resources resources) {
         for (int i = 0;i<IDENTIFIERS.length;i++) {
             if (IDENTIFIERS[i].equals(identifier)) {
-                return context.getResources().getString(TITLE[i]);
+                return resources.getString(TITLE[i]);
             }
         }
         return identifier;

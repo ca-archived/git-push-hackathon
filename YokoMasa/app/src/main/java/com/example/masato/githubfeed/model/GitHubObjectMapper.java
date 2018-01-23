@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.model;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -34,17 +35,16 @@ public class GitHubObjectMapper {
         return XmlFeedParser.parse(feedString);
     }
 
-    public static Map<String, String> extractFeedUrls(String feedUrlJson) {
+    public static Map<String, String> extractFeedUrls(String feedUrlJson, Resources resources) {
         Map<String, String> urls = new HashMap<>();
         try {
             JSONObject jsonObject = new JSONObject(feedUrlJson);
             Iterator<String> keys = jsonObject.keys();
             while (keys.hasNext()) {
                 String key = keys.next();
-                //Log.i("gh_feed", key);
                 if (Pattern.matches(".*_url$", key)) {
                     if (!key.equals("user_url")) {
-                        urls.put(key, jsonObject.getString(key));
+                        urls.put(FeedTitle.getTitleFromIdentifier(key, resources), jsonObject.getString(key));
                     }
                 }
             }

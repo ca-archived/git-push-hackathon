@@ -11,6 +11,10 @@ public class HttpConnectionPool {
     private ExecutorService executorService;
     private String authorizationToken;
 
+    public void setToken(String token) {
+        this.authorizationToken = token;
+    }
+
     public HandyHttpURLConnection newConnection(String url) {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(url, executorService);
         if (authorizationToken != null) {

@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.presenter;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.view.MainView;
@@ -25,17 +26,18 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
             @Override
             public void run() {
                 view.initGitHubApi();
+                GitHubApi.getApi().fetchFeedUrls(MainPresenter.this);
             }
         }, 2000);
     }
 
     @Override
-    public void onSuccess(Object object) {
+    public void onApiSuccess(Object object) {
         view.navigateToFeedView();
     }
 
     @Override
-    public void onError(String message) {
+    public void onApiFailure(Failure failure) {
         view.navigateToLogInView();
     }
 

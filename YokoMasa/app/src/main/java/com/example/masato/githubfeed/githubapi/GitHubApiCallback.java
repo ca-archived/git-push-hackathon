@@ -6,7 +6,7 @@ package com.example.masato.githubfeed.githubapi;
 
 public interface GitHubApiCallback {
 
-    public void onSuccess(Object object);
+    public void onApiSuccess(Object object);
 
-    public void onError(String message);
+    public void onApiFailure(Failure failure);
 }

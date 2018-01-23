@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.presenter;
 
 import android.util.Log;
 
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.view.LoginView;
@@ -24,29 +25,28 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
     }
 
     @Override
-    public void onSuccess(Object object) {
-        GitHubApi.getApi().checkToken(new GitHubApiCallback() {
+    public void onApiSuccess(Object object) {
+        GitHubApi.getApi().fetchFeedUrls(new GitHubApiCallback() {
             @Override
-            public void onSuccess(Object object) {
+            public void onApiSuccess(Object object) {
                 view.showLoginSucceeded();
             }
 
             @Override
-            public void onError(String message) {
-                view.showLoginError(message);
+            public void onApiFailure(Failure failure) {
+                view.showLoginError(failure);
             }
         });
     }
 
     @Override
-    public void onError(String message) {
-        view.showLoginError(message);
-        Log.i("info", message);
+    public void onApiFailure(Failure failure) {
+        view.showLoginError(failure);
     }
 
     public void onCodeFetched(String code) {
         view.showLoginWaiting();
-        GitHubApi.getApi().fetchToken(code, this);
+        GitHubApi.getApi().requestToken(code, this);
     }
 
     public LoginPresenter(LoginView view) {

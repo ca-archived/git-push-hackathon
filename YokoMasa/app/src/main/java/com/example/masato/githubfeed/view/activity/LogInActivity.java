@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.presenter.LoginPresenter;
 import com.example.masato.githubfeed.presenter.Presenter;
 import com.example.masato.githubfeed.view.LoginView;
@@ -80,7 +81,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void showLoginError(String message) {
-        loginDescription.setText(message);
+    public void showLoginError(Failure failure) {
+        loginDescription.setText(failure.textId);
     }
 }

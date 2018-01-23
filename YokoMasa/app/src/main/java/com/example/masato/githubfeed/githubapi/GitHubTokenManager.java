@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.githubapi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -33,14 +34,14 @@ public class GitHubTokenManager {
     private static String LOGIN_URL = "https://github.com/login/oauth/access_token";
     private static String PREF_TOKEN_KEY = "token";
 
-    private Context context;
+    private Resources resources;
     private SharedPreferences preferences;
     private ExecutorService executorService;
 
     public void fetchToken(final String code, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(LOGIN_URL, executorService);
-        String clientId = context.getResources().getString(R.string.client_id);
-        String clientSecret = context.getResources().getString(R.string.client_secret);
+        String clientId = resources.getString(R.string.client_id);
+        String clientSecret = resources.getString(R.string.client_secret);
 
         connection.setHeader("Accept", "application/json");
         connection.addParams("client_id", clientId);
@@ -49,22 +50,21 @@ public class GitHubTokenManager {
         connection.postRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override
             public void onHttpResponse(int statusCode, Object body) {
-                if (statusCode == HttpURLConnection.HTTP_CREATED
-                        || statusCode == HttpURLConnection.HTTP_OK) {
+                if (200 <= statusCode && statusCode < 300) {
                     try {
                         String token = handleResponseBody((String) body);
-                        callback.onSuccess(token);
-                    } catch (Exception exeption) {
-                        callback.onError("Failed to create token.");
+                        callback.onApiSuccess(token);
+                    } catch (Exception exception) {
+                        callback.onApiFailure(Failure.CREATING_TOKEN);
                     }
                 } else {
-                    callback.onError("Failed to create token.");
+                    callback.onApiFailure(Failure.CREATING_TOKEN);
                 }
             }
 
             @Override
-            public void onError(String message) {
-                callback.onError("Failed to create token.");
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
             }
         });
     }
@@ -87,12 +87,12 @@ public class GitHubTokenManager {
     }
 
     public String getToken() {
-        return preferences.getString(PREF_TOKEN_KEY, null);
+        return preferences.getString(PREF_TOKEN_KEY, "");
     }
 
-    GitHubTokenManager(Context context, ExecutorService executorService){
-        this.preferences = context.getSharedPreferences("token", Context.MODE_PRIVATE);
-        this.context = context;
+    GitHubTokenManager(Resources resources, SharedPreferences sharedPreferences, ExecutorService executorService){
+        this.preferences = sharedPreferences;
+        this.resources = resources;
         this.executorService = executorService;
     }
 

@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.presenter;
 
 import android.graphics.Bitmap;
 
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.model.FeedEntry;
@@ -52,16 +53,16 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         final FeedEntry feedEntry = feedEntries.get(position);
         view.setTitle(feedEntry.title);
         if (feedEntry.thumbnail == null) {
-            GitHubApi.getApi().getBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
+            GitHubApi.getApi().fetchBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
                 @Override
-                public void onSuccess(Object object) {
+                public void onApiSuccess(Object object) {
                     Bitmap bitmap = (Bitmap) object;
                     feedEntry.thumbnail = bitmap;
                     view.setThumbnail(bitmap);
                 }
 
                 @Override
-                public void onError(String message) {
+                public void onApiFailure(Failure failure) {
 
                 }
             });
@@ -75,13 +76,13 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
     }
 
     @Override
-    public void onSuccess(Object object) {
+    public void onApiSuccess(Object object) {
         List<FeedEntry> feedEntries = (List<FeedEntry>) object;
         addFeedEntries(feedEntries);
     }
 
     @Override
-    public void onError(String message) {
+    public void onApiFailure(Failure failure) {
 
     }
 
@@ -101,7 +102,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         }
         int remaining = getItemCount() - position;
         if (remaining < PREFETCH_THRESHOLD && !feedMaxedOut) {
-            GitHubApi.getApi().getFeedList(feedUrl, currentPage+1, this);
+            GitHubApi.getApi().fetchFeedList(feedUrl, currentPage+1, this);
             fetching = true;
             currentPage++;
         }
@@ -128,7 +129,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         if (refreshing || fetching) {
             return;
         }
-        GitHubApi.getApi().getFeedList(feedUrl, 1, this);
+        GitHubApi.getApi().fetchFeedList(feedUrl, 1, this);
         refreshing = true;
         fetching = true;
     }

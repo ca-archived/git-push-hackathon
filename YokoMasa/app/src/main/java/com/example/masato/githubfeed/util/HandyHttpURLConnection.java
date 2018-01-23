@@ -3,6 +3,8 @@ package com.example.masato.githubfeed.util;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.masato.githubfeed.githubapi.Failure;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -48,13 +50,13 @@ public class HandyHttpURLConnection {
                    InputStream is = (InputStream) body;
                    notifyResponseOnUIThread(statusCode, stringFromStream(is), listener);
                } catch (IOException ioe) {
-                   notifyErrorOnUIThread("bad internet connection", listener);
+                   notifyErrorOnUIThread(Failure.INTERNET, listener);
                }
             }
 
             @Override
-            public void onError(String message) {
-                notifyErrorOnUIThread(message, listener);
+            public void onError(Failure failure) {
+                notifyErrorOnUIThread(failure, listener);
             }
         });
     }
@@ -67,13 +69,13 @@ public class HandyHttpURLConnection {
                     InputStream is = (InputStream) body;
                     notifyResponseOnUIThread(statusCode, bytesFromStream(is), listener);
                 } catch (IOException ioe) {
-                    notifyErrorOnUIThread("bad internet connection", listener);
+                    notifyErrorOnUIThread(Failure.INTERNET, listener);
                 }
             }
 
             @Override
-            public void onError(String message) {
-                notifyErrorOnUIThread(message, listener);
+            public void onError(Failure failure) {
+                notifyErrorOnUIThread(failure, listener);
             }
         });
     }
@@ -86,13 +88,13 @@ public class HandyHttpURLConnection {
                     InputStream is = (InputStream) body;
                     notifyResponseOnUIThread(statusCode, stringFromStream(is), listener);
                 } catch (IOException ioe) {
-                    notifyErrorOnUIThread("bad internet connection", listener);
+                    notifyErrorOnUIThread(Failure.INTERNET, listener);
                 }
             }
 
             @Override
-            public void onError(String message) {
-                notifyErrorOnUIThread(message, listener);
+            public void onError(Failure failure) {
+                notifyErrorOnUIThread(failure, listener);
             }
         });
     }
@@ -118,7 +120,7 @@ public class HandyHttpURLConnection {
         return baos.toByteArray();
     }
 
-    public void post(final OnHttpResponseListener listener) {
+    private void post(final OnHttpResponseListener listener) {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
@@ -135,10 +137,10 @@ public class HandyHttpURLConnection {
                     connection.disconnect();
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
-                    listener.onError("bad url");
+                    listener.onError(Failure.UNEXPECTED);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
-                    listener.onError("bad internet connection");
+                    listener.onError(Failure.INTERNET);
                 } finally {
                     if (connection != null) {
                         connection.disconnect();
@@ -148,7 +150,7 @@ public class HandyHttpURLConnection {
         });
     }
 
-    public void get(final OnHttpResponseListener listener) {
+    private void get(final OnHttpResponseListener listener) {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
@@ -164,10 +166,10 @@ public class HandyHttpURLConnection {
                     connection.disconnect();
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
-                    listener.onError("bad url");
+                    listener.onError(Failure.UNEXPECTED);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
-                    listener.onError("bad internet connetcion");
+                    listener.onError(Failure.INTERNET);
                 } finally {
                     if (connection != null) {
                         connection.disconnect();
@@ -224,11 +226,11 @@ public class HandyHttpURLConnection {
         });
     }
 
-    private void notifyErrorOnUIThread(final String message, final OnHttpResponseListener listener) {
+    private void notifyErrorOnUIThread(final Failure failure, final OnHttpResponseListener listener) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                listener.onError(message);
+                listener.onError(failure);
             }
         });
     }
@@ -241,6 +243,6 @@ public class HandyHttpURLConnection {
     public interface OnHttpResponseListener {
         public void onHttpResponse(int statusCode, Object body);
 
-        public void onError(String message);
+        public void onError(Failure failure);
     }
 }

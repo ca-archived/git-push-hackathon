@@ -30,7 +30,7 @@ import java.util.Set;
  * Created by Masato on 2018/01/19.
  */
 
-public class FeedActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, FeedView {
+public class FeedActivity extends AppCompatActivity implements FeedView {
 
     private FeedPresenter presenter;
     private ViewPager viewPager;
@@ -41,43 +41,25 @@ public class FeedActivity extends AppCompatActivity implements ViewPager.OnPageC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         presenter = new FeedPresenter(this);
+        presenter.onCreate();
         viewPager = (ViewPager) findViewById(R.id.feed_view_pager);
-        preparePager();
     }
 
-    private void preparePager() {
+    @Override
+    public void preparePager(Map<String, String> feedUrls) {
         adapter = new FeedViewPagerAdapter(getSupportFragmentManager());
-        Map<String, String> urls = GitHubApi.getApi().getFeedUrls();
-        Set<String> keys = urls.keySet();
+        Set<String> keys = feedUrls.keySet();
         Iterator<String> iterator = keys.iterator();
         while (iterator.hasNext()) {
-            String identifier = iterator.next();
-            String title = FeedTitle.getTitleFromIdentifier(identifier, this);
-            String url = urls.get(identifier);
+            String title = iterator.next();
             Bundle arguments = new Bundle();
             arguments.putString("title", title);
-            arguments.putString("url", url);
+            arguments.putString("url", feedUrls.get(title));
             FeedFragment feedFragment = new FeedFragment();
             feedFragment.setArguments(arguments);
             adapter.addFragment(feedFragment);
         }
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(this);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int fragmentNumber) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 
 }
