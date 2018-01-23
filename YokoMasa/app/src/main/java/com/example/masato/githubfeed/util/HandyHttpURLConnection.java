@@ -2,12 +2,14 @@ package com.example.masato.githubfeed.util;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -134,7 +136,7 @@ public class HandyHttpURLConnection {
                     connection.connect();
                     writePostBody(connection.getOutputStream());
                     listener.onHttpResponse(connection.getResponseCode(), connection.getInputStream());
-                    connection.disconnect();
+                    //connection.disconnect();
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
                     listener.onError(Failure.UNEXPECTED);
@@ -163,10 +165,12 @@ public class HandyHttpURLConnection {
                     setHeadersToConnection(connection);
                     connection.connect();
                     listener.onHttpResponse(connection.getResponseCode(), connection.getInputStream());
-                    connection.disconnect();
+                    //connection.disconnect();
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
                     listener.onError(Failure.UNEXPECTED);
+                } catch (FileNotFoundException fnfe) {
+                    listener.onError(Failure.INVALID_TOKEN);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                     listener.onError(Failure.INTERNET);

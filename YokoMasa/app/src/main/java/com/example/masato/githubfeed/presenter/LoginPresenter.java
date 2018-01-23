@@ -1,10 +1,13 @@
 package com.example.masato.githubfeed.presenter;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.view.LoginView;
 
 /**
@@ -26,10 +29,11 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiSuccess(Object object) {
-        GitHubApi.getApi().fetchFeedUrls(new GitHubApiCallback() {
+        GitHubApi.getApi().fetchProfile(new GitHubApiCallback() {
             @Override
             public void onApiSuccess(Object object) {
-                view.showLoginSucceeded();
+                Profile profile = (Profile) object;
+                execSuccessFlow(profile);
             }
 
             @Override
@@ -42,6 +46,16 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
     @Override
     public void onApiFailure(Failure failure) {
         view.showLoginError(failure);
+    }
+
+    private void execSuccessFlow(Profile profile) {
+        view.showProfile(profile);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.navigateToFeedView();
+            }
+        }, 2000);
     }
 
     public void onCodeFetched(String code) {

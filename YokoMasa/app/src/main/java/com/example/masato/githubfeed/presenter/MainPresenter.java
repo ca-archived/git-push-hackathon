@@ -18,6 +18,7 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onResume() {
+        view.initGitHubApi();
         waitASec();
     }
 
@@ -25,7 +26,6 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                view.initGitHubApi();
                 GitHubApi.getApi().fetchProfile(MainPresenter.this);
             }
         }, 2000);
@@ -33,7 +33,8 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiSuccess(Object object) {
-        view.navigateToFeedView();
+        //view.navigateToFeedView();
+        view.navigateToLogInView();
     }
 
     @Override

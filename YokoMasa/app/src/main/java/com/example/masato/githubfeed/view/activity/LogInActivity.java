@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.view.activity;
 
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,10 +15,12 @@ import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
+import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.presenter.LoginPresenter;
 import com.example.masato.githubfeed.presenter.Presenter;
 import com.example.masato.githubfeed.view.LoginView;
 import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
+import com.example.masato.githubfeed.view.fragment.ProfileFragment;
 
 /**
  * Created by Masato on 2018/01/17.
@@ -85,10 +88,20 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void showLoginSucceeded() {
+    public void navigateToFeedView() {
         Intent intent = new Intent(this, FeedActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void showProfile(Profile profile) {
+        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setProfile(profile);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.profile_fragment_animation, R.anim.profile_fragment_animation);
+        transaction.add(R.id.login_mother, profileFragment, null);
+        transaction.commit();
     }
 
     @Override

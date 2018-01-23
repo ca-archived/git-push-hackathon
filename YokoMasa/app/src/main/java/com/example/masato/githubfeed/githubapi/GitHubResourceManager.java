@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.githubapi;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.example.masato.githubfeed.model.GitHubObjectMapper;
 import com.example.masato.githubfeed.model.Profile;
@@ -18,8 +19,7 @@ import java.util.concurrent.ExecutorService;
 
 public class GitHubResourceManager {
 
-    private static final String BASE_URL = "https://api.github.com";
-    private static final String PROFILE_URL = BASE_URL + "/user";
+    private static final String PROFILE_URL = "https://api.github.com/user";
 
     private HttpConnectionPool connectionPool;
     private Resources resources;
