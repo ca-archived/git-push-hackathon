@@ -13,17 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.presenter.FeedListPresenter;
+import com.example.masato.githubfeed.view.FeedListView;
 import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
 
 /**
  * Created by Masato on 2018/01/20.
  */
 
-public class FeedFragment extends Fragment implements FeedRecyclerViewAdapter.OnFeedRefreshedListener {
+public class FeedFragment extends Fragment implements FeedListView {
 
+    private FeedListPresenter presenter;
     private RecyclerView feedRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedRecyclerViewAdapter adapter;
+    private boolean initialized = false;
 
     public void disableRefreshing() {
         swipeRefreshLayout.setRefreshing(false);
@@ -37,21 +41,21 @@ public class FeedFragment extends Fragment implements FeedRecyclerViewAdapter.On
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        setListenerToAdapter();
+        init();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        setListenerToAdapter();
+        init();
     }
 
-    private void setListenerToAdapter() {
-        if (adapter == null) {
+    private void init() {
+        if (!initialized) {
             Bundle bundle = getArguments();
-            adapter = new FeedRecyclerViewAdapter(bundle.getString("url"), getLayoutInflater());
-            adapter.setOnFeedRefreshedListener(this);
-            adapter.refresh();
+            presenter = new FeedListPresenter(this, bundle.getString("url"));
+            adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater());
+            initialized = true;
         }
     }
 
@@ -68,8 +72,13 @@ public class FeedFragment extends Fragment implements FeedRecyclerViewAdapter.On
     }
 
     @Override
-    public void onRefreshed() {
+    public void stopRefreshing() {
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void updateAdapter() {
+        adapter.notifyDataSetChanged();
     }
 
     private void findViews(View view) {
@@ -83,7 +92,7 @@ public class FeedFragment extends Fragment implements FeedRecyclerViewAdapter.On
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.refresh();
+                presenter.onRefresh();
             }
         });
     }

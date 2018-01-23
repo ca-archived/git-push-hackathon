@@ -1,32 +1,16 @@
 package com.example.masato.githubfeed.view.adapter;
 
-import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.masato.githubfeed.R;
-import com.example.masato.githubfeed.githubapi.GitHubApi;
-import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
-import com.example.masato.githubfeed.model.FeedEntry;
-import com.example.masato.githubfeed.util.HandyHttpURLConnection;
-import com.example.masato.githubfeed.util.HttpConnectionPool;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.example.masato.githubfeed.presenter.FeedListPresenter;
+import com.example.masato.githubfeed.view.FeedEntryView;
 
 /**
  * Created by Masato on 2018/01/19.
@@ -34,81 +18,24 @@ import java.util.concurrent.Executors;
 
 public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
 
-    private static final int FEED_ENTRY_VIEW = 1;
-    private static final int LOADING_VIEW = 2;
-    private static final int NOTHING_TO_SHOW_VIEW = 3;
-    private static final int PREFETCH_THRESHOLD = 15;
-
-    private List<FeedEntry> feedEntries = new ArrayList<>();
+    private FeedListPresenter presenter;
     private LayoutInflater inflater;
-    private OnFeedRefreshedListener listener;
-    private String feedUrl;
-    private int currentPage = 1;
-    private boolean feedFetching = false;
-    private boolean feedMaxedOut = false;
-    private boolean refreshing = false;
-
-    public void setOnFeedRefreshedListener(OnFeedRefreshedListener listener) {
-        this.listener = listener;
-    }
-
-    private void addFeedEntries(List<FeedEntry> feedEntries) {
-        if (refreshing) {
-            refreshFeedEntries(feedEntries);
-        } else {
-            if (feedEntries.size() == 0) {
-                feedMaxedOut = true;
-            } else {
-                this.feedEntries.addAll(feedEntries);
-            }
-        }
-        feedFetching = false;
-        notifyDataSetChanged();
-    }
-
-    private void refreshFeedEntries(List<FeedEntry> feedEntries) {
-        this.feedEntries.clear();
-        this.feedEntries.addAll(feedEntries);
-        if (listener != null) {
-            listener.onRefreshed();
-        }
-        refreshing = false;
-    }
-
-    public void refresh() {
-        if (!refreshing && !feedFetching) {
-            refreshing = true;
-            feedFetching = true;
-            fetchFeed(1);
-            currentPage = 1;
-            feedMaxedOut = false;
-        }
-    }
 
     @Override
     public int getItemViewType(int position) {
-        if (feedMaxedOut) {
-            if (feedEntries.size() == 0) {
-                return NOTHING_TO_SHOW_VIEW;
-            }
-            return FEED_ENTRY_VIEW;
-        }
-        if (position == getItemCount() - 1) {
-            return LOADING_VIEW;
-        }
-        return FEED_ENTRY_VIEW;
+        return presenter.onGetItemViewType(position);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        if (viewType == FEED_ENTRY_VIEW) {
+        if (viewType == FeedListPresenter.FEED_ENTRY_VIEW) {
             view = inflater.inflate(R.layout.feed_entry, parent, false);
             return new FeedEntryViewViewHolder(view);
-        } else if (viewType == LOADING_VIEW){
+        } else if (viewType == FeedListPresenter.LOADING_VIEW){
             view = inflater.inflate(R.layout.feed_loading, parent, false);
             return new LoadingViewHolder(view);
-        } else if (viewType == NOTHING_TO_SHOW_VIEW) {
+        } else if (viewType == FeedListPresenter.NOTHING_TO_SHOW_VIEW) {
             view = inflater.inflate(R.layout.feed_nothing_to_show, parent, false);
             return new NothingToShowViewHolder(view);
         }
@@ -117,32 +44,15 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        fetchFeedIfNeeded(position);
-        if (getItemViewType(position) == FEED_ENTRY_VIEW) {
-            FeedEntryViewViewHolder viewHolder = (FeedEntryViewViewHolder) holder;
-            bindFeedEntryView(viewHolder, position);
+        if (getItemViewType(position) == FeedListPresenter.FEED_ENTRY_VIEW) {
+            FeedEntryView feedEntryView = (FeedEntryView) holder;
+            presenter.onBindFeedEntryView(feedEntryView, position);
         }
-    }
-
-    private void bindFeedEntryView(FeedEntryViewViewHolder viewHolder, int position) {
-        FeedEntry feedEntry = feedEntries.get(position);
-        if (feedEntry.thumbnail == null) {
-            fetchThumbnail(feedEntry, viewHolder);
-        } else {
-            viewHolder.thumbnail.setImageBitmap(feedEntry.thumbnail);
-        }
-        viewHolder.title.setText(feedEntry.title);
     }
 
     @Override
     public int getItemCount() {
-        if (feedMaxedOut) {
-            if (feedEntries.size() == 0) {
-                return 1;
-            }
-            return feedEntries.size();
-        }
-        return feedEntries.size() + 1;
+        return presenter.onGetItemCount();
     }
 
     @Override
@@ -154,57 +64,25 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void fetchThumbnail(final FeedEntry feedEntry, final FeedEntryViewViewHolder viewHolder) {
-        GitHubApi.getApi().getBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                feedEntry.thumbnail = (Bitmap) object;
-                viewHolder.thumbnail.setImageBitmap(feedEntry.thumbnail);
-            }
-
-            @Override
-            public void onError(String message) {
-
-            }
-        });
-    }
-
-    private void fetchFeed(int page) {
-        GitHubApi.getApi().getFeedList(feedUrl, page, new GitHubApiCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                List<FeedEntry> feedEntries = (List<FeedEntry>) object;
-                addFeedEntries(feedEntries);
-            }
-
-            @Override
-            public void onError(String message) {
-
-            }
-        });
-    }
-
-    private void fetchFeedIfNeeded(int position) {
-        if (feedFetching) {
-            return;
-        }
-        int remaining = getItemCount() - position;
-        if (remaining < PREFETCH_THRESHOLD && !feedMaxedOut) {
-            fetchFeed(currentPage + 1);
-            feedFetching = true;
-            currentPage++;
-        }
-    }
-
-    public FeedRecyclerViewAdapter(String feedUrl, LayoutInflater inflater) {
+    public FeedRecyclerViewAdapter(FeedListPresenter presenter, LayoutInflater inflater) {
         this.inflater = inflater;
-        this.feedUrl = feedUrl;
+        this.presenter = presenter;
     }
 
-    private class FeedEntryViewViewHolder extends RecyclerView.ViewHolder {
+    private class FeedEntryViewViewHolder extends RecyclerView.ViewHolder implements FeedEntryView{
 
         AppCompatTextView title;
         ImageView thumbnail;
+
+        @Override
+        public void setTitle(String title) {
+            this.title.setText(title);
+        }
+
+        @Override
+        public void setThumbnail(Bitmap bitmap) {
+            this.thumbnail.setImageBitmap(bitmap);
+        }
 
         FeedEntryViewViewHolder(View itemView) {
             super(itemView);
@@ -220,13 +98,9 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     private class NothingToShowViewHolder extends RecyclerView.ViewHolder {
-        public NothingToShowViewHolder(View itemView) {
+        NothingToShowViewHolder(View itemView) {
             super(itemView);
         }
-    }
-
-    public interface OnFeedRefreshedListener {
-        void onRefreshed();
     }
 
 }
