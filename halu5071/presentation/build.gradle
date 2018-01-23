@@ -64,10 +64,6 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
-    // Stetho
-    implementation "com.facebook.stetho:stetho:$stetho_version"
-    implementation "com.facebook.stetho:stetho-okhttp:$stetho_version"
-
     // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
