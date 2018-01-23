@@ -33,6 +33,10 @@ public class GitHubApi {
         return api;
     }
 
+    public void fetchProfile(GitHubApiCallback callback) {
+        resourceManager.getProfile(callback);
+    }
+
     public void fetchFeedList(String url, int page, GitHubApiCallback callback) {
         resourceManager.getFeedEntries(url, page, callback);
     }

@@ -26,7 +26,7 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
             @Override
             public void run() {
                 view.initGitHubApi();
-                GitHubApi.getApi().fetchFeedUrls(MainPresenter.this);
+                GitHubApi.getApi().fetchProfile(MainPresenter.this);
             }
         }, 2000);
     }

@@ -1,9 +1,11 @@
 package com.example.masato.githubfeed.githubapi;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.masato.githubfeed.model.GitHubObjectMapper;
+import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.util.HandyHttpURLConnection;
 import com.example.masato.githubfeed.util.HttpConnectionPool;
 
@@ -27,15 +29,33 @@ public class GitHubResourceManager {
     }
 
     public void getProfile(final GitHubApiCallback callback) {
-        HandyHttpURLConnection connection = connectionPool.newConnection(PROFILE_URL);
+        final HandyHttpURLConnection connection = connectionPool.newConnection(PROFILE_URL);
         connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override
             public void onHttpResponse(int statusCode, Object content) {
-                handleResponse(statusCode, content, callback);
+                String bodyString = (String) content;
+                Profile profile = GitHubObjectMapper.mapProfile(bodyString);
+                setProfileIcon(profile, callback);
             }
 
             @Override
             public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    private void setProfileIcon(final Profile profile, final GitHubApiCallback callback) {
+        getBitmapFromUrl(profile.iconUrl, new GitHubApiCallback() {
+            @Override
+            public void onApiSuccess(Object object) {
+                Bitmap icon = (Bitmap) object;
+                profile.icon = icon;
+                callback.onApiSuccess(profile);
+            }
+
+            @Override
+            public void onApiFailure(Failure failure) {
                 callback.onApiFailure(failure);
             }
         });
@@ -47,7 +67,7 @@ public class GitHubResourceManager {
             @Override
             public void onHttpResponse(int statusCode, Object content) {
                 String bodyString = (String) content;
-                Object feedUrls = GitHubObjectMapper.extractFeedUrls(bodyString, resources);
+                Object feedUrls = GitHubObjectMapper.mapFeedUrls(bodyString, resources);
                 handleResponse(statusCode, feedUrls, callback);
             }
 
@@ -66,7 +86,7 @@ public class GitHubResourceManager {
             @Override
             public void onHttpResponse(int statusCode, Object body) {
                 String bodyString = (String) body;
-                Object feedEntries = GitHubObjectMapper.generateFeedEntries(bodyString);
+                Object feedEntries = GitHubObjectMapper.mapFeedEntries(bodyString);
                 handleResponse(statusCode, feedEntries, callback);
             }
 

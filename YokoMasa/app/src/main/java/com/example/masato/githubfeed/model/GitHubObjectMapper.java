@@ -31,11 +31,23 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class GitHubObjectMapper {
 
-    public static List<FeedEntry> generateFeedEntries(String feedString) {
+    public static List<FeedEntry> mapFeedEntries(String feedString) {
         return XmlFeedParser.parse(feedString);
     }
 
-    public static Map<String, String> extractFeedUrls(String feedUrlJson, Resources resources) {
+    public static Profile mapProfile(String profileString) {
+        Profile profile = new Profile();
+        try {
+            JSONObject jsonObject = new JSONObject(profileString);
+            profile.name = jsonObject.getString("login");
+            profile.iconUrl = jsonObject.getString("avatar_url");
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+        return profile;
+    }
+
+    public static Map<String, String> mapFeedUrls(String feedUrlJson, Resources resources) {
         Map<String, String> urls = new HashMap<>();
         try {
             JSONObject jsonObject = new JSONObject(feedUrlJson);

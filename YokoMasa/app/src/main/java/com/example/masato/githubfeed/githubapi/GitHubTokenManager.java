@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.util.HandyHttpURLConnection;
@@ -87,6 +88,7 @@ public class GitHubTokenManager {
     }
 
     public String getToken() {
+        Log.i("gh_feed",  preferences.getString(PREF_TOKEN_KEY, ""));
         return preferences.getString(PREF_TOKEN_KEY, "");
     }
 
