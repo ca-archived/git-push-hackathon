@@ -1,5 +1,4 @@
 package io.moatwel.github.domain.entity
 
-data class SampleEntity(
-  val id: Long
-)
+data class AuthData(
+  val token: String)
