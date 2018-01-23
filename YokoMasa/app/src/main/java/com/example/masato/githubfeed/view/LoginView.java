@@ -6,7 +6,7 @@ import com.example.masato.githubfeed.githubapi.Failure;
  * Created by Masato on 2018/01/19.
  */
 
-public interface LoginView {
+public interface LoginView extends BaseView{
 
     public void startBrowser();
 

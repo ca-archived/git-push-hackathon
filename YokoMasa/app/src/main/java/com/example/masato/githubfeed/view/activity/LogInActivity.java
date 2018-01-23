@@ -10,6 +10,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
@@ -66,6 +67,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(this, Uri.parse(url));
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override

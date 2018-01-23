@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
@@ -43,6 +44,11 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
         presenter = new FeedPresenter(this);
         presenter.onCreate();
         viewPager = (ViewPager) findViewById(R.id.feed_view_pager);
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override

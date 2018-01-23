@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by Masato on 2018/01/19.
  */
 
-public interface FeedView {
+public interface FeedView extends BaseView{
 
     public void preparePager(Map<String, String> feedUrls);
 

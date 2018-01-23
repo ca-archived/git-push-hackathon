@@ -6,6 +6,7 @@ import android.support.customtabs.CustomTabsCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.R;
@@ -37,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onResume() {
         super.onResume();
         presenter.onResume();
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override
