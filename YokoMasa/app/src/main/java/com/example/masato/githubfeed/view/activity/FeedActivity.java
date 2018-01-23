@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -49,6 +50,18 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
     @Override
     public void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showToast(int stringId) {
+        Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void navigateToLogInView() {
+        Intent intent = new Intent(this, LogInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override

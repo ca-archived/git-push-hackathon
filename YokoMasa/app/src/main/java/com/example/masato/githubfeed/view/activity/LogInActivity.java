@@ -75,6 +75,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void showToast(int stringId) {
+        Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showLoginWaiting() {
         loginDescription.setText(R.string.login_waiting);
     }

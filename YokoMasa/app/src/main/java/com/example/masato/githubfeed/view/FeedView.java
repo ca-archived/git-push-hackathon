@@ -11,6 +11,8 @@ import java.util.Map;
 
 public interface FeedView extends BaseView{
 
+    public void navigateToLogInView();
+
     public void preparePager(Map<String, String> feedUrls);
 
 }

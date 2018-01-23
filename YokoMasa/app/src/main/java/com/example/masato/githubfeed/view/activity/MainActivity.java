@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
+    public void showToast(int stringId) {
+        Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void navigateToLogInView() {
         Intent intent = new Intent(this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

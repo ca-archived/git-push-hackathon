@@ -35,7 +35,11 @@ public class FeedPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiFailure(Failure failure) {
-
+        if (failure == Failure.INVALID_TOKEN) {
+            view.navigateToLogInView();
+        } else {
+            view.showToast(failure.textId);
+        }
     }
 
     public FeedPresenter(FeedView feedView) {

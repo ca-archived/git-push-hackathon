@@ -6,4 +6,6 @@ package com.example.masato.githubfeed.view;
 
 public interface BaseView {
     public void showToast(String text);
+
+    public void showToast(int stringId);
 }

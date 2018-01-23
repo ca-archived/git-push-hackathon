@@ -38,7 +38,11 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiFailure(Failure failure) {
-        view.navigateToLogInView();
+        if (failure == Failure.INVALID_TOKEN) {
+            view.navigateToLogInView();
+        } else {
+            view.showToast(failure.textId);
+        }
     }
 
     public MainPresenter(MainView view) {
