@@ -19,7 +19,7 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
 
     }
 
-    public void loginButtonPressed() {
+    public void onLoginButtonPressed() {
         view.startBrowser();
     }
 

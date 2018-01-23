@@ -23,6 +23,8 @@ import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
 
+    private static final String OAUTH_URL = "https://github.com/login/oauth/authorize";
+
     private LoginPresenter presenter;
     private AppCompatTextView loginDescription;
 
@@ -44,22 +46,22 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        presenter.loginButtonPressed();
+        presenter.onLoginButtonPressed();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Uri uri = intent.getData();
-        if (uri == null) {
-            presenter.onCodeFetched(null);
+        if (uri != null) {
+            presenter.onCodeFetched(uri.getQueryParameter("code"));
         }
-        presenter.onCodeFetched(uri.getQueryParameter("code"));
     }
 
     @Override
     public void startBrowser() {
-        String url = "https://github.com/login/oauth/authorize?client_id=de861078b4636caf8d1f";
+        String client_id = getResources().getString(R.string.client_id);
+        String url = OAUTH_URL + "?client_id=" + client_id;
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(this, Uri.parse(url));
