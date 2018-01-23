@@ -53,17 +53,4 @@ public class MainActivity extends AppCompatActivity implements MainView{
         startActivity(intent);
     }
 
-    private class MCustomTabsCallback extends CustomTabsCallback {
-
-        @Override
-        public void onNavigationEvent(int navigationEvent, Bundle extras){
-            Set<String> keys = extras.keySet();
-            Iterator i = keys.iterator();
-            while(i.hasNext()) {
-                String key = (String) i.next();
-                Log.i("info", "key: " + key);
-            }
-        }
-
-    }
 }
