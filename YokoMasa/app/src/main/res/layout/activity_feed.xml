@@ -1,37 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feed_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background_light_gray">
+    tools:openDrawer="left">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/feed_tool_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:layout_height="match_parent"
+        android:background="@color/background_light_gray"
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/feed_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/feed_view_pager"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.view.PagerTitleStrip
-                android:id="@+id/feed_pager_title_strip"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/feed_view_pager"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v4.view.PagerTabStrip
+                    android:id="@+id/feed_pager_title_strip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#dddddd"
+                    android:paddingBottom="13dp"
+                    android:paddingTop="13dp"/>
+
+            </android.support.v4.view.ViewPager>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFF"
+        android:layout_gravity="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:gravity="bottom|start">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/feed_nav_menu_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/feed_nav_menu_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:background="#dddddd">
-            </android.support.v4.view.PagerTitleStrip>
+                android:layout_marginTop="13dp"
+                android:textColor="#FFF"
+                android:textSize="15sp"/>
 
-        </android.support.v4.view.ViewPager>
+        </LinearLayout>
 
-    </FrameLayout>
+        <ListView
+            android:id="@+id/feed_nav_menu_list"
+            android:entries="@array/nav_menu_array"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

@@ -83,6 +83,10 @@ public class GitHubTokenManager {
         editor.apply();
     }
 
+    public void deleteToken() {
+        saveToken("");
+    }
+
     public boolean hasToken() {
         return getToken() != null;
     }

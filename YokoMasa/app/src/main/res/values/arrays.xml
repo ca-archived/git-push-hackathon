@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nav_menu_array">
+        <item>@string/logout</item>
+    </string-array>
+</resources>

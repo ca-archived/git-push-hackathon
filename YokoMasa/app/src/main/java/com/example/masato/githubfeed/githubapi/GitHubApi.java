@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.example.masato.githubfeed.model.Profile;
+
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,6 +21,7 @@ public class GitHubApi {
     private GitHubResourceManager resourceManager;
     private ExecutorService executorService;
     private Resources resources;
+    private Profile profile;
 
     private static GitHubApi api;
 
@@ -47,6 +50,10 @@ public class GitHubApi {
 
     public void fetchBitmap(String url, GitHubApiCallback callback) {
         resourceManager.getBitmapFromUrl(url, callback);
+    }
+
+    public void deleteToken() {
+        tokenManager.deleteToken();
     }
 
     public void requestToken(String code, final GitHubApiCallback callback) {

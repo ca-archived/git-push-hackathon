@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.view;
 
 import com.example.masato.githubfeed.model.FeedEntry;
+import com.example.masato.githubfeed.model.Profile;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import java.util.Map;
  */
 
 public interface FeedView extends BaseView{
+
+    public void setProfile(Profile profile);
 
     public void navigateToLogInView();
 
