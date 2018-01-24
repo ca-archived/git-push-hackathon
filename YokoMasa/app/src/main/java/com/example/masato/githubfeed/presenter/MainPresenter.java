@@ -33,8 +33,8 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiSuccess(Object object) {
-        //view.navigateToFeedView();
-        view.navigateToLogInView();
+        view.navigateToFeedView();
+        //view.navigateToLogInView();
     }
 
     @Override

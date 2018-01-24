@@ -83,7 +83,9 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiFailure(Failure failure) {
-
+        refreshing = false;
+        feedListView.stopRefreshing();
+        feedListView.showToast(failure.textId);
     }
 
     private int getItemCount() {
@@ -126,7 +128,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
     }
 
     private void refresh() {
-        if (refreshing || fetching) {
+        if (refreshing) {
             return;
         }
         GitHubApi.getApi().fetchFeedList(feedUrl, 1, this);

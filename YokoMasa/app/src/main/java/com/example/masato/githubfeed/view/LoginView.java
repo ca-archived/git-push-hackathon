@@ -15,6 +15,10 @@ public interface LoginView extends BaseView{
 
     public void navigateToFeedView();
 
+    public void disableLogInButton();
+
+    public void enableLogInButton();
+
     public void showLoginError(Failure failure);
 
     public void showProfile(Profile profile);

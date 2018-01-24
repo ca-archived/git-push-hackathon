@@ -24,6 +24,7 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
     }
 
     public void onLoginButtonPressed() {
+        view.disableLogInButton();
         view.startBrowser();
     }
 
@@ -38,6 +39,7 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
 
             @Override
             public void onApiFailure(Failure failure) {
+                view.enableLogInButton();
                 view.showLoginError(failure);
             }
         });
@@ -45,6 +47,7 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
 
     @Override
     public void onApiFailure(Failure failure) {
+        view.enableLogInButton();
         view.showLoginError(failure);
     }
 

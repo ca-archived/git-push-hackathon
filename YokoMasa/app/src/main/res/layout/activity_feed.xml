@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/background_light_gray">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/feed_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
    <android.support.v4.view.ViewPager
        android:id="@+id/feed_view_pager"
@@ -12,10 +24,15 @@
        <android.support.v4.view.PagerTitleStrip
            android:id="@+id/feed_pager_title_strip"
            android:layout_width="match_parent"
-           android:layout_height="30dp">
+           android:layout_height="wrap_content"
+           android:paddingTop="13dp"
+           android:paddingBottom="13dp"
+           android:background="#dddddd">
 
        </android.support.v4.view.PagerTitleStrip>
 
    </android.support.v4.view.ViewPager>
 
-</FrameLayout>
+    </FrameLayout>
+
+</LinearLayout>

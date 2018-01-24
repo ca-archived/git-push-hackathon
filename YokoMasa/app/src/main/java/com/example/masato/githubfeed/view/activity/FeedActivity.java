@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.feed_tool_bar);
+        setSupportActionBar(toolbar);
         presenter = new FeedPresenter(this);
         presenter.onCreate();
         viewPager = (ViewPager) findViewById(R.id.feed_view_pager);

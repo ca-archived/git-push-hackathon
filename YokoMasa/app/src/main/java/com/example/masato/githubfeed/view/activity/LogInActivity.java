@@ -32,13 +32,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     private LoginPresenter presenter;
     private AppCompatTextView loginDescription;
+    private AppCompatButton loginButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         presenter = new LoginPresenter(this);
-        AppCompatButton loginButton = (AppCompatButton) findViewById(R.id.login_button);
+        loginButton = (AppCompatButton) findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginDescription = (AppCompatTextView) findViewById(R.id.login_description);
     }
@@ -80,6 +81,16 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void showToast(int stringId) {
         Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void disableLogInButton() {
+        loginButton.setEnabled(false);
+    }
+
+    @Override
+    public void enableLogInButton() {
+        loginButton.setEnabled(true);
     }
 
     @Override

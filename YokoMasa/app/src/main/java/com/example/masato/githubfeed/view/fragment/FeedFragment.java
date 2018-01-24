@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
@@ -69,6 +70,16 @@ public class FeedFragment extends Fragment implements FeedListView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViews(view);
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();;
+    }
+
+    @Override
+    public void showToast(int stringId) {
+        Toast.makeText(getContext(), stringId, Toast.LENGTH_LONG).show();;
     }
 
     @Override
