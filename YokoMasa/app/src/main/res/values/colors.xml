@@ -3,5 +3,7 @@
     <color name="colorPrimary">#757575</color>
     <color name="colorPrimaryDark">#494949</color>
     <color name="colorPrimaryLight">#a4a4a4</color>
+    <color name="background_light_gray">#e8e8e8</color>
+    <color name="background_dark_gray">#303030</color>
     <color name="textNormal">#616161</color>
 </resources>
