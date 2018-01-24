@@ -16,22 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-   <android.support.v4.view.ViewPager
-       android:id="@+id/feed_view_pager"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/feed_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-       <android.support.v4.view.PagerTitleStrip
-           android:id="@+id/feed_pager_title_strip"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:paddingTop="13dp"
-           android:paddingBottom="13dp"
-           android:background="#dddddd">
+            <android.support.v4.view.PagerTitleStrip
+                android:id="@+id/feed_pager_title_strip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:background="#dddddd">
+            </android.support.v4.view.PagerTitleStrip>
 
-       </android.support.v4.view.PagerTitleStrip>
-
-   </android.support.v4.view.ViewPager>
+        </android.support.v4.view.ViewPager>
 
     </FrameLayout>
 
