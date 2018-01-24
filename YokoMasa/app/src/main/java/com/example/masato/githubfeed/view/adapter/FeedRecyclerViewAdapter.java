@@ -12,6 +12,8 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
 import com.example.masato.githubfeed.view.FeedEntryView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Masato on 2018/01/19.
  */
@@ -72,7 +74,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
     private class FeedEntryViewViewHolder extends RecyclerView.ViewHolder implements FeedEntryView{
 
         AppCompatTextView title;
-        ImageView thumbnail;
+        CircleImageView thumbnail;
 
         @Override
         public void setTitle(String title) {
@@ -87,7 +89,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         FeedEntryViewViewHolder(View itemView) {
             super(itemView);
             title = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_title);
-            thumbnail = (ImageView) itemView.findViewById(R.id.feed_entry_image);
+            thumbnail = (CircleImageView) itemView.findViewById(R.id.feed_entry_image);
         }
     }
 

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Profile;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Masato on 2018/01/23.
  */
@@ -34,7 +36,7 @@ public class ProfileFragment extends Fragment {
 
     private void setContent(View view) {
         AppCompatTextView textView = (AppCompatTextView) view.findViewById(R.id.profile_name);
-        ImageView imageView = (ImageView) view.findViewById(R.id.profile_image);
+        CircleImageView imageView = (CircleImageView) view.findViewById(R.id.profile_image);
         textView.setText(profile.name);
         imageView.setImageBitmap(profile.icon);
     }

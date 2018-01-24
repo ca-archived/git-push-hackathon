@@ -136,7 +136,7 @@ public class HandyHttpURLConnection {
                     connection.connect();
                     writePostBody(connection.getOutputStream());
                     listener.onHttpResponse(connection.getResponseCode(), connection.getInputStream());
-                    //connection.disconnect();
+                    connection.disconnect();
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
                     listener.onError(Failure.UNEXPECTED);
@@ -165,7 +165,7 @@ public class HandyHttpURLConnection {
                     setHeadersToConnection(connection);
                     connection.connect();
                     listener.onHttpResponse(connection.getResponseCode(), connection.getInputStream());
-                    //connection.disconnect();
+                    connection.disconnect();
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
                     listener.onError(Failure.UNEXPECTED);
