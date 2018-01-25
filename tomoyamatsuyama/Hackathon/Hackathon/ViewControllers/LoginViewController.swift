@@ -12,6 +12,18 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     private let indicator = UIActivityIndicatorView()
     @IBOutlet weak var webViewOfLogin: UIWebView!
     
+    @IBAction func viewGoBack(_ sender: Any) {
+        self.webViewOfLogin.goBack()
+    }
+    
+    @IBAction func viewGoFoward(_ sender: Any) {
+        self.webViewOfLogin.goForward()
+    }
+    
+    @IBAction func viewReload(_ sender: Any) {
+        self.webViewOfLogin.reload()
+    }
+    
     private func loadOfWebView(){
         guard let loginUrl = URL(string: "https://github.com/login/oauth/authorize?client_id=\(Config.Config.client_id.rawValue)&redirect_uri=\(Config.Config.redirect_uri.rawValue)&scope=\(Config.Config.scope.rawValue)") else { return }
         let request = URLRequest(url: loginUrl)

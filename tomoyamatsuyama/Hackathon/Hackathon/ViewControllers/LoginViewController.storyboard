@@ -53,6 +53,9 @@
                                         <state key="normal" title="＜">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="viewGoBack:" destination="1uD-rl-ODq" eventType="touchUpInside" id="tSs-cZ-8ap"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAR-4C-ylK">
                                         <rect key="frame" x="70" y="10" width="30" height="30"/>
@@ -64,6 +67,9 @@
                                         <state key="normal" title="＞">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="viewGoFoward:" destination="1uD-rl-ODq" eventType="touchUpInside" id="W6E-e6-SLv"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbz-gE-tcb">
                                         <rect key="frame" x="329" y="10" width="31" height="30"/>
@@ -74,6 +80,9 @@
                                         <state key="normal" title="更新">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="viewReload:" destination="1uD-rl-ODq" eventType="touchUpInside" id="cGV-Zf-nYw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.93537174460000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
