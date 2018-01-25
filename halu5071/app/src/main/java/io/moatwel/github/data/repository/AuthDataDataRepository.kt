@@ -23,18 +23,19 @@
 
 package io.moatwel.github.data.repository
 
-import io.moatwel.github.data.datasource.AuthDataDatasource
+import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
+import javax.inject.Inject
 
 /**
  *  This class is an implementation class of [AuthDataRepository] on domain layer.
  *  This class read and delete auth data from somewhere, and save it on somewhere.
  *
- *  Actual operation is implemented on [AuthDataDatasource].
+ *  Actual operation is implemented on [AuthDataDataSource].
  */
-class AuthDataDataRepository(
-  val dataSource: AuthDataDatasource) : AuthDataRepository {
+class AuthDataDataRepository @Inject constructor(
+  val dataSource: AuthDataDataSource) : AuthDataRepository {
 
   override fun save(authData: AuthData) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

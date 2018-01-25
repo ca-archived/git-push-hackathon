@@ -23,8 +23,10 @@
 
 package io.moatwel.github.presentation.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
+import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.data.network.UserApi
 
@@ -34,6 +36,11 @@ class DataSourceModule {
   @Provides
   fun provideCloudUserDataSource(api: UserApi): CloudUserDataSource {
     return CloudUserDataSource(api)
+  }
+
+  @Provides
+  fun provideAuthDataDataSource(context: Context): AuthDataDataSource {
+    return AuthDataDataSource(context)
   }
 
   companion object {

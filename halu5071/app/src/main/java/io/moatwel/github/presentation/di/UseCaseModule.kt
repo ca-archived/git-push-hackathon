@@ -25,7 +25,9 @@ package io.moatwel.github.presentation.di
 
 import dagger.Module
 import dagger.Provides
+import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.domain.repository.UserRepository
+import io.moatwel.github.domain.usecase.AuthDataUseCase
 import io.moatwel.github.domain.usecase.UserUseCase
 
 @Module
@@ -34,6 +36,11 @@ class UseCaseModule {
   @Provides
   fun provideUserUseCase(userRepository: UserRepository): UserUseCase {
     return UserUseCase(userRepository)
+  }
+
+  @Provides
+  fun provideAuthDataUseCase(authDataRepository: AuthDataRepository): AuthDataUseCase {
+    return AuthDataUseCase(authDataRepository)
   }
 
   companion object {
