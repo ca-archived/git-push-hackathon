@@ -21,5 +21,28 @@ class GithubApiManager {
                 break
             }
         }
+        requestToken(code: code, completion: { isStatus, resopnse in
+            print(isStatus)
+        })
+    }
+    
+    static func requestToken(code: String, completion: ((Bool, String) -> Void)? = nil) {
+        let getTokenPath: String = "https://github.com/login/oauth/access_token"
+        let parameter = ["client_id": Config.Config.client_id.rawValue, "client_secret": Config.Config.client_secret.rawValue, "code": code]
+        Alamofire.request(getTokenPath, method: .post, parameters: parameter).response { response in
+            let isStatus = self.checkResponse(statusCode: response.response?.statusCode)
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    completion?(isStatus, utf8Text)
+            }
+        }
+    }
+    
+    static func checkResponse(statusCode: Int?) -> Bool {
+        guard let statusCode = statusCode else { return false }
+        if 200 <= statusCode || statusCode < 300 {
+            return true
+        } else {
+            return false
+        }
     }
 }
