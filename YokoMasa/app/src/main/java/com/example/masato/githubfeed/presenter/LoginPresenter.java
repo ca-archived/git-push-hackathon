@@ -24,7 +24,6 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
     }
 
     public void onLoginButtonPressed() {
-        view.disableLogInButton();
         view.startBrowser();
     }
 
@@ -63,6 +62,7 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
 
     public void onCodeFetched(String code) {
         view.showLoginWaiting();
+        view.disableLogInButton();
         GitHubApi.getApi().requestToken(code, this);
     }
 

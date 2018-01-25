@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
@@ -88,6 +89,13 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         feedListView.showToast(failure.textId);
     }
 
+    public void onSaveInstanceState(Bundle bundle) {
+        ArrayList<FeedEntry> feedEntries = (ArrayList<FeedEntry>) this.feedEntries;
+        bundle.putParcelableArrayList("feed_entries", feedEntries);
+        bundle.putString("feed_url", feedUrl);
+        bundle.putInt("current_page", currentPage);
+    }
+
     private int getItemCount() {
         if (feedMaxedOut) {
             if (feedEntries.size() == 0) {
@@ -145,5 +153,12 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         this.feedListView = feedListView;
         this.feedUrl = feedUrl;
         refresh();
+    }
+
+    public FeedListPresenter(FeedListView feedListView, Bundle savedState) {
+        this.feedListView = feedListView;
+        this.feedEntries = savedState.getParcelableArrayList("feed_entries");
+        this.feedUrl = savedState.getString("feed_url");
+        this.currentPage = savedState.getInt("current_page");
     }
 }

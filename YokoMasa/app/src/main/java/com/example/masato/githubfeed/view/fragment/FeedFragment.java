@@ -28,7 +28,7 @@ public class FeedFragment extends Fragment implements FeedListView {
     private RecyclerView feedRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedRecyclerViewAdapter adapter;
-    private boolean initialized = false;
+    private int scrollX, scrollY;
 
     public void disableRefreshing() {
         swipeRefreshLayout.setRefreshing(false);
@@ -40,24 +40,26 @@ public class FeedFragment extends Fragment implements FeedListView {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        init();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        init();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            init();
+        } else {
+            init(savedInstanceState);
+        }
     }
 
     private void init() {
-        if (!initialized) {
-            Bundle bundle = getArguments();
-            presenter = new FeedListPresenter(this, bundle.getString("url"));
-            adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater());
-            initialized = true;
-        }
+        Bundle bundle = getArguments();
+        presenter = new FeedListPresenter(this, bundle.getString("url"));
+        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater());
+    }
+
+    private void init(Bundle savedInstanceState) {
+        presenter = new FeedListPresenter(this, savedInstanceState);
+        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater());
+        scrollX = savedInstanceState.getInt("scroll_x");
+        scrollY = savedInstanceState.getInt("scroll_y");
     }
 
     @Nullable
@@ -92,11 +94,21 @@ public class FeedFragment extends Fragment implements FeedListView {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        presenter.onSaveInstanceState(outState);
+        outState.putInt("scroll_x", feedRecyclerView.getScrollX());
+        outState.putInt("scroll_y", feedRecyclerView.getScrollY());
+    }
+
     private void findViews(View view) {
         feedRecyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(layoutManager);
         feedRecyclerView.setAdapter(adapter);
+        feedRecyclerView.setScrollX(scrollX);
+        feedRecyclerView.setScrollY(scrollY);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.feed_swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
