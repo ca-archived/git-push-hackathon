@@ -6,16 +6,17 @@ buildscript {
         rxkotlin_version = '2.2.0'
         rxlifecycle_version = '2.2.0'
         retrofit_version = '2.3.0'
-        okhttp_version = '3.5.0'
+        okhttp_version = '3.9.1'
         moshi_version = '1.5.0'
         stetho_version = '1.5.0'
         support_lib_version = '27.0.2'
-        mockito_verion = '2.8.9'
-        powermock_version = '1.7.3'
+        mockito_verion = '2.8.0'
+        powermock_version = '1.7.0'
         dagger_version = '2.14.1'
         leakcanary_version = '1.5.4'
         robolectric_version = '3.3.2'
         buildTool_version = '27.0.2'
+        timber_version = '4.6.0'
     }
 
     repositories {
