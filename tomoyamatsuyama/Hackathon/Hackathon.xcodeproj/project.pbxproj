@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6451E4682019D2440017FEB5 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4672019D2440017FEB5 /* UIViewControllerExtension.swift */; };
 		6451E46A2019D4DE0017FEB5 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4692019D4DE0017FEB5 /* HomeTableViewCell.swift */; };
+		6451E46C2019D7AF0017FEB5 /* Feeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E46B2019D7AF0017FEB5 /* Feeds.swift */; };
 		64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DE75ED2019A3240056539C /* AppDelegate.swift */; };
 		64DE75F52019A3240056539C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F42019A3240056539C /* Assets.xcassets */; };
 		64DE75F82019A3240056539C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F62019A3240056539C /* LaunchScreen.storyboard */; };
@@ -49,6 +50,7 @@
 		5CE5E55ABB2AD791965DBBED /* Pods-Hackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hackathon/Pods-Hackathon.release.xcconfig"; sourceTree = "<group>"; };
 		6451E4672019D2440017FEB5 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		6451E4692019D4DE0017FEB5 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		6451E46B2019D7AF0017FEB5 /* Feeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feeds.swift; sourceTree = "<group>"; };
 		64DE75EA2019A3240056539C /* Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64DE75ED2019A3240056539C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64DE75F42019A3240056539C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		64E280EE2019A7F500774A83 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6451E46B2019D7AF0017FEB5 /* Feeds.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				6451E46A2019D4DE0017FEB5 /* HomeTableViewCell.swift in Sources */,
 				64E280F72019B23F00774A83 /* Config.swift in Sources */,
 				64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */,
+				6451E46C2019D7AF0017FEB5 /* Feeds.swift in Sources */,
 				6451E4682019D2440017FEB5 /* UIViewControllerExtension.swift in Sources */,
 				64E280F52019B01F00774A83 /* GithubApiManager.swift in Sources */,
 			);
