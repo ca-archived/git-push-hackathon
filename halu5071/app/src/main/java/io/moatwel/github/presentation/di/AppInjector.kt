@@ -1,8 +1,6 @@
 package io.moatwel.github.presentation.di
 
 import io.moatwel.github.Application
-import io.moatwel.github.data.di.DaggerNetworkComponent
-import io.moatwel.github.data.di.NetworkModule
 
 class AppInjector {
 
@@ -10,7 +8,7 @@ class AppInjector {
     fun init(app: Application) {
       // Setting for presentation layer
       DaggerAppComponent.builder()
-        .addNetworkModule(NetworkModule.instance)
+        .addNetworkModule(NetworkModule.INSTANCE)
         .application(app)
         .build()
         .inject(app)

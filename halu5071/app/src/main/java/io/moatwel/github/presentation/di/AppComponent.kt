@@ -11,14 +11,15 @@ import javax.inject.Singleton
 @Component(modules = [
   AndroidInjectionModule::class,
   AppModule::class,
-  MainActivityModule::class
+  MainActivityModule::class,
+  NetworkModule::class
 ])
 interface AppComponent {
 
   @Component.Builder
   interface Builder {
     @BindsInstance fun application(app: Application): Builder
-//    fun addNetworkModule(networkModule: NetworkModule): Builder
+    fun addNetworkModule(networkModule: NetworkModule): Builder
     fun build(): AppComponent
   }
 
