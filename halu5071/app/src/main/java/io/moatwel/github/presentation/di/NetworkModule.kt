@@ -35,7 +35,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-open class NetworkModule {
+class NetworkModule {
 
   @Provides
   @Singleton
@@ -56,7 +56,7 @@ open class NetworkModule {
 
   @Provides
   @Singleton
-  open fun provideMoshi(): Moshi {
+  fun provideMoshi(): Moshi {
     return Moshi.Builder()
       .add(KotlinJsonAdapterFactory())
       .build()
@@ -64,7 +64,7 @@ open class NetworkModule {
 
   @Provides
   @Singleton
-  open fun provideUserApi(retrofit: Retrofit): UserApi {
+  fun provideUserApi(retrofit: Retrofit): UserApi {
     return retrofit.create(UserApi::class.java)
   }
 
