@@ -12,6 +12,7 @@
 		6451E46C2019D7AF0017FEB5 /* Feeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E46B2019D7AF0017FEB5 /* Feeds.swift */; };
 		6451E46E2019D8430017FEB5 /* XmlParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E46D2019D8430017FEB5 /* XmlParse.swift */; };
 		6451E4702019D8E00017FEB5 /* XmlParseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E46F2019D8E00017FEB5 /* XmlParseExtension.swift */; };
+		6451E4722019D9C50017FEB5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4712019D9C50017FEB5 /* HomeViewModel.swift */; };
 		64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DE75ED2019A3240056539C /* AppDelegate.swift */; };
 		64DE75F52019A3240056539C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F42019A3240056539C /* Assets.xcassets */; };
 		64DE75F82019A3240056539C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F62019A3240056539C /* LaunchScreen.storyboard */; };
@@ -55,6 +56,7 @@
 		6451E46B2019D7AF0017FEB5 /* Feeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feeds.swift; sourceTree = "<group>"; };
 		6451E46D2019D8430017FEB5 /* XmlParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XmlParse.swift; sourceTree = "<group>"; };
 		6451E46F2019D8E00017FEB5 /* XmlParseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XmlParseExtension.swift; sourceTree = "<group>"; };
+		6451E4712019D9C50017FEB5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		64DE75EA2019A3240056539C /* Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64DE75ED2019A3240056539C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64DE75F42019A3240056539C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		64E280EF2019A7FE00774A83 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				6451E4712019D9C50017FEB5 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64E280F92019C49E00774A83 /* HomeViewController.swift in Sources */,
+				6451E4722019D9C50017FEB5 /* HomeViewModel.swift in Sources */,
 				6451E4702019D8E00017FEB5 /* XmlParseExtension.swift in Sources */,
 				64E280F12019A87700774A83 /* LoginViewController.swift in Sources */,
 				6451E46A2019D4DE0017FEB5 /* HomeTableViewCell.swift in Sources */,
