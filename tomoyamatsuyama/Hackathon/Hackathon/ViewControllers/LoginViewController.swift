@@ -30,3 +30,11 @@ class LoginViewController: UIViewController {
         self.loadOfWebView()
     }
 }
+
+extension LoginViewController: UIWebViewDelegate {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        guard let callBackUrl = request.url else { return false }
+        print(callBackUrl)
+        return true
+    }
+}
