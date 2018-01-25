@@ -71,7 +71,7 @@ public class FeedFragment extends Fragment implements FeedListView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViews(view);
+        initViews(view);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class FeedFragment extends Fragment implements FeedListView {
         outState.putInt("scroll_y", feedRecyclerView.getScrollY());
     }
 
-    private void findViews(View view) {
+    private void initViews(View view) {
         feedRecyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(layoutManager);

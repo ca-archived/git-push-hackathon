@@ -73,7 +73,7 @@ public class GitHubApi {
     }
 
     private GitHubApi(SharedPreferences preferences, Resources resources) {
-        this.executorService = Executors.newFixedThreadPool(4);
+        this.executorService = Executors.newFixedThreadPool(3);
         this.tokenManager = new GitHubTokenManager(resources, preferences, executorService);
         this.resourceManager = new GitHubResourceManager(executorService, resources, tokenManager.getToken());
         this.resources = resources;

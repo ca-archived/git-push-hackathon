@@ -28,9 +28,6 @@ public class XmlFeedParser {
             xmlPullParser.setInput(new StringReader(feedXml));
             FeedEntry feedEntry = findFeedEntry(xmlPullParser);
             while (feedEntry != null) {
-                //Log.i("gh_feed", feedEntry.title);
-                //Log.i("gh_feed", feedEntry.name);
-                //Log.i("gh_feed", feedEntry.thumbnailUrl);
                 list.add(feedEntry);
                 feedEntry = findFeedEntry(xmlPullParser);
             }

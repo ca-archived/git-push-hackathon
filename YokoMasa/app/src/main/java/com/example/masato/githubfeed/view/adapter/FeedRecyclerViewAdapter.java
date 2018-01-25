@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.view.adapter;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;

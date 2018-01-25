@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.presenter;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
@@ -51,25 +52,29 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
 
     public void onBindFeedEntryView(final FeedEntryView view, int position) {
         fetchFeedEntriesIfNeeded(position);
-        final FeedEntry feedEntry = feedEntries.get(position);
+        FeedEntry feedEntry = feedEntries.get(position);
         view.setTitle(feedEntry.title);
-        if (feedEntry.thumbnail == null) {
-            GitHubApi.getApi().fetchBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
-                @Override
-                public void onApiSuccess(Object object) {
-                    Bitmap bitmap = (Bitmap) object;
-                    feedEntry.thumbnail = bitmap;
-                    view.setThumbnail(bitmap);
-                }
-
-                @Override
-                public void onApiFailure(Failure failure) {
-
-                }
-            });
+        if (!feedEntry.isThumbnailSet()) {
+            fetchThumbnail(feedEntry, view, position);
         } else {
-            view.setThumbnail(feedEntry.thumbnail);
+            view.setThumbnail(feedEntry.getThumbnail());
         }
+    }
+
+    private void fetchThumbnail(final FeedEntry feedEntry, final FeedEntryView view, final int position) {
+        GitHubApi.getApi().fetchBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
+            @Override
+            public void onApiSuccess(Object object) {
+                Bitmap bitmap = (Bitmap) object;
+                feedEntry.setThumbnail(bitmap);
+                view.setThumbnail(bitmap);
+            }
+
+            @Override
+            public void onApiFailure(Failure failure) {
+
+            }
+        });
     }
 
     public void onRefresh() {
