@@ -9,8 +9,8 @@
 import Foundation
 import Alamofire
 
-class GithubApiManager {
-    static func getCodeFromCallBackUrl(callBackUrl: URL){
+class GithubApiManager: NSObject {
+    static func getCodeFromCallBackUrl(callBackUrl: URL, completion: ((Bool) -> Void)? = nil) {
         var code = ""
         guard let components = URLComponents(url: callBackUrl, resolvingAgainstBaseURL: false) else { return }
         guard let items = components.queryItems else { return }
@@ -22,7 +22,8 @@ class GithubApiManager {
             }
         }
         getOauth(code: code, completion: { isStatus, oauth in
-            print("oauth: " + oauth)
+            UserDefaults.standard.set(oauth, forKey: "access_token")
+                completion?(isStatus)
         })
     }
     

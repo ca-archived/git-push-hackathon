@@ -17,6 +17,10 @@ class LoginViewController: UIViewController {
         self.webViewOfLogin.loadRequest(request)
     }
     
+    func goToHomeVC(){
+        print("pass")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadOfWebView()
@@ -27,7 +31,13 @@ extension LoginViewController: UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         guard let callBackUrl = request.url else { return false }
         if callBackUrl.absoluteString.contains("hackathon://?code=") {
-            GithubApiManager.getCodeFromCallBackUrl(callBackUrl: callBackUrl)
+            GithubApiManager.getCodeFromCallBackUrl(callBackUrl: callBackUrl, completion: { isStatus in
+                if isStatus {
+                    self.goToHomeVC()
+                } else {
+                    print("error")
+                }
+            })
         }
         return true
     }
