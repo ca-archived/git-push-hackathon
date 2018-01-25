@@ -17,13 +17,42 @@
                     <view key="view" contentMode="scaleToFill" id="o0j-dY-538">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1v-cX-S3e" userLabel="headerView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWx-eD-QG7">
+                                        <rect key="frame" x="161.5" y="34" width="52.5" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="52.5" id="KBx-j6-G0V"/>
+                                            <constraint firstAttribute="height" constant="21" id="bDw-BP-tUR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.93537174460000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="TWx-eD-QG7" firstAttribute="top" secondItem="z1v-cX-S3e" secondAttribute="top" constant="34" id="6LL-er-ADe"/>
+                                    <constraint firstItem="TWx-eD-QG7" firstAttribute="centerX" secondItem="z1v-cX-S3e" secondAttribute="centerX" id="L1B-s9-PrS"/>
+                                    <constraint firstAttribute="bottom" secondItem="TWx-eD-QG7" secondAttribute="bottom" constant="9" id="avn-fX-eUm"/>
+                                    <constraint firstAttribute="height" constant="64" id="gCf-S3-zEt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="z1v-cX-S3e" firstAttribute="top" secondItem="o0j-dY-538" secondAttribute="top" id="8g3-Wp-0JL"/>
+                            <constraint firstItem="z1v-cX-S3e" firstAttribute="trailing" secondItem="MtI-vb-vf8" secondAttribute="trailing" id="B8Y-j1-L35"/>
+                            <constraint firstItem="z1v-cX-S3e" firstAttribute="leading" secondItem="MtI-vb-vf8" secondAttribute="leading" id="bfr-sE-fZN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="MtI-vb-vf8"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG0-jH-PE0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="238" y="152"/>
+            <point key="canvasLocation" x="237.59999999999999" y="151.57421289355324"/>
         </scene>
     </scenes>
 </document>
