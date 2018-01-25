@@ -40,11 +40,29 @@
                                     <constraint firstAttribute="height" constant="64" id="gCf-S3-zEt"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0WS-cg-tEL">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeCell" id="bzE-ca-o31">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bzE-ca-o31" id="p7H-xz-KUe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="z1v-cX-S3e" firstAttribute="top" secondItem="o0j-dY-538" secondAttribute="top" id="8g3-Wp-0JL"/>
                             <constraint firstItem="z1v-cX-S3e" firstAttribute="trailing" secondItem="MtI-vb-vf8" secondAttribute="trailing" id="B8Y-j1-L35"/>
+                            <constraint firstItem="0WS-cg-tEL" firstAttribute="trailing" secondItem="MtI-vb-vf8" secondAttribute="trailing" id="Byo-Zg-cjz"/>
+                            <constraint firstItem="0WS-cg-tEL" firstAttribute="bottom" secondItem="MtI-vb-vf8" secondAttribute="bottom" id="Fem-kJ-vjV"/>
+                            <constraint firstItem="0WS-cg-tEL" firstAttribute="leading" secondItem="MtI-vb-vf8" secondAttribute="leading" id="JcO-0f-CMI"/>
+                            <constraint firstItem="0WS-cg-tEL" firstAttribute="top" secondItem="z1v-cX-S3e" secondAttribute="bottom" id="YKZ-W7-Ink"/>
                             <constraint firstItem="z1v-cX-S3e" firstAttribute="leading" secondItem="MtI-vb-vf8" secondAttribute="leading" id="bfr-sE-fZN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MtI-vb-vf8"/>
