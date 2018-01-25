@@ -1,5 +1,7 @@
 <img src="./assets/GPH.png" alt="main image">
 
+*Read this in other languages: [English](README.en-US.md)*
+
 株式会社サイバーエージェントが主催する、ネイティブエンジニア向け学生限定ハッカソンです。成果物をレポジトリにpushするだけのリモート参加型のイベントです。
 
 ## エントリー方法
