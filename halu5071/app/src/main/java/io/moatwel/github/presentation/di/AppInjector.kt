@@ -12,12 +12,6 @@ class AppInjector {
         .application(app)
         .build()
         .inject(app)
-
-//      // Setting for data layer
-//      DaggerNetworkComponent.builder()
-//        .addNetworkModule(NetworkModule.instance)
-//        .build()
-//        .inject(app)
     }
   }
 }
