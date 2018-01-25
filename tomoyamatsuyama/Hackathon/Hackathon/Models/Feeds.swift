@@ -15,8 +15,7 @@ struct Feeds {
     
     mutating func initialize(){
         self.avatarUrlString = ""
-            self.name = ""
-            self.title
-        
+        self.name = ""
+        self.title = ""
     }
 }
