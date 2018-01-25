@@ -5,9 +5,9 @@
 ```app/src/main/res/values/callback_urls.xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="callback_url_scheme" translatable="false">{コールバックURLのプロトコル}</string>
-    <string name="callback_url_host" translatable="false">{コールバックURLのホスト名}</string>
-    <string name="callback_url_path" translatable="false">/{コールバックURLのパス}</string>
+    <string name="callback_url_scheme" translatable="false">{GitHub APIのコールバックURLのプロトコル}</string>
+    <string name="callback_url_host" translatable="false">{GitHub APIのコールバックURLのホスト名}</string>
+    <string name="callback_url_path" translatable="false">/{GitHub APIのコールバックURLのパス}</string>
 </resources>
 ```
 
