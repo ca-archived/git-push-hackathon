@@ -11,6 +11,7 @@ import UIKit
 class HomeViewController: UIViewController{
     
     @IBOutlet weak var homeTableView: UITableView!
+    private let homeVM = HomeViewModel()
     
     static func instatiate() -> HomeViewController {
         let storyboard = UIStoryboard(name: "HomeViewController", bundle: nil)
@@ -18,7 +19,16 @@ class HomeViewController: UIViewController{
         return homeVC
     }
     
+    func getFeed(){
+        homeVM.requestFeed(comletion: { [weak self] in
+            guard let `self` = self else { return }
+            self.homeTableView.reloadData()
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getFeed()
+        self.homeTableView.dataSource = homeVM
     }
 }
