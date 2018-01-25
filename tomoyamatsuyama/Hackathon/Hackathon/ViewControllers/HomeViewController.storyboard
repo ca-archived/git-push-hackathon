@@ -40,16 +40,40 @@
                                     <constraint firstAttribute="height" constant="64" id="gCf-S3-zEt"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0WS-cg-tEL">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0WS-cg-tEL">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeCell" id="bzE-ca-o31">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeCell" id="bzE-ca-o31" customClass="HomeTableViewCell" customModule="Hackathon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bzE-ca-o31" id="p7H-xz-KUe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CY7-TB-KBD">
+                                                    <rect key="frame" x="68" y="9" width="290" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wg3-RF-bc2">
+                                                    <rect key="frame" x="10" y="19" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="218-WU-ONU"/>
+                                                        <constraint firstAttribute="height" constant="40" id="BaI-ai-jXR"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="CY7-TB-KBD" secondAttribute="bottom" constant="10.5" id="Bef-84-94q"/>
+                                                <constraint firstItem="CY7-TB-KBD" firstAttribute="top" secondItem="p7H-xz-KUe" secondAttribute="top" constant="9" id="OHY-Eo-7AM"/>
+                                                <constraint firstItem="wg3-RF-bc2" firstAttribute="leading" secondItem="p7H-xz-KUe" secondAttribute="leading" constant="10" id="Saa-cG-g6g"/>
+                                                <constraint firstAttribute="bottom" secondItem="wg3-RF-bc2" secondAttribute="bottom" constant="10.5" id="VUO-MN-dnY"/>
+                                                <constraint firstItem="wg3-RF-bc2" firstAttribute="top" secondItem="p7H-xz-KUe" secondAttribute="top" constant="19" id="YjH-b5-TJ9"/>
+                                                <constraint firstAttribute="trailing" secondItem="CY7-TB-KBD" secondAttribute="trailing" constant="17" id="aqe-TI-DQM"/>
+                                                <constraint firstItem="CY7-TB-KBD" firstAttribute="leading" secondItem="wg3-RF-bc2" secondAttribute="trailing" constant="18" id="vvK-kM-LOQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -67,6 +91,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MtI-vb-vf8"/>
                     </view>
+                    <connections>
+                        <outlet property="avatarView" destination="wg3-RF-bc2" id="ren-gt-lpl"/>
+                        <outlet property="titleLabel" destination="CY7-TB-KBD" id="gjh-ba-glf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG0-jH-PE0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
