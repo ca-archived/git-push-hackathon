@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  MainActivityModule.kt
+ *  MainActivityBuilder.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -23,15 +23,16 @@
 
 package io.moatwel.github.presentation.di.activity
 
-import android.support.v7.app.AppCompatActivity
-import dagger.Binds
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import io.moatwel.github.presentation.view.activity.MainActivity
 
 @Module
-interface MainActivityModule {
-
-  @Binds
-  fun provideMainActivity(mainActivity: MainActivity): AppCompatActivity
-
+interface MainActivityBuilder {
+  @ContributesAndroidInjector(
+    modules = [
+      MainActivityModule::class
+    ]
+  )
+  fun contributeMainActivity(): MainActivity
 }

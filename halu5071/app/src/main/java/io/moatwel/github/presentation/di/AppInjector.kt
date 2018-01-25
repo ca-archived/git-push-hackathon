@@ -9,6 +9,9 @@ class AppInjector {
       // Setting for presentation layer
       DaggerAppComponent.builder()
         .addNetworkModule(NetworkModule.INSTANCE)
+        .addRepositoryModule(RepositoryModule.INSTANCE)
+        .addDatasourceModule(DatasourceModule.INSTANCE)
+        .addUsecaseModule(UsecaseModule.INSTANCE)
         .application(app)
         .build()
         .inject(app)

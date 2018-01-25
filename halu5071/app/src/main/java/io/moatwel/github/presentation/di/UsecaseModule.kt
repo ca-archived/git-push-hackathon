@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  MainActivityModule.kt
+ *  UsecaseModule.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,17 +21,22 @@
  *
  */
 
-package io.moatwel.github.presentation.di.activity
+package io.moatwel.github.presentation.di
 
-import android.support.v7.app.AppCompatActivity
-import dagger.Binds
 import dagger.Module
-import io.moatwel.github.presentation.view.activity.MainActivity
+import dagger.Provides
+import io.moatwel.github.domain.repository.UserRepository
+import io.moatwel.github.domain.usecase.UserUsecase
 
 @Module
-interface MainActivityModule {
+class UsecaseModule {
 
-  @Binds
-  fun provideMainActivity(mainActivity: MainActivity): AppCompatActivity
+  @Provides
+  fun provideUserUsecase(userRepository: UserRepository): UserUsecase {
+    return UserUsecase(userRepository)
+  }
 
+  companion object {
+    val INSTANCE = UsecaseModule()
+  }
 }

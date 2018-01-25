@@ -27,6 +27,7 @@ import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import io.moatwel.github.data.network.UserApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -56,6 +57,11 @@ class NetworkModule {
     return Moshi.Builder()
       .add(KotlinJsonAdapterFactory())
       .build()
+  }
+
+  @Provides @Singleton
+  fun provideUserApi(retrofit: Retrofit): UserApi {
+    return retrofit.create(UserApi::class.java)
   }
 
   companion object {

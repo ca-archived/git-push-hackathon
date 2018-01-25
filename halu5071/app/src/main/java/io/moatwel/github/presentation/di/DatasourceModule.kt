@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  MainActivityModule.kt
+ *  DatasourceModule.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,17 +21,22 @@
  *
  */
 
-package io.moatwel.github.presentation.di.activity
+package io.moatwel.github.presentation.di
 
-import android.support.v7.app.AppCompatActivity
-import dagger.Binds
 import dagger.Module
-import io.moatwel.github.presentation.view.activity.MainActivity
+import dagger.Provides
+import io.moatwel.github.data.datasource.CloudUserDatasource
+import io.moatwel.github.data.network.UserApi
 
 @Module
-interface MainActivityModule {
+class DatasourceModule {
 
-  @Binds
-  fun provideMainActivity(mainActivity: MainActivity): AppCompatActivity
+  @Provides
+  fun provideCloudUserDatasource(api: UserApi): CloudUserDatasource {
+    return CloudUserDatasource(api)
+  }
 
+  companion object {
+    val INSTANCE = DatasourceModule()
+  }
 }

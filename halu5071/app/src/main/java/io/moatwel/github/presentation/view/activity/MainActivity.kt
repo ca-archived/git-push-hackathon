@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-  lateinit var userUsecase: UserUsecase
+  @Inject lateinit var userUsecase: UserUsecase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
