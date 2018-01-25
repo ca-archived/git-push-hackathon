@@ -12,14 +12,15 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-  @Inject lateinit var userUsecase: UserUseCase
+  @Inject
+  lateinit var userUseCase: UserUseCase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    userUsecase.get()
+    userUseCase.get()
       .subscribeOnIoThread()
       .observeOnMainThread()
       .subscribe({
