@@ -12,6 +12,7 @@ class HomeViewController: UIViewController{
     
     @IBOutlet weak var homeTableView: UITableView!
     private let homeVM = HomeViewModel()
+    private let indicator = UIActivityIndicatorView()
     
     static func instatiate() -> HomeViewController {
         let storyboard = UIStoryboard(name: "HomeViewController", bundle: nil)
@@ -20,9 +21,11 @@ class HomeViewController: UIViewController{
     }
     
     func getFeed(){
+        showIndicator(indicator: indicator)
         homeVM.requestFeed(comletion: { [weak self] in
             guard let `self` = self else { return }
             self.homeTableView.reloadData()
+            self.stopIndecator(indicator: self.indicator)
         })
     }
     

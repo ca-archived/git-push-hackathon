@@ -26,12 +26,14 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         guard let callBackUrl = request.url else { return false }
         if callBackUrl.absoluteString.contains("hackathon://?code=") {
+            showIndicator(indicator: indicator)
             GithubApiManager.getCodeFromCallBackUrl(callBackUrl: callBackUrl, completion: { isStatus in
                 if isStatus {
                     self.goToHomeVC()
                 } else {
                     print("error")
                 }
+                self.stopIndecator(indicator: self.indicator)
             })
         }
         return true
