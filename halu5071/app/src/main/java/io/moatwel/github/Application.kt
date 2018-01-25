@@ -7,11 +7,13 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.moatwel.github.presentation.di.AppInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 class Application : Application(), HasActivityInjector {
 
-  @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+  @Inject
+  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
   override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 
@@ -20,6 +22,11 @@ class Application : Application(), HasActivityInjector {
 
     // Leak Canary
     LeakCanary.install(this)
+
+    // Timber
+    if (BuildConfig.DEBUG) {
+      Timber.plant(Timber.DebugTree())
+    }
 
     // Dagger
     setupDagger()

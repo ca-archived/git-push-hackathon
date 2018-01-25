@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  MainActivityComponent.kt
+ *  CloudUserDataSource.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,14 +21,17 @@
  *
  */
 
-package io.moatwel.github.presentation.di.activity
+package io.moatwel.github.data.datasource
 
-import dagger.Subcomponent
-import dagger.android.AndroidInjector
-import io.moatwel.github.presentation.view.activity.MainActivity
+import io.moatwel.github.data.network.UserApi
+import io.moatwel.github.domain.entity.User
+import io.reactivex.Observable
+import javax.inject.Inject
 
-@Subcomponent
-interface MainActivityComponent : AndroidInjector<MainActivity> {
-  @Subcomponent.Builder
-  abstract class Builder : AndroidInjector.Builder<MainActivity>()
+class CloudUserDataSource @Inject constructor(
+  private val api: UserApi) {
+
+  fun getUser(): Observable<User> {
+    return api.get()
+  }
 }

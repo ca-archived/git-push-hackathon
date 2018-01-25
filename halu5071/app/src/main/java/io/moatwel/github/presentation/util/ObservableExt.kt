@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  CloudUserDatasource.kt
+ *  ObservableExt.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,17 +21,12 @@
  *
  */
 
-package io.moatwel.github.data.datasource
+package io.moatwel.github.presentation.util
 
-import io.moatwel.github.data.network.UserApi
-import io.moatwel.github.domain.entity.User
 import io.reactivex.Observable
-import javax.inject.Inject
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class CloudUserDatasource (
-  private val api: UserApi) {
+fun <T> Observable<T>.observeOnMainThread(): Observable<T> = observeOn(AndroidSchedulers.mainThread())
 
-  fun getUser(): Observable<User> {
-    return api.get()
-  }
-}
+fun <T> Observable<T>.subscribeOnIoThread(): Observable<T> = subscribeOn(Schedulers.io())

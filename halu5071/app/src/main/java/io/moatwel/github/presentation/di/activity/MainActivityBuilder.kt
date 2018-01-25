@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  UserUsecase.kt
+ *  MainActivityBuilder.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,18 +21,18 @@
  *
  */
 
-package io.moatwel.github.domain.usecase
+package io.moatwel.github.presentation.di.activity
 
-import io.moatwel.github.domain.entity.User
-import io.moatwel.github.domain.repository.UserRepository
-import io.reactivex.Observable
-import javax.inject.Inject
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+import io.moatwel.github.presentation.view.activity.MainActivity
 
-class UserUsecase (
-  val userRepository: UserRepository
-) {
-
-  fun get(): Observable<User> {
-    return userRepository.get()
-  }
+@Module
+interface MainActivityBuilder {
+  @ContributesAndroidInjector(
+    modules = [
+      MainActivityModule::class
+    ]
+  )
+  fun contributeMainActivity(): MainActivity
 }

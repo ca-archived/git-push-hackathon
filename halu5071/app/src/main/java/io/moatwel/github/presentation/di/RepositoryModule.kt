@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  MainActivityModule.kt
+ *  RepositoryModule.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,17 +21,25 @@
  *
  */
 
-package io.moatwel.github.presentation.di.activity
+package io.moatwel.github.presentation.di
 
-import android.support.v7.app.AppCompatActivity
-import dagger.Binds
 import dagger.Module
-import io.moatwel.github.presentation.view.activity.MainActivity
+import dagger.Provides
+import io.moatwel.github.data.datasource.CloudUserDataSource
+import io.moatwel.github.data.repository.UserDataRepository
+import io.moatwel.github.domain.repository.UserRepository
+import javax.inject.Singleton
 
 @Module
-interface MainActivityModule {
+class RepositoryModule {
 
-  @Binds
-  fun provideMainActivity(mainActivity: MainActivity): AppCompatActivity
+  @Provides
+  @Singleton
+  fun provideUserRepository(cloudUserDataSource: CloudUserDataSource): UserRepository {
+    return UserDataRepository(cloudUserDataSource)
+  }
 
+  companion object {
+    val INSTANCE = RepositoryModule()
+  }
 }
