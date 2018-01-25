@@ -19,7 +19,8 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     }
     
     func goToHomeVC(){
-        print("pass")
+        let homeVC = HomeViewController.instatiate()
+        self.present(homeVC, animated: true, completion: nil)
     }
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {

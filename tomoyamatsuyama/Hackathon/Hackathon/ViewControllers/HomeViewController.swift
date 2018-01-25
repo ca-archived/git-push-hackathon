@@ -10,8 +10,13 @@ import UIKit
 
 class HomeViewController: UIViewController{
     
-    @IBOutlet weak var avatarView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var homeTableView: UITableView!
+    
+    static func instatiate() -> HomeViewController {
+        let storyboard = UIStoryboard(name: "HomeViewController", bundle: nil)
+        let homeVC = storyboard.instantiateInitialViewController() as! HomeViewController
+        return homeVC
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

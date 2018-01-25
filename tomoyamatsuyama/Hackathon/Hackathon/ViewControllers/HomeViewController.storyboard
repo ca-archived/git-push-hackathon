@@ -75,6 +75,10 @@
                                                 <constraint firstItem="CY7-TB-KBD" firstAttribute="leading" secondItem="wg3-RF-bc2" secondAttribute="trailing" constant="18" id="vvK-kM-LOQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="avatarView" destination="wg3-RF-bc2" id="ljA-95-FtF"/>
+                                            <outlet property="titleLabel" destination="CY7-TB-KBD" id="0BP-im-634"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -92,8 +96,7 @@
                         <viewLayoutGuide key="safeArea" id="MtI-vb-vf8"/>
                     </view>
                     <connections>
-                        <outlet property="avatarView" destination="wg3-RF-bc2" id="ren-gt-lpl"/>
-                        <outlet property="titleLabel" destination="CY7-TB-KBD" id="gjh-ba-glf"/>
+                        <outlet property="homeTableView" destination="0WS-cg-tEL" id="ZOK-im-agn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG0-jH-PE0" userLabel="First Responder" sceneMemberID="firstResponder"/>
