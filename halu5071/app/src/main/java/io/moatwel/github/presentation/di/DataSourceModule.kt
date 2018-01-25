@@ -1,5 +1,4 @@
 /*
- *
  *  GitHub-Client
  *
  *  DatasourceModule.kt
