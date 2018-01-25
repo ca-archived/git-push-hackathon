@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  UserTest.kt
+ *  AuthDataTest.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -34,34 +34,15 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class UserTest {
+class AuthDataTest {
 
   @Test
-  fun testSerializable() {
-    val user = geneUser()
+  fun testSerializable(){
+    val authData = AuthData("sample-github-token")
 
-    val restore = TestUtil.readAndWriteSerializable(user)
+    val restore = TestUtil.readAndWriteSerializable(authData)
 
     assertNotNull(restore)
-    assertThat(restore.id, `is`(1234L))
-  }
-
-  private fun geneUser(): User {
-    return User(
-      1234L,
-      "halu5071",
-      "Yasunori Horii",
-      "https://sample.com/avatar",
-    "https://sample.com/gravatar",
-      "https://api.github.com/users/halu5071",
-      "https://github.com/halu5071",
-      "https://api.github.com/followers",
-      "Bio of halu5071",
-      123L,
-      456L,
-      false,
-      "horiiortho5@gmail.com",
-      "moatwel.io"
-    )
+    assertThat(restore.token, `is`("sample-github-token"))
   }
 }
