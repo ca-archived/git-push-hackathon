@@ -1,4 +1,4 @@
-package io.github.massongit.githubapi
+package io.github.massongit.hackathon
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

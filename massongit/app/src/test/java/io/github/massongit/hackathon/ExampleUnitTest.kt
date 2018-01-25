@@ -1,4 +1,4 @@
-package io.github.massongit.githubapi
+package io.github.massongit.hackathon
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

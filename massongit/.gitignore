@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+gradle/
+callback_urls.xml
+github_apis.xml
