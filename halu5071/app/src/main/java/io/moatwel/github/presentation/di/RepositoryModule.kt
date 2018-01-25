@@ -33,7 +33,8 @@ import javax.inject.Singleton
 @Module
 class RepositoryModule {
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   fun provideUserRepository(cloudUserDatasource: CloudUserDatasource): UserRepository {
     return UserDataRepository(cloudUserDatasource)
   }

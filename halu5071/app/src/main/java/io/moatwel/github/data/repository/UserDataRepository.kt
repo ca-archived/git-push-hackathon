@@ -4,7 +4,6 @@ import io.moatwel.github.data.datasource.CloudUserDatasource
 import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
 import io.reactivex.Observable
-import javax.inject.Inject
 
 /**
  *  This class is a implementation class of [UserRepository] on domain layer
@@ -12,7 +11,7 @@ import javax.inject.Inject
  *
  *  Actual operation class is [CloudUserDatasource] or [DiskUserDatasource]
  */
-class UserDataRepository (
+class UserDataRepository(
   private val cloudUserDatasource: CloudUserDatasource) : UserRepository {
 
   override fun get(): Observable<User> {

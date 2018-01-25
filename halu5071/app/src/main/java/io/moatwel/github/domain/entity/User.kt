@@ -29,4 +29,4 @@ data class User(
 
   val email: String,
 
-  val company: String): Serializable
+  val company: String) : Serializable

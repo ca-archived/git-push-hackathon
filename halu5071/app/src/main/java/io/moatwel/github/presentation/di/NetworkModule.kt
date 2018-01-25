@@ -37,7 +37,8 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
     return Retrofit.Builder()
       .client(okHttpClient)
@@ -47,19 +48,22 @@ class NetworkModule {
       .build()
   }
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   fun provideOkHttp(): OkHttpClient {
     return OkHttpClient.Builder().build()
   }
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   fun provideMoshi(): Moshi {
     return Moshi.Builder()
       .add(KotlinJsonAdapterFactory())
       .build()
   }
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   fun provideUserApi(retrofit: Retrofit): UserApi {
     return retrofit.create(UserApi::class.java)
   }

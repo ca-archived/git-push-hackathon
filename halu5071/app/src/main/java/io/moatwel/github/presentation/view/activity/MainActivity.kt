@@ -1,7 +1,7 @@
 package io.moatwel.github.presentation.view.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import io.moatwel.github.R
 import io.moatwel.github.domain.usecase.UserUsecase
@@ -10,7 +10,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-  @Inject lateinit var userUsecase: UserUsecase
+  @Inject
+  lateinit var userUsecase: UserUsecase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
