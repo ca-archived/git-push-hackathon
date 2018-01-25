@@ -8,22 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UIWebViewDelegate {
-    private let indicator = UIActivityIndicatorView()
-    
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        guard let callBackUrl = request.url else { return false }
-        if callBackUrl.absoluteString.contains("hackathon://?code=") {
-            GithubApiManager.getCodeFromCallBackUrl(callBackUrl: callBackUrl, completion: { isStatus in
-                if isStatus {
-                    self.goToHomeVC()
-                } else {
-                    print("error")
-                }
-            })
-        }
-        return true
-    }
+class HomeViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
