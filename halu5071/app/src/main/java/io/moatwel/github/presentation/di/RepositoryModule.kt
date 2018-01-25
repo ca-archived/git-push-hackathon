@@ -25,7 +25,7 @@ package io.moatwel.github.presentation.di
 
 import dagger.Module
 import dagger.Provides
-import io.moatwel.github.data.datasource.CloudUserDatasource
+import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.repository.UserRepository
 import javax.inject.Singleton
@@ -35,8 +35,8 @@ class RepositoryModule {
 
   @Provides
   @Singleton
-  fun provideUserRepository(cloudUserDatasource: CloudUserDatasource): UserRepository {
-    return UserDataRepository(cloudUserDatasource)
+  fun provideUserRepository(cloudUserDataSource: CloudUserDataSource): UserRepository {
+    return UserDataRepository(cloudUserDataSource)
   }
 
   companion object {

@@ -13,7 +13,7 @@ import javax.inject.Singleton
   AppModule::class,
   NetworkModule::class,
   RepositoryModule::class,
-  DatasourceModule::class,
+  DataSourceModule::class,
   UsecaseModule::class,
   MainActivityBuilder::class
 ])
@@ -27,7 +27,7 @@ interface AppComponent {
     fun addNetworkModule(networkModule: NetworkModule): Builder
     fun addUsecaseModule(usecaseModule: UsecaseModule): Builder
     fun addRepositoryModule(repositoryModule: RepositoryModule): Builder
-    fun addDatasourceModule(datasourceModule: DatasourceModule): Builder
+    fun addDatasourceModule(datasourceModule: DataSourceModule): Builder
     fun build(): AppComponent
   }
 

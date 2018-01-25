@@ -6,11 +6,10 @@ class AppInjector {
 
   companion object {
     fun init(app: Application) {
-      // Setting for presentation layer
       DaggerAppComponent.builder()
         .addNetworkModule(NetworkModule.INSTANCE)
         .addRepositoryModule(RepositoryModule.INSTANCE)
-        .addDatasourceModule(DatasourceModule.INSTANCE)
+        .addDatasourceModule(DataSourceModule.INSTANCE)
         .addUsecaseModule(UsecaseModule.INSTANCE)
         .application(app)
         .build()
