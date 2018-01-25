@@ -123,6 +123,13 @@
 		64DE75EC2019A3240056539C /* Hackathon */ = {
 			isa = PBXGroup;
 			children = (
+				64E280E92019A7A900774A83 /* Views */,
+				64E280EA2019A7B200774A83 /* ViewControllers */,
+				64E280EF2019A7FE00774A83 /* ViewModels */,
+				64E280EE2019A7F500774A83 /* Models */,
+				64E280ED2019A7E700774A83 /* Protocols */,
+				64E280EC2019A7DE00774A83 /* Api */,
+				64E280EB2019A7D000774A83 /* Extensions */,
 				64DE75ED2019A3240056539C /* AppDelegate.swift */,
 				64DE75F42019A3240056539C /* Assets.xcassets */,
 				64DE75F62019A3240056539C /* LaunchScreen.storyboard */,
@@ -147,6 +154,55 @@
 				64DE760F2019A3240056539C /* Info.plist */,
 			);
 			path = HackathonUITests;
+			sourceTree = "<group>";
+		};
+		64E280E92019A7A900774A83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		64E280EA2019A7B200774A83 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		64E280EB2019A7D000774A83 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		64E280EC2019A7DE00774A83 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		64E280ED2019A7E700774A83 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		64E280EE2019A7F500774A83 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		64E280EF2019A7FE00774A83 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		A076D45AC63D4975EBF682E1 /* Frameworks */ = {
