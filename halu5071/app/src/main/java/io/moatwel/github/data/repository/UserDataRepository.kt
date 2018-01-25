@@ -10,7 +10,7 @@ import javax.inject.Inject
  *  This class is a implementation class of [UserRepository] on domain layer
  *  This class read user data from somewhere
  *
- *  Actual operation class is [CloudUserDataSource] or [DiskUserDatasource]
+ *  Actual operation class is [CloudUserDataSource]
  */
 class UserDataRepository @Inject constructor(
   private val cloudUserDataSource: CloudUserDataSource) : UserRepository {

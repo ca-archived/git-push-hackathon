@@ -4,12 +4,9 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.moatwel.github.presentation.di.activity.MainActivityComponent
 import javax.inject.Singleton
 
-@Module(subcomponents = [
-  MainActivityComponent::class
-])
+@Module
 class AppModule {
   @Provides
   @Singleton

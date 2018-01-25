@@ -2,7 +2,7 @@
  *
  *  GitHub-Client
  *
- *  UserUsecase.kt
+ *  UsecaseModule.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -21,18 +21,22 @@
  *
  */
 
-package io.moatwel.github.domain.usecase
+package io.moatwel.github.presentation.di
 
-import io.moatwel.github.domain.entity.User
+import dagger.Module
+import dagger.Provides
 import io.moatwel.github.domain.repository.UserRepository
-import io.reactivex.Observable
-import javax.inject.Inject
+import io.moatwel.github.domain.usecase.UserUseCase
 
-class UserUsecase @Inject constructor(
-  private val userRepository: UserRepository
-) {
+@Module
+class UseCaseModule {
 
-  fun get(): Observable<User> {
-    return userRepository.get()
+  @Provides
+  fun provideUserUseCase(userRepository: UserRepository): UserUseCase {
+    return UserUseCase(userRepository)
+  }
+
+  companion object {
+    val INSTANCE = UseCaseModule()
   }
 }
