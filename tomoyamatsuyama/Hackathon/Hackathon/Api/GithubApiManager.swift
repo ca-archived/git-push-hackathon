@@ -21,19 +21,29 @@ class GithubApiManager {
                 break
             }
         }
-        requestToken(code: code, completion: { isStatus, resopnse in
-            print(isStatus)
+        getOauth(code: code, completion: { isStatus, oauth in
+            print("oauth: " + oauth)
         })
     }
     
-    static func requestToken(code: String, completion: ((Bool, String) -> Void)? = nil) {
+    static func getOauth(code: String, completion: ((Bool, String) -> Void)? = nil) {
+        requestToken(code: code, completion: { responseToken in
+            guard let response = responseToken else { return }
+            guard let data = response.data else { return }
+            guard let dataString = String(data: data, encoding: .utf8) else { return }
+            guard let responseOfResponse = response.response else { return }
+            let isStatus = self.checkResponse(statusCode: responseOfResponse.statusCode)
+            let oauth = self.getAccessTokenFromTokenResponse(response: dataString)
+            completion?(isStatus, oauth)
+            
+        })
+    }
+    
+    static func requestToken(code: String, completion: ((DefaultDataResponse?) -> Void)? = nil) {
         let getTokenPath: String = "https://github.com/login/oauth/access_token"
         let parameter = ["client_id": Config.Config.client_id.rawValue, "client_secret": Config.Config.client_secret.rawValue, "code": code]
         Alamofire.request(getTokenPath, method: .post, parameters: parameter).response { response in
-            let isStatus = self.checkResponse(statusCode: response.response?.statusCode)
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                    completion?(isStatus, utf8Text)
-            }
+            completion?(response)
         }
     }
     
@@ -44,5 +54,17 @@ class GithubApiManager {
         } else {
             return false
         }
+    }
+    
+    static func getAccessTokenFromTokenResponse(response: String) -> String {
+        let responseItems = response.split(separator: "&")
+        var oauth: String = ""
+        for responseItem in responseItems {
+            let responseItemDic = responseItem.split(separator: "=")
+            if String(responseItemDic[0]) == "access_token" {
+                oauth = String(responseItemDic[1])
+            }
+        }
+        return oauth
     }
 }
