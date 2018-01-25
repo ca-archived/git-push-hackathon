@@ -34,17 +34,17 @@ import javax.inject.Inject
  *  Actual operation is implemented on [AuthDataDataSource].
  */
 class AuthDataDataRepository @Inject constructor(
-  val dataSource: AuthDataDataSource) : AuthDataRepository {
+  private val dataSource: AuthDataDataSource) : AuthDataRepository {
 
   override fun save(authData: AuthData) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    dataSource.saveToSharedPreference(authData)
   }
 
   override fun get(): AuthData {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    return dataSource.readFromSharedPreference()
   }
 
   override fun delete() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    dataSource.removeFromSharedPreference()
   }
 }

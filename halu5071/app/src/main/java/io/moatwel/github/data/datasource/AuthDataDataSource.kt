@@ -23,13 +23,56 @@
 package io.moatwel.github.data.datasource
 
 import android.content.Context
+import com.squareup.moshi.Moshi
+import io.moatwel.github.domain.entity.AuthData
 import javax.inject.Inject
 
 class AuthDataDataSource @Inject constructor(
   private val context: Context
 ) {
 
-  fun saveToSharedPreference() {
+  @Inject lateinit var moshi: Moshi
 
+  fun saveToSharedPreference(authData: AuthData) {
+    val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    val adapter = moshi.adapter(AuthData::class.java)
+    val jsonResource = adapter.toJson(authData)
+
+    editor.putString(ARG_AUTH_DATA, jsonResource)
+
+    editor.apply()
+  }
+
+  fun readFromSharedPreference(): AuthData {
+    val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    val adapter = moshi.adapter(AuthData::class.java)
+
+    val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
+    if (jsonResource == "") {
+      throw RuntimeException("Failed to load auth data")
+    }
+    val authData = adapter.fromJson(jsonResource)
+
+    editor.apply()
+    authData?.let {
+      return it
+    }?: throw RuntimeException("AuthData is null")
+  }
+
+  fun removeFromSharedPreference() {
+    val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+
+    editor.remove(ARG_AUTH_DATA)
+
+    editor.apply()
+  }
+
+  companion object {
+    const val ARG_PREFERENCE_NAME = "GITHUB_CLIENT_PREFERENCE"
+
+    const val ARG_AUTH_DATA = "GITHUB_AUTH_DATA"
   }
 }

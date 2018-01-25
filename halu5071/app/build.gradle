@@ -94,7 +94,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_verion"
     testImplementation "org.powermock:powermock-core:$powermock_version"
     testImplementation "org.powermock:powermock-module-junit4:$powermock_version"
-    testImplementation "org.powermock:powermock-api-mockito:$powermock_version"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermock_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
 }
