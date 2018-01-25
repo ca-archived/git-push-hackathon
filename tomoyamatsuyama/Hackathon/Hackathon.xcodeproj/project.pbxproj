@@ -14,6 +14,7 @@
 		64DE760E2019A3240056539C /* HackathonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DE760D2019A3240056539C /* HackathonUITests.swift */; };
 		64E280F12019A87700774A83 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E280F02019A87700774A83 /* LoginViewController.swift */; };
 		64E280F32019A88200774A83 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64E280F22019A88200774A83 /* LoginViewController.storyboard */; };
+		64E280F52019B01F00774A83 /* GithubApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E280F42019B01F00774A83 /* GithubApiManager.swift */; };
 		A7260D6CB13850DFFDC6DE19 /* Pods_HackathonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 836EF575E1DE66368BAF219B /* Pods_HackathonTests.framework */; };
 		ACB247F6B13C4352649FDD24 /* Pods_Hackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F486A1BF9A11526ACCE474C1 /* Pods_Hackathon.framework */; };
 		B64A7069B01B13700CE8AF35 /* Pods_HackathonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F2C67642CC3EBCCEC34C6B /* Pods_HackathonUITests.framework */; };
@@ -54,6 +55,7 @@
 		64DE760F2019A3240056539C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64E280F02019A87700774A83 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		64E280F22019A88200774A83 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		64E280F42019B01F00774A83 /* GithubApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApiManager.swift; sourceTree = "<group>"; };
 		6FF3ABCF8E3CD2A8E7FD4133 /* Pods-HackathonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackathonUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HackathonUITests/Pods-HackathonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		836EF575E1DE66368BAF219B /* Pods_HackathonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HackathonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F486A1BF9A11526ACCE474C1 /* Pods_Hackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +188,7 @@
 		64E280EC2019A7DE00774A83 /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				64E280F42019B01F00774A83 /* GithubApiManager.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 			files = (
 				64E280F12019A87700774A83 /* LoginViewController.swift in Sources */,
 				64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */,
+				64E280F52019B01F00774A83 /* GithubApiManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
