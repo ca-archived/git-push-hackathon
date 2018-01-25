@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6451E4662019D1E60017FEB5 /* LoginViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4652019D1E60017FEB5 /* LoginViewControllerExtension.swift */; };
 		64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DE75ED2019A3240056539C /* AppDelegate.swift */; };
 		64DE75F52019A3240056539C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F42019A3240056539C /* Assets.xcassets */; };
 		64DE75F82019A3240056539C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F62019A3240056539C /* LaunchScreen.storyboard */; };
@@ -45,6 +46,7 @@
 		16C023C1DBEFAD63E96FF2F1 /* Pods-HackathonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackathonTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackathonTests/Pods-HackathonTests.debug.xcconfig"; sourceTree = "<group>"; };
 		53A8CA4E535C34999B5648AD /* Pods-HackathonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackathonUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackathonUITests/Pods-HackathonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5CE5E55ABB2AD791965DBBED /* Pods-Hackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hackathon/Pods-Hackathon.release.xcconfig"; sourceTree = "<group>"; };
+		6451E4652019D1E60017FEB5 /* LoginViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerExtension.swift; sourceTree = "<group>"; };
 		64DE75EA2019A3240056539C /* Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64DE75ED2019A3240056539C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64DE75F42019A3240056539C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		64E280EB2019A7D000774A83 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6451E4652019D1E60017FEB5 /* LoginViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6451E4662019D1E60017FEB5 /* LoginViewControllerExtension.swift in Sources */,
 				64E280F92019C49E00774A83 /* HomeViewController.swift in Sources */,
 				64E280F12019A87700774A83 /* LoginViewController.swift in Sources */,
 				64E280F72019B23F00774A83 /* Config.swift in Sources */,
