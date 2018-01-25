@@ -17,13 +17,42 @@
                     <view key="view" contentMode="scaleToFill" id="UhI-RV-pVJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ew7-JU-iYt" userLabel="headerView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ログイン" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiL-R5-IOf">
+                                        <rect key="frame" x="146.5" y="34" width="82" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="7jk-b0-Iil"/>
+                                            <constraint firstAttribute="width" constant="82" id="qHg-rP-5Tw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.93537174460000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="CiL-R5-IOf" firstAttribute="centerX" secondItem="ew7-JU-iYt" secondAttribute="centerX" id="4et-7c-YSP"/>
+                                    <constraint firstAttribute="bottom" secondItem="CiL-R5-IOf" secondAttribute="bottom" constant="9" id="6iL-sK-cJS"/>
+                                    <constraint firstAttribute="height" constant="64" id="h5R-fh-B4l"/>
+                                    <constraint firstItem="CiL-R5-IOf" firstAttribute="top" secondItem="ew7-JU-iYt" secondAttribute="top" constant="34" id="v6W-Ji-A2J"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ew7-JU-iYt" firstAttribute="leading" secondItem="Y27-g5-nbM" secondAttribute="leading" id="KTq-Lq-tka"/>
+                            <constraint firstItem="ew7-JU-iYt" firstAttribute="top" secondItem="UhI-RV-pVJ" secondAttribute="top" id="TId-rt-MxM"/>
+                            <constraint firstItem="ew7-JU-iYt" firstAttribute="trailing" secondItem="Y27-g5-nbM" secondAttribute="trailing" id="hH1-Gr-A2X"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Y27-g5-nbM"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vry-sP-3y5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="147"/>
+            <point key="canvasLocation" x="116" y="146.17691154422789"/>
         </scene>
     </scenes>
 </document>
