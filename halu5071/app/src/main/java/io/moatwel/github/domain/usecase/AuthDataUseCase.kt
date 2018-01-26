@@ -1,7 +1,7 @@
 /*
  *  GitHub-Client
  *
- *  DatasourceModule.kt
+ *  AuthDataUseCase.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -20,29 +20,18 @@
  *
  */
 
-package io.moatwel.github.presentation.di
+package io.moatwel.github.domain.usecase
 
-import android.content.Context
-import dagger.Module
-import dagger.Provides
-import io.moatwel.github.data.datasource.AuthDataDataSource
-import io.moatwel.github.data.datasource.CloudUserDataSource
-import io.moatwel.github.data.network.UserApi
+import io.moatwel.github.domain.entity.AuthData
+import io.moatwel.github.domain.repository.AuthDataRepository
+import javax.inject.Inject
 
-@Module
-class DataSourceModule {
+class AuthDataUseCase @Inject constructor(
+  private val tokenRepository: AuthDataRepository
+) {
 
-  @Provides
-  fun provideCloudUserDataSource(api: UserApi): CloudUserDataSource {
-    return CloudUserDataSource(api)
-  }
-
-  @Provides
-  fun provideAuthDataDataSource(context: Context): AuthDataDataSource {
-    return AuthDataDataSource(context)
-  }
-
-  companion object {
-    val INSTANCE = DataSourceModule()
+  fun save(token: String) {
+    val authData = AuthData(token)
+    tokenRepository.save(authData)
   }
 }
