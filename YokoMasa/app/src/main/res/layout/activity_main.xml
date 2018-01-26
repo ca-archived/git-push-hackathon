@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark_gray"
+    android:background="#FFF"
     tools:context=".view.activity.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="81dp"
-        android:layout_height="15dp"
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
-        android:text="Hello World!"/>
+        android:src="@drawable/cat1"/>
 
 </FrameLayout>
