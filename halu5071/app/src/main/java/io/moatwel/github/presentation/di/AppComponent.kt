@@ -26,6 +26,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import io.moatwel.github.Application
+import io.moatwel.github.presentation.di.activity.LoginActivityBuilder
 import io.moatwel.github.presentation.di.activity.MainActivityBuilder
 import javax.inject.Singleton
 
@@ -37,7 +38,8 @@ import javax.inject.Singleton
   RepositoryModule::class,
   DataSourceModule::class,
   UseCaseModule::class,
-  MainActivityBuilder::class
+  MainActivityBuilder::class,
+  LoginActivityBuilder::class
 ])
 interface AppComponent {
 
