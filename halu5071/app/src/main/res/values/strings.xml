@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">github</string>
+
+    <string name="str_login">Login</string>
 </resources>
