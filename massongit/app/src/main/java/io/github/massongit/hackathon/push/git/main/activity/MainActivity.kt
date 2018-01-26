@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onCreate called")
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_main)
+        Toast.makeText(this, "ログイン中......", Toast.LENGTH_SHORT).show()
         val application = this.application
 
         if (application is MainApplication) {

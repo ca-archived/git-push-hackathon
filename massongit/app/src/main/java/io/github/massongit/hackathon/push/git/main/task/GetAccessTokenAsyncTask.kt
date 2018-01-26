@@ -58,11 +58,11 @@ class GetAccessTokenAsyncTask(context: Context, mainHelper: MainHelper, private 
     override fun onPostExecute(accessToken: OAuth2AccessToken?) {
         Log.v(GetAccessTokenAsyncTask.TAG, "onPostExecute called")
         if (accessToken == null) {
-            Log.d(GetAccessTokenAsyncTask.TAG, "トークンエラー")
+            Log.v(GetAccessTokenAsyncTask.TAG, "Token Error!")
             Toast.makeText(this.contextWeakReference.get(), "エラーが発生しました", Toast.LENGTH_LONG).show()
         } else {
             this.mainHelperWeakReference.get()?.accessToken = accessToken
-            Toast.makeText(this.contextWeakReference.get(), "ログインが完了しました", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.contextWeakReference.get(), "ログイン完了！", Toast.LENGTH_LONG).show()
             this.getUserInformationButtonWeakReference.get()?.isEnabled = true
         }
     }
