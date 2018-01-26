@@ -2,7 +2,7 @@
 1. `git clone --recursive https://github.com/CyberAgent/git-push-hackathon`
 1. `cd git-push-hackathon/massongit`
 1. 以下のように`app/src/main/res/values/callback_urls.xml`を作成
-[例] GitHub APIのコールバックURLが`massonurl://github.io/callback`の場合
+    * [例] GitHub APIのコールバックURLが`massonurl://github.io/callback`の場合
 
 ```app/src/main/res/values/callback_urls.xml
 <?xml version="1.0" encoding="utf-8"?>
