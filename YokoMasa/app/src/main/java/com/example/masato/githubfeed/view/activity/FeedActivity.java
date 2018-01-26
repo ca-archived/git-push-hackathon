@@ -1,6 +1,8 @@
 package com.example.masato.githubfeed.view.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,6 +54,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     private FeedPresenter presenter;
     private ViewPager viewPager;
     private FeedViewPagerAdapter adapter;
+    private ActionBarDrawerToggle mActionBarToggle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,11 +68,37 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         presenter = new FeedPresenter(this);
         presenter.onCreate();
         viewPager = (ViewPager) findViewById(R.id.feed_view_pager);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.feed_drawer_layout);
+        mActionBarToggle = new MDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.setDrawerListener(mActionBarToggle);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mActionBarToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mActionBarToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         presenter.onLogOut();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mActionBarToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -110,6 +141,12 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
             adapter.addFragment(feedFragment);
         }
         viewPager.setAdapter(adapter);
+    }
+
+    private class MDrawerToggle extends ActionBarDrawerToggle {
+        public MDrawerToggle(Activity activity, DrawerLayout drawerLayout, int openDrawerContentDescRes, int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
     }
 
 }
