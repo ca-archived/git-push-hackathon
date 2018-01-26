@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="start">開始</string>
+    <string name="login">ログイン</string>
+    <string name="get_user_information">ユーザー情報取得</string>
 </resources>

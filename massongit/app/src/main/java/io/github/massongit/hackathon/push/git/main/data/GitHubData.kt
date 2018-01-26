@@ -1,4 +1,4 @@
-package io.github.massongit.hackathon.push.git.api.github
+package io.github.massongit.hackathon.push.git.main.data
 
 /**
  * GitHub APIの結果を保持するクラス

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GitHub API</string>
-    <string name="start">Start</string>
+    <string name="login">Login</string>
+    <string name="get_user_information">Get User Information</string>
 </resources>
