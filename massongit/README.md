@@ -20,7 +20,6 @@
     <string name="client_id" translatable="false">{GitHub APIのClient ID}</string>
     <string name="client_secret" translatable="false">{Git Hub APIのClient Secret}</string>
 </resources>
-
 ```
 
 1. `cd custom-tabs-client`
