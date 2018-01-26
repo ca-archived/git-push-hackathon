@@ -1,5 +1,9 @@
 package com.example.masato.githubfeed.view.activity;
 
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
+import android.support.customtabs.CustomTabsClient;
+import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,9 +21,7 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.presenter.LoginPresenter;
-import com.example.masato.githubfeed.presenter.Presenter;
 import com.example.masato.githubfeed.view.LoginView;
-import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
 import com.example.masato.githubfeed.view.fragment.ProfileFragment;
 
 /**
@@ -29,10 +31,12 @@ import com.example.masato.githubfeed.view.fragment.ProfileFragment;
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
 
     private static final String OAUTH_URL = "https://github.com/login/oauth/authorize";
+    private static final String CHROME_PACKAGE_NAME = "com.android.chrome";
 
     private LoginPresenter presenter;
     private AppCompatTextView loginDescription;
     private AppCompatButton loginButton;
+    private String oauthUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +46,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         loginButton = (AppCompatButton) findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginDescription = (AppCompatTextView) findViewById(R.id.login_description);
+        oauthUrl = OAUTH_URL + "?client_id=" + getResources().getString(R.string.client_id);
+        if (isChromeInstalled()) {
+            warmUpChrome();
+        }
     }
 
     @Override
@@ -62,15 +70,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         if (uri != null) {
             presenter.onCodeFetched(uri.getQueryParameter("code"));
         }
-    }
-
-    @Override
-    public void startBrowser() {
-        String client_id = getResources().getString(R.string.client_id);
-        String url = OAUTH_URL + "?client_id=" + client_id;
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(this, Uri.parse(url));
     }
 
     @Override
@@ -118,5 +117,39 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void showLoginError(Failure failure) {
         loginDescription.setText(failure.textId);
+    }
+
+    @Override
+    public void startBrowser() {
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setToolbarColor(getResources().getColor(R.color.colorPrimaryDark));
+        CustomTabsIntent customTabsIntent = builder.build();
+        if (isChromeInstalled()) {
+            customTabsIntent.intent.setPackage(CHROME_PACKAGE_NAME);
+        }
+        customTabsIntent.launchUrl(this, Uri.parse(oauthUrl));
+    }
+
+    private void warmUpChrome() {
+        CustomTabsClient.bindCustomTabsService(this, CHROME_PACKAGE_NAME, new CustomTabsServiceConnection() {
+            @Override
+            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+                client.warmup(0);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+
+            }
+        });
+    }
+
+    private boolean isChromeInstalled() {
+        try {
+            getPackageManager().getPackageInfo(CHROME_PACKAGE_NAME, PackageManager.GET_SERVICES);
+        } catch (PackageManager.NameNotFoundException nnfe) {
+            return false;
+        }
+        return true;
     }
 }

@@ -4,26 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -65,15 +57,15 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         ListView listView = (ListView) findViewById(R.id.feed_nav_menu_list);
         listView.setAdapter(ArrayAdapter.createFromResource(this, R.array.nav_menu_array, R.layout.feed_nav_menu_list_element));
         listView.setOnItemClickListener(this);
-        presenter = new FeedPresenter(this);
-        presenter.onCreate();
         viewPager = (ViewPager) findViewById(R.id.feed_view_pager);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.feed_drawer_layout);
         mActionBarToggle = new MDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(mActionBarToggle);
+
+        presenter = new FeedPresenter(this);
+        presenter.onCreate();
     }
 
     @Override
