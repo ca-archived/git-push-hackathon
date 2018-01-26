@@ -25,7 +25,8 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     }
     
     private func loadOfWebView(){
-        guard let loginUrl = URL(string: "https://github.com/login/oauth/authorize?client_id=\(Config.Config.client_id.rawValue)&redirect_uri=\(Config.Config.redirect_uri.rawValue)&scope=\(Config.Config.scope.rawValue)") else { return }
+        let config = Config()
+        guard let loginUrl = URL(string: "https://github.com/login/oauth/authorize?client_id=\(config.get(key: "client_id"))&redirect_uri=\(config.get(key: "redirect_uri"))&scope=\(config.get(key: "scope"))") else { return }
         let request = URLRequest(url: loginUrl)
         self.webViewOfLogin.loadRequest(request)
     }

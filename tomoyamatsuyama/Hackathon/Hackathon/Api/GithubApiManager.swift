@@ -42,7 +42,8 @@ class GithubApiManager: NSObject {
     
     static func requestToken(code: String, completion: ((DefaultDataResponse?) -> Void)? = nil) {
         let getTokenPath: String = "https://github.com/login/oauth/access_token"
-        let parameter = ["client_id": Config.Config.client_id.rawValue, "client_secret": Config.Config.client_secret.rawValue, "code": code]
+        let config = Config()
+        let parameter = ["client_id": config.get(key: "client_id"), "client_secret": config.get(key: "client_secret"), "code": code]
         Alamofire.request(getTokenPath, method: .post, parameters: parameter).response { response in
             completion?(response)
         }
