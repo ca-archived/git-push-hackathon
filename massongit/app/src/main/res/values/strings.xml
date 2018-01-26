@@ -2,4 +2,7 @@
     <string name="app_name">GitHub API</string>
     <string name="login">Login</string>
     <string name="get_user_information">Get User Information</string>
+    <string name="error_happen">Error!</string>
+    <string name="login_completed">Login completed!</string>
+    <string name="logging_in">Logging in ...</string>
 </resources>

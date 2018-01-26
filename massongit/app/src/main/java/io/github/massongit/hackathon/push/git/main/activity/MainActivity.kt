@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onCreate called")
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_main)
-        Toast.makeText(this, "ログイン中......", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, this.getString(R.string.logging_in), Toast.LENGTH_SHORT).show()
         val application = this.application
 
         if (application is MainApplication) {

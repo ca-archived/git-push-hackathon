@@ -2,4 +2,7 @@
 <resources>
     <string name="login">ログイン</string>
     <string name="get_user_information">ユーザー情報取得</string>
+    <string name="error_happen">エラーが発生しました</string>
+    <string name="login_completed">ログイン完了！</string>
+    <string name="logging_in">ログイン中......</string>
 </resources>

@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
+import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 import java.lang.ref.WeakReference
 
@@ -59,10 +60,10 @@ class GetAccessTokenAsyncTask(context: Context, mainHelper: MainHelper, private 
         Log.v(GetAccessTokenAsyncTask.TAG, "onPostExecute called")
         if (accessToken == null) {
             Log.v(GetAccessTokenAsyncTask.TAG, "Token Error!")
-            Toast.makeText(this.contextWeakReference.get(), "エラーが発生しました", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
         } else {
             this.mainHelperWeakReference.get()?.accessToken = accessToken
-            Toast.makeText(this.contextWeakReference.get(), "ログイン完了！", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.login_completed), Toast.LENGTH_LONG).show()
             this.getUserInformationButtonWeakReference.get()?.isEnabled = true
         }
     }
