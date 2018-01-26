@@ -1,16 +1,19 @@
 ## 導入手順
 1. `git clone --recursive https://github.com/CyberAgent/git-push-hackathon`
 1. `cd git-push-hackathon/massongit`
-1. 以下のファイルを作成
+1. 以下のように`app/src/main/res/values/callback_urls.xml`を作成
+[例] GitHub APIのコールバックURLが`massonurl://github.io/callback`の場合
+
 ```app/src/main/res/values/callback_urls.xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="callback_url_scheme" translatable="false">{GitHub APIのコールバックURLのプロトコル}</string>
-    <string name="callback_url_host" translatable="false">{GitHub APIのコールバックURLのホスト名}</string>
-    <string name="callback_url_path" translatable="false">/{GitHub APIのコールバックURLのパス}</string>
+    <string name="callback_url_scheme" translatable="false">massonurl</string>
+    <string name="callback_url_host" translatable="false">github.io</string>
+    <string name="callback_url_path" translatable="false">/callback</string>
 </resources>
 ```
 
+1. 以下のように`app/src/main/res/values/github_apis.xml`を作成
 ```app/src/main/res/values/github_apis.xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
