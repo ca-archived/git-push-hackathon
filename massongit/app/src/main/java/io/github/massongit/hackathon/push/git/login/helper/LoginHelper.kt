@@ -48,10 +48,7 @@ class LoginHelper {
             Log.d(LoginHelper.TAG, "authUrl=" + authUrl)
 
             // GitHub APIの連携アプリ認証画面を表示
-            CustomTabsIntent.Builder().apply {
-                setToolbarColor(R.style.AppTheme)
-                setShowTitle(true)
-            }.build().apply {
+            CustomTabsIntent.Builder().setShowTitle(true).build().apply {
                 val packageName = CustomTabsHelper.getPackageNameToUse(activity)
                 if (packageName != null) {
                     intent.`package` = packageName
