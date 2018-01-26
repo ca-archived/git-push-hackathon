@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
@@ -51,12 +50,7 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onResume called")
         super.onResume()
         if (this.authorizedUri != null) {
-            val getUserInformationButton = this.findViewById(R.id.get_user_information_button)
-
-            if (getUserInformationButton is TextView) {
-                this.helper.setAccessToken(this, this.authorizedUri, getUserInformationButton)
-            }
-
+            this.helper.setAccessToken(this, this.authorizedUri, this.findViewById(R.id.get_user_information_button))
             this.authorizedUri = null
         }
     }
@@ -66,9 +60,6 @@ class MainActivity : AppCompatActivity() {
      */
     fun onGetUserInformationButtonClick(v: View) {
         Log.v(MainActivity.TAG, "onGetUserInformationButtonClick called")
-        val resultView = this.findViewById(R.id.result_view)
-        if (resultView is TextView) {
-            this.helper.getUserInformation(resultView)
-        }
+        this.helper.getUserInformation(this.findViewById(R.id.result_view))
     }
 }
