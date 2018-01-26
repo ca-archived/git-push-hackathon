@@ -35,7 +35,12 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onCreate called")
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_main)
-        this.helper = MainHelper((this.application as MainApplication).service)
+        val application = this.application
+
+        if (application is MainApplication) {
+            this.helper = MainHelper(application.service)
+        }
+
         Log.d(MainActivity.TAG, "data=" + this.intent.dataString)
         this.authorizedUri = this.intent.data
     }
@@ -44,7 +49,12 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onResume called")
         super.onResume()
         if (this.authorizedUri != null) {
-            this.helper.setAccessToken(this, this.authorizedUri, this.findViewById(R.id.get_user_information_button) as TextView)
+            val getUserInformationButton = this.findViewById(R.id.get_user_information_button)
+
+            if (getUserInformationButton is TextView) {
+                this.helper.setAccessToken(this, this.authorizedUri, getUserInformationButton)
+            }
+
             this.authorizedUri = null
         }
     }
@@ -54,6 +64,9 @@ class MainActivity : AppCompatActivity() {
      */
     fun onGetUserInformationButtonClick(v: View) {
         Log.v(MainActivity.TAG, "onGetUserInformationButtonClick called")
-        this.helper.getUserInformation(this.findViewById(R.id.result_view) as TextView)
+        val resultView = this.findViewById(R.id.result_view)
+        if (resultView is TextView) {
+            this.helper.getUserInformation(resultView)
+        }
     }
 }
