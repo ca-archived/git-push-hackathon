@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import android.support.customtabs.CustomTabsIntent
 import android.util.Log
+import android.widget.Toast
 import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import io.github.massongit.hackathon.push.git.R
@@ -54,6 +55,9 @@ class LoginHelper {
                     intent.`package` = packageName
                 }
             }.launchUrl(activity, Uri.parse(authUrl))
+        } else {
+            Log.v(LoginHelper.TAG, "Authorize Error!")
+            Toast.makeText(activity, activity.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
         }
     }
 }
