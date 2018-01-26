@@ -25,7 +25,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="masaworld" android:host="githubfeed" android:path="/"/>
+                <data android:scheme="@string/oauth_redirect_scheme" android:host="@string/oauth_redirect_host"/>
             </intent-filter>
         </activity>
 
