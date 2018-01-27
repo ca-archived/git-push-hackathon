@@ -13,6 +13,10 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
 import com.example.masato.githubfeed.view.FeedEntryView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -74,8 +78,14 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
 
     private class FeedEntryViewViewHolder extends RecyclerView.ViewHolder implements FeedEntryView{
 
+        AppCompatTextView date;
         AppCompatTextView title;
         CircleImageView thumbnail;
+
+        @Override
+        public void setDate(String date) {
+            this.date.setText(date);
+        }
 
         @Override
         public void setTitle(String title) {
@@ -89,6 +99,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
 
         FeedEntryViewViewHolder(View itemView) {
             super(itemView);
+            date = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_date);
             title = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_title);
             thumbnail = (CircleImageView) itemView.findViewById(R.id.feed_entry_image);
         }

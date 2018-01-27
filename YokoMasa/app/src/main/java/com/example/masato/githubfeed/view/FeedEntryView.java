@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 
 public interface FeedEntryView {
 
+    public void setDate(String date);
+
     public void setTitle(String title);
 
     public void setThumbnail(Bitmap bitmap);

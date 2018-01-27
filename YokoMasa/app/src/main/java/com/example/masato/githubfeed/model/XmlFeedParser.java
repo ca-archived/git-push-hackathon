@@ -8,6 +8,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,8 @@ import java.util.List;
 public class XmlFeedParser {
 
     private static XmlPullParser xmlPullParser;
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
 
     public static List<FeedEntry> parse(String feedXml) {
         List<FeedEntry> list = new ArrayList<>();
@@ -37,7 +43,7 @@ public class XmlFeedParser {
         return list;
     }
 
-    private static FeedEntry findFeedEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private static FeedEntry findFeedEntry(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
         int eventType = parser.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if (eventType == XmlPullParser.START_TAG) {
@@ -51,7 +57,7 @@ public class XmlFeedParser {
         return null;
     }
 
-    private static FeedEntry mapToFeedEntryObject(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private static FeedEntry mapToFeedEntryObject(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
         FeedEntry feedEntry = new FeedEntry();
         int eventType = parser.getEventType();
         while (eventType != XmlPullParser.END_TAG || !parser.getName().equals("entry")) {
@@ -63,6 +69,8 @@ public class XmlFeedParser {
                     feedEntry.thumbnailUrl = parser.getAttributeValue(null, "url");
                 } else if (tagName.equals("author")) {
                     feedEntry.name = getAuthorName(parser);
+                } else if (tagName.equals("published")) {
+                    feedEntry.published = dateFormat.parse(getContent(parser));
                 }
             }
             eventType = parser.next();

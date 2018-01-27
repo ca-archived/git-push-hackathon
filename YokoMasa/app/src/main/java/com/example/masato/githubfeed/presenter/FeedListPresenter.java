@@ -11,8 +11,11 @@ import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.view.FeedEntryView;
 import com.example.masato.githubfeed.view.FeedListView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 /**
  * Created by Masato on 2018/01/22.
@@ -24,6 +27,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
     public static final int LOADING_VIEW = 2;
     public static final int NOTHING_TO_SHOW_VIEW = 3;
     private static final int PREFETCH_THRESHOLD = 15;
+    private static final DateFormat dateFormat  = new SimpleDateFormat("yyyy/MM/dd");
 
     private String feedUrl;
     private FeedListView feedListView;
@@ -53,6 +57,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
     public void onBindFeedEntryView(final FeedEntryView view, int position) {
         fetchFeedEntriesIfNeeded(position);
         FeedEntry feedEntry = feedEntries.get(position);
+        view.setDate(dateFormat.format(feedEntry.published));
         view.setTitle(feedEntry.title);
         if (!feedEntry.isThumbnailSet()) {
             fetchThumbnail(feedEntry, view, position);

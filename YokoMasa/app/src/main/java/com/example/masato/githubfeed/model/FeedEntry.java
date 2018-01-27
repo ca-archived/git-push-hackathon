@@ -6,6 +6,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Masato on 2018/01/19.
@@ -15,6 +17,7 @@ public class FeedEntry implements Parcelable {
     public String title;
     public String name;
     public String thumbnailUrl;
+    public Date published;
     private Bitmap thumbnail;
 
     public static Parcelable.Creator<FeedEntry> CREATOR = new Parcelable.Creator<FeedEntry>() {
@@ -24,6 +27,7 @@ public class FeedEntry implements Parcelable {
             feedEntry.title = parcel.readString();
             feedEntry.name = parcel.readString();
             feedEntry.thumbnailUrl = parcel.readString();
+            feedEntry.published = (Date) parcel.readSerializable();
             int bitmapByteArrayLength = parcel.readInt();
             if (bitmapByteArrayLength != 0) {
                 byte[] bitmapByteArray = new byte[bitmapByteArrayLength];
@@ -61,6 +65,7 @@ public class FeedEntry implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(name);
         parcel.writeString(thumbnailUrl);
+        parcel.writeSerializable(published);
         byte[] bitmapByteArray = thumbnailToByteArray();
         if (bitmapByteArray != null) {
             parcel.writeInt(bitmapByteArray.length);
