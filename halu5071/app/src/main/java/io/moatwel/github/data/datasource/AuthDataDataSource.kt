@@ -34,8 +34,7 @@ import javax.inject.Inject
 
 class AuthDataDataSource @Inject constructor(
   private val context: Context,
-  private val moshi: Moshi,
-  private val okHttpClient: OkHttpClient
+  private val moshi: Moshi
 ) {
 
   fun saveToSharedPreference(authData: AuthData) {
@@ -73,6 +72,9 @@ class AuthDataDataSource @Inject constructor(
     val request = Request.Builder()
       .url(context.getString(R.string.str_access_token_url,
         code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET))
+      .build()
+
+    val okHttpClient = OkHttpClient.Builder()
       .build()
 
     val response = okHttpClient.newCall(request).execute()
