@@ -40,8 +40,8 @@ class DataSourceModule {
   }
 
   @Provides
-  fun provideAuthDataDataSource(context: Context, moshi: Moshi, okHttpClient: OkHttpClient): AuthDataDataSource {
-    return AuthDataDataSource(context, moshi, okHttpClient)
+  fun provideAuthDataDataSource(context: Context, moshi: Moshi): AuthDataDataSource {
+    return AuthDataDataSource(context, moshi)
   }
 
   companion object {

@@ -28,7 +28,9 @@ import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import io.moatwel.github.data.network.HeaderInterceptor
 import io.moatwel.github.data.network.UserApi
+import io.moatwel.github.domain.usecase.AuthDataUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,6 +42,7 @@ import javax.inject.Singleton
 class NetworkModule {
 
   @Provides
+  @Singleton
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
     return Retrofit.Builder()
       .client(okHttpClient)
@@ -50,12 +53,11 @@ class NetworkModule {
   }
 
   @Provides
-  @Singleton
-  fun provideOkHttp(): OkHttpClient {
+  fun provideOkHttp(authDataUseCase: AuthDataUseCase): OkHttpClient {
     val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
     return OkHttpClient.Builder()
       .addNetworkInterceptor(StethoInterceptor())
-//      .addInterceptor(HeaderInterceptor())
+      .addInterceptor(HeaderInterceptor(authDataUseCase))
       .addInterceptor(logger)
       .build()
   }
