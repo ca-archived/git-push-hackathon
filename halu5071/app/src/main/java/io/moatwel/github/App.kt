@@ -67,4 +67,8 @@ class App : Application(), HasActivityInjector {
   private fun setupDagger() {
     AppInjector.init(this)
   }
+
+  private fun setupEmoji() {
+
+  }
 }
