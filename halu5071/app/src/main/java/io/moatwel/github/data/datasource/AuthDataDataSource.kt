@@ -24,14 +24,19 @@ package io.moatwel.github.data.datasource
 
 import android.content.Context
 import com.squareup.moshi.Moshi
+import io.moatwel.github.BuildConfig
+import io.moatwel.github.R
 import io.moatwel.github.domain.entity.AuthData
+import io.reactivex.Observable
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import javax.inject.Inject
 
 class AuthDataDataSource @Inject constructor(
-  private val context: Context
+  private val context: Context,
+  private val moshi: Moshi,
+  private val okHttpClient: OkHttpClient
 ) {
-
-  @Inject lateinit var moshi: Moshi
 
   fun saveToSharedPreference(authData: AuthData) {
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
@@ -44,21 +49,14 @@ class AuthDataDataSource @Inject constructor(
     editor.apply()
   }
 
-  fun readFromSharedPreference(): AuthData {
+  fun readFromSharedPreference(): String {
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
-    val adapter = moshi.adapter(AuthData::class.java)
 
     val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
-    if (jsonResource == "") {
-      throw RuntimeException("Failed to load auth data")
-    }
-    val authData = adapter.fromJson(jsonResource)
 
     editor.apply()
-    authData?.let {
-      return it
-    }?: throw RuntimeException("AuthData is null")
+    return jsonResource
   }
 
   fun removeFromSharedPreference() {
@@ -68,6 +66,23 @@ class AuthDataDataSource @Inject constructor(
     editor.remove(ARG_AUTH_DATA)
 
     editor.apply()
+  }
+
+  fun fetchFromApi(code: String): Observable<String> = Observable.create {
+    // TODO: replace this implementation to Retrofit after creating StringConverterFactory
+    val request = Request.Builder()
+      .url(context.getString(R.string.str_access_token_url,
+        code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET))
+      .build()
+
+    val response = okHttpClient.newCall(request).execute()
+    when (response.code()) {
+      in 300..399 -> it.onError(RuntimeException("Redirecting"))
+      in 400..499 -> it.onError(RuntimeException("Network Exception"))
+      in 500..599 -> it.onError(RuntimeException("Server Error"))
+      else -> it.onNext(response.body()?.string().toString())
+    }
+    it.onComplete()
   }
 
   companion object {

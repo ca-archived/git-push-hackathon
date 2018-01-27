@@ -24,18 +24,23 @@ package io.moatwel.github
 
 import android.app.Activity
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import io.moatwel.github.domain.usecase.AuthDataUseCase
 import io.moatwel.github.presentation.di.AppInjector
 import timber.log.Timber
 import javax.inject.Inject
 
-class Application : Application(), HasActivityInjector {
+class App : Application(), HasActivityInjector {
 
   @Inject
   lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
+  @Inject
+  lateinit var authDataUseCase: AuthDataUseCase
 
   override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 
@@ -45,13 +50,18 @@ class Application : Application(), HasActivityInjector {
     // Leak Canary
     LeakCanary.install(this)
 
+    // Stetho
+    Stetho.initializeWithDefaults(this)
+
     // Timber
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
     }
-
     // Dagger
     setupDagger()
+
+    // Load AuthData
+    authDataUseCase.load()
   }
 
   private fun setupDagger() {

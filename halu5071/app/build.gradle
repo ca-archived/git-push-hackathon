@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -49,7 +50,10 @@ dependencies {
 
     // Rx
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+
+    // Support Library
     implementation "com.android.support:appcompat-v7:$support_lib_version"
+    implementation "com.android.support:customtabs:$support_lib_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // RxLifecycle
@@ -76,12 +80,14 @@ dependencies {
 
     // Stetho
     implementation "com.facebook.stetho:stetho:$stetho_version"
-    implementation "com.facebook.stetho:stetho-okhttp:$stetho_version"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stetho_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$moshi_version"

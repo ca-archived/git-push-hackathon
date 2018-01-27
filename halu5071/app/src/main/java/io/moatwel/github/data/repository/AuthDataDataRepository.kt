@@ -25,6 +25,7 @@ package io.moatwel.github.data.repository
 import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
+import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
@@ -34,17 +35,28 @@ import javax.inject.Inject
  *  Actual operation is implemented on [AuthDataDataSource].
  */
 class AuthDataDataRepository @Inject constructor(
-  private val dataSource: AuthDataDataSource) : AuthDataRepository {
+  private val dataSource: AuthDataDataSource
+) : AuthDataRepository {
 
   override fun save(authData: AuthData) {
     dataSource.saveToSharedPreference(authData)
   }
 
-  override fun get(): AuthData {
+  override fun get(): String {
     return dataSource.readFromSharedPreference()
   }
 
   override fun delete() {
     dataSource.removeFromSharedPreference()
+  }
+
+  override fun fetch(code: String): Observable<AuthData> {
+    return dataSource.fetchFromApi(code)
+      .map { geneAuthDataFromResponse(it) }
+  }
+
+  private fun geneAuthDataFromResponse(response: String): AuthData {
+    val str = response.split("&")
+    return AuthData(str[0].substring(13))
   }
 }
