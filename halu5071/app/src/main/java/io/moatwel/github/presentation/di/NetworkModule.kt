@@ -23,12 +23,14 @@
 
 package io.moatwel.github.presentation.di
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.network.UserApi
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -38,7 +40,6 @@ import javax.inject.Singleton
 class NetworkModule {
 
   @Provides
-  @Singleton
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
     return Retrofit.Builder()
       .client(okHttpClient)
@@ -51,7 +52,12 @@ class NetworkModule {
   @Provides
   @Singleton
   fun provideOkHttp(): OkHttpClient {
-    return OkHttpClient.Builder().build()
+    val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+    return OkHttpClient.Builder()
+      .addNetworkInterceptor(StethoInterceptor())
+//      .addInterceptor(HeaderInterceptor())
+      .addInterceptor(logger)
+      .build()
   }
 
   @Provides

@@ -23,6 +23,7 @@
 package io.moatwel.github.domain.repository
 
 import io.moatwel.github.domain.entity.AuthData
+import io.reactivex.Observable
 
 interface AuthDataRepository {
 
@@ -36,12 +37,17 @@ interface AuthDataRepository {
   /**
    *  read auth data from some where
    *
-   *  @return AuthData
+   *  @return String which present json resouce of auth data or empty
    */
-  fun get(): AuthData
+  fun get(): String
 
   /**
    *  remove auth data
    */
   fun delete()
+
+  /**
+   *  fetch auth data from somewhere
+   */
+  fun fetch(code: String): Observable<AuthData>
 }

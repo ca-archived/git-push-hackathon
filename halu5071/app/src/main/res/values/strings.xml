@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">github</string>
+    <string name="app_name">rosseta</string>
 
     <string name="str_login">Login</string>
+    <string name="str_oath_url">
+        https://github.com/login/oauth/authorize?client_id=%1$s&amp;scope=%2$s
+    </string>
+    <string name="str_access_token_url">
+        https://github.com/login/oauth/access_token?code=%1$s&amp;client_id=%2$s&amp;client_secret=%3$s
+    </string>
 </resources>

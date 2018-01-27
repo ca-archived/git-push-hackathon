@@ -21,18 +21,18 @@
  */
 package io.moatwel.github.presentation.di
 
-import io.moatwel.github.Application
+import io.moatwel.github.App
 
 class AppInjector {
 
   companion object {
-    fun init(app: Application) {
+    fun init(app: App) {
       DaggerAppComponent.builder()
+        .application(app)
         .addNetworkModule(NetworkModule.INSTANCE)
         .addRepositoryModule(RepositoryModule.INSTANCE)
         .addDatasourceModule(DataSourceModule.INSTANCE)
         .addUsecaseModule(UseCaseModule.INSTANCE)
-        .application(app)
         .build()
         .inject(app)
     }

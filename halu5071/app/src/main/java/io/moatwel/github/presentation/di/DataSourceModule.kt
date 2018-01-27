@@ -23,11 +23,13 @@
 package io.moatwel.github.presentation.di
 
 import android.content.Context
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.data.network.UserApi
+import okhttp3.OkHttpClient
 
 @Module
 class DataSourceModule {
@@ -38,8 +40,8 @@ class DataSourceModule {
   }
 
   @Provides
-  fun provideAuthDataDataSource(context: Context): AuthDataDataSource {
-    return AuthDataDataSource(context)
+  fun provideAuthDataDataSource(context: Context, moshi: Moshi, okHttpClient: OkHttpClient): AuthDataDataSource {
+    return AuthDataDataSource(context, moshi, okHttpClient)
   }
 
   companion object {

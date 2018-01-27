@@ -23,12 +23,14 @@
 
 package io.moatwel.github.presentation.di
 
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.domain.repository.UserRepository
 import io.moatwel.github.domain.usecase.AuthDataUseCase
 import io.moatwel.github.domain.usecase.UserUseCase
+import javax.inject.Singleton
 
 @Module
 class UseCaseModule {
@@ -38,9 +40,14 @@ class UseCaseModule {
     return UserUseCase(userRepository)
   }
 
+  /**
+   *  This AuthDataUseCase is provided as Singleton.
+   *  Because this usecase manage user auth data whole application lifecycle.
+   */
   @Provides
-  fun provideAuthDataUseCase(authDataRepository: AuthDataRepository): AuthDataUseCase {
-    return AuthDataUseCase(authDataRepository)
+  @Singleton
+  fun provideAuthDataUseCase(authDataRepository: AuthDataRepository, moshi: Moshi): AuthDataUseCase {
+    return AuthDataUseCase(authDataRepository, moshi)
   }
 
   companion object {
