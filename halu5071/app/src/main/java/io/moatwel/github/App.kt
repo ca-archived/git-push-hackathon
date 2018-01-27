@@ -26,7 +26,6 @@ import android.app.Activity
 import android.app.Application
 import android.support.text.emoji.EmojiCompat
 import android.support.text.emoji.bundled.BundledEmojiCompatConfig
-import android.support.v4.provider.FontRequest
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
@@ -50,22 +49,29 @@ class App : Application(), HasActivityInjector {
   override fun onCreate() {
     super.onCreate()
     setupEmoji()
+    setupLeakCanary()
+    setupStetho()
+    setupTimber()
+    setupDagger()
+    loadAuthData()
+  }
 
-    // Leak Canary
-    LeakCanary.install(this)
+  private fun loadAuthData() {
+    authDataUseCase.load()
+  }
 
-    // Stetho
-    Stetho.initializeWithDefaults(this)
-
-    // Timber
+  private fun setupTimber() {
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
     }
-    // Dagger
-    setupDagger()
+  }
 
-    // Load AuthData
-    authDataUseCase.load()
+  private fun setupStetho() {
+    Stetho.initializeWithDefaults(this)
+  }
+
+  private fun setupLeakCanary() {
+    LeakCanary.install(this)
   }
 
   private fun setupDagger() {
