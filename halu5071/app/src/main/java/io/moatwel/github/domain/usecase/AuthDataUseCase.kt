@@ -26,6 +26,7 @@ import com.squareup.moshi.Moshi
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.reactivex.Observable
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -61,6 +62,7 @@ class AuthDataUseCase @Inject constructor(
     val data = moshi.adapter(AuthData::class.java).fromJson(jsonResource)
     data?.let {
       this.authData = it
+      Timber.d("AuthData loaded: ${it.token}")
     } ?: return false
 
     return true

@@ -24,6 +24,9 @@ package io.moatwel.github
 
 import android.app.Activity
 import android.app.Application
+import android.support.text.emoji.EmojiCompat
+import android.support.text.emoji.bundled.BundledEmojiCompatConfig
+import android.support.v4.provider.FontRequest
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
@@ -46,6 +49,7 @@ class App : Application(), HasActivityInjector {
 
   override fun onCreate() {
     super.onCreate()
+    setupEmoji()
 
     // Leak Canary
     LeakCanary.install(this)
@@ -66,5 +70,10 @@ class App : Application(), HasActivityInjector {
 
   private fun setupDagger() {
     AppInjector.init(this)
+  }
+
+  private fun setupEmoji() {
+    val config = BundledEmojiCompatConfig(this)
+    EmojiCompat.init(config)
   }
 }
