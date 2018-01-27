@@ -76,7 +76,7 @@ class AuthDataDataSource @Inject constructor(
       .build()
 
     val response = okHttpClient.newCall(request).execute()
-    when(response.code()) {
+    when (response.code()) {
       in 300..399 -> it.onError(RuntimeException("Redirecting"))
       in 400..499 -> it.onError(RuntimeException("Network Exception"))
       in 500..599 -> it.onError(RuntimeException("Server Error"))

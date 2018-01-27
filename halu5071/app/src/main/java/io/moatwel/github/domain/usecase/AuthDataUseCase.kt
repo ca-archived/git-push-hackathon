@@ -61,7 +61,7 @@ class AuthDataUseCase @Inject constructor(
     val data = moshi.adapter(AuthData::class.java).fromJson(jsonResource)
     data?.let {
       this.authData = it
-    }?: return false
+    } ?: return false
 
     return true
   }

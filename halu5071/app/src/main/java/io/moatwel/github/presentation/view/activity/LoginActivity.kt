@@ -10,7 +10,6 @@ import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.usecase.AuthDataUseCase
-import io.moatwel.github.presentation.util.app
 import io.moatwel.github.presentation.util.observeOnMainThread
 import io.moatwel.github.presentation.util.subscribeOnIoThread
 import kotlinx.android.synthetic.main.activity_login.*
@@ -47,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
     uri?.let {
       val code = it.getQueryParameter("code")
       getAccessToken(code)
-    }?: throw RuntimeException("code must not be null")
+    } ?: throw RuntimeException("code must not be null")
   }
 
   private fun getAccessToken(code: String) {
