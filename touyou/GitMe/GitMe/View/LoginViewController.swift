@@ -65,7 +65,7 @@ class LoginViewController: UIViewController {
                 switch event {
                 case .next(let value):
                     self.oauthKey = value.oauthToken
-                    // 遷移する
+                    self.dismiss(animated: true, completion: nil)
                 default:
                     break
                 }

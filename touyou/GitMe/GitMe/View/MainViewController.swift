@@ -14,13 +14,22 @@ import UIKit
 class MainViewController: UIViewController {
 
     // MARK: Internal
-
+    var oauthKey: String!
 
     // MARK: UIViewController
+
+    override func awakeFromNib() {
+
+        super.awakeFromNib()
+
+        MainContainer.shared.configure(self)
+    }
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
+
+
     }
 
 
@@ -30,3 +39,7 @@ class MainViewController: UIViewController {
     // MARK: Private
 
 }
+
+// MARK: - Storyboard Instantiable
+
+extension MainViewController: StoryboardInstantiable {}
