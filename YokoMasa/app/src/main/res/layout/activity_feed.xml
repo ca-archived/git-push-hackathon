@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_light_gray"
+        android:background="#FFF"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
@@ -21,23 +21,9 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <FrameLayout
+            android:id="@+id/feed_mother"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/feed_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v4.view.PagerTabStrip
-                    android:id="@+id/feed_pager_title_strip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#dddddd"
-                    android:paddingBottom="13dp"
-                    android:paddingTop="13dp"/>
-
-            </android.support.v4.view.ViewPager>
 
         </FrameLayout>
 
@@ -78,21 +64,6 @@
             android:entries="@array/nav_menu_array"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginRight="30dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/cat2"/>
-
-        </FrameLayout>
 
     </LinearLayout>
 

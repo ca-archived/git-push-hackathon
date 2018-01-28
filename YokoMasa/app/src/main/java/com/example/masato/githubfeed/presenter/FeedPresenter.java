@@ -32,11 +32,11 @@ public class FeedPresenter implements Presenter {
                 onApiFailure(failure);
             }
         });
-        GitHubApi.getApi().fetchFeedUrls(new GitHubApiCallback() {
+        GitHubApi.getApi().fetchFeedUrl(new GitHubApiCallback() {
             @Override
             public void onApiSuccess(Object object) {
-                Map<String, String> feedUrls = (Map<String, String>) object;
-                view.preparePager(feedUrls);
+                String feedUrl = (String) object;
+                view.startFeedFragment(feedUrl);
             }
 
             @Override
@@ -54,9 +54,14 @@ public class FeedPresenter implements Presenter {
         }
     }
 
-    public void onLogOut() {
+    public void onLogOutSelected() {
         GitHubApi.getApi().deleteToken();
         view.navigateToLogInView();
+    }
+
+    public void onGlobalFeedSelected() {
+        view.closeDrawer();
+        view.navigateToGlobalFeedView();
     }
 
     @Override

@@ -61,14 +61,14 @@ public class GitHubResourceManager {
         });
     }
 
-    public void getFeedUrls(final GitHubApiCallback callback) {
+    public void getFeedUrl(final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection("https://api.github.com/feeds");
         connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override
             public void onHttpResponse(int statusCode, Object content) {
                 String bodyString = (String) content;
-                Object feedUrls = GitHubObjectMapper.mapFeedUrls(bodyString, resources);
-                handleResponse(statusCode, feedUrls, callback);
+                Object feedUrl = GitHubObjectMapper.mapFeedUrl(bodyString);
+                handleResponse(statusCode, feedUrl, callback);
             }
 
             @Override

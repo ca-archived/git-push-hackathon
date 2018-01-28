@@ -14,8 +14,12 @@ public interface FeedView extends BaseView{
 
     public void setProfile(Profile profile);
 
+    public void closeDrawer();
+
     public void navigateToLogInView();
 
-    public void preparePager(Map<String, String> feedUrls);
+    public void navigateToGlobalFeedView();
+
+    public void startFeedFragment(String feedUrl);
 
 }

@@ -3,4 +3,7 @@
     <item
         android:id="@+id/feed_nav_menu_logout"
         android:title="@string/feed_nav_menu_logout"/>
+    <item
+        android:id="@+id/feed_nav_menu_global"
+        android:title="@string/feed_timeline"/>
 </menu>

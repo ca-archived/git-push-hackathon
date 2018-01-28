@@ -31,6 +31,8 @@
 
         <activity android:name=".view.activity.FeedActivity"/>
 
+        <activity android:name=".view.activity.GlobalFeedActivity"/>
+
     </application>
 
 </manifest>

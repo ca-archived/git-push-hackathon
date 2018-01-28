@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 
 public class GitHubApi {
 
+    public static final String GLOBAL_FEED_URL = "https://github.com/timeline";
     private GitHubTokenManager tokenManager;
     private GitHubResourceManager resourceManager;
     private ExecutorService executorService;
@@ -46,8 +47,8 @@ public class GitHubApi {
         resourceManager.getFeedEntries(url, page, callback);
     }
 
-    public void fetchFeedUrls(GitHubApiCallback callback) {
-        resourceManager.getFeedUrls(callback);
+    public void fetchFeedUrl(GitHubApiCallback callback) {
+        resourceManager.getFeedUrl(callback);
     }
 
     public void fetchBitmap(String url, GitHubApiCallback callback) {

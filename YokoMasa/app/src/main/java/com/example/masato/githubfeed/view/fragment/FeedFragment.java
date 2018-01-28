@@ -34,11 +34,6 @@ public class FeedFragment extends Fragment implements FeedListView {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    public String getTitle() {
-        Bundle bundle = getArguments();
-        return bundle.getString("title");
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

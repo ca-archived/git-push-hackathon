@@ -47,23 +47,14 @@ public class GitHubObjectMapper {
         return profile;
     }
 
-    public static Map<String, String> mapFeedUrls(String feedUrlJson, Resources resources) {
-        Map<String, String> urls = new HashMap<>();
+    public static String mapFeedUrl(String feedUrlJson) {
         try {
             JSONObject jsonObject = new JSONObject(feedUrlJson);
-            Iterator<String> keys = jsonObject.keys();
-            while (keys.hasNext()) {
-                String key = keys.next();
-                if (Pattern.matches(".*_url$", key)) {
-                    if (!key.equals("user_url")) {
-                        urls.put(FeedTitle.getTitleFromIdentifier(key, resources), jsonObject.getString(key));
-                    }
-                }
-            }
+            return jsonObject.getString("current_user_public_url");
         } catch(JSONException je) {
             je.printStackTrace();
         }
-        return urls;
+        return null;
     }
 
 }

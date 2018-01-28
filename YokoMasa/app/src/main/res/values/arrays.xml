@@ -2,5 +2,6 @@
 <resources>
     <string-array name="nav_menu_array">
         <item>@string/logout</item>
+        <item>@string/feed_timeline</item>
     </string-array>
 </resources>

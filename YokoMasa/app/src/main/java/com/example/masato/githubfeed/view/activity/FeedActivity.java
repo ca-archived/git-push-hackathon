@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,20 +19,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
-import com.example.masato.githubfeed.githubapi.GitHubApi;
-import com.example.masato.githubfeed.model.FeedEntry;
-import com.example.masato.githubfeed.model.FeedTitle;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.presenter.FeedPresenter;
 import com.example.masato.githubfeed.view.FeedView;
-import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
-import com.example.masato.githubfeed.view.adapter.FeedViewPagerAdapter;
 import com.example.masato.githubfeed.view.fragment.FeedFragment;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,9 +33,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FeedActivity extends AppCompatActivity implements FeedView, AdapterView.OnItemClickListener {
 
     private FeedPresenter presenter;
-    private ViewPager viewPager;
-    private FeedViewPagerAdapter adapter;
     private ActionBarDrawerToggle mActionBarToggle;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,10 +45,9 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         ListView listView = (ListView) findViewById(R.id.feed_nav_menu_list);
         listView.setAdapter(ArrayAdapter.createFromResource(this, R.array.nav_menu_array, R.layout.feed_nav_menu_list_element));
         listView.setOnItemClickListener(this);
-        viewPager = (ViewPager) findViewById(R.id.feed_view_pager);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.feed_drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.feed_drawer_layout);
         mActionBarToggle = new MDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(mActionBarToggle);
 
@@ -82,7 +69,14 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        presenter.onLogOut();
+        switch (i) {
+            case 0:
+                presenter.onLogOutSelected();
+                break;
+            case 1:
+                presenter.onGlobalFeedSelected();
+                break;
+        }
     }
 
     @Override
@@ -91,6 +85,11 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void closeDrawer() {
+        drawerLayout.closeDrawers();
     }
 
     @Override
@@ -119,20 +118,20 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     }
 
     @Override
-    public void preparePager(Map<String, String> feedUrls) {
-        adapter = new FeedViewPagerAdapter(getSupportFragmentManager());
-        Set<String> keys = feedUrls.keySet();
-        Iterator<String> iterator = keys.iterator();
-        while (iterator.hasNext()) {
-            String title = iterator.next();
-            Bundle arguments = new Bundle();
-            arguments.putString("title", title);
-            arguments.putString("url", feedUrls.get(title));
-            FeedFragment feedFragment = new FeedFragment();
-            feedFragment.setArguments(arguments);
-            adapter.addFragment(feedFragment);
-        }
-        viewPager.setAdapter(adapter);
+    public void navigateToGlobalFeedView() {
+        Intent intent = new Intent(this, GlobalFeedActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startFeedFragment(String feedUrl) {
+        Bundle arguments = new Bundle();
+        arguments.putString("url", feedUrl);
+        FeedFragment feedFragment = new FeedFragment();
+        feedFragment.setArguments(arguments);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.feed_mother, feedFragment);
+        ft.commit();
     }
 
     private class MDrawerToggle extends ActionBarDrawerToggle {
