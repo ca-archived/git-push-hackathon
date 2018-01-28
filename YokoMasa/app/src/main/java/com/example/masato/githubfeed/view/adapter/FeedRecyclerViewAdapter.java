@@ -1,20 +1,18 @@
 package com.example.masato.githubfeed.view.adapter;
 
-import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
+import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.FeedEntryView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,6 +25,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
 
     private FeedListPresenter presenter;
     private LayoutInflater inflater;
+    private Context context;
 
     @Override
     public int getItemViewType(int position) {
@@ -38,7 +37,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         View view = null;
         if (viewType == FeedListPresenter.FEED_ENTRY_VIEW) {
             view = inflater.inflate(R.layout.feed_entry, parent, false);
-            return new FeedEntryViewViewHolder(view);
+            return new FeedEntryViewViewHolder(view, context);
         } else if (viewType == FeedListPresenter.LOADING_VIEW){
             view = inflater.inflate(R.layout.feed_loading, parent, false);
             return new LoadingViewHolder(view);
@@ -71,9 +70,10 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public FeedRecyclerViewAdapter(FeedListPresenter presenter, LayoutInflater inflater) {
+    public FeedRecyclerViewAdapter(FeedListPresenter presenter, LayoutInflater inflater, Context context) {
         this.inflater = inflater;
         this.presenter = presenter;
+        this.context = context;
     }
 
     private class FeedEntryViewViewHolder extends RecyclerView.ViewHolder implements FeedEntryView{
@@ -81,10 +81,11 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         AppCompatTextView date;
         AppCompatTextView title;
         CircleImageView thumbnail;
+        Context context;
 
         @Override
-        public void setDate(String date) {
-            this.date.setText(date);
+        public void setDate(Date date) {
+            this.date.setText(DateUtil.getReadableDateForFeed(date, context));
         }
 
         @Override
@@ -97,11 +98,12 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
             this.thumbnail.setImageBitmap(bitmap);
         }
 
-        FeedEntryViewViewHolder(View itemView) {
+        FeedEntryViewViewHolder(View itemView, Context context) {
             super(itemView);
             date = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_date);
             title = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_title);
             thumbnail = (CircleImageView) itemView.findViewById(R.id.feed_entry_image);
+            this.context = context;
         }
     }
 

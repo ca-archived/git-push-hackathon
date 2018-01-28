@@ -8,6 +8,7 @@ import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.model.FeedEntry;
+import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.FeedEntryView;
 import com.example.masato.githubfeed.view.FeedListView;
 
@@ -27,7 +28,6 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
     public static final int LOADING_VIEW = 2;
     public static final int NOTHING_TO_SHOW_VIEW = 3;
     private static final int PREFETCH_THRESHOLD = 15;
-    private static final DateFormat dateFormat  = new SimpleDateFormat("yyyy/MM/dd");
 
     private String feedUrl;
     private FeedListView feedListView;
@@ -57,7 +57,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
     public void onBindFeedEntryView(final FeedEntryView view, int position) {
         fetchFeedEntriesIfNeeded(position);
         FeedEntry feedEntry = feedEntries.get(position);
-        view.setDate(dateFormat.format(feedEntry.published));
+        view.setDate(feedEntry.published);
         view.setTitle(feedEntry.title);
         if (!feedEntry.isThumbnailSet()) {
             fetchThumbnail(feedEntry, view, position);

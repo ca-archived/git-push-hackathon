@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.masato.githubfeed.model.Profile;
 
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,6 +28,7 @@ public class GitHubApi {
 
     public static void init(SharedPreferences preferences, Resources resources) {
         api = new GitHubApi(preferences, resources);
+        Log.i("gh_feed", TimeZone.getDefault().getDisplayName());
     }
 
     public static GitHubApi getApi() {

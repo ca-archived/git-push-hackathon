@@ -22,4 +22,9 @@
 
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+
+    <string name="seconds_ago">秒前</string>
+    <string name="minutes_ago">分前</string>
+    <string name="hours_ago">時間前</string>
+    <string name="days_ago">日前</string>
 </resources>

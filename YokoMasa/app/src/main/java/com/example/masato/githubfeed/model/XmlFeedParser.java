@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Masato on 2018/01/20.
@@ -22,7 +23,7 @@ import java.util.List;
 public class XmlFeedParser {
 
     private static XmlPullParser xmlPullParser;
-    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
 
     public static List<FeedEntry> parse(String feedXml) {
@@ -70,7 +71,9 @@ public class XmlFeedParser {
                 } else if (tagName.equals("author")) {
                     feedEntry.name = getAuthorName(parser);
                 } else if (tagName.equals("published")) {
-                    feedEntry.published = dateFormat.parse(getContent(parser));
+                    String con = getContent(parser);
+                    Log.i("gh_feed", con);
+                    feedEntry.published = dateFormat.parse(con);
                 }
             }
             eventType = parser.next();

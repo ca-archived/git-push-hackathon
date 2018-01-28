@@ -52,12 +52,12 @@ public class FeedFragment extends Fragment implements FeedListView {
     private void init() {
         Bundle bundle = getArguments();
         presenter = new FeedListPresenter(this, bundle.getString("url"));
-        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater());
+        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater(), getContext());
     }
 
     private void init(Bundle savedInstanceState) {
         presenter = new FeedListPresenter(this, savedInstanceState);
-        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater());
+        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater(), getContext());
         scrollX = savedInstanceState.getInt("scroll_x");
         scrollY = savedInstanceState.getInt("scroll_y");
     }
