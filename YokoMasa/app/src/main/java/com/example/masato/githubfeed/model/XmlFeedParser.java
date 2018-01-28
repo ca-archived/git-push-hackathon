@@ -74,6 +74,8 @@ public class XmlFeedParser {
                     String con = getContent(parser);
                     Log.i("gh_feed", con);
                     feedEntry.published = dateFormat.parse(con);
+                } else if (tagName.equals("link")) {
+                    feedEntry.setApiRepoUrlFromEventUrl(parser.getAttributeValue(null, "href"));
                 }
             }
             eventType = parser.next();

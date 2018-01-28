@@ -96,6 +96,22 @@ public class GitHubResourceManager {
         });
     }
 
+    public void getRepository(String url, final GitHubApiCallback callback) {
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                Object repo = GitHubObjectMapper.mapRepository((String) body);
+                handleResponse(statusCode, repo, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
     public void getBitmapFromUrl(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.getRequestBodyBytes(new HandyHttpURLConnection.OnHttpResponseListener() {

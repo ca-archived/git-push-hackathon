@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class FeedEntry implements Parcelable {
     public String title;
     public String name;
     public String thumbnailUrl;
+    public String repoUrl;
     public Date published;
     private Bitmap thumbnail;
 
@@ -27,6 +29,7 @@ public class FeedEntry implements Parcelable {
             feedEntry.title = parcel.readString();
             feedEntry.name = parcel.readString();
             feedEntry.thumbnailUrl = parcel.readString();
+            feedEntry.repoUrl = parcel.readString();
             feedEntry.published = (Date) parcel.readSerializable();
             feedEntry.thumbnail = parcel.readParcelable(getClass().getClassLoader());
             return feedEntry;
@@ -60,17 +63,21 @@ public class FeedEntry implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(name);
         parcel.writeString(thumbnailUrl);
+        parcel.writeString(repoUrl);
         parcel.writeSerializable(published);
         parcel.writeParcelable(thumbnail, 0);
     }
 
-    private byte[] thumbnailToByteArray() {
-        if (thumbnail != null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            return baos.toByteArray();
+    public void setApiRepoUrlFromEventUrl(String eventUrl) {
+        if (!eventUrl.startsWith("https://github.com/")) {
+            repoUrl = "";
+            return;
         }
-        return null;
+        int firstSlashIndex = eventUrl.indexOf("/", 19);
+        String authorName = eventUrl.substring(19, firstSlashIndex);
+        int secondSlashIndex = eventUrl.indexOf("/", firstSlashIndex + 1);
+        String repoName = eventUrl.substring(firstSlashIndex + 1, secondSlashIndex);
+        repoUrl =  "https://api.github.com/repos/" + authorName + "/" + repoName;
     }
 
 }

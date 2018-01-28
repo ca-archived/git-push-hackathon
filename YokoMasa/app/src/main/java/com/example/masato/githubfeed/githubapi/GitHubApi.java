@@ -47,6 +47,10 @@ public class GitHubApi {
         resourceManager.getBitmapFromUrl(url, callback);
     }
 
+    public void fetchRepository(String url, GitHubApiCallback callback) {
+        resourceManager.getRepository(url, callback);
+    }
+
     public void deleteToken() {
         tokenManager.deleteToken();
     }

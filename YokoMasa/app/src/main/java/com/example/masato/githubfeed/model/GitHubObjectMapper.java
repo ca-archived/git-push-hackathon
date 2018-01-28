@@ -57,4 +57,18 @@ public class GitHubObjectMapper {
         return null;
     }
 
+    public static Repository mapRepository(String repositoryString) {
+        Repository repository = new Repository();
+        try {
+            JSONObject jsonObject = new JSONObject(repositoryString);
+            repository.fullName = jsonObject.getString("full_name");
+            repository.stars = jsonObject.getString("stargazers_count");
+            repository.watches = jsonObject.getString("watchers_count");
+            repository.forks = jsonObject.getString("forks");
+        } catch(JSONException je) {
+            je.printStackTrace();
+        }
+        return repository;
+    }
+
 }
