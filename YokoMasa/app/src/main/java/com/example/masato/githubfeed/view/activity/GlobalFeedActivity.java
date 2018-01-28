@@ -27,13 +27,15 @@ public class GlobalFeedActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("url", GitHubApi.GLOBAL_FEED_URL);
-        FeedFragment feedFragment = new FeedFragment();
-        feedFragment.setArguments(bundle);
-        ft.add(R.id.global_feed_mother, feedFragment);
-        ft.commit();
+        if (savedInstanceState == null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString("url", GitHubApi.GLOBAL_FEED_URL);
+            FeedFragment feedFragment = new FeedFragment();
+            feedFragment.setArguments(bundle);
+            ft.add(R.id.global_feed_mother, feedFragment);
+            ft.commit();
+        }
     }
 
     @Override

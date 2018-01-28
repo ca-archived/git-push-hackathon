@@ -14,7 +14,7 @@ import com.example.masato.githubfeed.view.LoginView;
  * Created by Masato on 2018/01/19.
  */
 
-public class LoginPresenter implements Presenter, GitHubApiCallback {
+public class LoginPresenter implements Presenter {
 
     private LoginView view;
 
@@ -27,13 +27,13 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
         view.startBrowser();
     }
 
-    @Override
-    public void onApiSuccess(Object object) {
-        GitHubApi.getApi().fetchProfile(new GitHubApiCallback() {
+    public void onCodeFetched(String code) {
+        view.showLoginWaiting();
+        view.disableLogInButton();
+        GitHubApi.getApi().requestToken(code, new GitHubApiCallback() {
             @Override
             public void onApiSuccess(Object object) {
-                Profile profile = (Profile) object;
-                execSuccessFlow(profile);
+                execSuccessFlow();
             }
 
             @Override
@@ -44,13 +44,23 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
         });
     }
 
-    @Override
-    public void onApiFailure(Failure failure) {
-        view.enableLogInButton();
-        view.showLoginError(failure);
+    private void execSuccessFlow() {
+        GitHubApi.getApi().fetchProfile(new GitHubApiCallback() {
+            @Override
+            public void onApiSuccess(Object object) {
+                Profile profile = (Profile) object;
+                navigateToFeedView(profile);
+            }
+
+            @Override
+            public void onApiFailure(Failure failure) {
+                view.enableLogInButton();
+                view.showLoginError(failure);
+            }
+        });
     }
 
-    private void execSuccessFlow(Profile profile) {
+    private void navigateToFeedView(Profile profile) {
         view.showProfile(profile);
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
@@ -58,12 +68,6 @@ public class LoginPresenter implements Presenter, GitHubApiCallback {
                 view.navigateToFeedView();
             }
         }, 2000);
-    }
-
-    public void onCodeFetched(String code) {
-        view.showLoginWaiting();
-        view.disableLogInButton();
-        GitHubApi.getApi().requestToken(code, this);
     }
 
     public LoginPresenter(LoginView view) {

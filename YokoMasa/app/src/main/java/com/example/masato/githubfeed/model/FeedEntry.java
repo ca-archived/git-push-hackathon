@@ -28,12 +28,7 @@ public class FeedEntry implements Parcelable {
             feedEntry.name = parcel.readString();
             feedEntry.thumbnailUrl = parcel.readString();
             feedEntry.published = (Date) parcel.readSerializable();
-            int bitmapByteArrayLength = parcel.readInt();
-            if (bitmapByteArrayLength != 0) {
-                byte[] bitmapByteArray = new byte[bitmapByteArrayLength];
-                parcel.readByteArray(bitmapByteArray);
-                feedEntry.thumbnail = BitmapFactory.decodeByteArray(bitmapByteArray, 0, bitmapByteArrayLength);
-            }
+            feedEntry.thumbnail = parcel.readParcelable(getClass().getClassLoader());
             return feedEntry;
         }
 
@@ -66,11 +61,7 @@ public class FeedEntry implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(thumbnailUrl);
         parcel.writeSerializable(published);
-        byte[] bitmapByteArray = thumbnailToByteArray();
-        if (bitmapByteArray != null) {
-            parcel.writeInt(bitmapByteArray.length);
-            parcel.writeByteArray(bitmapByteArray);
-        }
+        parcel.writeParcelable(thumbnail, 0);
     }
 
     private byte[] thumbnailToByteArray() {

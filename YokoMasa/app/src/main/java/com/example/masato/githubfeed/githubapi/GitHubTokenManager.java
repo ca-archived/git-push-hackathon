@@ -53,7 +53,7 @@ public class GitHubTokenManager {
             public void onHttpResponse(int statusCode, Object body) {
                 if (200 <= statusCode && statusCode < 300) {
                     try {
-                        String token = handleResponseBody((String) body);
+                        String token = extractToken((String) body);
                         callback.onApiSuccess(token);
                     } catch (Exception exception) {
                         callback.onApiFailure(Failure.CREATING_TOKEN);
@@ -70,7 +70,7 @@ public class GitHubTokenManager {
         });
     }
 
-    private String handleResponseBody(String body) throws IOException, JSONException {
+    private String extractToken(String body) throws IOException, JSONException {
         JSONObject jsonObject = new JSONObject(body);
         String token = jsonObject.getString("access_token");
         saveToken(token);

@@ -22,7 +22,6 @@ public class GitHubResourceManager {
     private static final String PROFILE_URL = "https://api.github.com/user";
 
     private HttpConnectionPool connectionPool;
-    private Resources resources;
 
     public void setToken(String token) {
         connectionPool.setToken(token);
@@ -135,9 +134,8 @@ public class GitHubResourceManager {
         return Failure.UNEXPECTED;
     }
 
-    GitHubResourceManager(ExecutorService service, Resources resources, String token) {
+    GitHubResourceManager(String token, ExecutorService service) {
         this.connectionPool = new HttpConnectionPool(service, token);
-        this.resources = resources;
     }
 
 }

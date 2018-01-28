@@ -19,7 +19,7 @@ public class FeedPresenter implements Presenter {
 
     private FeedView view;
 
-    public void onCreate() {
+    public void onCreate(boolean shouldStartFeedFragment) {
         GitHubApi.getApi().fetchProfile(new GitHubApiCallback() {
             @Override
             public void onApiSuccess(Object object) {
@@ -32,6 +32,9 @@ public class FeedPresenter implements Presenter {
                 onApiFailure(failure);
             }
         });
+        if (!shouldStartFeedFragment) {
+            return;
+        }
         GitHubApi.getApi().fetchFeedUrl(new GitHubApiCallback() {
             @Override
             public void onApiSuccess(Object object) {

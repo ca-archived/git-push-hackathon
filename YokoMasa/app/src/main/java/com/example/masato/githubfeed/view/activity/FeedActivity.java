@@ -42,17 +42,20 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         setContentView(R.layout.activity_feed);
         Toolbar toolbar = (Toolbar) findViewById(R.id.feed_tool_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         ListView listView = (ListView) findViewById(R.id.feed_nav_menu_list);
         listView.setAdapter(ArrayAdapter.createFromResource(this, R.array.nav_menu_array, R.layout.feed_nav_menu_list_element));
         listView.setOnItemClickListener(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
         drawerLayout = (DrawerLayout) findViewById(R.id.feed_drawer_layout);
         mActionBarToggle = new MDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(mActionBarToggle);
-
         presenter = new FeedPresenter(this);
-        presenter.onCreate();
+        if (savedInstanceState == null) {
+            presenter.onCreate(true);
+        } else {
+            presenter.onCreate(false);
+        }
     }
 
     @Override

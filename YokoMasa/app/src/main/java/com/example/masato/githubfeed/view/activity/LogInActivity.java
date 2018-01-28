@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
+import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.presenter.LoginPresenter;
 import com.example.masato.githubfeed.view.LoginView;
@@ -30,7 +31,6 @@ import com.example.masato.githubfeed.view.fragment.ProfileFragment;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
 
-    private static final String OAUTH_URL = "https://github.com/login/oauth/authorize";
     private static final String CHROME_PACKAGE_NAME = "com.android.chrome";
 
     private LoginPresenter presenter;
@@ -46,7 +46,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         loginButton = (AppCompatButton) findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginDescription = (AppCompatTextView) findViewById(R.id.login_description);
-        oauthUrl = OAUTH_URL + "?client_id=" + getResources().getString(R.string.client_id);
+        oauthUrl = GitHubApi.OAUTH_URL + "?client_id=" + getResources().getString(R.string.client_id);
         if (isChromeInstalled()) {
             warmUpChrome();
         }

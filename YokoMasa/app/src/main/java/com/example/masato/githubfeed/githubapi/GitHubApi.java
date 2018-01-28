@@ -1,14 +1,8 @@
 package com.example.masato.githubfeed.githubapi;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
-import com.example.masato.githubfeed.model.Profile;
-
-import java.util.Map;
-import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,18 +12,16 @@ import java.util.concurrent.Executors;
 
 public class GitHubApi {
 
+    public static final String OAUTH_URL = "https://github.com/login/oauth/authorize";
     public static final String GLOBAL_FEED_URL = "https://github.com/timeline";
     private GitHubTokenManager tokenManager;
     private GitHubResourceManager resourceManager;
     private ExecutorService executorService;
-    private Resources resources;
-    private Profile profile;
 
     private static GitHubApi api;
 
     public static void init(SharedPreferences preferences, Resources resources) {
         api = new GitHubApi(preferences, resources);
-        Log.i("gh_feed", TimeZone.getDefault().getDisplayName());
     }
 
     public static GitHubApi getApi() {
@@ -78,8 +70,7 @@ public class GitHubApi {
     private GitHubApi(SharedPreferences preferences, Resources resources) {
         this.executorService = Executors.newFixedThreadPool(3);
         this.tokenManager = new GitHubTokenManager(resources, preferences, executorService);
-        this.resourceManager = new GitHubResourceManager(executorService, resources, tokenManager.getToken());
-        this.resources = resources;
+        this.resourceManager = new GitHubResourceManager(tokenManager.getToken(), executorService);
     }
 
     public interface GitHubApiTokenCheckCallback {
