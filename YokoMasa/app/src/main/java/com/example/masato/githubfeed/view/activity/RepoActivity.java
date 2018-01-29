@@ -54,7 +54,7 @@ public class RepoActivity extends AppCompatActivity implements RepoView, View.On
         if (view.getId() == R.id.repo_star_image) {
             presenter.onStarPressed();
         } else {
-            presenter.onWatchPressed();
+            presenter.onSubscribePressed();
         }
     }
 

@@ -32,4 +32,9 @@
     <string name="repo_star_failed">スターできませんでした</string>
     <string name="repo_unstarred">スター解除しました</string>
     <string name="repo_unstar_failed">スター解除できませんでした</string>
+
+    <string name="repo_subscribed">watchしています</string>
+    <string name="repo_subscribe_failed">watchできませんでした</string>
+    <string name="repo_unsubscribed">watch解除しました</string>
+    <string name="repo_unsubscribe_failed">watch解除できませんでした</string>
 </resources>

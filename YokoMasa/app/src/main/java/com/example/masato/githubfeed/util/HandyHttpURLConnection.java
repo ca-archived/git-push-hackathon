@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -141,12 +144,40 @@ public class HandyHttpURLConnection {
         return baos.toByteArray();
     }
 
-    private void post(OnHttpResponseListener listener) {
-        p(listener, "POST");
-    }
-
-    private void put(OnHttpResponseListener listener) {
-        p(listener, "PUT");
+    private void put(final OnHttpResponseListener listener) {
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection = null;
+                try {
+                    URL url = new URL(urlString);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("PUT");
+                    connection.setDoOutput(true);
+                    setHeadersToConnection(connection);
+                    connection.connect();
+                    writePutBody(connection.getOutputStream());
+                    listener.onHttpResponse(connection.getResponseCode(), connection.getInputStream());
+                    connection.disconnect();
+                } catch (MalformedURLException mue) {
+                    mue.printStackTrace();
+                    listener.onError(Failure.UNEXPECTED);
+                } catch (FileNotFoundException fe) {
+                    fe.printStackTrace();
+                    listener.onError(Failure.INVALID_TOKEN);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                    listener.onError(Failure.INTERNET);
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                    listener.onError(Failure.UNEXPECTED);
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
+                }
+            }
+        });
     }
 
     private void get(final OnHttpResponseListener listener) {
@@ -180,7 +211,7 @@ public class HandyHttpURLConnection {
         });
     }
 
-    private void p(final OnHttpResponseListener listener, final String method) {
+    private void post(final OnHttpResponseListener listener) {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
@@ -188,7 +219,7 @@ public class HandyHttpURLConnection {
                 try {
                     URL url = new URL(urlString);
                     connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod(method);
+                    connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
                     setHeadersToConnection(connection);
                     connection.connect();
@@ -244,6 +275,20 @@ public class HandyHttpURLConnection {
         });
     }
 
+    private void writePutBody(OutputStream outputStream) throws IOException, JSONException {
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+        JSONObject jsonObject = new JSONObject();
+        Set<String> keys = params.keySet();
+        if (keys.size() != 0) {
+            Iterator<String> iterator = keys.iterator();
+            while (iterator.hasNext()) {
+                String key = iterator.next();
+                jsonObject.put(key, params.get(key));
+            }
+            writer.write(jsonObject.toString());
+        }
+        writer.flush();
+    }
     private void writePostBody(OutputStream outputStream) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
         Set<String> keys = params.keySet();

@@ -62,12 +62,24 @@ public class GitHubApi {
         resourceManager.isStarredByCurrentUser(repository, callback);
     }
 
+    public void isSubscribedByCurrentUser(Repository repository, GitHubApiCallback callback) {
+        resourceManager.isSubscribedByCurrentUser(repository, callback);
+    }
+
     public void starRepository(Repository repository, GitHubApiCallback callback) {
         resourceManager.starRepository(repository, callback);
     }
 
-    public void unStarRepository(Repository repository, final GitHubApiCallback callback) {
+    public void subscribeRepository(Repository repository, GitHubApiCallback callback) {
+        resourceManager.subscribeRepository(repository, callback);
+    }
+
+    public void unStarRepository(Repository repository, GitHubApiCallback callback) {
         resourceManager.unStarRepository(repository, callback);
+    }
+
+    public void unSubscribeRepository(Repository repository, GitHubApiCallback callback) {
+        resourceManager.unSubscribeRepository(repository, callback);
     }
 
     public void deleteToken() {

@@ -72,7 +72,6 @@ public class XmlFeedParser {
                     feedEntry.name = getAuthorName(parser);
                 } else if (tagName.equals("published")) {
                     String con = getContent(parser);
-                    Log.i("gh_feed", con);
                     feedEntry.published = dateFormat.parse(con);
                 } else if (tagName.equals("link")) {
                     feedEntry.setApiRepoUrlFromEventUrl(parser.getAttributeValue(null, "href"));

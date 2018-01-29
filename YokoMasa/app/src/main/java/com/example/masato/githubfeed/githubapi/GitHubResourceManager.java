@@ -21,8 +21,10 @@ import java.util.concurrent.ExecutorService;
 
 public class GitHubResourceManager {
 
-    private static final String PROFILE_URL = "https://api.github.com/user";
-    private static final String STARRED_URL = "https://api.github.com/user/starred";
+    private static final String BASE_URL = "https://api.github.com";
+    private static final String PROFILE_URL = BASE_URL + "/user";
+    private static final String STARRED_URL = PROFILE_URL + "/starred";
+    private static final String REPOSITORY_URL = BASE_URL + "/repos";
 
     private HttpConnectionPool connectionPool;
 
@@ -167,6 +169,55 @@ public class GitHubResourceManager {
 
     public void unStarRepository(Repository repository, final GitHubApiCallback callback) {
         String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.delete(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    public void isSubscribedByCurrentUser(Repository repository, final GitHubApiCallback callback) {
+        String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    public void subscribeRepository(Repository repository, final GitHubApiCallback callback) {
+        String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.addParams("subscribed", "true");
+        connection.putRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    public void unSubscribeRepository(Repository repository, final GitHubApiCallback callback) {
+        String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.delete(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override

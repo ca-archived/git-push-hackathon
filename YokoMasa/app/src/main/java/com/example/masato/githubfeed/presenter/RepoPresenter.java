@@ -19,6 +19,7 @@ public class RepoPresenter {
     private String repoUrl;
     private Repository repository;
     private boolean isStarred;
+    private boolean isSubscribed;
 
     public void onCreate() {
         GitHubApi.getApi().fetchRepository(repoUrl, new GitHubApiCallback() {
@@ -27,6 +28,7 @@ public class RepoPresenter {
                 Repository repository = (Repository) object;
                 RepoPresenter.this.repository = repository;
                 checkIfRepoStarred(repository);
+                checkIfRepoSubscribed(repository);
                 fetchReadMe(repository);
                 view.showRepo(repository);
             }
@@ -84,8 +86,50 @@ public class RepoPresenter {
         });
     }
 
-    public void onWatchPressed() {
+    public void onSubscribePressed() {
+        if (isSubscribed) {
+            unSubscribeRepo();
+        } else {
+            subscribeRepo();
+        }
+    }
 
+    private void subscribeRepo() {
+        view.setWatchActivated(true);
+        GitHubApi.getApi().subscribeRepository(repository, new GitHubApiCallback() {
+            @Override
+            public void onApiSuccess(Object object) {
+                repository.watches++;
+                view.showRepo(repository);
+                view.showToast(R.string.repo_subscribed);
+                isSubscribed = true;
+            }
+
+            @Override
+            public void onApiFailure(Failure failure) {
+                view.setWatchActivated(false);
+                view.showToast(R.string.repo_subscribe_failed);
+            }
+        });
+    }
+
+    private void unSubscribeRepo() {
+        view.setWatchActivated(false);
+        GitHubApi.getApi().unSubscribeRepository(repository, new GitHubApiCallback() {
+            @Override
+            public void onApiSuccess(Object object) {
+                repository.watches--;
+                view.showRepo(repository);
+                view.showToast(R.string.repo_unsubscribed);
+                isSubscribed = false;
+            }
+
+            @Override
+            public void onApiFailure(Failure failure) {
+                view.setWatchActivated(true);
+                view.showToast(R.string.repo_unsubscribe_failed);
+            }
+        });
     }
 
     private void checkIfRepoStarred(Repository repository) {
@@ -99,6 +143,21 @@ public class RepoPresenter {
             @Override
             public void onApiFailure(Failure failure) {
                 isStarred = false;
+            }
+        });
+    }
+
+    private void checkIfRepoSubscribed(Repository repository) {
+        GitHubApi.getApi().isSubscribedByCurrentUser(repository, new GitHubApiCallback() {
+            @Override
+            public void onApiSuccess(Object object) {
+                isSubscribed = true;
+                view.setWatchActivated(true);
+            }
+
+            @Override
+            public void onApiFailure(Failure failure) {
+                isSubscribed = false;
             }
         });
     }
