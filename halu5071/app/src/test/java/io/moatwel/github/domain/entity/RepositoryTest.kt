@@ -91,6 +91,7 @@ class RepositoryTest {
       "https://api.github.com/users/halu5071",
       "https://github.com/halu5071",
       "https://api.github.com/followers",
+      "https://api.github.com/following",
       "Bio of halu5071",
       123L,
       456L,

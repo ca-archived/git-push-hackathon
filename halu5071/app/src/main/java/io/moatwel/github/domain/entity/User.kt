@@ -58,6 +58,6 @@ data class User(
   @Json(name = "hireable")
   val isHireable: Boolean?,
 
-  val email: String = "",
+  val email: String? = "",
 
-  val company: String = "") : Serializable
+  val company: String? = "") : Serializable
