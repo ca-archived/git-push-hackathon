@@ -42,6 +42,11 @@ class AuthDataDataRepository @Inject constructor(
     dataSource.saveToSharedPreference(authData)
   }
 
+  /**
+   *  get auth data json string from somewhere
+   *
+   *  @return decrypted json string of auth data
+   */
   override fun get(): String {
     return dataSource.readFromSharedPreference()
   }
