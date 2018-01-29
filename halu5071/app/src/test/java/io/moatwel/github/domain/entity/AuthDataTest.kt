@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 class AuthDataTest {
 
   @Test
-  fun testSerializable(){
+  fun testSerializable() {
     val authData = AuthData("sample-github-token")
 
     val restore = TestUtil.readAndWriteSerializable(authData)

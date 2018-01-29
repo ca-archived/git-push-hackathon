@@ -71,4 +71,9 @@ class AuthDataUseCase @Inject constructor(
   fun fetch(code: String): Observable<AuthData> {
     return authDataRepository.fetch(code)
   }
+
+  fun remove() {
+    this.authData = null
+    authDataRepository.delete()
+  }
 }

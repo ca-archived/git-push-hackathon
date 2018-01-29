@@ -18,4 +18,4 @@ data class Issue(
   val state: String,
 
   val comments: Int
-): Serializable
+) : Serializable
