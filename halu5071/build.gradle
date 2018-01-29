@@ -17,6 +17,7 @@ buildscript {
         robolectric_version = '3.3.2'
         buildTool_version = '27.0.2'
         timber_version = '4.6.0'
+        glide_version = '4.5.0'
     }
 
     repositories {
