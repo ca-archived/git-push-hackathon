@@ -46,6 +46,9 @@ data class User(
   @Json(name = "followers_url")
   val followersUrl: String,
 
+  @Json(name = "following_url")
+  val followingUrl: String,
+
   val bio: String,
 
   val followers: Long,
