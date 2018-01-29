@@ -1,5 +1,3 @@
 package io.moatwel.github.domain.entity.event
 
-abstract class EventPayload {
-
-}
+abstract class Payload

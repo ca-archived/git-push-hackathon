@@ -1,10 +1,9 @@
 package io.moatwel.github.domain.entity.event
 
 import com.squareup.moshi.Json
-import io.moatwel.github.domain.entity.Payload
 import io.moatwel.github.domain.entity.Repository
 import io.moatwel.github.domain.entity.User
-import java.util.*
+import java.util.Date
 
 data class Event(
   val id: Long,
