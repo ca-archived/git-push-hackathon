@@ -29,7 +29,6 @@ import dagger.Provides
 import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.data.network.UserApi
-import okhttp3.OkHttpClient
 
 @Module
 class DataSourceModule {

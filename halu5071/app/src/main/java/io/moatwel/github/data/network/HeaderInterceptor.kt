@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class HeaderInterceptor @Inject constructor(
   private val authDataUseCase: AuthDataUseCase
-): Interceptor{
+) : Interceptor {
 
   override fun intercept(chain: Interceptor.Chain): Response {
     val request = chain.request()
@@ -15,7 +15,7 @@ class HeaderInterceptor @Inject constructor(
     val token = authDataUseCase.get()?.token ?: ""
 
     val newRequest = request.newBuilder()
-      .addHeader("Authorization","token $token")
+      .addHeader("Authorization", "token $token")
       .build()
 
     return chain.proceed(newRequest)

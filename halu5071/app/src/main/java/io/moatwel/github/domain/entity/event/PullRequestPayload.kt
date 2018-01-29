@@ -13,4 +13,4 @@ data class PullRequestPayload(
   val pullRequest: PullRequest,
 
   val repository: Repository
-): Payload()
+) : Payload()

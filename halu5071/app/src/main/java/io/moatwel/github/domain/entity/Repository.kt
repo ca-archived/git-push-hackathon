@@ -2,7 +2,7 @@ package io.moatwel.github.domain.entity
 
 import com.squareup.moshi.Json
 import java.io.Serializable
-import java.util.Date
+import java.util.*
 
 data class Repository(
   val id: Long,

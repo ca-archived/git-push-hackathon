@@ -13,7 +13,7 @@ import org.powermock.api.mockito.PowerMockito
 import org.powermock.api.mockito.PowerMockito.`when`
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
-import java.util.Date
+import java.util.*
 
 @RunWith(PowerMockRunner::class)
 @PrepareForTest(AuthDataUseCase::class)

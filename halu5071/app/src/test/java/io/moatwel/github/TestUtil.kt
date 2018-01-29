@@ -29,7 +29,7 @@ import java.io.*
 object TestUtil {
   @Suppress("UNCHECKED_CAST")
   @Throws(IOException::class, ClassNotFoundException::class)
-  fun <T: Serializable>readAndWriteSerializable(src: T): T {
+  fun <T : Serializable> readAndWriteSerializable(src: T): T {
     val baos = ByteArrayOutputStream()
     ObjectOutputStream(baos).use { it.writeObject(src) }
     val bais = ByteArrayInputStream(baos.toByteArray())
