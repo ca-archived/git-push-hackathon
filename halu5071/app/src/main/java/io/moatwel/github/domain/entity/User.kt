@@ -26,11 +26,11 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class User(
-  val id: Long,
+  val id: Long = 0L,
 
   val login: String,
 
-  val name: String,
+  val name: String = "",
 
   @Json(name = "avatar_url")
   val avatarUrl: String,
@@ -46,15 +46,15 @@ data class User(
   @Json(name = "followers_url")
   val followersUrl: String,
 
-  val bio: String,
+  val bio: String = "",
 
-  val followers: Long,
+  val followers: Long = 0L,
 
-  val following: Long,
+  val following: Long = 0L,
 
   @Json(name = "hireable")
   val isHireable: Boolean?,
 
-  val email: String?,
+  val email: String = "",
 
-  val company: String?) : Serializable
+  val company: String = "") : Serializable

@@ -7,6 +7,7 @@ import java.util.Date
 data class Comment(
   val id: Long,
 
+  @Json(name = "user")
   val user: User,
 
   val body: String,

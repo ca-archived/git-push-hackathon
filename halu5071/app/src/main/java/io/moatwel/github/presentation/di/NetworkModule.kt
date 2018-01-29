@@ -26,6 +26,7 @@ package io.moatwel.github.presentation.di
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.network.HeaderInterceptor
@@ -36,6 +37,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -67,6 +69,7 @@ class NetworkModule {
   fun provideMoshi(): Moshi {
     return Moshi.Builder()
       .add(KotlinJsonAdapterFactory())
+      .add(Date::class.java, Rfc3339DateJsonAdapter())
       .build()
   }
 
