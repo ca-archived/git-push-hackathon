@@ -1,5 +1,7 @@
 package io.moatwel.github.domain.entity
 
+import java.io.Serializable
+
 data class Issue(
   val id: Long,
 
@@ -13,7 +15,7 @@ data class Issue(
 
   val user: User,
 
-  val status: String,
+  val state: String,
 
   val comments: Int
-)
+): Serializable
