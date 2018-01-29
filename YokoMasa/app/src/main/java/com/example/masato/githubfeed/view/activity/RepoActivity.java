@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
@@ -30,15 +31,17 @@ public class RepoActivity extends AppCompatActivity implements RepoView, View.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repo);
+        LinearLayout starLayout = (LinearLayout) findViewById(R.id.repo_star_layout);
+        LinearLayout watchLayout = (LinearLayout) findViewById(R.id.repo_watch_layout);
+        starLayout.setOnClickListener(this);
+        watchLayout.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.repo_tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         star = (ImageView) findViewById(R.id.repo_star_image);
-        star.setOnClickListener(this);
         watch = (ImageView) findViewById(R.id.repo_watch_image);
-        watch.setOnClickListener(this);
         presenter = new RepoPresenter(this, getIntent().getStringExtra("url"));
         presenter.onCreate();
     }
@@ -51,7 +54,7 @@ public class RepoActivity extends AppCompatActivity implements RepoView, View.On
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.repo_star_image) {
+        if (view.getId() == R.id.repo_star_layout) {
             presenter.onStarPressed();
         } else {
             presenter.onSubscribePressed();
