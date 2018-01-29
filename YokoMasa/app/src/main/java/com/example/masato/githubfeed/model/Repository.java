@@ -6,7 +6,10 @@ package com.example.masato.githubfeed.model;
 
 public class Repository {
     public String fullName;
-    public String stars;
-    public String watches;
-    public String forks;
+    public String name;
+    public String owner;
+    public String baseUrl;
+    public int stars;
+    public int watches;
+    public int forks;
 }

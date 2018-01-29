@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.example.masato.githubfeed.model.GitHubObjectMapper;
 import com.example.masato.githubfeed.model.Profile;
+import com.example.masato.githubfeed.model.Repository;
+import com.example.masato.githubfeed.presenter.RepoPresenter;
 import com.example.masato.githubfeed.util.HandyHttpURLConnection;
 import com.example.masato.githubfeed.util.HttpConnectionPool;
 
@@ -20,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 public class GitHubResourceManager {
 
     private static final String PROFILE_URL = "https://api.github.com/user";
+    private static final String STARRED_URL = "https://api.github.com/user/starred";
 
     private HttpConnectionPool connectionPool;
 
@@ -112,6 +115,72 @@ public class GitHubResourceManager {
         });
     }
 
+    public void getReadMeHtml(Repository repository, final GitHubApiCallback callback) {
+        String url = repository.baseUrl + "/contents/README.md";
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    public void isStarredByCurrentUser(Repository repository, final GitHubApiCallback callback) {
+        String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    public void starRepository(Repository repository, final GitHubApiCallback callback) {
+        String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.setHeader("Content-Length", "0");
+        connection.putRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
+    public void unStarRepository(Repository repository, final GitHubApiCallback callback) {
+        String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.delete(new HandyHttpURLConnection.OnHttpResponseListener() {
+            @Override
+            public void onHttpResponse(int statusCode, Object body) {
+                handleResponse(statusCode, body, callback);
+            }
+
+            @Override
+            public void onError(Failure failure) {
+                callback.onApiFailure(failure);
+            }
+        });
+    }
+
     public void getBitmapFromUrl(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.getRequestBodyBytes(new HandyHttpURLConnection.OnHttpResponseListener() {
@@ -138,7 +207,7 @@ public class GitHubResourceManager {
     }
 
     private boolean isOk(int statusCode) {
-        return statusCode == HttpURLConnection.HTTP_OK || statusCode == HttpURLConnection.HTTP_NOT_AUTHORITATIVE;
+        return 200 <= statusCode && statusCode < 300;
     }
 
     private Failure failureFromStatusCode(int statusCode) {

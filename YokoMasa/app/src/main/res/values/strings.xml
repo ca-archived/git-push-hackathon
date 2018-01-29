@@ -27,4 +27,9 @@
     <string name="minutes_ago">分前</string>
     <string name="hours_ago">時間前</string>
     <string name="days_ago">日前</string>
+
+    <string name="repo_starred">スターしました</string>
+    <string name="repo_star_failed">スターできませんでした</string>
+    <string name="repo_unstarred">スター解除しました</string>
+    <string name="repo_unstar_failed">スター解除できませんでした</string>
 </resources>

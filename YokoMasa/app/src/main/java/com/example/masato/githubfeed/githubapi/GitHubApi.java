@@ -2,6 +2,9 @@ package com.example.masato.githubfeed.githubapi;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.util.Log;
+
+import com.example.masato.githubfeed.model.Repository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +52,22 @@ public class GitHubApi {
 
     public void fetchRepository(String url, GitHubApiCallback callback) {
         resourceManager.getRepository(url, callback);
+    }
+
+    public void fetchReadMe(Repository repository, GitHubApiCallback callback) {
+        resourceManager.getReadMeHtml(repository, callback);
+    }
+
+    public void isStarredByCurrentUser(Repository repository, GitHubApiCallback callback) {
+        resourceManager.isStarredByCurrentUser(repository, callback);
+    }
+
+    public void starRepository(Repository repository, GitHubApiCallback callback) {
+        resourceManager.starRepository(repository, callback);
+    }
+
+    public void unStarRepository(Repository repository, final GitHubApiCallback callback) {
+        resourceManager.unStarRepository(repository, callback);
     }
 
     public void deleteToken() {

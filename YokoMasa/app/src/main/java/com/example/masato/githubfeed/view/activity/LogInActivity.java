@@ -46,7 +46,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         loginButton = (AppCompatButton) findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginDescription = (AppCompatTextView) findViewById(R.id.login_description);
-        oauthUrl = GitHubApi.OAUTH_URL + "?client_id=" + getResources().getString(R.string.client_id);
+        oauthUrl = GitHubApi.OAUTH_URL + "?client_id=" + getResources().getString(R.string.client_id) + "&scope=repo";
         if (isChromeInstalled()) {
             warmUpChrome();
         }
