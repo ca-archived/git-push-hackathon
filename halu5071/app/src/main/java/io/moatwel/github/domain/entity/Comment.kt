@@ -1,6 +1,7 @@
 package io.moatwel.github.domain.entity
 
 import com.squareup.moshi.Json
+import java.io.Serializable
 import java.util.Date
 
 data class Comment(
@@ -17,4 +18,4 @@ data class Comment(
 
   @Json(name = "updated_at")
   val updatedAt: Date
-)
+) : Serializable
