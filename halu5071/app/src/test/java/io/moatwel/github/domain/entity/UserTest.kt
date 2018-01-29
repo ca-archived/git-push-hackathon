@@ -93,7 +93,7 @@ class UserTest {
       "halu5071",
       "Yasunori Horii",
       "https://sample.com/avatar",
-    "https://sample.com/gravatar",
+      "https://sample.com/gravatar",
       "https://api.github.com/users/halu5071",
       "https://github.com/halu5071",
       "https://api.github.com/followers",
