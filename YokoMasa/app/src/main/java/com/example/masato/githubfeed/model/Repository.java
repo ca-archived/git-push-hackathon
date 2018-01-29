@@ -5,8 +5,8 @@ package com.example.masato.githubfeed.model;
  */
 
 public class Repository {
-    String fullName;
-    String stars;
-    String watches;
-    String forks;
+    public String fullName;
+    public String stars;
+    public String watches;
+    public String forks;
 }

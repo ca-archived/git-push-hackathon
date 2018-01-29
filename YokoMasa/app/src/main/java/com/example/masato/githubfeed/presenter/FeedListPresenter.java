@@ -59,6 +59,7 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         FeedEntry feedEntry = feedEntries.get(position);
         view.setDate(feedEntry.published);
         view.setTitle(feedEntry.title);
+        view.setRepoUrl(feedEntry.repoUrl);
         if (!feedEntry.isThumbnailSet()) {
             fetchThumbnail(feedEntry, view, position);
         } else {
@@ -143,6 +144,10 @@ public class FeedListPresenter implements Presenter, GitHubApiCallback {
         }
         feedListView.updateAdapter();
         fetching = false;
+    }
+
+    public void onItemClicked(String url) {
+        feedListView.startRepoView(url);
     }
 
     private void refresh() {

@@ -33,6 +33,8 @@
 
         <activity android:name=".view.activity.GlobalFeedActivity"/>
 
+        <activity android:name=".view.activity.RepoActivity"/>
+
     </application>
 
 </manifest>

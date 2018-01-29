@@ -62,9 +62,9 @@ public class GitHubObjectMapper {
         try {
             JSONObject jsonObject = new JSONObject(repositoryString);
             repository.fullName = jsonObject.getString("full_name");
-            repository.stars = jsonObject.getString("stargazers_count");
-            repository.watches = jsonObject.getString("watchers_count");
-            repository.forks = jsonObject.getString("forks");
+            repository.stars = Integer.toString(jsonObject.getInt("stargazers_count"));
+            repository.watches = Integer.toString(jsonObject.getInt("watchers_count"));
+            repository.forks = Integer.toString(jsonObject.getInt("forks"));
         } catch(JSONException je) {
             je.printStackTrace();
         }

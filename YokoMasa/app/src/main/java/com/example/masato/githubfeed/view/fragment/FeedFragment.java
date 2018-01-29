@@ -2,12 +2,14 @@ package com.example.masato.githubfeed.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
 import com.example.masato.githubfeed.view.FeedListView;
+import com.example.masato.githubfeed.view.activity.RepoActivity;
 import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
 
 /**
@@ -67,6 +70,13 @@ public class FeedFragment extends Fragment implements FeedListView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+    }
+
+    @Override
+    public void startRepoView(String url) {
+        Intent intent = new Intent(getContext(), RepoActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
     }
 
     @Override

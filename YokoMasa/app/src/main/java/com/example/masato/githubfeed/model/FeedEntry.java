@@ -69,13 +69,21 @@ public class FeedEntry implements Parcelable {
     }
 
     public void setApiRepoUrlFromEventUrl(String eventUrl) {
+        Log.i("gh_feed", eventUrl);
         if (!eventUrl.startsWith("https://github.com/")) {
             repoUrl = "";
             return;
         }
         int firstSlashIndex = eventUrl.indexOf("/", 19);
+        if (firstSlashIndex == -1) {
+            repoUrl = "";
+            return;
+        }
         String authorName = eventUrl.substring(19, firstSlashIndex);
         int secondSlashIndex = eventUrl.indexOf("/", firstSlashIndex + 1);
+        if (secondSlashIndex == -1) {
+            secondSlashIndex = eventUrl.length();
+        }
         String repoName = eventUrl.substring(firstSlashIndex + 1, secondSlashIndex);
         repoUrl =  "https://api.github.com/repos/" + authorName + "/" + repoName;
     }

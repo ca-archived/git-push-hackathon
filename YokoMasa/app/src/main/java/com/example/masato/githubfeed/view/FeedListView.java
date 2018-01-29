@@ -9,4 +9,6 @@ public interface FeedListView extends BaseView {
     public void stopRefreshing();
 
     public void updateAdapter();
+
+    public void startRepoView(String url);
 }

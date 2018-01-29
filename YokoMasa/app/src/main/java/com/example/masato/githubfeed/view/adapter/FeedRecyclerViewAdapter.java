@@ -35,17 +35,18 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
+        RecyclerView.ViewHolder viewHolder = null;
         if (viewType == FeedListPresenter.FEED_ENTRY_VIEW) {
             view = inflater.inflate(R.layout.feed_entry, parent, false);
-            return new FeedEntryViewViewHolder(view, context);
+            viewHolder =  new FeedEntryViewViewHolder(view, context);
         } else if (viewType == FeedListPresenter.LOADING_VIEW){
             view = inflater.inflate(R.layout.feed_loading, parent, false);
-            return new LoadingViewHolder(view);
+            viewHolder =  new LoadingViewHolder(view);
         } else if (viewType == FeedListPresenter.NOTHING_TO_SHOW_VIEW) {
             view = inflater.inflate(R.layout.feed_nothing_to_show, parent, false);
-            return new NothingToShowViewHolder(view);
+            viewHolder =  new NothingToShowViewHolder(view);
         }
-        return null;
+        return viewHolder;
     }
 
     @Override
@@ -53,6 +54,12 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == FeedListPresenter.FEED_ENTRY_VIEW) {
             FeedEntryView feedEntryView = (FeedEntryView) holder;
             presenter.onBindFeedEntryView(feedEntryView, position);
+            feedEntryView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void OnClick(String url) {
+                    presenter.onItemClicked(url);
+                }
+            });
         }
     }
 
@@ -81,7 +88,19 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         AppCompatTextView date;
         AppCompatTextView title;
         CircleImageView thumbnail;
+        OnClickListener listener;
+        String repoUrl;
         Context context;
+
+        @Override
+        public void setRepoUrl(String url) {
+            this.repoUrl = url;
+        }
+
+        @Override
+        public void setOnClickListener(OnClickListener listener) {
+            this.listener = listener;
+        }
 
         @Override
         public void setDate(Date date) {
@@ -104,6 +123,14 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
             title = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_title);
             thumbnail = (CircleImageView) itemView.findViewById(R.id.feed_entry_image);
             this.context = context;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.OnClick(repoUrl);
+                    }
+                }
+            });
         }
     }
 
@@ -117,6 +144,10 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter {
         NothingToShowViewHolder(View itemView) {
             super(itemView);
         }
+    }
+
+    public interface OnClickListener {
+        public void OnClick(String url);
     }
 
 }
