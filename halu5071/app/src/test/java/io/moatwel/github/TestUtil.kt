@@ -23,6 +23,7 @@
 
 package io.moatwel.github
 
+import okio.Okio
 import java.io.*
 
 object TestUtil {
@@ -33,5 +34,12 @@ object TestUtil {
     ObjectOutputStream(baos).use { it.writeObject(src) }
     val bais = ByteArrayInputStream(baos.toByteArray())
     ObjectInputStream(bais).use { return it.readObject() as T }
+  }
+
+  fun readResource(fileName: String): String {
+    val bufferedSource = Okio.buffer(Okio.source(javaClass.classLoader.getResourceAsStream(fileName)))
+    val sourceText = bufferedSource.readUtf8()
+    bufferedSource.close()
+    return sourceText
   }
 }

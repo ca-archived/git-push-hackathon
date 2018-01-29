@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "halu5071/build.gradle" }}-{{ checksum  "halu5071/presentation/build.gradle" }}
+          key: jars-{{ checksum "halu5071/build.gradle" }}-{{ checksum  "halu5071/app/build.gradle" }}
       - run:
           name: Download Dependencies
           command: |
@@ -18,7 +18,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "halu5071/build.gradle" }}-{{ checksum  "halu5071/presentation/build.gradle" }}
+          key: jars-{{ checksum "halu5071/build.gradle" }}-{{ checksum  "halu5071/app/build.gradle" }}
       - run:
           name: Lint
           command: |
