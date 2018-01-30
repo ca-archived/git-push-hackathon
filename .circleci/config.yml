@@ -15,6 +15,9 @@ jobs:
           command: |
                 cd halu5071
                 ./gradlew androidDependencies
+      - run:
+          name: Bundle install
+          command: bundle install
       - save_cache:
           paths:
             - ~/.gradle
@@ -24,6 +27,14 @@ jobs:
           command: |
                  cd halu5071
                  ./gradlew lint
+      - run:
+          name: KtLint
+          command: |
+                 cd halu5071
+                 ./gradlew ktlintDebugCheck
+      - run:
+          name: Danger
+          command: bundle exec danger
       - run:
           name: Build for Debug
           command: |

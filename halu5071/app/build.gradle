@@ -110,3 +110,9 @@ repositories {
     mavenCentral()
     google()
 }
+ktlint {
+    version = "0.14.0"
+    android = true
+    reporter = "checkstyle"
+    ignoreFailures = true
+}
