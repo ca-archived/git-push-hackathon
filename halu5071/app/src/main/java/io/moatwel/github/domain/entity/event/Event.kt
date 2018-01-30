@@ -32,7 +32,7 @@ data class Event(
     DeleteEvent("DeleteEvent"),
     DownloadEvent("DownloadEvent"),
     FollowEvent("FollowEvent"),
-    ForkEvent("ForkEvent"),
+    ForkEvent("ForkPayload"),
     ForkApplyEvent("ForkApplyEvent"),
     GistEvent("GistEvent"),
     GollumEvent("GollumEvent"),
