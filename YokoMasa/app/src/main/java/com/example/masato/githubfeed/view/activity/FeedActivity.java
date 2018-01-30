@@ -132,6 +132,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         arguments.putString("url", feedUrl);
         FeedFragment feedFragment = new FeedFragment();
         feedFragment.setArguments(arguments);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.feed_mother, feedFragment);
         ft.commit();

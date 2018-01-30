@@ -1,75 +1,78 @@
 package com.example.masato.githubfeed.view.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.graphics.Bitmap;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.FeedEntry;
+import com.example.masato.githubfeed.presenter.FeedEntryPresenter;
+import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
+import com.example.masato.githubfeed.util.DateUtil;
+import com.example.masato.githubfeed.view.FeedEntryView;
 import com.example.masato.githubfeed.view.FeedListView;
 import com.example.masato.githubfeed.view.activity.RepoActivity;
-import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
+
+import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by Masato on 2018/01/20.
+ * Created by Masato on 2018/01/29.
  */
 
-public class FeedFragment extends Fragment implements FeedListView {
+public class FeedFragment extends PaginatingListFragment<FeedEntry> implements FeedListView {
 
-    private FeedListPresenter presenter;
-    private RecyclerView feedRecyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private FeedRecyclerViewAdapter adapter;
-    private int scrollX, scrollY;
-
-    public void disableRefreshing() {
-        swipeRefreshLayout.setRefreshing(false);
+    @Override
+    protected PaginatingListPresenter<FeedEntry> onCreatePresenter() {
+        String url = getArguments().getString("url");
+        FeedListPresenter presenter =  new FeedListPresenter(this, url, 15);
+        presenter.setView(this);
+        return presenter;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            init();
-        } else {
-            init(savedInstanceState);
+    protected PaginatingListPresenter onRestorePresenter(int currentPage, ArrayList<FeedEntry> elements) {
+        String url = getArguments().getString("url");
+        FeedListPresenter presenter =  new FeedListPresenter(this, url, 15, elements, currentPage);
+        presenter.setView(this);
+        return presenter;
+    }
+
+    @Override
+    protected PaginatingListViewHolder onCreatePaginatingViewHolder(ViewGroup parent) {
+        View view = getLayoutInflater().inflate(R.layout.feed_entry, parent, false);
+        return new FeedEntryViewViewHolder(view, getContext());
+    }
+
+    @Override
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        if (holder instanceof FeedEntryViewViewHolder) {
+            FeedEntryViewViewHolder viewHolder = (FeedEntryViewViewHolder) holder;
+            viewHolder.thumbnail.setImageBitmap(null);
         }
     }
 
-    private void init() {
-        Bundle bundle = getArguments();
-        presenter = new FeedListPresenter(this, bundle.getString("url"));
-        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater(), getContext());
-    }
-
-    private void init(Bundle savedInstanceState) {
-        presenter = new FeedListPresenter(this, savedInstanceState);
-        adapter = new FeedRecyclerViewAdapter(presenter, getLayoutInflater(), getContext());
-        scrollX = savedInstanceState.getInt("scroll_x");
-        scrollY = savedInstanceState.getInt("scroll_y");
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feed, container, false);
+    protected void onBindViewHolder(PaginatingListViewHolder holder, FeedEntry element) {
+        FeedEntryViewViewHolder viewHolder = (FeedEntryViewViewHolder) holder;
+        viewHolder.bindFeedEntry(element);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initViews(view);
+    public void showToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showToast(int stringId) {
+        Toast.makeText(getContext(), stringId, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -79,50 +82,36 @@ public class FeedFragment extends Fragment implements FeedListView {
         startActivity(intent);
     }
 
-    @Override
-    public void showToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();;
-    }
+    private class FeedEntryViewViewHolder extends PaginatingListViewHolder<FeedEntry> implements FeedEntryView {
 
-    @Override
-    public void showToast(int stringId) {
-        Toast.makeText(getContext(), stringId, Toast.LENGTH_LONG).show();;
-    }
+        private FeedEntryPresenter presenter;
+        AppCompatTextView date;
+        AppCompatTextView title;
+        CircleImageView thumbnail;
+        Context context;
 
-    @Override
-    public void stopRefreshing() {
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void updateAdapter() {
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        presenter.onSaveInstanceState(outState);
-        outState.putInt("scroll_x", feedRecyclerView.getScrollX());
-        outState.putInt("scroll_y", feedRecyclerView.getScrollY());
-    }
-
-    private void initViews(View view) {
-        feedRecyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        feedRecyclerView.setLayoutManager(layoutManager);
-        feedRecyclerView.setAdapter(adapter);
-        feedRecyclerView.setScrollX(scrollX);
-        feedRecyclerView.setScrollY(scrollY);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.feed_swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.onRefresh();
+        public void bindFeedEntry(FeedEntry feedEntry) {
+            this.date.setText(DateUtil.getReadableDateForFeed(feedEntry.published, context));
+            this.title.setText(feedEntry.title);
+            if (feedEntry.isThumbnailSet()) {
+                this.thumbnail.setImageBitmap(feedEntry.thumbnail);
+            } else {
+                presenter.fetchThumbnail(feedEntry);
             }
-        });
-    }
+        }
 
+        @Override
+        public void setThumbnail(Bitmap bitmap) {
+            this.thumbnail.setImageBitmap(bitmap);
+        }
+
+        FeedEntryViewViewHolder(View itemView, Context context) {
+            super(itemView);
+            presenter = new FeedEntryPresenter(this);
+            date = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_date);
+            title = (AppCompatTextView) itemView.findViewById(R.id.feed_entry_title);
+            thumbnail = (CircleImageView) itemView.findViewById(R.id.feed_entry_image);
+            this.context = context;
+        }
+    }
 }

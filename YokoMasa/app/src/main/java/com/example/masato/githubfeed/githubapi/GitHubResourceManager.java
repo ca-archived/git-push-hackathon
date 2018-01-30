@@ -83,12 +83,14 @@ public class GitHubResourceManager {
     }
 
     public void getFeedEntries(String url, int page, final GitHubApiCallback callback) {
+        Log.i("gh_feed", "get feed entries");
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.setHeader("Accept", "application/atom+xml");
         connection.addParams("page", Integer.toString(page));
         connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override
             public void onHttpResponse(int statusCode, Object body) {
+                Log.i("gh_feed", "on http response");
                 String bodyString = (String) body;
                 Object feedEntries = GitHubObjectMapper.mapFeedEntries(bodyString);
                 handleResponse(statusCode, feedEntries, callback);

@@ -20,7 +20,7 @@ public class FeedEntry implements Parcelable {
     public String thumbnailUrl;
     public String repoUrl;
     public Date published;
-    private Bitmap thumbnail;
+    public Bitmap thumbnail;
 
     public static Parcelable.Creator<FeedEntry> CREATOR = new Parcelable.Creator<FeedEntry>() {
         @Override
@@ -40,14 +40,6 @@ public class FeedEntry implements Parcelable {
             return new FeedEntry[i];
         }
     };
-
-    public void setThumbnail(Bitmap bitmap) {
-        this.thumbnail = bitmap;
-    }
-
-    public Bitmap getThumbnail() {
-        return thumbnail;
-    }
 
     public boolean isThumbnailSet() {
         return thumbnail != null;

@@ -39,6 +39,7 @@ public class GitHubApi {
     }
 
     public void fetchFeedList(String url, int page, GitHubApiCallback callback) {
+        Log.i("gh_feed", "fetch feed list");
         resourceManager.getFeedEntries(url, page, callback);
     }
 

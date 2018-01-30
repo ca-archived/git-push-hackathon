@@ -3,13 +3,8 @@ package com.example.masato.githubfeed.presenter;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
-import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.view.FeedView;
-import com.example.masato.githubfeed.view.adapter.FeedRecyclerViewAdapter;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Masato on 2018/01/19.
