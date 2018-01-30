@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     if (authDataUseCase.get() == null) {
       val intent = Intent(this, LoginActivity::class.java)
-      startActivity(intent);
+      startActivity(intent)
     }
 
     userUseCase.get()
