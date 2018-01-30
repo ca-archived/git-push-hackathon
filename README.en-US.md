@@ -25,7 +25,7 @@ Develop a GitHub client-side mobile application using [GitHub API](https://devel
 ### Minimum requirements
 
 - "Sign in" functionality using OAuth authentication
-- Activity feeds using [activity/feeds API](https://developer.github.com/v3/activity/feeds/)
+- Show a list of User's activity-events using [activity/events API](https://developer.github.com/v3/activity/events/)
 
 as "Sample" Gifs below show.
 

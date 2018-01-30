@@ -28,7 +28,7 @@
 下にあるGIF画像の挙動を参考に、
 
 - OAuth認証を用いたログイン
-- [activity/feeds API](https://developer.github.com/v3/activity/feeds/)を用いたフィードの一覧表示
+- [activity/events API](https://developer.github.com/v3/activity/events/)を用いたイベントの一覧表示
 
 を実装してください。
 
