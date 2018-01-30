@@ -31,7 +31,7 @@ jobs:
           name: KtLint
           command: |
                  cd halu5071
-                 ./gradlew ktlintDebugCheck
+                 ./gradlew ktlintMainCheck
       - run:
           name: Danger
           command: bundle exec danger
