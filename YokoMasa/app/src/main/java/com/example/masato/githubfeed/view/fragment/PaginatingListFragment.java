@@ -31,27 +31,24 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends Fragm
     private PaginatingListAdapter adapter;
     private int scrollX, scrollY;
 
-    public void disableRefreshing() {
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             presenter = onCreatePresenter();
+            presenter.refresh();
         } else {
             scrollX = savedInstanceState.getInt("scroll_x");
             scrollY = savedInstanceState.getInt("scroll_y");
             int currentPage = savedInstanceState.getInt("current_page");
             ArrayList<T> elements = savedInstanceState.getParcelableArrayList("elements");
-            presenter = onRestorePresenter(currentPage, elements);
+            presenter = onCreatePresenter();
+            presenter.setCurrentPage(currentPage);
+            presenter.setElementList(elements);
         }
     }
 
     protected abstract PaginatingListPresenter<T> onCreatePresenter();
-
-    protected abstract PaginatingListPresenter<T> onRestorePresenter(int currentPage, ArrayList<T> elements);
 
     @Nullable
     @Override

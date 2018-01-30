@@ -22,7 +22,7 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.presenter.FeedPresenter;
 import com.example.masato.githubfeed.view.FeedView;
-import com.example.masato.githubfeed.view.fragment.FeedFragment;
+import com.example.masato.githubfeed.view.fragment.FeedListFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -130,7 +130,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     public void startFeedFragment(String feedUrl) {
         Bundle arguments = new Bundle();
         arguments.putString("url", feedUrl);
-        FeedFragment feedFragment = new FeedFragment();
+        FeedListFragment feedFragment = new FeedListFragment();
         feedFragment.setArguments(arguments);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

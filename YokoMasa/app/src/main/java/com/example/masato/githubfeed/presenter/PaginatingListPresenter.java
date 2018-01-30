@@ -24,8 +24,16 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
     private boolean refreshing = false;
     private boolean fetching = false;
 
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
     public int getCurrentPage() {
         return currentPage;
+    }
+
+    public void setElementList(ArrayList<T> elementList) {
+        this.elementList = elementList;
     }
 
     public ArrayList<T> getElementList() {
@@ -65,7 +73,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         }
     }
 
-    public void addElements(List<T> elements) {
+    private void addElements(List<T> elements) {
         if (refreshing) {
             this.elementList.clear();
             this.elementList.addAll(elements);
@@ -116,14 +124,14 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         return elementList.size() + 1;
     }
 
-    public PaginatingListPresenter(PaginatingListView view, int notificationThreshold, ArrayList<T> elements, int currentPage) {
+    PaginatingListPresenter(PaginatingListView view, int notificationThreshold, ArrayList<T> elements, int currentPage) {
         this.view = view;
         this.notificationThreshold = notificationThreshold;
         this.elementList = elements;
         this.currentPage = currentPage;
     }
 
-    public PaginatingListPresenter(PaginatingListView view, int notificationThreshold) {
+    PaginatingListPresenter(PaginatingListView view, int notificationThreshold) {
         this.view = view;
         this.notificationThreshold = notificationThreshold;
     }

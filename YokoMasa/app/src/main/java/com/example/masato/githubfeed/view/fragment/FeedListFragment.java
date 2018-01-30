@@ -19,28 +19,18 @@ import com.example.masato.githubfeed.view.FeedEntryView;
 import com.example.masato.githubfeed.view.FeedListView;
 import com.example.masato.githubfeed.view.activity.RepoActivity;
 
-import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Masato on 2018/01/29.
  */
 
-public class FeedFragment extends PaginatingListFragment<FeedEntry> implements FeedListView {
+public class FeedListFragment extends PaginatingListFragment<FeedEntry> implements FeedListView {
 
     @Override
     protected PaginatingListPresenter<FeedEntry> onCreatePresenter() {
         String url = getArguments().getString("url");
-        FeedListPresenter presenter =  new FeedListPresenter(this, url, 15);
-        presenter.setView(this);
-        return presenter;
-    }
-
-    @Override
-    protected PaginatingListPresenter onRestorePresenter(int currentPage, ArrayList<FeedEntry> elements) {
-        String url = getArguments().getString("url");
-        FeedListPresenter presenter =  new FeedListPresenter(this, url, 15, elements, currentPage);
+        FeedListPresenter presenter =  new FeedListPresenter(this, url);
         presenter.setView(this);
         return presenter;
     }

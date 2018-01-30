@@ -18,6 +18,7 @@ import java.util.List;
 
 public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
 
+    private static final int NOTIFICATION_THRESHOLD = 15;
     private FeedListView view;
     private String url;
 
@@ -47,14 +48,8 @@ public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
         view.startRepoView(element.repoUrl);
     }
 
-    public FeedListPresenter(PaginatingListView view, String url, int notificationThreshold, ArrayList<FeedEntry> elements, int currentPage) {
-        super(view, notificationThreshold, elements, currentPage);
+    public FeedListPresenter(PaginatingListView view, String url) {
+        super(view, NOTIFICATION_THRESHOLD);
         this.url = url;
-    }
-
-    public FeedListPresenter(PaginatingListView view, String url, int notificationThreshold) {
-        super(view, notificationThreshold);
-        this.url = url;
-        refresh();
     }
 }
