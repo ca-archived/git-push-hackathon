@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import FeedKit
 
 // MARK: - MainViewController
 
@@ -33,17 +34,14 @@ class MainViewController: UIViewController {
 
         let decoder = JSONDecoder()
         feed = try? decoder.decode(FeedResponse.self, from: jsonData)
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        session.rx.data(request: URLRequest(url: (feed?.currentUserPublicUrl?.queryAdded(name: "access_token", value: oauthKey))!)).subscribe({ event in
-
-            switch event {
-            case .next(let value):
-                let parser = XMLParser(data: value)
-                
-            default:
-                break
-            }
-        })
+        print(feed)
+//        let parser = FeedParser(URL: (feed?.currentUserPublicUrl?.queryAdded(name: "access_token", value: oauthKey))!)
+//        parser?.parseAsync(queue: DispatchQueue.global(qos: .userInitiated), result: { result in
+//
+//            print(result)
+//            guard case .atom(let feed) = result else { return }
+//            print(feed)
+//        })
     }
 
     // MARK: UIViewController

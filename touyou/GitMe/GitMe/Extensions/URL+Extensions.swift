@@ -18,7 +18,7 @@ extension URL {
 
             return nil
         }
-        components.queryItems?.append(URLQueryItem(name: name, value: value))
+        components.queryItems = [URLQueryItem(name: name, value: value)]
         return components.url
     }
 }
