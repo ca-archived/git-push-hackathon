@@ -8,10 +8,8 @@
 
 import UIKit
 import RxSwift
-import FeedKit
 
 // MARK: - MainViewController
-
 
 class MainViewController: UIViewController {
 
@@ -33,15 +31,7 @@ class MainViewController: UIViewController {
     func parseJson() {
 
         let decoder = JSONDecoder()
-        feed = try? decoder.decode(FeedResponse.self, from: jsonData)
-        print(feed)
-//        let parser = FeedParser(URL: (feed?.currentUserPublicUrl?.queryAdded(name: "access_token", value: oauthKey))!)
-//        parser?.parseAsync(queue: DispatchQueue.global(qos: .userInitiated), result: { result in
-//
-//            print(result)
-//            guard case .atom(let feed) = result else { return }
-//            print(feed)
-//        })
+        try? print(JSONSerialization.jsonObject(with: jsonData, options: []))
     }
 
     // MARK: UIViewController
@@ -57,9 +47,9 @@ class MainViewController: UIViewController {
 
         super.viewDidLoad()
 
-//        #if DEBUG
-//        UserDefaults.standard.set(nil, forKey: "github_user")
-//        #endif
+        #if DEBUG
+        UserDefaults.standard.set(nil, forKey: "github_user")
+        #endif
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +60,7 @@ class MainViewController: UIViewController {
 
             self.oauthKey = oauthKey
             let session = URLSession(configuration: URLSessionConfiguration.default)
-            session.rx.data(request: URLRequest(url: URL(string: "https://api.github.com/feeds\(accessTokenStr)")!)).subscribe({ [unowned self] event in
+            session.rx.data(request: URLRequest(url: URL(string: "https://api.github.com/users/touyou/received_events\(accessTokenStr)")!)).subscribe({ [unowned self] event in
 
                 switch event {
                 case .next(let value):

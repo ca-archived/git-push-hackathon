@@ -1,3 +1,2 @@
 github "ReactiveX/RxSwift" ~> 4.0
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
-github "nmdias/FeedKit" ~> 6.0

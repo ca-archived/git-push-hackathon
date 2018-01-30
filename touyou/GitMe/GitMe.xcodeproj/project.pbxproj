@@ -44,7 +44,6 @@
 		46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C7E20204A70000B92A6 /* TabBarController.swift */; };
 		46DD8C8120204AE2000B92A6 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C8020204AE2000B92A6 /* FeedResponse.swift */; };
 		46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C82202052DF000B92A6 /* URL+Extensions.swift */; };
-		46DD8C852020579F000B92A6 /* FeedKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46DD8C842020579F000B92A6 /* FeedKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +114,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46DD8C852020579F000B92A6 /* FeedKit.framework in Frameworks */,
 				46AB03912015C0950003AD21 /* OAuthSwift.framework in Frameworks */,
 				46BF3B45200DB924003C2EAE /* RxSwift.framework in Frameworks */,
 				46BF3B46200DB924003C2EAE /* RxCocoa.framework in Frameworks */,
@@ -473,7 +471,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/FeedKit.framework",
 			);
 			outputPaths = (
 			);
