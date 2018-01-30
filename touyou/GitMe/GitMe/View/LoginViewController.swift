@@ -73,3 +73,7 @@ class LoginViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
 }
+
+// MARK: - Storyboard Instantiable
+
+extension LoginViewController: StoryboardInstantiable {}

@@ -41,6 +41,9 @@
 		46DA6D082015925E00767CCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DA6D072015925E00767CCB /* LoginViewController.swift */; };
 		46DA6D0A2015927D00767CCB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DA6D092015927D00767CCB /* MainViewController.swift */; };
 		46DA6D0C2015928E00767CCB /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */; };
+		46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C7E20204A70000B92A6 /* TabBarController.swift */; };
+		46DD8C8120204AE2000B92A6 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C8020204AE2000B92A6 /* FeedResponse.swift */; };
+		46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C82202052DF000B92A6 /* URL+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +103,9 @@
 		46DA6D072015925E00767CCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46DA6D092015927D00767CCB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		46DD8C7E20204A70000B92A6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		46DD8C8020204AE2000B92A6 /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
+		46DD8C82202052DF000B92A6 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +218,7 @@
 			children = (
 				469722E9200E32EF008325C4 /* GitHubConstant.swift */,
 				46AB039D2015CE180003AD21 /* GitHubUser.swift */,
+				46DD8C8020204AE2000B92A6 /* FeedResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -233,6 +240,7 @@
 				469722FC200E4263008325C4 /* UITableView+Extensions.swift */,
 				469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */,
 				46972300200E44CD008325C4 /* UIApplication+Extensions.swift */,
+				46DD8C82202052DF000B92A6 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -271,6 +279,7 @@
 				4695C956200DAC3E0097F066 /* MainViewController.storyboard */,
 				46DA6D072015925E00767CCB /* LoginViewController.swift */,
 				46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */,
+				46DD8C7E20204A70000B92A6 /* TabBarController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,6 +503,7 @@
 				46DA6D0A2015927D00767CCB /* MainViewController.swift in Sources */,
 				469722FB200E41CD008325C4 /* UIView+Extensions.swift in Sources */,
 				46AB039A2015CA910003AD21 /* LoginContainer.swift in Sources */,
+				46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */,
 				469722F9200E414D008325C4 /* Reusable.swift in Sources */,
 				4628D7F2201CBC9A00C66D10 /* MainUseCase.swift in Sources */,
 				469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */,
@@ -504,6 +514,8 @@
 				46AB03A12015D75B0003AD21 /* LoginViewModel.swift in Sources */,
 				4628D7EE201CB7A900C66D10 /* MainContainer.swift in Sources */,
 				469722F5200E4037008325C4 /* StoryboardInstantiable.swift in Sources */,
+				46DD8C8120204AE2000B92A6 /* FeedResponse.swift in Sources */,
+				46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */,
 				4628D7F4201CBCA700C66D10 /* MainViewModel.swift in Sources */,
 				46AB03952015C74A0003AD21 /* LoginViewPresenter.swift in Sources */,
 				469722F7200E40FA008325C4 /* NibLoadable.swift in Sources */,
