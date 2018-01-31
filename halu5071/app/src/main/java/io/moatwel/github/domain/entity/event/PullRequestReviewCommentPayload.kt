@@ -13,4 +13,4 @@ data class PullRequestReviewCommentPayload(
 
   @Json(name = "pull_request")
   val pullRequest: PullRequest
-) : Serializable
+) : Payload(), Serializable

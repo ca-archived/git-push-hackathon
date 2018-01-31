@@ -13,4 +13,4 @@ data class CreatePayload(
   val masterBranch: String,
 
   val description: String
-) : Serializable
+) : Payload(), Serializable

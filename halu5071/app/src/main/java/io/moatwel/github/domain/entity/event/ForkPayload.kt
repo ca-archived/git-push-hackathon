@@ -5,4 +5,4 @@ import java.io.Serializable
 
 data class ForkPayload(
   val forkee: Repository
-) : Serializable
+) : Payload(), Serializable

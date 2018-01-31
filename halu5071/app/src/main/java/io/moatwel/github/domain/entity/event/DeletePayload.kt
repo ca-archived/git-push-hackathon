@@ -8,4 +8,4 @@ data class DeletePayload(
   val refType: String,
 
   val ref: String
-) : Serializable
+) : Payload(), Serializable

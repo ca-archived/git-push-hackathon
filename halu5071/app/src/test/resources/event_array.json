@@ -1,0 +1,597 @@
+[
+  {
+    "id": "7163073730",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 32922369,
+      "login": "halubot",
+      "display_login": "halubot",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/halubot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32922369?"
+    },
+    "repo": {
+      "id": 7508411,
+      "name": "ReactiveX/RxJava",
+      "url": "https://api.github.com/repos/ReactiveX/RxJava"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2018-01-29T05:04:07Z",
+    "org": {
+      "id": 6407041,
+      "login": "ReactiveX",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/ReactiveX",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6407041?"
+    }
+  },
+  {
+    "id": "7163070761",
+    "type": "PullRequestReviewCommentEvent",
+    "actor": {
+      "id": 1386930,
+      "login": "takahirom",
+      "display_login": "takahirom",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/takahirom",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1386930?"
+    },
+    "repo": {
+      "id": 115203383,
+      "name": "DroidKaigi/conference-app-2018",
+      "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018"
+    },
+    "payload": {
+      "action": "created",
+      "comment": {
+        "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/comments/164337070",
+        "pull_request_review_id": 92092391,
+        "id": 164337070,
+        "diff_hunk": "@@ -0,0 +1,70 @@\n+package io.github.droidkaigi.confsched2018.presentation.sessions.feedback\n+\n+import android.arch.lifecycle.LiveData\n+import android.arch.lifecycle.MutableLiveData\n+import android.arch.lifecycle.ViewModel\n+import io.github.droidkaigi.confsched2018.data.repository.SessionRepository\n+import io.github.droidkaigi.confsched2018.model.SessionFeedback\n+import io.github.droidkaigi.confsched2018.presentation.Result\n+import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult\n+import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider\n+import io.reactivex.Observable\n+import io.reactivex.disposables.CompositeDisposable\n+import io.reactivex.rxkotlin.addTo\n+import javax.inject.Inject\n+\n+class SessionsFeedbackViewModel @Inject constructor(\n+        private val repository: SessionRepository,\n+        private val schedulerProvider: SchedulerProvider\n+) : ViewModel() {\n+\n+    var sessionId: String = \"\"\n+    var sessionTitle: String = \"\"\n+\n+    private var mutableSessionFeedback = MutableLiveData<Result<SessionFeedback>>()\n+    var sessionFeedback: LiveData<Result<SessionFeedback>> = mutableSessionFeedback\n+\n+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()\n+\n+    fun init() {",
+        "path": "app/src/main/java/io/github/droidkaigi/confsched2018/presentation/sessions/feedback/SessionsFeedbackViewModel.kt",
+        "position": 29,
+        "original_position": 29,
+        "commit_id": "5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086",
+        "original_commit_id": "5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086",
+        "user": {
+          "login": "takahirom",
+          "id": 1386930,
+          "avatar_url": "https://avatars2.githubusercontent.com/u/1386930?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/takahirom",
+          "html_url": "https://github.com/takahirom",
+          "followers_url": "https://api.github.com/users/takahirom/followers",
+          "following_url": "https://api.github.com/users/takahirom/following{/other_user}",
+          "gists_url": "https://api.github.com/users/takahirom/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/takahirom/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/takahirom/subscriptions",
+          "organizations_url": "https://api.github.com/users/takahirom/orgs",
+          "repos_url": "https://api.github.com/users/takahirom/repos",
+          "events_url": "https://api.github.com/users/takahirom/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/takahirom/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "body": "(You can merge this without fixing it.)\r\nPlease implement LifecycleObserver and ` @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)`",
+        "created_at": "2018-01-29T05:02:41Z",
+        "updated_at": "2018-01-29T05:02:42Z",
+        "html_url": "https://github.com/DroidKaigi/conference-app-2018/pull/474#discussion_r164337070",
+        "pull_request_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474",
+        "author_association": "CONTRIBUTOR",
+        "_links": {
+          "self": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/comments/164337070"
+          },
+          "html": {
+            "href": "https://github.com/DroidKaigi/conference-app-2018/pull/474#discussion_r164337070"
+          },
+          "pull_request": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474"
+          }
+        }
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474",
+        "id": 164911719,
+        "html_url": "https://github.com/DroidKaigi/conference-app-2018/pull/474",
+        "diff_url": "https://github.com/DroidKaigi/conference-app-2018/pull/474.diff",
+        "patch_url": "https://github.com/DroidKaigi/conference-app-2018/pull/474.patch",
+        "issue_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/474",
+        "number": 474,
+        "state": "open",
+        "locked": false,
+        "title": "Add session feedback screen without design",
+        "user": {
+          "login": "futabooo",
+          "id": 944185,
+          "avatar_url": "https://avatars2.githubusercontent.com/u/944185?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/futabooo",
+          "html_url": "https://github.com/futabooo",
+          "followers_url": "https://api.github.com/users/futabooo/followers",
+          "following_url": "https://api.github.com/users/futabooo/following{/other_user}",
+          "gists_url": "https://api.github.com/users/futabooo/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/futabooo/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/futabooo/subscriptions",
+          "organizations_url": "https://api.github.com/users/futabooo/orgs",
+          "repos_url": "https://api.github.com/users/futabooo/repos",
+          "events_url": "https://api.github.com/users/futabooo/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/futabooo/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "body": "## Issue\r\n- related #40\r\n\r\n## Overview (Required)\r\n- Add SessionFeedback screen without design\r\n    - if update sesseion feedback and close screen, save session feedback local db\r\n    - if click submit button, send feedback to googleform\r\n\r\n## Screenshot\r\n### save local db\r\nBefore | After | Note\r\n:--: | :--: | :--:\r\nno screen | <img src=\"https://user-images.githubusercontent.com/944185/35346227-054a817e-0175-11e8-90bf-287f8ec2b0cb.gif\" width=\"300\" />|<img src=\"https://user-images.githubusercontent.com/944185/35346425-8f3ad654-0175-11e8-84ab-51d641dbffd9.png\" width=\"300\" /> \r\n\r\n\r\n### send feedback to googleform\r\n<img src=\"https://user-images.githubusercontent.com/944185/35346722-50e1a134-0176-11e8-9972-7820d0a31574.png\" width=\"300\" />\r\n\r\n\r\n\r\n",
+        "created_at": "2018-01-24T17:21:43Z",
+        "updated_at": "2018-01-29T05:02:42Z",
+        "closed_at": null,
+        "merged_at": null,
+        "merge_commit_sha": "17ff07f1abf5679d57ac44212501b22c2caaeedc",
+        "assignee": null,
+        "assignees": [
+
+        ],
+        "requested_reviewers": [
+
+        ],
+        "requested_teams": [
+
+        ],
+        "milestone": null,
+        "commits_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474/commits",
+        "review_comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474/comments",
+        "review_comment_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/comments{/number}",
+        "comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/474/comments",
+        "statuses_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/statuses/5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086",
+        "head": {
+          "label": "DroidKaigi:add-session-feedback-screen",
+          "ref": "add-session-feedback-screen",
+          "sha": "5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086",
+          "user": {
+            "login": "DroidKaigi",
+            "id": 10727543,
+            "avatar_url": "https://avatars0.githubusercontent.com/u/10727543?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/DroidKaigi",
+            "html_url": "https://github.com/DroidKaigi",
+            "followers_url": "https://api.github.com/users/DroidKaigi/followers",
+            "following_url": "https://api.github.com/users/DroidKaigi/following{/other_user}",
+            "gists_url": "https://api.github.com/users/DroidKaigi/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/DroidKaigi/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/DroidKaigi/subscriptions",
+            "organizations_url": "https://api.github.com/users/DroidKaigi/orgs",
+            "repos_url": "https://api.github.com/users/DroidKaigi/repos",
+            "events_url": "https://api.github.com/users/DroidKaigi/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/DroidKaigi/received_events",
+            "type": "Organization",
+            "site_admin": false
+          },
+          "repo": {
+            "id": 115203383,
+            "name": "conference-app-2018",
+            "full_name": "DroidKaigi/conference-app-2018",
+            "owner": {
+              "login": "DroidKaigi",
+              "id": 10727543,
+              "avatar_url": "https://avatars0.githubusercontent.com/u/10727543?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/DroidKaigi",
+              "html_url": "https://github.com/DroidKaigi",
+              "followers_url": "https://api.github.com/users/DroidKaigi/followers",
+              "following_url": "https://api.github.com/users/DroidKaigi/following{/other_user}",
+              "gists_url": "https://api.github.com/users/DroidKaigi/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/DroidKaigi/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/DroidKaigi/subscriptions",
+              "organizations_url": "https://api.github.com/users/DroidKaigi/orgs",
+              "repos_url": "https://api.github.com/users/DroidKaigi/repos",
+              "events_url": "https://api.github.com/users/DroidKaigi/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/DroidKaigi/received_events",
+              "type": "Organization",
+              "site_admin": false
+            },
+            "private": false,
+            "html_url": "https://github.com/DroidKaigi/conference-app-2018",
+            "description": "The Official Conference App for DroidKaigi 2018 Tokyo",
+            "fork": false,
+            "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018",
+            "forks_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/forks",
+            "keys_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/keys{/key_id}",
+            "collaborators_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/collaborators{/collaborator}",
+            "teams_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/teams",
+            "hooks_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/hooks",
+            "issue_events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/events{/number}",
+            "events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/events",
+            "assignees_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/assignees{/user}",
+            "branches_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/branches{/branch}",
+            "tags_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/tags",
+            "blobs_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/blobs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/tags{/sha}",
+            "git_refs_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/refs{/sha}",
+            "trees_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/trees{/sha}",
+            "statuses_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/statuses/{sha}",
+            "languages_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/languages",
+            "stargazers_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/stargazers",
+            "contributors_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/contributors",
+            "subscribers_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/subscribers",
+            "subscription_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/subscription",
+            "commits_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/commits{/sha}",
+            "git_commits_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/commits{/sha}",
+            "comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/comments{/number}",
+            "issue_comment_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/comments{/number}",
+            "contents_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/contents/{+path}",
+            "compare_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/compare/{base}...{head}",
+            "merges_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/merges",
+            "archive_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/{archive_format}{/ref}",
+            "downloads_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/downloads",
+            "issues_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues{/number}",
+            "pulls_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls{/number}",
+            "milestones_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/milestones{/number}",
+            "notifications_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/notifications{?since,all,participating}",
+            "labels_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels{/name}",
+            "releases_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/releases{/id}",
+            "deployments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/deployments",
+            "created_at": "2017-12-23T15:13:21Z",
+            "updated_at": "2018-01-29T04:09:06Z",
+            "pushed_at": "2018-01-29T04:56:04Z",
+            "git_url": "git://github.com/DroidKaigi/conference-app-2018.git",
+            "ssh_url": "git@github.com:DroidKaigi/conference-app-2018.git",
+            "clone_url": "https://github.com/DroidKaigi/conference-app-2018.git",
+            "svn_url": "https://github.com/DroidKaigi/conference-app-2018",
+            "homepage": "",
+            "size": 4646,
+            "stargazers_count": 678,
+            "watchers_count": 678,
+            "language": "Kotlin",
+            "has_issues": true,
+            "has_projects": true,
+            "has_downloads": true,
+            "has_wiki": true,
+            "has_pages": false,
+            "forks_count": 205,
+            "mirror_url": null,
+            "archived": false,
+            "open_issues_count": 28,
+            "license": {
+              "key": "apache-2.0",
+              "name": "Apache License 2.0",
+              "spdx_id": "Apache-2.0",
+              "url": "https://api.github.com/licenses/apache-2.0"
+            },
+            "forks": 205,
+            "open_issues": 28,
+            "watchers": 678,
+            "default_branch": "master"
+          }
+        },
+        "base": {
+          "label": "DroidKaigi:master",
+          "ref": "master",
+          "sha": "75ecc13e3e4e1b528c3e88881843b758e9ab4c1f",
+          "user": {
+            "login": "DroidKaigi",
+            "id": 10727543,
+            "avatar_url": "https://avatars0.githubusercontent.com/u/10727543?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/DroidKaigi",
+            "html_url": "https://github.com/DroidKaigi",
+            "followers_url": "https://api.github.com/users/DroidKaigi/followers",
+            "following_url": "https://api.github.com/users/DroidKaigi/following{/other_user}",
+            "gists_url": "https://api.github.com/users/DroidKaigi/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/DroidKaigi/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/DroidKaigi/subscriptions",
+            "organizations_url": "https://api.github.com/users/DroidKaigi/orgs",
+            "repos_url": "https://api.github.com/users/DroidKaigi/repos",
+            "events_url": "https://api.github.com/users/DroidKaigi/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/DroidKaigi/received_events",
+            "type": "Organization",
+            "site_admin": false
+          },
+          "repo": {
+            "id": 115203383,
+            "name": "conference-app-2018",
+            "full_name": "DroidKaigi/conference-app-2018",
+            "owner": {
+              "login": "DroidKaigi",
+              "id": 10727543,
+              "avatar_url": "https://avatars0.githubusercontent.com/u/10727543?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/DroidKaigi",
+              "html_url": "https://github.com/DroidKaigi",
+              "followers_url": "https://api.github.com/users/DroidKaigi/followers",
+              "following_url": "https://api.github.com/users/DroidKaigi/following{/other_user}",
+              "gists_url": "https://api.github.com/users/DroidKaigi/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/DroidKaigi/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/DroidKaigi/subscriptions",
+              "organizations_url": "https://api.github.com/users/DroidKaigi/orgs",
+              "repos_url": "https://api.github.com/users/DroidKaigi/repos",
+              "events_url": "https://api.github.com/users/DroidKaigi/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/DroidKaigi/received_events",
+              "type": "Organization",
+              "site_admin": false
+            },
+            "private": false,
+            "html_url": "https://github.com/DroidKaigi/conference-app-2018",
+            "description": "The Official Conference App for DroidKaigi 2018 Tokyo",
+            "fork": false,
+            "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018",
+            "forks_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/forks",
+            "keys_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/keys{/key_id}",
+            "collaborators_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/collaborators{/collaborator}",
+            "teams_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/teams",
+            "hooks_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/hooks",
+            "issue_events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/events{/number}",
+            "events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/events",
+            "assignees_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/assignees{/user}",
+            "branches_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/branches{/branch}",
+            "tags_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/tags",
+            "blobs_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/blobs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/tags{/sha}",
+            "git_refs_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/refs{/sha}",
+            "trees_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/trees{/sha}",
+            "statuses_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/statuses/{sha}",
+            "languages_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/languages",
+            "stargazers_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/stargazers",
+            "contributors_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/contributors",
+            "subscribers_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/subscribers",
+            "subscription_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/subscription",
+            "commits_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/commits{/sha}",
+            "git_commits_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/git/commits{/sha}",
+            "comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/comments{/number}",
+            "issue_comment_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/comments{/number}",
+            "contents_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/contents/{+path}",
+            "compare_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/compare/{base}...{head}",
+            "merges_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/merges",
+            "archive_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/{archive_format}{/ref}",
+            "downloads_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/downloads",
+            "issues_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues{/number}",
+            "pulls_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls{/number}",
+            "milestones_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/milestones{/number}",
+            "notifications_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/notifications{?since,all,participating}",
+            "labels_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels{/name}",
+            "releases_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/releases{/id}",
+            "deployments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/deployments",
+            "created_at": "2017-12-23T15:13:21Z",
+            "updated_at": "2018-01-29T04:09:06Z",
+            "pushed_at": "2018-01-29T04:56:04Z",
+            "git_url": "git://github.com/DroidKaigi/conference-app-2018.git",
+            "ssh_url": "git@github.com:DroidKaigi/conference-app-2018.git",
+            "clone_url": "https://github.com/DroidKaigi/conference-app-2018.git",
+            "svn_url": "https://github.com/DroidKaigi/conference-app-2018",
+            "homepage": "",
+            "size": 4646,
+            "stargazers_count": 678,
+            "watchers_count": 678,
+            "language": "Kotlin",
+            "has_issues": true,
+            "has_projects": true,
+            "has_downloads": true,
+            "has_wiki": true,
+            "has_pages": false,
+            "forks_count": 205,
+            "mirror_url": null,
+            "archived": false,
+            "open_issues_count": 28,
+            "license": {
+              "key": "apache-2.0",
+              "name": "Apache License 2.0",
+              "spdx_id": "Apache-2.0",
+              "url": "https://api.github.com/licenses/apache-2.0"
+            },
+            "forks": 205,
+            "open_issues": 28,
+            "watchers": 678,
+            "default_branch": "master"
+          }
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474"
+          },
+          "html": {
+            "href": "https://github.com/DroidKaigi/conference-app-2018/pull/474"
+          },
+          "issue": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/474"
+          },
+          "comments": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/474/comments"
+          },
+          "review_comments": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474/comments"
+          },
+          "review_comment": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/comments{/number}"
+          },
+          "commits": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/474/commits"
+          },
+          "statuses": {
+            "href": "https://api.github.com/repos/DroidKaigi/conference-app-2018/statuses/5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086"
+          }
+        },
+        "author_association": "MEMBER"
+      }
+    },
+    "public": true,
+    "created_at": "2018-01-29T05:02:41Z",
+    "org": {
+      "id": 10727543,
+      "login": "DroidKaigi",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/DroidKaigi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10727543?"
+    }
+  },
+  {
+    "id": "7163056449",
+    "type": "PushEvent",
+    "actor": {
+      "id": 944185,
+      "login": "futabooo",
+      "display_login": "futabooo",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/futabooo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/944185?"
+    },
+    "repo": {
+      "id": 115203383,
+      "name": "DroidKaigi/conference-app-2018",
+      "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018"
+    },
+    "payload": {
+      "push_id": 2287996200,
+      "size": 1,
+      "distinct_size": 1,
+      "ref": "refs/heads/add-session-feedback-screen",
+      "head": "5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086",
+      "before": "8880397e1d4f653dbbef20c964c8ddd1ddaeab8d",
+      "commits": [
+        {
+          "sha": "5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086",
+          "author": {
+            "email": "takahiro.futagawa@gmail.com",
+            "name": "futabooo"
+          },
+          "message": "fix droidkaigibot comment",
+          "distinct": true,
+          "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/commits/5d4ae3712d96f8f96f4e43c8e1c51c6b1161a086"
+        }
+      ]
+    },
+    "public": true,
+    "created_at": "2018-01-29T04:56:04Z",
+    "org": {
+      "id": 10727543,
+      "login": "DroidKaigi",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/DroidKaigi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10727543?"
+    }
+  },
+  {
+    "id": "7163018062",
+    "type": "IssueCommentEvent",
+    "actor": {
+      "id": 1269214,
+      "login": "konifar",
+      "display_login": "konifar",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/konifar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1269214?"
+    },
+    "repo": {
+      "id": 115203383,
+      "name": "DroidKaigi/conference-app-2018",
+      "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018"
+    },
+    "payload": {
+      "action": "created",
+      "issue": {
+        "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/519",
+        "repository_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018",
+        "labels_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/519/labels{/name}",
+        "comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/519/comments",
+        "events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/519/events",
+        "html_url": "https://github.com/DroidKaigi/conference-app-2018/issues/519",
+        "id": 292218194,
+        "number": 519,
+        "title": "[Assigned] When returning Flowable or Observable or Single or Completable etc.. , we should use @CheckResults",
+        "user": {
+          "login": "takahirom",
+          "id": 1386930,
+          "avatar_url": "https://avatars2.githubusercontent.com/u/1386930?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/takahirom",
+          "html_url": "https://github.com/takahirom",
+          "followers_url": "https://api.github.com/users/takahirom/followers",
+          "following_url": "https://api.github.com/users/takahirom/following{/other_user}",
+          "gists_url": "https://api.github.com/users/takahirom/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/takahirom/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/takahirom/subscriptions",
+          "organizations_url": "https://api.github.com/users/takahirom/orgs",
+          "repos_url": "https://api.github.com/users/takahirom/repos",
+          "events_url": "https://api.github.com/users/takahirom/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/takahirom/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 808888848,
+            "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels/assigned",
+            "name": "assigned",
+            "color": "0052cc",
+            "default": false
+          },
+          {
+            "id": 798890472,
+            "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels/easy",
+            "name": "easy",
+            "color": "06db1b",
+            "default": false
+          },
+          {
+            "id": 787514749,
+            "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels/welcome%20contribute",
+            "name": "welcome contribute",
+            "color": "d4c5f9",
+            "default": false
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignee": null,
+        "assignees": [
+
+        ],
+        "milestone": null,
+        "comments": 1,
+        "created_at": "2018-01-28T16:36:46Z",
+        "updated_at": "2018-01-29T04:37:12Z",
+        "closed_at": null,
+        "author_association": "CONTRIBUTOR",
+        "body": "## Overview (Required)\r\n- It becomes more safely"
+      },
+      "comment": {
+        "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/comments/361138417",
+        "html_url": "https://github.com/DroidKaigi/conference-app-2018/issues/519#issuecomment-361138417",
+        "issue_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/519",
+        "id": 361138417,
+        "user": {
+          "login": "konifar",
+          "id": 1269214,
+          "avatar_url": "https://avatars3.githubusercontent.com/u/1269214?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/konifar",
+          "html_url": "https://github.com/konifar",
+          "followers_url": "https://api.github.com/users/konifar/followers",
+          "following_url": "https://api.github.com/users/konifar/following{/other_user}",
+          "gists_url": "https://api.github.com/users/konifar/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/konifar/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/konifar/subscriptions",
+          "organizations_url": "https://api.github.com/users/konifar/orgs",
+          "repos_url": "https://api.github.com/users/konifar/repos",
+          "events_url": "https://api.github.com/users/konifar/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/konifar/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "created_at": "2018-01-29T04:37:12Z",
+        "updated_at": "2018-01-29T04:37:12Z",
+        "author_association": "CONTRIBUTOR",
+        "body": "Thanks! I assigned!"
+      }
+    },
+    "public": true,
+    "created_at": "2018-01-29T04:37:12Z",
+    "org": {
+      "id": 10727543,
+      "login": "DroidKaigi",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/DroidKaigi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10727543?"
+    }
+  }
+]
