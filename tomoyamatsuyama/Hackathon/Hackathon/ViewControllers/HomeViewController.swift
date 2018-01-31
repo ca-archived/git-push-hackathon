@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController{
+class HomeViewController: UIViewController {
     
     @IBOutlet weak var homeTableView: UITableView!
     private let homeVM = HomeViewModel()
@@ -68,5 +68,12 @@ class HomeViewController: UIViewController{
         self.getUserData()
         self.getFeed()
         self.homeTableView.dataSource = homeVM
+        self.homeTableView.delegate = self
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -19,6 +19,7 @@ class MenuViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    
     private var user = User()
     private var menuVM = MenuViewModel()
     
@@ -62,5 +63,8 @@ class MenuViewController: UIViewController {
 extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
