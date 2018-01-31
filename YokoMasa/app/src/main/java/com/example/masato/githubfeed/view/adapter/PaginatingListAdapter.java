@@ -10,7 +10,13 @@ import com.example.masato.githubfeed.view.PaginatingListView;
 import static com.example.masato.githubfeed.view.PaginatingListView.*;
 
 /**
+ *
  * Created by Masato on 2018/01/29.
+ *
+ * このクラスはツイッターのように、あるスクロール地点まで行くと次のページのものを取ってくるという機能を持った
+ * RecyclerView用のアダプターです。このアダプターはリストを持っておらず、viewに関することだけを処理します。
+ * リストに関する処理はlistenerを通じてPaginatingListPresenterが行います。
+ *
  */
 
 public class PaginatingListAdapter extends RecyclerView.Adapter {

@@ -30,9 +30,7 @@ public class FeedListFragment extends PaginatingListFragment<FeedEntry> implemen
     @Override
     protected PaginatingListPresenter<FeedEntry> onCreatePresenter() {
         String url = getArguments().getString("url");
-        FeedListPresenter presenter =  new FeedListPresenter(this, url);
-        presenter.setView(this);
-        return presenter;
+        return new FeedListPresenter(this, url);
     }
 
     @Override

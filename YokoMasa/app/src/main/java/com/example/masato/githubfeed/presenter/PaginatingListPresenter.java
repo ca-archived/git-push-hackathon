@@ -1,9 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
 import android.os.Parcelable;
-import android.util.Log;
 
-import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.view.PaginatingListView;
 import static com.example.masato.githubfeed.view.PaginatingListView.*;
 
@@ -11,7 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * Created by Masato on 2018/01/29.
+ *
+ * このクラスはツイッターのように、あるスクロール地点まで行くと次のページのものを取ってくるという機能を実装したクラスです。
+ * PaginatingListFragmentのonCreatePresenter()コールバックでこのクラスのインスタンスを渡すことができます。
+ * 実際になんのオブジェクトのリストを持つか、RecyclerViewのリストの要素がタップされたときになんの処理を行うか、という
+ * ことについては、このクラスのサブクラスが実装します。
+ *
  */
 
 public abstract class PaginatingListPresenter<T extends Parcelable> {
@@ -19,27 +24,48 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
     private PaginatingListView view;
     private ArrayList<T> elementList = new ArrayList<>();
     private int currentPage = 1;
-    private int notificationThreshold;
+    private int fetchThreshold;
     private boolean feedMaxedOut = false;
     private boolean refreshing = false;
     private boolean fetching = false;
 
+    /**
+     * 現在取得が完了しているページをセットします。
+     * @param currentPage 現在取得が完了しているページ。
+     */
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
+    /**
+     * 現在取得が完了しているページを返します。
+     * @return 現在取得が完了しているページ。
+     */
     public int getCurrentPage() {
         return currentPage;
     }
 
+    /**
+     * リストをセットします。
+     * @param elementList セットするリスト。
+     */
     public void setElementList(ArrayList<T> elementList) {
         this.elementList = elementList;
     }
 
+    /**
+     * リストを返します。
+     * @return 持っているリスト。
+     */
     public ArrayList<T> getElementList() {
         return elementList;
     }
 
+    /**
+     * ポジションの位置にあるアイテムを返します。
+     * @param position リスト中のアイテムのポジション。
+     * @return 該当するポジションにあるアイテム。
+     */
     public T getItem(int position) {
         return elementList.get(position);
     }
@@ -48,6 +74,13 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         return getItemCount();
     }
 
+    /**
+     * ポジションに応じたviewTypeを返します。リストに何もなければNOTHING_TO_SHOW_VIEW、
+     * リストの最後のポジションであればLOADING_VIEW、リストの最後のポジションだがもうこれ以上次のページから
+     * アイテムが取得できない場合はELEMENT_VIEWを返します。
+     * @param position viewTypeを知りたいポジション。
+     * @return そのポジションに応じたviewType。
+     */
     public int onGetItemViewType(int position) {
         if (feedMaxedOut) {
             if (elementList.size() == 0) {
@@ -61,8 +94,27 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         return ELEMENT_VIEW;
     }
 
+    /**
+     * PaginatingListFragmentのRecyclerViewのアイテムがクリックされたときにコールバックされます。
+     * ここでクリックされたときの処理を実装します。
+     * @param element クリックされたポジションのアイテム。
+     */
     public abstract void onElementClicked(T element);
 
+    /**
+     * ユーザーがある程度スクロールしたとき、またはユーザーが画面を下に引っ張って更新したときに呼ばれます。
+     * そのページにあるアイテムを取得する処理を実装します。
+     * @param page アイテムをとってきてほしいページ。
+     */
+    protected abstract void onFetchElement(int page);
+
+    /**
+     * このクラスのサブクラスはonFetchElement()でアイテムの取得をした結果をこのメソッドで通知する必要があります。
+     * 取得に成功したらfetchSucceededをtrueを、失敗したらfalseを渡してください。
+     * 取得に失敗した場合はelementsはnullで構いません。取得に成功したが、アイテムが0個である場合は空のリストを渡してください。
+     * @param elements 取得したアイテムのリスト。
+     * @param fetchSucceeded アイテムの取得が成功したかどうか。
+     */
     protected void onFetchedElements(List<T> elements, boolean fetchSucceeded) {
         if (fetchSucceeded) {
             addElements(elements);
@@ -73,6 +125,11 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         }
     }
 
+    /**
+     * 取得したアイテムのリストを持っているリストに追加します。アイテムの数やフラグによって処理が変わるので
+     * onFetchElement()によって取得したアイテムはこのメソッドで追加される必要があります。
+     * @param elements 取得したアイテムのリスト。
+     */
     private void addElements(List<T> elements) {
         if (refreshing) {
             this.elementList.clear();
@@ -90,6 +147,10 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         fetching = false;
     }
 
+    /**
+     * PaginatingListFragmentのRecyclerViewが初期化されるとき、またはユーザーが画面を下に引っ張ったときに
+     * リストを初期化するために呼びます。
+     */
     public void refresh() {
         if (refreshing) {
             return;
@@ -100,20 +161,30 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         fetching = true;
     }
 
+    /**
+     * 与えられたポジションがリストの終端に近づいていて、fetchThresholdで定められた基準を下回っているかどうかを
+     * 判定します。例えばアイテムが20個ありthresholdが5の時、最後から5番目のアイテムが表示されるときに次のページ
+     * からのアイテムの取得が必要だと判断され、onFetchElement()が呼ばれます。
+     * @param position 現在表示されようとしているアイテムのポジション。
+     */
     public void fetchElementIfNeeded(int position) {
         if (fetching) {
             return;
         }
         int remaining = getItemCount() - position;
-        if (remaining < notificationThreshold && !feedMaxedOut) {
+        if (remaining < fetchThreshold && !feedMaxedOut) {
             fetching = true;
             onFetchElement(currentPage + 1);
             currentPage++;
         }
     }
 
-    protected abstract void onFetchElement(int page);
-
+    /**
+     * 表示するアイテムの数を返します。リストが0個だからと言って0が帰るわけではありません。
+     * リストが0個の時は、取得中であることを表すLOADING_VIEW1個か、取得が終わり本当にアイテムが0個であること
+     * を表すNOTHING_TO_SHOW_VIEW1個を返します。
+     * @return 表示するアイテムの数。
+     */
     private int getItemCount() {
         if (feedMaxedOut) {
             if (elementList.size() == 0) {
@@ -124,15 +195,8 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         return elementList.size() + 1;
     }
 
-    PaginatingListPresenter(PaginatingListView view, int notificationThreshold, ArrayList<T> elements, int currentPage) {
+    PaginatingListPresenter(PaginatingListView view, int fetchThreshold) {
         this.view = view;
-        this.notificationThreshold = notificationThreshold;
-        this.elementList = elements;
-        this.currentPage = currentPage;
-    }
-
-    PaginatingListPresenter(PaginatingListView view, int notificationThreshold) {
-        this.view = view;
-        this.notificationThreshold = notificationThreshold;
+        this.fetchThreshold = fetchThreshold;
     }
 }

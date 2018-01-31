@@ -19,7 +19,14 @@ import com.example.masato.githubfeed.view.adapter.PaginatingListAdapter;
 import java.util.ArrayList;
 
 /**
+ *
  * Created by Masato on 2018/01/29.
+ *
+ * このフラグメントはツイッターのように、あるスクロール地点まで行くと次のページのものを取ってくるという機能をもつ
+ * フラグメントです。画面を下に引っ張って更新する機能も備えます。
+ * このクラスのサブクラスはビューホルダーに関する処理を実装する必要があります。
+ * また、ビジネスロジックの処理はonCreatePresenter()で渡されるPaginatingListPresenterによって行われます。
+ *
  */
 
 public abstract class PaginatingListFragment<T extends Parcelable> extends Fragment
@@ -72,7 +79,7 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends Fragm
         return onCreatePaginatingViewHolder(parent);
     }
 
-    protected abstract PaginatingListViewHolder onCreatePaginatingViewHolder(ViewGroup parent);
+    protected abstract PaginatingListViewHolder<T> onCreatePaginatingViewHolder(ViewGroup parent);
 
     @Override
     final public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -137,13 +144,11 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends Fragm
         });
     }
 
-    public abstract class PaginatingListViewHolder<T extends Parcelable> extends RecyclerView.ViewHolder {
+    abstract class PaginatingListViewHolder<T extends Parcelable> extends RecyclerView.ViewHolder {
 
         View itemView;
-        private OnElementClickListener<T> listener;
 
-        public void notifyWhenClicked(final T element, final OnElementClickListener<T> listener) {
-            this.listener = listener;
+        void notifyWhenClicked(final T element, final OnElementClickListener<T> listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

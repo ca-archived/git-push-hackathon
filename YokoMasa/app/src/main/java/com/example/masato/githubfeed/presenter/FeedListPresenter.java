@@ -22,10 +22,6 @@ public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
     private FeedListView view;
     private String url;
 
-    public void setView(FeedListView view) {
-        this.view = view;
-    }
-
     @Override
     protected void onFetchElement(int page) {
         GitHubApi.getApi().fetchFeedList(this.url, page, new GitHubApiCallback() {
@@ -50,6 +46,7 @@ public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
 
     public FeedListPresenter(PaginatingListView view, String url) {
         super(view, NOTIFICATION_THRESHOLD);
+        this.view = (FeedListView) view;
         this.url = url;
     }
 }

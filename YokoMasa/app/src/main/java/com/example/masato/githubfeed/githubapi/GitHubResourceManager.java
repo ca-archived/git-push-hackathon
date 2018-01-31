@@ -90,7 +90,6 @@ public class GitHubResourceManager {
         connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
             @Override
             public void onHttpResponse(int statusCode, Object body) {
-                Log.i("gh_feed", "on http response");
                 String bodyString = (String) body;
                 Object feedEntries = GitHubObjectMapper.mapFeedEntries(bodyString);
                 handleResponse(statusCode, feedEntries, callback);
