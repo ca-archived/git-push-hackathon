@@ -26,9 +26,8 @@ class HomeViewController: UIViewController {
             let image = self.imageSet(avatarUrl: user.avatar_url)
             self.user = user
             self.avatarImageButton.setBackgroundImage(image, for: .normal)
-            
+            self.getEvents()
         })
-        
     }
     
     private func imageSet(avatarUrl: String) -> UIImage? {

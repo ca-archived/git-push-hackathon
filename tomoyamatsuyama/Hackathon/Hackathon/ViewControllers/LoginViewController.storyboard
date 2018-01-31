@@ -28,11 +28,11 @@
                                             <constraint firstAttribute="width" constant="82" id="qHg-rP-5Tw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.99607843139999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.93537174460000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.019607843140000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="CiL-R5-IOf" firstAttribute="centerX" secondItem="ew7-JU-iYt" secondAttribute="centerX" id="4et-7c-YSP"/>
                                     <constraint firstAttribute="bottom" secondItem="CiL-R5-IOf" secondAttribute="bottom" constant="9" id="6iL-sK-cJS"/>
