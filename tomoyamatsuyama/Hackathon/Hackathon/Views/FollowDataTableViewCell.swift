@@ -12,6 +12,13 @@ class FollowDataTableViewCell: UITableViewCell {
 
     @IBOutlet weak var contentName: UILabel!
     @IBOutlet weak var contentValue: UILabel!
+    
+    func bind(_ cell: followDataTableViewCell, name: String, value: String) -> followDataTableViewCell {
+        cell.contentName.text = name
+        cell.contentValue.text = value
+        return cell
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
