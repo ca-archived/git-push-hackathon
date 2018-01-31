@@ -13,6 +13,7 @@ class MenuViewModel: NSObject, UITableViewDataSource {
     
     private var user = User()
     private var cellItems: [String] = ["Events", "Organaizations", "Repositories", "Gists"]
+    
     static func instantiate(user: User) -> MenuViewModel {
         let menuVM = MenuViewModel()
         menuVM.user = user

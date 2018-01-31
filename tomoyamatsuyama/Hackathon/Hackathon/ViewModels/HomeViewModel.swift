@@ -37,7 +37,6 @@ class HomeViewModel: NSObject, UITableViewDataSource {
         let url = "https://api.github.com/user?access_token=\(oauth)"
         Alamofire.request(url).responseJSON { response in
             if let dic = response.result.value as? Dictionary<String, Any> {
-                print(dic)
                 let userData = self.setUserData(dic: dic)
                 guard let user = userData else { return }
                 completion?(user)

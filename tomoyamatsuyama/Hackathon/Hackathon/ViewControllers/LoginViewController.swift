@@ -31,7 +31,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         self.webViewOfLogin.loadRequest(request)
     }
     
-    func goToHomeVC(){
+    private func goToHomeVC(){
         let homeVC = HomeViewController.instatiate()
         self.present(homeVC, animated: true, completion: nil)
     }

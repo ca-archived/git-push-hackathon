@@ -31,9 +31,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYw-wm-i89">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYw-wm-i89">
                                         <rect key="frame" x="10" y="30" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="3Op-JD-xs1"/>
+                                            <constraint firstAttribute="height" constant="30" id="Hl3-YS-61g"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="avatarImageButtonTapped:" destination="KuK-yT-eht" eventType="touchUpInside" id="Weq-xH-gl2"/>
                                         </connections>
@@ -41,8 +44,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.93537174460000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="CYw-wm-i89" firstAttribute="top" secondItem="z1v-cX-S3e" secondAttribute="top" constant="30" id="3Bq-WA-v52"/>
+                                    <constraint firstItem="CYw-wm-i89" firstAttribute="leading" secondItem="z1v-cX-S3e" secondAttribute="leading" constant="10" id="4F8-y1-5hz"/>
                                     <constraint firstItem="TWx-eD-QG7" firstAttribute="top" secondItem="z1v-cX-S3e" secondAttribute="top" constant="34" id="6LL-er-ADe"/>
                                     <constraint firstItem="TWx-eD-QG7" firstAttribute="centerX" secondItem="z1v-cX-S3e" secondAttribute="centerX" id="L1B-s9-PrS"/>
+                                    <constraint firstAttribute="bottom" secondItem="CYw-wm-i89" secondAttribute="bottom" constant="4" id="SCZ-31-GVK"/>
                                     <constraint firstAttribute="bottom" secondItem="TWx-eD-QG7" secondAttribute="bottom" constant="9" id="avn-fX-eUm"/>
                                     <constraint firstAttribute="height" constant="64" id="gCf-S3-zEt"/>
                                 </constraints>

@@ -13,7 +13,7 @@ class FollowDataTableViewCell: UITableViewCell {
     @IBOutlet weak var contentName: UILabel!
     @IBOutlet weak var contentValue: UILabel!
     
-    func bind(_ cell: followDataTableViewCell, name: String, value: String) -> followDataTableViewCell {
+    func bind(_ cell: FollowDataTableViewCell, name: String, value: String) -> FollowDataTableViewCell {
         cell.contentName.text = name
         cell.contentValue.text = value
         return cell

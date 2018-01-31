@@ -14,9 +14,9 @@ class HomeViewController: UIViewController{
     private let homeVM = HomeViewModel()
     private var user = User()
     private let indicator = UIActivityIndicatorView()
-    @IBOutlet weak var avatarImageButton: UIButton!
+    @IBOutlet weak private var avatarImageButton: UIButton!
     
-    @IBAction func avatarImageButtonTapped(_ sender: Any) {
+    @IBAction private func avatarImageButtonTapped(_ sender: Any) {
         let menuVC = MenuViewController.instatiate(user: self.user)
         self.present(menuVC, animated: true, completion: nil)
     }
@@ -54,7 +54,7 @@ class HomeViewController: UIViewController{
         return homeVC
     }
     
-    func getFeed(){
+    private func getFeed(){
         showIndicator(indicator: indicator)
         homeVM.requestFeed(comletion: { [weak self] in
             guard let `self` = self else { return }
@@ -65,6 +65,7 @@ class HomeViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getUserData()
         self.getFeed()
         self.homeTableView.dataSource = homeVM
     }

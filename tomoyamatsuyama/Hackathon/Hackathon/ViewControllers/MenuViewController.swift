@@ -11,12 +11,12 @@ import UIKit
 class MenuViewController: UIViewController {
 
     
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var menuTableView: UITableView!
+    @IBOutlet weak private var avatarImageView: UIImageView!
+    @IBOutlet weak private var name: UILabel!
+    @IBOutlet weak private var menuTableView: UITableView!
     
-    @IBAction func completionButtonTapped(_ sender: Any) {
-        
+    @IBAction private func completionButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     private var user = User()
