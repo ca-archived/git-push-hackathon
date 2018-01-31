@@ -12,6 +12,7 @@ import UIKit
 import Alamofire
 
 class HomeViewModel: NSObject, UITableViewDataSource {
+    private var events: Array<Events> = Array<Events>()
     
     func setUserData(dic: Dictionary<String, Any>) -> User? {
         guard let avatarUrl: String = dic["avatar_url"] as? String else { return nil}
@@ -43,15 +44,26 @@ class HomeViewModel: NSObject, UITableViewDataSource {
         }
     }
     
-    
+    func requestEvents(userName: String, completion: (() -> Void)? = nil) {
+        let url = "https://api.github.com/users/\(userName)/received_events"
+        print(url)
+        Alamofire.request(url).response { response in
+            if let data = response.data {
+                self.events = try! JSONDecoder().decode(Array<Events>.self, from: data)
+                completion?()
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return
+        return self.events.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath) as! HomeTableViewCell
-        
+        if events.count > 0 {
+            cell.bind(cell, event: events[indexPath.row])
+        }
         return cell
     }
 }

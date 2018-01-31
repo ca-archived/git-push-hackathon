@@ -54,7 +54,14 @@ class HomeViewController: UIViewController {
         return homeVC
     }
     
-    
+    private func getEvents(){
+        self.showIndicator(indicator: indicator)
+        homeVM.requestEvents(userName: user.login, completion: { [weak self] in
+            guard let `self` = self else { return }
+            self.homeTableView.reloadData()
+            self.stopIndecator(indicator: self.indicator)
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

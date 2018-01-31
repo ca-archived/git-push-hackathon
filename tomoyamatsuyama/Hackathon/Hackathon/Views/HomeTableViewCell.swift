@@ -27,10 +27,30 @@ class HomeTableViewCell: UITableViewCell {
         }
     }
     
-    func bind(_ cell: HomeTableViewCell, avatarUrl: String, title: String) -> HomeTableViewCell {
-        cell.avatarView.image = imageSet(avatarUrl: avatarUrl)
-            cell.titleLabel.text = title
-            cell.layoutMargins = UIEdgeInsetsMake(0.0, avatarView.frame.size.width + 18.0, 0.0, 0.0)
+    enum type: String {
+        case ForkEvent = "ForkEvent"
+        case PublicEvent = "PublicEvent"
+        case WatchEvent = "WatchEvent"
+        case CreateEvent = "CreateEvent"
+    }
+    
+    func bind(_ cell: HomeTableViewCell, event: Events) -> HomeTableViewCell {
+        cell.avatarView.image = imageSet(avatarUrl: event.actor.avatar_url)
+        
+        switch event.type {
+        case type.ForkEvent.rawValue :
+            cell.titleLabel.text = "\(event.actor.display_login) forked \(event.repo.name)"
+        case type.PublicEvent.rawValue :
+            cell.titleLabel.text = "\(event.actor.display_login) has open sourced \(event.repo.name)"
+        case type.WatchEvent.rawValue :
+            cell.titleLabel.text = "\(event.actor.display_login) starred \(event.repo.name)"
+        case type.CreateEvent.rawValue :
+            cell.titleLabel.text = "\(event.actor.display_login) create repository \(event.repo.name)"
+        default:
+            break
+        }
+        
+        cell.layoutMargins = UIEdgeInsetsMake(0.0, avatarView.frame.size.width + 18.0, 0.0, 0.0)
         return cell
     }
     
