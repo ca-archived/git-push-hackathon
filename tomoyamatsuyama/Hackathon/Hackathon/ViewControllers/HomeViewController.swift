@@ -12,7 +12,41 @@ class HomeViewController: UIViewController{
     
     @IBOutlet weak var homeTableView: UITableView!
     private let homeVM = HomeViewModel()
+    private var user = User()
     private let indicator = UIActivityIndicatorView()
+    @IBOutlet weak var avatarImageButton: UIButton!
+    
+    @IBAction func avatarImageButtonTapped(_ sender: Any) {
+        let menuVC = MenuViewController.instatiate(user: self.user)
+        self.present(menuVC, animated: true, completion: nil)
+    }
+    
+    private func getUserData() {
+        homeVM.requestUserData(completion: { user in
+            let image = self.imageSet(avatarUrl: user.avatar_url)
+            self.user = user
+            self.avatarImageButton.setBackgroundImage(image, for: .normal)
+            
+        })
+        
+    }
+    
+    private func imageSet(avatarUrl: String) -> UIImage? {
+        avatarImageButton.layer.cornerRadius = avatarImageButton.frame.size.width * 0.5
+        avatarImageButton.layer.masksToBounds = true
+        avatarImageButton.imageView?.contentMode = .scaleAspectFit
+        avatarImageButton.contentHorizontalAlignment = .fill
+        avatarImageButton.contentVerticalAlignment = .fill
+        guard let imageUrl = URL(string: avatarUrl) else { return nil }
+        do {
+            let imageData = try Data(contentsOf: imageUrl, options: Data.ReadingOptions.mappedIfSafe)
+            guard let image = UIImage(data: imageData) else { return nil }
+            return image
+        } catch {
+            print("Error: cant create image.")
+            return nil
+        }
+    }
     
     static func instatiate() -> HomeViewController {
         let storyboard = UIStoryboard(name: "HomeViewController", bundle: nil)

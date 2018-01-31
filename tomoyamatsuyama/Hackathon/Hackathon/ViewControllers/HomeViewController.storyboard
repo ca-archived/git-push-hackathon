@@ -21,7 +21,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1v-cX-S3e" userLabel="headerView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWx-eD-QG7">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWx-eD-QG7">
                                         <rect key="frame" x="161.5" y="34" width="52.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52.5" id="KBx-j6-G0V"/>
@@ -31,6 +31,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYw-wm-i89">
+                                        <rect key="frame" x="10" y="30" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="avatarImageButtonTapped:" destination="KuK-yT-eht" eventType="touchUpInside" id="Weq-xH-gl2"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.93537174460000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -96,12 +103,13 @@
                         <viewLayoutGuide key="safeArea" id="MtI-vb-vf8"/>
                     </view>
                     <connections>
+                        <outlet property="avatarImageButton" destination="CYw-wm-i89" id="Gfc-B5-6v7"/>
                         <outlet property="homeTableView" destination="0WS-cg-tEL" id="ZOK-im-agn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG0-jH-PE0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="237.59999999999999" y="151.57421289355324"/>
+            <point key="canvasLocation" x="39" y="107"/>
         </scene>
     </scenes>
 </document>
