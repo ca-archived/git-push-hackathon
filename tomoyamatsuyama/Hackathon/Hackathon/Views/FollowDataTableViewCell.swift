@@ -10,6 +10,8 @@ import UIKit
 
 class FollowDataTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var contentName: UILabel!
+    @IBOutlet weak var contentValue: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
