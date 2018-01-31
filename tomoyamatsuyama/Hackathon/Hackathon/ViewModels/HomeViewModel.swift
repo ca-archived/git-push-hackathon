@@ -12,7 +12,6 @@ import UIKit
 import Alamofire
 
 class HomeViewModel: NSObject, UITableViewDataSource {
-    private var feedList: [Feeds] = [Feeds()]
     
     func setUserData(dic: Dictionary<String, Any>) -> User? {
         guard let avatarUrl: String = dic["avatar_url"] as? String else { return nil}
@@ -47,12 +46,12 @@ class HomeViewModel: NSObject, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.feedList.count
+        return
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath) as! HomeTableViewCell
-        cell.bind(cell, avatarUrl: feedList[indexPath.row].avatarUrlString, title: feedList[indexPath.row].title)
+        
         return cell
     }
 }
