@@ -1,0 +1,95 @@
+{
+  "id": "7170819290",
+  "type": "IssuesEvent",
+  "actor": {
+    "id": 1386930,
+    "login": "takahirom",
+    "display_login": "takahirom",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/takahirom",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1386930?"
+  },
+  "repo": {
+    "id": 115203383,
+    "name": "DroidKaigi/conference-app-2018",
+    "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018"
+  },
+  "payload": {
+    "action": "closed",
+    "issue": {
+      "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/528",
+      "repository_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018",
+      "labels_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/528/labels{/name}",
+      "comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/528/comments",
+      "events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/528/events",
+      "html_url": "https://github.com/DroidKaigi/conference-app-2018/issues/528",
+      "id": 292380507,
+      "number": 528,
+      "title": "[Assigned] Speaker name is not displayed on SearchSessionsFragment screen.",
+      "user": {
+        "login": "nukka123",
+        "id": 29206446,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/29206446?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/nukka123",
+        "html_url": "https://github.com/nukka123",
+        "followers_url": "https://api.github.com/users/nukka123/followers",
+        "following_url": "https://api.github.com/users/nukka123/following{/other_user}",
+        "gists_url": "https://api.github.com/users/nukka123/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/nukka123/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/nukka123/subscriptions",
+        "organizations_url": "https://api.github.com/users/nukka123/orgs",
+        "repos_url": "https://api.github.com/users/nukka123/repos",
+        "events_url": "https://api.github.com/users/nukka123/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/nukka123/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 808888848,
+          "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels/assigned",
+          "name": "assigned",
+          "color": "0052cc",
+          "default": false
+        },
+        {
+          "id": 787543109,
+          "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels/high%20priority",
+          "name": "high priority",
+          "color": "b60205",
+          "default": false
+        },
+        {
+          "id": 787514749,
+          "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/labels/welcome%20contribute",
+          "name": "welcome contribute",
+          "color": "d4c5f9",
+          "default": false
+        }
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 4,
+      "created_at": "2018-01-29T11:57:22Z",
+      "updated_at": "2018-01-30T11:49:00Z",
+      "closed_at": "2018-01-30T11:49:00Z",
+      "author_association": "CONTRIBUTOR",
+      "body": "## Overview (Required)\r\nThis is bug repot. \r\n\r\nbefore (#439) | now (name is not displayed)\r\n------------ | -------------\r\n![search_ok](https://user-images.githubusercontent.com/29206446/35509165-788e1f14-0536-11e8-8e7e-6767f4a3d30f.png) | ![search_fail](https://user-images.githubusercontent.com/29206446/35509191-906122b2-0536-11e8-8e03-f0c03509199e.png)\r\n\r\n## Links\r\n-\r\n"
+    }
+  },
+  "public": true,
+  "created_at": "2018-01-30T11:49:00Z",
+  "org": {
+    "id": 10727543,
+    "login": "DroidKaigi",
+    "gravatar_id": "",
+    "url": "https://api.github.com/orgs/DroidKaigi",
+    "avatar_url": "https://avatars.githubusercontent.com/u/10727543?"
+  }
+}
