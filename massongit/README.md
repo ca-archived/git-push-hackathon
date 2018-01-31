@@ -1,9 +1,11 @@
 ## 導入手順
-1. `git clone --recursive https://github.com/CyberAgent/git-push-hackathon`
-1. 以下のように`git-push-hackathon/massongit/app/src/main/res/values/callback_urls.xml`を作成
+1. `git clone https://github.com/CyberAgent/git-push-hackathon`
+1. `cd git-push-hackathon`
+1. `git submodule update -i`
+1. 以下のように`massongit/app/src/main/res/values/callback_urls.xml`を作成
     * [例] GitHub APIのコールバックURLが`massonurl://github.io/callback`の場合
 
-```git-push-hackathon/massongit/app/src/main/res/values/callback_urls.xml
+```massongit/app/src/main/res/values/callback_urls.xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="callback_url_scheme" translatable="false">massonurl</string>
@@ -12,8 +14,8 @@
 </resources>
 ```
 
-1. 以下のように`git-push-hackathon/massongit/app/src/main/res/values/github_apis.xml`を作成
-```git-push-hackathon/massongit/app/src/main/res/values/github_apis.xml
+1. 以下のように`massongit/app/src/main/res/values/github_apis.xml`を作成
+```massongit/app/src/main/res/values/github_apis.xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="client_id" translatable="false">{GitHub APIのClient ID}</string>
