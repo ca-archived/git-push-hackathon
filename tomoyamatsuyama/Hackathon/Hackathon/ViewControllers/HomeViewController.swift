@@ -54,19 +54,11 @@ class HomeViewController: UIViewController {
         return homeVC
     }
     
-    private func getFeed(){
-        showIndicator(indicator: indicator)
-        homeVM.requestFeed(comletion: { [weak self] in
-            guard let `self` = self else { return }
-            self.homeTableView.reloadData()
-            self.stopIndecator(indicator: self.indicator)
-        })
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getUserData()
-        self.getFeed()
         self.homeTableView.dataSource = homeVM
         self.homeTableView.delegate = self
     }

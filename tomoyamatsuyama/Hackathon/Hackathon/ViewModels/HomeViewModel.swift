@@ -44,21 +44,7 @@ class HomeViewModel: NSObject, UITableViewDataSource {
         }
     }
     
-    func requestFeed(comletion: (() -> Void)? = nil){
-        guard let oauth = UserDefaults.standard.string(forKey: "access_token") else { return }
-        let url = "https://api.github.com/feeds"
-        let param = ["access_token": oauth]
-        Alamofire.request(url, parameters: param).responseJSON { response in
-            if let dic = response.result.value as? Dictionary<String, Any>{
-            guard let timelineUrl: String = dic["timeline_url"] as? String else { return }
-            let parse = XmlParse()
-            let feed = parse.parseXML(timelineUrl)
-            guard let fed = feed else { return }
-            self.feedList = fed
-            comletion?()
-            }
-        }
-    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.feedList.count
