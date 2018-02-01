@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.view.FeedListView;
 import com.example.masato.githubfeed.view.PaginatingListView;
@@ -24,19 +25,17 @@ public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
 
     @Override
     protected void onFetchElement(int page) {
-        GitHubApi.getApi().fetchFeedList(this.url, page, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                List<FeedEntry> feedEntries = (List<FeedEntry>) object;
-                onFetchedElements(feedEntries, true);
-            }
+        GitHubApi.getApi().fetchFeedList(this.url, page, this::handleResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                onFetchedElements(null, false);
-                view.showToast(failure.textId);
-            }
-        });
+    private void handleResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            List<FeedEntry> feedEntries = (List<FeedEntry>) result.resultObject;
+            onFetchedElements(feedEntries, true);
+        } else {
+            onFetchedElements(null, false);
+            view.showToast(result.failure.textId);
+        }
     }
 
     @Override

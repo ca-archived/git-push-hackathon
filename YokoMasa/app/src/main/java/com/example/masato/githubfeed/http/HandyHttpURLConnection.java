@@ -187,6 +187,9 @@ public class HandyHttpURLConnection {
 
     private String setParamsToUrlString(String urlString) {
         Set<String> keys = params.keySet();
+        if (keys.size() == 0) {
+            return urlString;
+        }
         StringBuilder builder = new StringBuilder(urlString);
         builder.append("?");
         Iterator<String> iterator = keys.iterator();

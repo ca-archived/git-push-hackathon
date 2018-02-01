@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.view.LoginView;
 
@@ -30,44 +31,35 @@ public class LoginPresenter implements Presenter {
     public void onCodeFetched(String code) {
         view.showLoginWaiting();
         view.disableLogInButton();
-        GitHubApi.getApi().requestToken(code, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                execSuccessFlow();
-            }
+        GitHubApi.getApi().requestToken(code, this::execSuccessFlowIfSucceeded);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.enableLogInButton();
-                view.showLoginError(failure);
-            }
-        });
+    private void execSuccessFlowIfSucceeded(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            execSuccessFlow();
+        } else {
+            view.enableLogInButton();
+            view.showLoginError(result.failure);
+        }
     }
 
     private void execSuccessFlow() {
-        GitHubApi.getApi().fetchProfile(new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                Profile profile = (Profile) object;
-                navigateToFeedView(profile);
-            }
+        GitHubApi.getApi().fetchProfile(this::navigateToFeedViewIfSucceeded);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.enableLogInButton();
-                view.showLoginError(failure);
-            }
-        });
+    private void navigateToFeedViewIfSucceeded(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            Profile profile = (Profile) result.resultObject;
+            navigateToFeedView(profile);
+        } else {
+            view.enableLogInButton();
+            view.showLoginError(result.failure);
+        }
     }
 
     private void navigateToFeedView(Profile profile) {
         view.showProfile(profile);
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.navigateToFeedView();
-            }
-        }, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(view::navigateToFeedView, 2000);
     }
 
     public LoginPresenter(LoginView view) {

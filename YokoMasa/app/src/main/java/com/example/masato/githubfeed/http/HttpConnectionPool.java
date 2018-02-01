@@ -19,8 +19,8 @@ public class HttpConnectionPool {
 
     public HandyHttpURLConnection newConnection(String url) {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(url, executorService);
+        connection.setHeader("User-Agent", "YokoMasa");
         if (authorizationToken != null) {
-            connection.setHeader("User-Agent", "YokoMasa");
             connection.setHeader("Authorization", "token " + authorizationToken);
         }
         return connection;

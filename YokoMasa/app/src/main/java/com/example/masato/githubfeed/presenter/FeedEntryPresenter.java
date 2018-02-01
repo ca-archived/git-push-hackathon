@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.view.FeedEntryView;
 
@@ -17,19 +18,17 @@ public class FeedEntryPresenter {
     private FeedEntryView view;
 
     public void fetchThumbnail(final FeedEntry feedEntry) {
-        GitHubApi.getApi().fetchBitmap(feedEntry.thumbnailUrl, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                Bitmap thumbnail = (Bitmap) object;
-                feedEntry.thumbnail = thumbnail;
-                view.setThumbnail(thumbnail);
-            }
-
-            @Override
-            public void onApiFailure(Failure failure) {
-
-            }
+        GitHubApi.getApi().fetchBitmap(feedEntry.thumbnailUrl, result -> {
+            setThumbnailIfSucceeded(feedEntry, result);
         });
+    }
+
+    private void setThumbnailIfSucceeded(FeedEntry feedEntry, GitHubApiResult result) {
+        if (result.isSuccessful) {
+            Bitmap thumbnail = (Bitmap) result.resultObject;
+            feedEntry.thumbnail = thumbnail;
+            view.setThumbnail(thumbnail);
+        }
     }
 
     public FeedEntryPresenter(FeedEntryView view) {

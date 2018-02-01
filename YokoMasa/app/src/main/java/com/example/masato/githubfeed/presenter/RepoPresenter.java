@@ -6,6 +6,7 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.view.RepoView;
 
@@ -22,22 +23,18 @@ public class RepoPresenter {
     private boolean isSubscribed;
 
     public void onCreate() {
-        GitHubApi.getApi().fetchRepository(repoUrl, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                Repository repository = (Repository) object;
-                RepoPresenter.this.repository = repository;
-                checkIfRepoStarred(repository);
-                checkIfRepoSubscribed(repository);
-                fetchReadMe(repository);
-                view.showRepo(repository);
-            }
+        GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-
-            }
-        });
+    private void handleFetchRepositoryResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            Repository repository = (Repository) result.resultObject;
+            RepoPresenter.this.repository = repository;
+            checkIfRepoStarred(repository);
+            checkIfRepoSubscribed(repository);
+            fetchReadMe(repository);
+            view.showRepo(repository);
+        }
     }
 
     public void onStarPressed() {
@@ -50,40 +47,36 @@ public class RepoPresenter {
 
     private void starRepo() {
         view.setStarActivated(true);
-        GitHubApi.getApi().starRepository(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                repository.stars++;
-                view.showRepo(repository);
-                view.showToast(R.string.repo_starred);
-                isStarred = true;
-            }
+        GitHubApi.getApi().starRepository(repository, this::handleStarRepoResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.showToast(R.string.repo_star_failed);
-                view.setStarActivated(false);
-            }
-        });
+    private void handleStarRepoResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            repository.stars++;
+            view.showRepo(repository);
+            view.showToast(R.string.repo_starred);
+            isStarred = true;
+        } else {
+            view.showToast(R.string.repo_star_failed);
+            view.setStarActivated(false);
+        }
     }
 
     private void unStarRepo() {
         view.setStarActivated(false);
-        GitHubApi.getApi().unStarRepository(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                repository.stars--;
-                view.showRepo(repository);
-                view.showToast(R.string.repo_unstarred);
-                isStarred = false;
-            }
+        GitHubApi.getApi().unStarRepository(repository, this::handleUnStarRepoResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.showToast(R.string.repo_unstar_failed);
-                view.setStarActivated(true);
-            }
-        });
+    private void handleUnStarRepoResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            repository.stars--;
+            view.showRepo(repository);
+            view.showToast(R.string.repo_unstarred);
+            isStarred = false;
+        } else {
+            view.showToast(R.string.repo_unstar_failed);
+            view.setStarActivated(true);
+        }
     }
 
     public void onSubscribePressed() {
@@ -96,85 +89,75 @@ public class RepoPresenter {
 
     private void subscribeRepo() {
         view.setWatchActivated(true);
-        GitHubApi.getApi().subscribeRepository(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                repository.watches++;
-                view.showRepo(repository);
-                view.showToast(R.string.repo_subscribed);
-                isSubscribed = true;
-            }
+        GitHubApi.getApi().subscribeRepository(repository, this::handleSubscribeRepoResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.setWatchActivated(false);
-                view.showToast(R.string.repo_subscribe_failed);
-            }
-        });
+    private void handleSubscribeRepoResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            repository.watches++;
+            view.showRepo(repository);
+            view.showToast(R.string.repo_subscribed);
+            isSubscribed = true;
+        } else {
+            view.setWatchActivated(false);
+            view.showToast(R.string.repo_subscribe_failed);
+        }
     }
 
     private void unSubscribeRepo() {
         view.setWatchActivated(false);
-        GitHubApi.getApi().unSubscribeRepository(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                repository.watches--;
-                view.showRepo(repository);
-                view.showToast(R.string.repo_unsubscribed);
-                isSubscribed = false;
-            }
+        GitHubApi.getApi().unSubscribeRepository(repository, this::handleUnSubscribeRepoResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.setWatchActivated(true);
-                view.showToast(R.string.repo_unsubscribe_failed);
-            }
-        });
+    private void handleUnSubscribeRepoResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            repository.watches--;
+            view.showRepo(repository);
+            view.showToast(R.string.repo_unsubscribed);
+            isSubscribed = false;
+        } else {
+            view.setWatchActivated(true);
+            view.showToast(R.string.repo_unsubscribe_failed);
+        }
     }
 
     private void checkIfRepoStarred(Repository repository) {
-        GitHubApi.getApi().isStarredByCurrentUser(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                isStarred = true;
-                view.setStarActivated(true);
-            }
+        GitHubApi.getApi().isStarredByCurrentUser(repository, this::handleCheckStarResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                isStarred = false;
-            }
-        });
+    private void handleCheckStarResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            isStarred = true;
+            view.setStarActivated(true);
+        } else {
+            isStarred = false;
+        }
     }
 
     private void checkIfRepoSubscribed(Repository repository) {
-        GitHubApi.getApi().isSubscribedByCurrentUser(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                isSubscribed = true;
-                view.setWatchActivated(true);
-            }
+        GitHubApi.getApi().isSubscribedByCurrentUser(repository, this::handleCheckSubscribeResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                isSubscribed = false;
-            }
-        });
+    private void handleCheckSubscribeResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            isSubscribed = true;
+            view.setWatchActivated(true);
+        } else {
+            isSubscribed = false;
+        }
     }
 
     private void fetchReadMe(Repository repository) {
-        GitHubApi.getApi().fetchReadMe(repository, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                String contentHtml = (String) object;
-                view.showReadMe(contentHtml);
-            }
+        GitHubApi.getApi().fetchReadMe(repository, this::handleFetchReadMeResult);
+    }
 
-            @Override
-            public void onApiFailure(Failure failure) {
-                view.showReadMe("No README here.");
-            }
-        });
+    private void handleFetchReadMeResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            String contentHtml = (String) result.resultObject;
+            view.showReadMe(contentHtml);
+        } else {
+            view.showReadMe("No README here.");
+        }
     }
 
     public RepoPresenter(RepoView view, String url) {

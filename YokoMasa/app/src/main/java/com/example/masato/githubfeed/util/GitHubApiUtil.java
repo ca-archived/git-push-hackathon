@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.util;
 
+import android.util.Log;
+
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
@@ -22,6 +24,7 @@ public class GitHubApiUtil {
             gitHubApiResult.header = result.header;
             gitHubApiResult.isSuccessful = true;
         } else {
+            Log.e("gh_feed", "error stream: " + result.getBodyString());
             gitHubApiResult.isSuccessful = false;
             setFailureToResult(result, gitHubApiResult);
         }

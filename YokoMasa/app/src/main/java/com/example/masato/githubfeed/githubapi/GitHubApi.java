@@ -87,6 +87,10 @@ public class GitHubApi {
         tokenManager.deleteToken();
     }
 
+    public void checkIfTokenValid(final GitHubApiCallback callback) {
+        tokenManager.checkIfTokenValid(callback);
+    }
+
     public void requestToken(String code, final GitHubApiCallback callback) {
         tokenManager.fetchToken(code, result -> {
             if (result.isSuccessful) {
@@ -103,7 +107,4 @@ public class GitHubApi {
         this.resourceManager = new GitHubResourceManager(tokenManager.getToken(), executorService);
     }
 
-    public interface GitHubApiTokenCheckCallback {
-        public void onFinishChecking(boolean havingToken);
-    }
 }

@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.presenter;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.view.FeedView;
 
@@ -14,41 +15,34 @@ public class FeedPresenter implements Presenter {
 
     private FeedView view;
 
-    public void onCreate(boolean shouldStartFeedFragment) {
-        GitHubApi.getApi().fetchProfile(new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                Profile profile = (Profile) object;
-                view.setProfile(profile);
-            }
-
-            @Override
-            public void onApiFailure(Failure failure) {
-                onApiFailure(failure);
-            }
-        });
-        if (!shouldStartFeedFragment) {
-            return;
-        }
-        GitHubApi.getApi().fetchFeedUrl(new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                String feedUrl = (String) object;
-                view.startFeedFragment(feedUrl);
-            }
-
-            @Override
-            public void onApiFailure(Failure failure) {
-                onApiFailure(failure);
-            }
-        });
+    public void onCreate() {
+        GitHubApi.getApi().fetchProfile(this::setProfileIfSucceeded);
+        GitHubApi.getApi().fetchFeedUrl(this::startFeedFragmentIfSucceeded);
     }
 
-    public void onApiFailure(Failure failure) {
-        if (failure == Failure.INVALID_TOKEN) {
+    private void setProfileIfSucceeded(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            Profile profile = (Profile) result.resultObject;
+            view.setProfile(profile);
+        } else {
+            onApiFailure(result);
+        }
+    }
+
+    private void startFeedFragmentIfSucceeded(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            String feedUrl = (String) result.resultObject;
+            view.startFeedFragment(feedUrl);
+        } else {
+            onApiFailure(result);
+        }
+    }
+
+    private void onApiFailure(GitHubApiResult result) {
+        if (result.failure == Failure.INVALID_TOKEN) {
             view.navigateToLogInView();
         } else {
-            view.showToast(failure.textId);
+            view.showToast(result.failure.textId);
         }
     }
 

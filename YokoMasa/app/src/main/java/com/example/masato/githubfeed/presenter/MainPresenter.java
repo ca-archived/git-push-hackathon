@@ -2,17 +2,19 @@ package com.example.masato.githubfeed.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Base64;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
+import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.view.MainView;
 
 /**
  * Created by Masato on 2018/01/17.
  */
 
-public class MainPresenter implements Presenter, GitHubApiCallback {
+public class MainPresenter implements Presenter{
 
     private final MainView view;
 
@@ -23,25 +25,20 @@ public class MainPresenter implements Presenter, GitHubApiCallback {
     }
 
     private void waitASec() {
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GitHubApi.getApi().fetchProfile(MainPresenter.this);
-            }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            GitHubApi.getApi().checkIfTokenValid(this::navigateToFeedViewIfSucceeded);
         }, 2000);
     }
 
-    @Override
-    public void onApiSuccess(Object object) {
-        view.navigateToFeedView();
-    }
-
-    @Override
-    public void onApiFailure(Failure failure) {
-        if (failure == Failure.INVALID_TOKEN) {
-            view.navigateToLogInView();
+    private void navigateToFeedViewIfSucceeded(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            view.navigateToFeedView();
         } else {
-            view.showToast(failure.textId);
+            if (result.failure == Failure.NOT_FOUND) {
+                view.navigateToLogInView();
+            } else {
+                view.showToast(result.failure.textId);
+            }
         }
     }
 

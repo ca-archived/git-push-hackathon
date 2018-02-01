@@ -35,6 +35,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     private FeedPresenter presenter;
     private ActionBarDrawerToggle mActionBarToggle;
     private DrawerLayout drawerLayout;
+    private boolean shouldStartFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,11 +52,8 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         mActionBarToggle = new MDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(mActionBarToggle);
         presenter = new FeedPresenter(this);
-        if (savedInstanceState == null) {
-            presenter.onCreate(true);
-        } else {
-            presenter.onCreate(false);
-        }
+        presenter.onCreate();
+        shouldStartFragment = savedInstanceState == null;
     }
 
     @Override
@@ -128,6 +126,9 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
 
     @Override
     public void startFeedFragment(String feedUrl) {
+        if (!shouldStartFragment) {
+            return;
+        }
         Bundle arguments = new Bundle();
         arguments.putString("url", feedUrl);
         FeedListFragment feedFragment = new FeedListFragment();
