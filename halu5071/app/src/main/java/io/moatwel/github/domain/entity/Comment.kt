@@ -1,9 +1,11 @@
 package io.moatwel.github.domain.entity
 
 import com.squareup.moshi.Json
+import se.ansman.kotshi.JsonSerializable
 import java.io.Serializable
 import java.util.*
 
+@JsonSerializable
 data class Comment(
   val id: Long,
 
