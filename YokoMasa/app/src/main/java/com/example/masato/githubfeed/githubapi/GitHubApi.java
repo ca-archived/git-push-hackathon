@@ -88,18 +88,12 @@ public class GitHubApi {
     }
 
     public void requestToken(String code, final GitHubApiCallback callback) {
-        tokenManager.fetchToken(code, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                String token = (String) object;
+        tokenManager.fetchToken(code, result -> {
+            if (result.isSuccessful) {
+                String token = (String) result.resultObject;
                 resourceManager.setToken(token);
-                callback.onApiSuccess(null);
             }
-
-            @Override
-            public void onApiFailure(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+            callback.onApiResult(result);
         });
     }
 

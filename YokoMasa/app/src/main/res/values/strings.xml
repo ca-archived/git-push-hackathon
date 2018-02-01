@@ -19,6 +19,7 @@
     <string name="failure_unexpected">予期せぬエラーが発生しました</string>
     <string name="failure_server">GitHubサーバーでエラーが発生しました</string>
     <string name="failure_creating_token">failed to create token</string>
+    <string name="failure_not_found">404 not found</string>
 
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>

@@ -1,4 +1,6 @@
-package com.example.masato.githubfeed.util;
+package com.example.masato.githubfeed.http;
+
+import com.example.masato.githubfeed.http.HandyHttpURLConnection;
 
 import java.util.concurrent.ExecutorService;
 

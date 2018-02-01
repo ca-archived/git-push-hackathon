@@ -1,6 +1,5 @@
 package com.example.masato.githubfeed.githubapi;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -8,11 +7,10 @@ import android.util.Log;
 import com.example.masato.githubfeed.model.GitHubObjectMapper;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.model.Repository;
-import com.example.masato.githubfeed.presenter.RepoPresenter;
-import com.example.masato.githubfeed.util.HandyHttpURLConnection;
-import com.example.masato.githubfeed.util.HttpConnectionPool;
+import com.example.masato.githubfeed.http.HandyHttpURLConnection;
+import com.example.masato.githubfeed.http.HttpConnectionPool;
+import com.example.masato.githubfeed.util.GitHubApiUtil;
 
-import java.net.HttpURLConnection;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -34,87 +32,51 @@ public class GitHubResourceManager {
 
     public void getProfile(final GitHubApiCallback callback) {
         final HandyHttpURLConnection connection = connectionPool.newConnection(PROFILE_URL);
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object content) {
-                String bodyString = (String) content;
-                Profile profile = GitHubObjectMapper.mapProfile(bodyString);
-                setProfileIcon(profile, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            Profile profile = GitHubObjectMapper.mapProfile(result.getBodyString());
+            setProfileIcon(profile, callback);
         });
     }
 
     private void setProfileIcon(final Profile profile, final GitHubApiCallback callback) {
-        getBitmapFromUrl(profile.iconUrl, new GitHubApiCallback() {
-            @Override
-            public void onApiSuccess(Object object) {
-                Bitmap icon = (Bitmap) object;
+        getBitmapFromUrl(profile.iconUrl, result -> {
+            if (result.isSuccessful) {
+                Bitmap icon = (Bitmap) result.resultObject;
                 profile.icon = icon;
-                callback.onApiSuccess(profile);
-            }
-
-            @Override
-            public void onApiFailure(Failure failure) {
-                callback.onApiFailure(failure);
+                result.resultObject = profile;
+                callback.onApiResult(result);
+            } else {
+                callback.onApiResult(result);
             }
         });
     }
 
     public void getFeedUrl(final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection("https://api.github.com/feeds");
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object content) {
-                String bodyString = (String) content;
-                Object feedUrl = GitHubObjectMapper.mapFeedUrl(bodyString);
-                handleResponse(statusCode, feedUrl, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapFeedUrl(result.getBodyString());
+            });
         });
     }
 
     public void getFeedEntries(String url, int page, final GitHubApiCallback callback) {
-        Log.i("gh_feed", "get feed entries");
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.setHeader("Accept", "application/atom+xml");
         connection.addParams("page", Integer.toString(page));
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                String bodyString = (String) body;
-                Object feedEntries = GitHubObjectMapper.mapFeedEntries(bodyString);
-                handleResponse(statusCode, feedEntries, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapFeedEntries(successfulResult.getBodyString());
+            });
         });
     }
 
     public void getRepository(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                Object repo = GitHubObjectMapper.mapRepository((String) body);
-                handleResponse(statusCode, repo, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapRepository(successfulResult.getBodyString());
+            });
         });
     }
 
@@ -122,32 +84,18 @@ public class GitHubResourceManager {
         String url = repository.baseUrl + "/contents/README.md";
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.setHeader("Accept", "application/vnd.github.html");
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+                return successfulResult.getBodyString();
+            });
         });
     }
 
     public void isStarredByCurrentUser(Repository repository, final GitHubApiCallback callback) {
         String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil.handleResult(result, callback, null);
         });
     }
 
@@ -155,48 +103,24 @@ public class GitHubResourceManager {
         String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.setHeader("Content-Length", "0");
-        connection.putRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.put(result -> {
+            GitHubApiUtil.handleResult(result, callback, null);
         });
     }
 
     public void unStarRepository(Repository repository, final GitHubApiCallback callback) {
         String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.delete(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.delete(result -> {
+            GitHubApiUtil.handleResult(result, callback, null);
         });
     }
 
     public void isSubscribedByCurrentUser(Repository repository, final GitHubApiCallback callback) {
         String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.getRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil. handleResult(result, callback, null);
         });
     }
 
@@ -204,71 +128,27 @@ public class GitHubResourceManager {
         String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("subscribed", "true");
-        connection.putRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.put(result -> {
+            GitHubApiUtil.handleResult(result, callback, null);
         });
     }
 
     public void unSubscribeRepository(Repository repository, final GitHubApiCallback callback) {
         String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.delete(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                handleResponse(statusCode, body, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.delete(result -> {
+            GitHubApiUtil.handleResult(result, callback, null);
         });
     }
 
     public void getBitmapFromUrl(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.getRequestBodyBytes(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                byte[] data = (byte[]) body;
-                Object bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                handleResponse(statusCode, bitmap, callback);
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.get(result -> {
+            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+                byte[] bodyBytes = successfulResult.bodyBytes;
+                return BitmapFactory.decodeByteArray(bodyBytes, 0, bodyBytes.length);
+            });
         });
-    }
-
-    private void handleResponse(int statusCode, Object content, GitHubApiCallback callback) {
-        if (isOk(statusCode)) {
-            callback.onApiSuccess(content);
-        } else {
-            callback.onApiFailure(failureFromStatusCode(statusCode));
-        }
-    }
-
-    private boolean isOk(int statusCode) {
-        return 200 <= statusCode && statusCode < 300;
-    }
-
-    private Failure failureFromStatusCode(int statusCode) {
-        if (400 <= statusCode && statusCode < 500) {
-            return Failure.INVALID_TOKEN;
-        } else if (statusCode == 500) {
-            return Failure.SERVER;
-        }
-        return Failure.UNEXPECTED;
     }
 
     GitHubResourceManager(String token, ExecutorService service) {

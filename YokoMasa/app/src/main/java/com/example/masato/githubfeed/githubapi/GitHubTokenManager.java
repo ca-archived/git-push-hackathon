@@ -1,29 +1,17 @@
 package com.example.masato.githubfeed.githubapi;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.example.masato.githubfeed.R;
-import com.example.masato.githubfeed.util.HandyHttpURLConnection;
-import com.example.masato.githubfeed.util.HttpConnectionPool;
+import com.example.masato.githubfeed.http.HandyHttpURLConnection;
+import com.example.masato.githubfeed.util.GitHubApiUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -48,33 +36,23 @@ public class GitHubTokenManager {
         connection.addParams("client_id", clientId);
         connection.addParams("client_secret", clientSecret);
         connection.addParams("code", code);
-        connection.postRequestBodyString(new HandyHttpURLConnection.OnHttpResponseListener() {
-            @Override
-            public void onHttpResponse(int statusCode, Object body) {
-                if (200 <= statusCode && statusCode < 300) {
-                    try {
-                        String token = extractToken((String) body);
-                        callback.onApiSuccess(token);
-                    } catch (Exception exception) {
-                        callback.onApiFailure(Failure.CREATING_TOKEN);
-                    }
-                } else {
-                    callback.onApiFailure(Failure.CREATING_TOKEN);
-                }
-            }
-
-            @Override
-            public void onError(Failure failure) {
-                callback.onApiFailure(failure);
-            }
+        connection.post(result -> {
+            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+                return extractToken(successfulResult.getBodyString());
+            });
         });
     }
 
-    private String extractToken(String body) throws IOException, JSONException {
-        JSONObject jsonObject = new JSONObject(body);
-        String token = jsonObject.getString("access_token");
-        saveToken(token);
-        return token;
+    private String extractToken(String body) {
+        try {
+            JSONObject jsonObject = new JSONObject(body);
+            String token = jsonObject.getString("access_token");
+            saveToken(token);
+            return token;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private void saveToken(String token) {

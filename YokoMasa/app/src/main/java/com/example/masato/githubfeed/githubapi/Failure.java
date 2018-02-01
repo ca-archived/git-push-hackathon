@@ -10,6 +10,7 @@ public enum Failure {
 
     INTERNET(R.string.failure_internet),
     INVALID_TOKEN(R.string.failure_invalid_token),
+    NOT_FOUND(R.string.failure_not_found),
     UNEXPECTED(R.string.failure_unexpected),
     SERVER(R.string.failure_server),
     CREATING_TOKEN(R.string.failure_creating_token);
