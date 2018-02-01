@@ -22,7 +22,9 @@
 
 package io.moatwel.github.domain.entity
 
+import se.ansman.kotshi.JsonSerializable
 import java.io.Serializable
 
+@JsonSerializable
 data class AuthData(
   val token: String) : Serializable
