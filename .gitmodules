@@ -1,0 +1,3 @@
+[submodule "hunachi/GitHunaClient"]
+	path = hunachi/GitHunaClient
+	url = https://github.com/Hunachi/GitHunaClient.git
