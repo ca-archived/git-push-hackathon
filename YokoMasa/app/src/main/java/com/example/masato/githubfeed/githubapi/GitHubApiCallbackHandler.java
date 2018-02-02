@@ -1,21 +1,22 @@
-package com.example.masato.githubfeed.util;
+package com.example.masato.githubfeed.githubapi;
 
 import android.util.Log;
 
-import com.example.masato.githubfeed.githubapi.Failure;
-import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
-import com.example.masato.githubfeed.githubapi.GitHubApiResult;
-import com.example.masato.githubfeed.githubapi.GitHubResourceManager;
 import com.example.masato.githubfeed.http.ConnectionResult;
 import com.example.masato.githubfeed.http.ResultBodyConverter;
 
 /**
  * Created by Masato on 2018/01/31.
+ *
+ * 外部ではhttpの処理はしてほしくないため、ConnectionResultをもっと扱いやすいGitHubApiResultに変換
+ * してcallbackに通知する。http通信自体の失敗、または通信成功してもレスポンスコード400~500の場合ははまとめて
+ * Failureにして、listenerにはとりあえず失敗した事実と原因を伝える。
+ *
  */
 
-public class GitHubApiUtil {
+class GitHubApiCallbackHandler {
 
-    public static void handleResult(ConnectionResult result, GitHubApiCallback callback, ResultBodyConverter converter) {
+    static void handleResult(ConnectionResult result, GitHubApiCallback callback, ResultBodyConverter converter) {
         GitHubApiResult gitHubApiResult = new GitHubApiResult();
         if (isOk(result)) {
             if (converter != null) {
@@ -26,21 +27,20 @@ public class GitHubApiUtil {
         } else {
             Log.e("gh_feed", "error stream: " + result.getBodyString());
             gitHubApiResult.isSuccessful = false;
-            setFailureToResult(result, gitHubApiResult);
+            setFailureToGitHubApiResult(result, gitHubApiResult);
         }
         callback.onApiResult(gitHubApiResult);
     }
 
-    private static GitHubApiResult setFailureToResult(ConnectionResult result, GitHubApiResult gitHubApiResult) {
+    private static void setFailureToGitHubApiResult(ConnectionResult result, GitHubApiResult gitHubApiResult) {
         if (result.isConnectionSuccessful) {
             gitHubApiResult.failure = failureFromStatusCode(result.responseCode);
         } else {
             gitHubApiResult.failure = Failure.INTERNET;
         }
-        return gitHubApiResult;
     }
 
-    public static boolean isOk(ConnectionResult result) {
+    private static boolean isOk(ConnectionResult result) {
         if (result.isConnectionSuccessful) {
             return 200 <= result.responseCode && result.responseCode < 400;
         } else {
@@ -48,7 +48,7 @@ public class GitHubApiUtil {
         }
     }
 
-    public static Failure failureFromStatusCode(int statusCode) {
+    private static Failure failureFromStatusCode(int statusCode) {
         switch (statusCode) {
             case 403:
                 return Failure.INVALID_TOKEN;
@@ -61,5 +61,5 @@ public class GitHubApiUtil {
         }
     }
 
-    private GitHubApiUtil() {}
+    private GitHubApiCallbackHandler() {}
 }

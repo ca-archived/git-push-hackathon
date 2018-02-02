@@ -7,12 +7,9 @@ import android.util.Log;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.http.HandyHttpURLConnection;
-import com.example.masato.githubfeed.util.GitHubApiUtil;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -29,7 +26,7 @@ public class GitHubTokenManager {
     private SharedPreferences preferences;
     private ExecutorService executorService;
 
-    public void checkIfTokenValid(final GitHubApiCallback callback) {
+    void checkIfTokenValid(final GitHubApiCallback callback) {
         String clientId = resources.getString(R.string.client_id);
         String clientSecret = resources.getString(R.string.client_secret);
         String rawAuthString = clientId + ":" + clientSecret;
@@ -39,11 +36,11 @@ public class GitHubTokenManager {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(url, executorService);
         connection.setHeader("Authorization", authString);
         connection.get(result -> {
-            GitHubApiUtil.handleResult(result, callback, null);
+            GitHubApiCallbackHandler.handleResult(result, callback, null);
         });
     }
 
-    public void fetchToken(final String code, final GitHubApiCallback callback) {
+    void fetchToken(final String code, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(LOGIN_URL, executorService);
         String clientId = resources.getString(R.string.client_id);
         String clientSecret = resources.getString(R.string.client_secret);
@@ -53,7 +50,7 @@ public class GitHubTokenManager {
         connection.addParams("client_secret", clientSecret);
         connection.addParams("code", code);
         connection.post(result -> {
-            GitHubApiUtil.handleResult(result, callback, successfulResult -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return extractToken(successfulResult.getBodyString());
             });
         });
@@ -77,7 +74,7 @@ public class GitHubTokenManager {
         editor.apply();
     }
 
-    public void deleteToken() {
+    void deleteToken() {
         saveToken("");
     }
 
@@ -85,7 +82,7 @@ public class GitHubTokenManager {
         return getToken() != null;
     }
 
-    public String getToken() {
+    String getToken() {
         Log.i("gh_feed",  preferences.getString(PREF_TOKEN_KEY, ""));
         return preferences.getString(PREF_TOKEN_KEY, "");
     }
