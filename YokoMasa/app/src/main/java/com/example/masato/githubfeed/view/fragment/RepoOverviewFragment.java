@@ -22,7 +22,7 @@ import com.example.masato.githubfeed.view.RepoOverviewView;
  * Created by Masato on 2018/02/02.
  */
 
-public class RepoOverviewFragment extends Fragment implements RepoOverviewView, View.OnClickListener {
+public class RepoOverviewFragment extends BaseFragment implements RepoOverviewView, View.OnClickListener {
 
     private RepoOverviewPresenter presenter;
     private AppCompatTextView starCount;
@@ -76,13 +76,8 @@ public class RepoOverviewFragment extends Fragment implements RepoOverviewView, 
     }
 
     @Override
-    public void showToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showToast(int stringId) {
-        Toast.makeText(getContext(), stringId, Toast.LENGTH_LONG).show();
+    public String getName() {
+        return getResources().getString(R.string.repo_tab_overview);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.ArrayList;
  *
  */
 
-public abstract class PaginatingListFragment<T extends Parcelable> extends Fragment
+public abstract class PaginatingListFragment<T extends Parcelable> extends BaseFragment
         implements PaginatingListView, PaginatingListAdapter.PaginatingListListAdapterListener {
 
     private PaginatingListPresenter<T> presenter;

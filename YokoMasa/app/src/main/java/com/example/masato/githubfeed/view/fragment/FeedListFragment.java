@@ -54,13 +54,8 @@ public class FeedListFragment extends PaginatingListFragment<FeedEntry> implemen
     }
 
     @Override
-    public void showToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showToast(int stringId) {
-        Toast.makeText(getContext(), stringId, Toast.LENGTH_LONG).show();
+    public String getName() {
+        return null;
     }
 
     @Override

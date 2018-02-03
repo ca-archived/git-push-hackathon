@@ -22,146 +22,23 @@ public class RepoPresenter {
     private boolean isStarred;
     private boolean isSubscribed;
 
-    public void onCreate() {
-        GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
-    }
-
     private void handleFetchRepositoryResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
             RepoPresenter.this.repository = repository;
-            checkIfRepoStarred(repository);
-            checkIfRepoSubscribed(repository);
-            fetchReadMe(repository);
-            view.showRepo(repository);
-        }
-    }
-
-    public void onStarPressed() {
-        if (isStarred) {
-            unStarRepo();
-        } else {
-            starRepo();
-        }
-    }
-
-    private void starRepo() {
-        view.setStarActivated(true);
-        GitHubApi.getApi().starRepository(repository, this::handleStarRepoResult);
-    }
-
-    private void handleStarRepoResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            repository.stars++;
-            view.showRepo(repository);
-            view.showToast(R.string.repo_starred);
-            isStarred = true;
-        } else {
-            view.showToast(R.string.repo_star_failed);
-            view.setStarActivated(false);
-        }
-    }
-
-    private void unStarRepo() {
-        view.setStarActivated(false);
-        GitHubApi.getApi().unStarRepository(repository, this::handleUnStarRepoResult);
-    }
-
-    private void handleUnStarRepoResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            repository.stars--;
-            view.showRepo(repository);
-            view.showToast(R.string.repo_unstarred);
-            isStarred = false;
-        } else {
-            view.showToast(R.string.repo_unstar_failed);
-            view.setStarActivated(true);
-        }
-    }
-
-    public void onSubscribePressed() {
-        if (isSubscribed) {
-            unSubscribeRepo();
-        } else {
-            subscribeRepo();
-        }
-    }
-
-    private void subscribeRepo() {
-        view.setWatchActivated(true);
-        GitHubApi.getApi().subscribeRepository(repository, this::handleSubscribeRepoResult);
-    }
-
-    private void handleSubscribeRepoResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            repository.watches++;
-            view.showRepo(repository);
-            view.showToast(R.string.repo_subscribed);
-            isSubscribed = true;
-        } else {
-            view.setWatchActivated(false);
-            view.showToast(R.string.repo_subscribe_failed);
-        }
-    }
-
-    private void unSubscribeRepo() {
-        view.setWatchActivated(false);
-        GitHubApi.getApi().unSubscribeRepository(repository, this::handleUnSubscribeRepoResult);
-    }
-
-    private void handleUnSubscribeRepoResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            repository.watches--;
-            view.showRepo(repository);
-            view.showToast(R.string.repo_unsubscribed);
-            isSubscribed = false;
-        } else {
-            view.setWatchActivated(true);
-            view.showToast(R.string.repo_unsubscribe_failed);
-        }
-    }
-
-    private void checkIfRepoStarred(Repository repository) {
-        GitHubApi.getApi().isStarredByCurrentUser(repository, this::handleCheckStarResult);
-    }
-
-    private void handleCheckStarResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            isStarred = true;
-            view.setStarActivated(true);
-        } else {
-            isStarred = false;
-        }
-    }
-
-    private void checkIfRepoSubscribed(Repository repository) {
-        GitHubApi.getApi().isSubscribedByCurrentUser(repository, this::handleCheckSubscribeResult);
-    }
-
-    private void handleCheckSubscribeResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            isSubscribed = true;
-            view.setWatchActivated(true);
-        } else {
-            isSubscribed = false;
-        }
-    }
-
-    private void fetchReadMe(Repository repository) {
-        GitHubApi.getApi().fetchReadMe(repository, this::handleFetchReadMeResult);
-    }
-
-    private void handleFetchReadMeResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            String contentHtml = (String) result.resultObject;
-            view.showReadMe(contentHtml);
-        } else {
-            view.showReadMe("No README here.");
+            view.setUpContent(repository);
         }
     }
 
     public RepoPresenter(RepoView view, String url) {
         this.view = view;
         this.repoUrl = url;
+        GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
+    }
+
+    public RepoPresenter(RepoView view, Repository repository) {
+        this.view = view;
+        this.repository = repository;
+        view.setUpContent(repository);
     }
 }

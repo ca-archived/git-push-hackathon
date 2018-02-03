@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -10,95 +12,22 @@
         android:background="@color/colorPrimaryDark"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="15dp"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/repo_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="3"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/repo_tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:tabIndicatorColor="#FFF"
+            app:tabSelectedTextColor="#FFF"
+            app:tabTextColor="#FFF">
 
-            <LinearLayout
-                android:id="@+id/repo_star_layout"
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:background="@drawable/repo_status_background"
-                android:gravity="center">
+        </android.support.design.widget.TabLayout>
 
-                <ImageView
-                    android:id="@+id/repo_star_image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/star"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/repo_star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/repo_watch_layout"
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:background="@drawable/repo_status_background"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/repo_watch_image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/watch"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/repo_watch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:background="@drawable/repo_status_background"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/fork"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/repo_fork"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <WebView
-            android:id="@+id/repo_readme_web_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

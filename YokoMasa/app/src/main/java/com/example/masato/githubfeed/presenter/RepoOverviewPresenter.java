@@ -19,6 +19,9 @@ public class RepoOverviewPresenter {
 
     public void onViewCreated() {
         view.showOverview(repository);
+        checkIfRepoStarred(repository);
+        checkIfRepoSubscribed(repository);
+        fetchReadMe(repository);
     }
 
     public void onStarPressed() {
@@ -147,7 +150,5 @@ public class RepoOverviewPresenter {
     public RepoOverviewPresenter(RepoOverviewView view, Repository repository) {
         this.view = view;
         this.repository = repository;
-        checkIfRepoStarred(repository);
-        checkIfRepoSubscribed(repository);
     }
 }
