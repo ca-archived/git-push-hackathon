@@ -7,7 +7,7 @@ import android.widget.Toast;
  * Created by Masato on 2018/02/03.
  */
 
-public abstract class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment {
 
     public void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
@@ -17,5 +17,7 @@ public abstract class BaseFragment extends Fragment {
         Toast.makeText(getContext(), stringId, Toast.LENGTH_LONG).show();
     }
 
-    public abstract String getName();
+    public String getName() {
+        return getArguments().getString("name");
+    };
 }

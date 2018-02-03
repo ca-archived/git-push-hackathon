@@ -30,6 +30,7 @@
     <string name="days_ago">日前</string>
 
     <string name="repo_tab_overview">概要</string>
+    <string name="repo_tab_issues">issues</string>
 
     <string name="repo_starred">スターしました</string>
     <string name="repo_star_failed">スターできませんでした</string>

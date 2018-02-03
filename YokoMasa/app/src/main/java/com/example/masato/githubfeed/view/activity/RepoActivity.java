@@ -23,6 +23,7 @@ import com.example.masato.githubfeed.presenter.RepoPresenter;
 import com.example.masato.githubfeed.view.RepoView;
 import com.example.masato.githubfeed.view.adapter.FragmentListPagerAdapter;
 import com.example.masato.githubfeed.view.fragment.BaseFragment;
+import com.example.masato.githubfeed.view.fragment.IssueListFragment;
 import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
 
 /**
@@ -33,6 +34,7 @@ public class RepoActivity extends AppCompatActivity implements RepoView {
 
     private RepoPresenter presenter;
     private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +46,7 @@ public class RepoActivity extends AppCompatActivity implements RepoView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.repo_viewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.repo_tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.repo_tabLayout);
         setUpPresenter();
     }
 
@@ -69,14 +70,23 @@ public class RepoActivity extends AppCompatActivity implements RepoView {
     public void setUpContent(Repository repository) {
         setUpActionbarTitle(repository);
         FragmentListPagerAdapter pagerAdapter = new FragmentListPagerAdapter(getSupportFragmentManager());
+
         Bundle bundle = new Bundle();
         bundle.putParcelable("repository", repository);
-
+        bundle.putString("name", getString(R.string.repo_tab_overview));
         RepoOverviewFragment overviewFragment = new RepoOverviewFragment();
         overviewFragment.setArguments(bundle);
         pagerAdapter.addFragment(overviewFragment);
 
+        bundle = new Bundle();
+        bundle.putParcelable("repository", repository);
+        bundle.putString("name", getString(R.string.repo_tab_issues));
+        IssueListFragment issueListFragment = new IssueListFragment();
+        issueListFragment.setArguments(bundle);
+        pagerAdapter.addFragment(issueListFragment);
+
         viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void setUpActionbarTitle(Repository repository) {

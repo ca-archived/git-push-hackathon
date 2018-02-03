@@ -139,6 +139,22 @@ class GitHubResourceManager {
         });
     }
 
+    void getIssueListFromUrl(String url, int page, final GitHubApiCallback callback) {
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.addParams("page", Integer.toString(page));
+        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.get(result -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapIssueList(successfulResult.getBodyString());
+            });
+        });
+    }
+
+    void getRepositoryIssueList(Repository repository, int page, final GitHubApiCallback callback) {
+        String url = repository.baseUrl + "/" + "issues";
+        getIssueListFromUrl(url, page, callback);
+    }
+
     void getBitmapFromUrl(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.get(result -> {

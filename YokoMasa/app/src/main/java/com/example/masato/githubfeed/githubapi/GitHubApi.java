@@ -83,6 +83,14 @@ public class GitHubApi {
         resourceManager.unSubscribeRepository(repository, callback);
     }
 
+    public void fetchIssueList(String url, int page, GitHubApiCallback callback) {
+        resourceManager.getIssueListFromUrl(url, page, callback);
+    }
+
+    public void fetchIssueList(Repository repository, int page,  GitHubApiCallback callback) {
+        resourceManager.getRepositoryIssueList(repository, page, callback);
+    }
+
     public void deleteToken() {
         tokenManager.deleteToken();
     }

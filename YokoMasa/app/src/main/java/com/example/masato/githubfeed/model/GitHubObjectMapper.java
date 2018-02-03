@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.ParcelFormatException;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -125,6 +126,20 @@ public class GitHubObjectMapper {
             e.printStackTrace();
         }
         return issue;
+    }
+
+    public static List<Issue> mapIssueList(String jsonString) {
+        List<Issue> issues = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0;i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                issues.add(mapIssue(jsonObject));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return issues;
     }
 
 }

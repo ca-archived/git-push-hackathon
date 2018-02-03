@@ -76,11 +76,6 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
     }
 
     @Override
-    public String getName() {
-        return getResources().getString(R.string.repo_tab_overview);
-    }
-
-    @Override
     public void showOverview(Repository repository) {
         starCount.setText(Integer.toString(repository.stars));
         watchCount.setText(Integer.toString(repository.watches));
