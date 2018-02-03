@@ -4,6 +4,11 @@
     android:layout_height="80dp">
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/issue_list_element_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/issue_list_element_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -11,6 +11,7 @@ import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.presenter.IssueListPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
+import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.IssueListView;
 
 /**
@@ -45,15 +46,18 @@ public class IssueListFragment extends PaginatingListFragment<Issue> implements 
     protected void onBindViewHolder(PaginatingListViewHolder holder, Issue element) {
         IssueViewHolder viewHolder = (IssueViewHolder) holder;
         viewHolder.title.setText(element.name);
+        viewHolder.date.setText(DateUtil.getReadableDateForFeed(element.createdAt, getContext()));
     }
 
     private class IssueViewHolder extends PaginatingListViewHolder<Issue> {
 
+        public AppCompatTextView date;
         public AppCompatTextView title;
 
         public IssueViewHolder(View itemView) {
             super(itemView);
             title = (AppCompatTextView) itemView.findViewById(R.id.issue_list_element_title);
+            date = (AppCompatTextView) itemView.findViewById(R.id.issue_list_element_date);
         }
     }
 }

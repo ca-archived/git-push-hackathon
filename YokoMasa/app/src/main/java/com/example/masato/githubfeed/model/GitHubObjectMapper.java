@@ -106,7 +106,7 @@ public class GitHubObjectMapper {
         Comment comment = new Comment();
         try {
             comment.author = mapProfile(jsonObject.getJSONObject("user"));
-            comment.bodyHtml = jsonObject.getString("body");
+            comment.bodyHtml = jsonObject.getString("body_html");
             comment.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
         } catch (Exception e) {
             e.printStackTrace();;
@@ -118,7 +118,8 @@ public class GitHubObjectMapper {
         Issue issue = new Issue();
         try {
             issue.name = jsonObject.getString("title");
-            issue.bodyHtml = jsonObject.getString("body");
+            issue.bodyHtml = jsonObject.getString("body_html");
+            issue.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             issue.commentsUrl = jsonObject.getString("comments_url");
             issue.repository = mapRepository(jsonObject.getJSONObject("repository"));
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
