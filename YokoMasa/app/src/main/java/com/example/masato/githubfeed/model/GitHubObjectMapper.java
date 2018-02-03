@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.model;
 
 import android.content.res.Resources;
+import android.os.ParcelFormatException;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -14,10 +15,13 @@ import org.xml.sax.SAXException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -31,6 +35,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class GitHubObjectMapper {
 
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
     public static List<FeedEntry> mapFeedEntries(String feedString) {
         return XmlFeedParser.parse(feedString);
     }
@@ -39,6 +45,16 @@ public class GitHubObjectMapper {
         Profile profile = new Profile();
         try {
             JSONObject jsonObject = new JSONObject(profileString);
+            profile = mapProfile(jsonObject);
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+        return profile;
+    }
+
+    public static Profile mapProfile(JSONObject jsonObject) {
+        Profile profile = new Profile();
+        try {
             profile.name = jsonObject.getString("login");
             profile.iconUrl = jsonObject.getString("avatar_url");
         } catch (JSONException je) {
@@ -61,6 +77,16 @@ public class GitHubObjectMapper {
         Repository repository = new Repository();
         try {
             JSONObject jsonObject = new JSONObject(repositoryString);
+            repository = mapRepository(jsonObject);
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+        return repository;
+    }
+
+    public static Repository mapRepository(JSONObject jsonObject) {
+        Repository repository = new Repository();
+        try {
             repository.fullName = jsonObject.getString("full_name");
             repository.name = jsonObject.getString("name");
             repository.stars = jsonObject.getInt("stargazers_count");
@@ -69,10 +95,36 @@ public class GitHubObjectMapper {
             repository.baseUrl = jsonObject.getString("url");
             JSONObject ownerJsonObject = jsonObject.getJSONObject("owner");
             repository.owner = ownerJsonObject.getString("login");
-        } catch(JSONException je) {
+        } catch (JSONException je) {
             je.printStackTrace();
         }
         return repository;
+    }
+
+    public static Comment mapComment(JSONObject jsonObject) {
+        Comment comment = new Comment();
+        try {
+            comment.author = mapProfile(jsonObject.getJSONObject("user"));
+            comment.bodyHtml = jsonObject.getString("body");
+            comment.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        return comment;
+    }
+
+    public static Issue mapIssue(JSONObject jsonObject) {
+        Issue issue = new Issue();
+        try {
+            issue.name = jsonObject.getString("title");
+            issue.bodyHtml = jsonObject.getString("body");
+            issue.commentsUrl = jsonObject.getString("comments_url");
+            issue.repository = mapRepository(jsonObject.getJSONObject("repository"));
+            issue.author = mapProfile(jsonObject.getJSONObject("user"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return issue;
     }
 
 }
