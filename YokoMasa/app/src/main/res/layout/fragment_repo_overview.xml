@@ -1,99 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/mother_padding">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="3"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/mother_padding">
 
             <LinearLayout
-                android:id="@+id/repo_star_layout"
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:background="@drawable/box_border"
-                android:gravity="center">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/repo_star_image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/star"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <LinearLayout
+                        android:id="@+id/repo_star_layout"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/box_border_cream_back"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/repo_star_image"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/star"/>
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/repo_star"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/repo_watch_layout"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/box_border_cream_back"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/repo_watch_image"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/watch"/>
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/repo_watch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/box_border_cream_back"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/fork"/>
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/repo_fork"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/repo_star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textSize="@dimen/text_medium"
+                    android:text="@string/repo_readme"
+                    android:padding="@dimen/child_padding"
+                    android:background="@drawable/box_border_cream_back"/>
 
-            </LinearLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/child_padding"
+                    android:background="@drawable/box_border">
 
-            <LinearLayout
-                android:id="@+id/repo_watch_layout"
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:background="@drawable/box_border"
-                android:gravity="center">
+                    <WebView
+                        android:id="@+id/repo_readme_web_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:id="@+id/repo_watch_image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/watch"/>
+                </FrameLayout>
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/repo_watch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:background="@drawable/box_border"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/fork"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/repo_fork"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <WebView
-            android:id="@+id/repo_readme_web_view"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    </ScrollView>
 
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

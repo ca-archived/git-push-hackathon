@@ -33,6 +33,7 @@
     <string name="tab_issues">issues</string>
     <string name="tab_comments">コメント</string>
 
+    <string name="repo_readme">README</string>
     <string name="repo_no_readme">No README here</string>
     <string name="repo_loading_readme">loading README...</string>
 
