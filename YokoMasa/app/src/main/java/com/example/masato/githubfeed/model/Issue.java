@@ -17,7 +17,7 @@ public class Issue implements Parcelable {
     public Profile author;
     public Repository repository;
     public String commentsUrl;
-    public Parcelable.Creator<Issue> CREATOR = new Parcelable.Creator<Issue>() {
+    public static Parcelable.Creator<Issue> CREATOR = new Parcelable.Creator<Issue>() {
         @Override
         public Issue createFromParcel(Parcel parcel) {
             Issue issue = new Issue();

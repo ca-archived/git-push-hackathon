@@ -13,7 +13,7 @@ public class Profile implements Parcelable
     public String name;
     public String iconUrl;
     public Bitmap icon;
-    public Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
+    public static Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
         @Override
         public Profile createFromParcel(Parcel parcel) {
             Profile profile = new Profile();

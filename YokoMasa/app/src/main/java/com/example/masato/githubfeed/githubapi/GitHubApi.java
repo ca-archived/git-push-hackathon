@@ -91,6 +91,10 @@ public class GitHubApi {
         resourceManager.getRepositoryIssueList(repository, page, callback);
     }
 
+    public void fetchCommentList(String url, int page, GitHubApiCallback callback) {
+        resourceManager.getCommentListFromUrl(url, page, callback);
+    }
+
     public void deleteToken() {
         tokenManager.deleteToken();
     }

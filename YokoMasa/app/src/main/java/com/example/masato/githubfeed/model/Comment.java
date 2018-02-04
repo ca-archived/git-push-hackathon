@@ -14,7 +14,7 @@ public class Comment implements Parcelable {
     public String bodyHtml;
     public Date createdAt;
     public Profile author;
-    public Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
+    public static Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
         @Override
         public Comment createFromParcel(Parcel parcel) {
             Comment comment = new Comment();

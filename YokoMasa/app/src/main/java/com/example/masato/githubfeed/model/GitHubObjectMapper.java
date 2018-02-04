@@ -1,34 +1,14 @@
 package com.example.masato.githubfeed.model;
 
-import android.content.res.Resources;
-import android.os.ParcelFormatException;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by Masato on 2018/01/19.
@@ -114,6 +94,20 @@ public class GitHubObjectMapper {
         return comment;
     }
 
+    public static List<Comment> mapCommentList(String jsonString) {
+        List<Comment> comments = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0;i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                comments.add(mapComment(jsonObject));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return comments;
+    }
+
     public static Issue mapIssue(JSONObject jsonObject) {
         Issue issue = new Issue();
         try {
@@ -121,8 +115,8 @@ public class GitHubObjectMapper {
             issue.bodyHtml = jsonObject.getString("body_html");
             issue.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             issue.commentsUrl = jsonObject.getString("comments_url");
-            issue.repository = mapRepository(jsonObject.getJSONObject("repository"));
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
+            issue.repository = mapRepository(jsonObject.getJSONObject("repository"));
         } catch (Exception e) {
             e.printStackTrace();
         }

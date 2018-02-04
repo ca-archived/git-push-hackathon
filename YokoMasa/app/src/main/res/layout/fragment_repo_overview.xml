@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_margin="3dp"
-                android:background="@drawable/repo_status_background"
+                android:background="@drawable/box_border"
                 android:gravity="center">
 
                 <ImageView
@@ -46,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_margin="3dp"
-                android:background="@drawable/repo_status_background"
+                android:background="@drawable/box_border"
                 android:gravity="center">
 
                 <ImageView
@@ -69,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_margin="3dp"
-                android:background="@drawable/repo_status_background"
+                android:background="@drawable/box_border"
                 android:gravity="center">
 
                 <ImageView

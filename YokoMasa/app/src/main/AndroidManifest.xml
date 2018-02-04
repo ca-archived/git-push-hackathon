@@ -35,6 +35,8 @@
 
         <activity android:name=".view.activity.RepoActivity"/>
 
+        <activity android:name=".view.activity.IssueActivity"/>
+
     </application>
 
 </manifest>

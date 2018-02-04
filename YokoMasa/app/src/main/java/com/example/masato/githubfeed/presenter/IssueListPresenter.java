@@ -22,7 +22,7 @@ public class IssueListPresenter extends PaginatingListPresenter<Issue> {
 
     @Override
     public void onElementClicked(Issue element) {
-
+        view.navigateToIssueView(element);
     }
 
     @Override

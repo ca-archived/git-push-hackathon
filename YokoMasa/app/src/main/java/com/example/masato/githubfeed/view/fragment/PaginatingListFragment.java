@@ -79,6 +79,16 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends BaseF
         return onCreatePaginatingViewHolder(parent);
     }
 
+    @Override
+    public RecyclerView.ViewHolder onCreateLoadingViewHolder(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateNothingToShowViewHolder(View parent) {
+        return null;
+    }
+
     protected abstract PaginatingListViewHolder<T> onCreatePaginatingViewHolder(ViewGroup parent);
 
     @Override

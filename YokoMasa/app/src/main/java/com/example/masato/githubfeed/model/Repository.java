@@ -16,7 +16,7 @@ public class Repository implements Parcelable {
     public int stars;
     public int watches;
     public int forks;
-    public Parcelable.Creator<Repository> CREATOR = new Parcelable.Creator<Repository>() {
+    public static Parcelable.Creator<Repository> CREATOR = new Parcelable.Creator<Repository>() {
         @Override
         public Repository createFromParcel(Parcel parcel) {
             Repository repo = new Repository();

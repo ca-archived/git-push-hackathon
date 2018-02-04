@@ -39,14 +39,14 @@ public class RepoActivity extends AppCompatActivity implements RepoView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_repo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.repo_tool_bar);
+        setContentView(R.layout.general_view_pager_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.general_view_pager_tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        viewPager = (ViewPager) findViewById(R.id.repo_viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.repo_tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.general_view_pager_view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.general_view_pager_tab_layout);
         setUpPresenter();
     }
 
@@ -73,14 +73,14 @@ public class RepoActivity extends AppCompatActivity implements RepoView {
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("repository", repository);
-        bundle.putString("name", getString(R.string.repo_tab_overview));
+        bundle.putString("name", getString(R.string.tab_overview));
         RepoOverviewFragment overviewFragment = new RepoOverviewFragment();
         overviewFragment.setArguments(bundle);
         pagerAdapter.addFragment(overviewFragment);
 
         bundle = new Bundle();
         bundle.putParcelable("repository", repository);
-        bundle.putString("name", getString(R.string.repo_tab_issues));
+        bundle.putString("name", getString(R.string.tab_issues));
         IssueListFragment issueListFragment = new IssueListFragment();
         issueListFragment.setArguments(bundle);
         pagerAdapter.addFragment(issueListFragment);

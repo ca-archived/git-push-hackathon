@@ -31,11 +31,17 @@ public class PaginatingListAdapter extends RecyclerView.Adapter {
         if (viewType == ELEMENT_VIEW) {
             viewHolder =  listener.onCreateViewHolder(parent);
         } else if (viewType == LOADING_VIEW){
-            view = inflater.inflate(R.layout.feed_loading, parent, false);
-            viewHolder =  new LoadingViewHolder(view);
+            viewHolder = listener.onCreateLoadingViewHolder(parent);
+            if (viewHolder == null) {
+                view = inflater.inflate(R.layout.feed_loading, parent, false);
+                viewHolder = new LoadingViewHolder(view);
+            }
         } else if (viewType == NOTHING_TO_SHOW_VIEW) {
-            view = inflater.inflate(R.layout.feed_nothing_to_show, parent, false);
-            viewHolder =  new NothingToShowViewHolder(view);
+            viewHolder = listener.onCreateNothingToShowViewHolder(parent);
+            if (viewHolder == null) {
+                view = inflater.inflate(R.layout.feed_nothing_to_show, parent, false);
+                viewHolder = new NothingToShowViewHolder(view);
+            }
         }
         return viewHolder;
     }
@@ -85,6 +91,10 @@ public class PaginatingListAdapter extends RecyclerView.Adapter {
         public int onGetItemViewType(int position);
 
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent);
+
+        public RecyclerView.ViewHolder onCreateLoadingViewHolder(ViewGroup parent);
+
+        public RecyclerView.ViewHolder onCreateNothingToShowViewHolder(View parent);
 
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position);
 
