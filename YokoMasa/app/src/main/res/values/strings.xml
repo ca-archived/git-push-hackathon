@@ -48,4 +48,6 @@
     <string name="repo_unsubscribe_failed">watch解除できませんでした</string>
 
     <string name="issue_title">Issue</string>
+    <string name="issue_state_open">Open</string>
+    <string name="issue_state_closed">Closed</string>
 </resources>

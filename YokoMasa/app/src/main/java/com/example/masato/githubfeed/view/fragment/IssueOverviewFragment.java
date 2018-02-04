@@ -44,18 +44,32 @@ public class IssueOverviewFragment extends BaseFragment implements ImageLoadable
     }
 
     private void initViews(View view, Issue issue) {
+        initState(view, issue);
         AppCompatTextView authorName = (AppCompatTextView) view.findViewById(R.id.issue_overview_author_name);
         AppCompatTextView date = (AppCompatTextView) view.findViewById(R.id.issue_overview_date);
+        AppCompatTextView title = (AppCompatTextView) view.findViewById(R.id.issue_overview_title);
         image = (CircleImageView) view.findViewById(R.id.issue_overview_image);
         WebView webView = (WebView) view.findViewById(R.id.issue_overview_comment_body);
 
         authorName.setText(issue.author.name);
         date.setText(DateUtil.getReadableDateForFeed(issue.createdAt, getContext()));
+        title.setText(issue.name);
         webView.loadDataWithBaseURL("https://github.com", issue.bodyHtml, "text/html", "utf-8", null);
         if (issue.author.icon == null) {
             presenter.onFetchImage(issue.author.iconUrl);
         } else {
             image.setImageBitmap(issue.author.icon);
+        }
+    }
+
+    private void initState(View view, Issue issue) {
+        AppCompatTextView stateTextView = view.findViewById(R.id.issue_overview_state);
+        if (issue.state.equals(Issue.STATE_OPEN)) {
+            stateTextView.setText(R.string.issue_state_open);
+            stateTextView.setBackgroundColor(getResources().getColor(R.color.issue_open));
+        } else {
+            stateTextView.setText(R.string.issue_state_closed);
+            stateTextView.setBackgroundColor(getResources().getColor(R.color.issue_closed));
         }
     }
 

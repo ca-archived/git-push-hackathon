@@ -117,6 +117,7 @@ public class GitHubObjectMapper {
             issue.commentsUrl = jsonObject.getString("comments_url");
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
             issue.comments = jsonObject.getInt("comments");
+            issue.state = jsonObject.getString("state");
             issue.repository = mapRepository(jsonObject.getJSONObject("repository"));
         } catch (Exception e) {
             e.printStackTrace();
