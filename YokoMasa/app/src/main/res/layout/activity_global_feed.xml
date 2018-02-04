@@ -6,14 +6,12 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/global_feed_tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        style="@style/ToolBar" />
 
     <FrameLayout
         android:id="@+id/global_feed_mother"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="@dimen/mother_padding"/>
 
 </LinearLayout>

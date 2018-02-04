@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="mother_padding">15dp</dimen>
+    <dimen name="child_padding">10dp</dimen>
+
+    <dimen name="text_small">11sp</dimen>
+    <dimen name="text_medium">15sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+
+    <dimen name="image_cat">110dp</dimen>
+    <dimen name="image_profile_fragment">110dp</dimen>
+    <dimen name="image_octcat">150dp</dimen>
+    <dimen name="image_large">50dp</dimen>
+    <dimen name="image_medium">40dp</dimen>
+    <dimen name="image_small">30dp</dimen>
+
     <dimen name="login_button_width">240dp</dimen>
     <dimen name="login_button_height">40dp</dimen>
     <dimen name="login_button_corner_radious">20dp</dimen>
     <dimen name="feed_entry_height">70dp</dimen>
     <dimen name="feed_entry_padding">15dp</dimen>
     <dimen name="feed_entry_thumbnail_size">40dp</dimen>
+    <dimen name="drawer_width">250dp</dimen>
+    <dimen name="drawer_header_height">130dp</dimen>
 </resources>

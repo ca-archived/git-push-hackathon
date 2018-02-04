@@ -10,15 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/feed_tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimaryDark"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            style="@style/ToolBar" />
 
         <FrameLayout
             android:id="@+id/feed_mother"
@@ -30,7 +27,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#FFF"
@@ -38,24 +35,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/drawer_header_height"
             android:background="@color/colorPrimaryDark"
             android:orientation="vertical"
-            android:padding="15dp"
+            android:padding="@dimen/mother_padding"
             android:gravity="bottom|start">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/feed_nav_menu_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_width="@dimen/image_large"
+                android:layout_height="@dimen/image_large" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/feed_nav_menu_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:textColor="#FFF"
-                android:textSize="15sp"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"/>
 
         </LinearLayout>
 

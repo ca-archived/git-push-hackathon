@@ -12,8 +12,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/image_octcat"
+            android:layout_height="@dimen/image_octcat"
             android:src="@drawable/octcat"/>
 
         <android.support.v7.widget.AppCompatTextView
@@ -23,8 +23,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:text="@string/login_description"
-            android:textSize="14sp"
-            android:textColor="#FFF"/>
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/white"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/login_button"

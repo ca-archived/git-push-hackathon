@@ -11,7 +11,7 @@
     <string name="feed_current_user">プライベート</string>
     <string name="feed_current_user_action">アクション</string>
     <string name="feed_current_user_organization">組織</string>
-    <string name="feed_nothing_to_show">フィードはありません。</string>
+    <string name="feed_nothing_to_show">表示するものはありません。</string>
     <string name="feed_nav_menu_logout">ログアウト</string>
 
     <string name="failure_internet">インターネットに接続できません</string>

@@ -3,22 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:padding="10dp"
-    android:background="@drawable/box_border">
+    android:layout_margin="@dimen/mother_padding">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/child_padding"
+        android:background="@drawable/box_border"
         android:gravity="center_vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/comment_image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -28,13 +28,14 @@
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/comment_author_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_medium"/>
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/comment_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"/>
+                android:textSize="@dimen/text_small"/>
 
         </LinearLayout>
 
@@ -42,7 +43,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/child_padding"
+        android:background="@drawable/box_border">
 
         <WebView
             android:id="@+id/comment_body"
