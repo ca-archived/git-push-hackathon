@@ -11,7 +11,7 @@ import com.example.masato.githubfeed.view.FeedView;
  * Created by Masato on 2018/01/19.
  */
 
-public class FeedPresenter implements Presenter {
+public class FeedPresenter {
 
     private FeedView view;
 
@@ -54,11 +54,6 @@ public class FeedPresenter implements Presenter {
     public void onGlobalFeedSelected() {
         view.closeDrawer();
         view.navigateToGlobalFeedView();
-    }
-
-    @Override
-    public void onResume() {
-
     }
 
     public FeedPresenter(FeedView feedView) {

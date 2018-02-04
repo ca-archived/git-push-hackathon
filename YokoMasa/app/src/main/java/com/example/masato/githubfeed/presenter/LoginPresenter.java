@@ -15,14 +15,9 @@ import com.example.masato.githubfeed.view.LoginView;
  * Created by Masato on 2018/01/19.
  */
 
-public class LoginPresenter implements Presenter {
+public class LoginPresenter {
 
     private LoginView view;
-
-    @Override
-    public void onResume() {
-
-    }
 
     public void onLoginButtonPressed() {
         view.startBrowser();

@@ -20,10 +20,12 @@ public class FragmentListPagerAdapter extends FragmentPagerAdapter {
 
     public void addFragment(BaseFragment fragment) {
         fragmentList.add(fragment);
+        notifyDataSetChanged();
     }
 
     public void addFragment(BaseFragment fragment, int position) {
         fragmentList.add(position, fragment);
+        notifyDataSetChanged();
     }
 
     @Override

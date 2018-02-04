@@ -143,7 +143,7 @@ public class RepoOverviewPresenter {
             String contentHtml = (String) result.resultObject;
             view.showReadMe(contentHtml);
         } else {
-            view.showReadMe("No README here.");
+            view.showNoReadMe();
         }
     }
 

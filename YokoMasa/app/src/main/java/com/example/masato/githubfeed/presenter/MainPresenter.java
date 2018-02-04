@@ -14,20 +14,19 @@ import com.example.masato.githubfeed.view.MainView;
  * Created by Masato on 2018/01/17.
  */
 
-public class MainPresenter implements Presenter{
+public class MainPresenter {
 
+    private static final int ENTRANCE_LOGO_DURATION = 2000;
     private final MainView view;
 
-    @Override
     public void onResume() {
-        view.initGitHubApi();
         waitASec();
     }
 
     private void waitASec() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             GitHubApi.getApi().checkIfTokenValid(this::navigateToFeedViewIfSucceeded);
-        }, 2000);
+        }, ENTRANCE_LOGO_DURATION);
     }
 
     private void navigateToFeedViewIfSucceeded(GitHubApiResult result) {

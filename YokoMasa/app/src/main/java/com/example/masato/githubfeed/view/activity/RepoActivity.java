@@ -30,7 +30,7 @@ import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
  * Created by Masato on 2018/01/27.
  */
 
-public class RepoActivity extends AppCompatActivity implements RepoView {
+public class RepoActivity extends ViewPagerActivity implements RepoView {
 
     private RepoPresenter presenter;
     private ViewPager viewPager;
@@ -39,58 +39,36 @@ public class RepoActivity extends AppCompatActivity implements RepoView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.general_view_pager_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.general_view_pager_tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        viewPager = (ViewPager) findViewById(R.id.general_view_pager_view_pager);
-        tabLayout = (TabLayout) findViewById(R.id.general_view_pager_tab_layout);
-        setUpPresenter();
+        setUpPresenterIfNeeded();
     }
 
-    private void setUpPresenter() {
+    private void setUpPresenterIfNeeded() {
         String url = getIntent().getStringExtra("url");
         Repository repository = getIntent().getParcelableExtra("repository");
         if (repository != null) {
-            presenter = new RepoPresenter(this, repository);
+            setUpContent(repository);
         } else {
             presenter = new RepoPresenter(this, url);
         }
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
-
-    @Override
     public void setUpContent(Repository repository) {
-        setUpActionbarTitle(repository);
-        FragmentListPagerAdapter pagerAdapter = new FragmentListPagerAdapter(getSupportFragmentManager());
+        getSupportActionBar().setTitle(repository.name);
+        getSupportActionBar().setSubtitle(repository.owner);
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("repository", repository);
         bundle.putString("name", getString(R.string.tab_overview));
         RepoOverviewFragment overviewFragment = new RepoOverviewFragment();
         overviewFragment.setArguments(bundle);
-        pagerAdapter.addFragment(overviewFragment);
+        addFragment(overviewFragment);
 
         bundle = new Bundle();
         bundle.putParcelable("repository", repository);
         bundle.putString("name", getString(R.string.tab_issues));
         IssueListFragment issueListFragment = new IssueListFragment();
         issueListFragment.setArguments(bundle);
-        pagerAdapter.addFragment(issueListFragment);
-
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-    }
-
-    private void setUpActionbarTitle(Repository repository) {
-        getSupportActionBar().setTitle(repository.name);
-        getSupportActionBar().setSubtitle(repository.owner);
+        addFragment(issueListFragment);
     }
 }

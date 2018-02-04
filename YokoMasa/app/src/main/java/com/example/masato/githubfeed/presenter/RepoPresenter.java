@@ -18,14 +18,10 @@ public class RepoPresenter {
 
     private RepoView view;
     private String repoUrl;
-    private Repository repository;
-    private boolean isStarred;
-    private boolean isSubscribed;
 
     private void handleFetchRepositoryResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
-            RepoPresenter.this.repository = repository;
             view.setUpContent(repository);
         }
     }
@@ -34,11 +30,5 @@ public class RepoPresenter {
         this.view = view;
         this.repoUrl = url;
         GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
-    }
-
-    public RepoPresenter(RepoView view, Repository repository) {
-        this.view = view;
-        this.repository = repository;
-        view.setUpContent(repository);
     }
 }

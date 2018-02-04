@@ -11,6 +11,8 @@ public interface RepoOverviewView extends BaseView {
 
     public void showReadMe(String readMeHtml);
 
+    public void showNoReadMe();
+
     public void setStarActivated(boolean activated);
 
     public void setWatchActivated(boolean activated);

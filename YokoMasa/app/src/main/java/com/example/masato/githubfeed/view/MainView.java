@@ -6,8 +6,6 @@ package com.example.masato.githubfeed.view;
 
 public interface MainView extends BaseView {
 
-    public void initGitHubApi();
-
     public void navigateToLogInView();
 
     public void navigateToFeedView();

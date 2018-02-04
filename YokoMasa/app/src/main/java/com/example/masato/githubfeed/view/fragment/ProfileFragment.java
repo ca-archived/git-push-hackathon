@@ -20,12 +20,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
-    private Profile profile;
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +29,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setContent(View view) {
+        Profile profile = getArguments().getParcelable("profile");
         AppCompatTextView textView = (AppCompatTextView) view.findViewById(R.id.profile_name);
         CircleImageView imageView = (CircleImageView) view.findViewById(R.id.profile_image);
         textView.setText(profile.name);

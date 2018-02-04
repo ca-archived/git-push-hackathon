@@ -33,6 +33,9 @@
     <string name="tab_issues">issues</string>
     <string name="tab_comments">コメント</string>
 
+    <string name="repo_no_readme">No README here</string>
+    <string name="repo_loading_readme">loading README...</string>
+
     <string name="repo_starred">スターしました</string>
     <string name="repo_star_failed">スターできませんでした</string>
     <string name="repo_unstarred">スター解除しました</string>
@@ -42,4 +45,6 @@
     <string name="repo_subscribe_failed">watchできませんでした</string>
     <string name="repo_unsubscribed">watch解除しました</string>
     <string name="repo_unsubscribe_failed">watch解除できませんでした</string>
+
+    <string name="issue_title">Issue</string>
 </resources>

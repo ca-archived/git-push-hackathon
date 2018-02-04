@@ -53,12 +53,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.onResume();
-    }
-
-    @Override
     public void onClick(View view) {
         presenter.onLoginButtonPressed();
     }
@@ -106,8 +100,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void showProfile(Profile profile) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("profile", profile);
         ProfileFragment profileFragment = new ProfileFragment();
-        profileFragment.setProfile(profile);
+        profileFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.profile_fragment_animation, R.anim.profile_fragment_animation);
         transaction.add(R.id.login_mother, profileFragment, null);

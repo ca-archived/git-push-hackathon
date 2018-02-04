@@ -22,10 +22,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
 
         presenter = new MainPresenter(this);
-    }
-
-    @Override
-    public void initGitHubApi() {
         GitHubApi.init(getSharedPreferences("token", Context.MODE_PRIVATE), getResources());
     }
 

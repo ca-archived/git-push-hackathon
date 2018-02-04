@@ -21,13 +21,19 @@ import java.util.List;
 
 public abstract class PaginatingListPresenter<T extends Parcelable> {
 
+    private static final int DEFAULT_FETCH_THRESHOLD = 15;
+
     private PaginatingListView view;
     private ArrayList<T> elementList = new ArrayList<>();
     private int currentPage = 1;
-    private int fetchThreshold;
+    private int fetchThreshold = DEFAULT_FETCH_THRESHOLD;
     private boolean feedMaxedOut = false;
     private boolean refreshing = false;
     private boolean fetching = false;
+
+    public void setFetchThreshold(int fetchThreshold) {
+        this.fetchThreshold = fetchThreshold;
+    }
 
     /**
      * 現在取得が完了しているページをセットします。
@@ -195,8 +201,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         return elementList.size() + 1;
     }
 
-    PaginatingListPresenter(PaginatingListView view, int fetchThreshold) {
+    PaginatingListPresenter(PaginatingListView view) {
         this.view = view;
-        this.fetchThreshold = fetchThreshold;
     }
 }

@@ -1,7 +1,5 @@
 package com.example.masato.githubfeed.presenter;
 
-import android.os.Parcelable;
-
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Comment;
@@ -15,7 +13,6 @@ import java.util.List;
 
 public class CommentListPresenter extends PaginatingListPresenter<Comment> {
 
-    private static final int FETCH_THRESHOLD = 15;
     private String commentsUrl;
 
     @Override
@@ -38,7 +35,7 @@ public class CommentListPresenter extends PaginatingListPresenter<Comment> {
     }
 
     public CommentListPresenter(PaginatingListView view, String commentsUrl) {
-        super(view, FETCH_THRESHOLD);
+        super(view);
         this.commentsUrl = commentsUrl;
     }
 }

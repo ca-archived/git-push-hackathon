@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class IssueListPresenter extends PaginatingListPresenter<Issue> {
 
-    private static final int FETCH_THRESHOLD = 15;
     private IssueListView view;
     private String url;
     private Repository repository;
@@ -44,13 +43,13 @@ public class IssueListPresenter extends PaginatingListPresenter<Issue> {
     }
 
     public IssueListPresenter(PaginatingListView view, String url) {
-        super(view, FETCH_THRESHOLD);
+        super(view);
         this.view = (IssueListView) view;
         this.url = url;
     }
 
     public IssueListPresenter(PaginatingListView view, Repository repository) {
-        super(view, FETCH_THRESHOLD);
+        super(view);
         this.view = (IssueListView) view;
         this.repository = repository;
     }

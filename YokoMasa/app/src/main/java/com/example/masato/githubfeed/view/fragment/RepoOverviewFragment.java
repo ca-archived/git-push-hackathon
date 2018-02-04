@@ -60,10 +60,11 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
         watchLayout.setOnClickListener(this);
         star = (ImageView) view.findViewById(R.id.repo_star_image);
         watch = (ImageView) view.findViewById(R.id.repo_watch_image);
-        readmeWebView = (WebView) view.findViewById(R.id.repo_readme_web_view);
         starCount = (AppCompatTextView) view.findViewById(R.id.repo_star);
         watchCount = (AppCompatTextView) view.findViewById(R.id.repo_watch);
         forkCount = (AppCompatTextView) view.findViewById(R.id.repo_fork);
+        readmeWebView = (WebView) view.findViewById(R.id.repo_readme_web_view);
+        readmeWebView.loadData(getString(R.string.repo_loading_readme), "text/html", "utf-8");
     }
 
     @Override
@@ -85,6 +86,11 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
     @Override
     public void showReadMe(String readMeHtml) {
         readmeWebView.loadDataWithBaseURL("https://github.com", readMeHtml, "text/html", "utf-8", null);
+    }
+
+    @Override
+    public void showNoReadMe() {
+        readmeWebView.loadData(getString(R.string.repo_no_readme), "text/html", "utf-8");
     }
 
     @Override
