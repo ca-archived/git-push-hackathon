@@ -17,6 +17,7 @@ public class Issue implements Parcelable {
     public Profile author;
     public Repository repository;
     public String commentsUrl;
+    public int comments;
     public static Parcelable.Creator<Issue> CREATOR = new Parcelable.Creator<Issue>() {
         @Override
         public Issue createFromParcel(Parcel parcel) {
@@ -27,6 +28,7 @@ public class Issue implements Parcelable {
             issue.author = parcel.readParcelable(getClass().getClassLoader());
             issue.repository = parcel.readParcelable(getClass().getClassLoader());
             issue.commentsUrl = parcel.readString();
+            issue.comments = parcel.readInt();
             return issue;
         }
 
@@ -49,5 +51,6 @@ public class Issue implements Parcelable {
         parcel.writeParcelable(author, 0);
         parcel.writeParcelable(repository, 0);
         parcel.writeString(commentsUrl);
+        parcel.writeInt(comments);
     }
 }

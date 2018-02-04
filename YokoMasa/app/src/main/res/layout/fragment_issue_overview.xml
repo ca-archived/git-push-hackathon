@@ -18,6 +18,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/child_padding"
+                android:background="@drawable/box_border"
                 android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -50,7 +52,9 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="@dimen/child_padding"
+                android:background="@drawable/box_border">
 
                 <WebView
                     android:id="@+id/issue_overview_comment_body"

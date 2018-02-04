@@ -56,17 +56,20 @@ public class IssueListFragment extends PaginatingListFragment<Issue> implements 
         IssueViewHolder viewHolder = (IssueViewHolder) holder;
         viewHolder.title.setText(element.name);
         viewHolder.date.setText(DateUtil.getReadableDateForFeed(element.createdAt, getContext()));
+        viewHolder.comments.setText(Integer.toString(element.comments));
     }
 
     private class IssueViewHolder extends PaginatingListViewHolder<Issue> {
 
         public AppCompatTextView date;
         public AppCompatTextView title;
+        public AppCompatTextView comments;
 
         public IssueViewHolder(View itemView) {
             super(itemView);
             title = (AppCompatTextView) itemView.findViewById(R.id.issue_list_element_title);
             date = (AppCompatTextView) itemView.findViewById(R.id.issue_list_element_date);
+            comments = (AppCompatTextView) itemView.findViewById(R.id.issue_list_element_comment);
         }
     }
 }
