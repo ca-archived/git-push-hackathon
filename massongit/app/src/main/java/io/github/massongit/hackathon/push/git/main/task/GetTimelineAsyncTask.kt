@@ -85,9 +85,9 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                             try {
                                 val payloadElement = it as? JsonObject
                                 val eventHtmlUrl = when (type) {
-                                    "WatchEvent", "CreateEvent" -> getHtmlUrl(repo)
-                                    "ReleaseEvent" -> getHtmlUrl(payloadElement?.get("release") as? JsonObject)
-                                    else -> getHtmlUrl(payloadElement)
+                                    "WatchEvent", "CreateEvent" -> this.getHtmlUrl(repo)
+                                    "ReleaseEvent" -> this.getHtmlUrl(payloadElement?.get("release") as? JsonObject)
+                                    else -> this.getHtmlUrl(payloadElement)
                                 }
                                 events.add(when (type) {
                                     "GollumEvent" -> {
