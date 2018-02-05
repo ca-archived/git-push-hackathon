@@ -12,12 +12,16 @@ import java.util.*
  * @param eventHtmlUrl イベントのURL
  * @param actorAvatar イベントを行ったユーザーのサムネイル
  * @param createdAt イベントが作成された日時
- * @param thing イベントの対象オブジェクト
+ * @param thingType イベントの対象オブジェクトの種類
  */
-class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, thing: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
-    override val messageHTML: String = "<strong>%s</strong> created %s %s <strong>%s</strong>".format(this.actorLogin, if (thing.startsWith("[aiueo]")) {
-        "an"
-    } else {
-        "a"
-    }, thing, this.repoName)
+open class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, protected val thingType: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+    override val messageHTML: String = "<strong>%s</strong> created %s <strong>%s</strong>".format(this.actorLogin, this.getWordWithIndefiniteArticle(this.thingType), this.repoName)
+
+    protected fun getWordWithIndefiniteArticle(word: String): String {
+        return if (word.startsWith("[aiueo]")) {
+            "an"
+        } else {
+            "a"
+        } + " " + word
+    }
 }
