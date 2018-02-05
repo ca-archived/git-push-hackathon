@@ -73,6 +73,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                     val repoName = repo?.get("name")?.asString()
                     val createdAt = DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.parse(receivedEvent?.get("created_at")?.asString())
                     val actorLogin = actor?.get("login")?.asString()
+                    val actorHtmlUrl = this.getHtmlUrl(actor)
                     val actorAvatar = URL(actor?.get("avatar_url")?.asString()).openStream().use {
                         BitmapDrawable(this.resources, it)
                     }
@@ -85,7 +86,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                         }?.forEach {
                             try {
                                 val payloadElement = it as? JsonObject
-                                val htmlUrl = when (type) {
+                                val eventHtmlUrl = when (type) {
                                     "WatchEvent", "CreateEvent" -> getHtmlUrl(repo)
                                     "ReleaseEvent" -> getHtmlUrl(payloadElement?.get("release") as? JsonObject)
                                     else -> getHtmlUrl(payloadElement)
@@ -97,7 +98,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                         if (action == null || wikiTitle == null) {
                                             null
                                         } else {
-                                            GollumEvent(actorLogin, repoName, htmlUrl, actorAvatar, createdAt, action, wikiTitle)
+                                            GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
                                         }
                                     }
                                     "PushEvent" -> {
@@ -106,7 +107,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                         if (branch == null || commitMessage == null) {
                                             null
                                         } else {
-                                            PushEvent(actorLogin, repoName, htmlUrl, actorAvatar, createdAt, branch, commitMessage)
+                                            PushEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, branch, commitMessage)
                                         }
                                     }
                                     "ReleaseEvent" -> {
@@ -114,7 +115,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                         if (version == null) {
                                             null
                                         } else {
-                                            ReleaseEvent(actorLogin, repoName, htmlUrl, actorAvatar, createdAt, version)
+                                            ReleaseEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, version)
                                         }
                                     }
                                     "CreateEvent" -> {
@@ -122,10 +123,10 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                         if (thing == null || thing == "tag") {
                                             null
                                         } else {
-                                            CreateEvent(actorLogin, repoName, htmlUrl, actorAvatar, createdAt, thing)
+                                            CreateEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thing)
                                         }
                                     }
-                                    "WatchEvent" -> WatchEvent(actorLogin, repoName, htmlUrl, actorAvatar, createdAt)
+                                    "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt)
                                     else -> null
                                 })
                             } catch (ignored: OAuthException) {
@@ -153,7 +154,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
      * @return イベントのURL
      */
     private fun getHtmlUrl(jsonObject: JsonObject?): Uri {
-        Log.v(GetTimelineAsyncTask.TAG, "getHtmlUrl called")
+        Log.v(GetTimelineAsyncTask.TAG, "getEventHtmlUrl called")
         if (jsonObject == null) {
             throw OAuthException("jsonObject is not found")
         } else {

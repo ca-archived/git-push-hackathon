@@ -45,10 +45,15 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
         Log.v(EventViewAdapter.TAG, "onBindViewHolder called")
         holder.apply {
             val item = items[position]
-            eventLayout.setOnClickListener {
-                launchCustomTab(context, item.htmlUrl)
+            messageLayout.setOnClickListener {
+                launchCustomTab(context, item.eventHtmlUrl)
             }
-            avatar.setImageDrawable(item.actorAvatar)
+            avatar.apply {
+                setOnClickListener {
+                    launchCustomTab(context, item.actorHtmlUrl)
+                }
+                setImageDrawable(item.actorAvatar)
+            }
             message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
             createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
         }
