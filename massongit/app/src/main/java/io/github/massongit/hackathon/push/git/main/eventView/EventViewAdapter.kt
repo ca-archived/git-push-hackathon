@@ -52,7 +52,7 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
                 setOnClickListener {
                     launchCustomTab(context, item.actorHtmlUrl)
                 }
-                setImageDrawable(item.actorAvatar)
+                setImageBitmap(item.actorAvatar)
             }
             message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
             createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)

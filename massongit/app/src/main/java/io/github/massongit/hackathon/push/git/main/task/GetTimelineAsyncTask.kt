@@ -1,8 +1,7 @@
 package io.github.massongit.hackathon.push.git.main.task
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v4.widget.SwipeRefreshLayout
@@ -30,11 +29,10 @@ import java.net.URL
  * @param context Activity
  * @param service GitHub APIのサービス
  * @param accessToken GitHub APIのアクセストークン
- * @param resources リソース
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventViewAdapter イベントビューのアダプター
  */
-class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service?, private val accessToken: OAuth2AccessToken?, private val resources: Resources, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter) : AsyncTask<Unit, Unit, List<Event>>() {
+class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service?, private val accessToken: OAuth2AccessToken?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter) : AsyncTask<Unit, Unit, List<Event>>() {
     companion object {
         /**
          * ログ用タグ
@@ -75,7 +73,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                     val actorLogin = actor?.get("login")?.asString()
                     val actorHtmlUrl = this.getHtmlUrl(actor)
                     val actorAvatar = URL(actor?.get("avatar_url")?.asString()).openStream().use {
-                        BitmapDrawable(this.resources, it)
+                        BitmapFactory.decodeStream(it)
                     }
 
                     if (actorLogin != null && repoName != null) {

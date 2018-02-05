@@ -1,6 +1,6 @@
 package io.github.massongit.hackathon.push.git.main.event
 
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
 import android.net.Uri
 import java.util.*
 
@@ -14,6 +14,6 @@ import java.util.*
  * @param createdAt イベントが作成された日時
  * @param version リリースのバージョン
  */
-class ReleaseEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, version: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+class ReleaseEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, version: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
     override val messageHTML: String = "<strong>%s</strong> released <u>%s</u> at <strong>%s</strong>".format(this.actorLogin, version, this.repoName)
 }

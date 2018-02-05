@@ -1,6 +1,6 @@
 package io.github.massongit.hackathon.push.git.main.event
 
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
 import android.net.Uri
 import java.util.*
 
@@ -14,7 +14,7 @@ import java.util.*
  * @param createdAt イベントが作成された日時
  * @param thing イベントの対象オブジェクト
  */
-class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, thing: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, thing: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
     override val messageHTML: String = "<strong>%s</strong> created %s %s <strong>%s</strong>".format(this.actorLogin, if (thing.startsWith("[aiueo]")) {
         "an"
     } else {

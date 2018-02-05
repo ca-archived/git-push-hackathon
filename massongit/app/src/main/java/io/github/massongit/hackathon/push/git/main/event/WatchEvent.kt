@@ -1,6 +1,6 @@
 package io.github.massongit.hackathon.push.git.main.event
 
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
 import android.net.Uri
 import java.util.*
 
@@ -13,6 +13,6 @@ import java.util.*
  * @param actorAvatar イベントを行ったユーザーのサムネイル
  * @param createdAt イベントが作成された日時
  */
-class WatchEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+class WatchEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
     override val messageHTML: String = "<strong>%s</strong> starred <strong>%s</strong>".format(this.actorLogin, this.repoName)
 }

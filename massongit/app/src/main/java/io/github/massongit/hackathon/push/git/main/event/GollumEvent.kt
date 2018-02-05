@@ -1,6 +1,6 @@
 package io.github.massongit.hackathon.push.git.main.event
 
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
 import android.net.Uri
 import java.util.*
 
@@ -15,6 +15,6 @@ import java.util.*
  * @param action Wikiに対するアクション
  * @param wikiTitle Wikiのタイトル
  */
-class GollumEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, action: String, wikiTitle: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+class GollumEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, action: String, wikiTitle: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
     override val messageHTML: String = "<strong>%s</strong> %s a wiki page in <strong>%s</strong><br/><u>%s</u>".format(this.actorLogin, action, this.repoName, wikiTitle)
 }

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, manager.orientation))
         }
-        this.helper = MainHelper(this, (this.application as? MainApplication)?.service, this.resources, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
+        this.helper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
         }, eventAdapter)
         Log.d(MainActivity.TAG, "data: " + this.intent.dataString)

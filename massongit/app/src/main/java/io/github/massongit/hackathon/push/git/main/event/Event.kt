@@ -1,6 +1,6 @@
 package io.github.massongit.hackathon.push.git.main.event
 
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
 import android.net.Uri
 import java.util.*
 
@@ -13,7 +13,7 @@ import java.util.*
  * @param actorAvatar イベントを行ったユーザーのサムネイル
  * @param createdAt イベントが作成された日時
  */
-abstract class Event(protected val actorLogin: String, protected val repoName: String, val actorHtmlUrl: Uri, val eventHtmlUrl: Uri, val actorAvatar: BitmapDrawable, val createdAt: Date) {
+abstract class Event(protected val actorLogin: String, protected val repoName: String, val actorHtmlUrl: Uri, val eventHtmlUrl: Uri, val actorAvatar: Bitmap, val createdAt: Date) {
     /**
      * イベントの通知メッセージ (HTML)
      */
