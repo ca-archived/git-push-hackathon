@@ -16,5 +16,5 @@ abstract class Event(protected val actorLogin: String, protected val repoName: S
     /**
      * イベントの通知メッセージ
      */
-    abstract val message: String
+    abstract val messageHTML: String
 }

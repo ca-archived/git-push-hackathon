@@ -13,5 +13,5 @@ import java.util.*
  * @param createdAt イベントが作成された日時
  */
 class WatchEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
-    override val message: String = "%s starred %s".format(this.actorLogin, this.repoName)
+    override val messageHTML: String = "<strong>%s</strong> starred <strong>%s</strong>".format(this.actorLogin, this.repoName)
 }

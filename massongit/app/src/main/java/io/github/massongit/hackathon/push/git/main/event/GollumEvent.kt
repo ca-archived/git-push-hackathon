@@ -14,6 +14,6 @@ import java.util.*
  * @param action Wikiに対するアクション
  * @param wikiTitle Wikiのタイトル
  */
-class GollumEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, action: String, private val wikiTitle: String) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
-    override val message: String = "%s %s a wiki page in %s".format(this.actorLogin, action, this.repoName)
+class GollumEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, action: String, wikiTitle: String) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
+    override val messageHTML: String = "<strong>%s</strong> %s a wiki page in <strong>%s</strong><br/><u>%s</u>".format(this.actorLogin, action, this.repoName, wikiTitle)
 }

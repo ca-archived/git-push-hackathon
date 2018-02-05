@@ -14,7 +14,7 @@ import java.util.*
  * @param thing イベントの対象オブジェクト
  */
 class CreateEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, thing: String) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
-    override val message: String = "%s created %s %s %s".format(this.actorLogin, if (thing.startsWith("[aiueo]")) {
+    override val messageHTML: String = "<strong>%s</strong> created %s %s <strong>%s</strong>".format(this.actorLogin, if (thing.startsWith("[aiueo]")) {
         "an"
     } else {
         "a"

@@ -14,6 +14,6 @@ import java.util.*
  * @param branch ブランチ
  * @param commitMessage コミットメッセージ
  */
-class PushEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, branch: String, private val commitMessage: String) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
-    override val message: String = "%s pushed to %s in %s".format(this.actorLogin, branch.replace("refs/heads/", ""), this.repoName)
+class PushEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, branch: String, commitMessage: String) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
+    override val messageHTML: String = "<strong>%s</strong> pushed to <u>%s</u> in <strong>%s</strong><br/><u>%s</u>".format(this.actorLogin, branch.replace("refs/heads/", ""), this.repoName, commitMessage)
 }

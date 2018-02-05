@@ -2,9 +2,11 @@ package io.github.massongit.hackathon.push.git.main.eventView
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.main.event.Event
 import io.github.massongit.hackathon.push.git.util.launchCustomTab
@@ -47,7 +49,7 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
                 launchCustomTab(context, item.htmlUrl)
             }
             avatar.setImageDrawable(item.actorAvatar)
-            message.text = item.message
+            message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
             createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
         }
     }

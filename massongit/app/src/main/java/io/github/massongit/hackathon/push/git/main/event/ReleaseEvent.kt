@@ -14,5 +14,5 @@ import java.util.*
  * @param version リリースのバージョン
  */
 class ReleaseEvent(actorLogin: String, repoName: String, htmlUrl: Uri, actorAvatar: BitmapDrawable, createdAt: Date, version: String) : Event(actorLogin, repoName, htmlUrl, actorAvatar, createdAt) {
-    override val message: String = "%s released %s at %s".format(this.actorLogin, version, this.repoName)
+    override val messageHTML: String = "<strong>%s</strong> released <u>%s</u> at <strong>%s</strong>".format(this.actorLogin, version, this.repoName)
 }
