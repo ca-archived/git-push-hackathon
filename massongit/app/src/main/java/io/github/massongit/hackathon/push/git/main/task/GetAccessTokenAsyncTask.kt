@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
@@ -15,12 +14,11 @@ import java.lang.ref.WeakReference
 /**
  * アクセストークンを取得する非同期タスク
  * @param context Activity
- * @param mainHelper Helper
  * @param service GitHub APIのサービス
+ * @param mainHelper Helper
  * @param uri 認証後のURI
- * @param getUserInformationButton ユーザー情報取得ボタン
  */
-class GetAccessTokenAsyncTask(context: Context, mainHelper: MainHelper, private val service: OAuth20Service?, private val uri: Uri?, getUserInformationButton: TextView) : AsyncTask<Unit, Unit, OAuth2AccessToken>() {
+class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Service?, mainHelper: MainHelper, private val uri: Uri?) : AsyncTask<Unit, Unit, OAuth2AccessToken>() {
     companion object {
         /**
          * ログ用タグ
@@ -38,21 +36,16 @@ class GetAccessTokenAsyncTask(context: Context, mainHelper: MainHelper, private 
      */
     private val mainHelperWeakReference: WeakReference<MainHelper> = WeakReference(mainHelper)
 
-    /**
-     * ユーザー情報取得ボタンを保持するWeakReference
-     */
-    private val getUserInformationButtonWeakReference: WeakReference<TextView> = WeakReference(getUserInformationButton)
-
     override fun doInBackground(vararg units: Unit): OAuth2AccessToken? {
         Log.v(GetAccessTokenAsyncTask.TAG, "doInBackground called")
         val code = this.uri?.getQueryParameter("code")
 
         // トークンをチェック
-        if (code == null) {
-            return null
+        return if (code == null) {
+            null
         } else {
-            Log.d(GetAccessTokenAsyncTask.TAG, "code=" + code)
-            return this.service?.getAccessToken(code)
+            Log.d(GetAccessTokenAsyncTask.TAG, "code: " + code)
+            this.service?.getAccessToken(code)
         }
     }
 
@@ -63,8 +56,8 @@ class GetAccessTokenAsyncTask(context: Context, mainHelper: MainHelper, private 
             Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
         } else {
             this.mainHelperWeakReference.get()?.accessToken = accessToken
-            Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.login_completed), Toast.LENGTH_LONG).show()
-            this.getUserInformationButtonWeakReference.get()?.isEnabled = true
+            Log.d(GetAccessTokenAsyncTask.TAG, this.mainHelperWeakReference.get()?.accessToken.toString())
+            this.mainHelperWeakReference.get()?.onRefresh()
         }
     }
 }

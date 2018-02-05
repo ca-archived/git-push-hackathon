@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">GitHub API</string>
     <string name="login">Login</string>
-    <string name="get_user_information">Get User Information</string>
+    <string name="update">Update</string>
     <string name="error_happen">Error!</string>
-    <string name="login_completed">Login completed!</string>
-    <string name="logging_in">Logging in ...</string>
+    <string name="logging_in">Logging in …</string>
+    <string name="avater">Avater</string>
+    <string name="get_user_timeline_completed">Get user timeline completed!</string>
+    <string name="getting_user_timeline">Getting User Timeline …</string>
 </resources>

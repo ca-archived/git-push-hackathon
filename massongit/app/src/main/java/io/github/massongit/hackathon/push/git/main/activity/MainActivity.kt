@@ -2,13 +2,18 @@ package io.github.massongit.hackathon.push.git.main.activity
 
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
+import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
+
 
 /**
  * メイン画面のActivity
@@ -36,13 +41,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_main)
         Toast.makeText(this, this.getString(R.string.logging_in), Toast.LENGTH_SHORT).show()
-        val application = this.application
-
-        if (application is MainApplication) {
-            this.helper = MainHelper(application.service)
+        val eventAdapter = EventViewAdapter(this)
+        val manager = LinearLayoutManager(this)
+        this.findViewById<RecyclerView>(R.id.event_view).apply {
+            layoutManager = manager
+            adapter = eventAdapter
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, manager.orientation))
         }
-
-        Log.d(MainActivity.TAG, "data=" + this.intent.dataString)
+        this.helper = MainHelper(this, (this.application as? MainApplication)?.service, this.resources, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
+            setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
+        }, eventAdapter)
+        Log.d(MainActivity.TAG, "data: " + this.intent.dataString)
         this.authorizedUri = this.intent.data
     }
 
@@ -50,16 +60,8 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onResume called")
         super.onResume()
         if (this.authorizedUri != null) {
-            this.helper.setAccessToken(this, this.authorizedUri, this.findViewById(R.id.get_user_information_button))
+            this.helper.setAccessToken(this.authorizedUri)
             this.authorizedUri = null
         }
-    }
-
-    /**
-     * ユーザー情報取得ボタン押下時のイベント
-     */
-    fun onGetUserInformationButtonClick(v: View) {
-        Log.v(MainActivity.TAG, "onGetUserInformationButtonClick called")
-        this.helper.getUserInformation(this.findViewById(R.id.result_view))
     }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login">ログイン</string>
-    <string name="get_user_information">ユーザー情報取得</string>
+    <string name="update">更新</string>
     <string name="error_happen">エラーが発生しました</string>
-    <string name="login_completed">ログイン完了！</string>
     <string name="logging_in">ログイン中......</string>
+    <string name="avater">サムネイル</string>
+    <string name="get_user_timeline_completed">ユーザータイムライン取得完了！</string>
+    <string name="getting_user_timeline">ユーザータイムライン取得中......</string>
 </resources>

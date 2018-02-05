@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
     /**
      * ログインボタン押下時のイベント
+     * @param v View
      */
     fun onLoginButtonClick(v: View) {
         Log.v(LoginActivity.TAG, "onLoginButtonClick called")

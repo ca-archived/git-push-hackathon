@@ -30,14 +30,15 @@ dependencies {
     })
 
     compile 'com.android.support:appcompat-v7:27.0.2'
-    compile project(':custom-tabs-client:customtabs')
-    compile project(':custom-tabs-client:shared')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile 'com.github.scribejava:scribejava-apis:4.2.0'
-    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    compile project(':custom-tabs-client:customtabs')
+    compile project(':custom-tabs-client:shared')
+    testCompile 'junit:junit:4.12'
 }
 
 repositories {

@@ -1,19 +1,25 @@
 package io.github.massongit.hackathon.push.git.main.helper
 
 import android.content.Context
+import android.content.res.Resources
 import android.net.Uri
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
-import android.widget.TextView
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
+import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.task.GetAccessTokenAsyncTask
-import io.github.massongit.hackathon.push.git.main.task.GetUserInformationAsyncTask
+import io.github.massongit.hackathon.push.git.main.task.GetTimelineAsyncTask
 
 /**
  * Main画面のHelper
+ * @param context Activity
  * @param service GitHub APIのサービス
+ * @param resources リソース
+ * @param swipeRefreshLayout SwipeRefreshLayout
+ * @param eventViewAdapter イベントビューのアダプター
  */
-class MainHelper(private var service: OAuth20Service?) {
+class MainHelper(private val context: Context, private var service: OAuth20Service?, private val resources: Resources, private val swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter) : SwipeRefreshLayout.OnRefreshListener {
     companion object {
         /**
          * ログ用タグ
@@ -26,23 +32,21 @@ class MainHelper(private var service: OAuth20Service?) {
      */
     var accessToken: OAuth2AccessToken? = null
 
-    /**
-     * URLを元にアクセストークンを取得する
-     * @param context Activity
-     * @param uri 認証後のURL
-     * @param getUserInformationButton ユーザー情報取得ボタン
-     */
-    fun setAccessToken(context: Context, uri: Uri?, getUserInformationButton: TextView) {
-        Log.v(MainHelper.TAG, "setAccessToken called")
-        GetAccessTokenAsyncTask(context, this, this.service, uri, getUserInformationButton).execute()
+    init {
+        this.swipeRefreshLayout.setOnRefreshListener(this)
+    }
+
+    override fun onRefresh() {
+        Log.v(MainHelper.TAG, "onRefresh called")
+        GetTimelineAsyncTask(this.context, this.service, this.accessToken, this.resources, this.swipeRefreshLayout, this.eventViewAdapter).execute()
     }
 
     /**
-     * ユーザー情報を取得する
-     * @param resultView Activityの表示部
+     * URLを元にアクセストークンを取得する
+     * @param uri 認証後のURL
      */
-    fun getUserInformation(resultView: TextView) {
-        Log.v(MainHelper.TAG, "getUserInformation called")
-        GetUserInformationAsyncTask(this.service, resultView, this.accessToken).execute()
+    fun setAccessToken(uri: Uri?) {
+        Log.v(MainHelper.TAG, "setAccessToken called")
+        GetAccessTokenAsyncTask(this.context, this.service, this, uri).execute()
     }
 }

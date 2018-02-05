@@ -2,14 +2,13 @@ package io.github.massongit.hackathon.push.git.login.helper
 
 import android.app.Activity
 import android.net.Uri
-import android.support.customtabs.CustomTabsIntent
 import android.util.Log
 import android.widget.Toast
 import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
-import org.chromium.customtabsclient.shared.CustomTabsHelper
+import io.github.massongit.hackathon.push.git.util.launchCustomTab
 
 /**
  * ログイン画面のHelper
@@ -46,15 +45,10 @@ class LoginHelper {
             // GitHub APIの認証ページURL
             val authUrl = application.service?.authorizationUrl
 
-            Log.d(LoginHelper.TAG, "authUrl=" + authUrl)
+            Log.d(LoginHelper.TAG, "authUrl: " + authUrl)
 
             // GitHub APIの連携アプリ認証画面を表示
-            CustomTabsIntent.Builder().setShowTitle(true).build().apply {
-                val packageName = CustomTabsHelper.getPackageNameToUse(activity)
-                if (packageName != null) {
-                    intent.`package` = packageName
-                }
-            }.launchUrl(activity, Uri.parse(authUrl))
+            launchCustomTab(activity, Uri.parse(authUrl))
         } else {
             Log.v(LoginHelper.TAG, "Authorize Error!")
             Toast.makeText(activity, activity.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
