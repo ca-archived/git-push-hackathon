@@ -87,6 +87,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                 val payloadElement = it as? JsonObject
                                 val htmlUrl = when (type) {
                                     "WatchEvent", "CreateEvent" -> getHtmlUrl(repo)
+                                    "ReleaseEvent" -> getHtmlUrl(payloadElement?.get("release") as? JsonObject)
                                     else -> getHtmlUrl(payloadElement)
                                 }
                                 events.add(when (type) {
@@ -109,7 +110,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                         }
                                     }
                                     "ReleaseEvent" -> {
-                                        val version = payloadElement?.get("name")?.asString()
+                                        val version = (payloadElement?.get("release") as? JsonObject)?.get("name")?.asString()
                                         if (version == null) {
                                             null
                                         } else {
@@ -118,7 +119,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                     }
                                     "CreateEvent" -> {
                                         val thing = payloadElement?.get("ref_type")?.asString()
-                                        if (thing == null) {
+                                        if (thing == null || thing == "tag") {
                                             null
                                         } else {
                                             CreateEvent(actorLogin, repoName, htmlUrl, actorAvatar, createdAt, thing)
