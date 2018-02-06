@@ -30,7 +30,7 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
      */
     var items: List<Event> = emptyList()
         set(value) {
-            field = value
+            field = value + field
             this.notifyDataSetChanged()
         }
 

@@ -1,6 +1,7 @@
 package io.github.massongit.hackathon.push.git.main.task
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
@@ -10,10 +11,10 @@ import android.widget.Toast
 import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
+import com.eclipsesource.json.JsonValue
 import com.github.scribejava.core.exceptions.OAuthException
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.model.OAuthRequest
-import com.github.scribejava.core.model.Response
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
@@ -38,6 +39,11 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
          * ログ用タグ
          */
         private val TAG = GetTimelineAsyncTask::class.simpleName
+
+        /**
+         * ETag用キャッシュ
+         */
+        private val eTagCache: MutableMap<String, String> = mutableMapOf()
     }
 
     /**
@@ -50,6 +56,11 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
      */
     private val swipeRefreshLayoutWeakReference: WeakReference<SwipeRefreshLayout> = WeakReference(swipeRefreshLayout)
 
+    /**
+     * レスポンスボディ用キャッシュ
+     */
+    private val responseBodyCache: MutableMap<String, JsonValue> = mutableMapOf()
+
     override fun onPreExecute() {
         Log.v(GetTimelineAsyncTask.TAG, "onPreExecute called")
         Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.getting_user_timeline), Toast.LENGTH_SHORT).show()
@@ -58,123 +69,130 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
 
     override fun doInBackground(vararg units: Unit): List<Event> {
         Log.v(GetTimelineAsyncTask.TAG, "doInBackground called")
-        this.request("https://api.github.com/user").stream?.reader().use { userInputStreamReader ->
-            this.request("https://api.github.com/users/%s/received_events".format((Json.parse(userInputStreamReader) as? JsonObject)?.get("login")?.asString())).stream?.reader().use { eventsInputStreamReader ->
-                val events = mutableListOf<Event?>()
+        val events = mutableListOf<Event?>()
+        val actorAvatarCache = mutableMapOf<String, Bitmap>()
 
-                (Json.parse(eventsInputStreamReader) as? JsonArray)?.forEach {
-                    val receivedEvent = it as? JsonObject
-                    val type = receivedEvent?.get("type")?.asString()
-                    val actor = receivedEvent?.get("actor") as? JsonObject
-                    val repo = receivedEvent?.get("repo") as? JsonObject
-                    val payload = receivedEvent?.get("payload") as? JsonObject
-                    val repoName = repo?.get("name")?.asString()
-                    val createdAt = DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.parse(receivedEvent?.get("created_at")?.asString())
-                    val actorLogin = actor?.get("login")?.asString()
-                    val actorHtmlUrl = this.getHtmlUrl(actor)
-                    val actorAvatar = URL(actor?.get("avatar_url")?.asString()).openStream().use {
-                        BitmapFactory.decodeStream(it)
-                    }
+        try {
+            (this.request("https://api.github.com/users/%s/received_events".format((this.request("https://api.github.com/user") as? JsonObject)?.get("login")?.asString()), true) as? JsonArray)?.forEach {
+                val receivedEvent = it as? JsonObject
+                val type = receivedEvent?.get("type")?.asString()
+                val actor = receivedEvent?.get("actor") as? JsonObject
+                val repo = receivedEvent?.get("repo") as? JsonObject
+                val payload = receivedEvent?.get("payload") as? JsonObject
+                val repoName = repo?.get("name")?.asString()
+                val createdAt = DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.parse(receivedEvent?.get("created_at")?.asString())
+                val actorLogin = actor?.get("login")?.asString()
+                val actorHtmlUrl = this.getHtmlUrl(actor)
+                val actorAvatarUrl = actor?.get("avatar_url")?.asString()
+                val actorAvatar: Bitmap = actorAvatarCache[actorAvatarUrl]
+                        ?: URL(actorAvatarUrl).openStream().use {
+                            BitmapFactory.decodeStream(it)
+                        }
+                if (actorAvatarUrl != null && !actorAvatarCache.contains(actorAvatarUrl)) {
+                    actorAvatarCache[actorAvatarUrl] = actorAvatar
+                }
 
-                    if (actorLogin != null && repoName != null) {
-                        when (type) {
-                            "GollumEvent" -> payload?.get("pages") as? JsonArray
-                            "PushEvent" -> payload?.get("commits") as? JsonArray
-                            else -> listOf(payload)
-                        }?.forEach {
-                            try {
-                                val payloadElement = it as? JsonObject
-                                val eventHtmlUrl = when (type) {
-                                    "WatchEvent", "CreateEvent" -> this.getHtmlUrl(repo)
-                                    "ReleaseEvent" -> this.getHtmlUrl(payloadElement?.get("release") as? JsonObject)
-                                    "IssuesEvent" -> this.getHtmlUrl(payloadElement?.get("issue") as? JsonObject)
-                                    "IssueCommentEvent" -> this.getHtmlUrl(payloadElement?.get("comment") as? JsonObject)
-                                    else -> this.getHtmlUrl(payloadElement)
-                                }
-                                events.add(when (type) {
-                                    "GollumEvent" -> {
-                                        val action = payloadElement?.get("action")?.asString()
-                                        val wikiTitle = payloadElement?.get("title")?.asString()
-                                        if (action == null || wikiTitle == null) {
-                                            null
-                                        } else {
-                                            GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
-                                        }
-                                    }
-                                    "IssuesEvent" -> {
-                                        val action = payloadElement?.get("action")?.asString()
-                                        val number = (payloadElement?.get("issue") as? JsonObject)?.get("number")?.asInt()
-                                        val title = (payloadElement?.get("issue") as? JsonObject)?.get("title")?.asString()
-                                        if (action == null || number == null || title == null) {
-                                            null
-                                        } else {
-                                            IssuesEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, number, title)
-                                        }
-                                    }
-                                    "IssueCommentEvent" -> {
-                                        val number = (payloadElement?.get("issue") as? JsonObject)?.get("number")?.asInt()
-                                        val comment = (payloadElement?.get("comment") as? JsonObject)?.get("body")?.asString()
-                                        if (number == null || comment == null) {
-                                            null
-                                        } else {
-                                            IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, comment)
-                                        }
-                                    }
-                                    "PushEvent" -> {
-                                        val branch = payload?.get("ref")?.asString()
-                                        val commitMessage = payloadElement?.get("message")?.asString()
-                                        if (branch == null || commitMessage == null) {
-                                            null
-                                        } else {
-                                            PushEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, branch, commitMessage)
-                                        }
-                                    }
-                                    "ReleaseEvent" -> {
-                                        val version = (payloadElement?.get("release") as? JsonObject)?.get("name")?.asString()
-                                        if (version == null) {
-                                            null
-                                        } else {
-                                            ReleaseEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, version)
-                                        }
-                                    }
-                                    "CreateEvent", "DeleteEvent" -> {
-                                        val thingType = payloadElement?.get("ref_type")?.asString()
-                                        if (thingType == null) {
-                                            null
-                                        } else {
-                                            when (type) {
-                                                "CreateEvent" -> {
-                                                    if (thingType == "tag") {
-                                                        null
-                                                    } else {
-                                                        CreateEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType)
-                                                    }
-                                                }
-                                                "DeleteEvent" -> {
-                                                    val thing = payloadElement.get("ref")?.asString()
-                                                    if (thing == null) {
-                                                        null
-                                                    } else {
-                                                        DeleteEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType, thing)
-                                                    }
-                                                }
-                                                else -> null
-                                            }
-                                        }
-                                    }
-                                    "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt)
-                                    else -> null
-                                })
-                            } catch (ignored: OAuthException) {
 
+                if (actorLogin != null && repoName != null) {
+                    when (type) {
+                        "GollumEvent" -> payload?.get("pages") as? JsonArray
+                        "PushEvent" -> payload?.get("commits") as? JsonArray
+                        else -> listOf(payload)
+                    }?.forEach {
+                        try {
+                            val payloadElement = it as? JsonObject
+                            val eventHtmlUrl = when (type) {
+                                "WatchEvent", "CreateEvent" -> this.getHtmlUrl(repo)
+                                "ReleaseEvent" -> this.getHtmlUrl(payloadElement?.get("release") as? JsonObject)
+                                "IssuesEvent" -> this.getHtmlUrl(payloadElement?.get("issue") as? JsonObject)
+                                "IssueCommentEvent" -> this.getHtmlUrl(payloadElement?.get("comment") as? JsonObject)
+                                else -> this.getHtmlUrl(payloadElement)
                             }
+                            events.add(when (type) {
+                                "GollumEvent" -> {
+                                    val action = payloadElement?.get("action")?.asString()
+                                    val wikiTitle = payloadElement?.get("title")?.asString()
+                                    if (action == null || wikiTitle == null) {
+                                        null
+                                    } else {
+                                        GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
+                                    }
+                                }
+                                "IssuesEvent" -> {
+                                    val action = payloadElement?.get("action")?.asString()
+                                    val number = (payloadElement?.get("issue") as? JsonObject)?.get("number")?.asInt()
+                                    val title = (payloadElement?.get("issue") as? JsonObject)?.get("title")?.asString()
+                                    if (action == null || number == null || title == null) {
+                                        null
+                                    } else {
+                                        IssuesEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, number, title)
+                                    }
+                                }
+                                "IssueCommentEvent" -> {
+                                    val number = (payloadElement?.get("issue") as? JsonObject)?.get("number")?.asInt()
+                                    val comment = (payloadElement?.get("comment") as? JsonObject)?.get("body")?.asString()
+                                    if (number == null || comment == null) {
+                                        null
+                                    } else {
+                                        IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, comment)
+                                    }
+                                }
+                                "PushEvent" -> {
+                                    val branch = payload?.get("ref")?.asString()
+                                    val commitMessage = payloadElement?.get("message")?.asString()
+                                    if (branch == null || commitMessage == null) {
+                                        null
+                                    } else {
+                                        PushEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, branch, commitMessage)
+                                    }
+                                }
+                                "ReleaseEvent" -> {
+                                    val version = (payloadElement?.get("release") as? JsonObject)?.get("name")?.asString()
+                                    if (version == null) {
+                                        null
+                                    } else {
+                                        ReleaseEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, version)
+                                    }
+                                }
+                                "CreateEvent", "DeleteEvent" -> {
+                                    val thingType = payloadElement?.get("ref_type")?.asString()
+                                    if (thingType == null) {
+                                        null
+                                    } else {
+                                        when (type) {
+                                            "CreateEvent" -> {
+                                                if (thingType == "tag") {
+                                                    null
+                                                } else {
+                                                    CreateEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType)
+                                                }
+                                            }
+                                            "DeleteEvent" -> {
+                                                val thing = payloadElement.get("ref")?.asString()
+                                                if (thing == null) {
+                                                    null
+                                                } else {
+                                                    DeleteEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType, thing)
+                                                }
+                                            }
+                                            else -> null
+                                        }
+                                    }
+                                }
+                                "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt)
+                                else -> null
+                            })
+                        } catch (ignored: OAuthException) {
+
                         }
                     }
                 }
-
-                return events.filterNotNull()
             }
+        } catch (ignored: OAuthException) {
+
         }
+
+        return events.filterNotNull()
     }
 
     override fun onPostExecute(events: List<Event>) {
@@ -195,17 +213,15 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
             throw OAuthException("jsonObject is not found")
         } else {
             val htmlUrl = jsonObject.get("html_url")
-            if (htmlUrl == null) {
+            return if (htmlUrl == null) {
                 val url = jsonObject.get("url")
                 if (url == null) {
                     throw OAuthException("url is not found")
                 } else {
-                    this.request(url.asString()).stream?.reader().use {
-                        return this.getHtmlUrl(Json.parse(it) as? JsonObject)
-                    }
+                    this.getHtmlUrl(this.request(url.asString()) as? JsonObject)
                 }
             } else {
-                return Uri.parse(htmlUrl.asString())
+                Uri.parse(htmlUrl.asString())
             }
         }
     }
@@ -213,21 +229,43 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
     /**
      * リクエストを送信する
      * @param requestUrl リクエストURL
+     * @param isUseETag ETagを使うかどうか
      * @return レスポンス
      */
-    private fun request(requestUrl: String): Response {
+    private fun request(requestUrl: String, isUseETag: Boolean = false): JsonValue {
         Log.v(GetTimelineAsyncTask.TAG, "request called")
-        val request = OAuthRequest(Verb.GET, requestUrl)
-        this.service?.signRequest(this.accessToken, request)
-        val result = this.service?.execute(request)
-        if (result == null) {
-            throw OAuthException("Not Found (url: %s)".format(requestUrl))
-        } else if (!result.isSuccessful) {
-            result.stream?.reader().use {
-                throw OAuthException("%s (code: %d, url: %s)".format((Json.parse(it) as? JsonObject)?.get("message")?.asString(), result.code, requestUrl))
+        val cachedResponseBody = this.responseBodyCache[requestUrl]
+        if (cachedResponseBody == null) {
+            val request = OAuthRequest(Verb.GET, requestUrl).apply {
+                if (isUseETag) {
+                    val eTag = GetTimelineAsyncTask.eTagCache[requestUrl]
+                    if (eTag != null) {
+                        addHeader("If-None-Match", eTag)
+                    }
+                }
+            }
+            val newResponse = this.service?.apply {
+                signRequest(accessToken, request)
+            }?.execute(request)
+            if (newResponse == null) {
+                throw OAuthException("404 Not Found (url: %s)".format(requestUrl))
+            } else if (!newResponse.isSuccessful || newResponse.code == 304) {
+                throw OAuthException("%s (url: %s)".format(newResponse.headers["Status"], requestUrl))
+            } else {
+                if (isUseETag) {
+                    val eTag = newResponse.headers["ETag"]
+                    if (eTag != null) {
+                        GetTimelineAsyncTask.eTagCache[requestUrl] = eTag.substring(2)
+                    }
+                }
+                val newResponseBody = newResponse.stream.reader().use {
+                    Json.parse(it)
+                }
+                this.responseBodyCache[requestUrl] = newResponseBody
+                return newResponseBody
             }
         } else {
-            return result
+            return cachedResponseBody
         }
     }
 }
