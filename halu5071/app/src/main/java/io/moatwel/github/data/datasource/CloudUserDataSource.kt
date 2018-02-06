@@ -24,7 +24,6 @@ package io.moatwel.github.data.datasource
 
 import io.moatwel.github.data.network.retrofit.UserApi
 import io.moatwel.github.domain.entity.User
-import io.moatwel.github.presentation.util.setGitHubToken
 import io.reactivex.Observable
 import javax.inject.Inject
 

@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
           Timber.d("Type: ${it.type}")
         }
       }, {
-          Timber.e(it)
+        Timber.e(it)
       })
   }
 }
