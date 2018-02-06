@@ -38,6 +38,6 @@ class UserDataRepository @Inject constructor(
   private val cloudUserDataSource: CloudUserDataSource) : UserRepository {
 
   override fun get(): Observable<User> {
-    return cloudUserDataSource.getUser("token")
+    return cloudUserDataSource.getUser()
   }
 }

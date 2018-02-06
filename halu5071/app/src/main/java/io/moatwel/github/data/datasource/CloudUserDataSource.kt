@@ -32,7 +32,7 @@ class CloudUserDataSource @Inject constructor(
   private val api: UserApi
 ) {
 
-  fun getUser(token: String): Observable<User> {
-    return api.get(token = setGitHubToken(token))
+  fun getUser(): Observable<User> {
+    return api.get()
   }
 }

@@ -26,10 +26,9 @@ package io.moatwel.github.data.network.retrofit
 import io.moatwel.github.domain.entity.User
 import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Header
 
 interface UserApi {
 
-  @GET("/users/halu5071")
-  fun get(@Header("Authorization") token: String = ""): Observable<User>
+  @GET("/user")
+  fun get(): Observable<User>
 }

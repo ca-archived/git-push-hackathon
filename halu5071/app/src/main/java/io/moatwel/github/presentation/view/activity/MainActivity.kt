@@ -57,6 +57,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     userUseCase.get()
+      .subscribeOnIoThread()
+      .observeOnMainThread()
+      .subscribe({
+        Timber.d("User Login: ${it.login}")
+      }, {
+        Timber.e(it)
+      })
 
     eventUseCase.getEventList("halu5071", 1)
       .subscribeOnIoThread()
