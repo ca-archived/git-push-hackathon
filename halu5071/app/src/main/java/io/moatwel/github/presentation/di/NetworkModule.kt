@@ -31,6 +31,7 @@ import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.network.AppJsonAdapterFactory
 import io.moatwel.github.data.network.HeaderInterceptor
+import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.network.retrofit.UserApi
 import io.moatwel.github.domain.usecase.AuthDataUseCase
 import okhttp3.OkHttpClient
@@ -79,6 +80,12 @@ class NetworkModule {
   @Singleton
   fun provideUserApi(retrofit: Retrofit): UserApi {
     return retrofit.create(UserApi::class.java)
+  }
+
+  @Provides
+  @Singleton
+  fun provideEventApi(retrofit: Retrofit): EventApi {
+    return retrofit.create(EventApi::class.java)
   }
 
   companion object {
