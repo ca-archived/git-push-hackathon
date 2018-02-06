@@ -23,6 +23,7 @@
 package io.moatwel.github.data.datasource
 
 import android.content.Context
+import androidx.content.edit
 import com.squareup.moshi.Moshi
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
@@ -39,13 +40,12 @@ class AuthDataDataSource @Inject constructor(
 
   fun saveToSharedPreference(authData: AuthData) {
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
     val adapter = moshi.adapter(AuthData::class.java)
     val jsonResource = adapter.toJson(authData)
 
-    editor.putString(ARG_AUTH_DATA, jsonResource)
-
-    editor.apply()
+    sharedPreferences.edit {
+      putString(ARG_AUTH_DATA, jsonResource)
+    }
   }
 
   fun readFromSharedPreference(): String {
