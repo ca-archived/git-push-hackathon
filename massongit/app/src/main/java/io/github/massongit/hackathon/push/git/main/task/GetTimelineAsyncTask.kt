@@ -158,25 +158,17 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
                                     val thingType = payloadElement?.get("ref_type")?.asString()
                                     if (thingType == null) {
                                         null
-                                    } else {
-                                        when (type) {
-                                            "CreateEvent" -> {
-                                                if (thingType == "tag") {
-                                                    null
-                                                } else {
-                                                    CreateEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType)
-                                                }
-                                            }
-                                            "DeleteEvent" -> {
-                                                val thing = payloadElement.get("ref")?.asString()
-                                                if (thing == null) {
-                                                    null
-                                                } else {
-                                                    DeleteEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType, thing)
-                                                }
-                                            }
-                                            else -> null
+                                    } else if (type == "DeleteEvent") {
+                                        val thing = payloadElement.get("ref")?.asString()
+                                        if (thing == null) {
+                                            null
+                                        } else {
+                                            DeleteEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType, thing)
                                         }
+                                    } else if (type == "CreateEvent" && thingType != "tag") {
+                                        CreateEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType)
+                                    } else {
+                                        null
                                     }
                                 }
                                 "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt)
