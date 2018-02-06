@@ -239,10 +239,12 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
             val newResponse = this.service?.apply {
                 signRequest(accessToken, request)
             }?.execute(request)
-            if (newResponse == null) {
-                throw OAuthException("404 Not Found (url: %s)".format(requestUrl))
-            } else if (!newResponse.isSuccessful || newResponse.code == 304) {
-                throw OAuthException("%s (url: %s)".format(newResponse.headers["Status"], requestUrl))
+            if (newResponse == null || !newResponse.isSuccessful || newResponse.code == 304) {
+                throw OAuthException("%s (url: %s)".format(if (newResponse == null) {
+                    "404 Not Found"
+                } else {
+                    newResponse.headers["Status"]
+                }, requestUrl))
             } else {
                 if (isUseETag) {
                     val eTag = newResponse.headers["ETag"]
