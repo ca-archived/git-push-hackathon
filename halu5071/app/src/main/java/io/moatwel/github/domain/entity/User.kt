@@ -23,8 +23,10 @@
 package io.moatwel.github.domain.entity
 
 import com.squareup.moshi.Json
+import se.ansman.kotshi.JsonSerializable
 import java.io.Serializable
 
+@JsonSerializable
 data class User(
   val id: Long = 0L,
 
