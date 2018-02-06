@@ -45,6 +45,10 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+  /**
+   *  provide Retrofit instance.
+   *  This Retrofit instance will be singleton.
+   */
   @Provides
   @Singleton
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
@@ -56,6 +60,13 @@ class NetworkModule {
       .build()
   }
 
+  /**
+   *  provide OkHttp instance.
+   *  This OkHttp instance will not be singleton. Because authorization header should be
+   *  injected when we get access token from GitHub.
+   *
+   *  @param authDataUseCase AuthDataUseCase
+   */
   @Provides
   fun provideOkHttp(authDataUseCase: AuthDataUseCase): OkHttpClient {
     val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
@@ -66,6 +77,9 @@ class NetworkModule {
       .build()
   }
 
+  /**
+   *  provide Moshi instance.
+   */
   @Provides
   @Singleton
   fun provideMoshi(): Moshi {
