@@ -1,7 +1,7 @@
 package io.moatwel.github.domain.entity.event
 
-import java.io.Serializable
 import se.ansman.kotshi.JsonSerializable
+import java.io.Serializable
 
 @JsonSerializable
 data class WatchPayload(

@@ -1,17 +1,10 @@
 package io.moatwel.github.data.network
 
-import com.squareup.moshi.FromJson
-import com.squareup.moshi.ToJson
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.JsonReader
-import com.squareup.moshi.JsonWriter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
+import com.squareup.moshi.*
 import io.moatwel.github.domain.entity.Actor
-import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.entity.event.*
 import java.lang.reflect.Type
-import java.util.Date
+import java.util.*
 
 class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
 
@@ -57,20 +50,20 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
   private fun parsePayload(type: String, value: JsonReader): Payload {
     return when (type) {
       "CommitCommentEvent"
-        -> moshi.adapter(CommitCommentPayload::class.java).fromJson(value) as CommitCommentPayload
+      -> moshi.adapter(CommitCommentPayload::class.java).fromJson(value) as CommitCommentPayload
       "CreateEvent" -> moshi.adapter(CreatePayload::class.java).fromJson(value) as CreatePayload
       "DeleteEvent" -> moshi.adapter(DeletePayload::class.java).fromJson(value) as DeletePayload
       "ForkEvent" -> moshi.adapter(ForkPayload::class.java).fromJson(value) as ForkPayload
       "GollumEvent" -> moshi.adapter(GollumPayload::class.java).fromJson(value) as GollumPayload
       "IssueCommentEvent"
-        -> moshi.adapter(IssueCommentPayload::class.java).fromJson(value) as IssueCommentPayload
+      -> moshi.adapter(IssueCommentPayload::class.java).fromJson(value) as IssueCommentPayload
       "PullRequestEvent"
-        -> moshi.adapter(PullRequestPayload::class.java).fromJson(value) as PullRequestPayload
+      -> moshi.adapter(PullRequestPayload::class.java).fromJson(value) as PullRequestPayload
       "PullRequestReviewEvent"
-        -> moshi.adapter(PullRequestReviewPayload::class.java).fromJson(value) as PullRequestReviewPayload
+      -> moshi.adapter(PullRequestReviewPayload::class.java).fromJson(value) as PullRequestReviewPayload
       "PullRequestReviewCommentEvent"
-        -> moshi.adapter(PullRequestReviewCommentPayload::class.java)
-                .fromJson(value) as PullRequestReviewCommentPayload
+      -> moshi.adapter(PullRequestReviewCommentPayload::class.java)
+        .fromJson(value) as PullRequestReviewCommentPayload
       "PushEvent" -> moshi.adapter(PushPayload::class.java).fromJson(value) as PushPayload
       "WatchEvent" -> moshi.adapter(WatchPayload::class.java).fromJson(value) as WatchPayload
       "IssuesEvent" -> moshi.adapter(IssuesPayload::class.java).fromJson(value) as IssuesPayload
