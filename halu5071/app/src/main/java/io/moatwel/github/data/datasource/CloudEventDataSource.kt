@@ -12,5 +12,4 @@ class CloudEventDataSource @Inject constructor(
   fun getList(name: String, page: Int): Observable<List<Event>> {
     return api.getList(name, page)
   }
-
 }
