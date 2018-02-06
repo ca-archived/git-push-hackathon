@@ -14,7 +14,8 @@ import java.util.Date;
  * Created by Masato on 2018/01/19.
  */
 
-public class FeedEntry implements Parcelable {
+public class FeedEntry extends BaseModel {
+
     public String title;
     public String name;
     public String thumbnailUrl;

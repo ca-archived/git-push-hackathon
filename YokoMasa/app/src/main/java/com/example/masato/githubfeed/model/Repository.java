@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by Masato on 2018/01/27.
  */
 
-public class Repository implements Parcelable {
+public class Repository extends BaseModel {
 
     public String fullName;
     public String name;

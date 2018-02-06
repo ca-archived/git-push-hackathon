@@ -9,10 +9,9 @@ import java.util.Date;
  * Created by Masato on 2018/02/01.
  */
 
-public class Comment implements Parcelable {
+public class Comment extends BaseModel {
 
     public String bodyHtml;
-    public Date createdAt;
     public Profile author;
     public static Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
         @Override

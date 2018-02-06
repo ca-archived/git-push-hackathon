@@ -8,8 +8,8 @@ import android.os.Parcelable;
  * Created by Masato on 2018/01/19.
  */
 
-public class Profile implements Parcelable
-{
+public class Profile extends BaseModel {
+
     public String name;
     public String iconUrl;
     public Bitmap icon;

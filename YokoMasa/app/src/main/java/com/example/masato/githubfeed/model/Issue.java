@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by Masato on 2018/02/01.
  */
 
-public class Issue implements Parcelable {
+public class Issue extends BaseModel {
 
     public static final String STATE_OPEN = "open";
     public static final String STATED_CLOSED = "closed";
@@ -17,7 +17,6 @@ public class Issue implements Parcelable {
     public String name;
     public String bodyHtml;
     public String state;
-    public Date createdAt;
     public Profile author;
     public Repository repository;
     public String commentsUrl;
