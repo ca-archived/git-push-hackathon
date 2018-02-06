@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Comment;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.presenter.CommentListPresenter;
@@ -46,7 +47,7 @@ public class CommentListFragment extends PaginatingListFragment {
     }
 
     @Override
-    protected void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType) {
+    protected void onBindViewHolder(PaginatingListViewHolder holder, BaseModel element, int viewType) {
         CommentViewHolder commentViewHolder = (CommentViewHolder) holder;
         Comment comment = (Comment) element;
         commentViewHolder.bindComment(comment);

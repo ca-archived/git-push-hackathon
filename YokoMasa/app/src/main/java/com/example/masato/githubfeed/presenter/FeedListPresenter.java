@@ -1,13 +1,10 @@
 package com.example.masato.githubfeed.presenter;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
+import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.view.FeedListView;
 import com.example.masato.githubfeed.view.PaginatingListView;
@@ -30,13 +27,13 @@ public class FeedListPresenter extends PaginatingListPresenter {
     }
 
     @Override
-    int onGetPaginatingItemViewType(Parcelable parcelable) {
+    int onGetPaginatingItemViewType(BaseModel element) {
         return 0;
     }
 
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            List<Parcelable> feedEntries = (List<Parcelable>) result.resultObject;
+            List<BaseModel> feedEntries = (List<BaseModel>) result.resultObject;
             onFetchedElements(feedEntries, true);
         } else {
             onFetchedElements(null, false);
@@ -45,7 +42,7 @@ public class FeedListPresenter extends PaginatingListPresenter {
     }
 
     @Override
-    public void onElementClicked(Parcelable element, int viewType) {
+    public void onElementClicked(BaseModel element, int viewType) {
         FeedEntry feedEntry = (FeedEntry) element;
         view.startRepoView(feedEntry.repoUrl);
     }

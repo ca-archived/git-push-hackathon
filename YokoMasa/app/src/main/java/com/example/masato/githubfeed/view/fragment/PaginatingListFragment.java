@@ -1,7 +1,6 @@
 package com.example.masato.githubfeed.view.fragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.view.PaginatingListView;
 import com.example.masato.githubfeed.view.adapter.PaginatingListAdapter;
@@ -48,7 +48,7 @@ public abstract class PaginatingListFragment extends BaseFragment
             scrollX = savedInstanceState.getInt("scroll_x");
             scrollY = savedInstanceState.getInt("scroll_y");
             int currentPage = savedInstanceState.getInt("current_page");
-            ArrayList<Parcelable> elements = savedInstanceState.getParcelableArrayList("elements");
+            ArrayList<BaseModel> elements = savedInstanceState.getParcelableArrayList("elements");
             presenter = onCreatePresenter();
             presenter.setCurrentPage(currentPage);
             presenter.setElementList(elements);
@@ -93,19 +93,19 @@ public abstract class PaginatingListFragment extends BaseFragment
 
     @Override
     final public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Parcelable element = presenter.getItem(position);
+        BaseModel element = presenter.getItem(position);
         int viewType = presenter.onGetItemViewType(position);
         PaginatingListViewHolder viewHolder = (PaginatingListViewHolder) holder;
         onBindViewHolder(viewHolder, element, viewType);
         viewHolder.notifyWhenClicked(element, new OnElementClickListener() {
             @Override
-            public void onClick(Parcelable element) {
+            public void onClick(BaseModel element) {
                 presenter.onElementClicked(element, viewType);
             }
         });
     }
 
-    protected abstract void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType);
+    protected abstract void onBindViewHolder(PaginatingListViewHolder holder, BaseModel element, int viewType);
 
     @Override
     final public void onFetchIfNeeded(int position) {
@@ -159,7 +159,7 @@ public abstract class PaginatingListFragment extends BaseFragment
 
         View itemView;
 
-        void notifyWhenClicked(final Parcelable element, final OnElementClickListener listener) {
+        void notifyWhenClicked(final BaseModel element, final OnElementClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -175,7 +175,7 @@ public abstract class PaginatingListFragment extends BaseFragment
     }
 
     private interface OnElementClickListener {
-        void onClick(Parcelable element);
+        void onClick(BaseModel element);
     }
 
 }

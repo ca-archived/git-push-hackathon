@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.presenter;
 
 import android.os.Parcelable;
 
+import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.view.PaginatingListView;
 import static com.example.masato.githubfeed.view.PaginatingListView.*;
 
@@ -24,7 +25,7 @@ public abstract class PaginatingListPresenter {
     private static final int DEFAULT_FETCH_THRESHOLD = 15;
 
     private PaginatingListView view;
-    private ArrayList<Parcelable> elementList = new ArrayList<>();
+    private ArrayList<BaseModel> elementList = new ArrayList<>();
     private int currentPage = 1;
     private int fetchThreshold = DEFAULT_FETCH_THRESHOLD;
     private boolean feedMaxedOut = false;
@@ -55,7 +56,7 @@ public abstract class PaginatingListPresenter {
      * リストをセットします。
      * @param elementList セットするリスト。
      */
-    public void setElementList(ArrayList<Parcelable> elementList) {
+    public void setElementList(ArrayList<BaseModel> elementList) {
         this.elementList = elementList;
     }
 
@@ -63,7 +64,7 @@ public abstract class PaginatingListPresenter {
      * リストを返します。
      * @return 持っているリスト。
      */
-    public ArrayList<Parcelable> getElementList() {
+    public ArrayList<BaseModel> getElementList() {
         return elementList;
     }
 
@@ -72,7 +73,7 @@ public abstract class PaginatingListPresenter {
      * @param position リスト中のアイテムのポジション。
      * @return 該当するポジションにあるアイテム。
      */
-    public Parcelable getItem(int position) {
+    public BaseModel getItem(int position) {
         return elementList.get(position);
     }
 
@@ -100,14 +101,14 @@ public abstract class PaginatingListPresenter {
         return ELEMENT_VIEW;
     }
 
-    abstract int onGetPaginatingItemViewType(Parcelable parcelable);
+    abstract int onGetPaginatingItemViewType(BaseModel parcelable);
 
     /**
      * PaginatingListFragmentのRecyclerViewのアイテムがクリックされたときにコールバックされます。
      * ここでクリックされたときの処理を実装します。
      * @param element クリックされたポジションのアイテム。
      */
-    public abstract void onElementClicked(Parcelable element, int viewType);
+    public abstract void onElementClicked(BaseModel element, int viewType);
 
     /**
      * ユーザーがある程度スクロールしたとき、またはユーザーが画面を下に引っ張って更新したときに呼ばれます。
@@ -123,7 +124,7 @@ public abstract class PaginatingListPresenter {
      * @param elements 取得したアイテムのリスト。
      * @param fetchSucceeded アイテムの取得が成功したかどうか。
      */
-    protected void onFetchedElements(List<Parcelable> elements, boolean fetchSucceeded) {
+    protected void onFetchedElements(List<BaseModel> elements, boolean fetchSucceeded) {
         if (fetchSucceeded) {
             addElements(elements);
         } else {
@@ -138,7 +139,7 @@ public abstract class PaginatingListPresenter {
      * onFetchElement()によって取得したアイテムはこのメソッドで追加される必要があります。
      * @param elements 取得したアイテムのリスト。
      */
-    private void addElements(List<Parcelable> elements) {
+    private void addElements(List<BaseModel> elements) {
         if (refreshing) {
             this.elementList.clear();
             this.elementList.addAll(elements);

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.presenter.IssueListPresenter;
@@ -53,7 +54,7 @@ public class IssueListFragment extends PaginatingListFragment implements IssueLi
     }
 
     @Override
-    protected void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType) {
+    protected void onBindViewHolder(PaginatingListViewHolder holder, BaseModel element, int viewType) {
         IssueViewHolder viewHolder = (IssueViewHolder) holder;
         Issue issue = (Issue) element;
         viewHolder.title.setText(issue.name);

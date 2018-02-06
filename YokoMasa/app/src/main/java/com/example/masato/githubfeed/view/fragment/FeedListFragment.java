@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.presenter.FeedEntryPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
@@ -49,7 +50,7 @@ public class FeedListFragment extends PaginatingListFragment implements FeedList
     }
 
     @Override
-    protected void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType) {
+    protected void onBindViewHolder(PaginatingListViewHolder holder, BaseModel element, int viewType) {
         FeedEntryViewViewHolder viewHolder = (FeedEntryViewViewHolder) holder;
         FeedEntry feedEntry = (FeedEntry) element;
         viewHolder.bindFeedEntry(feedEntry);
