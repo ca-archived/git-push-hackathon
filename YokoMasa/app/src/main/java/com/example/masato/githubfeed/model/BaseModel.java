@@ -15,6 +15,9 @@ public abstract class BaseModel implements Comparable<BaseModel>, Parcelable {
 
     @Override
     public int compareTo(@NonNull BaseModel baseModel) {
+        if (this.createdAt == null || baseModel.createdAt == null) {
+            return 0;
+        }
         return createdAt.compareTo(baseModel.createdAt);
     }
 }

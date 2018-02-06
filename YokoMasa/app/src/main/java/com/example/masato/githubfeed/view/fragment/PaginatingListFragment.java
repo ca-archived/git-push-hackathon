@@ -127,6 +127,10 @@ public abstract class PaginatingListFragment extends BaseFragment
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    public void setSwipeRefreshEnabled(boolean enabled) {
+        swipeRefreshLayout.setEnabled(enabled);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -147,6 +151,7 @@ public abstract class PaginatingListFragment extends BaseFragment
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.feed_swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
+        swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
