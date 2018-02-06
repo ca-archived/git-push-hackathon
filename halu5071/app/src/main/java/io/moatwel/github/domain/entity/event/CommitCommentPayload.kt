@@ -12,4 +12,4 @@ data class CommitCommentPayload(
   val comment: Comment,
 
   val repository: Repository
-) : Serializable
+) : Payload(), Serializable

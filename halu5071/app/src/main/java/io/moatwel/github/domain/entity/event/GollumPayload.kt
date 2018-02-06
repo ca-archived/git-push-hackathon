@@ -7,4 +7,4 @@ import java.io.Serializable
 @JsonSerializable
 data class GollumPayload(
   val repository: Repository
-) : Serializable
+) : Payload(), Serializable

@@ -12,7 +12,7 @@ data class Repository(
   val name: String,
 
   @Json(name = "full_name")
-  val fullName: String,
+  val fullName: String = "",
 
   val owner: User,
 

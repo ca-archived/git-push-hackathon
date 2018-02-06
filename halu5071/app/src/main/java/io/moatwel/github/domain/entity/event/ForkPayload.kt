@@ -7,4 +7,4 @@ import java.io.Serializable
 @JsonSerializable
 data class ForkPayload(
   val forkee: Repository
-) : Serializable
+) : Payload(), Serializable

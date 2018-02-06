@@ -17,21 +17,21 @@ data class PullRequest(
   val body: String,
 
   @Json(name = "merged")
-  val isMerged: Boolean,
+  val isMerged: Boolean?,
 
-  val mergeable: Boolean,
+  val mergeable: Boolean?,
 
-  val comments: Int,
+  val comments: Int?,
 
   @Json(name = "review_comments")
-  val reviewComment: Int,
+  val reviewComment: Int?,
 
-  val commits: Int,
+  val commits: Int?,
 
-  val additions: Int,
+  val additions: Int?,
 
-  val deletions: Int,
+  val deletions: Int?,
 
   @Json(name = "change_files")
-  val changeFiles: Int
+  val changeFiles: Int?
 ) : Serializable

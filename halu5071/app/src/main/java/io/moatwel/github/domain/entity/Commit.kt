@@ -1,5 +1,6 @@
 package io.moatwel.github.domain.entity
 
+import io.moatwel.github.domain.entity.event.CommitAuthor
 import se.ansman.kotshi.JsonSerializable
 import java.io.Serializable
 
@@ -9,7 +10,7 @@ data class Commit(
 
   val sha: String,
 
-  val author: User,
+  val author: CommitAuthor,
 
   val message: String,
 

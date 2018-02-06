@@ -9,4 +9,4 @@ data class IssuesPayload(
   val action: String,
 
   val issue: Issue
-) : Serializable
+) : Payload(), Serializable

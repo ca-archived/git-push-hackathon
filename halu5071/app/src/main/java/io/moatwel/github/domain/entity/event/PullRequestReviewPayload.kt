@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import io.moatwel.github.domain.entity.Comment
 import io.moatwel.github.domain.entity.PullRequest
 import se.ansman.kotshi.JsonSerializable
+import java.io.Serializable
 
 @JsonSerializable
 data class PullRequestReviewPayload(
@@ -13,4 +14,4 @@ data class PullRequestReviewPayload(
 
   @Json(name = "pull_request")
   val pullRequest: PullRequest
-) : Payload()
+) : Payload(), Serializable
