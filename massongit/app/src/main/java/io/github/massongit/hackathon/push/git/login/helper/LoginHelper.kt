@@ -18,7 +18,7 @@ class LoginHelper {
         /**
          * ログ用タグ
          */
-        private val TAG = LoginHelper::class.simpleName
+        private val TAG: String? = LoginHelper::class.simpleName
     }
 
     /**

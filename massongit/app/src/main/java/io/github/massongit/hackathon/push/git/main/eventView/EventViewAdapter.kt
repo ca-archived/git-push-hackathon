@@ -22,7 +22,7 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
         /**
          * ログ用タグ
          */
-        private val TAG = EventViewAdapter::class.simpleName
+        private val TAG: String? = EventViewAdapter::class.simpleName
     }
 
     /**

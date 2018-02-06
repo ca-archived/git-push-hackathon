@@ -38,7 +38,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
         /**
          * ログ用タグ
          */
-        private val TAG = GetTimelineAsyncTask::class.simpleName
+        private val TAG: String? = GetTimelineAsyncTask::class.simpleName
 
         /**
          * ETag用キャッシュ

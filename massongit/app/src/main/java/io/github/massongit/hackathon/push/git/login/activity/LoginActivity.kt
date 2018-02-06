@@ -15,7 +15,7 @@ class LoginActivity : AppCompatActivity() {
         /**
          * ログ用タグ
          */
-        private val TAG = LoginActivity::class.simpleName
+        private val TAG: String? = LoginActivity::class.simpleName
     }
 
     /**

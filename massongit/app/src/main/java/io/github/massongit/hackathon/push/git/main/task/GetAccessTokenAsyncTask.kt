@@ -23,7 +23,7 @@ class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Serv
         /**
          * ログ用タグ
          */
-        private val TAG = GetAccessTokenAsyncTask::class.simpleName
+        private val TAG: String? = GetAccessTokenAsyncTask::class.simpleName
     }
 
     /**

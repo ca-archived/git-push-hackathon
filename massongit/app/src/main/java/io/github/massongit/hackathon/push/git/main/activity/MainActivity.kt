@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         /**
          * ログ用タグ
          */
-        private val TAG = MainActivity::class.simpleName
+        private val TAG: String? = MainActivity::class.simpleName
     }
 
     /**

@@ -22,7 +22,7 @@ class MainHelper(private val context: Context, private var service: OAuth20Servi
         /**
          * ログ用タグ
          */
-        private val TAG = MainHelper::class.simpleName
+        private val TAG: String? = MainHelper::class.simpleName
     }
 
     /**
