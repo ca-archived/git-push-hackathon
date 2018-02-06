@@ -9,8 +9,13 @@ import android.widget.Toast;
 
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.diff.DiffFile;
+import com.example.masato.githubfeed.model.diff.DiffParser;
 import com.example.masato.githubfeed.presenter.MainPresenter;
 import com.example.masato.githubfeed.view.MainView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 

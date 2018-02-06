@@ -20,7 +20,9 @@ public class DiffCodeLine extends BaseModel {
     public static Parcelable.Creator<DiffCodeLine> CREATOR = new Parcelable.Creator<DiffCodeLine>() {
         @Override
         public DiffCodeLine createFromParcel(Parcel parcel) {
-            return new DiffCodeLine(parcel.readString());
+            String code = parcel.readString();
+            int status = parcel.readInt();
+            return new DiffCodeLine(code, status);
         }
 
         @Override
@@ -39,18 +41,8 @@ public class DiffCodeLine extends BaseModel {
         parcel.writeString(code);
     }
 
-    private void setStatus() {
-        if (code.startsWith("+")) {
-            status = ADDED;
-        } else if (code.startsWith("-")) {
-            status = REMOVED;
-        } else {
-            status = NORMAL;
-        }
-    }
-
-    public DiffCodeLine(String code) {
+    public DiffCodeLine(String code, int status) {
         this.code = code;
-        setStatus();
+        this.status = status;
     }
 }
