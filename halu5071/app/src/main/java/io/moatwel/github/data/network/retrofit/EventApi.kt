@@ -1,4 +1,4 @@
-package io.moatwel.github.data.network
+package io.moatwel.github.data.network.retrofit
 
 import io.moatwel.github.domain.entity.event.Event
 import io.reactivex.Observable

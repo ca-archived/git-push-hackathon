@@ -31,7 +31,7 @@ import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.network.AppJsonAdapterFactory
 import io.moatwel.github.data.network.HeaderInterceptor
-import io.moatwel.github.data.network.UserApi
+import io.moatwel.github.data.network.retrofit.UserApi
 import io.moatwel.github.domain.usecase.AuthDataUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -21,7 +21,7 @@
  *
  */
 
-package io.moatwel.github.data.network
+package io.moatwel.github.data.network.retrofit
 
 import io.moatwel.github.domain.entity.User
 import io.reactivex.Observable
