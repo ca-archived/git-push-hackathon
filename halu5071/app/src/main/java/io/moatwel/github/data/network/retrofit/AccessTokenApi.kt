@@ -1,4 +1,4 @@
-package io.moatwel.github.data.network
+package io.moatwel.github.data.network.retrofit
 
 import io.reactivex.Observable
 import retrofit2.http.GET

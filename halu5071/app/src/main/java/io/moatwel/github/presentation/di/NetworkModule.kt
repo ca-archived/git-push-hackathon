@@ -31,7 +31,8 @@ import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.network.AppJsonAdapterFactory
 import io.moatwel.github.data.network.HeaderInterceptor
-import io.moatwel.github.data.network.UserApi
+import io.moatwel.github.data.network.retrofit.EventApi
+import io.moatwel.github.data.network.retrofit.UserApi
 import io.moatwel.github.domain.usecase.AuthDataUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,6 +45,10 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+  /**
+   *  provide Retrofit instance.
+   *  This Retrofit instance will be singleton.
+   */
   @Provides
   @Singleton
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
@@ -55,6 +60,13 @@ class NetworkModule {
       .build()
   }
 
+  /**
+   *  provide OkHttp instance.
+   *  This OkHttp instance will not be singleton. Because authorization header should be
+   *  injected when we get access token from GitHub.
+   *
+   *  @param authDataUseCase AuthDataUseCase
+   */
   @Provides
   fun provideOkHttp(authDataUseCase: AuthDataUseCase): OkHttpClient {
     val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
@@ -65,6 +77,9 @@ class NetworkModule {
       .build()
   }
 
+  /**
+   *  provide Moshi instance.
+   */
   @Provides
   @Singleton
   fun provideMoshi(): Moshi {
@@ -79,6 +94,12 @@ class NetworkModule {
   @Singleton
   fun provideUserApi(retrofit: Retrofit): UserApi {
     return retrofit.create(UserApi::class.java)
+  }
+
+  @Provides
+  @Singleton
+  fun provideEventApi(retrofit: Retrofit): EventApi {
+    return retrofit.create(EventApi::class.java)
   }
 
   companion object {
