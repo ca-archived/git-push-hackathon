@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.view.fragment;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ import com.example.masato.githubfeed.view.activity.IssueActivity;
  * Created by Masato on 2018/02/03.
  */
 
-public class IssueListFragment extends PaginatingListFragment<Issue> implements IssueListView {
+public class IssueListFragment extends PaginatingListFragment implements IssueListView {
 
     @Override
     public void navigateToIssueView(Issue issue) {
@@ -30,7 +31,7 @@ public class IssueListFragment extends PaginatingListFragment<Issue> implements 
     }
 
     @Override
-    protected PaginatingListPresenter<Issue> onCreatePresenter() {
+    protected PaginatingListPresenter onCreatePresenter() {
         String url = getArguments().getString("url");
         Repository repository = getArguments().getParcelable("repository");
         if (repository != null) {
@@ -41,7 +42,7 @@ public class IssueListFragment extends PaginatingListFragment<Issue> implements 
     }
 
     @Override
-    protected PaginatingListViewHolder<Issue> onCreatePaginatingViewHolder(ViewGroup parent) {
+    protected PaginatingListViewHolder onCreatePaginatingViewHolder(ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.issue_list_element, parent, false);
         return new IssueViewHolder(view);
     }
@@ -52,14 +53,15 @@ public class IssueListFragment extends PaginatingListFragment<Issue> implements 
     }
 
     @Override
-    protected void onBindViewHolder(PaginatingListViewHolder holder, Issue element) {
+    protected void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType) {
         IssueViewHolder viewHolder = (IssueViewHolder) holder;
-        viewHolder.title.setText(element.name);
-        viewHolder.date.setText(DateUtil.getReadableDateForFeed(element.createdAt, getContext()));
-        viewHolder.comments.setText(Integer.toString(element.comments));
+        Issue issue = (Issue) element;
+        viewHolder.title.setText(issue.name);
+        viewHolder.date.setText(DateUtil.getReadableDateForFeed(issue.createdAt, getContext()));
+        viewHolder.comments.setText(Integer.toString(issue.comments));
     }
 
-    private class IssueViewHolder extends PaginatingListViewHolder<Issue> {
+    private class IssueViewHolder extends PaginatingListViewHolder {
 
         public AppCompatTextView date;
         public AppCompatTextView title;

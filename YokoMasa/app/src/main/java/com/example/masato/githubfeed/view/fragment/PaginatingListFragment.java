@@ -29,10 +29,10 @@ import java.util.ArrayList;
  *
  */
 
-public abstract class PaginatingListFragment<T extends Parcelable> extends BaseFragment
+public abstract class PaginatingListFragment extends BaseFragment
         implements PaginatingListView, PaginatingListAdapter.PaginatingListListAdapterListener {
 
-    private PaginatingListPresenter<T> presenter;
+    private PaginatingListPresenter presenter;
     private RecyclerView elementRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private PaginatingListAdapter adapter;
@@ -48,14 +48,14 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends BaseF
             scrollX = savedInstanceState.getInt("scroll_x");
             scrollY = savedInstanceState.getInt("scroll_y");
             int currentPage = savedInstanceState.getInt("current_page");
-            ArrayList<T> elements = savedInstanceState.getParcelableArrayList("elements");
+            ArrayList<Parcelable> elements = savedInstanceState.getParcelableArrayList("elements");
             presenter = onCreatePresenter();
             presenter.setCurrentPage(currentPage);
             presenter.setElementList(elements);
         }
     }
 
-    protected abstract PaginatingListPresenter<T> onCreatePresenter();
+    protected abstract PaginatingListPresenter onCreatePresenter();
 
     @Nullable
     @Override
@@ -75,8 +75,8 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends BaseF
     }
 
     @Override
-    final public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return onCreatePaginatingViewHolder(parent);
+    final public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return onCreatePaginatingViewHolder(parent, viewType);
     }
 
     @Override
@@ -89,22 +89,23 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends BaseF
         return null;
     }
 
-    protected abstract PaginatingListViewHolder<T> onCreatePaginatingViewHolder(ViewGroup parent);
+    protected abstract PaginatingListViewHolder onCreatePaginatingViewHolder(ViewGroup parent, int viewType);
 
     @Override
     final public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        T element = presenter.getItem(position);
+        Parcelable element = presenter.getItem(position);
+        int viewType = presenter.onGetItemViewType(position);
         PaginatingListViewHolder viewHolder = (PaginatingListViewHolder) holder;
-        onBindViewHolder(viewHolder, element);
-        viewHolder.notifyWhenClicked(element, new OnElementClickListener<T>() {
+        onBindViewHolder(viewHolder, element, viewType);
+        viewHolder.notifyWhenClicked(element, new OnElementClickListener() {
             @Override
-            public void onClick(T element) {
-                presenter.onElementClicked(element);
+            public void onClick(Parcelable element) {
+                presenter.onElementClicked(element, viewType);
             }
         });
     }
 
-    protected abstract void onBindViewHolder(PaginatingListViewHolder holder, T element);
+    protected abstract void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType);
 
     @Override
     final public void onFetchIfNeeded(int position) {
@@ -154,11 +155,11 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends BaseF
         });
     }
 
-    abstract class PaginatingListViewHolder<T extends Parcelable> extends RecyclerView.ViewHolder {
+    abstract class PaginatingListViewHolder extends RecyclerView.ViewHolder {
 
         View itemView;
 
-        void notifyWhenClicked(final T element, final OnElementClickListener<T> listener) {
+        void notifyWhenClicked(final Parcelable element, final OnElementClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -173,8 +174,8 @@ public abstract class PaginatingListFragment<T extends Parcelable> extends BaseF
         }
     }
 
-    private interface OnElementClickListener<T> {
-        void onClick(T element);
+    private interface OnElementClickListener {
+        void onClick(Parcelable element);
     }
 
 }

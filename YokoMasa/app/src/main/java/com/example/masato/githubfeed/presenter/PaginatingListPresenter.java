@@ -19,12 +19,12 @@ import java.util.List;
  *
  */
 
-public abstract class PaginatingListPresenter<T extends Parcelable> {
+public abstract class PaginatingListPresenter {
 
     private static final int DEFAULT_FETCH_THRESHOLD = 15;
 
     private PaginatingListView view;
-    private ArrayList<T> elementList = new ArrayList<>();
+    private ArrayList<Parcelable> elementList = new ArrayList<>();
     private int currentPage = 1;
     private int fetchThreshold = DEFAULT_FETCH_THRESHOLD;
     private boolean feedMaxedOut = false;
@@ -55,7 +55,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
      * リストをセットします。
      * @param elementList セットするリスト。
      */
-    public void setElementList(ArrayList<T> elementList) {
+    public void setElementList(ArrayList<Parcelable> elementList) {
         this.elementList = elementList;
     }
 
@@ -63,7 +63,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
      * リストを返します。
      * @return 持っているリスト。
      */
-    public ArrayList<T> getElementList() {
+    public ArrayList<Parcelable> getElementList() {
         return elementList;
     }
 
@@ -72,7 +72,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
      * @param position リスト中のアイテムのポジション。
      * @return 該当するポジションにあるアイテム。
      */
-    public T getItem(int position) {
+    public Parcelable getItem(int position) {
         return elementList.get(position);
     }
 
@@ -92,7 +92,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
             if (elementList.size() == 0) {
                 return NOTHING_TO_SHOW_VIEW;
             }
-            return ELEMENT_VIEW;
+            return onGetPaginatingItemViewType(getItem(position));
         }
         if (position == getItemCount() - 1) {
             return LOADING_VIEW;
@@ -100,12 +100,14 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
         return ELEMENT_VIEW;
     }
 
+    abstract int onGetPaginatingItemViewType(Parcelable parcelable);
+
     /**
      * PaginatingListFragmentのRecyclerViewのアイテムがクリックされたときにコールバックされます。
      * ここでクリックされたときの処理を実装します。
      * @param element クリックされたポジションのアイテム。
      */
-    public abstract void onElementClicked(T element);
+    public abstract void onElementClicked(Parcelable element, int viewType);
 
     /**
      * ユーザーがある程度スクロールしたとき、またはユーザーが画面を下に引っ張って更新したときに呼ばれます。
@@ -121,7 +123,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
      * @param elements 取得したアイテムのリスト。
      * @param fetchSucceeded アイテムの取得が成功したかどうか。
      */
-    protected void onFetchedElements(List<T> elements, boolean fetchSucceeded) {
+    protected void onFetchedElements(List<Parcelable> elements, boolean fetchSucceeded) {
         if (fetchSucceeded) {
             addElements(elements);
         } else {
@@ -136,7 +138,7 @@ public abstract class PaginatingListPresenter<T extends Parcelable> {
      * onFetchElement()によって取得したアイテムはこのメソッドで追加される必要があります。
      * @param elements 取得したアイテムのリスト。
      */
-    private void addElements(List<T> elements) {
+    private void addElements(List<Parcelable> elements) {
         if (refreshing) {
             this.elementList.clear();
             this.elementList.addAll(elements);

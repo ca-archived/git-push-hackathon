@@ -28,9 +28,7 @@ public class PaginatingListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         RecyclerView.ViewHolder viewHolder = null;
-        if (viewType == ELEMENT_VIEW) {
-            viewHolder =  listener.onCreateViewHolder(parent);
-        } else if (viewType == LOADING_VIEW){
+        if (viewType == LOADING_VIEW){
             viewHolder = listener.onCreateLoadingViewHolder(parent);
             if (viewHolder == null) {
                 view = inflater.inflate(R.layout.feed_loading, parent, false);
@@ -42,6 +40,8 @@ public class PaginatingListAdapter extends RecyclerView.Adapter {
                 view = inflater.inflate(R.layout.feed_nothing_to_show, parent, false);
                 viewHolder = new NothingToShowViewHolder(view);
             }
+        } else {
+            viewHolder = listener.onCreateViewHolder(parent, viewType);
         }
         return viewHolder;
     }
@@ -49,7 +49,8 @@ public class PaginatingListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         listener.onFetchIfNeeded(position);
-        if (getItemViewType(position) == PaginatingListView.ELEMENT_VIEW) {
+        if (getItemViewType(position) != PaginatingListView.NOTHING_TO_SHOW_VIEW
+                && getItemViewType(position) != PaginatingListView.LOADING_VIEW) {
             listener.onBindViewHolder(holder, position);
         }
     }
@@ -90,11 +91,11 @@ public class PaginatingListAdapter extends RecyclerView.Adapter {
     public interface PaginatingListListAdapterListener {
         public int onGetItemViewType(int position);
 
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent);
-
         public RecyclerView.ViewHolder onCreateLoadingViewHolder(ViewGroup parent);
 
         public RecyclerView.ViewHolder onCreateNothingToShowViewHolder(View parent);
+
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType);
 
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position);
 

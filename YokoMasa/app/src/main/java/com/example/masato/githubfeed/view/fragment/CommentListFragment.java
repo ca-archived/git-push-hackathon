@@ -24,15 +24,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Masato on 2018/02/03.
  */
 
-public class CommentListFragment extends PaginatingListFragment<Comment> {
+public class CommentListFragment extends PaginatingListFragment {
 
     @Override
-    protected PaginatingListPresenter<Comment> onCreatePresenter() {
+    protected PaginatingListPresenter onCreatePresenter() {
         return new CommentListPresenter(this, getArguments().getString("url"));
     }
 
     @Override
-    protected PaginatingListViewHolder<Comment> onCreatePaginatingViewHolder(ViewGroup parent) {
+    protected PaginatingListViewHolder onCreatePaginatingViewHolder(ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.comment, parent, false);
         return new CommentViewHolder(view);
     }
@@ -46,12 +46,13 @@ public class CommentListFragment extends PaginatingListFragment<Comment> {
     }
 
     @Override
-    protected void onBindViewHolder(PaginatingListViewHolder holder, Comment element) {
+    protected void onBindViewHolder(PaginatingListViewHolder holder, Parcelable element, int viewType) {
         CommentViewHolder commentViewHolder = (CommentViewHolder) holder;
-        commentViewHolder.bindComment(element);
+        Comment comment = (Comment) element;
+        commentViewHolder.bindComment(comment);
     }
 
-    private class CommentViewHolder extends PaginatingListViewHolder<Comment> implements ImageLoadableView {
+    private class CommentViewHolder extends PaginatingListViewHolder implements ImageLoadableView {
 
         AppCompatTextView authorName;
         AppCompatTextView date;

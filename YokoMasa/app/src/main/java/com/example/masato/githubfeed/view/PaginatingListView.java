@@ -7,8 +7,8 @@ package com.example.masato.githubfeed.view;
 public interface PaginatingListView {
 
     public static final int ELEMENT_VIEW = 1;
-    public static final int LOADING_VIEW = 2;
-    public static final int NOTHING_TO_SHOW_VIEW = 3;
+    public static final int LOADING_VIEW = 2498;
+    public static final int NOTHING_TO_SHOW_VIEW = 3011;
 
     public void stopRefreshing();
 

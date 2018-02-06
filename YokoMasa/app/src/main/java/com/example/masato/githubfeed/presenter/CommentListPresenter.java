@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
+import android.os.Parcelable;
+
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Comment;
@@ -11,12 +13,17 @@ import java.util.List;
  * Created by Masato on 2018/02/03.
  */
 
-public class CommentListPresenter extends PaginatingListPresenter<Comment> {
+public class CommentListPresenter extends PaginatingListPresenter {
 
     private String commentsUrl;
 
     @Override
-    public void onElementClicked(Comment element) {
+    int onGetPaginatingItemViewType(Parcelable parcelable) {
+        return 0;
+    }
+
+    @Override
+    public void onElementClicked(Parcelable element, int viewType) {
 
     }
 
@@ -27,7 +34,7 @@ public class CommentListPresenter extends PaginatingListPresenter<Comment> {
 
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            List<Comment> commentList = (List<Comment>) result.resultObject;
+            List<Parcelable> commentList = (List<Parcelable>) result.resultObject;
             onFetchedElements(commentList, true);
         } else {
             onFetchedElements(null, false);

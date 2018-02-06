@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
+import android.os.Parcelable;
+
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Issue;
@@ -13,15 +15,21 @@ import java.util.ArrayList;
  * Created by Masato on 2018/02/03.
  */
 
-public class IssueListPresenter extends PaginatingListPresenter<Issue> {
+public class IssueListPresenter extends PaginatingListPresenter {
 
     private IssueListView view;
     private String url;
     private Repository repository;
 
     @Override
-    public void onElementClicked(Issue element) {
-        view.navigateToIssueView(element);
+    int onGetPaginatingItemViewType(Parcelable parcelable) {
+        return 0;
+    }
+
+    @Override
+    public void onElementClicked(Parcelable element, int viewType) {
+        Issue issue = (Issue) element;
+        view.navigateToIssueView(issue);
     }
 
     @Override
@@ -35,7 +43,7 @@ public class IssueListPresenter extends PaginatingListPresenter<Issue> {
 
     private void handleApiResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            ArrayList<Issue> issues = (ArrayList<Issue>) result.resultObject;
+            ArrayList<Parcelable> issues = (ArrayList<Parcelable>) result.resultObject;
             onFetchedElements(issues, true);
         } else {
             onFetchedElements(null, false);

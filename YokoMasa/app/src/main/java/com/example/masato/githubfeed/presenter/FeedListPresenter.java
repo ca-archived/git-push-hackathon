@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.masato.githubfeed.githubapi.Failure;
@@ -17,7 +19,7 @@ import java.util.List;
  * Created by Masato on 2018/01/29.
  */
 
-public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
+public class FeedListPresenter extends PaginatingListPresenter {
 
     private FeedListView view;
     private String url;
@@ -27,9 +29,14 @@ public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
         GitHubApi.getApi().fetchFeedList(this.url, page, this::handleResult);
     }
 
+    @Override
+    int onGetPaginatingItemViewType(Parcelable parcelable) {
+        return 0;
+    }
+
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            List<FeedEntry> feedEntries = (List<FeedEntry>) result.resultObject;
+            List<Parcelable> feedEntries = (List<Parcelable>) result.resultObject;
             onFetchedElements(feedEntries, true);
         } else {
             onFetchedElements(null, false);
@@ -38,8 +45,9 @@ public class FeedListPresenter extends PaginatingListPresenter<FeedEntry> {
     }
 
     @Override
-    public void onElementClicked(FeedEntry element) {
-        view.startRepoView(element.repoUrl);
+    public void onElementClicked(Parcelable element, int viewType) {
+        FeedEntry feedEntry = (FeedEntry) element;
+        view.startRepoView(feedEntry.repoUrl);
     }
 
     public FeedListPresenter(PaginatingListView view, String url) {
