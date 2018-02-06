@@ -11,7 +11,5 @@ data class PullRequestPayload(
   val number: Int,
 
   @Json(name = "pull_request")
-  val pullRequest: PullRequest,
-
-  val repository: Repository
+  val pullRequest: PullRequest
 ) : Payload(), Serializable

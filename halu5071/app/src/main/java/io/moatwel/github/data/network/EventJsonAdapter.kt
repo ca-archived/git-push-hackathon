@@ -8,6 +8,7 @@ import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import io.moatwel.github.domain.entity.Actor
+import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.entity.event.*
 import java.lang.reflect.Type
 import java.util.Date
@@ -35,9 +36,11 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
       val isPublic = reader.nextBoolean()
       reader.nextName() // for created_at
       val createdAt = moshi.adapter(Date::class.java).fromJson(reader)
-      reader.nextName() // for org
-      val org = moshi.adapter(Actor::class.java).fromJson(reader)
-
+      var org: Actor? = null
+      if (reader.peek() != JsonReader.Token.END_OBJECT) {
+        reader.nextName()
+        org = moshi.adapter(Actor::class.java).fromJson(reader)
+      }
       val event = Event(id, type, actor, repo, payload, createdAt, isPublic, org)
       list.add(event)
       reader.endObject()
@@ -70,6 +73,7 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
                 .fromJson(value) as PullRequestReviewCommentPayload
       "PushEvent" -> moshi.adapter(PushPayload::class.java).fromJson(value) as PushPayload
       "WatchEvent" -> moshi.adapter(WatchPayload::class.java).fromJson(value) as WatchPayload
+      "IssuesEvent" -> moshi.adapter(IssuesPayload::class.java).fromJson(value) as IssuesPayload
       else -> throw Throwable("Unaccepted payload type: $type")
     }
   }
