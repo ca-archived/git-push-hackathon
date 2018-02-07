@@ -22,6 +22,9 @@ public class DateUtil {
     private static final DateFormat dateFormat  = new SimpleDateFormat("yyyy/MM/dd");
 
     public static String getReadableDateForFeed(Date date, Context context) {
+        if (date == null) {
+            return "";
+        }
         final long now = System.currentTimeMillis() - TimeZone.getDefault().getRawOffset();
         final long fiveDaysInMillis = 5 * 24 * 60 * 60 * 1000;
         long diff = now - date.getTime();

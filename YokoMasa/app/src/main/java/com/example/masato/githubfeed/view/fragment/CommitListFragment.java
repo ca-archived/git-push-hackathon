@@ -66,8 +66,8 @@ public class CommitListFragment extends PaginatingListFragment implements Commit
 
         void bindCommit(Commit commit) {
             date.setText(DateUtil.getReadableDateForFeed(commit.createdAt, getContext()));
-            comment.setText(commit.comment.split("\n")[0]);
-            sha.setText(commit.sha.substring(0, 6));
+            comment.setText(commit.getShortenedComment());
+            sha.setText(commit.getShortenedSha());
         }
 
 

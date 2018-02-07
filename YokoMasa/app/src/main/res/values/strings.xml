@@ -51,4 +51,6 @@
     <string name="issue_title">Issue</string>
     <string name="issue_state_open">Open</string>
     <string name="issue_state_closed">Closed</string>
+
+    <string name="commit_action_bar_title">Commit #</string>
 </resources>

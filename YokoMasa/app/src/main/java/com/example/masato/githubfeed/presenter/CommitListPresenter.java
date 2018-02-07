@@ -30,6 +30,7 @@ public class CommitListPresenter extends PaginatingListPresenter {
     @Override
     public void onElementClicked(BaseModel element, int viewType) {
         Commit commit = (Commit) element;
+        commit.repository = repository;
         view.navigateToCommitView(commit);
     }
 

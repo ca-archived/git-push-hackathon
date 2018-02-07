@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.model.Commit;
+import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.model.diff.DiffFile;
+import com.example.masato.githubfeed.presenter.CommitPresenter;
+import com.example.masato.githubfeed.util.DateUtil;
+import com.example.masato.githubfeed.view.CommitView;
 import com.example.masato.githubfeed.view.fragment.DiffFileListFragment;
 
 import java.util.ArrayList;
@@ -19,29 +25,51 @@ import java.util.List;
  * Created by Masato on 2018/02/06.
  */
 
-public class CommitActivity extends AppCompatActivity {
+public class CommitActivity extends AppCompatActivity implements CommitView {
+
+    private CommitPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit);
         Commit commit = getIntent().getParcelableExtra("commit");
-        Log.i("gh_feed", "commit activity onCreate: " + commit.sha);
-        if (savedInstanceState == null) {
-            GitHubApi.getApi().fetchCommitDiffFileList(commit, result -> {
-                Log.i("gh_feed", "fetch diff list result");
-                if (result.isSuccessful) {
-                    ArrayList<DiffFile> diffFileList = (ArrayList<DiffFile>) result.resultObject;
-                    Log.i("gh_feed", "fetch diff list successful. list size: " + diffFileList.size());
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("diff_files", diffFileList);
-                    DiffFileListFragment diffFileListFragment = new DiffFileListFragment();
-                    diffFileListFragment.setArguments(bundle);
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.add(R.id.commit_mother, diffFileListFragment);
-                    ft.commit();
-                }
-            });
-        }
+
+        AppCompatTextView commitMessage = (AppCompatTextView) findViewById(R.id.commit_message);
+        commitMessage.setText(commit.getShortenedComment());
+
+        AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_date);
+        date.setText(DateUtil.getReadableDateForFeed(commit.createdAt, this));
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.commit_tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String actionBarTitle = getString(R.string.commit_action_bar_title) + commit.getShortenedSha();
+        getSupportActionBar().setTitle(actionBarTitle);
+
+        presenter = new CommitPresenter(this, commit);
+    }
+
+    @Override
+    public void showDiffFileList(ArrayList<DiffFile> diffFiles) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("diff_files", diffFiles);
+        DiffFileListFragment diffFileListFragment = new DiffFileListFragment();
+        diffFileListFragment.setArguments(bundle);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.commit_diff_file_list_mother, diffFileListFragment);
+        ft.commit();
+    }
+
+    @Override
+    public void showRepoInfo(Repository repository) {
+        getSupportActionBar().setSubtitle(repository.fullName);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
