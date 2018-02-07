@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
 
 import java.util.concurrent.ExecutorService;
@@ -101,6 +102,10 @@ public class GitHubApi {
 
     public void fetchCommitList(Repository repository, int page, GitHubApiCallback callback) {
         resourceManager.getRepositoryCommitList(repository, page, callback);
+    }
+
+    public void fetchCommitDiffFileList(Commit commit, GitHubApiCallback callback) {
+        resourceManager.getCommitDiffFileList(commit, callback);
     }
 
     public void deleteToken() {

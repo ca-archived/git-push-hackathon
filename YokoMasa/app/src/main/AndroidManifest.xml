@@ -37,6 +37,8 @@
 
         <activity android:name=".view.activity.IssueActivity"/>
 
+        <activity android:name=".view.activity.CommitActivity"/>
+
     </application>
 
 </manifest>

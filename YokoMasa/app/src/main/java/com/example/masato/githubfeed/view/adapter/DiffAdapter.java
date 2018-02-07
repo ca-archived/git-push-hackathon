@@ -53,9 +53,9 @@ public class DiffAdapter extends RecyclerView.Adapter {
         public void bindCodeLine(DiffCodeLine codeLine) {
             codeLineView.setText(codeLine.code);
             if (codeLine.status == DiffCodeLine.REMOVED) {
-                codeLineView.setBackgroundColor(context.getResources().getColor(R.color.red));
+                codeLineView.setBackgroundColor(context.getResources().getColor(R.color.diff_red));
             } else if (codeLine.status == DiffCodeLine.ADDED) {
-                codeLineView.setBackgroundColor(context.getResources().getColor(R.color.green));
+                codeLineView.setBackgroundColor(context.getResources().getColor(R.color.diff_green));
             }
         }
 

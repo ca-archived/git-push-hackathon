@@ -2,6 +2,9 @@ package com.example.masato.githubfeed.model;
 
 import android.util.Log;
 
+import com.example.masato.githubfeed.model.diff.DiffFile;
+import com.example.masato.githubfeed.model.diff.DiffParser;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -171,5 +174,22 @@ public class GitHubObjectMapper {
         }
         return commits;
     }
+
+    public static List<DiffFile> mapCommitDiffFileList(String jsonString) {
+        List<DiffFile> diffFiles = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray filesArray = jsonObject.getJSONArray("files");
+            for (int i = 0;i<filesArray.length();i++) {
+                JSONObject fileObject = filesArray.getJSONObject(i);
+                DiffFile diffFile = DiffParser.parseDiffFile(fileObject.optString("patch"), fileObject.optString("filename"));
+                diffFiles.add(diffFile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return diffFiles;
+    }
+
 
 }

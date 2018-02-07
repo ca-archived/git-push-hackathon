@@ -5,7 +5,9 @@ import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Comment;
+import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
+import com.example.masato.githubfeed.view.CommitListView;
 import com.example.masato.githubfeed.view.PaginatingListView;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class CommitListPresenter extends PaginatingListPresenter {
 
     private String url;
     private Repository repository;
+    private CommitListView view;
 
     @Override
     int onGetPaginatingItemViewType(BaseModel element) {
@@ -26,7 +29,8 @@ public class CommitListPresenter extends PaginatingListPresenter {
 
     @Override
     public void onElementClicked(BaseModel element, int viewType) {
-
+        Commit commit = (Commit) element;
+        view.navigateToCommitView(commit);
     }
 
     @Override
@@ -49,12 +53,16 @@ public class CommitListPresenter extends PaginatingListPresenter {
 
     public CommitListPresenter(PaginatingListView view, String url) {
         super(view);
+        this.view = (CommitListView) view;
         this.url = url;
+        setFetchThreshold(25);
+
     }
 
     public CommitListPresenter(PaginatingListView view, Repository repository) {
         super(view);
-        setFetchThreshold(25);
+        this.view = (CommitListView) view;
         this.repository = repository;
+        setFetchThreshold(25);
     }
 }

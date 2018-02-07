@@ -69,6 +69,10 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
 
         public DiffFileViewHolder(View itemView) {
             super(itemView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.diff_recycler_view);
+            fileName = (AppCompatTextView) itemView.findViewById(R.id.diff_file_name);
+            addition = (AppCompatTextView) itemView.findViewById(R.id.diff_addition);
+            deletion = (AppCompatTextView) itemView.findViewById(R.id.diff_deletion);
         }
     }
 }

@@ -59,7 +59,7 @@ public class DiffParser {
                 if (line.startsWith("+")) {
                     status = DiffCodeLine.ADDED;
                     additions++;
-                } else if (code.startsWith("-")) {
+                } else if (line.startsWith("-")) {
                     status = DiffCodeLine.REMOVED;
                     deletions++;
                 } else {

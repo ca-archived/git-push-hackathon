@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.githubapi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.GitHubObjectMapper;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.model.Repository;
@@ -177,6 +178,15 @@ class GitHubResourceManager {
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapCommitList(successfulResult.getBodyString());
+            });
+        });
+    }
+
+    void getCommitDiffFileList(Commit commit, GitHubApiCallback callback) {
+        HandyHttpURLConnection connection = connectionPool.newConnection(commit.url);
+        connection.get(result -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapCommitDiffFileList(successfulResult.getBodyString());
             });
         });
     }
