@@ -166,6 +166,11 @@ class GitHubResourceManager {
         });
     }
 
+    void getRepositoryCommitList(Repository repository, int page, final GitHubApiCallback callback) {
+        String url = repository.baseUrl + "/" + "commits";
+        getCommitListFromUrl(url, page, callback);
+    }
+
     void getCommitListFromUrl(String url, int page, GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("page", Integer.toString(page));

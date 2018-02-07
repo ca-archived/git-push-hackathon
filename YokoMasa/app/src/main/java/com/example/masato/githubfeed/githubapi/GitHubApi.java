@@ -99,6 +99,10 @@ public class GitHubApi {
         resourceManager.getCommitListFromUrl(url, page, callback);
     }
 
+    public void fetchCommitList(Repository repository, int page, GitHubApiCallback callback) {
+        resourceManager.getRepositoryCommitList(repository, page, callback);
+    }
+
     public void deleteToken() {
         tokenManager.deleteToken();
     }

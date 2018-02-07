@@ -32,6 +32,7 @@
     <string name="tab_overview">概要</string>
     <string name="tab_issues">issues</string>
     <string name="tab_comments">コメント</string>
+    <string name="tab_commits">commits</string>
 
     <string name="repo_readme">README</string>
     <string name="repo_no_readme">No README here</string>

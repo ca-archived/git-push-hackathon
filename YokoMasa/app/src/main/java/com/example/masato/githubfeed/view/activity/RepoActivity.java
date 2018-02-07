@@ -23,6 +23,7 @@ import com.example.masato.githubfeed.presenter.RepoPresenter;
 import com.example.masato.githubfeed.view.RepoView;
 import com.example.masato.githubfeed.view.adapter.FragmentListPagerAdapter;
 import com.example.masato.githubfeed.view.fragment.BaseFragment;
+import com.example.masato.githubfeed.view.fragment.CommitListFragment;
 import com.example.masato.githubfeed.view.fragment.IssueListFragment;
 import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
 
@@ -70,5 +71,12 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
         IssueListFragment issueListFragment = new IssueListFragment();
         issueListFragment.setArguments(bundle);
         addFragment(issueListFragment);
+
+        bundle = new Bundle();
+        bundle.putParcelable("repository", repository);
+        bundle.putString("name", getString(R.string.tab_commits));
+        CommitListFragment commitListFragment = new CommitListFragment();
+        commitListFragment.setArguments(bundle);
+        addFragment(commitListFragment);
     }
 }

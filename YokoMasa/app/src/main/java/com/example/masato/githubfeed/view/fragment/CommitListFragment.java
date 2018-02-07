@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Commit;
+import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.presenter.CommitListPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
@@ -21,7 +22,12 @@ public class CommitListFragment extends PaginatingListFragment {
     @Override
     protected PaginatingListPresenter onCreatePresenter() {
         String url = getArguments().getString("url");
-        return new CommitListPresenter(this, url);
+        Repository repository = getArguments().getParcelable("repository");
+        if (repository != null) {
+            return new CommitListPresenter(this, repository);
+        } else {
+            return new CommitListPresenter(this, url);
+        }
     }
 
     @Override
@@ -50,9 +56,11 @@ public class CommitListFragment extends PaginatingListFragment {
 
         void bindCommit(Commit commit) {
             date.setText(DateUtil.getReadableDateForFeed(commit.createdAt, getContext()));
-            comment.setText(commit.comment);
+            comment.setText(commit.comment.split("\n")[0]);
             sha.setText(commit.sha.substring(0, 6));
         }
+
+
 
         public CommitViewHolder(View itemView) {
             super(itemView);
