@@ -13,6 +13,7 @@ public class Commit extends BaseModel {
     public String sha;
     public String url;
     public Profile committer;
+    public Profile author;
     public static Parcelable.Creator<Commit> CREATOR = new Parcelable.Creator<Commit>() {
         @Override
         public Commit createFromParcel(Parcel parcel) {
@@ -21,6 +22,7 @@ public class Commit extends BaseModel {
             commit.sha = parcel.readString();
             commit.url = parcel.readString();
             commit.committer = parcel.readParcelable(getClass().getClassLoader());
+            commit.author = parcel.readParcelable(getClass().getClassLoader());
             return commit;
         }
 
@@ -41,5 +43,6 @@ public class Commit extends BaseModel {
         parcel.writeString(sha);
         parcel.writeString(url);
         parcel.writeParcelable(committer, 0);
+        parcel.writeParcelable(author, 0);
     }
 }

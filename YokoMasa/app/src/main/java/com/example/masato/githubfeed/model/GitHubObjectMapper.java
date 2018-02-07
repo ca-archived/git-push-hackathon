@@ -2,10 +2,7 @@ package com.example.masato.githubfeed.model;
 
 import android.util.Log;
 
-import com.example.masato.githubfeed.util.DateUtil;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -31,8 +28,8 @@ public class GitHubObjectMapper {
         try {
             JSONObject jsonObject = new JSONObject(profileString);
             profile = mapProfile(jsonObject);
-        } catch (JSONException je) {
-            je.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return profile;
     }
@@ -42,8 +39,8 @@ public class GitHubObjectMapper {
         try {
             profile.name = jsonObject.getString("login");
             profile.iconUrl = jsonObject.getString("avatar_url");
-        } catch (JSONException je) {
-            je.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return profile;
     }
@@ -52,8 +49,8 @@ public class GitHubObjectMapper {
         try {
             JSONObject jsonObject = new JSONObject(feedUrlJson);
             return jsonObject.getString("current_user_public_url");
-        } catch(JSONException je) {
-            je.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -63,8 +60,8 @@ public class GitHubObjectMapper {
         try {
             JSONObject jsonObject = new JSONObject(repositoryString);
             repository = mapRepository(jsonObject);
-        } catch (JSONException je) {
-            je.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return repository;
     }
@@ -80,8 +77,8 @@ public class GitHubObjectMapper {
             repository.baseUrl = jsonObject.getString("url");
             JSONObject ownerJsonObject = jsonObject.getJSONObject("owner");
             repository.owner = ownerJsonObject.getString("login");
-        } catch (JSONException je) {
-            je.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return repository;
     }
@@ -153,6 +150,7 @@ public class GitHubObjectMapper {
             String createdAt = commitObject.getJSONObject("committer").getString("date");
             commit.createdAt = dateFormat.parse(createdAt);
             commit.committer = mapProfile(jsonObject.optJSONObject("committer"));
+            commit.author = mapProfile(jsonObject.optJSONObject("author"));
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("gh_feed", "sha: " + commit.sha);
@@ -168,7 +166,7 @@ public class GitHubObjectMapper {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 commits.add(mapCommit(jsonObject));
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return commits;

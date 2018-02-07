@@ -8,6 +8,8 @@
     <color name="box_border_stroke">#e0e0e0</color>
     <color name="background_dark_gray">#303030</color>
     <color name="textNormal">#616161</color>
+    <color name="red">#cb2431</color>
+    <color name="green">#2cbe4e</color>
     <color name="issue_open">#2cbe4e</color>
     <color name="issue_closed">#cb2431</color>
     <color name="white">#FFF</color>
