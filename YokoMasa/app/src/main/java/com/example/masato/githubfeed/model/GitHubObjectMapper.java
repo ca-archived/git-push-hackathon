@@ -139,4 +139,32 @@ public class GitHubObjectMapper {
         return issues;
     }
 
+    public static Commit mapCommit(JSONObject jsonObject) {
+        Commit commit = new Commit();
+        try {
+            commit.sha = jsonObject.getString("sha");
+            commit.url = jsonObject.getString("url");
+            commit.committer = mapProfile(jsonObject.getJSONObject("committer"));
+            JSONObject commitObject = jsonObject.getJSONObject("commit");
+            commit.comment = commitObject.getString("message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return commit;
+    }
+
+    public static List<Commit> mapCommitList(String jsonString) {
+        List<Commit> commits = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0;i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                commits.add(mapCommit(jsonObject));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return commits;
+    }
+
 }
