@@ -101,7 +101,7 @@ public abstract class PaginatingListPresenter {
         return ELEMENT_VIEW;
     }
 
-    abstract int onGetPaginatingItemViewType(BaseModel parcelable);
+    abstract int onGetPaginatingItemViewType(BaseModel element);
 
     /**
      * PaginatingListFragmentのRecyclerViewのアイテムがクリックされたときにコールバックされます。

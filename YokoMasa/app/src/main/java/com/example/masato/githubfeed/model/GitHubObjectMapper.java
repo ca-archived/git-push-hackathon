@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.model;
 
+import com.example.masato.githubfeed.util.DateUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -147,7 +149,9 @@ public class GitHubObjectMapper {
             commit.committer = mapProfile(jsonObject.getJSONObject("committer"));
             JSONObject commitObject = jsonObject.getJSONObject("commit");
             commit.comment = commitObject.getString("message");
-        } catch (JSONException e) {
+            String createdAt = commitObject.getJSONObject("committer").getString("date");
+            commit.createdAt = dateFormat.parse(createdAt);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return commit;
