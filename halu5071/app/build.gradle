@@ -104,7 +104,9 @@ dependencies {
 
     // Architecture Components
     implementation "android.arch.lifecycle:extensions:$architecture_comp_version"
+    implementation "android.arch.lifecycle:reactivestreams:$architecture_comp_version"
     kapt "android.arch.lifecycle:compiler:$architecture_comp_version"
+    implementation "android.arch.paging:runtime:1.0.0-alpha5"
 
     // Test
     testImplementation 'junit:junit:4.12'
