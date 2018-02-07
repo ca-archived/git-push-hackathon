@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "io.moatwel.github"
         minSdkVersion 19
@@ -36,6 +36,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -56,6 +59,8 @@ dependencies {
 
     // Support Library
     implementation "com.android.support:appcompat-v7:$support_lib_version"
+    implementation "com.android.support:support-annotations:$support_lib_version"
+    implementation "com.android.support:recyclerview-v7:$support_lib_version"
     implementation "com.android.support:customtabs:$support_lib_version"
     implementation "com.android.support:support-emoji-bundled:$support_lib_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -104,7 +109,9 @@ dependencies {
 
     // Architecture Components
     implementation "android.arch.lifecycle:extensions:$architecture_comp_version"
+    implementation "android.arch.lifecycle:reactivestreams:$architecture_comp_version"
     kapt "android.arch.lifecycle:compiler:$architecture_comp_version"
+    implementation "android.arch.paging:runtime:1.0.0-alpha5"
 
     // Test
     testImplementation 'junit:junit:4.12'
