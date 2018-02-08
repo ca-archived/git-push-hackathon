@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.view.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.masato.githubfeed.R;
@@ -59,6 +61,9 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         if (commit.author == null) {
             return;
         }
+        if (commit.author.icon != null) {
+            showAuthorIcon(commit.author.icon);
+        }
         AppCompatTextView name = (AppCompatTextView) findViewById(R.id.commit_author_name);
         AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_author_date);
         name.setText(commit.author.name);
@@ -71,12 +76,27 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         if (commit.committer == null) {
             return;
         }
+        if (commit.committer.icon != null) {
+            showCommitterIcon(commit.committer.icon);
+        }
         AppCompatTextView name = (AppCompatTextView) findViewById(R.id.commit_committer_name);
         AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_committer_date);
         name.setText(commit.committer.name);
         date.setText(DateUtil.getReadableDateForFeed(commit.committerDate, this));
         ViewGroup author = (ViewGroup) findViewById(R.id.commit_committer);
         author.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showAuthorIcon(Bitmap icon) {
+        ImageView imageView = (ImageView) findViewById(R.id.commit_author_icon);
+        imageView.setImageBitmap(icon);
+    }
+
+    @Override
+    public void showCommitterIcon(Bitmap icon) {
+        ImageView imageView = (ImageView) findViewById(R.id.commit_committer_icon);
+        imageView.setImageBitmap(icon);
     }
 
     @Override

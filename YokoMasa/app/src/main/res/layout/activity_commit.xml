@@ -42,23 +42,37 @@
                     android:padding="@dimen/child_padding"/>
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/box_border"
                     android:padding="@dimen/child_padding">
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/commit_committer_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_medium"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/commit_committer_icon"
+                        android:layout_width="@dimen/image_small"
+                        android:layout_height="@dimen/image_small"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"/>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/commit_committer_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_small"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/commit_committer_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_medium"/>
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/commit_committer_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_small"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -81,23 +95,37 @@
                     android:padding="@dimen/child_padding"/>
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/box_border"
                     android:padding="@dimen/child_padding">
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/commit_author_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_medium"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/commit_author_icon"
+                        android:layout_width="@dimen/image_small"
+                        android:layout_height="@dimen/image_small"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"/>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/commit_author_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_small"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/commit_author_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_medium"/>
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/commit_author_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_small"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -107,7 +135,8 @@
             <FrameLayout
                 android:id="@+id/commit_diff_file_list_mother"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"/>
 
 
         </LinearLayout>
