@@ -95,5 +95,14 @@ public class FragmentFactory {
         return repoOverviewFragment;
     }
 
+    public static PullRequestListFragment createPullRequestListFragment(Repository repository, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("repository", repository);
+        bundle.putString("name", name);
+        PullRequestListFragment pullRequestListFragment = new PullRequestListFragment();
+        pullRequestListFragment.setArguments(bundle);
+        return pullRequestListFragment;
+    }
+
     private FragmentFactory(){}
 }

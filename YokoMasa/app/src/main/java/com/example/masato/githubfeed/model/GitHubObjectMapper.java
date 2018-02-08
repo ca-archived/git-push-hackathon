@@ -147,6 +147,7 @@ public class GitHubObjectMapper {
         PullRequest pr = new PullRequest();
         try {
             pr.name = jsonObject.getString("title");
+            pr.number = jsonObject.getInt("number");
             pr.bodyHtml = jsonObject.getString("body_html");
             pr.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             pr.commentsUrl = jsonObject.getString("comments_url");

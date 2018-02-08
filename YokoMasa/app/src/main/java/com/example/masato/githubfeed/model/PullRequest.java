@@ -23,6 +23,7 @@ public class PullRequest extends BaseModel{
     public String commitsUrl;
     public String diffUrl;
     public String commentsUrl;
+    public int number;
     public static Parcelable.Creator<PullRequest> CREATOR = new Parcelable.Creator<PullRequest>() {
         @Override
         public PullRequest createFromParcel(Parcel parcel) {
@@ -36,6 +37,7 @@ public class PullRequest extends BaseModel{
             pr.commitsUrl = parcel.readString();
             pr.diffUrl = parcel.readString();
             pr.commentsUrl = parcel.readString();
+            pr.number = parcel.readInt();
             return pr;
         }
 
@@ -61,5 +63,6 @@ public class PullRequest extends BaseModel{
         parcel.writeString(commitsUrl);
         parcel.writeString(diffUrl);
         parcel.writeString(commentsUrl);
+        parcel.writeInt(number);
     }
 }
