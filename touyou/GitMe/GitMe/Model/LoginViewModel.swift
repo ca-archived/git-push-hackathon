@@ -9,17 +9,18 @@
 import Foundation
 import RxSwift
 
-class LoginViewModel {
+//class LoginViewModel {
+//
+//    var accessToken: String = ""
+//    var isLoggedIn: Bool = false
+//    var authObservable: Observable<GitHubUser>!
+//
+//    init(isLoggedIn: Bool, authObservable: Observable<GitHubUser>) {
+//
+//        self.isLoggedIn = isLoggedIn
+//        self.authObservable = authObservable
+//    }
+//
+//    init() {}
+//}
 
-    var accessToken: String = ""
-    var isLoggedIn: Bool = false
-    var authObservable: Observable<GitHubUser>!
-
-    init(isLoggedIn: Bool, authObservable: Observable<GitHubUser>) {
-
-        self.isLoggedIn = isLoggedIn
-        self.authObservable = authObservable
-    }
-
-    init() {}
-}

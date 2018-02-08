@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+class MainPresenter {
+
+    init() {
+
+        self.page = 1
+    }
+
+    // MARK: Private
+
+    private var page: Int
+}
