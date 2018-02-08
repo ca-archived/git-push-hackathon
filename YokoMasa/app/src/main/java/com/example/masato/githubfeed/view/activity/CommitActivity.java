@@ -17,6 +17,7 @@ import com.example.masato.githubfeed.presenter.CommitPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.CommitView;
 import com.example.masato.githubfeed.view.fragment.DiffFileListFragment;
+import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,10 +54,7 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
 
     @Override
     public void showDiffFileList(ArrayList<DiffFile> diffFiles) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("diff_files", diffFiles);
-        DiffFileListFragment diffFileListFragment = new DiffFileListFragment();
-        diffFileListFragment.setArguments(bundle);
+        DiffFileListFragment diffFileListFragment = FragmentFactory.createDiffFileListFragment(diffFiles, "");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.commit_diff_file_list_mother, diffFileListFragment);
         ft.commit();

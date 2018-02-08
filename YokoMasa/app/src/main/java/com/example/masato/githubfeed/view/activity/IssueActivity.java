@@ -11,6 +11,7 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.view.adapter.FragmentListPagerAdapter;
 import com.example.masato.githubfeed.view.fragment.CommentListFragment;
+import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 import com.example.masato.githubfeed.view.fragment.IssueOverviewFragment;
 
 /**
@@ -27,18 +28,12 @@ public class IssueActivity extends ViewPagerActivity {
 
     public void setUpContent(Issue issue) {
         getSupportActionBar().setTitle(R.string.issue_title);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("issue", issue);
-        bundle.putString("name", getString(R.string.tab_overview));
-        IssueOverviewFragment issueOverviewFragment = new IssueOverviewFragment();
-        issueOverviewFragment.setArguments(bundle);
+        IssueOverviewFragment issueOverviewFragment =
+                FragmentFactory.createIssueOverviewFragment(issue, getString(R.string.tab_overview));
         addFragment(issueOverviewFragment);
 
-        bundle = new Bundle();
-        bundle.putString("url", issue.commentsUrl);
-        bundle.putString("name", getString(R.string.tab_comments));
-        CommentListFragment commentListFragment = new CommentListFragment();
-        commentListFragment.setArguments(bundle);
+        CommentListFragment commentListFragment =
+                FragmentFactory.createCommentListFragment(issue.commentsUrl, getString(R.string.tab_comments));
         addFragment(commentListFragment);
     }
 }

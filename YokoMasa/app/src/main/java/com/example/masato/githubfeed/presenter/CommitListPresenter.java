@@ -5,9 +5,8 @@ import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
-import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.view.PaginatingListView;
-import com.example.masato.githubfeed.view.fragment.CommitListView;
+import com.example.masato.githubfeed.view.CommitListView;
 
 import java.util.List;
 

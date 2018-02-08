@@ -1,7 +1,6 @@
 package com.example.masato.githubfeed.view.fragment;
 
 import android.graphics.Bitmap;
-import android.os.Parcelable;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,8 +17,8 @@ import com.example.masato.githubfeed.presenter.CommentListPresenter;
 import com.example.masato.githubfeed.presenter.ImageLoadablePresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
+import com.example.masato.githubfeed.view.CommitListView;
 import com.example.masato.githubfeed.view.ImageLoadableView;
-import com.example.masato.githubfeed.view.CommentListView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

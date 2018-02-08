@@ -1,6 +1,5 @@
 package com.example.masato.githubfeed.view.fragment;
 
-import android.content.Intent;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.CommitListPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
-import com.example.masato.githubfeed.view.activity.CommitActivity;
+import com.example.masato.githubfeed.view.CommitListView;
 
 /**
  * Created by Masato on 2018/02/06.

@@ -1,4 +1,4 @@
-package com.example.masato.githubfeed.view.fragment;
+package com.example.masato.githubfeed.view;
 
 import com.example.masato.githubfeed.model.Commit;
 

@@ -24,6 +24,7 @@ import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.FeedPresenter;
 import com.example.masato.githubfeed.view.FeedView;
 import com.example.masato.githubfeed.view.fragment.FeedListFragment;
+import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -127,11 +128,8 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         if (!shouldStartFragment) {
             return;
         }
-        Bundle arguments = new Bundle();
-        arguments.putString("url", feedUrl);
-        FeedListFragment feedFragment = new FeedListFragment();
-        feedFragment.setArguments(arguments);
 
+        FeedListFragment feedFragment = FragmentFactory.createFeedListFragment(feedUrl, "");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.feed_mother, feedFragment);
         ft.commit();

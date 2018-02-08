@@ -24,6 +24,7 @@ import com.example.masato.githubfeed.view.RepoView;
 import com.example.masato.githubfeed.view.adapter.FragmentListPagerAdapter;
 import com.example.masato.githubfeed.view.fragment.BaseFragment;
 import com.example.masato.githubfeed.view.fragment.CommitListFragment;
+import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 import com.example.masato.githubfeed.view.fragment.IssueListFragment;
 import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
 
@@ -58,25 +59,16 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
         getSupportActionBar().setTitle(repository.name);
         getSupportActionBar().setSubtitle(repository.owner);
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("repository", repository);
-        bundle.putString("name", getString(R.string.tab_overview));
-        RepoOverviewFragment overviewFragment = new RepoOverviewFragment();
-        overviewFragment.setArguments(bundle);
+        RepoOverviewFragment overviewFragment =
+                FragmentFactory.createRepoOverviewFragment(repository, getString(R.string.tab_overview));
         addFragment(overviewFragment);
 
-        bundle = new Bundle();
-        bundle.putParcelable("repository", repository);
-        bundle.putString("name", getString(R.string.tab_issues));
-        IssueListFragment issueListFragment = new IssueListFragment();
-        issueListFragment.setArguments(bundle);
+        IssueListFragment issueListFragment =
+                FragmentFactory.createIssueListFragment(repository, getString(R.string.tab_issues));
         addFragment(issueListFragment);
 
-        bundle = new Bundle();
-        bundle.putParcelable("repository", repository);
-        bundle.putString("name", getString(R.string.tab_commits));
-        CommitListFragment commitListFragment = new CommitListFragment();
-        commitListFragment.setArguments(bundle);
+        CommitListFragment commitListFragment =
+                FragmentFactory.createCommitListFragment(repository, getString(R.string.tab_commits));
         addFragment(commitListFragment);
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.view.fragment.FeedListFragment;
+import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 
 /**
  * Created by Masato on 2018/01/27.
@@ -29,11 +30,8 @@ public class GlobalFeedActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Bundle bundle = new Bundle();
-            bundle.putString("url", GitHubApi.GLOBAL_FEED_URL);
-            FeedListFragment ttFragment = new FeedListFragment();
-            ttFragment.setArguments(bundle);
-            ft.add(R.id.global_feed_mother, ttFragment);
+            FeedListFragment fragment = FragmentFactory.createFeedListFragment(GitHubApi.GLOBAL_FEED_URL, "");
+            ft.add(R.id.global_feed_mother, fragment);
             ft.commit();
         }
     }
