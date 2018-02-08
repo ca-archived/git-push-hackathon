@@ -122,7 +122,7 @@ public class GitHubObjectMapper {
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
             issue.comments = jsonObject.getInt("comments");
             issue.state = jsonObject.getString("state");
-            issue.repository = mapRepository(jsonObject.getJSONObject("repository"));
+            issue.repository = mapRepository(jsonObject.optJSONObject("repository"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,6 +141,38 @@ public class GitHubObjectMapper {
             e.printStackTrace();
         }
         return issues;
+    }
+    
+    public static PullRequest mapPullRequest(JSONObject jsonObject) {
+        PullRequest pr = new PullRequest();
+        try {
+            pr.name = jsonObject.getString("title");
+            pr.bodyHtml = jsonObject.getString("body_html");
+            pr.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
+            pr.commentsUrl = jsonObject.getString("comments_url");
+            pr.author = mapProfile(jsonObject.getJSONObject("user"));
+            pr.state = jsonObject.getString("state");
+            pr.diffUrl = jsonObject.getString("diff_url");
+            pr.commitsUrl = jsonObject.getString("commits_url");
+            pr.repository = mapRepository(jsonObject.getJSONObject("base").getJSONObject("repo"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pr;
+    }
+
+    public static List<PullRequest> mapPullRequestList(String jsonString) {
+        List<PullRequest> prs = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0;i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                prs.add(mapPullRequest(jsonObject));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return prs;
     }
 
     public static Commit mapCommit(JSONObject jsonObject) {
