@@ -40,6 +40,8 @@
 
         <activity android:name=".view.activity.CommitActivity"/>
 
+        <activity android:name=".view.activity.PullRequestActivity"/>
+
     </application>
 
 </manifest>

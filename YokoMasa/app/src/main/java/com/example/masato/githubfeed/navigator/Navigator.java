@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Issue;
+import com.example.masato.githubfeed.model.PullRequest;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.view.activity.CommitActivity;
 import com.example.masato.githubfeed.view.activity.FeedActivity;
 import com.example.masato.githubfeed.view.activity.GlobalFeedActivity;
 import com.example.masato.githubfeed.view.activity.IssueActivity;
 import com.example.masato.githubfeed.view.activity.LogInActivity;
+import com.example.masato.githubfeed.view.activity.PullRequestActivity;
 import com.example.masato.githubfeed.view.activity.RepoActivity;
 
 /**
@@ -58,6 +60,12 @@ public class Navigator {
     public static void navigateToRepoView(Context context, String url) {
         Intent intent = new Intent(context, RepoActivity.class);
         intent.putExtra("url", url);
+        context.startActivity(intent);
+    }
+
+    public static void navigateToPullRequestView(Context context, PullRequest pullRequest) {
+        Intent intent = new Intent(context, PullRequestActivity.class);
+        intent.putExtra("pull_request", pullRequest);
         context.startActivity(intent);
     }
     
