@@ -21,7 +21,8 @@
             android:background="@color/colorPrimaryDark"
             app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/white">
+            app:tabTextColor="@color/white"
+            app:tabTextAppearance="@style/TabTextAppearance">
 
         </android.support.design.widget.TabLayout>
 

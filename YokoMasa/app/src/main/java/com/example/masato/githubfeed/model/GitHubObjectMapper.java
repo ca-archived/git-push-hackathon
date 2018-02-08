@@ -230,5 +230,9 @@ public class GitHubObjectMapper {
         return diffFiles;
     }
 
+    public static List<DiffFile> mapDiffFileList(String diffString) {
+        return DiffParser.parseDiffFiles(diffString);
+    }
+
 
 }

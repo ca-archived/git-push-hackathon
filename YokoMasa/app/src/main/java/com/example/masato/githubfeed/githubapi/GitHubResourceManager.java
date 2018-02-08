@@ -194,6 +194,15 @@ class GitHubResourceManager {
         });
     }
 
+    void getDiffFileList(String url, GitHubApiCallback callback) {
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.get(result -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapDiffFileList(successfulResult.getBodyString());
+            });
+        });
+    }
+
     void getCommitDiffFileList(Commit commit, GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(commit.url);
         connection.get(result -> {

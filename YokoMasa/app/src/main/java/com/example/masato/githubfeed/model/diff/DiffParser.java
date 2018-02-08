@@ -32,6 +32,7 @@ public class DiffParser {
                 StringBuilder builder = new StringBuilder();
                 while (!line.startsWith("diff --git")) {
                     builder.append(line);
+                    builder.append(System.getProperty("line.separator"));
                     line = bufferedReader.readLine();
                     if (line == null) {
                         break;

@@ -41,6 +41,15 @@ public class FragmentFactory {
         return commitListFragment;
     }
 
+    public static DiffFileListFragment createDiffFileListFragment(String url, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        bundle.putString("name", name);
+        DiffFileListFragment diffFileListFragment = new DiffFileListFragment();
+        diffFileListFragment.setArguments(bundle);
+        return diffFileListFragment;
+    }
+
     public static DiffFileListFragment createDiffFileListFragment(ArrayList<DiffFile> diffFiles, String name) {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("diff_files", diffFiles);

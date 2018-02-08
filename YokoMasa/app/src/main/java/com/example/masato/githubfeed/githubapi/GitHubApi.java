@@ -111,6 +111,10 @@ public class GitHubApi {
         resourceManager.getRepositoryCommitList(repository, page, callback);
     }
 
+    public void fetchDiffFileList(String url, GitHubApiCallback callback) {
+        resourceManager.getDiffFileList(url, callback);
+    }
+
     public void fetchCommitDiffFileList(Commit commit, GitHubApiCallback callback) {
         resourceManager.getCommitDiffFileList(commit, callback);
     }
