@@ -21,6 +21,7 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.model.Profile;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.LoginPresenter;
 import com.example.masato.githubfeed.view.LoginView;
 import com.example.masato.githubfeed.view.fragment.ProfileFragment;
@@ -92,13 +93,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void navigateToFeedView() {
-        Intent intent = new Intent(this, FeedActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    @Override
     public void showProfile(Profile profile) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("profile", profile);
@@ -113,6 +107,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void showLoginError(Failure failure) {
         loginDescription.setText(failure.textId);
+    }
+
+    @Override
+    public void showFeedView() {
+        Navigator.navigateToFeedView(this);
     }
 
     @Override

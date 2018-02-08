@@ -1,8 +1,6 @@
 package com.example.masato.githubfeed.view.fragment;
 
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,9 +10,11 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.Repository;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.IssueListPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
+import com.example.masato.githubfeed.view.BaseView;
 import com.example.masato.githubfeed.view.IssueListView;
 import com.example.masato.githubfeed.view.activity.IssueActivity;
 
@@ -25,10 +25,8 @@ import com.example.masato.githubfeed.view.activity.IssueActivity;
 public class IssueListFragment extends PaginatingListFragment implements IssueListView {
 
     @Override
-    public void navigateToIssueView(Issue issue) {
-        Intent intent = new Intent(getContext(), IssueActivity.class);
-        intent.putExtra("issue", issue);
-        startActivity(intent);
+    public void showIssue(Issue issue) {
+        Navigator.navigateToIssueView(getContext(), issue);
     }
 
     @Override

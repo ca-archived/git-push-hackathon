@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Profile;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.FeedPresenter;
 import com.example.masato.githubfeed.view.FeedView;
 import com.example.masato.githubfeed.view.fragment.FeedListFragment;
@@ -102,6 +103,16 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     }
 
     @Override
+    public void showLogInView() {
+        Navigator.navigateToLogInView(this);
+    }
+
+    @Override
+    public void showGlobalFeed() {
+        Navigator.navigateToGlobalFeedView(this);
+    }
+
+    @Override
     public void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
@@ -109,19 +120,6 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     @Override
     public void showToast(int stringId) {
         Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void navigateToLogInView() {
-        Intent intent = new Intent(this, LogInActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    @Override
-    public void navigateToGlobalFeedView() {
-        Intent intent = new Intent(this, GlobalFeedActivity.class);
-        startActivity(intent);
     }
 
     @Override

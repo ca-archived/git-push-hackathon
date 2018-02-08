@@ -2,12 +2,12 @@ package com.example.masato.githubfeed.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Base64;
 
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
-import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
+import com.example.masato.githubfeed.navigator.Navigator;
+import com.example.masato.githubfeed.view.BaseView;
 import com.example.masato.githubfeed.view.MainView;
 
 /**
@@ -31,10 +31,10 @@ public class MainPresenter {
 
     private void navigateToFeedViewIfSucceeded(GitHubApiResult result) {
         if (result.isSuccessful) {
-            view.navigateToFeedView();
+            view.showFeedListView();
         } else {
             if (result.failure == Failure.NOT_FOUND) {
-                view.navigateToLogInView();
+                view.showLogInView();
             } else {
                 view.showToast(result.failure.textId);
             }

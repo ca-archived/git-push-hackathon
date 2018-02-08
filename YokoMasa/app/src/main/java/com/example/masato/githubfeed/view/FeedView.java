@@ -16,10 +16,10 @@ public interface FeedView extends BaseView{
 
     public void closeDrawer();
 
-    public void navigateToLogInView();
-
-    public void navigateToGlobalFeedView();
-
     public void startFeedFragment(String feedUrl);
+
+    public void showLogInView();
+
+    public void showGlobalFeed();
 
 }

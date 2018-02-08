@@ -5,8 +5,8 @@ import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.Repository;
-import com.example.masato.githubfeed.view.IssueListView;
 import com.example.masato.githubfeed.view.PaginatingListView;
+import com.example.masato.githubfeed.view.IssueListView;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class IssueListPresenter extends PaginatingListPresenter {
 
-    private IssueListView view;
     private String url;
     private Repository repository;
+    private IssueListView view;
 
     @Override
     int onGetPaginatingItemViewType(BaseModel element) {
@@ -28,7 +28,7 @@ public class IssueListPresenter extends PaginatingListPresenter {
     @Override
     public void onElementClicked(BaseModel element, int viewType) {
         Issue issue = (Issue) element;
-        view.navigateToIssueView(issue);
+        view.showIssue(issue);
     }
 
     @Override

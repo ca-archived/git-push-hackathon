@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.FeedEntry;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.FeedEntryPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.presenter.FeedListPresenter;
@@ -28,6 +29,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class FeedListFragment extends PaginatingListFragment implements FeedListView {
+
+    @Override
+    public void showRepo(String repoUrl) {
+        Navigator.navigateToRepoView(getContext(), repoUrl);
+    }
 
     @Override
     protected PaginatingListPresenter onCreatePresenter() {
@@ -59,13 +65,6 @@ public class FeedListFragment extends PaginatingListFragment implements FeedList
     @Override
     public String getName() {
         return null;
-    }
-
-    @Override
-    public void startRepoView(String url) {
-        Intent intent = new Intent(getContext(), RepoActivity.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
     }
 
     private class FeedEntryViewViewHolder extends PaginatingListViewHolder implements FeedEntryView {

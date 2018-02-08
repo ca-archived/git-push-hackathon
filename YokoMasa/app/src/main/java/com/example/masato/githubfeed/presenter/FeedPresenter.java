@@ -5,6 +5,7 @@ import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Profile;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.view.FeedView;
 
 /**
@@ -40,7 +41,7 @@ public class FeedPresenter {
 
     private void onApiFailure(GitHubApiResult result) {
         if (result.failure == Failure.INVALID_TOKEN) {
-            view.navigateToLogInView();
+            view.showLogInView();
         } else {
             view.showToast(result.failure.textId);
         }
@@ -48,12 +49,12 @@ public class FeedPresenter {
 
     public void onLogOutSelected() {
         GitHubApi.getApi().deleteToken();
-        view.navigateToLogInView();
+        view.showLogInView();
     }
 
     public void onGlobalFeedSelected() {
         view.closeDrawer();
-        view.navigateToGlobalFeedView();
+        view.showGlobalFeed();
     }
 
     public FeedPresenter(FeedView feedView) {

@@ -1,21 +1,15 @@
 package com.example.masato.githubfeed.view.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.R;
-import com.example.masato.githubfeed.model.diff.DiffFile;
-import com.example.masato.githubfeed.model.diff.DiffParser;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.MainPresenter;
+import com.example.masato.githubfeed.view.BaseView;
 import com.example.masato.githubfeed.view.MainView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -36,6 +30,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
+    public void showLogInView() {
+        Navigator.navigateToLogInView(this);
+    }
+
+    @Override
+    public void showFeedListView() {
+        Navigator.navigateToFeedView(this);
+    }
+
+    @Override
     public void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
@@ -43,20 +47,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showToast(int stringId) {
         Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void navigateToLogInView() {
-        Intent intent = new Intent(this, LogInActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    @Override
-    public void navigateToFeedView() {
-        Intent intent = new Intent(this, FeedActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
 }

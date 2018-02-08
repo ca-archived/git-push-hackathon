@@ -11,7 +11,9 @@ import android.webkit.WebView;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Comment;
+import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Profile;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.CommentListPresenter;
 import com.example.masato.githubfeed.presenter.ImageLoadablePresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
@@ -25,7 +27,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Masato on 2018/02/03.
  */
 
-public class CommentListFragment extends PaginatingListFragment {
+public class CommentListFragment extends PaginatingListFragment implements CommitListView {
+
+    @Override
+    public void showCommit(Commit commit) {
+        Navigator.navigateToCommitView(getContext(), commit);
+    }
 
     @Override
     protected PaginatingListPresenter onCreatePresenter() {

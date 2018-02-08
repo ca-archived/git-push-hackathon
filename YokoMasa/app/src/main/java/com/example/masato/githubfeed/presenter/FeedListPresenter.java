@@ -6,6 +6,7 @@ import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.FeedEntry;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.view.FeedListView;
 import com.example.masato.githubfeed.view.PaginatingListView;
 
@@ -44,7 +45,7 @@ public class FeedListPresenter extends PaginatingListPresenter {
     @Override
     public void onElementClicked(BaseModel element, int viewType) {
         FeedEntry feedEntry = (FeedEntry) element;
-        view.startRepoView(feedEntry.repoUrl);
+        view.showRepo(feedEntry.repoUrl);
     }
 
     public FeedListPresenter(PaginatingListView view, String url) {

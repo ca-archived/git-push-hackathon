@@ -9,6 +9,7 @@ import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiCallback;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Profile;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.view.LoginView;
 
 /**
@@ -54,7 +55,7 @@ public class LoginPresenter {
 
     private void navigateToFeedView(Profile profile) {
         view.showProfile(profile);
-        new Handler(Looper.getMainLooper()).postDelayed(view::navigateToFeedView, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(view::showFeedView, 2000);
     }
 
     public LoginPresenter(LoginView view) {

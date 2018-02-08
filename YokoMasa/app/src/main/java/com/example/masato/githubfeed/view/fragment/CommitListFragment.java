@@ -10,10 +10,10 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.CommitListPresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
-import com.example.masato.githubfeed.view.CommitListView;
 import com.example.masato.githubfeed.view.activity.CommitActivity;
 
 /**
@@ -23,10 +23,8 @@ import com.example.masato.githubfeed.view.activity.CommitActivity;
 public class CommitListFragment extends PaginatingListFragment implements CommitListView {
 
     @Override
-    public void navigateToCommitView(Commit commit) {
-        Intent intent = new Intent(getContext(), CommitActivity.class);
-        intent.putExtra("commit", commit);
-        startActivity(intent);
+    public void showCommit(Commit commit) {
+        Navigator.navigateToCommitView(getContext(), commit);
     }
 
     @Override
