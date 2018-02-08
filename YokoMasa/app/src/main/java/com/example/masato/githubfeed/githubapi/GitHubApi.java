@@ -123,7 +123,7 @@ public class GitHubApi {
         tokenManager.fetchToken(code, result -> {
             if (result.isSuccessful) {
                 String token = (String) result.resultObject;
-                resourceManager.setToken(token);
+                resourceManager.updateToken(token);
             }
             callback.onApiResult(result);
         });

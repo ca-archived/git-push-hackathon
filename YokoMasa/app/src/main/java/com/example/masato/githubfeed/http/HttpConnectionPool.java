@@ -2,6 +2,10 @@ package com.example.masato.githubfeed.http;
 
 import com.example.masato.githubfeed.http.HandyHttpURLConnection;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -11,24 +15,25 @@ import java.util.concurrent.ExecutorService;
 public class HttpConnectionPool {
 
     private ExecutorService executorService;
-    private String authorizationToken;
+    private Map<String, String> defHeader = new HashMap<>();
 
-    public void setToken(String token) {
-        this.authorizationToken = token;
+    public void setDefHeader(String key, String val) {
+        defHeader.put(key, val);
     }
 
     public HandyHttpURLConnection newConnection(String url) {
         HandyHttpURLConnection connection = new HandyHttpURLConnection(url, executorService);
-        connection.setHeader("User-Agent", "YokoMasa");
-        if (authorizationToken != null) {
-            connection.setHeader("Authorization", "token " + authorizationToken);
+        Set<String> keys = defHeader.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            connection.setHeader(key, defHeader.get(key));
         }
         return connection;
     }
 
-    public HttpConnectionPool(ExecutorService executorService, String authorizationToken) {
+    public HttpConnectionPool(ExecutorService executorService) {
         this.executorService = executorService;
-        this.authorizationToken = authorizationToken;
     }
 
 }

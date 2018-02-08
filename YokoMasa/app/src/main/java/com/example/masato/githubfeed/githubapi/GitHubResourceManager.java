@@ -25,8 +25,8 @@ class GitHubResourceManager {
 
     private HttpConnectionPool connectionPool;
 
-    void setToken(String token) {
-        connectionPool.setToken(token);
+    void updateToken(String token) {
+        connectionPool.setDefHeader("Authorization", "Token " + token);
     }
 
     void getProfile(final GitHubApiCallback callback) {
@@ -202,7 +202,9 @@ class GitHubResourceManager {
     }
 
     GitHubResourceManager(String token, ExecutorService service) {
-        this.connectionPool = new HttpConnectionPool(service, token);
+        this.connectionPool = new HttpConnectionPool(service);
+        this.connectionPool.setDefHeader("User-Agent", "YokoMasa");
+        this.connectionPool.setDefHeader("Authorization", "Token " + token);
     }
 
 }

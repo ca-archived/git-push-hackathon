@@ -78,10 +78,6 @@ public class GitHubTokenManager {
         saveToken("");
     }
 
-    public boolean hasToken() {
-        return getToken() != null;
-    }
-
     String getToken() {
         Log.i("gh_feed",  preferences.getString(PREF_TOKEN_KEY, ""));
         return preferences.getString(PREF_TOKEN_KEY, "");
