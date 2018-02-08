@@ -58,7 +58,7 @@ public class PullRequestListFragment extends PaginatingListFragment implements P
 
         void bindPullRequest(PullRequest pr) {
             date.setText(DateUtil.getReadableDateForFeed(pr.createdAt, getContext()));
-            number.setText(Integer.toString(pr.number));
+            number.setText(getString(R.string.hash_tag) + pr.number);
             title.setText(pr.name);
         }
 

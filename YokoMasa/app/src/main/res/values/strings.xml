@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GitHub Feed</string>
+    <string name="hash_tag">#</string>
     <string name="login">ログイン</string>
     <string name="logout">ログアウト</string>
     <string name="login_description">このアプリケーションをご利用になるにはGitHubにログインする必要があります。</string>
@@ -30,9 +31,10 @@
     <string name="days_ago">日前</string>
 
     <string name="tab_overview">概要</string>
-    <string name="tab_issues">issues</string>
+    <string name="tab_issues">Issues</string>
     <string name="tab_comments">コメント</string>
-    <string name="tab_commits">commits</string>
+    <string name="tab_commits">Commits</string>
+    <string name="tab_pull_requests">Pull requests</string>
 
     <string name="repo_readme">README</string>
     <string name="repo_no_readme">No README here</string>

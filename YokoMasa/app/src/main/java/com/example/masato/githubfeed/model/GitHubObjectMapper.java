@@ -122,7 +122,7 @@ public class GitHubObjectMapper {
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
             issue.comments = jsonObject.getInt("comments");
             issue.state = jsonObject.getString("state");
-            issue.repository = mapRepository(jsonObject.optJSONObject("repository"));
+            //issue.repository = mapRepository(jsonObject.optJSONObject("repository"));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -26,6 +26,7 @@ import com.example.masato.githubfeed.view.fragment.BaseFragment;
 import com.example.masato.githubfeed.view.fragment.CommitListFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 import com.example.masato.githubfeed.view.fragment.IssueListFragment;
+import com.example.masato.githubfeed.view.fragment.PullRequestListFragment;
 import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
 
 /**
@@ -70,5 +71,9 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
         CommitListFragment commitListFragment =
                 FragmentFactory.createCommitListFragment(repository, getString(R.string.tab_commits));
         addFragment(commitListFragment);
+
+        PullRequestListFragment pullRequestListFragment =
+                FragmentFactory.createPullRequestListFragment(repository, getString(R.string.tab_pull_requests));
+        addFragment(pullRequestListFragment);
     }
 }
