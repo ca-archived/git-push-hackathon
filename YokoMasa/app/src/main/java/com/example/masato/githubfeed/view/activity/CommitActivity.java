@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
@@ -39,8 +42,8 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         AppCompatTextView commitMessage = (AppCompatTextView) findViewById(R.id.commit_message);
         commitMessage.setText(commit.getShortenedComment());
 
-        AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_date);
-        date.setText(DateUtil.getReadableDateForFeed(commit.createdAt, this));
+        showAuthor(commit);
+        showCommitter(commit);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.commit_tool_bar);
         setSupportActionBar(toolbar);
@@ -50,6 +53,30 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         getSupportActionBar().setTitle(actionBarTitle);
 
         presenter = new CommitPresenter(this, commit);
+    }
+
+    private void showAuthor(Commit commit) {
+        if (commit.author == null) {
+            return;
+        }
+        AppCompatTextView name = (AppCompatTextView) findViewById(R.id.commit_author_name);
+        AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_author_date);
+        name.setText(commit.author.name);
+        date.setText(DateUtil.getReadableDateForFeed(commit.authorDate, this));
+        ViewGroup author = (ViewGroup) findViewById(R.id.commit_author);
+        author.setVisibility(View.VISIBLE);
+    }
+
+    private void showCommitter(Commit commit) {
+        if (commit.committer == null) {
+            return;
+        }
+        AppCompatTextView name = (AppCompatTextView) findViewById(R.id.commit_committer_name);
+        AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_committer_date);
+        name.setText(commit.committer.name);
+        date.setText(DateUtil.getReadableDateForFeed(commit.committerDate, this));
+        ViewGroup author = (ViewGroup) findViewById(R.id.commit_committer);
+        author.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.example.masato.githubfeed.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 /**
  * Created by Masato on 2018/02/06.
  */
@@ -14,6 +16,8 @@ public class Commit extends BaseModel {
     public String url;
     public Profile committer;
     public Profile author;
+    public Date committerDate;
+    public Date authorDate;
     public Repository repository;
     public static Parcelable.Creator<Commit> CREATOR = new Parcelable.Creator<Commit>() {
         @Override
@@ -24,6 +28,8 @@ public class Commit extends BaseModel {
             commit.url = parcel.readString();
             commit.committer = parcel.readParcelable(getClass().getClassLoader());
             commit.author = parcel.readParcelable(getClass().getClassLoader());
+            commit.committerDate = (Date) parcel.readSerializable();
+            commit.authorDate = (Date) parcel.readSerializable();
             commit.repository = parcel.readParcelable(getClass().getClassLoader());
             return commit;
         }
@@ -61,6 +67,8 @@ public class Commit extends BaseModel {
         parcel.writeString(url);
         parcel.writeParcelable(committer, 0);
         parcel.writeParcelable(author, 0);
+        parcel.writeSerializable(committerDate);
+        parcel.writeSerializable(authorDate);
         parcel.writeParcelable(repository, 0);
     }
 }

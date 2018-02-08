@@ -58,7 +58,6 @@ public class Navigator {
     public static void navigateToRepoView(Context context, String url) {
         Intent intent = new Intent(context, RepoActivity.class);
         intent.putExtra("url", url);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
     

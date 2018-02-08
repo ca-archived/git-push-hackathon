@@ -148,12 +148,18 @@ public class GitHubObjectMapper {
         try {
             commit.sha = jsonObject.getString("sha");
             commit.url = jsonObject.getString("url");
-            JSONObject commitObject = jsonObject.getJSONObject("commit");
-            commit.comment = commitObject.getString("message");
-            String createdAt = commitObject.getJSONObject("committer").getString("date");
-            commit.createdAt = dateFormat.parse(createdAt);
             commit.committer = mapProfile(jsonObject.optJSONObject("committer"));
             commit.author = mapProfile(jsonObject.optJSONObject("author"));
+            JSONObject commitObject = jsonObject.getJSONObject("commit");
+            commit.comment = commitObject.getString("message");
+            JSONObject authorObject = commitObject.optJSONObject("author");
+            if (authorObject != null) {
+                commit.authorDate = dateFormat.parse(authorObject.getString("date"));
+            }
+            JSONObject committerObject = commitObject.optJSONObject("committer");
+            if (committerObject != null) {
+                commit.committerDate = dateFormat.parse(committerObject.getString("date"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("gh_feed", "sha: " + commit.sha);
