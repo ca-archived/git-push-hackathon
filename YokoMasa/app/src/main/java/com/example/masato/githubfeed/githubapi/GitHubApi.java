@@ -95,6 +95,10 @@ public class GitHubApi {
         resourceManager.getRepositoryIssueList(repository, page, callback);
     }
 
+    public void fetchPullRequestList(Repository repository, int page, GitHubApiCallback callback) {
+        resourceManager.getRepositoryPullRequestList(repository, page, callback);
+    }
+
     public void fetchCommentList(String url, int page, GitHubApiCallback callback) {
         resourceManager.getCommentListFromUrl(url, page, callback);
     }
