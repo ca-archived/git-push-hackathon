@@ -1,5 +1,6 @@
 package com.example.masato.githubfeed.githubapi;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
@@ -24,7 +25,9 @@ public class GitHubApi {
 
     private static GitHubApi api;
 
-    public static void init(SharedPreferences preferences, Resources resources) {
+    public static void init(Context appContext) {
+        SharedPreferences preferences = appContext.getSharedPreferences("token", Context.MODE_PRIVATE);
+        Resources resources = appContext.getResources();
         api = new GitHubApi(preferences, resources);
     }
 
