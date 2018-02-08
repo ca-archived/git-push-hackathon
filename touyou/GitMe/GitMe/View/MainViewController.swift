@@ -27,11 +27,17 @@ class MainViewController: UIViewController {
     }
     var jsonData: Data!
     var feed: FeedResponse?
+    var events: [Event]?
 
     func parseJson() {
 
         let decoder = JSONDecoder()
-        try? print(JSONSerialization.jsonObject(with: jsonData, options: []))
+        decoder.dateDecodingStrategy = .iso8601
+        do {
+            events = try decoder.decode([Event].self, from: jsonData)
+        } catch let error {
+            print(error)
+        }
     }
 
     // MARK: UIViewController
@@ -48,7 +54,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         #if DEBUG
-        UserDefaults.standard.set(nil, forKey: "github_user")
+//        UserDefaults.standard.set(nil, forKey: "github_user")
         #endif
     }
 
@@ -60,14 +66,14 @@ class MainViewController: UIViewController {
 
             self.oauthKey = oauthKey
             let session = URLSession(configuration: URLSessionConfiguration.default)
-            session.rx.data(request: URLRequest(url: URL(string: "https://api.github.com/users/touyou/received_events\(accessTokenStr)")!)).subscribe({ [unowned self] event in
+            session.rx.data(request: URLRequest(url: URL(string: "https://api.github.com/users/touyou/received_events\(accessTokenStr)&page=1&per_page=100")!)).subscribe({ [unowned self] event in
 
                 switch event {
                 case .next(let value):
                     self.jsonData = value
                     self.parseJson()
                 case .error(let error):
-                    print(error.localizedDescription)
+                    print(error)
                 case .completed:
                     break
                 }

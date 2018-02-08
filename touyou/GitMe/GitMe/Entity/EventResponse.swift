@@ -6,103 +6,137 @@
 //  Copyright © 2018 touyou. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-struct EventResponse: Codable {
+/// 必要な情報だけデコード
+
+struct Event: Codable {
 
     let actor: Actor
-    private let createdAtString: String
-    var createdAt: Date {
-
-        return Date()
-    }
-    let id: UInt64
+    let createdAt: Date
+    let id: String
     let org: Organization?
     let payload: Payload
     let repo: Repository?
     let isPublic: Bool
-    let typeString: String
+    let type: EventType
 
     enum CodingKeys: String, CodingKey {
         case actor
-        case createdAtString = "created_at"
+        case createdAt = "created_at"
         case id
         case org
         case payload
         case repo
         case isPublic = "public"
-        case typeString = "type"
+        case type
+    }
+
+    enum EventType: String, Codable {
+        case commitComment = "CommitCommentEvent"
+        case create = "CreateEvent"
+        case delete = "DeleteEvent"
+        case deployment = "DeploymentEvent"
+        case deploymentStatus = "DeplymentStatusEvent"
+        case fork = "ForkEvent"
+        case gollum = "GollumEvent"
+        case installation = "InstallationEvent"
+        case installationRepositories = "InstallationRepositoriesEvent"
+        case issueComment = "IssueCommentEvent"
+        case issues = "IssuesEvent"
+        case label = "LabelEvent"
+        case marketplacePurchase = "MarketplacePurchaseEvent"
+        case member = "MemberEvent"
+        case membership = "MembershipEvent"
+        case milestone = "MilestoneEvent"
+        case organization = "OrganizationEvent"
+        case orgBlock = "OrgBlockEvent"
+        case pageBuild = "PageBuildEvent"
+        case projectCard = "ProjectCardEvent"
+        case projectColumn = "ProjectColumnEvent"
+        case project = "ProjectEvent"
+        case `public` = "PublicEvent"
+        case pullRequest = "PullRequestEvent"
+        case pullRequestReview = "PullRequestReviewEvent"
+        case pullRequestReviewComment = "PullRequestReviewCommentEvent"
+        case push = "PushEvent"
+        case release = "ReleaseEvent"
+        case repository = "RepositoryEvent"
+        case status = "StatusEvent"
+        case team = "TeamEvent"
+        case teamAdd = "TeamAddEvent"
+        case watch = "WatchEvent"
     }
 }
 
 struct Actor: Codable {
 
-    private let avatarUrlString: String
-    var avatarUrl: URL? {
-
-        return URL(string: self.avatarUrlString)
-    }
+    let avatarUrl: URL
     let displayLogin: String
     let gravatarId: String?
-    let id: UInt64
+    let id: Int
     let login: String
-    private let urlString: String
-    var url: URL? {
-
-        return URL(string: self.urlString)
-    }
+    let url: URL
 
     enum CodingKeys: String, CodingKey {
-        case avatarUrlString = "avatar_url"
+        case avatarUrl = "avatar_url"
         case displayLogin = "display_login"
         case gravatarId = "gravatar_id"
         case id
         case login
-        case urlString = "url"
+        case url
     }
 }
 
 struct Organization: Codable {
 
-    private let avatarUrlString: String
-    var avatarUrl: URL? {
-
-        return URL(string: self.avatarUrlString)
-    }
+    let avatarUrl: URL
     let gravatarId: String?
-    let id: UInt64
+    let id: Int
     let login: String
-    private let urlString: String
-    var url: URL? {
-
-        return URL(string: self.urlString)
-    }
+    let url: URL
 
     enum CodingKeys: String, CodingKey {
-        case avatarUrlString = "avatar_url"
+        case avatarUrl = "avatar_url"
         case gravatarId = "gravatar_id"
         case id
         case login
-        case urlString = "url"
+        case url
     }
 }
 
 struct Payload: Codable {
 
+    /// IssueCommnet, Issues, Watch
     let action: String?
+    /// IssueComment
     let comment: Comment?
+    /// IssueComment, Issues
     let issue: Issue?
+    /// Push
     let before: String?
+    /// Push
     let commits: [Commit]?
+    /// Push
     let distinctSize: Int?
+    /// Push
     let head: String?
-    let pushId: String?
+    /// Push
+    let pushId: Int?
+    /// Push, Create
     let ref: String?
+    /// Create
     let refType: String?
-    let size: String?
+    /// Push
+    let size: Int?
+    /// Create
     let description: String?
+    /// Create
     let masterBranch: String?
+    /// Create
     let pusherType: String?
+    /// Fork
+    let forkee: Forkee?
 
     enum CodingKeys: String, CodingKey {
         case action
@@ -119,68 +153,78 @@ struct Payload: Codable {
         case description
         case masterBranch = "master_branch"
         case pusherType = "pusher_type"
+        case forkee
     }
 }
 
 struct Repository: Codable {
 
-    let id: UInt64
+    let id: Int
     let name: String
-    private let urlString: String
-    var url: URL? {
-
-        return URL(string: self.urlString)
-    }
+    let url: URL
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case urlString = "url"
+        case url
     }
 }
 
 struct User: Codable {
-}
 
-struct UserResponse: Codable {
+    struct Plan: Codable {
+
+        let name: String
+        let space: Int
+        let privateReposCount: Int
+        let collaboratorsCount: Int
+
+        enum CodingKeys: String, CodingKey {
+
+            case name
+            case space
+            case privateReposCount = "private_repos"
+            case collaboratorsCount = "collaborators"
+        }
+    }
 
     let login: String
-    let id: UInt64
-    private let avatarUrl: String
+    let id: Int
+    let avatarUrl: URL
     let gravatarId: String?
-    private let urlString: String
-    private let htmlUrlString: String
-    private let followersUrlString: String
-    private let followingUrlString: String
-    private let gistsUrlString: String
-    private let starredUrlString: String
-    private let subscriptionsUrlString: String
-    private let organizationsUrlString: String
-    private let reposUrlString: String
-    private let eventsUrlString: String
-    private let receivedEventsUrlString: String
+    let url: URL
+    let htmlUrl: URL
+    let followersUrl: URL
+    let followingUrlString: String
+    let gistsUrlString: String
+    let starredUrlString: String
+    let subscriptionsUrl: URL
+    let organizationsUrl: URL
+    let reposUrl: URL
+    let eventsUrlString: String
+    let receivedEventsUrl: URL
     let type: String
     let isSiteAdmin: Bool
-    let name: String
-    let company: String
-    let blog: String
-    let location: String
-    let email: String
-    let isHireable: Bool
-    let bio: String
-    let publicReposCount: Int
-    let publicGistsCount: Int
-    let followersCount: Int
-    let followingCount: Int
-    private let createdAtString: String
-    private let updatedAtString: String
-    let totalPrivateReposCount: Int
-    let ownedPrivateReposCount: Int
-    let privateGistsCount: Int
-    let diskUsage: Int
-    let collaboratorsCount: Int
-    let isTwoFactorAuth: Bool
-    let plan: Plan
+    let name: String?
+    let company: String?
+    let blog: String?
+    let location: String?
+    let email: String?
+    let isHireable: Bool?
+    let bio: String?
+    let publicReposCount: Int?
+    let publicGistsCount: Int?
+    let followersCount: Int?
+    let followingCount: Int?
+    let createdAt: Date?
+    let updatedAt: Date?
+    let totalPrivateReposCount: Int?
+    let ownedPrivateReposCount: Int?
+    let privateGistsCount: Int?
+    let diskUsage: Int?
+    let collaboratorsCount: Int?
+    let isTwoFactorAuth: Bool?
+    let plan: Plan?
 
     enum CodingKeys: String, CodingKey {
 
@@ -188,17 +232,17 @@ struct UserResponse: Codable {
         case id
         case avatarUrl = "avatar_url"
         case gravatarId = "gravatar_id"
-        case urlString = "url"
-        case htmlUrlString = "html_url"
-        case followersUrlString = "followers_url"
+        case url
+        case htmlUrl = "html_url"
+        case followersUrl = "followers_url"
         case followingUrlString = "following_url"
         case gistsUrlString = "gists_url"
         case starredUrlString = "starred_url"
-        case subscriptionsUrlString = "subscriptions_url"
-        case organizationsUrlString = "organizations_url"
-        case reposUrlString = "repos_url"
+        case subscriptionsUrl = "subscriptions_url"
+        case organizationsUrl = "organizations_url"
+        case reposUrl = "repos_url"
         case eventsUrlString = "events_url"
-        case receivedEventsUrlString = "received_events_url"
+        case receivedEventsUrl = "received_events_url"
         case type
         case isSiteAdmin = "site_admin"
         case name
@@ -212,8 +256,8 @@ struct UserResponse: Codable {
         case publicGistsCount = "public_gists"
         case followersCount = "followers"
         case followingCount = "following"
-        case createdAtString = "created_at"
-        case updatedAtString = "updated_at"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
         case totalPrivateReposCount = "total_private_repos"
         case ownedPrivateReposCount = "owned_private_repos"
         case privateGistsCount = "private_gists"
@@ -224,27 +268,115 @@ struct UserResponse: Codable {
     }
 }
 
-struct Plan: Codable {
-
-}
-
 struct Comment: Codable {
 
-    let authorAssocitation: String
+    let authorAssociation: String
     let body: String
-    let createdAtString: String
-    let htmlUrlString: String
-    let id: UInt64
-    let issueUrlString: String
-    let updatedAtString: String
-    let urlString: String
+    let createdAt: Date
+    let htmlUrl: URL
+    let id: Int
+    let issueUrl: URL
+    let updatedAt: Date
+    let url: URL
     let user: User
+
+    enum CodingKeys: String, CodingKey {
+
+        case authorAssociation = "author_association"
+        case body
+        case createdAt = "created_at"
+        case htmlUrl = "html_url"
+        case id
+        case issueUrl = "issue_url"
+        case updatedAt = "updated_at"
+        case url
+        case user
+    }
 }
 
 struct Issue: Codable {
 
+    let assignee: String?
+    let assignees: [String]
+    let authorAssociation: String?
+    let body: String
+    let closedAt: Date?
+    let commentsCount: Int
+    let commentsUrl: URL
+    let createdAt: Date
+    let eventsUrl: URL
+    let htmlUrl: URL
+    let id: Int
+    let labels: [Label]
+    let labelsUrlString: String
+    let lockedCount: Int
+    let milestone: String?
+    let number: Int
+    let repositoryUrl: URL
+    let state: String
+    let title: String
+    let updatedAt: Date
+    let url: String
+    let user: User
+
+    enum CodingKeys: String, CodingKey {
+
+        case assignee
+        case assignees
+        case authorAssociation = "author_association"
+        case body
+        case closedAt = "closed_at"
+        case commentsCount = "comments"
+        case commentsUrl = "comments_url"
+        case createdAt = "created_at"
+        case eventsUrl = "events_url"
+        case htmlUrl = "html_url"
+        case id
+        case labels
+        case labelsUrlString = "labels_url"
+        case lockedCount = "locked"
+        case milestone
+        case number
+        case repositoryUrl = "repository_url"
+        case state
+        case title
+        case updatedAt = "updated_at"
+        case url
+        case user
+    }
 }
 
 struct Commit: Codable {
 
+    struct Author: Codable {
+
+        let email: String
+        let name: String
+    }
+
+    let author: Author
+    let distinct: Int
+    let message: String
+    let sha: String
+    let url: URL
+}
+
+struct Label: Codable {
+
+    let colorString: String
+    let `default`: Int
+    let id: Int
+    let name: String
+    let url: URL
+
+    enum CodingKeys: String, CodingKey {
+        case colorString = "color"
+        case `default`
+        case id
+        case name
+        case url
+    }
+}
+
+struct Forkee: Codable {
 }
