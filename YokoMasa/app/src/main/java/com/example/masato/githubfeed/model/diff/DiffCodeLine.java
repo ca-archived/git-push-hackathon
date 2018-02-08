@@ -14,6 +14,7 @@ public class DiffCodeLine extends BaseModel {
     public static final int NORMAL = 391;
     public static final int ADDED = 226;
     public static final int REMOVED = 367;
+    public static final int CHANGE_LINES = 511;
 
     public String code;
     public int status;

@@ -62,6 +62,8 @@ public class DiffParser {
                 } else if (line.startsWith("-")) {
                     status = DiffCodeLine.REMOVED;
                     deletions++;
+                } else if (line.startsWith("@@")) {
+                    status = DiffCodeLine.CHANGE_LINES;
                 } else {
                     status = DiffCodeLine.NORMAL;
                 }
