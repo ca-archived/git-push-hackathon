@@ -23,14 +23,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="442" height="427"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3J-iR-6s3">
-                                <rect key="frame" x="45" y="56" width="377" height="0.5"/>
+                                <rect key="frame" x="33" y="56" width="401" height="0.5"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="f2X-qv-8qd"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KjI-td-Zyi">
-                                <rect key="frame" x="20" y="8" width="50" height="50"/>
+                                <rect key="frame" x="8" y="8" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="530-uX-xY6"/>
                                     <constraint firstAttribute="width" constant="50" id="ihs-7L-sMN"/>
@@ -39,17 +39,26 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyou starred bitcoin/bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5W-sb-WfQ">
-                                <rect key="frame" x="78" y="39.5" width="190.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyou starred bitcoin/bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5W-sb-WfQ">
+                                <rect key="frame" x="59" y="42" width="167" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaU-Dd-i1b">
-                                <rect key="frame" x="351" y="39.5" width="71" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="59 minutes ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaU-Dd-i1b">
+                                <rect key="frame" x="346" y="42" width="88" height="14.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="61O-fb-Qmb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -79,10 +88,10 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="5"/>
+                                                <real key="value" value="3"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                <real key="value" value="2"/>
+                                                <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                 <real key="value" value="0.29999999999999999"/>
@@ -129,15 +138,15 @@
                         <constraints>
                             <constraint firstItem="KjI-td-Zyi" firstAttribute="top" secondItem="i7P-n8-e2J" secondAttribute="top" constant="8" id="02I-Yz-88G"/>
                             <constraint firstItem="QCm-ec-hWP" firstAttribute="top" secondItem="R5W-sb-WfQ" secondAttribute="bottom" constant="10" id="4HJ-3Y-Fhx"/>
-                            <constraint firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" constant="20" id="5kU-Hl-K4f"/>
+                            <constraint firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" constant="8" id="5kU-Hl-K4f"/>
                             <constraint firstItem="N3J-iR-6s3" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="leading" constant="25" id="7bW-6C-G2T"/>
                             <constraint firstItem="R5W-sb-WfQ" firstAttribute="baseline" secondItem="KjI-td-Zyi" secondAttribute="baseline" constant="-5" id="CJR-zH-swv"/>
                             <constraint firstItem="YaU-Dd-i1b" firstAttribute="baseline" secondItem="R5W-sb-WfQ" secondAttribute="baseline" id="IM6-Ox-hhM"/>
-                            <constraint firstItem="KjI-td-Zyi" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="20" id="Osw-wO-fzq"/>
+                            <constraint firstItem="KjI-td-Zyi" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="8" id="Osw-wO-fzq"/>
                             <constraint firstItem="N3J-iR-6s3" firstAttribute="top" secondItem="KjI-td-Zyi" secondAttribute="bottom" constant="-2" id="PXT-pj-8um"/>
                             <constraint firstItem="QCm-ec-hWP" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="8" id="Pgg-hq-r2i"/>
-                            <constraint firstItem="R5W-sb-WfQ" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="trailing" constant="8" id="WUV-BW-u79"/>
-                            <constraint firstItem="YaU-Dd-i1b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="R5W-sb-WfQ" secondAttribute="trailing" constant="2" id="Xs9-Dl-dEp"/>
+                            <constraint firstItem="R5W-sb-WfQ" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="trailing" constant="1" id="WUV-BW-u79"/>
+                            <constraint firstItem="YaU-Dd-i1b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="R5W-sb-WfQ" secondAttribute="trailing" constant="1" id="Xs9-Dl-dEp"/>
                             <constraint firstItem="N3J-iR-6s3" firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" id="hbl-Wv-kzN"/>
                             <constraint firstAttribute="bottom" secondItem="QCm-ec-hWP" secondAttribute="bottom" constant="8" id="kYZ-xI-uk4"/>
                             <constraint firstAttribute="trailing" secondItem="QCm-ec-hWP" secondAttribute="trailing" constant="8" id="ncv-hM-4AA"/>
@@ -147,7 +156,7 @@
                                 <size key="value" width="0.0" height="0.0"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="2"/>
+                                <real key="value" value="1.5"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                 <real key="value" value="0.29999999999999999"/>

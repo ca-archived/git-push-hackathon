@@ -16,6 +16,12 @@ class GitHubAPI {
 
     // MARK: Internal
 
+    /// Check log in or not
+    var isLoggedIn: Bool {
+
+        return cache.object(forKey: DefaultKeys.oauthKey.rawValue) != nil
+    }
+
     init() {
 
         self.oauthSwift = OAuth2Swift(
@@ -27,7 +33,7 @@ class GitHubAPI {
         )
     }
 
-    /// Logged in function
+    /// Log in function
     func logIn() -> Observable<User> {
 
         if cache.object(forKey: DefaultKeys.oauthKey.rawValue) != nil {
@@ -49,7 +55,9 @@ class GitHubAPI {
 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
-                return try decoder.decode(User.self, from: data)
+                let user = try decoder.decode(User.self, from: data)
+                self.cache.set(user.login, forKey: DefaultKeys.userName.rawValue)
+                return user
                 }.share()
         } else {
 
@@ -124,20 +132,22 @@ class GitHubAPI {
 
         switch type {
         case .getCurrentUser:
-            urlString += "/user?"
+            urlString += "/user?access_token=\(oauthKey)"
         case .getEvents(let page, let perPage):
 
-            guard let userName = cache.object(forKey: DefaultKeys.oauthKey.rawValue) as? String else {
+            guard let userName = cache.object(forKey: DefaultKeys.userName.rawValue) as? String else {
 
                 return nil
             }
-            urlString += "/users/\(userName)/received_events?page=\(page)&per_page=\(perPage)&"
+            urlString += "/users/\(userName)/received_events?access_token=\(oauthKey)&page=\(page)&per_page=\(perPage)"
         }
 
-        urlString += "access_token=\(oauthKey)"
+        print(urlString)
 
         return URL(string: urlString)
     }
+
+    // MARK: Private Enumration
 
     private enum DefaultKeys: String {
 

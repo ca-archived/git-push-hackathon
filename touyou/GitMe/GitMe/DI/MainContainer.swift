@@ -16,6 +16,10 @@ class MainContainer {
 
     func configure(_ viewController: MainViewController) {
 
-        
+        let converter: MainConverter = MainConverter()
+
+        let presenter: MainPresenter = MainPresenter(converter: converter)
+
+        viewController.presenter = presenter
     }
 }

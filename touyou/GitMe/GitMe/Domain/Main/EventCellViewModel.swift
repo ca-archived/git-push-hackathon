@@ -6,7 +6,7 @@
 //  Copyright © 2018 touyou. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
 class EventCellViewModel {

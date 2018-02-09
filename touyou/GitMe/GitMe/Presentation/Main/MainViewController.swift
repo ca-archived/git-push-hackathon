@@ -15,35 +15,8 @@ import Kingfisher
 class MainViewController: UIViewController {
 
     // MARK: Internal
-    var oauthKey: String!
-    var accessTokenStr: String {
 
-        if let oauthKey = self.oauthKey {
-
-            return "?access_token=\(oauthKey)"
-        } else {
-
-            return ""
-        }
-    }
-    var jsonData: Data!
-    var feed: FeedResponse?
-    var events: [Event] = []
-
-    func parseJson() {
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        do {
-            events = try decoder.decode([Event].self, from: jsonData)
-        } catch let error {
-            print(error)
-        }
-        DispatchQueue.main.async {
-
-            self.collectionView.reloadData()
-        }
-    }
+    var presenter: (MainPresenterProtocol & UICollectionViewDataSource)!
 
     // MARK: UIViewController
 
@@ -61,65 +34,87 @@ class MainViewController: UIViewController {
         #if DEBUG
 //        UserDefaults.standard.set(nil, forKey: "github_user")
         #endif
+
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        self.title = "Feed"
     }
 
     override func viewDidAppear(_ animated: Bool) {
 
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
 
-        if let oauthKey = UserDefaults.standard.object(forKey: "github_user") as? String {
+        if !presenter.isLoggedIn {
 
-            self.oauthKey = oauthKey
-            let session = URLSession(configuration: URLSessionConfiguration.default)
-            session.rx.data(request: URLRequest(url: URL(string: "https://api.github.com/users/touyou/received_events\(accessTokenStr)&page=1&per_page=20")!)).subscribe({ [unowned self] event in
-
-                switch event {
-                case .next(let value):
-                    self.jsonData = value
-                    self.parseJson()
-                case .error(let error):
-                    print(error)
-                case .completed:
-                    break
-                }
-            }).disposed(by: disposeBag)
+            // TODO: ログインする
+            GitHubAPI.shared.logIn().subscribe().disposed(by: disposeBag)
         } else {
 
-            let loginViewController = LoginViewController.instantiate()
-            present(loginViewController, animated: true, completion: nil)
+            presenter.reload { [weak self] in
+
+                guard let `self` = self else { return }
+
+                self.collectionView.reloadData()
+            }
         }
     }
-
-
-    // MARK: Fileprivate
-    @IBOutlet weak var collectionView: UICollectionView! {
-
-        didSet {
-
-            collectionView.register(EventCardCollectionViewCell.self)
-            collectionView.dataSource = self
-            collectionView.delegate = self
-        }
-    }
-
 
     // MARK: Private
 
     private let disposeBag = DisposeBag()
+    private let refreshControl = UIRefreshControl()
+
+    private var isLoading: Bool = false
+
+    @IBOutlet private weak var collectionView: UICollectionView! {
+
+        didSet {
+
+            collectionView.register(EventCardCollectionViewCell.self)
+            collectionView.dataSource = presenter
+            collectionView.delegate = self
+            collectionView.refreshControl = refreshControl
+        }
+    }
+
+    @objc private func refresh(_ sender: UIRefreshControl) {
+
+        presenter.reload { [weak self] in
+
+            guard let `self` = self else { return }
+
+            sender.endRefreshing()
+            self.collectionView.reloadData()
+        }
+    }
 }
 
-// MARK: - TableView(あとで別のクラスに移行)
+// MARK: - CollectionView Delegate
 
 extension MainViewController: UICollectionViewDelegate {
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
+        if collectionView.contentOffset.y + collectionView.frame.size.height > collectionView.contentSize.height && collectionView.isDragging && !self.isLoading {
+
+            self.isLoading = true
+            presenter.loadMore { [weak self] in
+
+                guard let `self` = self else { return }
+
+                self.isLoading = false
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }
+
+// MARK: - CollectionView Layout
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let cellWidth = floor(collectionView.bounds.width * 9 / 10)
+        let cellWidth = floor(collectionView.bounds.width * 19 / 20)
 
         return CGSize(width: cellWidth, height: cellWidth)
     }
@@ -137,32 +132,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         return UIEdgeInsets.zero
-    }
-}
-
-extension MainViewController: UICollectionViewDataSource {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        return events.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell: EventCardCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-
-        cell.clipsToBounds = false
-        cell.eventTitleLabel.text = events[indexPath.row].type.rawValue
-        cell.timeLabel.text = events[indexPath.row].createdAt.offsetString
-        cell.repositoryTitleLabel.text = events[indexPath.row].repo?.name
-        cell.iconImageView.kf.setImage(with: events[indexPath.row].actor.avatarUrl)
-
-        return cell
     }
 }
 
