@@ -18,6 +18,9 @@ public class ConnectionResult {
     public boolean isConnectionSuccessful;
 
     public String getBodyString() {
+        if (bodyBytes == null) {
+            return "";
+        }
         String string = "";
         try {
             string = new String(this.bodyBytes, 0, this.bodyBytes.length, "utf-8");

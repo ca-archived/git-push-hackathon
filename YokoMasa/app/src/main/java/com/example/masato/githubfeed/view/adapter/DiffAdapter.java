@@ -22,6 +22,10 @@ public class DiffAdapter extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater inflater;
 
+    public void setDiffFile(DiffFile diffFile) {
+        this.diffFile = diffFile;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.diff_code_line, parent, false);
@@ -40,8 +44,7 @@ public class DiffAdapter extends RecyclerView.Adapter {
         return diffFile.codeLines.size();
     }
 
-    public DiffAdapter(DiffFile diffFile, Context context) {
-        this.diffFile = diffFile;
+    public DiffAdapter(Context context) {
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

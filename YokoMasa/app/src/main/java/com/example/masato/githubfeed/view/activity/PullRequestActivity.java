@@ -26,6 +26,7 @@ public class PullRequestActivity extends ViewPagerActivity {
     private void setUpContent(PullRequest pr) {
         setUpActionBar(pr);
 
+
         CommentListFragment commentListFragment =
                 FragmentFactory.createCommentListFragment(pr.commentsUrl, getString(R.string.tab_comments));
         addFragment(commentListFragment);
@@ -34,9 +35,11 @@ public class PullRequestActivity extends ViewPagerActivity {
                 FragmentFactory.createCommitListFragment(pr.commitsUrl, getString(R.string.tab_commits));
         addFragment(commitListFragment);
 
+
         DiffFileListFragment diffFileListFragment =
                 FragmentFactory.createDiffFileListFragment(pr.diffUrl, getString(R.string.tab_file_changed));
         addFragment(diffFileListFragment);
+
     }
 
     private void setUpActionBar(PullRequest pr) {

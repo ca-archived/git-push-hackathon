@@ -20,24 +20,30 @@ public class DiffParser {
         try {
             String line = bufferedReader.readLine();
             while (line != null) {
-                while (!line.startsWith("+++ b/")) {
+                String before = "";
+                String after= "";
+                while (line != null) {
+                    if (line.startsWith("---")) {
+                        before = line.substring(4);
+                    } else if (line.startsWith("+++")) {
+                        after = line.substring(4);
+                        break;
+                    }
                     line = bufferedReader.readLine();
                 }
-                String fileName = line.substring(5, line.length());
-
-                while (!line.startsWith("@@ ")) {
-                    line = bufferedReader.readLine();
-                }
+                String fileName = extractFileName(before, after);
 
                 StringBuilder builder = new StringBuilder();
-                while (!line.startsWith("diff --git")) {
+                line = bufferedReader.readLine();
+                while (line != null) {
+                    if (line.startsWith("diff --git")) {
+                        break;
+                    }
                     builder.append(line);
                     builder.append(System.getProperty("line.separator"));
                     line = bufferedReader.readLine();
-                    if (line == null) {
-                        break;
-                    }
                 }
+
                 DiffFile diffFile = parseDiffFile(builder.toString(), fileName);
                 diffFiles.add(diffFile);
             }
@@ -45,6 +51,16 @@ public class DiffParser {
             ioe.printStackTrace();
         }
         return diffFiles;
+    }
+
+    private static String extractFileName(String beforeFile, String afterFile) {
+        if (beforeFile.equals("") || afterFile.equals("")) {
+            return "";
+        }
+        if (afterFile.equals("/dev/null")) {
+            return beforeFile.substring(1);
+        }
+        return afterFile.substring(1);
     }
 
     public static DiffFile parseDiffFile(String code, String fileName) {

@@ -30,17 +30,23 @@ import java.util.concurrent.RecursiveAction;
 public class DiffFileListFragment extends BaseFragment implements DiffFileListView {
 
     private RecyclerView recyclerView;
+    DiffFileListAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.general_recycler_view_layout, container, false);
+        return inflater.inflate(R.layout.fragment_diff_file_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.general_recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.diff_file_list_recyclerView);
+        adapter = new DiffFileListAdapter(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+
         List<DiffFile> diffFiles = getArguments().getParcelableArrayList("diff_files");
         String url = getArguments().getString("url");
         if (diffFiles != null) {
@@ -53,9 +59,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
 
     @Override
     public void showDiffFiles(List<DiffFile> diffFiles) {
-        DiffFileListAdapter diffFileListAdapter = new DiffFileListAdapter(diffFiles, getContext());
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setAdapter(diffFileListAdapter);
-        recyclerView.setLayoutManager(layoutManager);
+        adapter.addDiffFiles(diffFiles);
     }
 }

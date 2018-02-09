@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.diff.DiffFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +20,14 @@ import java.util.List;
 
 public class DiffFileListAdapter extends RecyclerView.Adapter {
 
-    private List<DiffFile> diffFiles;
+    private List<DiffFile> diffFiles = new ArrayList<>();
     private Context context;
     private LayoutInflater inflater;
+
+    public void addDiffFiles(List<DiffFile> diffFiles) {
+        this.diffFiles.addAll(diffFiles);
+        notifyDataSetChanged();
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,9 +47,8 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
         return diffFiles.size();
     }
 
-    public DiffFileListAdapter(List<DiffFile> diffFileLIst, Context context) {
+    public DiffFileListAdapter(Context context) {
         this.context = context;
-        this.diffFiles = diffFileLIst;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -54,17 +59,23 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
         AppCompatTextView addition;
         AppCompatTextView deletion;
         DiffAdapter diffAdapter;
+        boolean diffEverLoaded;
 
         void bindDiffFile(DiffFile diffFile) {
             fileName.setText(diffFile.fileName);
             addition.setText("+" + diffFile.additions);
             deletion.setText("-" + diffFile.deletions);
-            if (diffAdapter == null) {
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-                diffAdapter = new DiffAdapter(diffFile, context);
-                recyclerView.setAdapter(diffAdapter);
-                recyclerView.setLayoutManager(layoutManager);
+            if (!diffEverLoaded) {
+                diffAdapter.setDiffFile(diffFile);
+                diffEverLoaded = true;
             }
+        }
+
+        private void setUpRecyclerView() {
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+            diffAdapter = new DiffAdapter(context);
+            recyclerView.setAdapter(diffAdapter);
+            recyclerView.setLayoutManager(layoutManager);
         }
 
         public DiffFileViewHolder(View itemView) {
@@ -73,6 +84,7 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
             fileName = (AppCompatTextView) itemView.findViewById(R.id.diff_file_name);
             addition = (AppCompatTextView) itemView.findViewById(R.id.diff_addition);
             deletion = (AppCompatTextView) itemView.findViewById(R.id.diff_deletion);
+            setUpRecyclerView();
         }
     }
 }
