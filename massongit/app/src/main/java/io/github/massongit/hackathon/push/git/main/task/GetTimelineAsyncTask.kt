@@ -99,19 +99,18 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                     }?.forEach {
                         try {
                             val payloadElement = it as? JsonObject
-                            val eventHtmlUrl = when (type) {
-                                "WatchEvent", "CreateEvent" -> this.getHtmlUrl(repo)
-                                "ReleaseEvent" -> this.getHtmlUrl(payloadElement?.get("release") as? JsonObject)
-                                "IssuesEvent" -> this.getHtmlUrl(payloadElement?.get("issue") as? JsonObject)
-                                "IssueCommentEvent" -> this.getHtmlUrl(payloadElement?.get("comment") as? JsonObject)
-                                else -> this.getHtmlUrl(payloadElement)
-                            }
                             events.add(when (type) {
                                 "GollumEvent", "IssuesEvent", "IssueCommentEvent" -> {
                                     val issue = payloadElement?.get("issue") as? JsonObject
+                                    val comment = payloadElement?.get("comment") as? JsonObject
                                     val number = issue?.get("number")?.asInt()
                                     val title = issue?.get("title")?.asString()
                                     val action = payloadElement?.get("action")?.asString()
+                                    val eventHtmlUrl = when (type) {
+                                        "IssuesEvent" -> this.getHtmlUrl(issue)
+                                        "IssueCommentEvent" -> this.getHtmlUrl(comment)
+                                        else -> this.getHtmlUrl(payloadElement)
+                                    }
                                     if (type == "GollumEvent") {
                                         val wikiTitle = payloadElement?.get("title")?.asString()
                                         if (action == null || wikiTitle == null) {
@@ -120,11 +119,11 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                             GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
                                         }
                                     } else if (type == "IssueCommentEvent") {
-                                        val comment = (payloadElement?.get("comment") as? JsonObject)?.get("body")?.asString()
-                                        if (number == null || comment == null || title == null) {
+                                        val commentBody = comment?.get("body")?.asString()
+                                        if (number == null || commentBody == null || title == null) {
                                             null
                                         } else {
-                                            IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, title, comment, issue.get("pull_request") != null)
+                                            IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, title, commentBody, issue.get("pull_request") != null)
                                         }
                                     } else if (type == "IssuesEvent" && action != null && number != null && title != null) {
                                         IssuesEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, number, title)
@@ -138,19 +137,25 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                     if (branch == null || commitMessage == null) {
                                         null
                                     } else {
-                                        PushEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, branch, commitMessage)
+                                        PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(payloadElement), actorAvatar, createdAt, branch, commitMessage)
                                     }
                                 }
                                 "ReleaseEvent" -> {
-                                    val version = (payloadElement?.get("release") as? JsonObject)?.get("name")?.asString()
+                                    val release = payloadElement?.get("release") as? JsonObject
+                                    val version = release?.get("name")?.asString()
                                     if (version == null) {
                                         null
                                     } else {
-                                        ReleaseEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, version)
+                                        ReleaseEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(release), actorAvatar, createdAt, version)
                                     }
                                 }
                                 "CreateEvent", "DeleteEvent" -> {
                                     val thingType = payloadElement?.get("ref_type")?.asString()
+                                    val eventHtmlUrl = if (type == "CreateEvent") {
+                                        this.getHtmlUrl(repo)
+                                    } else {
+                                        this.getHtmlUrl(payloadElement)
+                                    }
                                     if (thingType == null) {
                                         null
                                     } else if (type == "DeleteEvent") {
@@ -166,7 +171,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                         null
                                     }
                                 }
-                                "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt)
+                                "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(repo), actorAvatar, createdAt)
                                 else -> null
                             })
                         } catch (ignored: OAuthException) {
