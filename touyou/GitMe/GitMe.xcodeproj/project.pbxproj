@@ -13,6 +13,8 @@
 		4628D7F4201CBCA700C66D10 /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7F3201CBCA700C66D10 /* EventCellViewModel.swift */; };
 		4628D7F6201CBCBA00C66D10 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7F5201CBCBA00C66D10 /* GitHubAPI.swift */; };
 		464DE8342021AD8A00AB66FE /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DE8332021AD8A00AB66FE /* EventResponse.swift */; };
+		4653738A202D42E9002279BD /* TabBarController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46537389202D42E9002279BD /* TabBarController.storyboard */; };
+		4653738C202D46A4002279BD /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */; };
 		4671021A202C287C007D86A8 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46710219202C287C007D86A8 /* UIColor+Extensions.swift */; };
 		46710220202C4C7E007D86A8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671021F202C4C7E007D86A8 /* Date+Extensions.swift */; };
 		46710225202C5863007D86A8 /* EventCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46710223202C5863007D86A8 /* EventCardCollectionViewCell.swift */; };
@@ -73,6 +75,8 @@
 		4628D7F3201CBCA700C66D10 /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 		4628D7F5201CBCBA00C66D10 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		464DE8332021AD8A00AB66FE /* EventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
+		46537389202D42E9002279BD /* TabBarController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBarController.storyboard; sourceTree = "<group>"; };
+		4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		46710219202C287C007D86A8 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		4671021F202C4C7E007D86A8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		46710223202C5863007D86A8 /* EventCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 		46092DE1202C9DB900D32FF6 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				46537389202D42E9002279BD /* TabBarController.storyboard */,
 				46DD8C7E20204A70000B92A6 /* TabBarController.swift */,
 				46092DE4202C9DEA00D32FF6 /* Main */,
 				46092DE5202C9DF000D32FF6 /* Login */,
@@ -299,6 +304,7 @@
 				46DD8C82202052DF000B92A6 /* URL+Extensions.swift */,
 				46710219202C287C007D86A8 /* UIColor+Extensions.swift */,
 				4671021F202C4C7E007D86A8 /* Date+Extensions.swift */,
+				4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -443,6 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4653738A202D42E9002279BD /* TabBarController.storyboard in Resources */,
 				4695C95D200DAC3E0097F066 /* LaunchScreen.storyboard in Resources */,
 				46710226202C5863007D86A8 /* EventCardCollectionViewCell.xib in Resources */,
 				469722E7200E2F35008325C4 /* ClientKey.plist in Resources */,
@@ -530,6 +537,7 @@
 				46AB039A2015CA910003AD21 /* LoginContainer.swift in Sources */,
 				46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */,
 				469722F9200E414D008325C4 /* Reusable.swift in Sources */,
+				4653738C202D46A4002279BD /* UINavigationController+Extensions.swift in Sources */,
 				4628D7F2201CBC9A00C66D10 /* MainConverter.swift in Sources */,
 				469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */,
 				469722FD200E4263008325C4 /* UITableView+Extensions.swift in Sources */,

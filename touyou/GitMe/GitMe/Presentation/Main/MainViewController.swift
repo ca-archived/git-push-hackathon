@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
 
     var presenter: (MainPresenterProtocol & UICollectionViewDataSource)!
 
-    // MARK: UIViewController
+    // MARK: Life Cycle
 
     override func awakeFromNib() {
 
@@ -31,12 +31,8 @@ class MainViewController: UIViewController {
 
         super.viewDidLoad()
 
-        #if DEBUG
-//        UserDefaults.standard.set(nil, forKey: "github_user")
-        #endif
-
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        self.title = "Feed"
+        self.navigationController?.setupBarColor()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -131,7 +127,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        return UIEdgeInsets.zero
+        return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
 }
 

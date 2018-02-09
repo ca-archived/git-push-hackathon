@@ -10,9 +10,18 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
+    // MARK: Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        let mainViewController = UINavigationController(rootViewController: MainViewController.instantiate())
+        mainViewController.title = "Feed"
+
+        self.setViewControllers([mainViewController], animated: false)
     }
 }
+
+// MARK: - Storyboard Instantiable
+
+extension TabBarController: StoryboardInstantiable {}
