@@ -32,13 +32,16 @@ import java.util.concurrent.RecursiveAction;
 
 public class DiffFileListFragment extends BaseFragment implements DiffFileListView {
 
-    private RecyclerView recyclerView;
     private DiffFileListAdapter adapter;
     private LoadingFragment loadingFragment;
     private ArrayList<DiffFile> diffFiles;
     private boolean isLoading;
-    private boolean isViewCreated;
-    private boolean fragmentUnControllable;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Nullable
     @Override
@@ -49,31 +52,36 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        isViewCreated = true;
         showLoadingFragment();
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.diff_file_list_recyclerView);
-        adapter = new DiffFileListAdapter(getContext());
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
+        initViews(view);
 
         if (savedInstanceState == null) {
             setUpContent();
         } else {
-            restoreContent(savedInstanceState);
+            showDiffFiles(diffFiles);
         }
+
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        fragmentUnControllable = true;
-        outState.putParcelableArrayList("diff_files", diffFiles);
-        if (isViewCreated) {
-            outState.putInt("scroll_x", recyclerView.getScrollX());
-            outState.putInt("scroll_y", recyclerView.getScrollY());
-        }
+    private void initViews(View view) {
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.diff_file_list_recyclerView);
+        adapter = new DiffFileListAdapter(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                removeLoadingFragment();
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+
+            }
+        });
+
     }
 
     private void setUpContent() {
@@ -86,19 +94,7 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         }
     }
 
-    private void restoreContent(Bundle savedInstanceState) {
-        ArrayList<DiffFile> diffFiles = savedInstanceState.getParcelableArrayList("diff_files");
-        showDiffFiles(diffFiles);
-        int scrollX = savedInstanceState.getInt("scroll_x");
-        int scrollY = savedInstanceState.getInt("scroll_y");
-        recyclerView.setScrollY(scrollX);
-        recyclerView.setScrollY(scrollY);
-    }
-
     private void showLoadingFragment() {
-        if (fragmentUnControllable) {
-            return;
-        }
         loadingFragment = new LoadingFragment();
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.diff_file_list_mother, loadingFragment);
@@ -107,9 +103,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     }
 
     private void removeLoadingFragment() {
-        if (fragmentUnControllable) {
-            return;
-        }
         if (isLoading) {
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ft.remove(loadingFragment);
@@ -122,16 +115,5 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     public void showDiffFiles(ArrayList<DiffFile> diffFiles) {
         this.diffFiles = diffFiles;
         adapter.setDiffFiles(diffFiles);
-        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-                removeLoadingFragment();
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-
-            }
-        });
     }
 }

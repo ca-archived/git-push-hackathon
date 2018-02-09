@@ -33,26 +33,16 @@ public abstract class PaginatingListFragment extends BaseFragment
         implements PaginatingListView, PaginatingListAdapter.PaginatingListListAdapterListener {
 
     private PaginatingListPresenter presenter;
-    private RecyclerView elementRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private PaginatingListAdapter adapter;
-    private int scrollX, scrollY;
-    private boolean isViewCreated;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         if (savedInstanceState == null) {
             presenter = onCreatePresenter();
             presenter.refresh();
-        } else {
-            scrollX = savedInstanceState.getInt("scroll_x");
-            scrollY = savedInstanceState.getInt("scroll_y");
-            int currentPage = savedInstanceState.getInt("current_page");
-            ArrayList<BaseModel> elements = savedInstanceState.getParcelableArrayList("elements");
-            presenter = onCreatePresenter();
-            presenter.setCurrentPage(currentPage);
-            presenter.setElementList(elements);
         }
     }
 
@@ -67,7 +57,6 @@ public abstract class PaginatingListFragment extends BaseFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        isViewCreated = true;
         initViews(view);
     }
 
@@ -133,25 +122,12 @@ public abstract class PaginatingListFragment extends BaseFragment
         swipeRefreshLayout.setEnabled(enabled);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("current_page", presenter.getCurrentPage());
-        outState.putParcelableArrayList("elements", presenter.getElementList());
-        if (isViewCreated) {
-            outState.putInt("scroll_x", elementRecyclerView.getScrollX());
-            outState.putInt("scroll_y", elementRecyclerView.getScrollY());
-        }
-    }
-
     private void initViews(View view) {
         adapter = new PaginatingListAdapter(getLayoutInflater(), this);
-        elementRecyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
+        RecyclerView elementRecyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         elementRecyclerView.setLayoutManager(layoutManager);
         elementRecyclerView.setAdapter(adapter);
-        elementRecyclerView.setScrollX(scrollX);
-        elementRecyclerView.setScrollY(scrollY);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.feed_swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
