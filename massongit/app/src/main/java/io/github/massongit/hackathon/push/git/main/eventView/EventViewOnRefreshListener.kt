@@ -1,11 +1,11 @@
-package io.github.massongit.hackathon.push.git.main.listener
+package io.github.massongit.hackathon.push.git.main.eventView
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 
 /**
- * SwipeRefreshLayoutの更新イベント
+ * イベントビューの更新イベント
  * @param helper Helper
  */
 class EventViewOnRefreshListener(private val helper: MainHelper) : SwipeRefreshLayout.OnRefreshListener {

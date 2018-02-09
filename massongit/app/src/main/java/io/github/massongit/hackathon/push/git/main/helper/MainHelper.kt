@@ -8,8 +8,8 @@ import android.util.Log
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
-import io.github.massongit.hackathon.push.git.main.listener.EventViewOnRefreshListener
-import io.github.massongit.hackathon.push.git.main.listener.EventViewOnScrollListener
+import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnRefreshListener
+import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnScrollListener
 import io.github.massongit.hackathon.push.git.main.task.GetAccessTokenAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetTimelineAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
