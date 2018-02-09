@@ -19,7 +19,7 @@ class EventViewOnScrollListener(private val helper: MainHelper, private val onRe
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        Log.v(TAG, "onScrolled called")
+        Log.v(EventViewOnScrollListener.TAG, "onScrolled called")
         super.onScrolled(recyclerView, dx, dy)
         if (!recyclerView.canScrollVertically(-1)) {
             this.onRefreshListener.onRefresh()
