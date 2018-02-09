@@ -8,7 +8,7 @@ import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
-import io.github.massongit.hackathon.push.git.util.launchCustomTab
+import io.github.massongit.hackathon.push.git.util.Util.Companion.launchCustomTab
 
 /**
  * ログイン画面のHelper

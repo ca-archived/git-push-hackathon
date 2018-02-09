@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.main.event.Event
-import io.github.massongit.hackathon.push.git.util.launchCustomTab
+import io.github.massongit.hackathon.push.git.util.Util.Companion.launchCustomTab
 import java.text.SimpleDateFormat
 import java.util.*
 
