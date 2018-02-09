@@ -16,7 +16,8 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
 
         let mainViewController = UINavigationController(rootViewController: MainViewController.instantiate())
-        mainViewController.title = "Feed"
+        mainViewController.title = "Feeds"
+        mainViewController.tabBarItem.image = UIImage(named: "feed")
 
         self.setViewControllers([mainViewController], animated: false)
     }

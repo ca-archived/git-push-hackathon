@@ -24,7 +24,7 @@ class MainConverter {
     private func convertEventTitle(of event: Event) -> NSMutableAttributedString {
 
         let boldStyle: [NSAttributedStringKey: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 12)
+            .font: UIFont(name: "URWDIN-Demi", size: 12.0) ?? UIFont.boldSystemFont(ofSize: 12.0)
         ]
 
         let mutableAttributedString = NSMutableAttributedString()

@@ -15,6 +15,9 @@
 		464DE8342021AD8A00AB66FE /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DE8332021AD8A00AB66FE /* EventResponse.swift */; };
 		4653738A202D42E9002279BD /* TabBarController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46537389202D42E9002279BD /* TabBarController.storyboard */; };
 		4653738C202D46A4002279BD /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */; };
+		46537390202D486A002279BD /* URWDIN-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738D202D4869002279BD /* URWDIN-Light.ttf */; };
+		46537391202D486A002279BD /* URWDIN-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738E202D4869002279BD /* URWDIN-Medium.ttf */; };
+		46537392202D486A002279BD /* URWDIN-Demi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738F202D486A002279BD /* URWDIN-Demi.ttf */; };
 		4671021A202C287C007D86A8 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46710219202C287C007D86A8 /* UIColor+Extensions.swift */; };
 		46710220202C4C7E007D86A8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671021F202C4C7E007D86A8 /* Date+Extensions.swift */; };
 		46710225202C5863007D86A8 /* EventCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46710223202C5863007D86A8 /* EventCardCollectionViewCell.swift */; };
@@ -77,6 +80,9 @@
 		464DE8332021AD8A00AB66FE /* EventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
 		46537389202D42E9002279BD /* TabBarController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBarController.storyboard; sourceTree = "<group>"; };
 		4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
+		4653738D202D4869002279BD /* URWDIN-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Light.ttf"; sourceTree = "<group>"; };
+		4653738E202D4869002279BD /* URWDIN-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Medium.ttf"; sourceTree = "<group>"; };
+		4653738F202D486A002279BD /* URWDIN-Demi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Demi.ttf"; sourceTree = "<group>"; };
 		46710219202C287C007D86A8 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		4671021F202C4C7E007D86A8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		46710223202C5863007D86A8 /* EventCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -280,6 +286,9 @@
 			isa = PBXGroup;
 			children = (
 				4695C959200DAC3E0097F066 /* Assets.xcassets */,
+				4653738F202D486A002279BD /* URWDIN-Demi.ttf */,
+				4653738D202D4869002279BD /* URWDIN-Light.ttf */,
+				4653738E202D4869002279BD /* URWDIN-Medium.ttf */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -451,10 +460,13 @@
 			files = (
 				4653738A202D42E9002279BD /* TabBarController.storyboard in Resources */,
 				4695C95D200DAC3E0097F066 /* LaunchScreen.storyboard in Resources */,
+				46537390202D486A002279BD /* URWDIN-Light.ttf in Resources */,
 				46710226202C5863007D86A8 /* EventCardCollectionViewCell.xib in Resources */,
 				469722E7200E2F35008325C4 /* ClientKey.plist in Resources */,
 				46DA6D0C2015928E00767CCB /* LoginViewController.storyboard in Resources */,
+				46537392202D486A002279BD /* URWDIN-Demi.ttf in Resources */,
 				4695C95A200DAC3E0097F066 /* Assets.xcassets in Resources */,
+				46537391202D486A002279BD /* URWDIN-Medium.ttf in Resources */,
 				4695C958200DAC3E0097F066 /* MainViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
