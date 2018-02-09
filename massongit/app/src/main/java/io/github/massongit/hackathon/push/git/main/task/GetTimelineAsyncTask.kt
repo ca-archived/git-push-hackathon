@@ -107,35 +107,29 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                 else -> this.getHtmlUrl(payloadElement)
                             }
                             events.add(when (type) {
-                                "GollumEvent" -> {
-                                    val action = payloadElement?.get("action")?.asString()
-                                    val wikiTitle = payloadElement?.get("title")?.asString()
-                                    if (action == null || wikiTitle == null) {
-                                        null
-                                    } else {
-                                        GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
-                                    }
-                                }
-                                "IssuesEvent" -> {
-                                    val action = payloadElement?.get("action")?.asString()
+                                "GollumEvent", "IssuesEvent", "IssueCommentEvent" -> {
                                     val issue = payloadElement?.get("issue") as? JsonObject
                                     val number = issue?.get("number")?.asInt()
                                     val title = issue?.get("title")?.asString()
-                                    if (action == null || number == null || title == null) {
-                                        null
-                                    } else {
+                                    val action = payloadElement?.get("action")?.asString()
+                                    if (type == "GollumEvent") {
+                                        val wikiTitle = payloadElement?.get("title")?.asString()
+                                        if (action == null || wikiTitle == null) {
+                                            null
+                                        } else {
+                                            GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
+                                        }
+                                    } else if (type == "IssueCommentEvent") {
+                                        val comment = (payloadElement?.get("comment") as? JsonObject)?.get("body")?.asString()
+                                        if (number == null || comment == null || title == null) {
+                                            null
+                                        } else {
+                                            IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, title, comment, issue.get("pull_request") != null)
+                                        }
+                                    } else if (type == "IssuesEvent" && action != null && number != null && title != null) {
                                         IssuesEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, number, title)
-                                    }
-                                }
-                                "IssueCommentEvent" -> {
-                                    val issue = payloadElement?.get("issue") as? JsonObject
-                                    val number = issue?.get("number")?.asInt()
-                                    val title = issue?.get("title")?.asString()
-                                    val comment = (payloadElement?.get("comment") as? JsonObject)?.get("body")?.asString()
-                                    if (number == null || comment == null || title == null) {
-                                        null
                                     } else {
-                                        IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, title, comment, issue.get("pull_request") != null)
+                                        null
                                     }
                                 }
                                 "PushEvent" -> {
