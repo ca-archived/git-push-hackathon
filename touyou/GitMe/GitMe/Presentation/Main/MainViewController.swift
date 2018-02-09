@@ -110,14 +110,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let cellWidth = floor(collectionView.bounds.width * 19 / 20)
+        let cellWidth = collectionView.bounds.width - 24
 
         return CGSize(width: cellWidth, height: cellWidth)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        return floor(collectionView.bounds.width * 1 / 20)
+        return 12.0
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -127,7 +127,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 12.0, left: 0, bottom: 0, right: 0)
     }
 }
 

@@ -16,9 +16,6 @@
         <array key="URWDIN-Light.ttf">
             <string>URWDIN-Light</string>
         </array>
-        <array key="URWDIN-Medium.ttf">
-            <string>URWDIN-Medium</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -34,21 +31,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="442" height="427"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3J-iR-6s3">
-                                <rect key="frame" x="33" y="56" width="401" height="0.5"/>
+                                <rect key="frame" x="28.5" y="43" width="401.5" height="1.5"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="f2X-qv-8qd"/>
+                                    <constraint firstAttribute="height" constant="1.5" id="f2X-qv-8qd"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KjI-td-Zyi">
-                                <rect key="frame" x="8" y="8" width="50" height="50"/>
+                                <rect key="frame" x="12" y="12" width="33" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="530-uX-xY6"/>
-                                    <constraint firstAttribute="width" constant="50" id="ihs-7L-sMN"/>
+                                    <constraint firstAttribute="height" constant="33" id="530-uX-xY6"/>
+                                    <constraint firstAttribute="width" constant="33" id="ihs-7L-sMN"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="25"/>
+                                        <real key="value" value="16.5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,54 +55,54 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyou starred bitcoin/bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5W-sb-WfQ">
-                                <rect key="frame" x="59" y="41" width="156.5" height="15.5"/>
-                                <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyou starred bitcoin/bitcoin" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5W-sb-WfQ">
+                                <rect key="frame" x="50" y="25.5" width="182.5" height="18"/>
+                                <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="59 minutes ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaU-Dd-i1b">
-                                <rect key="frame" x="346" y="41" width="88" height="15.5"/>
+                                <rect key="frame" x="330" y="25.5" width="100" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="61O-fb-Qmb"/>
+                                    <constraint firstAttribute="width" constant="100" id="61O-fb-Qmb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="14"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCm-ec-hWP">
-                                <rect key="frame" x="8" y="66.5" width="426" height="352.5"/>
+                                <rect key="frame" x="12" y="53.5" width="418" height="361.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bitcoin/bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8E7-7V-emE">
-                                        <rect key="frame" x="8" y="8" width="410" height="18"/>
+                                        <rect key="frame" x="8" y="8" width="402" height="18"/>
                                         <fontDescription key="fontDescription" name="URWDIN-Demi" family="URW DIN" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaM-5u-bE4">
-                                        <rect key="frame" x="8" y="34" width="410" height="13"/>
-                                        <fontDescription key="fontDescription" name="URWDIN-Medium" family="URW DIN" pointSize="10"/>
+                                        <rect key="frame" x="8" y="29" width="402" height="13"/>
+                                        <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="repo info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSJ-2q-h8F">
-                                        <rect key="frame" x="8" y="55" width="410" height="13"/>
-                                        <fontDescription key="fontDescription" name="URWDIN-Medium" family="URW DIN" pointSize="10"/>
+                                        <rect key="frame" x="8" y="43" width="402" height="13"/>
+                                        <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6y4-Ap-uEt">
-                                        <rect key="frame" x="8" y="76" width="410" height="269"/>
+                                        <rect key="frame" x="8" y="64" width="402" height="290"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="3"/>
+                                                <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                <real key="value" value="0.29999999999999999"/>
+                                                <real key="value" value="0.40000000000000002"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                 <size key="value" width="0.0" height="0.0"/>
@@ -119,13 +116,13 @@
                                     <constraint firstItem="6y4-Ap-uEt" firstAttribute="top" secondItem="iSJ-2q-h8F" secondAttribute="bottom" constant="8" id="A72-pv-axI"/>
                                     <constraint firstAttribute="trailing" secondItem="iSJ-2q-h8F" secondAttribute="trailing" constant="8" id="GCc-dT-Bgd"/>
                                     <constraint firstItem="kaM-5u-bE4" firstAttribute="leading" secondItem="QCm-ec-hWP" secondAttribute="leading" constant="8" id="MEN-58-gOm"/>
-                                    <constraint firstItem="kaM-5u-bE4" firstAttribute="top" secondItem="8E7-7V-emE" secondAttribute="bottom" constant="8" id="NTZ-mg-Yy8"/>
+                                    <constraint firstItem="kaM-5u-bE4" firstAttribute="top" secondItem="8E7-7V-emE" secondAttribute="bottom" constant="3" id="NTZ-mg-Yy8"/>
                                     <constraint firstItem="6y4-Ap-uEt" firstAttribute="leading" secondItem="QCm-ec-hWP" secondAttribute="leading" constant="8" id="NZG-Kw-W0s"/>
                                     <constraint firstAttribute="trailing" secondItem="6y4-Ap-uEt" secondAttribute="trailing" constant="8" id="Sqp-io-TM5"/>
                                     <constraint firstAttribute="trailing" secondItem="8E7-7V-emE" secondAttribute="trailing" constant="8" id="bXd-ev-i1w"/>
                                     <constraint firstItem="8E7-7V-emE" firstAttribute="leading" secondItem="QCm-ec-hWP" secondAttribute="leading" constant="8" id="g1j-lW-z3A"/>
                                     <constraint firstItem="iSJ-2q-h8F" firstAttribute="leading" secondItem="QCm-ec-hWP" secondAttribute="leading" constant="8" id="gfG-i6-jhc"/>
-                                    <constraint firstItem="iSJ-2q-h8F" firstAttribute="top" secondItem="kaM-5u-bE4" secondAttribute="bottom" constant="8" id="jPc-NP-9Gl"/>
+                                    <constraint firstItem="iSJ-2q-h8F" firstAttribute="top" secondItem="kaM-5u-bE4" secondAttribute="bottom" constant="1" id="jPc-NP-9Gl"/>
                                     <constraint firstAttribute="bottom" secondItem="6y4-Ap-uEt" secondAttribute="bottom" constant="8" id="oaV-aI-EQN"/>
                                     <constraint firstAttribute="trailing" secondItem="kaM-5u-bE4" secondAttribute="trailing" constant="8" id="r1L-OF-JM1"/>
                                 </constraints>
@@ -147,33 +144,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="KjI-td-Zyi" firstAttribute="top" secondItem="i7P-n8-e2J" secondAttribute="top" constant="8" id="02I-Yz-88G"/>
+                            <constraint firstItem="KjI-td-Zyi" firstAttribute="top" secondItem="i7P-n8-e2J" secondAttribute="top" constant="12" id="02I-Yz-88G"/>
                             <constraint firstItem="QCm-ec-hWP" firstAttribute="top" secondItem="R5W-sb-WfQ" secondAttribute="bottom" constant="10" id="4HJ-3Y-Fhx"/>
-                            <constraint firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" constant="8" id="5kU-Hl-K4f"/>
-                            <constraint firstItem="N3J-iR-6s3" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="leading" constant="25" id="7bW-6C-G2T"/>
+                            <constraint firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" constant="12" id="5kU-Hl-K4f"/>
+                            <constraint firstItem="N3J-iR-6s3" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="leading" constant="16.5" id="7bW-6C-G2T"/>
                             <constraint firstItem="R5W-sb-WfQ" firstAttribute="baseline" secondItem="KjI-td-Zyi" secondAttribute="baseline" constant="-5" id="CJR-zH-swv"/>
                             <constraint firstItem="YaU-Dd-i1b" firstAttribute="baseline" secondItem="R5W-sb-WfQ" secondAttribute="baseline" id="IM6-Ox-hhM"/>
-                            <constraint firstItem="KjI-td-Zyi" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="8" id="Osw-wO-fzq"/>
+                            <constraint firstItem="KjI-td-Zyi" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="12" id="Osw-wO-fzq"/>
                             <constraint firstItem="N3J-iR-6s3" firstAttribute="top" secondItem="KjI-td-Zyi" secondAttribute="bottom" constant="-2" id="PXT-pj-8um"/>
-                            <constraint firstItem="QCm-ec-hWP" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="8" id="Pgg-hq-r2i"/>
-                            <constraint firstItem="R5W-sb-WfQ" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="trailing" constant="1" id="WUV-BW-u79"/>
+                            <constraint firstItem="QCm-ec-hWP" firstAttribute="leading" secondItem="i7P-n8-e2J" secondAttribute="leading" constant="12" id="Pgg-hq-r2i"/>
+                            <constraint firstItem="R5W-sb-WfQ" firstAttribute="leading" secondItem="KjI-td-Zyi" secondAttribute="trailing" constant="5" id="WUV-BW-u79"/>
                             <constraint firstItem="YaU-Dd-i1b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="R5W-sb-WfQ" secondAttribute="trailing" constant="1" id="Xs9-Dl-dEp"/>
                             <constraint firstItem="N3J-iR-6s3" firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" id="hbl-Wv-kzN"/>
-                            <constraint firstAttribute="bottom" secondItem="QCm-ec-hWP" secondAttribute="bottom" constant="8" id="kYZ-xI-uk4"/>
-                            <constraint firstAttribute="trailing" secondItem="QCm-ec-hWP" secondAttribute="trailing" constant="8" id="ncv-hM-4AA"/>
+                            <constraint firstAttribute="bottom" secondItem="QCm-ec-hWP" secondAttribute="bottom" constant="12" id="kYZ-xI-uk4"/>
+                            <constraint firstAttribute="trailing" secondItem="QCm-ec-hWP" secondAttribute="trailing" constant="12" id="ncv-hM-4AA"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                 <size key="value" width="0.0" height="0.0"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="1.5"/>
+                                <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                <real key="value" value="0.29999999999999999"/>
+                                <real key="value" value="0.40000000000000002"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="5"/>
+                                <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
