@@ -57,7 +57,7 @@ class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Serv
         } else {
             this.mainHelperWeakReference.get()?.accessToken = accessToken
             Log.d(GetAccessTokenAsyncTask.TAG, this.mainHelperWeakReference.get()?.accessToken.toString())
-            this.mainHelperWeakReference.get()?.onRefresh()
+            this.mainHelperWeakReference.get()?.getUserName(true)
         }
     }
 }

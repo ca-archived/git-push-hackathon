@@ -29,10 +29,7 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
      * イベントリスト
      */
     var items: List<Event> = emptyList()
-        set(value) {
-            field = value + field
-            this.notifyDataSetChanged()
-        }
+        private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         Log.v(EventViewAdapter.TAG, "onCreateViewHolder called")
@@ -57,5 +54,20 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
             message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
             createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
         }
+    }
+
+    /**
+     * イベントリストを追加する
+     * @param items イベントリスト
+     * @param isTop 先頭に追加するかどうか
+     */
+    fun addItems(items: List<Event>, isTop: Boolean) {
+        Log.v(EventViewAdapter.TAG, "addItems called")
+        this.items = if (isTop) {
+            items + this.items
+        } else {
+            this.items + items
+        }
+        this.notifyDataSetChanged()
     }
 }

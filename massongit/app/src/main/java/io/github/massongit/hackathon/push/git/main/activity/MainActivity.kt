@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
         this.helper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
-        }, eventAdapter)
+        }, this.findViewById(R.id.event_view), eventAdapter)
         Log.d(MainActivity.TAG, "data: " + this.intent.dataString)
         this.authorizedUri = this.intent.data
     }

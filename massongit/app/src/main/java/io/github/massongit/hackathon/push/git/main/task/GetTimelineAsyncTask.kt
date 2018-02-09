@@ -4,22 +4,17 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.AsyncTask
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.widget.Toast
-import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
-import com.eclipsesource.json.JsonValue
 import com.github.scribejava.core.exceptions.OAuthException
-import com.github.scribejava.core.model.OAuth2AccessToken
-import com.github.scribejava.core.model.OAuthRequest
-import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.main.event.*
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
+import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 import org.apache.commons.lang3.time.DateFormatUtils
 import java.lang.ref.WeakReference
 import java.net.URL
@@ -29,11 +24,12 @@ import java.net.URL
  * タイムラインを取得する非同期タスク
  * @param context Activity
  * @param service GitHub APIのサービス
- * @param accessToken GitHub APIのアクセストークン
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventViewAdapter イベントビューのアダプター
+ * @param helper Helper
+ * @param isCurrent 最新のタイムラインを取得するかどうか
  */
-class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service?, private val accessToken: OAuth2AccessToken?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter) : AsyncTask<Unit, Unit, List<Event>>() {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, private val isCurrent: Boolean=true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
@@ -41,9 +37,9 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
         private val TAG: String? = GetTimelineAsyncTask::class.simpleName
 
         /**
-         * ETag用キャッシュ
+         * 現在見ているタイムラインのページ番号
          */
-        private val eTagCache: MutableMap<String, String> = mutableMapOf()
+        private var page: Int = 1
     }
 
     /**
@@ -55,11 +51,6 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
      * SwipeRefreshLayoutを保持するWeakReference
      */
     private val swipeRefreshLayoutWeakReference: WeakReference<SwipeRefreshLayout> = WeakReference(swipeRefreshLayout)
-
-    /**
-     * レスポンスボディ用キャッシュ
-     */
-    private val responseBodyCache: MutableMap<String, JsonValue> = mutableMapOf()
 
     override fun onPreExecute() {
         Log.v(GetTimelineAsyncTask.TAG, "onPreExecute called")
@@ -73,7 +64,14 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
         val actorAvatarCache = mutableMapOf<String, Bitmap>()
 
         try {
-            (this.request("https://api.github.com/users/%s/received_events".format((this.request("https://api.github.com/user") as? JsonObject)?.get("login")?.asString()), true) as? JsonArray)?.forEach {
+            var receivedEventsUrl = "https://api.github.com/users/%s/received_events".format(this.helper.userName)
+
+            if (!this.isCurrent) {
+                GetTimelineAsyncTask.page++
+                receivedEventsUrl += "?page=%d".format(GetTimelineAsyncTask.page)
+            }
+
+            (this.request(receivedEventsUrl, true) as? JsonArray)?.forEach {
                 val receivedEvent = it as? JsonObject
                 val type = receivedEvent?.get("type")?.asString()
                 val actor = receivedEvent?.get("actor") as? JsonObject
@@ -189,7 +187,7 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
 
     override fun onPostExecute(events: List<Event>) {
         Log.v(GetTimelineAsyncTask.TAG, "onPostExecute called")
-        this.eventViewAdapter.items = events
+        this.eventViewAdapter.addItems(events, this.isCurrent)
         this.swipeRefreshLayoutWeakReference.get()?.isRefreshing = false
         Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.get_user_timeline_completed), Toast.LENGTH_SHORT).show()
     }
@@ -215,51 +213,6 @@ class GetTimelineAsyncTask(context: Context, private val service: OAuth20Service
             } else {
                 Uri.parse(htmlUrl.asString())
             }
-        }
-    }
-
-    /**
-     * リクエストを送信する
-     * @param requestUrl リクエストURL
-     * @param isUseETag ETagを使うかどうか
-     * @return レスポンス
-     */
-    private fun request(requestUrl: String, isUseETag: Boolean = false): JsonValue {
-        Log.v(GetTimelineAsyncTask.TAG, "request called")
-        val cachedResponseBody = this.responseBodyCache[requestUrl]
-        if (cachedResponseBody == null) {
-            val request = OAuthRequest(Verb.GET, requestUrl).apply {
-                if (isUseETag) {
-                    val eTag = GetTimelineAsyncTask.eTagCache[requestUrl]
-                    if (eTag != null) {
-                        addHeader("If-None-Match", eTag)
-                    }
-                }
-            }
-            val newResponse = this.service?.apply {
-                signRequest(accessToken, request)
-            }?.execute(request)
-            if (newResponse == null || !newResponse.isSuccessful || newResponse.code == 304) {
-                throw OAuthException("%s (url: %s)".format(if (newResponse == null) {
-                    "404 Not Found"
-                } else {
-                    newResponse.headers["Status"]
-                }, requestUrl))
-            } else {
-                if (isUseETag) {
-                    val eTag = newResponse.headers["ETag"]
-                    if (eTag != null) {
-                        GetTimelineAsyncTask.eTagCache[requestUrl] = eTag.substring(2)
-                    }
-                }
-                val newResponseBody = newResponse.stream.reader().use {
-                    Json.parse(it)
-                }
-                this.responseBodyCache[requestUrl] = newResponseBody
-                return newResponseBody
-            }
-        } else {
-            return cachedResponseBody
         }
     }
 }
