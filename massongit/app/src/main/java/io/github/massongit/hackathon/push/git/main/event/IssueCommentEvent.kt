@@ -13,8 +13,14 @@ import java.util.*
  * @param actorAvatar イベントを行ったユーザーのサムネイル
  * @param createdAt イベントが作成された日時
  * @param number Issueの番号
+ * @param title Issueのタイトル
  * @param comment コメント
+ * @param isPullRequest Pull Requestかどうか
  */
-class IssueCommentEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, number: Int, comment: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
-    override val messageHTML: String = "<strong>%s</strong> commented on an issue <strong>%s#%d</strong><br/><small><i>%s</i></small>".format(this.actorLogin, this.repoName, number, comment)
+class IssueCommentEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, number: Int, title: String, comment: String, isPullRequest: Boolean) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+    override val messageHTML: String = "<strong>%s</strong> commented on %s <strong>%s#%d</strong><br/><u>%s</u><br/><i>%s</i>".format(this.actorLogin, if (isPullRequest) {
+        "a pull request"
+    } else {
+        "an issue"
+    }, this.repoName, number, title, comment)
 }

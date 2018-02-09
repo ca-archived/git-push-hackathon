@@ -118,8 +118,9 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                 }
                                 "IssuesEvent" -> {
                                     val action = payloadElement?.get("action")?.asString()
-                                    val number = (payloadElement?.get("issue") as? JsonObject)?.get("number")?.asInt()
-                                    val title = (payloadElement?.get("issue") as? JsonObject)?.get("title")?.asString()
+                                    val issue = payloadElement?.get("issue") as? JsonObject
+                                    val number = issue?.get("number")?.asInt()
+                                    val title = issue?.get("title")?.asString()
                                     if (action == null || number == null || title == null) {
                                         null
                                     } else {
@@ -127,12 +128,14 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                     }
                                 }
                                 "IssueCommentEvent" -> {
-                                    val number = (payloadElement?.get("issue") as? JsonObject)?.get("number")?.asInt()
+                                    val issue = payloadElement?.get("issue") as? JsonObject
+                                    val number = issue?.get("number")?.asInt()
+                                    val title = issue?.get("title")?.asString()
                                     val comment = (payloadElement?.get("comment") as? JsonObject)?.get("body")?.asString()
-                                    if (number == null || comment == null) {
+                                    if (number == null || comment == null || title == null) {
                                         null
                                     } else {
-                                        IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, comment)
+                                        IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, title, comment, issue.get("pull_request") != null)
                                     }
                                 }
                                 "PushEvent" -> {
