@@ -79,11 +79,8 @@ public class GitHubTokenManager {
     }
 
     String getToken() {
-        return "297869f9a46b95aff804c0a88f6df8794429d0bf";
-        /*
         Log.i("gh_feed",  preferences.getString(PREF_TOKEN_KEY, ""));
         return preferences.getString(PREF_TOKEN_KEY, "");
-        */
     }
 
     GitHubTokenManager(Resources resources, SharedPreferences sharedPreferences, ExecutorService executorService){
