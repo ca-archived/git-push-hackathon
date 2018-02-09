@@ -15,7 +15,7 @@ class EventViewOnScrollListener(private val helper: MainHelper, private val onRe
         /**
          * ログ用タグ
          */
-        private val TAG: String? = MainHelper::class.simpleName
+        private val TAG: String? = EventViewOnScrollListener::class.simpleName
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

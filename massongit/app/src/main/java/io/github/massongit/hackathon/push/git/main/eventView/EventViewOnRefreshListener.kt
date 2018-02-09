@@ -13,7 +13,7 @@ class EventViewOnRefreshListener(private val helper: MainHelper) : SwipeRefreshL
         /**
          * ログ用タグ
          */
-        private val TAG: String? = MainHelper::class.simpleName
+        private val TAG: String? = EventViewOnRefreshListener::class.simpleName
     }
 
     override fun onRefresh() {
