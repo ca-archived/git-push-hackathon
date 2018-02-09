@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.view.fragment;
 import android.os.Bundle;
 
 import com.example.masato.githubfeed.model.Issue;
+import com.example.masato.githubfeed.model.PullRequest;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.model.diff.DiffFile;
 
@@ -111,6 +112,15 @@ public class FragmentFactory {
         PullRequestListFragment pullRequestListFragment = new PullRequestListFragment();
         pullRequestListFragment.setArguments(bundle);
         return pullRequestListFragment;
+    }
+
+    public static PullRequestOverviewFragment createPullRequestOverviewFragment(PullRequest pr, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("pull_request", pr);
+        bundle.putString("name", name);
+        PullRequestOverviewFragment pullRequestOverviewFragment = new PullRequestOverviewFragment();
+        pullRequestOverviewFragment.setArguments(bundle);
+        return pullRequestOverviewFragment;
     }
 
     private FragmentFactory(){}

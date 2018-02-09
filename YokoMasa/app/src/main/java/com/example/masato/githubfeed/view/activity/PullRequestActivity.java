@@ -9,6 +9,7 @@ import com.example.masato.githubfeed.view.fragment.CommentListFragment;
 import com.example.masato.githubfeed.view.fragment.CommitListFragment;
 import com.example.masato.githubfeed.view.fragment.DiffFileListFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
+import com.example.masato.githubfeed.view.fragment.PullRequestOverviewFragment;
 
 /**
  * Created by Masato on 2018/02/08.
@@ -26,6 +27,9 @@ public class PullRequestActivity extends ViewPagerActivity {
     private void setUpContent(PullRequest pr) {
         setUpActionBar(pr);
 
+        PullRequestOverviewFragment pullRequestOverviewFragment =
+                FragmentFactory.createPullRequestOverviewFragment(pr, getString(R.string.tab_overview));
+        addFragment(pullRequestOverviewFragment);
 
         CommentListFragment commentListFragment =
                 FragmentFactory.createCommentListFragment(pr.commentsUrl, getString(R.string.tab_comments));
@@ -34,7 +38,6 @@ public class PullRequestActivity extends ViewPagerActivity {
         CommitListFragment commitListFragment =
                 FragmentFactory.createCommitListFragment(pr.commitsUrl, getString(R.string.tab_commits));
         addFragment(commitListFragment);
-
 
         DiffFileListFragment diffFileListFragment =
                 FragmentFactory.createDiffFileListFragment(pr.diffUrl, getString(R.string.tab_file_changed));

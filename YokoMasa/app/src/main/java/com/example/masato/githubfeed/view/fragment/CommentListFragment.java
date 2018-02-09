@@ -26,12 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Masato on 2018/02/03.
  */
 
-public class CommentListFragment extends PaginatingListFragment implements CommitListView {
-
-    @Override
-    public void showCommit(Commit commit) {
-        Navigator.navigateToCommitView(getContext(), commit);
-    }
+public class CommentListFragment extends PaginatingListFragment {
 
     @Override
     protected PaginatingListPresenter onCreatePresenter() {
