@@ -37,6 +37,7 @@ public abstract class PaginatingListFragment extends BaseFragment
     private SwipeRefreshLayout swipeRefreshLayout;
     private PaginatingListAdapter adapter;
     private int scrollX, scrollY;
+    private boolean isViewCreated;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public abstract class PaginatingListFragment extends BaseFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
         initViews(view);
     }
 
@@ -134,10 +136,12 @@ public abstract class PaginatingListFragment extends BaseFragment
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("scroll_x", elementRecyclerView.getScrollX());
-        outState.putInt("scroll_y", elementRecyclerView.getScrollY());
         outState.putInt("current_page", presenter.getCurrentPage());
         outState.putParcelableArrayList("elements", presenter.getElementList());
+        if (isViewCreated) {
+            outState.putInt("scroll_x", elementRecyclerView.getScrollX());
+            outState.putInt("scroll_y", elementRecyclerView.getScrollY());
+        }
     }
 
     private void initViews(View view) {

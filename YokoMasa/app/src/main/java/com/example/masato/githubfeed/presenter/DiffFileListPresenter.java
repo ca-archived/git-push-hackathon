@@ -5,6 +5,7 @@ import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.diff.DiffFile;
 import com.example.masato.githubfeed.view.DiffFileListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class DiffFileListPresenter {
 
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            List<DiffFile> diffFiles = (List<DiffFile>) result.resultObject;
+            ArrayList<DiffFile> diffFiles = (ArrayList<DiffFile>) result.resultObject;
             view.showDiffFiles(diffFiles);
         }
     }

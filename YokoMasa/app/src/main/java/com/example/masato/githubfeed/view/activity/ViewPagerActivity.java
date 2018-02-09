@@ -21,6 +21,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FragmentListPagerAdapter adapter;
+    private boolean fragmentUnControllable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,11 +39,23 @@ public class ViewPagerActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        fragmentUnControllable = true;
+    }
+
     protected void addFragment(BaseFragment fragment) {
+        if (fragmentUnControllable) {
+            return;
+        }
         adapter.addFragment(fragment);
     }
 
     protected void addFragment(BaseFragment fragment, int position) {
+        if (fragmentUnControllable) {
+            return;
+        }
         adapter.addFragment(fragment, position);
     }
 

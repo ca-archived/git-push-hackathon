@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.view;
 
 import com.example.masato.githubfeed.model.diff.DiffFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface DiffFileListView {
-    public void showDiffFiles(List<DiffFile> diffFiles);
+    public void showDiffFiles(ArrayList<DiffFile> diffFiles);
 }

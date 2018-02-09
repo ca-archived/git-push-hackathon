@@ -24,8 +24,8 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater inflater;
 
-    public void addDiffFiles(List<DiffFile> diffFiles) {
-        this.diffFiles.addAll(diffFiles);
+    public void setDiffFiles(List<DiffFile> diffFiles) {
+        this.diffFiles = diffFiles;
         notifyDataSetChanged();
     }
 
