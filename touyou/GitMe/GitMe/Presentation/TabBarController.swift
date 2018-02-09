@@ -10,6 +10,8 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
+    static let router = GitMeRouter()
+
     // MARK: Life Cycle
 
     override func viewDidLoad() {

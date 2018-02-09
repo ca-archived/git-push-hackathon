@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  EventCellViewModel.swift
 //  GitMe
 //
 //  Created by 藤井陽介 on 2018/01/27.

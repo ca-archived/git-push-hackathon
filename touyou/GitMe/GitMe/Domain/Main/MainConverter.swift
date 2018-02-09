@@ -1,5 +1,5 @@
 //
-//  MainUseCase.swift
+//  MainConverter.swift
 //  GitMe
 //
 //  Created by 藤井陽介 on 2018/01/27.
@@ -12,7 +12,9 @@ import RxSwift
 protocol MainConverterProtocol {
 
     var isLoggedIn: Bool { get }
+
     func fetchEvent(at page: Int, every perPage: Int) -> Observable<[EventCellViewModel]>
+    func fetchLoginUserInfo() -> Observable<UserInfoViewModel>
 }
 
 class MainConverter {
@@ -116,6 +118,17 @@ extension MainConverter: MainConverterProtocol {
 
                 return eventCellViewModel
             }
+        }
+    }
+
+    func fetchLoginUserInfo() -> Observable<UserInfoViewModel> {
+
+        return api.logIn().map { user in
+
+            let userInfoViewModel = UserInfoViewModel()
+            userInfoViewModel.userName = user.login
+            userInfoViewModel.iconUrl = user.avatarUrl
+            return userInfoViewModel
         }
     }
 }

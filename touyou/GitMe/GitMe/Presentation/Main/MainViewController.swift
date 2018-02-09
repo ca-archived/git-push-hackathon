@@ -41,16 +41,33 @@ class MainViewController: UIViewController {
 
         if !presenter.isLoggedIn {
 
-            // TODO: ログインする
-            GitHubAPI.shared.logIn().subscribe().disposed(by: disposeBag)
+            TabBarController.router.openLogInView()
         } else {
 
-            presenter.reload { [weak self] in
+            presenter.fetchUser()
+            presenter.logInData
+                .observeOn(MainScheduler.instance)
+                .subscribe { [unowned self] event in
 
-                guard let `self` = self else { return }
+                    switch event {
+                    case .next(let value):
+                        TabBarController.router.openLoadingWindow(userInfo: value)
+                        self.presenter.reload { [weak self] in
 
-                self.collectionView.reloadData()
-            }
+                            guard let `self` = self else { return }
+
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+
+                                TabBarController.router.closeLoadingWindow()
+                            })
+                            self.collectionView.reloadData()
+                        }
+                    case .error(let error):
+                        print(error)
+                    case .completed:
+                        break
+                    }
+                }.disposed(by: disposeBag)
         }
     }
 

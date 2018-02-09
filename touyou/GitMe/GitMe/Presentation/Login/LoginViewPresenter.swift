@@ -9,44 +9,46 @@
 import Foundation
 import RxSwift
 
-//protocol LoginViewPresenterProtocol {
-//
-//    var logInData: PublishSubject<LoginViewModel> { get }
-//
-//    func load()
-//}
-//
-//class LoginViewPresenter {
-//
-//    init(useCase: LoginUseCaseProtocol) {
-//
-//        self.useCase = useCase
-//    }
-//
-//    // MARK: Private
-//
-//    private let useCase: LoginUseCaseProtocol!
-//    private let disposeBag = DisposeBag()
-//    private(set) var logInData = PublishSubject<LoginViewModel>()
-//}
-//
-//extension LoginViewPresenter: LoginViewPresenterProtocol {
-//
-//    func load() {
-//
-//        useCase.logIn()
-//            .observeOn(MainScheduler.instance)
-//            .subscribe { [weak self] event in
-//
-//                guard let `self` = self else { return }
-//
-//                switch event {
-//                case .next(let value):
-//                    self.logInData.onNext(value)
-//                default:
-//                    break
-//                }
-//            }.disposed(by: disposeBag)
-//    }
-//}
+protocol LoginPresenterProtocol {
+
+    var logInData: PublishSubject<UserInfoViewModel> { get }
+
+    func logIn()
+}
+
+class LoginPresenter {
+
+    init(converter: LoginConverterProtocol) {
+
+        self.converter = converter
+    }
+
+    // MARK: Private
+
+    private let converter: LoginConverterProtocol!
+    private let disposeBag = DisposeBag()
+    private(set) var logInData = PublishSubject<UserInfoViewModel>()
+}
+
+// MARK: - Protocol Interface
+
+extension LoginPresenter: LoginPresenterProtocol {
+
+    func logIn() {
+
+        converter.logIn()
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self] event in
+
+                guard let `self` = self else { return }
+
+                switch event {
+                case .next(let value):
+                    self.logInData.onNext(value)
+                default:
+                    break
+                }
+            }.disposed(by: disposeBag)
+    }
+}
 

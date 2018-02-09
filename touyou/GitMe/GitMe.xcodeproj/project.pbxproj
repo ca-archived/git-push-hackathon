@@ -18,6 +18,9 @@
 		46537390202D486A002279BD /* URWDIN-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738D202D4869002279BD /* URWDIN-Light.ttf */; };
 		46537391202D486A002279BD /* URWDIN-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738E202D4869002279BD /* URWDIN-Medium.ttf */; };
 		46537392202D486A002279BD /* URWDIN-Demi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738F202D486A002279BD /* URWDIN-Demi.ttf */; };
+		46537395202D8929002279BD /* GitMeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46537394202D8929002279BD /* GitMeRouter.swift */; };
+		4653739A202D89EC002279BD /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46537398202D89EC002279BD /* LoadingViewController.swift */; };
+		4653739D202D8A83002279BD /* LoadingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4653739C202D8A83002279BD /* LoadingViewController.storyboard */; };
 		4671021A202C287C007D86A8 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46710219202C287C007D86A8 /* UIColor+Extensions.swift */; };
 		46710220202C4C7E007D86A8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671021F202C4C7E007D86A8 /* Date+Extensions.swift */; };
 		46710225202C5863007D86A8 /* EventCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46710223202C5863007D86A8 /* EventCardCollectionViewCell.swift */; };
@@ -39,11 +42,10 @@
 		469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */; };
 		46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46972300200E44CD008325C4 /* UIApplication+Extensions.swift */; };
 		46AB03912015C0950003AD21 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46AB03902015C0950003AD21 /* OAuthSwift.framework */; };
-		46AB03932015C2780003AD21 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03922015C2780003AD21 /* UserDataStore.swift */; };
 		46AB03952015C74A0003AD21 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03942015C74A0003AD21 /* LoginViewPresenter.swift */; };
-		46AB03972015C7A60003AD21 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03962015C7A60003AD21 /* LoginUseCase.swift */; };
+		46AB03972015C7A60003AD21 /* LoginConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03962015C7A60003AD21 /* LoginConverter.swift */; };
 		46AB039A2015CA910003AD21 /* LoginContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03992015CA910003AD21 /* LoginContainer.swift */; };
-		46AB03A12015D75B0003AD21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03A02015D75B0003AD21 /* LoginViewModel.swift */; };
+		46AB03A12015D75B0003AD21 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03A02015D75B0003AD21 /* UserInfoViewModel.swift */; };
 		46BF3B45200DB924003C2EAE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B43200DB924003C2EAE /* RxSwift.framework */; };
 		46BF3B46200DB924003C2EAE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BF3B44200DB924003C2EAE /* RxCocoa.framework */; };
 		46DA6D082015925E00767CCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DA6D072015925E00767CCB /* LoginViewController.swift */; };
@@ -83,6 +85,9 @@
 		4653738D202D4869002279BD /* URWDIN-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Light.ttf"; sourceTree = "<group>"; };
 		4653738E202D4869002279BD /* URWDIN-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Medium.ttf"; sourceTree = "<group>"; };
 		4653738F202D486A002279BD /* URWDIN-Demi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Demi.ttf"; sourceTree = "<group>"; };
+		46537394202D8929002279BD /* GitMeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitMeRouter.swift; sourceTree = "<group>"; };
+		46537398202D89EC002279BD /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		4653739C202D8A83002279BD /* LoadingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoadingViewController.storyboard; sourceTree = "<group>"; };
 		46710219202C287C007D86A8 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		4671021F202C4C7E007D86A8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		46710223202C5863007D86A8 /* EventCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -110,11 +115,10 @@
 		469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		46972300200E44CD008325C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		46AB03902015C0950003AD21 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
-		46AB03922015C2780003AD21 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		46AB03942015C74A0003AD21 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
-		46AB03962015C7A60003AD21 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		46AB03962015C7A60003AD21 /* LoginConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConverter.swift; sourceTree = "<group>"; };
 		46AB03992015CA910003AD21 /* LoginContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContainer.swift; sourceTree = "<group>"; };
-		46AB03A02015D75B0003AD21 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		46AB03A02015D75B0003AD21 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 		46BF3B43200DB924003C2EAE /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		46BF3B44200DB924003C2EAE /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		46DA6D072015925E00767CCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +163,9 @@
 			children = (
 				46537389202D42E9002279BD /* TabBarController.storyboard */,
 				46DD8C7E20204A70000B92A6 /* TabBarController.swift */,
+				46537398202D89EC002279BD /* LoadingViewController.swift */,
+				4653739C202D8A83002279BD /* LoadingViewController.storyboard */,
+				46537394202D8929002279BD /* GitMeRouter.swift */,
 				46092DE4202C9DEA00D32FF6 /* Main */,
 				46092DE5202C9DF000D32FF6 /* Login */,
 			);
@@ -168,7 +175,9 @@
 		46092DE2202C9DCF00D32FF6 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				46AB03A02015D75B0003AD21 /* UserInfoViewModel.swift */,
 				46092DE6202C9E2E00D32FF6 /* Main */,
+				46537393202D837A002279BD /* Login */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -215,6 +224,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		46537393202D837A002279BD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				46AB03962015C7A60003AD21 /* LoginConverter.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		4695C946200DAC3E0097F066 = {
 			isa = PBXGroup;
 			children = (
@@ -247,7 +264,6 @@
 				46092DE2202C9DCF00D32FF6 /* Domain */,
 				46092DE3202C9DDA00D32FF6 /* Data */,
 				46AB03982015C9820003AD21 /* DI */,
-				469722F1200E3E75008325C4 /* Old(will remove) */,
 				4695C952200DAC3E0097F066 /* AppDelegate.swift */,
 			);
 			path = GitMe;
@@ -316,16 +332,6 @@
 				4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		469722F1200E3E75008325C4 /* Old(will remove) */ = {
-			isa = PBXGroup;
-			children = (
-				46AB03962015C7A60003AD21 /* LoginUseCase.swift */,
-				46AB03A02015D75B0003AD21 /* LoginViewModel.swift */,
-				46AB03922015C2780003AD21 /* UserDataStore.swift */,
-			);
-			path = "Old(will remove)";
 			sourceTree = "<group>";
 		};
 		46AB03982015C9820003AD21 /* DI */ = {
@@ -460,6 +466,7 @@
 			files = (
 				4653738A202D42E9002279BD /* TabBarController.storyboard in Resources */,
 				4695C95D200DAC3E0097F066 /* LaunchScreen.storyboard in Resources */,
+				4653739D202D8A83002279BD /* LoadingViewController.storyboard in Resources */,
 				46537390202D486A002279BD /* URWDIN-Light.ttf in Resources */,
 				46710226202C5863007D86A8 /* EventCardCollectionViewCell.xib in Resources */,
 				469722E7200E2F35008325C4 /* ClientKey.plist in Resources */,
@@ -540,9 +547,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46AB03932015C2780003AD21 /* UserDataStore.swift in Sources */,
 				464DE8342021AD8A00AB66FE /* EventResponse.swift in Sources */,
 				46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */,
+				46537395202D8929002279BD /* GitMeRouter.swift in Sources */,
 				46710225202C5863007D86A8 /* EventCardCollectionViewCell.swift in Sources */,
 				46DA6D0A2015927D00767CCB /* MainViewController.swift in Sources */,
 				469722FB200E41CD008325C4 /* UIView+Extensions.swift in Sources */,
@@ -556,7 +563,7 @@
 				4628D7F0201CBC8400C66D10 /* MainPresenter.swift in Sources */,
 				4628D7F6201CBCBA00C66D10 /* GitHubAPI.swift in Sources */,
 				469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */,
-				46AB03A12015D75B0003AD21 /* LoginViewModel.swift in Sources */,
+				46AB03A12015D75B0003AD21 /* UserInfoViewModel.swift in Sources */,
 				4628D7EE201CB7A900C66D10 /* MainContainer.swift in Sources */,
 				469722F5200E4037008325C4 /* StoryboardInstantiable.swift in Sources */,
 				46DD8C8120204AE2000B92A6 /* FeedResponse.swift in Sources */,
@@ -564,7 +571,8 @@
 				4628D7F4201CBCA700C66D10 /* EventCellViewModel.swift in Sources */,
 				46AB03952015C74A0003AD21 /* LoginViewPresenter.swift in Sources */,
 				469722F7200E40FA008325C4 /* NibLoadable.swift in Sources */,
-				46AB03972015C7A60003AD21 /* LoginUseCase.swift in Sources */,
+				4653739A202D89EC002279BD /* LoadingViewController.swift in Sources */,
+				46AB03972015C7A60003AD21 /* LoginConverter.swift in Sources */,
 				46710220202C4C7E007D86A8 /* Date+Extensions.swift in Sources */,
 				4695C953200DAC3E0097F066 /* AppDelegate.swift in Sources */,
 				4671021A202C287C007D86A8 /* UIColor+Extensions.swift in Sources */,

@@ -55,8 +55,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyou starred bitcoin/bitcoin" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5W-sb-WfQ">
-                                <rect key="frame" x="50" y="25.5" width="182.5" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyou starred bitcoin/bitcoin aaa" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5W-sb-WfQ">
+                                <rect key="frame" x="50" y="7.5" width="182.5" height="36"/>
                                 <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -158,6 +158,7 @@
                             <constraint firstItem="N3J-iR-6s3" firstAttribute="trailing" secondItem="YaU-Dd-i1b" secondAttribute="trailing" id="hbl-Wv-kzN"/>
                             <constraint firstAttribute="bottom" secondItem="QCm-ec-hWP" secondAttribute="bottom" constant="12" id="kYZ-xI-uk4"/>
                             <constraint firstAttribute="trailing" secondItem="QCm-ec-hWP" secondAttribute="trailing" constant="12" id="ncv-hM-4AA"/>
+                            <constraint firstItem="R5W-sb-WfQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i7P-n8-e2J" secondAttribute="top" constant="5" id="zQ0-Nr-Z6X"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">

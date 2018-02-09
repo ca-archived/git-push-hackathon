@@ -12,6 +12,9 @@ import RxSwift
 protocol MainPresenterProtocol {
 
     var isLoggedIn: Bool { get }
+    var logInData: PublishSubject<UserInfoViewModel> { get }
+
+    func fetchUser()
     func reload(_ completion: @escaping () -> Void)
     func loadMore(_ completion: @escaping () -> Void)
 }
@@ -31,6 +34,7 @@ class MainPresenter: NSObject {
 
     private var page: Int = 1
     private var cellData: [EventCellViewModel] = []
+    private(set) var logInData = PublishSubject<UserInfoViewModel>()
 }
 
 // MARK: - DataSource
@@ -70,6 +74,23 @@ extension MainPresenter: MainPresenterProtocol {
         return converter.isLoggedIn
     }
 
+    func fetchUser() {
+
+        converter.fetchLoginUserInfo()
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self] event in
+
+                guard let `self` = self else { return }
+
+                switch event {
+                case .next(let value):
+                    self.logInData.onNext(value)
+                default:
+                    break
+                }
+            }.disposed(by: disposeBag)
+    }
+
     func reload(_ completion: @escaping () -> Void) {
 
         self.page = 1
@@ -77,19 +98,19 @@ extension MainPresenter: MainPresenterProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe { [unowned self] event in
 
-            switch event {
-            case .next(let value):
+                switch event {
+                case .next(let value):
 
-                self.cellData = value
-            case .error(let error):
+                    self.cellData = value
+                case .error(let error):
 
-                print(error)
-            case .completed:
+                    print(error)
+                case .completed:
 
-                break
-            }
-            completion()
-        }.disposed(by: disposeBag)
+                    break
+                }
+                completion()
+            }.disposed(by: disposeBag)
     }
 
     func loadMore(_ completion: @escaping () -> Void) {
@@ -99,18 +120,18 @@ extension MainPresenter: MainPresenterProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe { [unowned self] event in
 
-            switch event {
-            case .next(let value):
+                switch event {
+                case .next(let value):
 
-                self.cellData.append(contentsOf: value)
-            case .error(let error):
+                    self.cellData.append(contentsOf: value)
+                case .error(let error):
 
-                print(error)
-            case .completed:
+                    print(error)
+                case .completed:
 
-                break
-            }
-            completion()
-        }.disposed(by: disposeBag)
+                    break
+                }
+                completion()
+            }.disposed(by: disposeBag)
     }
 }
