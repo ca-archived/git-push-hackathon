@@ -29,7 +29,7 @@ import java.net.URL
  * @param helper Helper
  * @param isCurrent 最新のタイムラインを取得するかどうか
  */
-class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, private val isCurrent: Boolean=true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, private val isCurrent: Boolean = true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
