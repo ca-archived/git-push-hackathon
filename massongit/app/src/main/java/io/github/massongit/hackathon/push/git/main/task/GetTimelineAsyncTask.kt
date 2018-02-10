@@ -120,27 +120,33 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                         PullRequestEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(pullRequest), actorAvatar, createdAt, action, number, title)
                                     }
                                 }
-                                "IssuesEvent" -> {
-                                    val action = payloadElement?.get("action")?.asString()
+                                "IssuesEvent", "IssueCommentEvent" -> {
                                     val issue = payloadElement?.get("issue") as? JsonObject
                                     val number = issue?.get("number")?.asInt()
                                     val title = issue?.get("title")?.asString()
-                                    if (action == null || number == null || title == null) {
+                                    if (number == null || title == null) {
                                         null
                                     } else {
-                                        IssuesEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(issue), actorAvatar, createdAt, action, number, title)
-                                    }
-                                }
-                                "IssueCommentEvent" -> {
-                                    val issue = payloadElement?.get("issue") as? JsonObject
-                                    val comment = payloadElement?.get("comment") as? JsonObject
-                                    val number = issue?.get("number")?.asInt()
-                                    val title = issue?.get("title")?.asString()
-                                    val commentBody = comment?.get("body")?.asString()
-                                    if (number == null || commentBody == null || title == null) {
-                                        null
-                                    } else {
-                                        IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(comment), actorAvatar, createdAt, number, title, commentBody, issue.get("pull_request") != null)
+                                        when (type) {
+                                            "IssuesEvent" -> {
+                                                val action = payloadElement.get("action")?.asString()
+                                                if (action == null) {
+                                                    null
+                                                } else {
+                                                    IssuesEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(issue), actorAvatar, createdAt, action, number, title)
+                                                }
+                                            }
+                                            "IssueCommentEvent" -> {
+                                                val comment = payloadElement.get("comment") as? JsonObject
+                                                val commentBody = comment?.get("body")?.asString()
+                                                if (commentBody == null) {
+                                                    null
+                                                } else {
+                                                    IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(comment), actorAvatar, createdAt, number, title, commentBody, issue.get("pull_request") != null)
+                                                }
+                                            }
+                                            else -> null
+                                        }
                                     }
                                 }
                                 "PushEvent" -> {
@@ -163,11 +169,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                 }
                                 "CreateEvent", "DeleteEvent" -> {
                                     val thingType = payloadElement?.get("ref_type")?.asString()
-                                    val eventHtmlUrl = if (type == "CreateEvent") {
-                                        this.getHtmlUrl(repo)
-                                    } else {
-                                        this.getHtmlUrl(payloadElement)
-                                    }
+                                    val eventHtmlUrl = this.getHtmlUrl(repo)
                                     if (thingType == null) {
                                         null
                                     } else if (type == "DeleteEvent") {

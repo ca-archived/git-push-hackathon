@@ -15,6 +15,6 @@ import java.util.*
  * @param thingType イベントの対象オブジェクトの種類
  * @param thing イベントの対象オブジェクト
  */
-class DeleteEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, thingType: String, thing: String) : CreateEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, thingType) {
-    override val messageHTML: String = "<strong>%s</strong> deleted %s <u>%s</u> at <strong>%s</strong>".format(this.actorLogin, this.getWordWithIndefiniteArticle(this.thingType), thing, this.repoName)
+class DeleteEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, thingType: String, thing: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+    override val messageHTML: String = "<strong>%s</strong> deleted %s <u>%s</u> at <strong>%s</strong>".format(this.actorLogin, this.getWordWithIndefiniteArticle(thingType), thing, this.repoName)
 }

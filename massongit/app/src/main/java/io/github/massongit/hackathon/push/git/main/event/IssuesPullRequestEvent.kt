@@ -15,8 +15,8 @@ import java.util.*
  * @param action Pull Requestに対するアクション
  * @param number Pull Requestの番号
  * @param title Pull Requestのタイトル
- * @param kind 種類 (issue or pull request)
+ * @param type 種類 (issue or pull request)
  */
-open class IssuesPullRequestEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, action: String, number: Int, title: String, kind: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
-    override val messageHTML: String = "<strong>%s</strong> %s %s <strong>%s#%d</strong><br/><u>%s</u>".format(this.actorLogin, action, this.getWordWithIndefiniteArticle(kind), this.repoName, number, title)
+open class IssuesPullRequestEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, action: String, number: Int, title: String, type: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+    override val messageHTML: String = "<strong>%s</strong> %s %s <strong>%s#%d</strong><br/><u>%s</u>".format(this.actorLogin, action, this.getWordWithIndefiniteArticle(type), this.repoName, number, title)
 }
