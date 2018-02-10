@@ -28,7 +28,7 @@ import io.reactivex.Observable
 interface UserRepository {
 
   /**
-   *  get user data from somewhere
+   *  me user data from somewhere
    */
   fun get(): Observable<User>
 }

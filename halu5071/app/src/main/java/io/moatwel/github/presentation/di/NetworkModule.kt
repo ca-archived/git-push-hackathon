@@ -63,7 +63,7 @@ class NetworkModule {
   /**
    *  provide OkHttp instance.
    *  This OkHttp instance will not be singleton. Because authorization header should be
-   *  injected when we get access token from GitHub.
+   *  injected when we me access token from GitHub.
    *
    *  @param authDataUseCase AuthDataUseCase
    */

@@ -26,6 +26,6 @@ class EventViewModel @Inject constructor(
   }
 
   companion object {
-    private const val PAGE_SIZE = 20
+    private const val PAGE_SIZE = 30
   }
 }

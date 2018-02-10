@@ -28,7 +28,6 @@ import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import io.moatwel.github.R
 import io.moatwel.github.domain.usecase.AuthDataUseCase
-import io.moatwel.github.domain.usecase.EventUseCase
 import io.moatwel.github.domain.usecase.UserUseCase
 import io.moatwel.github.presentation.util.observeOnMainThread
 import io.moatwel.github.presentation.util.subscribeOnIoThread
@@ -43,8 +42,6 @@ class MainActivity : AppCompatActivity() {
   @Inject
   lateinit var authDataUseCase: AuthDataUseCase
 
-  @Inject
-  lateinit var eventUseCase: EventUseCase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -56,22 +53,11 @@ class MainActivity : AppCompatActivity() {
       startActivity(intent)
     }
 
-    userUseCase.get()
+    userUseCase.me()
       .subscribeOnIoThread()
       .observeOnMainThread()
       .subscribe({
         Timber.d("User Login: ${it.login}")
-      }, {
-        Timber.e(it)
-      })
-
-    eventUseCase.getEventList("halu5071", 1)
-      .subscribeOnIoThread()
-      .observeOnMainThread()
-      .subscribe({
-        it.forEach {
-          Timber.d("Type: ${it.type}")
-        }
       }, {
         Timber.e(it)
       })
