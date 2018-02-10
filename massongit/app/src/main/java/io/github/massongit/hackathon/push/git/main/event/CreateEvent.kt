@@ -16,17 +16,4 @@ import java.util.*
  */
 open class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, protected val thingType: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
     override val messageHTML: String = "<strong>%s</strong> created %s <strong>%s</strong>".format(this.actorLogin, this.getWordWithIndefiniteArticle(this.thingType), this.repoName)
-
-    /**
-     * 不定冠詞付きの単語を生成する
-     * @param word 単語
-     * @return 不定冠詞付きの単語
-     */
-    protected fun getWordWithIndefiniteArticle(word: String): String {
-        return if (word.startsWith("[aiueo]")) {
-            "an"
-        } else {
-            "a"
-        } + " " + word
-    }
 }

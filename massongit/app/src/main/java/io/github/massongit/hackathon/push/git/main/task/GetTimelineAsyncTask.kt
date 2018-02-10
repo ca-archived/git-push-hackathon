@@ -100,35 +100,47 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                         try {
                             val payloadElement = it as? JsonObject
                             events.add(when (type) {
-                                "GollumEvent", "IssuesEvent", "IssueCommentEvent" -> {
+                                "GollumEvent" -> {
+                                    val action = payloadElement?.get("action")?.asString()
+                                    val wikiTitle = payloadElement?.get("title")?.asString()
+                                    if (action == null || wikiTitle == null) {
+                                        null
+                                    } else {
+                                        GollumEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(payloadElement), actorAvatar, createdAt, action, wikiTitle)
+                                    }
+                                }
+                                "PullRequestEvent" -> {
+                                    val action = payloadElement?.get("action")?.asString()
+                                    val pullRequest = payloadElement?.get("pull_request") as? JsonObject
+                                    val number = pullRequest?.get("number")?.asInt()
+                                    val title = pullRequest?.get("title")?.asString()
+                                    if (action == null || number == null || title == null) {
+                                        null
+                                    } else {
+                                        PullRequestEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(pullRequest), actorAvatar, createdAt, action, number, title)
+                                    }
+                                }
+                                "IssuesEvent" -> {
+                                    val action = payloadElement?.get("action")?.asString()
+                                    val issue = payloadElement?.get("issue") as? JsonObject
+                                    val number = issue?.get("number")?.asInt()
+                                    val title = issue?.get("title")?.asString()
+                                    if (action == null || number == null || title == null) {
+                                        null
+                                    } else {
+                                        IssuesEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(issue), actorAvatar, createdAt, action, number, title)
+                                    }
+                                }
+                                "IssueCommentEvent" -> {
                                     val issue = payloadElement?.get("issue") as? JsonObject
                                     val comment = payloadElement?.get("comment") as? JsonObject
                                     val number = issue?.get("number")?.asInt()
                                     val title = issue?.get("title")?.asString()
-                                    val action = payloadElement?.get("action")?.asString()
-                                    val eventHtmlUrl = when (type) {
-                                        "IssuesEvent" -> this.getHtmlUrl(issue)
-                                        "IssueCommentEvent" -> this.getHtmlUrl(comment)
-                                        else -> this.getHtmlUrl(payloadElement)
-                                    }
-                                    if (type == "GollumEvent") {
-                                        val wikiTitle = payloadElement?.get("title")?.asString()
-                                        if (action == null || wikiTitle == null) {
-                                            null
-                                        } else {
-                                            GollumEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, wikiTitle)
-                                        }
-                                    } else if (type == "IssueCommentEvent") {
-                                        val commentBody = comment?.get("body")?.asString()
-                                        if (number == null || commentBody == null || title == null) {
-                                            null
-                                        } else {
-                                            IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, number, title, commentBody, issue.get("pull_request") != null)
-                                        }
-                                    } else if (type == "IssuesEvent" && action != null && number != null && title != null) {
-                                        IssuesEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, number, title)
-                                    } else {
+                                    val commentBody = comment?.get("body")?.asString()
+                                    if (number == null || commentBody == null || title == null) {
                                         null
+                                    } else {
+                                        IssueCommentEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(comment), actorAvatar, createdAt, number, title, commentBody, issue.get("pull_request") != null)
                                     }
                                 }
                                 "PushEvent" -> {

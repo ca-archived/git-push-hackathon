@@ -16,6 +16,4 @@ import java.util.*
  * @param number Issueの番号
  * @param title Issueのタイトル
  */
-class IssuesEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, action: String, number: Int, title: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
-    override val messageHTML: String = "<strong>%s</strong> %s an issue <strong>%s#%d</strong><br/><u>%s</u>".format(this.actorLogin, action, this.repoName, number, title)
-}
+class IssuesEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, action: String, number: Int, title: String) : IssuesPullRequestEvent(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt, action, number, title, "issue")
