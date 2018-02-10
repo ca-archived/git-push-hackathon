@@ -8,12 +8,13 @@ import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
-import io.github.massongit.hackathon.push.git.util.Util.Companion.launchCustomTab
+import io.github.massongit.hackathon.push.git.util.ChromeCustomTabs
 
 /**
  * ログイン画面のHelper
+ * @param activity Activity
  */
-class LoginHelper {
+class LoginHelper(private val activity: Activity) {
     companion object {
         /**
          * ログ用タグ
@@ -22,17 +23,35 @@ class LoginHelper {
     }
 
     /**
-     * GitHub APIの認証を行う
-     * @param activity Activity
+     * Chrome Custom Tabs
      */
-    fun authorize(activity: Activity) {
+    private val chromeCustomTabs: ChromeCustomTabs = ChromeCustomTabs(this.activity)
+
+    /**
+     * Chrome Custom Tabsをバインドする
+     */
+    fun bindChromeCustomTabs() {
+        Log.v(LoginHelper.TAG, "bindChromeCustomTabs called")
+        this.chromeCustomTabs.bind()
+    }
+
+    /**
+     * Chrome Custom Tabsのバインドを解除する
+     */
+    fun unbindChromeCustomTabs() {
+        Log.v(LoginHelper.TAG, "unbindChromeCustomTabs called")
+        this.chromeCustomTabs.unbind()
+    }
+
+    /**
+     * GitHub APIの認証を行う
+     */
+    fun authorize() {
         Log.v(LoginHelper.TAG, "authorize called")
-
-        val application = activity.application
-
+        val application = this.activity.application
         if (application is MainApplication) {
             if (application.service == null) {
-                application.service = ServiceBuilder(activity.getString(R.string.client_id)).apply {
+                application.service = ServiceBuilder(this.activity.getString(R.string.client_id)).apply {
                     apiSecret(activity.getString(R.string.client_secret))
                     callback(Uri.Builder().apply {
                         scheme(activity.getString(R.string.callback_url_scheme))
@@ -48,10 +67,10 @@ class LoginHelper {
             Log.d(LoginHelper.TAG, "authUrl: " + authUrl)
 
             // GitHub APIの連携アプリ認証画面を表示
-            launchCustomTab(activity, Uri.parse(authUrl))
+            this.chromeCustomTabs.launch(Uri.parse(authUrl))
         } else {
             Log.v(LoginHelper.TAG, "Authorize Error!")
-            Toast.makeText(activity, activity.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
+            Toast.makeText(this.activity, this.activity.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
         }
     }
 }

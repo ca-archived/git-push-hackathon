@@ -27,7 +27,19 @@ class LoginActivity : AppCompatActivity() {
         Log.v(LoginActivity.TAG, "onCreate called")
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_login)
-        this.helper = LoginHelper()
+        this.helper = LoginHelper(this)
+    }
+
+    override fun onStart() {
+        Log.v(LoginActivity.TAG, "onStart called")
+        super.onStart()
+        this.helper.bindChromeCustomTabs()
+    }
+
+    override fun onStop() {
+        Log.v(LoginActivity.TAG, "onStop called")
+        super.onStop()
+        this.helper.unbindChromeCustomTabs()
     }
 
     /**
@@ -36,6 +48,6 @@ class LoginActivity : AppCompatActivity() {
      */
     fun onLoginButtonClick(v: View) {
         Log.v(LoginActivity.TAG, "onLoginButtonClick called")
-        this.helper.authorize(this)
+        this.helper.authorize()
     }
 }

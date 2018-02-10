@@ -3,6 +3,8 @@ package io.github.massongit.hackathon.push.git.main.helper
 import android.content.Context
 import android.net.Uri
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.github.scribejava.core.model.OAuth2AccessToken
@@ -13,6 +15,7 @@ import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnScrollLi
 import io.github.massongit.hackathon.push.git.main.task.GetAccessTokenAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetTimelineAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
+import io.github.massongit.hackathon.push.git.util.ChromeCustomTabs
 
 /**
  * Main画面のHelper
@@ -20,9 +23,8 @@ import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
  * @param service GitHub APIのサービス
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventView イベントビュー
- * @param eventViewAdapter イベントビューのアダプター
  */
-class MainHelper(private val context: Context, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, private val eventViewAdapter: EventViewAdapter) {
+class MainHelper(private val context: Context, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView) {
     companion object {
         /**
          * ログ用タグ
@@ -45,9 +47,42 @@ class MainHelper(private val context: Context, private var service: OAuth20Servi
      */
     private val onRefreshListener = EventViewOnRefreshListener(this)
 
+    /**
+     * Chrome Custom Tabs
+     */
+    private val chromeCustomTabs: ChromeCustomTabs = ChromeCustomTabs(this.context)
+
+    /**
+     * イベントビューのアダプター
+     */
+    private var eventViewAdapter: EventViewAdapter = EventViewAdapter(this.context, this.chromeCustomTabs)
+
     init {
         this.swipeRefreshLayout.setOnRefreshListener(this.onRefreshListener)
-        eventView.addOnScrollListener(EventViewOnScrollListener(this, this.onRefreshListener))
+        eventView.apply {
+            val manager = LinearLayoutManager(context)
+            layoutManager = manager
+            adapter = eventViewAdapter
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, manager.orientation))
+            addOnScrollListener(EventViewOnScrollListener(this@MainHelper, onRefreshListener))
+        }
+    }
+
+    /**
+     * Chrome Custom Tabsをバインドする
+     */
+    fun bindChromeCustomTabs() {
+        Log.v(MainHelper.TAG, "bindChromeCustomTabs called")
+        this.chromeCustomTabs.bind()
+    }
+
+    /**
+     * Chrome Custom Tabsのバインドを解除する
+     */
+    fun unbindChromeCustomTabs() {
+        Log.v(MainHelper.TAG, "unbindChromeCustomTabs called")
+        this.chromeCustomTabs.unbind()
     }
 
     /**

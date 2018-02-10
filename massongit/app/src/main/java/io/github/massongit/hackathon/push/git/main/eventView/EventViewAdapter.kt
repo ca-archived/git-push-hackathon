@@ -9,15 +9,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.main.event.Event
-import io.github.massongit.hackathon.push.git.util.Util.Companion.launchCustomTab
+import io.github.massongit.hackathon.push.git.util.ChromeCustomTabs
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * イベントビューのアダプター
  * @param context Activity
+ * @param chromeCustomTabs Chrome Custom Tabsをバインドする
  */
-class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<EventViewHolder>() {
+class EventViewAdapter(private val context: Context, private val chromeCustomTabs: ChromeCustomTabs) : RecyclerView.Adapter<EventViewHolder>() {
     companion object {
         /**
          * ログ用タグ
@@ -28,8 +29,7 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
     /**
      * イベントリスト
      */
-    var items: List<Event> = emptyList()
-        private set
+    private var items: List<Event> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         Log.v(EventViewAdapter.TAG, "onCreateViewHolder called")
@@ -43,11 +43,11 @@ class EventViewAdapter(private val context: Context) : RecyclerView.Adapter<Even
         holder.apply {
             val item = items[position]
             messageLayout.setOnClickListener {
-                launchCustomTab(context, item.eventHtmlUrl)
+                chromeCustomTabs.launch(item.eventHtmlUrl)
             }
             avatar.apply {
                 setOnClickListener {
-                    launchCustomTab(context, item.actorHtmlUrl)
+                    chromeCustomTabs.launch(item.actorHtmlUrl)
                 }
                 setImageBitmap(item.actorAvatar)
             }
