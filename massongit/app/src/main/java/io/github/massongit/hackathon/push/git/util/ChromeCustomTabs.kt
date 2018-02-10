@@ -8,6 +8,7 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.customtabs.CustomTabsServiceConnection
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import org.chromium.customtabsclient.shared.CustomTabsHelper
 
@@ -63,11 +64,14 @@ class ChromeCustomTabs(private val context: Context) {
      */
     fun launch(uri: Uri) {
         Log.v(ChromeCustomTabs.TAG, "launch called")
-        CustomTabsIntent.Builder(this.customTabsClient?.newSession(null)?.apply {
-            mayLaunchUrl(uri, null, null)
-        }).apply {
-            setShowTitle(true)
-            setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-        }.build().launchUrl(this.context, uri)
+        val session = this.customTabsClient?.newSession(null)
+        if (session != null && session.mayLaunchUrl(uri, null, null)) {
+            CustomTabsIntent.Builder(session).apply {
+                setShowTitle(true)
+                setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            }.build().launchUrl(this.context, uri)
+        } else {
+            Toast.makeText(this.context, this.context.getString(R.string.not_found), Toast.LENGTH_SHORT).show()
+        }
     }
 }
