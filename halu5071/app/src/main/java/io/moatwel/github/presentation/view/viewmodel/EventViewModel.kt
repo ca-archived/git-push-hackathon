@@ -9,14 +9,14 @@ import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
 import javax.inject.Inject
 
-class EventViewModel @Inject constructor(
-  private val api: EventApi
-) : ViewModel() {
+class EventViewModel : ViewModel() {
+
+  @Inject
+  lateinit var factory: EventDataSourceFactory
 
   val events: LiveData<PagedList<Event>>
 
   init {
-    val factory = EventDataSourceFactory(api)
     val config = PagedList.Config.Builder()
       .setInitialLoadSizeHint(PAGE_SIZE)
       .setPageSize(PAGE_SIZE)

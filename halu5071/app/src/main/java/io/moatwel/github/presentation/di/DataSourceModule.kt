@@ -27,10 +27,11 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.datasource.AuthDataDataSource
-import io.moatwel.github.data.datasource.CloudEventDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
+import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.network.retrofit.UserApi
+import io.moatwel.github.domain.usecase.UserUseCase
 
 @Module
 class DataSourceModule {
@@ -41,13 +42,14 @@ class DataSourceModule {
   }
 
   @Provides
-  fun provideCloudEventDataSource(api: EventApi): CloudEventDataSource {
-    return CloudEventDataSource(api)
+  fun provideAuthDataDataSource(context: Context, moshi: Moshi): AuthDataDataSource {
+    return AuthDataDataSource(context, moshi)
   }
 
   @Provides
-  fun provideAuthDataDataSource(context: Context, moshi: Moshi): AuthDataDataSource {
-    return AuthDataDataSource(context, moshi)
+  fun provideEventDataSourceFactory(api: EventApi,
+                                    userUseCase: UserUseCase): EventDataSourceFactory {
+    return EventDataSourceFactory(api, userUseCase)
   }
 
   companion object {
