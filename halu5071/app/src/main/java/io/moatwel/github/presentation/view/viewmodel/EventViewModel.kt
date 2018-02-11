@@ -7,18 +7,22 @@ import android.arch.paging.PagedList
 import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
+import io.moatwel.github.domain.usecase.UserUseCase
 import javax.inject.Inject
 
-class EventViewModel : ViewModel() {
+class EventViewModel @Inject constructor(
+  api: EventApi,
+  userUseCase: UserUseCase
+) : ViewModel() {
 
-  @Inject
-  lateinit var factory: EventDataSourceFactory
+  private val factory: EventDataSourceFactory = EventDataSourceFactory(api, userUseCase)
 
   val events: LiveData<PagedList<Event>>
 
   init {
     val config = PagedList.Config.Builder()
-      .setInitialLoadSizeHint(PAGE_SIZE)
+      .setInitialLoadSizeHint(2)
+      .setPrefetchDistance(PAGE_SIZE)
       .setPageSize(PAGE_SIZE)
       .build()
 
@@ -26,6 +30,6 @@ class EventViewModel : ViewModel() {
   }
 
   companion object {
-    private const val PAGE_SIZE = 30
+    private const val PAGE_SIZE = 15
   }
 }

@@ -15,13 +15,15 @@ class CloudEventDataSource @Inject constructor(
   private fun getList(name: String,
                       page: Int,
                       callback: (events: List<Event>, next: Int?) -> Unit) {
-    api.getList(name, page).
-      subscribe({
+    Timber.d("page: $page")
+    api.getList(name, page)
+      .subscribe({
         var next: Int? = null
         it.headers().get("Link")?.let {
           val regex = Regex("rel=\"next\"")
           if (regex.containsMatchIn(it)) {
             next = page + 1
+            Timber.d("Great! This response contains next!! next: $next")
           }
         }
         callback(it.body()!!, next)
@@ -35,7 +37,8 @@ class CloudEventDataSource @Inject constructor(
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Event>) {
-    getList("halu5071", params.requestedLoadSize) { events, next ->
+    getList("halu5071", params.key) { events, next ->
+      Timber.d("next: $next")
       callback.onResult(events, next)
     }
   }
