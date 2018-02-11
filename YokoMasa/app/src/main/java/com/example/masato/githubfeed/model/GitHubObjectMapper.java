@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.masato.githubfeed.model.diff.DiffFile;
 import com.example.masato.githubfeed.model.diff.DiffParser;
+import com.example.masato.githubfeed.model.event.Event;
+import com.example.masato.githubfeed.model.event.EventMapper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -233,6 +235,11 @@ public class GitHubObjectMapper {
     public static List<DiffFile> mapDiffFileList(String diffString) {
         return DiffParser.parseDiffFiles(diffString);
     }
+
+    public static List<Event> mapEventList(String jsonString) {
+        return EventMapper.getMapper().mapEventList(jsonString);
+    }
+
 
 
 }

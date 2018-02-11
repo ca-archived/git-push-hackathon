@@ -3,6 +3,7 @@ package com.example.masato.githubfeed;
 import android.app.Application;
 
 import com.example.masato.githubfeed.githubapi.GitHubApi;
+import com.example.masato.githubfeed.model.event.EventMapper;
 import com.example.masato.githubfeed.navigator.Navigator;
 
 /**
@@ -15,5 +16,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         GitHubApi.init(this);
+        EventMapper.init(this);
     }
 }

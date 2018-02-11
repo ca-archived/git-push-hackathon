@@ -69,5 +69,5 @@ public class Navigator {
         context.startActivity(intent);
     }
     
-    private Navigator(){}
+    private Navigator() {}
 }

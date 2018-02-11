@@ -212,6 +212,16 @@ class GitHubResourceManager {
         });
     }
 
+    void getEventList(GitHubApiCallback callback) {
+        String url = "https://api.github.com/events";
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.get(result -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapEventList(successfulResult.getBodyString());
+            });
+        });
+    }
+
     void getBitmapFromUrl(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.get(result -> {

@@ -119,6 +119,10 @@ public class GitHubApi {
         resourceManager.getCommitDiffFileList(commit, callback);
     }
 
+    public void fetchEventList(GitHubApiCallback callback) {
+        resourceManager.getEventList(callback);
+    }
+
     public void deleteToken() {
         tokenManager.deleteToken();
     }
