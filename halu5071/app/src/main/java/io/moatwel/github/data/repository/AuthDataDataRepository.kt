@@ -43,7 +43,7 @@ class AuthDataDataRepository @Inject constructor(
   }
 
   /**
-   *  get auth data json string from somewhere
+   *  me auth data json string from somewhere
    *
    *  @return decrypted json string of auth data
    */

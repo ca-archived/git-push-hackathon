@@ -27,10 +27,8 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.domain.repository.AuthDataRepository
-import io.moatwel.github.domain.repository.EventRepository
 import io.moatwel.github.domain.repository.UserRepository
 import io.moatwel.github.domain.usecase.AuthDataUseCase
-import io.moatwel.github.domain.usecase.EventUseCase
 import io.moatwel.github.domain.usecase.UserUseCase
 import javax.inject.Singleton
 
@@ -40,11 +38,6 @@ class UseCaseModule {
   @Provides
   fun provideUserUseCase(userRepository: UserRepository): UserUseCase {
     return UserUseCase(userRepository)
-  }
-
-  @Provides
-  fun provideEventUseCase(eventRepository: EventRepository): EventUseCase {
-    return EventUseCase(eventRepository)
   }
 
   /**

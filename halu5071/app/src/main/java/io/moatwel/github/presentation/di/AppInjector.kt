@@ -31,8 +31,8 @@ class AppInjector {
         .application(app)
         .addNetworkModule(NetworkModule.INSTANCE)
         .addRepositoryModule(RepositoryModule.INSTANCE)
-        .addDatasourceModule(DataSourceModule.INSTANCE)
-        .addUsecaseModule(UseCaseModule.INSTANCE)
+        .addDataSourceModule(DataSourceModule.INSTANCE)
+        .addUseCaseModule(UseCaseModule.INSTANCE)
         .build()
         .inject(app)
     }

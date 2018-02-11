@@ -1,5 +1,4 @@
 /*
- *
  *  GitHub-Client
  *
  *  UserUsecase.kt
@@ -32,7 +31,7 @@ class UserUseCase @Inject constructor(
   private val userRepository: UserRepository
 ) {
 
-  fun get(): Observable<User> {
+  fun me(): Observable<User> {
     return userRepository.get()
   }
 }

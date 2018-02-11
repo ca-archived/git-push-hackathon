@@ -49,9 +49,9 @@ interface AppComponent {
     fun application(app: App): Builder
 
     fun addNetworkModule(networkModule: NetworkModule): Builder
-    fun addUsecaseModule(usecaseModule: UseCaseModule): Builder
+    fun addUseCaseModule(useCaseModule: UseCaseModule): Builder
     fun addRepositoryModule(repositoryModule: RepositoryModule): Builder
-    fun addDatasourceModule(datasourceModule: DataSourceModule): Builder
+    fun addDataSourceModule(dataSourceModule: DataSourceModule): Builder
     fun build(): AppComponent
   }
 

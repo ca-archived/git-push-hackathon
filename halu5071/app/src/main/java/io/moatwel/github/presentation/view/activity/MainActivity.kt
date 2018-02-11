@@ -22,58 +22,62 @@
 
 package io.moatwel.github.presentation.view.activity
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import dagger.android.AndroidInjection
 import io.moatwel.github.R
+import io.moatwel.github.data.network.retrofit.EventApi
+import io.moatwel.github.databinding.ActivityMainBinding
 import io.moatwel.github.domain.usecase.AuthDataUseCase
-import io.moatwel.github.domain.usecase.EventUseCase
 import io.moatwel.github.domain.usecase.UserUseCase
-import io.moatwel.github.presentation.util.observeOnMainThread
-import io.moatwel.github.presentation.util.subscribeOnIoThread
-import timber.log.Timber
+import io.moatwel.github.presentation.view.adapter.EventAdapter
+import io.moatwel.github.presentation.view.viewmodel.EventViewModel
+import io.moatwel.github.presentation.view.viewmodel.EventViewModelFactory
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
   @Inject
-  lateinit var userUseCase: UserUseCase
-
-  @Inject
   lateinit var authDataUseCase: AuthDataUseCase
 
   @Inject
-  lateinit var eventUseCase: EventUseCase
+  lateinit var eventApi: EventApi
+
+  @Inject
+  lateinit var userUseCase: UserUseCase
+
+  private lateinit var binding: ActivityMainBinding
+  private val adapter = EventAdapter()
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
 
     if (authDataUseCase.get() == null) {
       val intent = Intent(this, LoginActivity::class.java)
       startActivity(intent)
     }
 
-    userUseCase.get()
-      .subscribeOnIoThread()
-      .observeOnMainThread()
-      .subscribe({
-        Timber.d("User Login: ${it.login}")
-      }, {
-        Timber.e(it)
-      })
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-    eventUseCase.getEventList("halu5071", 1)
-      .subscribeOnIoThread()
-      .observeOnMainThread()
-      .subscribe({
-        it.forEach {
-          Timber.d("Type: ${it.type}")
-        }
-      }, {
-        Timber.e(it)
-      })
+    val eventViewModelFactory = EventViewModelFactory(eventApi, userUseCase)
+    val viewModel = ViewModelProviders.of(this, eventViewModelFactory)
+      .get(EventViewModel::class.java)
+
+    binding.recycler.layoutManager = LinearLayoutManager(this)
+    binding.recycler
+      .addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+    binding.recycler.adapter = adapter
+
+    viewModel.events.observe(this, Observer { pagedList ->
+      adapter.setList(pagedList)
+    })
   }
 }
