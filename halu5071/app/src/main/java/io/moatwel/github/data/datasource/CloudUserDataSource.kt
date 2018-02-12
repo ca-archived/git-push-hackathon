@@ -27,7 +27,7 @@ import io.moatwel.github.domain.entity.User
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CloudUserDataSource @Inject constructor(
+class CloudUserDataSource (
   private val api: UserApi
 ) {
 

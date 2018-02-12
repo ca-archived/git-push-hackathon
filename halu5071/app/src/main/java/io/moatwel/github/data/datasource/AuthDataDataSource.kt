@@ -33,7 +33,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
 
-class AuthDataDataSource @Inject constructor(
+class AuthDataDataSource (
   private val context: Context,
   private val moshi: Moshi
 ) {

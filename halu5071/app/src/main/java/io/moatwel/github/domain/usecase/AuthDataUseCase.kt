@@ -32,7 +32,7 @@ import javax.inject.Inject
 /**
  *  This class is Singleton, and manage AuthData
  */
-class AuthDataUseCase @Inject constructor(
+class AuthDataUseCase (
   private val authDataRepository: AuthDataRepository,
   private val moshi: Moshi
 ) {

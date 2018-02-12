@@ -34,7 +34,7 @@ import javax.inject.Inject
  *
  *  Actual operation is implemented on [AuthDataDataSource].
  */
-class AuthDataDataRepository @Inject constructor(
+class AuthDataDataRepository (
   private val dataSource: AuthDataDataSource
 ) : AuthDataRepository {
 
