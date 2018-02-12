@@ -34,7 +34,7 @@ import javax.inject.Inject
  *
  *  Actual operation class is [CloudUserDataSource]
  */
-class UserDataRepository @Inject constructor(
+class UserDataRepository (
   private val cloudUserDataSource: CloudUserDataSource) : UserRepository {
 
   override fun get(): Observable<User> {

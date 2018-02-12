@@ -27,7 +27,7 @@ import io.moatwel.github.domain.repository.UserRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class UserUseCase @Inject constructor(
+class UserUseCase (
   private val userRepository: UserRepository
 ) {
 

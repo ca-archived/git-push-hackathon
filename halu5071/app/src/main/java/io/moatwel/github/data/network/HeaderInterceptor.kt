@@ -5,7 +5,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-class HeaderInterceptor @Inject constructor(
+class HeaderInterceptor (
   private val authDataUseCase: AuthDataUseCase
 ) : Interceptor {
 

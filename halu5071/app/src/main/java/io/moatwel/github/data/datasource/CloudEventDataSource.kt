@@ -7,7 +7,7 @@ import io.moatwel.github.domain.usecase.UserUseCase
 import timber.log.Timber
 import javax.inject.Inject
 
-class CloudEventDataSource @Inject constructor(
+class CloudEventDataSource (
   private val api: EventApi,
   private val userUseCase: UserUseCase
 ) : PageKeyedDataSource<Int, Event>(){
