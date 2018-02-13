@@ -10,5 +10,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/event_view"
         android:layout_width="fill_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
+        android:scrollbars="vertical" />
 </android.support.v4.widget.SwipeRefreshLayout>
