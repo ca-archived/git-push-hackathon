@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         Log.v(MainActivity.TAG, "onStop called")
-        super.onStop()
         this.chromeCustomTabsHelper.unbind()
+        super.onStop()
     }
 
     override fun onResume() {

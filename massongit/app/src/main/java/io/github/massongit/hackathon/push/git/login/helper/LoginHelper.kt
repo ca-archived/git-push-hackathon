@@ -47,10 +47,7 @@ class LoginHelper {
             Log.d(LoginHelper.TAG, "authUrl: " + authUrl)
 
             // GitHub APIの連携アプリ認証画面を表示
-            chromeCustomTabsHelper.apply {
-                launch(Uri.parse(authUrl))
-                unbind()
-            }
+            chromeCustomTabsHelper.launch(Uri.parse(authUrl))
         } else {
             Log.v(LoginHelper.TAG, "Authorize Error!")
             Toast.makeText(activity, activity.getString(R.string.error_happen), Toast.LENGTH_LONG).show()

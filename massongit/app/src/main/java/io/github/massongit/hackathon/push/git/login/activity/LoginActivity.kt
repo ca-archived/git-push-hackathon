@@ -51,4 +51,11 @@ class LoginActivity : AppCompatActivity() {
         Log.v(LoginActivity.TAG, "onLoginButtonClick called")
         this.loginHelper.authorize(this, this.chromeCustomTabsHelper)
     }
+
+    override fun onStop() {
+        Log.v(LoginActivity.TAG, "onStop called")
+        this.chromeCustomTabsHelper.unbind()
+        super.onStop()
+        this.finish()
+    }
 }

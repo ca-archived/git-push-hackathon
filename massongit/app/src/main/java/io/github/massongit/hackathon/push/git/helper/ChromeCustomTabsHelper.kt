@@ -2,6 +2,7 @@ package io.github.massongit.hackathon.push.git.helper
 
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.support.customtabs.CustomTabsClient
 import android.support.customtabs.CustomTabsIntent
@@ -69,7 +70,9 @@ class ChromeCustomTabsHelper(private val context: Context) {
             CustomTabsIntent.Builder(session).apply {
                 setShowTitle(true)
                 setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-            }.build().launchUrl(this.context, uri)
+            }.build().apply {
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }.launchUrl(this.context, uri)
         } else {
             Toast.makeText(this.context, this.context.getString(R.string.not_found), Toast.LENGTH_SHORT).show()
         }
