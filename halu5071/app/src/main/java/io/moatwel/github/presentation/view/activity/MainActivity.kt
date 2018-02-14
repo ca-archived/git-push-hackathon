@@ -27,10 +27,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import dagger.android.AndroidInjection
+import android.widget.Toast
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
 import io.moatwel.github.data.network.retrofit.EventApi
@@ -40,6 +39,7 @@ import io.moatwel.github.domain.usecase.UserUseCase
 import io.moatwel.github.presentation.view.adapter.EventAdapter
 import io.moatwel.github.presentation.view.viewmodel.EventViewModel
 import io.moatwel.github.presentation.view.viewmodel.EventViewModelFactory
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -65,7 +65,17 @@ class MainActivity : DaggerAppCompatActivity() {
       startActivity(intent)
     }
 
-    initViewModel()
+    userUseCase.loadUserData()
+    userUseCase.loadUserObservable
+      .subscribe({
+        // do nothing
+      }, {
+        Timber.e(it)
+        Toast.makeText(this, getString(R.string.str_failed_to_login), Toast.LENGTH_SHORT)
+          .show()
+      }, {
+        initViewModel()
+      })
   }
 
   private fun initViewModel() {

@@ -24,13 +24,32 @@ package io.moatwel.github.domain.usecase
 
 import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
+import io.moatwel.github.presentation.util.observeOnMainThread
+import io.moatwel.github.presentation.util.subscribeOnIoThread
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 class UserUseCase (
   private val userRepository: UserRepository
 ) {
 
-  fun me(): Observable<User> {
-    return userRepository.get()
+  private val loadUserSubject: PublishSubject<Unit> = PublishSubject.create()
+
+  val loadUserObservable: Observable<Unit>
+    get() = loadUserSubject
+
+  var user: User? = null
+    private set
+
+  fun loadUserData() {
+    userRepository.get()
+      .subscribeOnIoThread()
+      .observeOnMainThread()
+      .subscribe({
+        this.user = it
+        this.loadUserSubject.onComplete()
+      }, {
+        this.loadUserSubject.onError(it)
+      })
   }
 }
