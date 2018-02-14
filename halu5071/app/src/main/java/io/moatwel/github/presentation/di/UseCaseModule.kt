@@ -23,7 +23,6 @@
 
 package io.moatwel.github.presentation.di
 
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.domain.repository.AuthDataRepository
@@ -46,8 +45,8 @@ class UseCaseModule {
    */
   @Provides
   @Singleton
-  fun provideAuthDataUseCase(authDataRepository: AuthDataRepository, moshi: Moshi): AuthDataUseCase {
-    return AuthDataUseCase(authDataRepository, moshi)
+  fun provideAuthDataUseCase(authDataRepository: AuthDataRepository): AuthDataUseCase {
+    return AuthDataUseCase(authDataRepository)
   }
 
   companion object {

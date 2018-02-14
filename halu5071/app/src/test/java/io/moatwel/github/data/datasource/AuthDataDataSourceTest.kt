@@ -37,19 +37,19 @@ class AuthDataDataSourceTest {
   }
 
   @Test
-  fun testReadAuthDataString() {
+  fun testReadAuthData() {
     val mockSharedPreferences = PowerMockito.mock(SharedPreferences::class.java)
     val mockEditor = PowerMockito.mock(SharedPreferences.Editor::class.java)
 
     `when`(context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE))
       .thenReturn(mockSharedPreferences)
     `when`(mockSharedPreferences.edit()).thenReturn(mockEditor)
-    `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, "")).thenReturn("hogehogeString")
+    `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, ""))
+      .thenReturn("{ \"token\": \"hogehogeToken\"}")
 
-    val str = authDataDataSource.readFromSharedPreference()
+    val authData = authDataDataSource.readFromSharedPreference()
 
-    assertNotNull(str)
-    assertThat(str, `is`("hogehogeString"))
+    assertNotNull(authData)
   }
 
   @Test
