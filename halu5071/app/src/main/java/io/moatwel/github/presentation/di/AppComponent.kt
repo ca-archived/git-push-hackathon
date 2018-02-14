@@ -24,7 +24,8 @@ package io.moatwel.github.presentation.di
 
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import io.moatwel.github.App
 import io.moatwel.github.presentation.di.activity.LoginActivityBuilder
 import io.moatwel.github.presentation.di.activity.MainActivityBuilder
@@ -32,7 +33,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
-  AndroidInjectionModule::class,
+  AndroidSupportInjectionModule::class,
   AppModule::class,
   NetworkModule::class,
   RepositoryModule::class,
@@ -41,19 +42,15 @@ import javax.inject.Singleton
   MainActivityBuilder::class,
   LoginActivityBuilder::class
 ])
-interface AppComponent {
+interface AppComponent : AndroidInjector<App> {
 
   @Component.Builder
   interface Builder {
     @BindsInstance
     fun application(app: App): Builder
 
-    fun addNetworkModule(networkModule: NetworkModule): Builder
-    fun addUseCaseModule(useCaseModule: UseCaseModule): Builder
-    fun addRepositoryModule(repositoryModule: RepositoryModule): Builder
-    fun addDataSourceModule(dataSourceModule: DataSourceModule): Builder
     fun build(): AppComponent
   }
 
-  fun inject(app: App)
+  override fun inject(app: App)
 }

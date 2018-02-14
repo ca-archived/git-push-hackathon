@@ -22,29 +22,28 @@
 
 package io.moatwel.github
 
-import android.app.Activity
-import android.app.Application
 import android.support.text.emoji.EmojiCompat
 import android.support.text.emoji.bundled.BundledEmojiCompatConfig
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import dagger.android.support.DaggerApplication
 import io.moatwel.github.domain.usecase.AuthDataUseCase
-import io.moatwel.github.presentation.di.AppInjector
+import io.moatwel.github.presentation.di.DaggerAppComponent
 import timber.log.Timber
 import javax.inject.Inject
 
-class App : Application(), HasActivityInjector {
-
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class App : DaggerApplication(), HasActivityInjector {
 
   @Inject
   lateinit var authDataUseCase: AuthDataUseCase
 
-  override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+    DaggerAppComponent.builder()
+      .application(this)
+      .build()
+
 
   override fun onCreate() {
     super.onCreate()
@@ -52,7 +51,6 @@ class App : Application(), HasActivityInjector {
     setupLeakCanary()
     setupStetho()
     setupTimber()
-    setupDagger()
     loadAuthData()
   }
 
@@ -72,10 +70,6 @@ class App : Application(), HasActivityInjector {
 
   private fun setupLeakCanary() {
     LeakCanary.install(this)
-  }
-
-  private fun setupDagger() {
-    AppInjector.init(this)
   }
 
   private fun setupEmoji() {

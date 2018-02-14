@@ -25,7 +25,6 @@ package io.moatwel.github.domain.usecase
 import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
 import io.reactivex.Observable
-import javax.inject.Inject
 
 class UserUseCase (
   private val userRepository: UserRepository
