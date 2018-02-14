@@ -37,7 +37,7 @@ class CloudEventDataSource (
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Event>) {
-    getList(userUseCase.user?.login?: "", params.key) { events, next ->
+    getList(userUseCase.user?.login ?: "", params.key) { events, next ->
       Timber.d("next: $next")
       callback.onResult(events, next)
     }
@@ -45,7 +45,7 @@ class CloudEventDataSource (
 
   override fun loadInitial(params: LoadInitialParams<Int>,
                            callback: LoadInitialCallback<Int, Event>) {
-    getList(userUseCase.user?.login?: "", 1) { events, next ->
+    getList(userUseCase.user?.login ?: "", 1) { events, next ->
       callback.onResult(events, null, next)
     }
   }
