@@ -31,7 +31,6 @@ import io.moatwel.github.domain.entity.AuthData
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import javax.inject.Inject
 
 class AuthDataDataSource (
   private val context: Context,
@@ -48,14 +47,11 @@ class AuthDataDataSource (
     }
   }
 
-  fun readFromSharedPreference(): String {
+  fun readFromSharedPreference(): AuthData? {
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
-
     val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
 
-    editor.apply()
-    return jsonResource
+    return moshi.adapter(AuthData::class.java).fromJson(jsonResource)
   }
 
   fun removeFromSharedPreference() {

@@ -22,19 +22,16 @@
 
 package io.moatwel.github.domain.usecase
 
-import com.squareup.moshi.Moshi
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.reactivex.Observable
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  *  This class is Singleton, and manage AuthData
  */
 class AuthDataUseCase (
-  private val authDataRepository: AuthDataRepository,
-  private val moshi: Moshi
+  private val authDataRepository: AuthDataRepository
 ) {
 
   // User AuthData
@@ -56,16 +53,13 @@ class AuthDataUseCase (
    *  @return true if load successfully
    */
   fun load(): Boolean {
-    val jsonResource = authDataRepository.get()
-    if (jsonResource == "") return false
+    val authData = authDataRepository.get()
 
-    val data = moshi.adapter(AuthData::class.java).fromJson(jsonResource)
-    data?.let {
+    authData?.let {
       this.authData = it
       Timber.d("AuthData loaded: ${it.token}")
+      return true
     } ?: return false
-
-    return true
   }
 
   fun fetch(code: String): Observable<AuthData> {

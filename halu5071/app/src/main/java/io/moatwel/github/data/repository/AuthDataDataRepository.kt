@@ -26,7 +26,6 @@ import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.reactivex.Observable
-import javax.inject.Inject
 
 /**
  *  This class is an implementation class of [AuthDataRepository] on domain layer.
@@ -47,7 +46,7 @@ class AuthDataDataRepository (
    *
    *  @return decrypted json string of auth data
    */
-  override fun get(): String {
+  override fun get(): AuthData? {
     return dataSource.readFromSharedPreference()
   }
 

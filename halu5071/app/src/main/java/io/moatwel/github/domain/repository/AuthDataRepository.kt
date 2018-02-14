@@ -39,7 +39,7 @@ interface AuthDataRepository {
    *
    *  @return String which present json resouce of auth data or empty
    */
-  fun get(): String
+  fun get(): AuthData?
 
   /**
    *  remove auth data
