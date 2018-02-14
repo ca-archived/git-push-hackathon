@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v7.app.AppCompatActivity
-import dagger.android.AndroidInjection
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
 import io.moatwel.github.domain.entity.AuthData
