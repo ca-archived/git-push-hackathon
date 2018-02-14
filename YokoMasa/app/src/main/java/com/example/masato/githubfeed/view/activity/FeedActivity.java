@@ -23,6 +23,7 @@ import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.FeedPresenter;
 import com.example.masato.githubfeed.view.FeedView;
+import com.example.masato.githubfeed.view.fragment.EventListFragment;
 import com.example.masato.githubfeed.view.fragment.FeedListFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 
@@ -129,9 +130,9 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
             return;
         }
 
-        FeedListFragment feedFragment = FragmentFactory.createFeedListFragment(feedUrl, "");
+        EventListFragment eventListFragment = FragmentFactory.createEventListFragment("https://api.github.com/events", "");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.feed_mother, feedFragment);
+        ft.add(R.id.feed_mother, eventListFragment);
         ft.commit();
     }
 

@@ -123,5 +123,14 @@ public class FragmentFactory {
         return pullRequestOverviewFragment;
     }
 
+    public static EventListFragment createEventListFragment(String url, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        bundle.putString("name", name);
+        EventListFragment eventListFragment = new EventListFragment();
+        eventListFragment.setArguments(bundle);
+        return eventListFragment;
+    }
+
     private FragmentFactory(){}
 }

@@ -117,8 +117,9 @@ public class GitHubObjectMapper {
     public static Issue mapIssue(JSONObject jsonObject) {
         Issue issue = new Issue();
         try {
+            issue.url = jsonObject.getString("url");
             issue.name = jsonObject.getString("title");
-            issue.bodyHtml = jsonObject.getString("body_html");
+            issue.bodyHtml = jsonObject.optString("body_html");
             issue.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             issue.commentsUrl = jsonObject.getString("comments_url");
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
@@ -129,6 +130,16 @@ public class GitHubObjectMapper {
             e.printStackTrace();
         }
         return issue;
+    }
+
+    public static Issue mapIssue(String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            return mapIssue(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static List<Issue> mapIssueList(String jsonString) {
@@ -148,9 +159,10 @@ public class GitHubObjectMapper {
     public static PullRequest mapPullRequest(JSONObject jsonObject) {
         PullRequest pr = new PullRequest();
         try {
+            pr.url = jsonObject.getString("url");
             pr.name = jsonObject.getString("title");
             pr.number = jsonObject.getInt("number");
-            pr.bodyHtml = jsonObject.getString("body_html");
+            pr.bodyHtml = jsonObject.optString("body_html");
             pr.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             pr.commentsUrl = jsonObject.getString("comments_url");
             pr.author = mapProfile(jsonObject.getJSONObject("user"));
@@ -162,6 +174,16 @@ public class GitHubObjectMapper {
             e.printStackTrace();
         }
         return pr;
+    }
+
+    public static PullRequest mapPullRequest(String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            return mapPullRequest(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static List<PullRequest> mapPullRequestList(String jsonString) {
@@ -197,7 +219,6 @@ public class GitHubObjectMapper {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i("gh_feed", "sha: " + commit.sha);
         }
         return commit;
     }

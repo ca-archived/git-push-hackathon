@@ -181,6 +181,7 @@ public class EventMapper {
                 event.triggerUrl = payload.optString("issue_url");
                 JSONObject issueObject = payload.optJSONObject("issue");
                 if (issueObject != null) {
+                    String a = issueObject.optString("state");
                     event.triggerModel = GitHubObjectMapper.mapIssue(issueObject);
                 }
                 break;
@@ -192,8 +193,6 @@ public class EventMapper {
                     event.triggerModel = GitHubObjectMapper.mapPullRequest(prObject);
                 }
                 break;
-            default:
-                return;
         }
     }
 

@@ -15,6 +15,7 @@ public class PullRequest extends BaseModel{
     public static final String STATE_CLOSED = "closed";
     public static final String STATE_MERGED = "merged";
 
+    public String url;
     public String name;
     public String bodyHtml;
     public String state;
@@ -28,6 +29,7 @@ public class PullRequest extends BaseModel{
         @Override
         public PullRequest createFromParcel(Parcel parcel) {
             PullRequest pr = new PullRequest();
+            pr.url = parcel.readString();
             pr.name = parcel.readString();
             pr.bodyHtml = parcel.readString();
             pr.state = parcel.readString();
@@ -54,6 +56,7 @@ public class PullRequest extends BaseModel{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(url);
         parcel.writeString(name);
         parcel.writeString(bodyHtml);
         parcel.writeString(state);

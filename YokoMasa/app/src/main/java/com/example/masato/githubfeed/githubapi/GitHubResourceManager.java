@@ -79,6 +79,26 @@ class GitHubResourceManager {
         });
     }
 
+    void getIssue(String url, final GitHubApiCallback callback) {
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.setHeader("Accept", "application/vnd.github.v3.html");
+        connection.get(result -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapIssue(successfulResult.getBodyString());
+            });
+        });
+    }
+
+    void getPullRequest(String url, GitHubApiCallback callback) {
+        HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.setHeader("Accept", "application/vnd.github.v3.html");
+        connection.get(result -> {
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapPullRequest(successfulResult.getBodyString());
+            });
+        });
+    }
+
     void getReadMeHtml(Repository repository, final GitHubApiCallback callback) {
         String url = repository.baseUrl + "/contents/README.md";
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
@@ -212,9 +232,10 @@ class GitHubResourceManager {
         });
     }
 
-    void getEventList(GitHubApiCallback callback) {
-        String url = "https://api.github.com/events";
+    void getEventList(String url, int page, GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
+        connection.addParams("page", Integer.toString(page));
+        connection.setHeader("Accept", "application/vnd.github.html");
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapEventList(successfulResult.getBodyString());

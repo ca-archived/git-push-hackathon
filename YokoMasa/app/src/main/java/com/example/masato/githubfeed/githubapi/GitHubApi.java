@@ -95,6 +95,14 @@ public class GitHubApi {
         resourceManager.getRepositoryIssueList(repository, page, callback);
     }
 
+    public void fetchIssue(String url, GitHubApiCallback callback) {
+        resourceManager.getIssue(url, callback);
+    }
+
+    public void fetchPullRequest(String url, GitHubApiCallback callback) {
+        resourceManager.getPullRequest(url, callback);
+    }
+
     public void fetchPullRequestList(Repository repository, int page, GitHubApiCallback callback) {
         resourceManager.getRepositoryPullRequestList(repository, page, callback);
     }
@@ -119,8 +127,8 @@ public class GitHubApi {
         resourceManager.getCommitDiffFileList(commit, callback);
     }
 
-    public void fetchEventList(GitHubApiCallback callback) {
-        resourceManager.getEventList(callback);
+    public void fetchEventList(String url, int page, GitHubApiCallback callback) {
+        resourceManager.getEventList(url, page, callback);
     }
 
     public void deleteToken() {

@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.PullRequest;
+import com.example.masato.githubfeed.presenter.PullRequestPresenter;
+import com.example.masato.githubfeed.view.PullRequestView;
 import com.example.masato.githubfeed.view.fragment.CommentListFragment;
 import com.example.masato.githubfeed.view.fragment.CommitListFragment;
 import com.example.masato.githubfeed.view.fragment.DiffFileListFragment;
@@ -15,16 +17,17 @@ import com.example.masato.githubfeed.view.fragment.PullRequestOverviewFragment;
  * Created by Masato on 2018/02/08.
  */
 
-public class PullRequestActivity extends ViewPagerActivity {
+public class PullRequestActivity extends ViewPagerActivity implements PullRequestView {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PullRequest pullRequest = getIntent().getParcelableExtra("pull_request");
-        setUpContent(pullRequest);
+        new PullRequestPresenter(this, pullRequest);
     }
 
-    private void setUpContent(PullRequest pr) {
+    @Override
+    public void showPullRequest(PullRequest pr) {
         setUpActionBar(pr);
 
         PullRequestOverviewFragment pullRequestOverviewFragment =
@@ -42,7 +45,6 @@ public class PullRequestActivity extends ViewPagerActivity {
         DiffFileListFragment diffFileListFragment =
                 FragmentFactory.createDiffFileListFragment(pr.diffUrl, getString(R.string.tab_file_changed));
         addFragment(diffFileListFragment);
-
     }
 
     private void setUpActionBar(PullRequest pr) {

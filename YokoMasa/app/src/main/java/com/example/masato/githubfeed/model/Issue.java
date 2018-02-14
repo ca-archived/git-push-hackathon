@@ -14,6 +14,7 @@ public class Issue extends BaseModel {
     public static final String STATE_OPEN = "open";
     public static final String STATED_CLOSED = "closed";
 
+    public String url;
     public String name;
     public String bodyHtml;
     public String state;
@@ -25,6 +26,7 @@ public class Issue extends BaseModel {
         @Override
         public Issue createFromParcel(Parcel parcel) {
             Issue issue = new Issue();
+            issue.url = parcel.readString();
             issue.name = parcel.readString();
             issue.bodyHtml = parcel.readString();
             issue.state = parcel.readString();
@@ -49,6 +51,7 @@ public class Issue extends BaseModel {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(url);
         parcel.writeString(name);
         parcel.writeString(bodyHtml);
         parcel.writeString(state);

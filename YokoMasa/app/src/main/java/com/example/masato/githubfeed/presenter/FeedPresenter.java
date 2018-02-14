@@ -24,16 +24,6 @@ public class FeedPresenter {
     public void onCreate() {
         GitHubApi.getApi().fetchProfile(this::setProfileIfSucceeded);
         GitHubApi.getApi().fetchFeedUrl(this::startFeedFragmentIfSucceeded);
-        test();
-    }
-
-    private void test() {
-        GitHubApi.getApi().fetchEventList(result -> {
-            if (result.isSuccessful) {
-                List<Event> events = (List<Event>) result.resultObject;
-                Log.i("gh_feed", events.get(0).content);
-            }
-        });
     }
 
     private void setProfileIfSucceeded(GitHubApiResult result) {

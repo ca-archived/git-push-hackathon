@@ -8,6 +8,7 @@ import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.PullRequest;
 import com.example.masato.githubfeed.model.Repository;
+import com.example.masato.githubfeed.model.event.Event;
 import com.example.masato.githubfeed.view.activity.CommitActivity;
 import com.example.masato.githubfeed.view.activity.FeedActivity;
 import com.example.masato.githubfeed.view.activity.GlobalFeedActivity;
@@ -67,6 +68,35 @@ public class Navigator {
         Intent intent = new Intent(context, PullRequestActivity.class);
         intent.putExtra("pull_request", pullRequest);
         context.startActivity(intent);
+    }
+
+    public static void navigateFromEvent(Context context, Event event) {
+        Event.Action action = event.action;
+        if (action == null) {
+            return;
+        }
+        switch (action) {
+            case REPO_VIEW:
+                if (event.triggerModel != null) {
+                    Repository repository = (Repository) event.triggerModel;
+                    navigateToRepoView(context, repository);
+                } else if (event.triggerUrl != null) {
+                    navigateToRepoView(context, event.triggerUrl);
+                }
+                break;
+            case PR_VIEW:
+                if (event.triggerModel != null) {
+                    PullRequest pr = (PullRequest) event.triggerModel;
+                    navigateToPullRequestView(context, pr);
+                }
+                break;
+            case ISSUE_VIEW:
+                if (event.triggerModel != null) {
+                    Issue issue = (Issue) event.triggerModel;
+                    navigateToIssueView(context, issue);
+                }
+                break;
+        }
     }
     
     private Navigator() {}
