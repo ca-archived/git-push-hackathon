@@ -31,6 +31,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.databinding.ActivityMainBinding
@@ -41,7 +42,7 @@ import io.moatwel.github.presentation.view.viewmodel.EventViewModel
 import io.moatwel.github.presentation.view.viewmodel.EventViewModelFactory
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
   @Inject
   lateinit var authDataUseCase: AuthDataUseCase
@@ -57,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
 
     if (authDataUseCase.get() == null) {
@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity() {
       startActivity(intent)
     }
 
+    initViewModel()
+  }
+
+  private fun initViewModel() {
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
     val eventViewModelFactory = EventViewModelFactory(eventApi, userUseCase)
