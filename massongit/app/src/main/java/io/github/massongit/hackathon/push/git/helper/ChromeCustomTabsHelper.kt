@@ -1,4 +1,4 @@
-package io.github.massongit.hackathon.push.git.util
+package io.github.massongit.hackathon.push.git.helper
 
 import android.content.ComponentName
 import android.content.Context
@@ -13,15 +13,15 @@ import io.github.massongit.hackathon.push.git.R
 import org.chromium.customtabsclient.shared.CustomTabsHelper
 
 /**
- * Chrome Custom Tabs
+ * Chrome Custom Tabs Helper
  * @param context Context
  */
-class ChromeCustomTabs(private val context: Context) {
+class ChromeCustomTabsHelper(private val context: Context) {
     companion object {
         /**
          * ログ用タグ
          */
-        private val TAG: String? = ChromeCustomTabs::class.simpleName
+        private val TAG: String? = ChromeCustomTabsHelper::class.simpleName
     }
 
     /**
@@ -38,7 +38,7 @@ class ChromeCustomTabs(private val context: Context) {
      * Chrome Custom Tabsをバインドする
      */
     fun bind() {
-        Log.v(ChromeCustomTabs.TAG, "bind called")
+        Log.v(ChromeCustomTabsHelper.TAG, "bind called")
         this.customTabsServiceConnection = object : CustomTabsServiceConnection() {
             override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
                 customTabsClient = client
@@ -54,7 +54,7 @@ class ChromeCustomTabs(private val context: Context) {
      * Chrome Custom Tabsのバインドを解除する
      */
     fun unbind() {
-        Log.v(ChromeCustomTabs.TAG, "unbind called")
+        Log.v(ChromeCustomTabsHelper.TAG, "unbind called")
         this.context.unbindService(this.customTabsServiceConnection)
     }
 
@@ -63,7 +63,7 @@ class ChromeCustomTabs(private val context: Context) {
      * @param uri URL
      */
     fun launch(uri: Uri) {
-        Log.v(ChromeCustomTabs.TAG, "launch called")
+        Log.v(ChromeCustomTabsHelper.TAG, "launch called")
         val session = this.customTabsClient?.newSession(null)
         if (session != null && session.mayLaunchUrl(uri, null, null)) {
             CustomTabsIntent.Builder(session).apply {

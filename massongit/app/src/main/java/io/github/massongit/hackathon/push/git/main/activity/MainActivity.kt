@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
+import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 
 
@@ -25,21 +26,27 @@ class MainActivity : AppCompatActivity() {
     /**
      * Helper
      */
-    private lateinit var helper: MainHelper
+    private lateinit var mainHelper: MainHelper
 
     /**
      * 認証後のURI
      */
     private var authorizedUri: Uri? = null
 
+    /**
+     * Chrome Custom Tabs Helper
+     */
+    private lateinit var chromeCustomTabsHelper: ChromeCustomTabsHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.v(MainActivity.TAG, "onCreate called")
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_main)
         Toast.makeText(this, this.getString(R.string.logging_in), Toast.LENGTH_SHORT).show()
-        this.helper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
+        this.chromeCustomTabsHelper = ChromeCustomTabsHelper(this)
+        this.mainHelper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
-        }, this.findViewById(R.id.event_view))
+        }, this.findViewById(R.id.event_view), this.chromeCustomTabsHelper)
         Log.d(MainActivity.TAG, "data: " + this.intent.dataString)
         this.authorizedUri = this.intent.data
     }
@@ -47,20 +54,20 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         Log.v(MainActivity.TAG, "onStart called")
         super.onStart()
-        this.helper.bindChromeCustomTabs()
+        this.chromeCustomTabsHelper.bind()
     }
 
     override fun onStop() {
         Log.v(MainActivity.TAG, "onStop called")
         super.onStop()
-        this.helper.unbindChromeCustomTabs()
+        this.chromeCustomTabsHelper.bind()
     }
 
     override fun onResume() {
         Log.v(MainActivity.TAG, "onResume called")
         super.onResume()
         if (this.authorizedUri != null) {
-            this.helper.setAccessToken(this.authorizedUri)
+            this.mainHelper.setAccessToken(this.authorizedUri)
             this.authorizedUri = null
         }
     }
