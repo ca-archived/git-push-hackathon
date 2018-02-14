@@ -24,29 +24,11 @@ package io.moatwel.github.domain.usecase
 
 import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
-import io.moatwel.github.presentation.util.observeOnMainThread
-import io.moatwel.github.presentation.util.subscribeOnIoThread
-import io.reactivex.Completable
 import io.reactivex.Observable
-import javax.inject.Inject
 
 class UserUseCase (
   private val userRepository: UserRepository
 ) {
-
-  private var user: User? = null
-
-  fun loadUserData(): Completable = Completable.create {
-    userRepository.get()
-      .subscribeOnIoThread()
-      .observeOnMainThread()
-      .subscribe({
-        this.user = it
-
-      }, {
-
-      })
-  }
 
   fun me(): Observable<User> {
     return userRepository.get()
