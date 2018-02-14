@@ -42,7 +42,7 @@ class AuthDataDataRepository (
   }
 
   /**
-   *  me auth data json string from somewhere
+   *  my auth data json string from somewhere
    *
    *  @return decrypted json string of auth data
    */
