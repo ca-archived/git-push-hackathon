@@ -22,8 +22,8 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PullRequest pullRequest = getIntent().getParcelableExtra("pull_request");
-        new PullRequestPresenter(this, pullRequest);
+        String url = getIntent().getStringExtra("url");
+        new PullRequestPresenter(this, url);
     }
 
     @Override

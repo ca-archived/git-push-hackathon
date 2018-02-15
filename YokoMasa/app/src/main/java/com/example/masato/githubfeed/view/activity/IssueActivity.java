@@ -25,8 +25,8 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Issue issue = getIntent().getParcelableExtra("issue");
-        new IssuePresenter(this, issue);
+        String url = getIntent().getStringExtra("url");
+        new IssuePresenter(this, url);
     }
 
     @Override

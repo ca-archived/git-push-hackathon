@@ -23,7 +23,7 @@ public class PullRequestListFragment extends PaginatingListFragment implements P
 
     @Override
     public void showPullRequest(PullRequest pr) {
-        Navigator.navigateToPullRequestView(getContext(), pr);
+        Navigator.navigateToPullRequestView(getContext(), pr.url);
     }
 
     @Override

@@ -20,12 +20,8 @@ public class PullRequestPresenter {
         }
     }
 
-    public PullRequestPresenter(PullRequestView view, PullRequest pr) {
+    public PullRequestPresenter(PullRequestView view, String url) {
         this.view = view;
-        if (pr.bodyHtml.equals("")) {
-            GitHubApi.getApi().fetchPullRequest(pr.url, this::handleResult);
-        } else {
-            view.showPullRequest(pr);
-        }
+        GitHubApi.getApi().fetchPullRequest(url, this::handleResult);
     }
 }

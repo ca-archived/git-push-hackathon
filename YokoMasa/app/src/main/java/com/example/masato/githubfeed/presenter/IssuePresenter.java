@@ -20,12 +20,8 @@ public class IssuePresenter {
         }
     }
 
-    public IssuePresenter(IssueView view, Issue issue) {
+    public IssuePresenter(IssueView view, String url) {
         this.view = view;
-        if (issue.bodyHtml.equals("")) {
-            GitHubApi.getApi().fetchIssue(issue.url, this::handleResult);
-        } else {
-            view.showIssue(issue);
-        }
+        GitHubApi.getApi().fetchIssue(url, this::handleResult);
     }
 }

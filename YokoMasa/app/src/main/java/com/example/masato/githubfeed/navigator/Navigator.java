@@ -46,9 +46,9 @@ public class Navigator {
         context.startActivity(intent);
     }
 
-    public static void navigateToIssueView(Context context, Issue issue) {
+    public static void navigateToIssueView(Context context, String url) {
         Intent intent = new Intent(context, IssueActivity.class);
-        intent.putExtra("issue", issue);
+        intent.putExtra("url", url);
         context.startActivity(intent);
     }
 
@@ -64,9 +64,9 @@ public class Navigator {
         context.startActivity(intent);
     }
 
-    public static void navigateToPullRequestView(Context context, PullRequest pullRequest) {
+    public static void navigateToPullRequestView(Context context, String url) {
         Intent intent = new Intent(context, PullRequestActivity.class);
-        intent.putExtra("pull_request", pullRequest);
+        intent.putExtra("url", url);
         context.startActivity(intent);
     }
 
@@ -85,16 +85,10 @@ public class Navigator {
                 }
                 break;
             case PR_VIEW:
-                if (event.triggerModel != null) {
-                    PullRequest pr = (PullRequest) event.triggerModel;
-                    navigateToPullRequestView(context, pr);
-                }
+                navigateToPullRequestView(context, event.triggerUrl);
                 break;
             case ISSUE_VIEW:
-                if (event.triggerModel != null) {
-                    Issue issue = (Issue) event.triggerModel;
-                    navigateToIssueView(context, issue);
-                }
+                navigateToIssueView(context, event.triggerUrl);
                 break;
         }
     }

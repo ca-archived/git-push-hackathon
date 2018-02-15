@@ -26,7 +26,7 @@ public class IssueListFragment extends PaginatingListFragment implements IssueLi
 
     @Override
     public void showIssue(Issue issue) {
-        Navigator.navigateToIssueView(getContext(), issue);
+        Navigator.navigateToIssueView(getContext(), issue.url);
     }
 
     @Override

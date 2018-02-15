@@ -171,26 +171,19 @@ public class EventMapper {
             case "REPO":
                 event.action = Event.Action.REPO_VIEW;
                 event.triggerUrl = event.repoUrl;
-                JSONObject jsonObject = payload.optJSONObject("repository");
-                if (jsonObject != null) {
-                    event.triggerModel = GitHubObjectMapper.mapRepository(jsonObject);
-                }
                 break;
             case "ISSUE":
                 event.action = Event.Action.ISSUE_VIEW;
-                event.triggerUrl = payload.optString("issue_url");
                 JSONObject issueObject = payload.optJSONObject("issue");
                 if (issueObject != null) {
-                    String a = issueObject.optString("state");
-                    event.triggerModel = GitHubObjectMapper.mapIssue(issueObject);
+                    event.triggerUrl = issueObject.optString("url");
                 }
                 break;
             case "PR":
                 event.action = Event.Action.PR_VIEW;
-                event.triggerUrl = payload.optString("pull_request_url");
                 JSONObject prObject = payload.optJSONObject("pull_request");
                 if (prObject != null) {
-                    event.triggerModel = GitHubObjectMapper.mapPullRequest(prObject);
+                    event.triggerUrl = prObject.optString("url");
                 }
                 break;
         }
