@@ -71,7 +71,7 @@ class ChromeCustomTabsHelper(private val context: Context) {
                 setShowTitle(true)
                 setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }.build().apply {
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }.launchUrl(this.context, uri)
         } else {
             Toast.makeText(this.context, this.context.getString(R.string.not_found), Toast.LENGTH_SHORT).show()
