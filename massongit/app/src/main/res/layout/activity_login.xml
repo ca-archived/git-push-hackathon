@@ -8,8 +8,10 @@
     tools:context=".login.activity.LoginActivity">
 
     <Button
+        android:id="@+id/login_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:onClick="onLoginButtonClick"
         android:text="@string/login" />
 

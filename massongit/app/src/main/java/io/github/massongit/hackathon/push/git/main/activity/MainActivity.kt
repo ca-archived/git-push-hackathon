@@ -62,17 +62,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        Log.v(MainActivity.TAG, "onStart called")
-        super.onStart()
-        this.chromeCustomTabsHelper.bind()
-    }
-
-    override fun onStop() {
-        Log.v(MainActivity.TAG, "onStop called")
+    override fun onDestroy() {
+        Log.v(MainActivity.TAG, "onDestroy called")
         this.chromeCustomTabsHelper.unbind()
-        super.onStop()
-        this.finish()
+        super.onDestroy()
     }
 
     override fun onResume() {

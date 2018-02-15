@@ -77,6 +77,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         }, drawerLayout, toolbar, R.string.open_event_kinds, R.string.close_event_kinds)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        chromeCustomTabsHelper.bind()
         eventView.apply {
             val manager = LinearLayoutManager(context)
             layoutManager = manager
@@ -129,5 +130,6 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         Log.v(MainHelper.TAG, "logout called")
         GetTimelineAsyncTask.reset()
         this.activity.startActivity(Intent(this.activity, LoginActivity::class.java))
+        this.activity.finish()
     }
 }

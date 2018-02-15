@@ -37,13 +37,17 @@ class ChromeCustomTabsHelper(private val context: Context) {
 
     /**
      * Chrome Custom Tabsをバインドする
+     * @param afterWarmUpEvent Warm Up後に実行するイベント
      */
-    fun bind() {
+    fun bind(afterWarmUpEvent: (() -> Unit)? = null) {
         Log.v(ChromeCustomTabsHelper.TAG, "bind called")
         this.customTabsServiceConnection = object : CustomTabsServiceConnection() {
             override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
                 customTabsClient = client
                 customTabsClient?.warmup(0)
+                if (afterWarmUpEvent != null) {
+                    afterWarmUpEvent()
+                }
             }
 
             override fun onServiceDisconnected(name: ComponentName) {}
@@ -53,10 +57,14 @@ class ChromeCustomTabsHelper(private val context: Context) {
 
     /**
      * Chrome Custom Tabsのバインドを解除する
+     * @param afterUnbindEvent バインドを解除後に実行するイベント
      */
-    fun unbind() {
+    fun unbind(afterUnbindEvent: (() -> Unit)? = null) {
         Log.v(ChromeCustomTabsHelper.TAG, "unbind called")
         this.context.unbindService(this.customTabsServiceConnection)
+        if(afterUnbindEvent!=null){
+            afterUnbindEvent()
+        }
     }
 
     /**
@@ -71,7 +79,7 @@ class ChromeCustomTabsHelper(private val context: Context) {
                 setShowTitle(true)
                 setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }.build().apply {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }.launchUrl(this.context, uri)
         } else {
             Toast.makeText(this.context, this.context.getString(R.string.not_found), Toast.LENGTH_SHORT).show()
