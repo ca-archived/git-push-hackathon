@@ -130,7 +130,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
             return;
         }
 
-        EventListFragment eventListFragment = FragmentFactory.createEventListFragment("https://api.github.com/users/YokoMasa/events", "");
+        EventListFragment eventListFragment = FragmentFactory.createEventListFragment("https://api.github.com/events", "");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.feed_mother, eventListFragment);
         ft.commit();

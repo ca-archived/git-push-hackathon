@@ -66,7 +66,6 @@ public class EventMapper {
             event.repoUrl = repoObject.getString("url");
             event.repoName = repoObject.getString("name");
             buildEvent(event, jsonObject.getJSONObject("payload"));
-            Log.i("gh_feed", event.content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,6 +82,9 @@ public class EventMapper {
         JSONObject commentBlueprint = blueprint.getJSONObject("comment");
         buildComment(commentBlueprint, payload, event);
         buildAction(blueprint, payload, event);
+        if (event.content.equals("")) {
+            Log.i("gh_feed", "no comment!! type: " + event.type);
+        }
     }
 
     private void buildComment(JSONObject commentBlueprint, JSONObject payload, Event event) {
@@ -112,7 +114,7 @@ public class EventMapper {
             }
             String switchWord = payload.optString(switchKey);
             String template = commentBlueprint.optString(switchWord);
-            if (template == null) {
+            if (template.equals("")) {
                 return commentBlueprint.optString("default");
             } else {
                 return template;
