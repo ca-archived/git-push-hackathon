@@ -77,12 +77,7 @@ public class Navigator {
         }
         switch (action) {
             case REPO_VIEW:
-                if (event.triggerModel != null) {
-                    Repository repository = (Repository) event.triggerModel;
-                    navigateToRepoView(context, repository);
-                } else if (event.triggerUrl != null) {
-                    navigateToRepoView(context, event.triggerUrl);
-                }
+                navigateToRepoView(context, event.triggerUrl);
                 break;
             case PR_VIEW:
                 navigateToPullRequestView(context, event.triggerUrl);

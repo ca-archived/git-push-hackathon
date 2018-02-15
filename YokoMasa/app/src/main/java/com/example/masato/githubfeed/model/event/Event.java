@@ -21,7 +21,6 @@ public class Event extends BaseModel {
     public String repoUrl;
     public Action action;
     public String triggerUrl;
-    public BaseModel triggerModel;
     public static Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
         @Override
         public Event createFromParcel(Parcel parcel) {
@@ -34,7 +33,6 @@ public class Event extends BaseModel {
             event.actorIcon = parcel.readParcelable(getClass().getClassLoader());
             event.action = (Action) parcel.readSerializable();
             event.triggerUrl = parcel.readString();
-            event.triggerModel = parcel.readParcelable(getClass().getClassLoader());
             return null;
         }
 
@@ -60,7 +58,6 @@ public class Event extends BaseModel {
         parcel.writeString(repoUrl);
         parcel.writeSerializable(action);
         parcel.writeString(triggerUrl);
-        parcel.writeParcelable(triggerModel, 0);
     }
 
     public enum Action {
