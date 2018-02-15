@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.mergeAssets.dependsOn('makeNavigateMenu')
+    }
 }
 
 dependencies {
@@ -31,6 +35,7 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile 'com.github.scribejava:scribejava-apis:4.2.0'
@@ -43,4 +48,37 @@ dependencies {
 
 repositories {
     mavenCentral()
+}
+
+/**
+ * Navigation Menuを作成する
+ */
+task makeNavigateMenu {
+    PrintWriter pw = null
+    try {
+        File menuDir = new File("app/src/main/res/menu/")
+        menuDir.mkdirs()
+
+        pw = new PrintWriter(new FileWriter(new File(menuDir, "event_kinds_menu.xml")))
+        pw.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+        pw.println("<menu xmlns:android=\"http://schemas.android.com/apk/res/android\"")
+        pw.println("    xmlns:app=\"http://schemas.android.com/apk/res-auto\">")
+        pw.println("    <group>")
+
+        for (File file : new File("app/src/main/java/io/github/massongit/hackathon/push/git/main/event").listFiles()) {
+            String eventName = file.name.replace(".kt", "")
+            if (eventName != "Event") {
+                pw.println("        <item")
+                pw.println("            android:title=\"" + eventName + "\"")
+                pw.println("            app:actionLayout=\"@layout/event_kind_checkbox\" />")
+            }
+        }
+
+        pw.println("    </group>")
+        pw.println("</menu>")
+    } finally {
+        if (pw != null) {
+            pw.close()
+        }
+    }
 }

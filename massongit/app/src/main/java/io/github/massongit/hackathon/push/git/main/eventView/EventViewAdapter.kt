@@ -31,6 +31,11 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
      */
     private var items: List<Event> = emptyList()
 
+    /**
+     * 表示するイベントの種類
+     */
+    private val eventKinds: MutableSet<String> = mutableSetOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         Log.v(EventViewAdapter.TAG, "onCreateViewHolder called")
         return EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.event, parent, false))
@@ -42,17 +47,19 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
         Log.v(EventViewAdapter.TAG, "onBindViewHolder called")
         holder.apply {
             val item = items[position]
-            messageLayout.setOnClickListener {
-                chromeCustomTabsHelper.launch(item.eventHtmlUrl)
-            }
-            avatar.apply {
-                setOnClickListener {
-                    chromeCustomTabsHelper.launch(item.actorHtmlUrl)
+            if (eventKinds.contains(item::class.simpleName)) {
+                messageLayout.setOnClickListener {
+                    chromeCustomTabsHelper.launch(item.eventHtmlUrl)
                 }
-                setImageBitmap(item.actorAvatar)
+                avatar.apply {
+                    setOnClickListener {
+                        chromeCustomTabsHelper.launch(item.actorHtmlUrl)
+                    }
+                    setImageBitmap(item.actorAvatar)
+                }
+                message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
+                createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
             }
-            message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
-            createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
         }
     }
 
@@ -69,5 +76,29 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
             this.items + items
         }
         this.notifyDataSetChanged()
+    }
+
+    /**
+     * 表示するイベントの種類を追加する
+     * @param eventKind 表示するイベントの種類
+     */
+    fun addEventKind(eventKind: String) {
+        Log.v(EventViewAdapter.TAG, "addEventKind called")
+        this.eventKinds.add(eventKind)
+        if (0 < this.itemCount) {
+            this.notifyDataSetChanged()
+        }
+    }
+
+    /**
+     * 表示するイベントの種類を削除する
+     * @param eventKind 表示するイベントの種類
+     */
+    fun removeEventKind(eventKind: String) {
+        Log.v(EventViewAdapter.TAG, "removeEventKind called")
+        this.eventKinds.remove(eventKind)
+        if (0 < this.itemCount) {
+            this.notifyDataSetChanged()
+        }
     }
 }

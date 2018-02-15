@@ -9,4 +9,6 @@
     <string name="getting_user_timeline">ユーザータイムライン取得中......</string>
     <string name="not_found">ページが見つかりません</string>
     <string name="logout">ログアウト</string>
+    <string name="open_event_kinds">イベントの種類を開きました</string>
+    <string name="close_event_kinds">イベントの種類を閉じました</string>
 </resources>
