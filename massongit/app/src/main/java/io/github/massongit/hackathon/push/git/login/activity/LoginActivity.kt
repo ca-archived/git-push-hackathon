@@ -43,6 +43,13 @@ class LoginActivity : AppCompatActivity() {
         this.chromeCustomTabsHelper.bind()
     }
 
+    override fun onStop() {
+        Log.v(LoginActivity.TAG, "onStop called")
+        this.chromeCustomTabsHelper.unbind()
+        super.onStop()
+        this.finish()
+    }
+
     /**
      * ログインボタン押下時のイベント
      * @param v View
@@ -50,12 +57,5 @@ class LoginActivity : AppCompatActivity() {
     fun onLoginButtonClick(v: View) {
         Log.v(LoginActivity.TAG, "onLoginButtonClick called")
         this.loginHelper.authorize(this, this.chromeCustomTabsHelper)
-    }
-
-    override fun onStop() {
-        Log.v(LoginActivity.TAG, "onStop called")
-        this.chromeCustomTabsHelper.unbind()
-        super.onStop()
-        this.finish()
     }
 }
