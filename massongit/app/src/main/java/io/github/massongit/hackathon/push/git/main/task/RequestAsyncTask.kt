@@ -27,6 +27,14 @@ abstract class RequestAsyncTask<Params, Progress, Result>(private val service: O
          * ETag用キャッシュ
          */
         private val eTagCache: MutableMap<String, String> = mutableMapOf()
+
+        /**
+         * リセットする
+         */
+        fun reset() {
+            Log.v(RequestAsyncTask.TAG, "reset called")
+            RequestAsyncTask.eTagCache.clear()
+        }
     }
 
     /**

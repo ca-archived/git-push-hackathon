@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".main.activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/event_view"
-        android:layout_width="fill_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:fadeScrollbars="false"
-        android:scrollbarSize="5dp"
-        android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
-        android:scrollbars="vertical" />
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/event_view"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:fadeScrollbars="false"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:enabled="false"
+        android:onClick="onLogoutButtonClick"
+        android:text="@string/logout" />
+</LinearLayout>

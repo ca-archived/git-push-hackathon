@@ -8,4 +8,5 @@
     <string name="get_user_timeline_completed">ユーザータイムライン取得完了！</string>
     <string name="getting_user_timeline">ユーザータイムライン取得中......</string>
     <string name="not_found">ページが見つかりません</string>
+    <string name="logout">ログアウト</string>
 </resources>

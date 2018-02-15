@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
@@ -27,9 +28,10 @@ import java.net.URL
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventViewAdapter イベントビューのアダプター
  * @param helper Helper
+ * @param logoutButton ログアウトボタン
  * @param isCurrent 最新のタイムラインを取得するかどうか
  */
-class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, private val isCurrent: Boolean = true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, logoutButton: TextView, private val isCurrent: Boolean = true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
@@ -40,6 +42,16 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
          * 現在見ているタイムラインのページ番号
          */
         private var page: Int = 1
+
+
+        /**
+         * リセットする
+         */
+        fun reset() {
+            Log.v(GetTimelineAsyncTask.TAG, "reset called")
+            RequestAsyncTask.reset()
+            GetTimelineAsyncTask.page = 1
+        }
     }
 
     /**
@@ -51,6 +63,11 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
      * SwipeRefreshLayoutを保持するWeakReference
      */
     private val swipeRefreshLayoutWeakReference: WeakReference<SwipeRefreshLayout> = WeakReference(swipeRefreshLayout)
+
+    /**
+     * ログアウトボタンを保持するWeakReference
+     */
+    private val logoutButtonWeakReference: WeakReference<TextView> = WeakReference(logoutButton)
 
     override fun onPreExecute() {
         Log.v(GetTimelineAsyncTask.TAG, "onPreExecute called")
@@ -206,6 +223,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
         this.eventViewAdapter.addItems(events, this.isCurrent)
         this.swipeRefreshLayoutWeakReference.get()?.isRefreshing = false
         Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.get_user_timeline_completed), Toast.LENGTH_SHORT).show()
+        this.logoutButtonWeakReference.get()?.isEnabled = true
     }
 
     /**

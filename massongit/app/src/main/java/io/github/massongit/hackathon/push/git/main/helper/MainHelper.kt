@@ -1,15 +1,18 @@
 package io.github.massongit.hackathon.push.git.main.helper
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.widget.TextView
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
+import io.github.massongit.hackathon.push.git.login.activity.LoginActivity
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnRefreshListener
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnScrollListener
@@ -24,8 +27,9 @@ import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventView イベントビュー
  * @param chromeCustomTabsHelper Chrome Custom Tabs Helper
+ * @param logoutButton ログアウトボタン
  */
-class MainHelper(private val context: Context, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, chromeCustomTabsHelper: ChromeCustomTabsHelper) {
+class MainHelper(private val context: Context, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, chromeCustomTabsHelper: ChromeCustomTabsHelper, private val logoutButton: TextView) {
     companion object {
         /**
          * ログ用タグ
@@ -89,6 +93,15 @@ class MainHelper(private val context: Context, private var service: OAuth20Servi
      */
     internal fun getTimeLine(isCurrent: Boolean) {
         Log.v(MainHelper.TAG, "getTimeLine called")
-        GetTimelineAsyncTask(this.context, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, isCurrent).execute()
+        GetTimelineAsyncTask(this.context, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.logoutButton, isCurrent).execute()
+    }
+
+    /**
+     * ログアウトする
+     */
+    internal fun logout() {
+        Log.v(MainHelper.TAG, "logout called")
+        GetTimelineAsyncTask.reset()
+        this.context.startActivity(Intent(this.context, LoginActivity::class.java))
     }
 }

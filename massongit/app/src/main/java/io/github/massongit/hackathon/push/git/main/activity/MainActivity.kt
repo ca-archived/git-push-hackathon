@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         this.chromeCustomTabsHelper = ChromeCustomTabsHelper(this)
         this.mainHelper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout).apply {
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
-        }, this.findViewById(R.id.event_view), this.chromeCustomTabsHelper)
+        }, this.findViewById(R.id.event_view), this.chromeCustomTabsHelper, this.findViewById(R.id.logout_button))
         Log.d(MainActivity.TAG, "data: " + this.intent.dataString)
         this.authorizedUri = this.intent.data
     }
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         Log.v(MainActivity.TAG, "onStop called")
         this.chromeCustomTabsHelper.unbind()
         super.onStop()
+        this.finish()
     }
 
     override fun onResume() {
@@ -70,5 +72,14 @@ class MainActivity : AppCompatActivity() {
             this.mainHelper.setAccessToken(this.authorizedUri)
             this.authorizedUri = null
         }
+    }
+
+    /**
+     * ログアウトボタン押下時のイベント
+     * @param v View
+     */
+    fun onLogoutButtonClick(v: View) {
+        Log.v(MainActivity.TAG, "onLogoutButtonClick called")
+        this.mainHelper.logout()
     }
 }
