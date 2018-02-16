@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
 
 public class GitHubApi {
 
-    public static final String OAUTH_URL = "https://github.com/login/oauth/authorize";
     public static final String GLOBAL_FEED_URL = "https://github.com/timeline";
     private GitHubTokenManager tokenManager;
     private GitHubResourceManager resourceManager;
@@ -43,7 +42,6 @@ public class GitHubApi {
     }
 
     public void fetchFeedList(String url, int page, GitHubApiCallback callback) {
-        Log.i("gh_feed", "fetch feed list");
         resourceManager.getFeedEntries(url, page, callback);
     }
 

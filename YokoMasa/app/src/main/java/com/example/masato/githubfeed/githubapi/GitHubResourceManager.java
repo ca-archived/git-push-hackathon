@@ -18,10 +18,7 @@ import java.util.concurrent.ExecutorService;
 
 class GitHubResourceManager {
 
-    private static final String BASE_URL = "https://api.github.com";
-    private static final String PROFILE_URL = BASE_URL + "/user";
-    private static final String STARRED_URL = PROFILE_URL + "/starred";
-    private static final String REPOSITORY_URL = BASE_URL + "/repos";
+    private static final String MIME_TYPE_HTML = "application/vnd.github.v3.html";
 
     private HttpConnectionPool connectionPool;
 
@@ -30,7 +27,7 @@ class GitHubResourceManager {
     }
 
     void getProfile(final GitHubApiCallback callback) {
-        final HandyHttpURLConnection connection = connectionPool.newConnection(PROFILE_URL);
+        final HandyHttpURLConnection connection = connectionPool.newConnection(GitHubUrls.PROFILE_URL);
         connection.get(result -> {
             Profile profile = GitHubObjectMapper.mapProfile(result.getBodyString());
             setProfileIcon(profile, callback);
@@ -81,7 +78,7 @@ class GitHubResourceManager {
 
     void getIssue(String url, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.setHeader("Accept", "application/vnd.github.v3.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapIssue(successfulResult.getBodyString());
@@ -91,7 +88,7 @@ class GitHubResourceManager {
 
     void getPullRequest(String url, GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.setHeader("Accept", "application/vnd.github.v3.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapPullRequest(successfulResult.getBodyString());
@@ -100,9 +97,9 @@ class GitHubResourceManager {
     }
 
     void getReadMeHtml(Repository repository, final GitHubApiCallback callback) {
-        String url = repository.baseUrl + "/contents/README.md";
+        String url = GitHubUrls.getReadMeUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
-        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return successfulResult.getBodyString();
@@ -111,7 +108,7 @@ class GitHubResourceManager {
     }
 
     void isStarredByCurrentUser(Repository repository, final GitHubApiCallback callback) {
-        String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        String url = GitHubUrls.getStarUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, null);
@@ -119,7 +116,7 @@ class GitHubResourceManager {
     }
 
     void starRepository(Repository repository, final GitHubApiCallback callback) {
-        String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        String url = GitHubUrls.getStarUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.setHeader("Content-Length", "0");
         connection.put(result -> {
@@ -128,7 +125,7 @@ class GitHubResourceManager {
     }
 
     void unStarRepository(Repository repository, final GitHubApiCallback callback) {
-        String url = STARRED_URL + "/" + repository.owner + "/" + repository.name;
+        String url = GitHubUrls.getStarUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.delete(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, null);
@@ -136,7 +133,7 @@ class GitHubResourceManager {
     }
 
     void isSubscribedByCurrentUser(Repository repository, final GitHubApiCallback callback) {
-        String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
+        String url = GitHubUrls.getSubscriptionUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.get(result -> {
             GitHubApiCallbackHandler. handleResult(result, callback, null);
@@ -144,7 +141,7 @@ class GitHubResourceManager {
     }
 
     void subscribeRepository(Repository repository, final GitHubApiCallback callback) {
-        String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
+        String url = GitHubUrls.getSubscriptionUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("subscribed", "true");
         connection.put(result -> {
@@ -153,7 +150,7 @@ class GitHubResourceManager {
     }
 
     void unSubscribeRepository(Repository repository, final GitHubApiCallback callback) {
-        String url = REPOSITORY_URL + "/" + repository.owner + "/" + repository.name + "/subscription";
+        String url = GitHubUrls.getSubscriptionUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.delete(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, null);
@@ -163,7 +160,7 @@ class GitHubResourceManager {
     void getIssueListFromUrl(String url, int page, final GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("page", Integer.toString(page));
-        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapIssueList(successfulResult.getBodyString());
@@ -172,15 +169,15 @@ class GitHubResourceManager {
     }
 
     void getRepositoryIssueList(Repository repository, int page, final GitHubApiCallback callback) {
-        String url = repository.baseUrl + "/issues";
+        String url = GitHubUrls.getIssueListUrl(repository);
         getIssueListFromUrl(url, page, callback);
     }
 
     void getRepositoryPullRequestList(Repository repository, int page, final GitHubApiCallback callback) {
-        String url = repository.baseUrl + "/pulls";
+        String url = GitHubUrls.getPullListUrl(repository);
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("page", Integer.toString(page));
-        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapPullRequestList(successfulResult.getBodyString());
@@ -191,7 +188,7 @@ class GitHubResourceManager {
     void getCommentListFromUrl(String url, int page, GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("page", Integer.toString(page));
-        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapCommentList(successfulResult.getBodyString());
@@ -200,7 +197,7 @@ class GitHubResourceManager {
     }
 
     void getRepositoryCommitList(Repository repository, int page, final GitHubApiCallback callback) {
-        String url = repository.baseUrl + "/" + "commits";
+        String url = GitHubUrls.getCommitListUrl(repository);
         getCommitListFromUrl(url, page, callback);
     }
 
@@ -235,7 +232,7 @@ class GitHubResourceManager {
     void getEventList(String url, int page, GitHubApiCallback callback) {
         HandyHttpURLConnection connection = connectionPool.newConnection(url);
         connection.addParams("page", Integer.toString(page));
-        connection.setHeader("Accept", "application/vnd.github.html");
+        connection.setHeader("Accept", MIME_TYPE_HTML);
         connection.get(result -> {
             GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
                 return GitHubObjectMapper.mapEventList(successfulResult.getBodyString());

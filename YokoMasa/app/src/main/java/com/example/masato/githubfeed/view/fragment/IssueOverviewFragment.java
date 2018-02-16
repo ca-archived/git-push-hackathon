@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.presenter.ImageLoadablePresenter;
 import com.example.masato.githubfeed.util.DateUtil;
@@ -54,7 +55,7 @@ public class IssueOverviewFragment extends BaseFragment implements ImageLoadable
         authorName.setText(issue.author.name);
         date.setText(DateUtil.getReadableDateForFeed(issue.createdAt, getContext()));
         title.setText(issue.name);
-        webView.loadDataWithBaseURL("https://github.com", issue.bodyHtml, "text/html", "utf-8", null);
+        webView.loadDataWithBaseURL(GitHubUrls.BASE_HTML_URL, issue.bodyHtml, "text/html", "utf-8", null);
         if (issue.author.icon == null) {
             presenter.onFetchImage(issue.author.iconUrl);
         } else {

@@ -18,8 +18,6 @@ import java.util.concurrent.ExecutorService;
 
 public class GitHubTokenManager {
 
-    private static String LOGIN_URL = "https://github.com/login/oauth/access_token";
-    private static String AUTH_CHECK_URL = "https://api.github.com/applications";
     private static String PREF_TOKEN_KEY = "token";
 
     private Resources resources;
@@ -32,7 +30,7 @@ public class GitHubTokenManager {
         String rawAuthString = clientId + ":" + clientSecret;
         String authString = "Basic " + Base64.encodeToString(rawAuthString.getBytes(), Base64.NO_WRAP);
 
-        String url = AUTH_CHECK_URL + "/" + clientId + "/tokens/" + getToken();
+        String url = GitHubUrls.getAuthUrl(clientId, getToken());
         HandyHttpURLConnection connection = new HandyHttpURLConnection(url, executorService);
         connection.setHeader("Authorization", authString);
         connection.get(result -> {
@@ -41,7 +39,7 @@ public class GitHubTokenManager {
     }
 
     void fetchToken(final String code, final GitHubApiCallback callback) {
-        HandyHttpURLConnection connection = new HandyHttpURLConnection(LOGIN_URL, executorService);
+        HandyHttpURLConnection connection = new HandyHttpURLConnection(GitHubUrls.LOGIN_URL, executorService);
         String clientId = resources.getString(R.string.client_id);
         String clientSecret = resources.getString(R.string.client_secret);
 

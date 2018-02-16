@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.Comment;
 import com.example.masato.githubfeed.model.Commit;
@@ -67,7 +68,7 @@ public class CommentListFragment extends PaginatingListFragment {
             this.comment = comment;
             authorName.setText(comment.author.name);
             date.setText(DateUtil.getReadableDateForFeed(comment.createdAt, getContext()));
-            commentBody.loadDataWithBaseURL("https://github.com", comment.bodyHtml, "text/html", "utf-8", null);
+            commentBody.loadDataWithBaseURL(GitHubUrls.BASE_HTML_URL, comment.bodyHtml, "text/html", "utf-8", null);
             setProfileImage(comment.author);
         }
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.PullRequest;
 import com.example.masato.githubfeed.presenter.ImageLoadablePresenter;
@@ -54,7 +55,7 @@ public class PullRequestOverviewFragment extends BaseFragment implements ImageLo
         authorName.setText(pr.author.name);
         date.setText(DateUtil.getReadableDateForFeed(pr.createdAt, getContext()));
         title.setText(pr.name);
-        webView.loadDataWithBaseURL("https://github.com", pr.bodyHtml, "text/html", "utf-8", null);
+        webView.loadDataWithBaseURL(GitHubUrls.BASE_HTML_URL, pr.bodyHtml, "text/html", "utf-8", null);
         if (pr.author.icon == null) {
             presenter.onFetchImage(pr.author.iconUrl);
         } else {
