@@ -119,6 +119,7 @@ public class GitHubObjectMapper {
         try {
             issue.url = jsonObject.getString("url");
             issue.name = jsonObject.getString("title");
+            issue.number = jsonObject.getInt("number");
             issue.bodyHtml = jsonObject.optString("body_html");
             issue.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             issue.commentsUrl = jsonObject.getString("comments_url");

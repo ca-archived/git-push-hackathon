@@ -11,6 +11,14 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/issue_list_element_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_small"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/issue_list_element_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ public class Issue extends BaseModel {
 
     public String url;
     public String name;
+    public int number;
     public String bodyHtml;
     public String state;
     public Profile author;
@@ -28,6 +29,7 @@ public class Issue extends BaseModel {
             Issue issue = new Issue();
             issue.url = parcel.readString();
             issue.name = parcel.readString();
+            issue.number = parcel.readInt();
             issue.bodyHtml = parcel.readString();
             issue.state = parcel.readString();
             issue.createdAt = (Date) parcel.readSerializable();
@@ -53,6 +55,7 @@ public class Issue extends BaseModel {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(url);
         parcel.writeString(name);
+        parcel.writeInt(number);
         parcel.writeString(bodyHtml);
         parcel.writeString(state);
         parcel.writeSerializable(createdAt);
