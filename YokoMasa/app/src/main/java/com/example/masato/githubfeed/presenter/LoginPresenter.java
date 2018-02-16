@@ -40,22 +40,22 @@ public class LoginPresenter {
     }
 
     private void execSuccessFlow() {
-        GitHubApi.getApi().fetchProfile(this::navigateToFeedViewIfSucceeded);
+        GitHubApi.getApi().fetchProfile(this::navigateToHomeViewIfSucceeded);
     }
 
-    private void navigateToFeedViewIfSucceeded(GitHubApiResult result) {
+    private void navigateToHomeViewIfSucceeded(GitHubApiResult result) {
         if (result.isSuccessful) {
             Profile profile = (Profile) result.resultObject;
-            navigateToFeedView(profile);
+            navigateToHomeView(profile);
         } else {
             view.enableLogInButton();
             view.showLoginError(result.failure);
         }
     }
 
-    private void navigateToFeedView(Profile profile) {
+    private void navigateToHomeView(Profile profile) {
         view.showProfile(profile);
-        new Handler(Looper.getMainLooper()).postDelayed(view::showFeedView, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(view::showHomeView, 2000);
     }
 
     public LoginPresenter(LoginView view) {

@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.activity.FeedActivity"/>
+        <activity android:name=".view.activity.HomeActivity"/>
 
         <activity android:name=".view.activity.GlobalFeedActivity"/>
 

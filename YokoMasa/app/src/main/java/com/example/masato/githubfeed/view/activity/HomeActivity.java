@@ -1,8 +1,8 @@
 package com.example.masato.githubfeed.view.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -19,13 +19,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
-import com.example.masato.githubfeed.presenter.FeedPresenter;
-import com.example.masato.githubfeed.view.FeedView;
+import com.example.masato.githubfeed.presenter.HomePresenter;
+import com.example.masato.githubfeed.view.HomeView;
 import com.example.masato.githubfeed.view.fragment.EventListFragment;
-import com.example.masato.githubfeed.view.fragment.FeedListFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
+import com.example.masato.githubfeed.view.fragment.LoadingFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,16 +34,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Masato on 2018/01/19.
  */
 
-public class FeedActivity extends AppCompatActivity implements FeedView, AdapterView.OnItemClickListener {
+public class HomeActivity extends AppCompatActivity implements HomeView, AdapterView.OnItemClickListener {
 
-    private FeedPresenter presenter;
+    private HomePresenter presenter;
     private ActionBarDrawerToggle mActionBarToggle;
     private DrawerLayout drawerLayout;
-    private boolean shouldStartFragment;
+    private LoadingFragment loadingFragment;
+    private boolean firstTimeBoot;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firstTimeBoot = savedInstanceState == null;
         setContentView(R.layout.activity_feed);
         Toolbar toolbar = (Toolbar) findViewById(R.id.feed_tool_bar);
         setSupportActionBar(toolbar);
@@ -54,9 +57,51 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
         drawerLayout = (DrawerLayout) findViewById(R.id.feed_drawer_layout);
         mActionBarToggle = new MDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(mActionBarToggle);
-        presenter = new FeedPresenter(this);
-        presenter.onCreate();
-        shouldStartFragment = savedInstanceState == null;
+        presenter = new HomePresenter(this);
+        if (firstTimeBoot) {
+            showLoadingView();
+        }
+    }
+
+    public void showLoadingView() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        loadingFragment = new LoadingFragment();
+        ft.add(R.id.feed_mother, loadingFragment);
+        ft.commit();
+    }
+
+    @Override
+    public void hideLoadingView() {
+        if (loadingFragment == null) {
+            return;
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.remove(loadingFragment);
+        ft.commit();
+        loadingFragment = null;
+    }
+
+    @Override
+    public void setUpContent(Profile profile) {
+        if (firstTimeBoot) {
+            setUpFragment(profile);
+            setUpDrawerContent(profile);
+        }
+    }
+
+    private void setUpDrawerContent(Profile profile) {
+        CircleImageView imageView = (CircleImageView) findViewById(R.id.feed_nav_menu_icon);
+        AppCompatTextView name = (AppCompatTextView) findViewById(R.id.feed_nav_menu_name);
+        imageView.setImageBitmap(profile.icon);
+        name.setText(profile.name);
+    }
+
+    private void setUpFragment(Profile profile) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        EventListFragment eventListFragment =
+                FragmentFactory.createEventListFragment(GitHubUrls.getEventUrl(profile), "");
+        ft.add(R.id.feed_mother, eventListFragment);
+        ft.commit();
     }
 
     @Override
@@ -97,14 +142,6 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     }
 
     @Override
-    public void setProfile(Profile profile) {
-        AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.feed_nav_menu_name);
-        CircleImageView circleImageView = (CircleImageView) findViewById(R.id.feed_nav_menu_icon);
-        textView.setText(profile.name);
-        circleImageView.setImageBitmap(profile.icon);
-    }
-
-    @Override
     public void showLogInView() {
         Navigator.navigateToLogInView(this);
     }
@@ -122,18 +159,6 @@ public class FeedActivity extends AppCompatActivity implements FeedView, Adapter
     @Override
     public void showToast(int stringId) {
         Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void startFeedFragment(String feedUrl) {
-        if (!shouldStartFragment) {
-            return;
-        }
-
-        EventListFragment eventListFragment = FragmentFactory.createEventListFragment("https://api.github.com/users/YokoMasa/events", "");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.feed_mother, eventListFragment);
-        ft.commit();
     }
 
     private class MDrawerToggle extends ActionBarDrawerToggle {

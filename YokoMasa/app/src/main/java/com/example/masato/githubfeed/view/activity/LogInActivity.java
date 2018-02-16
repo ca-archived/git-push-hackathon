@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
+import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.LoginPresenter;
@@ -37,7 +38,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private LoginPresenter presenter;
     private AppCompatTextView loginDescription;
     private AppCompatButton loginButton;
-    private String oauthUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         loginButton = (AppCompatButton) findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginDescription = (AppCompatTextView) findViewById(R.id.login_description);
-        oauthUrl = GitHubApi.OAUTH_URL + "?client_id=" + getResources().getString(R.string.client_id) + "&scope=repo";
         if (isChromeInstalled()) {
             warmUpChrome();
         }
@@ -110,8 +109,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void showFeedView() {
-        Navigator.navigateToFeedView(this);
+    public void showHomeView() {
+        Navigator.navigateToHomeView(this);
     }
 
     @Override
@@ -122,6 +121,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         if (isChromeInstalled()) {
             customTabsIntent.intent.setPackage(CHROME_PACKAGE_NAME);
         }
+        String oauthUrl = GitHubUrls.getLoginUrl(getString(R.string.client_id));
         customTabsIntent.launchUrl(this, Uri.parse(oauthUrl));
     }
 

@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.view;
 
+import com.example.masato.githubfeed.model.Profile;
+
 /**
  * Created by Masato on 2018/02/07.
  */
@@ -7,5 +9,5 @@ package com.example.masato.githubfeed.view;
 public interface MainView extends BaseView {
     public void showLogInView();
 
-    public void showFeedListView();
+    public void showHomeView();
 }

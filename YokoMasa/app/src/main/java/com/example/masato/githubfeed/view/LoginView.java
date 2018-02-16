@@ -21,6 +21,6 @@ public interface LoginView extends BaseView{
 
     public void showProfile(Profile profile);
 
-    public void showFeedView();
+    public void showHomeView();
 
 }

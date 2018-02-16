@@ -30,7 +30,7 @@ public class GitHubTokenManager {
         String rawAuthString = clientId + ":" + clientSecret;
         String authString = "Basic " + Base64.encodeToString(rawAuthString.getBytes(), Base64.NO_WRAP);
 
-        String url = GitHubUrls.getAuthUrl(clientId, getToken());
+        String url = GitHubUrls.getAuthCheckUrl(clientId, getToken());
         HandyHttpURLConnection connection = new HandyHttpURLConnection(url, executorService);
         connection.setHeader("Authorization", authString);
         connection.get(result -> {

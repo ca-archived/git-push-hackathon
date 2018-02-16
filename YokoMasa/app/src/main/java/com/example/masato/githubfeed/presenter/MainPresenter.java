@@ -6,6 +6,7 @@ import android.os.Looper;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
+import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.view.BaseView;
 import com.example.masato.githubfeed.view.MainView;
@@ -25,13 +26,13 @@ public class MainPresenter {
 
     private void waitASec() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            GitHubApi.getApi().checkIfTokenValid(this::navigateToFeedViewIfSucceeded);
+            GitHubApi.getApi().checkIfTokenValid(this::handleTokenCheckResult);
         }, ENTRANCE_LOGO_DURATION);
     }
 
-    private void navigateToFeedViewIfSucceeded(GitHubApiResult result) {
+    private void handleTokenCheckResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            view.showFeedListView();
+            view.showHomeView();
         } else {
             if (result.failure == Failure.NOT_FOUND) {
                 view.showLogInView();

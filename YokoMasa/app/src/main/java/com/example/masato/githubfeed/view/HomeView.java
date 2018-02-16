@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.view;
 
+import android.graphics.Bitmap;
+
 import com.example.masato.githubfeed.model.FeedEntry;
 import com.example.masato.githubfeed.model.Profile;
 
@@ -10,13 +12,13 @@ import java.util.Map;
  * Created by Masato on 2018/01/19.
  */
 
-public interface FeedView extends BaseView{
+public interface HomeView extends BaseView{
 
-    public void setProfile(Profile profile);
+    public void hideLoadingView();
 
     public void closeDrawer();
 
-    public void startFeedFragment(String feedUrl);
+    public void setUpContent(Profile profile);
 
     public void showLogInView();
 

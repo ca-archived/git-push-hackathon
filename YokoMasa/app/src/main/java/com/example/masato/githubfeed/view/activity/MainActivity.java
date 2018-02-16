@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.MainPresenter;
 import com.example.masato.githubfeed.view.BaseView;
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showFeedListView() {
-        Navigator.navigateToFeedView(this);
+    public void showHomeView() {
+        Navigator.navigateToHomeView(this);
     }
 
     @Override

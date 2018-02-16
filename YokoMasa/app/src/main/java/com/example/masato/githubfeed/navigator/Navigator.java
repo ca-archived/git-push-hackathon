@@ -2,15 +2,13 @@ package com.example.masato.githubfeed.navigator;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.example.masato.githubfeed.model.Commit;
-import com.example.masato.githubfeed.model.Issue;
-import com.example.masato.githubfeed.model.PullRequest;
+import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.model.event.Event;
 import com.example.masato.githubfeed.view.activity.CommitActivity;
-import com.example.masato.githubfeed.view.activity.FeedActivity;
+import com.example.masato.githubfeed.view.activity.HomeActivity;
 import com.example.masato.githubfeed.view.activity.GlobalFeedActivity;
 import com.example.masato.githubfeed.view.activity.IssueActivity;
 import com.example.masato.githubfeed.view.activity.LogInActivity;
@@ -29,8 +27,8 @@ public class Navigator {
         context.startActivity(intent);
     }
 
-    public static void navigateToFeedView(Context context) {
-        Intent intent = new Intent(context, FeedActivity.class);
+    public static void navigateToHomeView(Context context) {
+        Intent intent = new Intent(context, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
