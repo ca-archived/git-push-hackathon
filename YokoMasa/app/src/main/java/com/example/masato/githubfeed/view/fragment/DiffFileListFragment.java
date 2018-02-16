@@ -61,18 +61,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-                removeLoadingFragment();
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-
-            }
-        });
-
     }
 
     private void setUpContent() {
@@ -105,6 +93,7 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     @Override
     public void showDiffFiles(ArrayList<DiffFile> diffFiles) {
         this.diffFiles = diffFiles;
+        removeLoadingFragment();
         adapter.setDiffFiles(diffFiles);
     }
 }
