@@ -62,12 +62,14 @@ public class CommitListFragment extends PaginatingListFragment implements Commit
         AppCompatTextView sha;
 
         void bindCommit(Commit commit) {
-            date.setText(DateUtil.getReadableDateForFeed(commit.createdAt, getContext()));
             comment.setText(commit.getShortenedComment());
             sha.setText(commit.getShortenedSha());
+            if (commit.committerDate != null) {
+                date.setText(DateUtil.getReadableDateForFeed(commit.committerDate, getContext()));
+            } else if (commit.authorDate != null) {
+                date.setText(DateUtil.getReadableDateForFeed(commit.authorDate, getContext()));
+            }
         }
-
-
 
         public CommitViewHolder(View itemView) {
             super(itemView);
