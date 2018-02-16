@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.view.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 
 import com.example.masato.githubfeed.R;
@@ -19,15 +20,32 @@ import com.example.masato.githubfeed.view.fragment.PullRequestOverviewFragment;
 
 public class PullRequestActivity extends ViewPagerActivity implements PullRequestView {
 
+    private PullRequest pr;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String url = getIntent().getStringExtra("url");
-        new PullRequestPresenter(this, url);
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        } else {
+            String url = getIntent().getStringExtra("url");
+            new PullRequestPresenter(this, url);
+        }
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        PullRequest pr = savedInstanceState.getParcelable("pr");
+        if (pr != null) {
+            showPullRequest(pr);
+        } else {
+            String url = getIntent().getStringExtra("url");
+            new PullRequestPresenter(this, url);
+        }
     }
 
     @Override
     public void showPullRequest(PullRequest pr) {
+        this.pr = pr;
         setUpActionBar(pr);
 
         PullRequestOverviewFragment pullRequestOverviewFragment =
@@ -45,6 +63,8 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
         DiffFileListFragment diffFileListFragment =
                 FragmentFactory.createDiffFileListFragment(pr.diffUrl, getString(R.string.tab_file_changed));
         addFragment(diffFileListFragment);
+
+        restorePage();
     }
 
     private void setUpActionBar(PullRequest pr) {
@@ -56,4 +76,9 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
         getSupportActionBar().setTitle(builder.toString());
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable("pr", pr);
+    }
 }

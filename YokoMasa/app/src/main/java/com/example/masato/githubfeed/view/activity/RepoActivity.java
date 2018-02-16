@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.view.activity;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -35,28 +36,32 @@ import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
 
 public class RepoActivity extends ViewPagerActivity implements RepoView {
 
-    private RepoPresenter presenter;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    private Repository repository;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setUpPresenterIfNeeded();
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        } else {
+            String url = getIntent().getStringExtra("url");
+            new RepoPresenter(this, url);
+        }
     }
 
-    private void setUpPresenterIfNeeded() {
-        String url = getIntent().getStringExtra("url");
-        Repository repository = getIntent().getParcelableExtra("repository");
+    private void restoreState(Bundle savedInstanceState) {
+        Repository repository = savedInstanceState.getParcelable("repository");
         if (repository != null) {
             setUpContent(repository);
         } else {
-            presenter = new RepoPresenter(this, url);
+            String url = getIntent().getStringExtra("url");
+            new RepoPresenter(this, url);
         }
     }
 
     @Override
     public void setUpContent(Repository repository) {
+        this.repository = repository;
         getSupportActionBar().setTitle(repository.name);
         getSupportActionBar().setSubtitle(repository.owner);
 
@@ -75,5 +80,12 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
         PullRequestListFragment pullRequestListFragment =
                 FragmentFactory.createPullRequestListFragment(repository, getString(R.string.tab_pull_requests));
         addFragment(pullRequestListFragment);
+        restorePage();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable("repository", repository);
     }
 }

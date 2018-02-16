@@ -50,12 +50,6 @@ public class Navigator {
         context.startActivity(intent);
     }
 
-    public static void navigateToRepoView(Context context, Repository repository) {
-        Intent intent = new Intent(context, RepoActivity.class);
-        intent.putExtra("repository", repository);
-        context.startActivity(intent);
-    }
-
     public static void navigateToRepoView(Context context, String url) {
         Intent intent = new Intent(context, RepoActivity.class);
         intent.putExtra("url", url);

@@ -22,6 +22,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private FragmentListPagerAdapter adapter;
     private boolean fragmentUnControllable;
+    private int storedPage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,12 +38,24 @@ public class ViewPagerActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+        if (savedInstanceState != null) {
+            storedPage = savedInstanceState.getInt("page");
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         fragmentUnControllable = true;
+        outState.putInt("page", viewPager.getCurrentItem());
+    }
+
+    protected void restorePage() {
+        setPage(storedPage);
+    }
+
+    protected void setPage(int page) {
+        viewPager.setCurrentItem(page);
     }
 
     protected void addFragment(BaseFragment fragment) {

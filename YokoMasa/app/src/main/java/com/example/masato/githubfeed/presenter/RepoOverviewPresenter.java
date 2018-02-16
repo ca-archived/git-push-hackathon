@@ -14,10 +14,27 @@ public class RepoOverviewPresenter {
 
     private RepoOverviewView view;
     private Repository repository;
+    private String contentHtml;
     private boolean isStarred;
     private boolean isSubscribed;
+    private boolean everLoaded;
 
     public void onViewCreated() {
+        if (everLoaded) {
+            showData();
+        } else {
+            loadData();
+            everLoaded = true;        }
+    }
+
+    public void showData() {
+        view.showOverview(repository);
+        view.showReadMe(contentHtml);
+        view.setStarActivated(isStarred);
+        view.setWatchActivated(isSubscribed);
+    }
+
+    private void loadData() {
         view.showOverview(repository);
         checkIfRepoStarred(repository);
         checkIfRepoSubscribed(repository);
@@ -140,7 +157,7 @@ public class RepoOverviewPresenter {
 
     private void handleFetchReadMeResult(GitHubApiResult result) {
         if (result.isSuccessful) {
-            String contentHtml = (String) result.resultObject;
+            contentHtml = (String) result.resultObject;
             view.showReadMe(contentHtml);
         } else {
             view.showNoReadMe();

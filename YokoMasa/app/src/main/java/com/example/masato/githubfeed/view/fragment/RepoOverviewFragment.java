@@ -5,15 +5,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.presenter.RepoOverviewPresenter;
 import com.example.masato.githubfeed.view.RepoOverviewView;
@@ -25,16 +30,19 @@ import com.example.masato.githubfeed.view.RepoOverviewView;
 public class RepoOverviewFragment extends BaseFragment implements RepoOverviewView, View.OnClickListener {
 
     private RepoOverviewPresenter presenter;
+    private ScrollView scrollView;
     private AppCompatTextView starCount;
     private AppCompatTextView watchCount;
     private AppCompatTextView forkCount;
     private ImageView star;
     private ImageView watch;
     private WebView readmeWebView;
+    private int savedScrollX, savedScrollY;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         Repository repository = getArguments().getParcelable("repository");
         presenter = new RepoOverviewPresenter(this, repository);
     }
@@ -42,13 +50,15 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_repo_overview, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_repo_overview, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }
         initViews(view);
         presenter.onViewCreated();
     }
@@ -65,6 +75,12 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
         forkCount = (AppCompatTextView) view.findViewById(R.id.repo_fork);
         readmeWebView = (WebView) view.findViewById(R.id.repo_readme_web_view);
         readmeWebView.loadData(getString(R.string.repo_loading_readme), "text/html", "utf-8");
+        scrollView = (ScrollView) view.findViewById(R.id.repo_scroll_view);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        savedScrollX = savedInstanceState.getInt("scroll_x");
+        savedScrollY = savedInstanceState.getInt("scroll_y");
     }
 
     @Override
@@ -85,7 +101,17 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
 
     @Override
     public void showReadMe(String readMeHtml) {
-        readmeWebView.loadDataWithBaseURL("https://github.com", readMeHtml, "text/html", "utf-8", null);
+        readmeWebView.loadDataWithBaseURL(GitHubUrls.BASE_HTML_URL, readMeHtml, "text/html", "utf-8", null);
+        readmeWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (newProgress == 100) {
+                    scrollView.setScrollX(savedScrollX);
+                    scrollView.setScrollY(savedScrollY);
+                }
+            }
+        });
     }
 
     @Override
@@ -109,5 +135,12 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
         } else {
             watch.setImageResource(R.drawable.watch);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("scroll_x", scrollView.getScrollX());
+        outState.putInt("scroll_y", scrollView.getScrollY());
     }
 }

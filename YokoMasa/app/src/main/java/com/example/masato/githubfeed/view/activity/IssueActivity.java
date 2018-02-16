@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.view.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -22,15 +23,32 @@ import com.example.masato.githubfeed.view.fragment.IssueOverviewFragment;
 
 public class IssueActivity extends ViewPagerActivity implements IssueView {
 
+    private Issue issue;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String url = getIntent().getStringExtra("url");
-        new IssuePresenter(this, url);
+        if (savedInstanceState != null) {
+           restoreState(savedInstanceState);
+        } else {
+            String url = getIntent().getStringExtra("url");
+            new IssuePresenter(this, url);
+        }
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        Issue issue = savedInstanceState.getParcelable("issue");
+        if (issue != null) {
+            showIssue(issue);
+        } else {
+            String url = getIntent().getStringExtra("url");
+            new IssuePresenter(this, url);
+        }
     }
 
     @Override
     public void showIssue(Issue issue) {
+        this.issue = issue;
         getSupportActionBar().setTitle(R.string.issue_title);
         IssueOverviewFragment issueOverviewFragment =
                 FragmentFactory.createIssueOverviewFragment(issue, getString(R.string.tab_overview));
@@ -39,6 +57,12 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
         CommentListFragment commentListFragment =
                 FragmentFactory.createCommentListFragment(issue.commentsUrl, getString(R.string.tab_comments));
         addFragment(commentListFragment);
+        restorePage();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable("issue", issue);
+    }
 }
