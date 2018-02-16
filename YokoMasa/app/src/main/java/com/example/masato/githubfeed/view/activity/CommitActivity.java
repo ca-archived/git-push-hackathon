@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.view.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import java.util.List;
 public class CommitActivity extends AppCompatActivity implements CommitView {
 
     private CommitPresenter presenter;
+    private boolean FTProhibited;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,12 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         getSupportActionBar().setTitle(actionBarTitle);
 
         presenter = new CommitPresenter(this, commit);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        FTProhibited = false;
     }
 
     private void showAuthor(Commit commit) {
@@ -101,6 +109,9 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
 
     @Override
     public void showDiffFileList(ArrayList<DiffFile> diffFiles) {
+        if (FTProhibited) {
+            return;
+        }
         DiffFileListFragment diffFileListFragment = FragmentFactory.createDiffFileListFragment(diffFiles, "");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.commit_diff_file_list_mother, diffFileListFragment);
@@ -116,5 +127,11 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        FTProhibited = true;
     }
 }

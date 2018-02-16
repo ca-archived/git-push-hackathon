@@ -1,10 +1,12 @@
 package com.example.masato.githubfeed.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,27 +29,34 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     private LoadingFragment loadingFragment;
     private ArrayList<DiffFile> diffFiles;
     private boolean isLoading;
+    private boolean FTProhibited;
+    private boolean loadingFragmentRemovalPending;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        showLoadingFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FTProhibited = false;
         return inflater.inflate(R.layout.fragment_diff_file_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        showLoadingFragment();
+        if (loadingFragmentRemovalPending) {
+            removeLoadingFragment();
+            loadingFragmentRemovalPending = false;
+        }
 
         initViews(view);
 
-        if (savedInstanceState == null) {
+        if (diffFiles == null) {
             setUpContent();
         } else {
             showDiffFiles(diffFiles);
@@ -74,6 +83,9 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     }
 
     private void showLoadingFragment() {
+        if (FTProhibited) {
+            return;
+        }
         loadingFragment = new LoadingFragment();
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.add(R.id.diff_file_list_mother, loadingFragment);
@@ -82,6 +94,10 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     }
 
     private void removeLoadingFragment() {
+        if (FTProhibited) {
+            loadingFragmentRemovalPending = true;
+            return;
+        }
         if (isLoading) {
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ft.remove(loadingFragment);
@@ -96,4 +112,11 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         removeLoadingFragment();
         adapter.setDiffFiles(diffFiles);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        FTProhibited = true;
+    }
+
 }

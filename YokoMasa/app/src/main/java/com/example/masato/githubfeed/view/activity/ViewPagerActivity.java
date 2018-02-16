@@ -21,7 +21,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FragmentListPagerAdapter adapter;
-    private boolean fragmentUnControllable;
+    private boolean FTProhibited;
     private int storedPage;
 
     @Override
@@ -44,9 +44,15 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        FTProhibited = false;
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        fragmentUnControllable = true;
+        FTProhibited = true;
         outState.putInt("page", viewPager.getCurrentItem());
     }
 
@@ -59,14 +65,14 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     protected void addFragment(BaseFragment fragment) {
-        if (fragmentUnControllable) {
+        if (FTProhibited) {
             return;
         }
         adapter.addFragment(fragment);
     }
 
     protected void addFragment(BaseFragment fragment, int position) {
-        if (fragmentUnControllable) {
+        if (FTProhibited) {
             return;
         }
         adapter.addFragment(fragment, position);

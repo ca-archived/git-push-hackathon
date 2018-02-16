@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -41,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Adapter
     private DrawerLayout drawerLayout;
     private LoadingFragment loadingFragment;
     private boolean firstTimeBoot;
+    private boolean FTProhibited;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +63,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Adapter
         if (firstTimeBoot) {
             showLoadingView();
         }
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        FTProhibited = false;
     }
 
     public void showLoadingView() {
@@ -97,6 +105,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Adapter
     }
 
     private void setUpFragment(Profile profile) {
+        if (FTProhibited) {
+            return;
+        }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         EventListFragment eventListFragment =
                 FragmentFactory.createEventListFragment(GitHubUrls.getEventUrl(profile), "");
@@ -159,6 +170,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Adapter
     @Override
     public void showToast(int stringId) {
         Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        FTProhibited = true;
     }
 
     private class MDrawerToggle extends ActionBarDrawerToggle {
