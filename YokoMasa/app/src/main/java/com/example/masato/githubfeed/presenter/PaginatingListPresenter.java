@@ -27,6 +27,7 @@ public abstract class PaginatingListPresenter {
     private PaginatingListView view;
     private ArrayList<BaseModel> elementList = new ArrayList<>();
     private int currentPage = 1;
+    private int maxPage = -1;
     private int fetchThreshold = DEFAULT_FETCH_THRESHOLD;
     private boolean feedMaxedOut = false;
     private boolean refreshing = false;
@@ -35,6 +36,8 @@ public abstract class PaginatingListPresenter {
     public void setFetchThreshold(int fetchThreshold) {
         this.fetchThreshold = fetchThreshold;
     }
+
+    public void setMaxPage(int maxPage) { this.maxPage = maxPage; }
 
     /**
      * 現在取得が完了しているページをセットします。
@@ -150,6 +153,7 @@ public abstract class PaginatingListPresenter {
                 feedMaxedOut = true;
             } else {
                 this.elementList.addAll(elements);
+                feedMaxedOut = currentPage == maxPage;
             }
         }
         view.updateAdapter();

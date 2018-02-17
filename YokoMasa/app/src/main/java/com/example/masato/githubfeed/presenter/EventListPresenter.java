@@ -15,6 +15,8 @@ import java.util.List;
 
 public class EventListPresenter extends PaginatingListPresenter {
 
+    private static final int MAX_PAGE = 10;
+
     private String url;
     private EventListView view;
 
@@ -45,6 +47,7 @@ public class EventListPresenter extends PaginatingListPresenter {
 
     public EventListPresenter(PaginatingListView view, String url) {
         super(view);
+        setMaxPage(MAX_PAGE);
         this.url = url;
         this.view = (EventListView) view;
     }
