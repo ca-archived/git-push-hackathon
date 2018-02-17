@@ -28,9 +28,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     private DiffFileListAdapter adapter;
     private LoadingFragment loadingFragment;
     private ArrayList<DiffFile> diffFiles;
-    private boolean isLoading;
-    private boolean FTProhibited;
-    private boolean loadingFragmentRemovalPending;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,17 +39,12 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FTProhibited = false;
         return inflater.inflate(R.layout.fragment_diff_file_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (loadingFragmentRemovalPending) {
-            removeLoadingFragment();
-            loadingFragmentRemovalPending = false;
-        }
 
         initViews(view);
 
@@ -83,27 +75,24 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     }
 
     private void showLoadingFragment() {
-        if (FTProhibited) {
-            return;
-        }
-        loadingFragment = new LoadingFragment();
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.add(R.id.diff_file_list_mother, loadingFragment);
-        ft.commit();
-        isLoading = true;
+        doSafeFTTransaction(() -> {
+            loadingFragment = new LoadingFragment();
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.add(R.id.diff_file_list_mother, loadingFragment);
+            ft.commit();
+        });
     }
 
     private void removeLoadingFragment() {
-        if (FTProhibited) {
-            loadingFragmentRemovalPending = true;
-            return;
-        }
-        if (isLoading) {
+        doSafeFTTransaction(() -> {
+            if (loadingFragment == null) {
+                return;
+            }
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ft.remove(loadingFragment);
             ft.commit();
-            isLoading = false;
-        }
+            loadingFragment = null;
+        });
     }
 
     @Override
@@ -111,12 +100,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         this.diffFiles = diffFiles;
         removeLoadingFragment();
         adapter.setDiffFiles(diffFiles);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        FTProhibited = true;
     }
 
 }

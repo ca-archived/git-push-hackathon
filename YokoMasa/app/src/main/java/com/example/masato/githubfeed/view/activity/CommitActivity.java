@@ -37,11 +37,11 @@ import java.util.List;
  * Created by Masato on 2018/02/06.
  */
 
-public class CommitActivity extends AppCompatActivity implements CommitView {
+public class CommitActivity extends BaseActivity implements CommitView {
 
     private CommitPresenter presenter;
-    private boolean FTProhibited;
     private Commit commit;
+    private FragmentTransaction pendingTransaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,12 +86,6 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         return true;
     }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-        FTProhibited = false;
-    }
-
     private void showAuthor(Commit commit) {
         if (commit.author == null) {
             return;
@@ -122,13 +116,12 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
 
     @Override
     public void showDiffFileList(ArrayList<DiffFile> diffFiles) {
-        if (FTProhibited) {
-            return;
-        }
-        DiffFileListFragment diffFileListFragment = FragmentFactory.createDiffFileListFragment(diffFiles, "");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.commit_diff_file_list_mother, diffFileListFragment);
-        ft.commit();
+        doSafeFTTransaction(() -> {
+            DiffFileListFragment diffFileListFragment = FragmentFactory.createDiffFileListFragment(diffFiles, "");
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.commit_diff_file_list_mother, diffFileListFragment);
+            ft.commit();
+        });
     }
 
     @Override
@@ -142,9 +135,4 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         return true;
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        FTProhibited = true;
-    }
 }

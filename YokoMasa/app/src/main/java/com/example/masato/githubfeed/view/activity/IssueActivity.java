@@ -76,7 +76,7 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
     @Override
     public void showIssue(Issue issue) {
         this.issue = issue;
-        String title = getString(R.string.issue_title) + "#" + issue.number;
+        String title = getString(R.string.issue_title) + " #" + issue.number;
         getSupportActionBar().setTitle(title);
         IssueOverviewFragment issueOverviewFragment =
                 FragmentFactory.createIssueOverviewFragment(issue, getString(R.string.tab_overview));

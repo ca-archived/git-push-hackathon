@@ -19,12 +19,11 @@ import com.example.masato.githubfeed.view.fragment.BaseFragment;
  * Created by Masato on 2018/02/03.
  */
 
-public class ViewPagerActivity extends AppCompatActivity {
+public class ViewPagerActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FragmentListPagerAdapter adapter;
-    private boolean FTProhibited;
     private int storedPage;
 
     @Override
@@ -47,15 +46,8 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        FTProhibited = false;
-    }
-
-    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        FTProhibited = true;
         outState.putInt("page", viewPager.getCurrentItem());
     }
 
@@ -68,17 +60,15 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     protected void addFragment(BaseFragment fragment) {
-        if (FTProhibited) {
-            return;
-        }
-        adapter.addFragment(fragment);
+        doSafeFTTransaction(() -> {
+            adapter.addFragment(fragment);
+        });
     }
 
     protected void addFragment(BaseFragment fragment, int position) {
-        if (FTProhibited) {
-            return;
-        }
-        adapter.addFragment(fragment, position);
+        doSafeFTTransaction(() -> {
+            adapter.addFragment(fragment, position);
+        });
     }
 
     @Override

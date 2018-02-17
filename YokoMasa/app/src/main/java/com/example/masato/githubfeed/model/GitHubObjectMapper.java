@@ -66,6 +66,7 @@ public class GitHubObjectMapper {
             JSONObject jsonObject = new JSONObject(repositoryString);
             repository = mapRepository(jsonObject);
         } catch (Exception e) {
+            Log.e("gh_feed", repositoryString);
             e.printStackTrace();
         }
         return repository;

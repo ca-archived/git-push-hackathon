@@ -64,6 +64,9 @@ public class Navigator {
     }
 
     public static void navigateToExternalBrowser(Context context, String url) {
+        if (url == null) {
+            return;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         context.startActivity(intent);
     }
