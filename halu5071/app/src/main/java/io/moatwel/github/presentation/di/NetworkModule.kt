@@ -101,8 +101,4 @@ class NetworkModule {
   fun provideEventApi(retrofit: Retrofit): EventApi {
     return retrofit.create(EventApi::class.java)
   }
-
-  companion object {
-    val INSTANCE = NetworkModule()
-  }
 }
