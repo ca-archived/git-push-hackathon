@@ -9,10 +9,10 @@ data class CreatePayload(
   @Json(name = "ref_type")
   val refType: String,
 
-  val ref: String,
+  val ref: String?,
 
   @Json(name = "master_branch")
   val masterBranch: String,
 
-  val description: String
+  val description: String?
 ) : Payload(), Serializable

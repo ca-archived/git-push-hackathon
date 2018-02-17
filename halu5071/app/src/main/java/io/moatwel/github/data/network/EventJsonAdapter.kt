@@ -40,7 +40,7 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
       reader.nextName() // for id
       val id = reader.nextLong()
       reader.nextName() // for type
-      val type = reader.nextString()
+      val type = moshi.adapter(EventType::class.java).fromJson(reader)
       reader.nextName() // for actor
       val actor = moshi.adapter(Actor::class.java).fromJson(reader)
       reader.nextName() // for repo
@@ -69,26 +69,33 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
-  private fun parsePayload(type: String, value: JsonReader): Payload {
+  private fun parsePayload(type: EventType?, value: JsonReader): Payload {
     return when (type) {
-      "CommitCommentEvent"
-      -> moshi.adapter(CommitCommentPayload::class.java).fromJson(value) as CommitCommentPayload
-      "CreateEvent" -> moshi.adapter(CreatePayload::class.java).fromJson(value) as CreatePayload
-      "DeleteEvent" -> moshi.adapter(DeletePayload::class.java).fromJson(value) as DeletePayload
-      "ForkEvent" -> moshi.adapter(ForkPayload::class.java).fromJson(value) as ForkPayload
-      "GollumEvent" -> moshi.adapter(GollumPayload::class.java).fromJson(value) as GollumPayload
-      "IssueCommentEvent"
-      -> moshi.adapter(IssueCommentPayload::class.java).fromJson(value) as IssueCommentPayload
-      "PullRequestEvent"
-      -> moshi.adapter(PullRequestPayload::class.java).fromJson(value) as PullRequestPayload
-      "PullRequestReviewEvent"
-      -> moshi.adapter(PullRequestReviewPayload::class.java).fromJson(value) as PullRequestReviewPayload
-      "PullRequestReviewCommentEvent"
-      -> moshi.adapter(PullRequestReviewCommentPayload::class.java)
+      EventType.CommitCommentEvent
+          -> moshi.adapter(CommitCommentPayload::class.java).fromJson(value) as CommitCommentPayload
+      EventType.CreateEvent
+          -> moshi.adapter(CreatePayload::class.java).fromJson(value) as CreatePayload
+      EventType.DeleteEvent
+          -> moshi.adapter(DeletePayload::class.java).fromJson(value) as DeletePayload
+      EventType.ForkEvent
+          -> moshi.adapter(ForkPayload::class.java).fromJson(value) as ForkPayload
+      EventType.GollumEvent
+          -> moshi.adapter(GollumPayload::class.java).fromJson(value) as GollumPayload
+      EventType.IssueCommentEvent
+          -> moshi.adapter(IssueCommentPayload::class.java).fromJson(value) as IssueCommentPayload
+      EventType.PullRequestEvent
+          -> moshi.adapter(PullRequestPayload::class.java).fromJson(value) as PullRequestPayload
+      EventType.PullRequestReviewEvent
+          -> moshi.adapter(PullRequestReviewPayload::class.java).fromJson(value) as PullRequestReviewPayload
+      EventType.PullRequestReviewCommentEvent
+          -> moshi.adapter(PullRequestReviewCommentPayload::class.java)
         .fromJson(value) as PullRequestReviewCommentPayload
-      "PushEvent" -> moshi.adapter(PushPayload::class.java).fromJson(value) as PushPayload
-      "WatchEvent" -> moshi.adapter(WatchPayload::class.java).fromJson(value) as WatchPayload
-      "IssuesEvent" -> moshi.adapter(IssuesPayload::class.java).fromJson(value) as IssuesPayload
+      EventType.PushEvent
+          -> moshi.adapter(PushPayload::class.java).fromJson(value) as PushPayload
+      EventType.WatchEvent
+          -> moshi.adapter(WatchPayload::class.java).fromJson(value) as WatchPayload
+      EventType.IssuesEvent
+          -> moshi.adapter(IssuesPayload::class.java).fromJson(value) as IssuesPayload
       else -> throw Throwable("Unaccepted payload type: $type")
     }
   }

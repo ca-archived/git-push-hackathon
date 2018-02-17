@@ -55,7 +55,7 @@ class App : DaggerApplication(), HasActivityInjector {
   }
 
   private fun loadAuthData() {
-    authDataRepository.get()
+    Timber.d("AccessToken: ${authDataRepository.get()?.token}")
   }
 
   private fun initTimber() {
