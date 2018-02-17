@@ -65,8 +65,8 @@ task makeNavigateMenu {
         pw.println("    xmlns:app=\"http://schemas.android.com/apk/res-auto\">")
         pw.println("    <group>")
 
-        for (File file : new File("app/src/main/java/io/github/massongit/hackathon/push/git/main/event").listFiles()) {
-            String eventName = file.name.replace(".kt", "")
+        for (String fileName : new File("app/src/main/java/io/github/massongit/hackathon/push/git/main/event").list().sort()) {
+            String eventName = fileName.replace(".kt", "")
             if (eventName != "Event") {
                 pw.println("        <item")
                 pw.println("            android:title=\"" + eventName + "\"")
