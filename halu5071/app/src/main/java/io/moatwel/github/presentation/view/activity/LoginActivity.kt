@@ -30,7 +30,7 @@ import android.support.v7.app.AppCompatActivity
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
 import io.moatwel.github.domain.entity.AuthData
-import io.moatwel.github.domain.usecase.AuthDataUseCase
+import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.presentation.util.observeOnMainThread
 import io.moatwel.github.presentation.util.subscribeOnIoThread
 import kotlinx.android.synthetic.main.activity_login.*
@@ -40,7 +40,7 @@ import javax.inject.Inject
 class LoginActivity : AppCompatActivity() {
 
   @Inject
-  lateinit var authDataUseCase: AuthDataUseCase
+  lateinit var authDataRepository: AuthDataRepository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
   }
 
   private fun getAccessToken(code: String) {
-    authDataUseCase.fetch(code)
+    authDataRepository.fetch(code)
       .subscribeOnIoThread()
       .observeOnMainThread()
       .subscribe({
@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
   }
 
   private fun saveAuthData(authData: AuthData) {
-    authDataUseCase.save(authData)
+    authDataRepository.save(authData)
     val intent = Intent(this, MainActivity::class.java)
     startActivity(intent)
   }

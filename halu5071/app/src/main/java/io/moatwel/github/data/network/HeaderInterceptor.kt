@@ -22,18 +22,18 @@
 
 package io.moatwel.github.data.network
 
-import io.moatwel.github.domain.usecase.AuthDataUseCase
+import io.moatwel.github.domain.repository.AuthDataRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class HeaderInterceptor (
-  private val authDataUseCase: AuthDataUseCase
+  private val authDataRepository: AuthDataRepository
 ) : Interceptor {
 
   override fun intercept(chain: Interceptor.Chain): Response {
     val request = chain.request()
 
-    val token = authDataUseCase.get()?.token ?: ""
+    val token = authDataRepository.get()?.token ?: ""
 
     val newRequest = request.newBuilder()
       .addHeader("Authorization", "token $token")
