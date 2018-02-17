@@ -26,11 +26,9 @@ package io.moatwel.github.presentation.di
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.datasource.AuthDataDataSource
-import io.moatwel.github.data.datasource.CloudEventDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.data.repository.AuthDataDataRepository
 import io.moatwel.github.data.repository.UserDataRepository
-import io.moatwel.github.domain.entity.event.EventRepository
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.domain.repository.UserRepository
 import javax.inject.Singleton
@@ -48,9 +46,5 @@ class RepositoryModule {
   @Singleton
   fun provideAuthDataRepository(authDataDataSource: AuthDataDataSource): AuthDataRepository {
     return AuthDataDataRepository(authDataDataSource)
-  }
-
-  companion object {
-    val INSTANCE = RepositoryModule()
   }
 }

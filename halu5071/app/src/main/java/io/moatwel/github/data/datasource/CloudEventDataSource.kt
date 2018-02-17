@@ -5,7 +5,6 @@ import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
 import io.moatwel.github.domain.usecase.UserUseCase
 import timber.log.Timber
-import javax.inject.Inject
 
 class CloudEventDataSource (
   private val api: EventApi,

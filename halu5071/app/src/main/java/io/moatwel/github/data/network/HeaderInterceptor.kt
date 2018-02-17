@@ -3,7 +3,6 @@ package io.moatwel.github.data.network
 import io.moatwel.github.domain.usecase.AuthDataUseCase
 import okhttp3.Interceptor
 import okhttp3.Response
-import javax.inject.Inject
 
 class HeaderInterceptor (
   private val authDataUseCase: AuthDataUseCase
