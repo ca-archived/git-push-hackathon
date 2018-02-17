@@ -7,9 +7,5 @@ import java.io.Serializable
 
 @JsonSerializable
 data class CommitCommentPayload(
-  val action: String,
-
-  val comment: Comment,
-
-  val repository: Repository
+  val comment: Comment
 ) : Payload(), Serializable

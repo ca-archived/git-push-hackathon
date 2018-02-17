@@ -41,6 +41,7 @@ class EventJsonAdapterTest {
     assertNotNull(list?.get(0))
     assertNotNull(list?.get(1))
     assertNotNull(list?.get(2))
+
     assertThat(list?.get(0)?.id, `is`(7163073730L))
     assertThat(list?.get(0)?.type, `is`(EventType.WatchEvent))
     assertThat(list?.get(0)?.actor?.id, `is`(32922369L))
@@ -48,6 +49,7 @@ class EventJsonAdapterTest {
     assertThat(list?.get(0)?.repo?.id, `is`(7508411L))
     assertThat(list?.get(0)?.repo?.name, `is`("ReactiveX/RxJava"))
     assertThat((list?.get(0)?.payload as WatchPayload).action, `is`("started"))
+
     assertThat(list.get(1).id, `is`(7163070761L))
     assertThat(list.get(1).type, `is`(EventType.PullRequestReviewCommentEvent))
     assertThat(list.get(1).actor?.id, `is`(1386930L))
@@ -56,6 +58,7 @@ class EventJsonAdapterTest {
     assertThat(list.get(1).repo?.name, `is`("DroidKaigi/conference-app-2018"))
     assertThat((list.get(1).payload as PullRequestReviewCommentPayload).action,
       `is`("created"))
+
     assertThat(list.get(2).id, `is`(7163056449L))
     assertThat(list.get(2).type, `is`(EventType.PushEvent))
     assertThat(list.get(2).actor?.id, `is`(944185L))
@@ -78,6 +81,7 @@ class EventJsonAdapterTest {
     assertNotNull(list?.get(0))
     assertNotNull(list?.get(1))
     assertNotNull(list?.get(2))
+
     assertThat(list?.get(0)?.id, `is`(7171333413L))
     assertThat(list?.get(0)?.type, `is`(EventType.PullRequestEvent))
     assertThat(list?.get(0)?.actor?.id, `is`(1386930L))
@@ -85,6 +89,7 @@ class EventJsonAdapterTest {
     assertThat(list?.get(0)?.repo?.id, `is`(115203383L))
     assertThat(list?.get(0)?.repo?.name, `is`("DroidKaigi/conference-app-2018"))
     assertThat((list?.get(0)?.payload as PullRequestPayload).action, `is`("closed"))
+
     assertThat(list.get(1).id, `is`(7170819290L))
     assertThat(list.get(1).type, `is`(EventType.IssuesEvent))
     assertThat(list.get(1).actor?.id, `is`(1386930L))
@@ -92,6 +97,7 @@ class EventJsonAdapterTest {
     assertThat(list.get(1).repo?.id, `is`(115203383L))
     assertThat(list.get(1).repo?.name, `is`("DroidKaigi/conference-app-2018"))
     assertThat((list.get(1).payload as IssuesPayload).action, `is`("closed"))
+
     assertThat(list.get(2).id, `is`(7162984872L))
     assertThat(list.get(2).type, `is`(EventType.DeleteEvent))
     assertThat(list.get(2).actor?.id, `is`(18444125L))
@@ -110,11 +116,19 @@ class EventJsonAdapterTest {
 
     assertNotNull(list)
     assertNotNull(list?.get(0))
+    assertNotNull(list?.get(1))
     assertThat(list?.get(0)?.type, `is`(EventType.CreateEvent))
     assertThat((list?.get(0)?.payload as CreatePayload).refType, `is`("repository"))
     assertNull((list.get(0).payload as CreatePayload).ref)
     assertNull((list.get(0).payload as CreatePayload).description)
     assertThat(list.get(0).actor?.login, `is`("nyaratakumi"))
     assertThat(list.get(0).actor?.id, `is`(13572056L))
+
+    assertThat(list.get(1).type, `is`(EventType.CommitCommentEvent))
+    assertThat((list.get(1).payload as CommitCommentPayload).comment.body, `is`("ほげほげ"))
+    assertThat((list.get(1).payload as CommitCommentPayload).comment.id, `is`(27598020L))
+    assertThat((list.get(1).payload as CommitCommentPayload).comment.id, `is`(27598020L))
+    assertThat(list.get(1).org?.login, `is`("android"))
+    assertThat(list.get(1).repo?.id, `is`(114725764L))
   }
 }
