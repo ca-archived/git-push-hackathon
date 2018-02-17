@@ -51,7 +51,7 @@ class AuthDataDataRepository (
   override fun get(): AuthData? {
     authData?.let {
       return it
-    } ?: run{
+    } ?: run {
       val authData = dataSource.readFromSharedPreference()
       this.authData = authData
       return this.authData
