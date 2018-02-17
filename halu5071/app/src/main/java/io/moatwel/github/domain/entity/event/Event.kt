@@ -10,7 +10,7 @@ import java.util.*
 data class Event(
   val id: Long,
 
-  val type: String,
+  val type: EventType?,
 
   val actor: Actor?,
 
