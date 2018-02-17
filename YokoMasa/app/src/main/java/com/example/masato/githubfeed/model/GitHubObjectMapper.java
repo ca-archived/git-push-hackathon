@@ -80,7 +80,7 @@ public class GitHubObjectMapper {
             repository.baseUrl = jsonObject.getString("url");
             repository.name = jsonObject.getString("name");
             repository.stars = jsonObject.getInt("stargazers_count");
-            repository.watches = jsonObject.getInt("subscribers_count");
+            repository.watches = jsonObject.optInt("subscribers_count");
             repository.forks = jsonObject.getInt("forks_count");
             JSONObject ownerJsonObject = jsonObject.getJSONObject("owner");
             repository.owner = ownerJsonObject.getString("login");

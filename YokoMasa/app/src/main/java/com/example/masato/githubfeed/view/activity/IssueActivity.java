@@ -85,7 +85,6 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
         CommentListFragment commentListFragment =
                 FragmentFactory.createCommentListFragment(issue.commentsUrl, getString(R.string.tab_comments));
         addFragment(commentListFragment);
-        restorePage();
     }
 
     @Override

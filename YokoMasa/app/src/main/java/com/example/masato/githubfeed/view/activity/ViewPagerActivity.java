@@ -62,12 +62,14 @@ public class ViewPagerActivity extends BaseActivity {
     protected void addFragment(BaseFragment fragment) {
         doSafeFTTransaction(() -> {
             adapter.addFragment(fragment);
+            restorePage();
         });
     }
 
     protected void addFragment(BaseFragment fragment, int position) {
         doSafeFTTransaction(() -> {
             adapter.addFragment(fragment, position);
+            restorePage();
         });
     }
 

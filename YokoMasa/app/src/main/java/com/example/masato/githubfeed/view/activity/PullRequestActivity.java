@@ -89,8 +89,6 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
         DiffFileListFragment diffFileListFragment =
                 FragmentFactory.createDiffFileListFragment(pr.diffUrl, getString(R.string.tab_file_changed));
         addFragment(diffFileListFragment);
-
-        restorePage();
     }
 
     @Override

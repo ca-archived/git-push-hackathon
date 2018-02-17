@@ -92,7 +92,6 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
         PullRequestListFragment pullRequestListFragment =
                 FragmentFactory.createPullRequestListFragment(repository, getString(R.string.tab_pull_requests));
         addFragment(pullRequestListFragment);
-        restorePage();
     }
 
     @Override
