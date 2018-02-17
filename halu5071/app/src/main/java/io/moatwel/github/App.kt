@@ -47,10 +47,10 @@ class App : DaggerApplication(), HasActivityInjector {
 
   override fun onCreate() {
     super.onCreate()
-    setupEmoji()
-    setupLeakCanary()
-    setupStetho()
-    setupTimber()
+    initEmoji()
+    initLeakCanary()
+    initStetho()
+    initTimber()
     loadAuthData()
   }
 
@@ -58,21 +58,21 @@ class App : DaggerApplication(), HasActivityInjector {
     authDataUseCase.load()
   }
 
-  private fun setupTimber() {
+  private fun initTimber() {
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
     }
   }
 
-  private fun setupStetho() {
+  private fun initStetho() {
     Stetho.initializeWithDefaults(this)
   }
 
-  private fun setupLeakCanary() {
+  private fun initLeakCanary() {
     LeakCanary.install(this)
   }
 
-  private fun setupEmoji() {
+  private fun initEmoji() {
     val config = BundledEmojiCompatConfig(this)
     EmojiCompat.init(config)
   }

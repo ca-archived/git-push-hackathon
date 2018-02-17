@@ -26,7 +26,6 @@ import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
 import io.reactivex.Observable
-import javax.inject.Inject
 
 /**
  *  This class is a implementation class of [UserRepository] on domain layer
