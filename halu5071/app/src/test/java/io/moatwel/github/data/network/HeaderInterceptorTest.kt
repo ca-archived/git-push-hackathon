@@ -1,7 +1,7 @@
 package io.moatwel.github.data.network
 
 import io.moatwel.github.domain.entity.AuthData
-import io.moatwel.github.domain.usecase.AuthDataUseCase
+import io.moatwel.github.domain.repository.AuthDataRepository
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.mockwebserver.MockResponse
@@ -20,7 +20,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 @RunWith(PowerMockRunner::class)
 @PowerMockIgnore("javax.net.ssl.*")
-@PrepareForTest(AuthDataUseCase::class)
+@PrepareForTest(AuthDataRepository::class)
 class HeaderInterceptorTest {
   @Test
   fun testHeaderOAuthToken() {
@@ -28,11 +28,11 @@ class HeaderInterceptorTest {
     mockWebServer.start()
     mockWebServer.enqueue(MockResponse())
 
-    val authDataUseCase = PowerMockito.mock(AuthDataUseCase::class.java)
-    `when`(authDataUseCase.get()).thenReturn(AuthData("hogehogeToken"))
+    val authDataRepository = PowerMockito.mock(AuthDataRepository::class.java)
+    `when`(authDataRepository.get()).thenReturn(AuthData("hogehogeToken"))
 
     val okHttpClient = OkHttpClient.Builder()
-      .addInterceptor(HeaderInterceptor(authDataUseCase))
+      .addInterceptor(HeaderInterceptor(authDataRepository))
       .build()
 
     okHttpClient.newCall(Request.Builder().url(mockWebServer.url("/")).build()).execute()

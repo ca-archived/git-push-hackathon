@@ -34,7 +34,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.databinding.ActivityMainBinding
-import io.moatwel.github.domain.usecase.AuthDataUseCase
+import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.domain.usecase.UserUseCase
 import io.moatwel.github.presentation.view.adapter.EventAdapter
 import io.moatwel.github.presentation.view.viewmodel.EventViewModel
@@ -45,7 +45,7 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity() {
 
   @Inject
-  lateinit var authDataUseCase: AuthDataUseCase
+  lateinit var authDataRepository: AuthDataRepository
 
   @Inject
   lateinit var eventApi: EventApi
@@ -60,7 +60,7 @@ class MainActivity : DaggerAppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    if (authDataUseCase.get() == null) {
+    if (authDataRepository.get() == null) {
       val intent = Intent(this, LoginActivity::class.java)
       startActivity(intent)
     }

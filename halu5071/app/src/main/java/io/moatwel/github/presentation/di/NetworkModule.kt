@@ -33,7 +33,7 @@ import io.moatwel.github.data.network.AppJsonAdapterFactory
 import io.moatwel.github.data.network.HeaderInterceptor
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.network.retrofit.UserApi
-import io.moatwel.github.domain.usecase.AuthDataUseCase
+import io.moatwel.github.domain.repository.AuthDataRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -68,11 +68,11 @@ class NetworkModule {
    *  @param authDataUseCase AuthDataUseCase
    */
   @Provides
-  fun provideOkHttp(authDataUseCase: AuthDataUseCase): OkHttpClient {
+  fun provideOkHttp(authDataRepository: AuthDataRepository): OkHttpClient {
     val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
     return OkHttpClient.Builder()
       .addNetworkInterceptor(StethoInterceptor())
-      .addInterceptor(HeaderInterceptor(authDataUseCase))
+      .addInterceptor(HeaderInterceptor(authDataRepository))
       .addInterceptor(logger)
       .build()
   }

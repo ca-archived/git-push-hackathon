@@ -28,7 +28,7 @@ import io.moatwel.github.domain.repository.AuthDataRepository
 import io.reactivex.Observable
 
 /**
- *  This class is an implementation class of [AuthDataRepository] on domain layer.
+ *  This class is an implementation class of [AuthDataRepository] of domain layer.
  *  This class read and delete auth data from somewhere, and save it on somewhere.
  *
  *  Actual operation is implemented on [AuthDataDataSource].
@@ -37,17 +37,25 @@ class AuthDataDataRepository (
   private val dataSource: AuthDataDataSource
 ) : AuthDataRepository {
 
+  private var authData: AuthData? = null
+
   override fun save(authData: AuthData) {
     dataSource.saveToSharedPreference(authData)
   }
 
   /**
-   *  my auth data json string from somewhere
+   *  get my auth data from somewhere
    *
-   *  @return decrypted json string of auth data
+   *  @return AuthData?
    */
   override fun get(): AuthData? {
-    return dataSource.readFromSharedPreference()
+    authData?.let {
+      return it
+    } ?: run {
+      val authData = dataSource.readFromSharedPreference()
+      this.authData = authData
+      return this.authData
+    }
   }
 
   override fun delete() {
