@@ -39,7 +39,7 @@ android {
         }
     }
     dataBinding {
-        enabled = true
+        enabled true
     }
     lintOptions {
         abortOnError false
@@ -114,11 +114,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
-    // Crop Image
-    implementation 'jp.wasabeef:glide-transformations:3.1.1'
-
     // DataBinding
-    kapt "com.android.databinding:compiler:2.3.1"
+    kapt "com.android.databinding:compiler:$data_binding_version"
 
     // Architecture Components
     implementation "android.arch.lifecycle:extensions:$architecture_comp_version"
