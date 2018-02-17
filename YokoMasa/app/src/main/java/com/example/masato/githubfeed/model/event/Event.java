@@ -33,7 +33,7 @@ public class Event extends BaseModel {
             event.actorIcon = parcel.readParcelable(getClass().getClassLoader());
             event.action = (Action) parcel.readSerializable();
             event.triggerUrl = parcel.readString();
-            return null;
+            return event;
         }
 
         @Override

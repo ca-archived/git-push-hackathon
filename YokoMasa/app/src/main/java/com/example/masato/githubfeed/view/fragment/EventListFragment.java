@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.view.fragment;
 
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -65,7 +66,7 @@ public class EventListFragment extends PaginatingListFragment implements EventLi
         void bindEvent(Event event) {
             this.event = event;
             date.setText(DateUtil.getReadableDateForFeed(event.createdAt, getContext()));
-            content.setText(event.content);
+            content.setText(Html.fromHtml(event.content));
             Picasso.with(getContext()).load(event.actorIconUrl).into(icon);
         }
 
