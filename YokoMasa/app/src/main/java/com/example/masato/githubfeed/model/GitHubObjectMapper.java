@@ -76,11 +76,11 @@ public class GitHubObjectMapper {
         try {
             repository.fullName = jsonObject.getString("full_name");
             repository.htmlUrl = jsonObject.getString("html_url");
+            repository.baseUrl = jsonObject.getString("url");
             repository.name = jsonObject.getString("name");
             repository.stars = jsonObject.getInt("stargazers_count");
             repository.watches = jsonObject.getInt("subscribers_count");
             repository.forks = jsonObject.getInt("forks_count");
-            repository.baseUrl = jsonObject.getString("url");
             JSONObject ownerJsonObject = jsonObject.getJSONObject("owner");
             repository.owner = ownerJsonObject.getString("login");
         } catch (Exception e) {
@@ -120,6 +120,7 @@ public class GitHubObjectMapper {
         try {
             issue.url = jsonObject.getString("url");
             issue.htmlUrl = jsonObject.getString("html_url");
+            issue.repoUrl = jsonObject.getString("repository_url");
             issue.name = jsonObject.getString("title");
             issue.number = jsonObject.getInt("number");
             issue.bodyHtml = jsonObject.optString("body_html");

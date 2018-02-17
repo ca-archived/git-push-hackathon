@@ -84,6 +84,7 @@ public class HandyHttpURLConnection {
                     connection.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e("gh_feed", "error url: " + urlString);
                     handleFailure(listener);
                 }  finally {
                     if (connection != null) {

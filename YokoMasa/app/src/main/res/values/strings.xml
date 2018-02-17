@@ -58,4 +58,7 @@
     <string name="commit_action_bar_title">Commit #</string>
     <string name="commit_committer">Committer</string>
     <string name="commit_author">Author</string>
+
+    <string name="menu_open_in_browser">ブラウザで開く</string>
+    <string name="menu_open_repo">リポジトリを開く</string>
 </resources>

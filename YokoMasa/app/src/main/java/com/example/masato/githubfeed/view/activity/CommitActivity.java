@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.model.diff.DiffFile;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.CommitPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.CommitView;
@@ -36,12 +40,13 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
 
     private CommitPresenter presenter;
     private boolean FTProhibited;
+    private Commit commit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit);
-        Commit commit = getIntent().getParcelableExtra("commit");
+        commit = getIntent().getParcelableExtra("commit");
 
         AppCompatTextView commitMessage = (AppCompatTextView) findViewById(R.id.commit_message);
         commitMessage.setText(commit.getShortenedComment());
@@ -57,6 +62,27 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         getSupportActionBar().setTitle(actionBarTitle);
 
         presenter = new CommitPresenter(this, commit);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity_menu2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_id_open_in_browser:
+                Navigator.navigateToExternalBrowser(this, commit.htmlUrl);
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
     }
 
     @Override

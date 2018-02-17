@@ -16,6 +16,7 @@ public class Issue extends BaseModel {
 
     public String url;
     public String htmlUrl;
+    public String repoUrl;
     public String name;
     public int number;
     public String bodyHtml;
@@ -30,6 +31,7 @@ public class Issue extends BaseModel {
             Issue issue = new Issue();
             issue.url = parcel.readString();
             issue.htmlUrl = parcel.readString();
+            issue.repoUrl = parcel.readString();
             issue.name = parcel.readString();
             issue.number = parcel.readInt();
             issue.bodyHtml = parcel.readString();
@@ -57,6 +59,7 @@ public class Issue extends BaseModel {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(url);
         parcel.writeString(htmlUrl);
+        parcel.writeString(repoUrl);
         parcel.writeString(name);
         parcel.writeInt(number);
         parcel.writeString(bodyHtml);

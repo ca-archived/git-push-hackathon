@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.navigator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Profile;
@@ -59,6 +60,11 @@ public class Navigator {
     public static void navigateToPullRequestView(Context context, String url) {
         Intent intent = new Intent(context, PullRequestActivity.class);
         intent.putExtra("url", url);
+        context.startActivity(intent);
+    }
+
+    public static void navigateToExternalBrowser(Context context, String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         context.startActivity(intent);
     }
 

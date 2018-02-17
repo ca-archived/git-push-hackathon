@@ -12,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Repository;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.RepoPresenter;
 import com.example.masato.githubfeed.view.RepoView;
 import com.example.masato.githubfeed.view.adapter.FragmentListPagerAdapter;
@@ -48,6 +52,14 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
             new RepoPresenter(this, url);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity_menu2, menu);
+        return true;
+    }
+
 
     private void restoreState(Bundle savedInstanceState) {
         Repository repository = savedInstanceState.getParcelable("repository");
@@ -81,6 +93,20 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
                 FragmentFactory.createPullRequestListFragment(repository, getString(R.string.tab_pull_requests));
         addFragment(pullRequestListFragment);
         restorePage();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_id_open_in_browser:
+                Navigator.navigateToExternalBrowser(this, repository.htmlUrl);
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
     }
 
     @Override

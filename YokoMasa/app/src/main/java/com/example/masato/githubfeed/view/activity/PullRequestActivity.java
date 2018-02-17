@@ -3,9 +3,13 @@ package com.example.masato.githubfeed.view.activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.PullRequest;
+import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.PullRequestPresenter;
 import com.example.masato.githubfeed.view.PullRequestView;
 import com.example.masato.githubfeed.view.fragment.CommentListFragment;
@@ -31,6 +35,27 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
             String url = getIntent().getStringExtra("url");
             new PullRequestPresenter(this, url);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity_menu1, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_id_open_in_browser:
+                Navigator.navigateToExternalBrowser(this, pr.htmlUrl);
+                break;
+            case R.id.menu_id_open_repo:
+                Navigator.navigateToRepoView(this, pr.repository.baseUrl);
+                break;
+        }
+        return true;
     }
 
     private void restoreState(Bundle savedInstanceState) {

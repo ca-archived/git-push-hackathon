@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
+import com.example.masato.githubfeed.view.fragment.EventListFragment;
 import com.example.masato.githubfeed.view.fragment.FeedListFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
 
@@ -30,8 +31,9 @@ public class GlobalFeedActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            FeedListFragment fragment = FragmentFactory.createFeedListFragment(GitHubApi.GLOBAL_FEED_URL, "");
-            ft.add(R.id.global_feed_mother, fragment);
+            EventListFragment eventListFragment =
+                    FragmentFactory.createEventListFragment("https://api.github.com/events", "");
+            ft.add(R.id.global_feed_mother, eventListFragment);
             ft.commit();
         }
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/commit_mother"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -7,6 +8,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/commit_tool_bar"
+        app:popupTheme="@style/PopUpMenuStyle"
         style="@style/ToolBar" />
 
     <ScrollView
