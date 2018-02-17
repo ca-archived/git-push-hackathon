@@ -1,9 +1,7 @@
 package com.example.masato.githubfeed.view.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,8 @@ import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.PullRequest;
-import com.example.masato.githubfeed.presenter.ImageLoadablePresenter;
 import com.example.masato.githubfeed.util.DateUtil;
-import com.example.masato.githubfeed.view.ImageLoadableView;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -24,16 +21,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Masato on 2018/02/09.
  */
 
-public class PullRequestOverviewFragment extends BaseFragment implements ImageLoadableView {
+public class PullRequestOverviewFragment extends BaseFragment {
 
-    private ImageLoadablePresenter presenter;
-    private CircleImageView image;
     private PullRequest pr;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        presenter = new ImageLoadablePresenter(this);
         return inflater.inflate(R.layout.fragment_pull_request_overview, container, false);
     }
 
@@ -49,18 +43,14 @@ public class PullRequestOverviewFragment extends BaseFragment implements ImageLo
         AppCompatTextView authorName = (AppCompatTextView) view.findViewById(R.id.pull_request_overview_author_name);
         AppCompatTextView date = (AppCompatTextView) view.findViewById(R.id.pull_request_overview_date);
         AppCompatTextView title = (AppCompatTextView) view.findViewById(R.id.pull_request_overview_title);
-        image = (CircleImageView) view.findViewById(R.id.pull_request_overview_image);
+        CircleImageView image = (CircleImageView) view.findViewById(R.id.pull_request_overview_image);
         WebView webView = (WebView) view.findViewById(R.id.pull_request_overview_comment_body);
 
         authorName.setText(pr.author.name);
         date.setText(DateUtil.getReadableDateForFeed(pr.createdAt, getContext()));
         title.setText(pr.name);
         webView.loadDataWithBaseURL(GitHubUrls.BASE_HTML_URL, pr.bodyHtml, "text/html", "utf-8", null);
-        if (pr.author.icon == null) {
-            presenter.onFetchImage(pr.author.iconUrl);
-        } else {
-            image.setImageBitmap(pr.author.icon);
-        }
+        Picasso.with(getContext()).load(pr.author.iconUrl).into(image);
     }
 
     private void initState(View view) {
@@ -74,9 +64,4 @@ public class PullRequestOverviewFragment extends BaseFragment implements ImageLo
         }
     }
 
-    @Override
-    public void showImage(Bitmap bitmap) {
-        pr.author.icon = bitmap;
-        image.setImageBitmap(bitmap);
-    }
 }

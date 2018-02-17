@@ -1,6 +1,5 @@
 package com.example.masato.githubfeed.view.fragment;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,11 +10,10 @@ import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.model.event.Event;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.EventListPresenter;
-import com.example.masato.githubfeed.presenter.ImageLoadablePresenter;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.EventListView;
-import com.example.masato.githubfeed.view.ImageLoadableView;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -57,9 +55,8 @@ public class EventListFragment extends PaginatingListFragment implements EventLi
         }
     }
 
-    private class EventViewHolder extends PaginatingListViewHolder implements ImageLoadableView {
+    private class EventViewHolder extends PaginatingListViewHolder {
 
-        ImageLoadablePresenter presenter;
         AppCompatTextView date;
         AppCompatTextView content;
         CircleImageView icon;
@@ -69,22 +66,11 @@ public class EventListFragment extends PaginatingListFragment implements EventLi
             this.event = event;
             date.setText(DateUtil.getReadableDateForFeed(event.createdAt, getContext()));
             content.setText(event.content);
-            if (event.actorIcon == null) {
-                presenter.onFetchImage(event.actorIconUrl);
-            } else {
-                icon.setImageBitmap(event.actorIcon);
-            }
-        }
-
-        @Override
-        public void showImage(Bitmap bitmap) {
-            icon.setImageBitmap(bitmap);
-            event.actorIcon = bitmap;
+            Picasso.with(getContext()).load(event.actorIconUrl).into(icon);
         }
 
         EventViewHolder(View itemView) {
             super(itemView);
-            presenter = new ImageLoadablePresenter(this);
             date = (AppCompatTextView) itemView.findViewById(R.id.event_date);
             content = (AppCompatTextView) itemView.findViewById(R.id.event_content);
             icon = (CircleImageView) itemView.findViewById(R.id.event_image);

@@ -28,6 +28,7 @@ import com.example.masato.githubfeed.util.DateUtil;
 import com.example.masato.githubfeed.view.CommitView;
 import com.example.masato.githubfeed.view.fragment.DiffFileListFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,13 +96,12 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         if (commit.author == null) {
             return;
         }
-        if (commit.author.icon != null) {
-            showAuthorIcon(commit.author.icon);
-        }
+        ImageView imageView = (ImageView) findViewById(R.id.commit_author_icon);
         AppCompatTextView name = (AppCompatTextView) findViewById(R.id.commit_author_name);
         AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_author_date);
         name.setText(commit.author.name);
         date.setText(DateUtil.getReadableDateForFeed(commit.authorDate, this));
+        Picasso.with(this).load(commit.author.iconUrl).into(imageView);
         ViewGroup author = (ViewGroup) findViewById(R.id.commit_author);
         author.setVisibility(View.VISIBLE);
     }
@@ -110,27 +110,14 @@ public class CommitActivity extends AppCompatActivity implements CommitView {
         if (commit.committer == null) {
             return;
         }
-        if (commit.committer.icon != null) {
-            showCommitterIcon(commit.committer.icon);
-        }
+        ImageView imageView = (ImageView) findViewById(R.id.commit_committer_icon);
         AppCompatTextView name = (AppCompatTextView) findViewById(R.id.commit_committer_name);
         AppCompatTextView date = (AppCompatTextView) findViewById(R.id.commit_committer_date);
         name.setText(commit.committer.name);
         date.setText(DateUtil.getReadableDateForFeed(commit.committerDate, this));
+        Picasso.with(this).load(commit.committer.iconUrl).into(imageView);
         ViewGroup author = (ViewGroup) findViewById(R.id.commit_committer);
         author.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showAuthorIcon(Bitmap icon) {
-        ImageView imageView = (ImageView) findViewById(R.id.commit_author_icon);
-        imageView.setImageBitmap(icon);
-    }
-
-    @Override
-    public void showCommitterIcon(Bitmap icon) {
-        ImageView imageView = (ImageView) findViewById(R.id.commit_committer_icon);
-        imageView.setImageBitmap(icon);
     }
 
     @Override

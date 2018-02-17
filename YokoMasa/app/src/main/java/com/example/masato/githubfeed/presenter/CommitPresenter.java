@@ -33,38 +33,12 @@ public class CommitPresenter {
         }
     }
 
-    private void handleAuthorIconResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            Bitmap icon = (Bitmap) result.resultObject;
-            view.showAuthorIcon(icon);
-        }
-    }
-
-    private void handleCommitterIconResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            Bitmap icon = (Bitmap) result.resultObject;
-            view.showCommitterIcon(icon);
-        }
-    }
-
     private void initContent(Commit commit) {
         GitHubApi.getApi().fetchCommitDiffFileList(commit, this::handleDiffFileResult);
         if (commit.repository != null) {
             view.showRepoInfo(commit.repository);
         } else {
             GitHubApi.getApi().fetchRepository(commit.getRepoUrl(), this::handleRepoResult);
-        }
-
-        if (commit.committer != null) {
-            if (commit.committer.icon == null) {
-                GitHubApi.getApi().fetchBitmap(commit.committer.iconUrl, this::handleCommitterIconResult);
-            }
-        }
-
-        if (commit.author != null) {
-            if (commit.author.icon == null) {
-                GitHubApi.getApi().fetchBitmap(commit.author.iconUrl, this::handleAuthorIconResult);
-            }
         }
     }
 
