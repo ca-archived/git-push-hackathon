@@ -51,8 +51,4 @@ class DataSourceModule {
                                     userUseCase: UserUseCase): EventDataSourceFactory {
     return EventDataSourceFactory(api, userUseCase)
   }
-
-  companion object {
-    val INSTANCE = DataSourceModule()
-  }
 }

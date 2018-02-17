@@ -25,7 +25,6 @@ package io.moatwel.github.data.datasource
 import io.moatwel.github.data.network.retrofit.UserApi
 import io.moatwel.github.domain.entity.User
 import io.reactivex.Observable
-import javax.inject.Inject
 
 class CloudUserDataSource (
   private val api: UserApi

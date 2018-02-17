@@ -48,8 +48,4 @@ class UseCaseModule {
   fun provideAuthDataUseCase(authDataRepository: AuthDataRepository): AuthDataUseCase {
     return AuthDataUseCase(authDataRepository)
   }
-
-  companion object {
-    val INSTANCE = UseCaseModule()
-  }
 }

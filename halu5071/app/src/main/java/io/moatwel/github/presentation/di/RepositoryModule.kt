@@ -49,8 +49,4 @@ class RepositoryModule {
   fun provideAuthDataRepository(authDataDataSource: AuthDataDataSource): AuthDataRepository {
     return AuthDataDataRepository(authDataDataSource)
   }
-
-  companion object {
-    val INSTANCE = RepositoryModule()
-  }
 }
