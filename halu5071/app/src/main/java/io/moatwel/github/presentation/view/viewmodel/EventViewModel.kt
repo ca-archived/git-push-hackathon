@@ -4,6 +4,9 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import android.databinding.BindingAdapter
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event

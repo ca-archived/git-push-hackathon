@@ -7,9 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.moatwel.github.R
 import io.moatwel.github.databinding.ItemEventBinding
 import io.moatwel.github.domain.entity.event.Event
+import io.moatwel.github.presentation.view.GlideApp
 
 class EventAdapter : PagedListAdapter<Event, EventAdapter.ViewHolder>(DIFF_CALLBACK) {
 
@@ -27,6 +31,10 @@ class EventAdapter : PagedListAdapter<Event, EventAdapter.ViewHolder>(DIFF_CALLB
 
     fun bindTo(event: Event?) {
       binding?.event = event
+      GlideApp.with(itemView.context)
+        .load(event?.actor?.avatarUrl)
+        .circleCrop()
+        .into(binding?.imageUserLogin!!)
     }
   }
 
