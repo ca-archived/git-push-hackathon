@@ -46,7 +46,7 @@ class AuthDataDataRepository (
   /**
    *  get my auth data from somewhere
    *
-   *  @return decrypted json string of auth data
+   *  @return AuthData?
    */
   override fun get(): AuthData? {
     authData?.let {
