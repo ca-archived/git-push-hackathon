@@ -13,6 +13,7 @@ public class Repository extends BaseModel {
     public String name;
     public String owner;
     public String baseUrl;
+    public String htmlUrl;
     public int stars;
     public int watches;
     public int forks;
@@ -24,6 +25,7 @@ public class Repository extends BaseModel {
             repo.name = parcel.readString();
             repo.owner = parcel.readString();
             repo.baseUrl = parcel.readString();
+            repo.htmlUrl = parcel.readString();
             repo.stars = parcel.readInt();
             repo.watches = parcel.readInt();
             repo.forks = parcel.readInt();
@@ -47,6 +49,7 @@ public class Repository extends BaseModel {
         parcel.writeString(name);
         parcel.writeString(owner);
         parcel.writeString(baseUrl);
+        parcel.writeString(htmlUrl);
         parcel.writeInt(stars);
         parcel.writeInt(watches);
         parcel.writeInt(forks);

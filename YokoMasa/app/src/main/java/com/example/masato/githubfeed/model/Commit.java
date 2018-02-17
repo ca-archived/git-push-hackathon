@@ -14,6 +14,7 @@ public class Commit extends BaseModel {
     public String comment;
     public String sha;
     public String url;
+    public String htmlUrl;
     public Profile committer;
     public Profile author;
     public Date committerDate;
@@ -26,6 +27,7 @@ public class Commit extends BaseModel {
             commit.comment = parcel.readString();
             commit.sha = parcel.readString();
             commit.url = parcel.readString();
+            commit.htmlUrl = parcel.readString();
             commit.committer = parcel.readParcelable(getClass().getClassLoader());
             commit.author = parcel.readParcelable(getClass().getClassLoader());
             commit.committerDate = (Date) parcel.readSerializable();
@@ -65,6 +67,7 @@ public class Commit extends BaseModel {
         parcel.writeString(comment);
         parcel.writeString(sha);
         parcel.writeString(url);
+        parcel.writeString(htmlUrl);
         parcel.writeParcelable(committer, 0);
         parcel.writeParcelable(author, 0);
         parcel.writeSerializable(committerDate);

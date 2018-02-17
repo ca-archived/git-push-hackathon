@@ -75,6 +75,7 @@ public class GitHubObjectMapper {
         Repository repository = new Repository();
         try {
             repository.fullName = jsonObject.getString("full_name");
+            repository.htmlUrl = jsonObject.getString("html_url");
             repository.name = jsonObject.getString("name");
             repository.stars = jsonObject.getInt("stargazers_count");
             repository.watches = jsonObject.getInt("subscribers_count");
@@ -118,6 +119,7 @@ public class GitHubObjectMapper {
         Issue issue = new Issue();
         try {
             issue.url = jsonObject.getString("url");
+            issue.htmlUrl = jsonObject.getString("html_url");
             issue.name = jsonObject.getString("title");
             issue.number = jsonObject.getInt("number");
             issue.bodyHtml = jsonObject.optString("body_html");
@@ -161,6 +163,7 @@ public class GitHubObjectMapper {
         PullRequest pr = new PullRequest();
         try {
             pr.url = jsonObject.getString("url");
+            pr.htmlUrl = jsonObject.getString("html_url");
             pr.name = jsonObject.getString("title");
             pr.number = jsonObject.getInt("number");
             pr.bodyHtml = jsonObject.optString("body_html");
@@ -206,6 +209,7 @@ public class GitHubObjectMapper {
         try {
             commit.sha = jsonObject.getString("sha");
             commit.url = jsonObject.getString("url");
+            commit.htmlUrl = jsonObject.getString("html_url");
             commit.committer = mapProfile(jsonObject.optJSONObject("committer"));
             commit.author = mapProfile(jsonObject.optJSONObject("author"));
             JSONObject commitObject = jsonObject.getJSONObject("commit");
