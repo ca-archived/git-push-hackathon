@@ -117,6 +117,7 @@ class EventJsonAdapterTest {
     assertNotNull(list)
     assertNotNull(list?.get(0))
     assertNotNull(list?.get(1))
+    assertNotNull(list?.get(2))
     assertThat(list?.get(0)?.type, `is`(EventType.CreateEvent))
     assertThat((list?.get(0)?.payload as CreatePayload).refType, `is`("repository"))
     assertNull((list.get(0).payload as CreatePayload).ref)
@@ -130,5 +131,12 @@ class EventJsonAdapterTest {
     assertThat((list.get(1).payload as CommitCommentPayload).comment.id, `is`(27598020L))
     assertThat(list.get(1).org?.login, `is`("android"))
     assertThat(list.get(1).repo?.id, `is`(114725764L))
+
+    assertThat(list.get(2).type, `is`(EventType.IssueCommentEvent))
+    assertThat(list.get(2).repo?.id, `is`(115203383L))
+    assertThat((list.get(2).payload as IssueCommentPayload).action, `is`("created"))
+    assertThat((list.get(2).payload as IssueCommentPayload).issue.number, `is`(667))
+    assertThat((list.get(2).payload as IssueCommentPayload).comment.body, `is`("Thanks"))
+    assertThat(list.get(2).actor?.login, `is`("hogeLogin"))
   }
 }

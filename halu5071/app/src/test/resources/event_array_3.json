@@ -84,5 +84,115 @@
       "url": "https://api.github.com/orgs/Coding-Trip",
       "avatar_url": "https://avatars.githubusercontent.com/u/30851120?"
     }
+  },
+  {
+    "id": "7252661570",
+    "type": "IssueCommentEvent",
+    "actor": {
+      "id": 1386930,
+      "login": "hogeLogin",
+      "display_login": "takahirom",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/takahirom",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1386930?"
+    },
+    "repo": {
+      "id": 115203383,
+      "name": "DroidKaigi/conference-app-2018",
+      "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018"
+    },
+    "payload": {
+      "action": "created",
+      "issue": {
+        "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/667",
+        "repository_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018",
+        "labels_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/667/labels{/name}",
+        "comments_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/667/comments",
+        "events_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/667/events",
+        "html_url": "https://github.com/DroidKaigi/conference-app-2018/pull/667",
+        "id": 297608349,
+        "number": 667,
+        "title": "changed path of gradle defined in chrcleci config to kts",
+        "user": {
+          "login": "shikajiro",
+          "id": 73145,
+          "avatar_url": "https://avatars2.githubusercontent.com/u/73145?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/shikajiro",
+          "html_url": "https://github.com/shikajiro",
+          "followers_url": "https://api.github.com/users/shikajiro/followers",
+          "following_url": "https://api.github.com/users/shikajiro/following{/other_user}",
+          "gists_url": "https://api.github.com/users/shikajiro/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/shikajiro/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/shikajiro/subscriptions",
+          "organizations_url": "https://api.github.com/users/shikajiro/orgs",
+          "repos_url": "https://api.github.com/users/shikajiro/repos",
+          "events_url": "https://api.github.com/users/shikajiro/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/shikajiro/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "labels": [
+
+        ],
+        "state": "open",
+        "locked": false,
+        "assignee": null,
+        "assignees": [
+
+        ],
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2018-02-15T21:48:48Z",
+        "updated_at": "2018-02-16T00:03:36Z",
+        "closed_at": null,
+        "author_association": "CONTRIBUTOR",
+        "pull_request": {
+          "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/pulls/667",
+          "html_url": "https://github.com/DroidKaigi/conference-app-2018/pull/667",
+          "diff_url": "https://github.com/DroidKaigi/conference-app-2018/pull/667.diff",
+          "patch_url": "https://github.com/DroidKaigi/conference-app-2018/pull/667.patch"
+        },
+        "body": "## Issue\r\n- close #666 \r\n\r\n## Overview (Required)\r\n- FIxed .circleci/config.yml.  It changed build.gradle to build.gradle.kts.\r\n- I tested it with my circleci. It made the following settings `APP_BUILD_TYPE=Debug`\r\n\r\n## Links\r\n-[circleci build log](https://circleci.com/gh/shikajiro/conference-app-2018/4)\r\n\r\n## Screenshot\r\nNothing\r\n"
+      },
+      "comment": {
+        "url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/comments/366103789",
+        "html_url": "https://github.com/DroidKaigi/conference-app-2018/pull/667#issuecomment-366103789",
+        "issue_url": "https://api.github.com/repos/DroidKaigi/conference-app-2018/issues/667",
+        "id": 366103789,
+        "user": {
+          "login": "takahirom",
+          "id": 1386930,
+          "avatar_url": "https://avatars2.githubusercontent.com/u/1386930?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/takahirom",
+          "html_url": "https://github.com/takahirom",
+          "followers_url": "https://api.github.com/users/takahirom/followers",
+          "following_url": "https://api.github.com/users/takahirom/following{/other_user}",
+          "gists_url": "https://api.github.com/users/takahirom/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/takahirom/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/takahirom/subscriptions",
+          "organizations_url": "https://api.github.com/users/takahirom/orgs",
+          "repos_url": "https://api.github.com/users/takahirom/repos",
+          "events_url": "https://api.github.com/users/takahirom/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/takahirom/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "created_at": "2018-02-16T00:03:36Z",
+        "updated_at": "2018-02-16T00:03:36Z",
+        "author_association": "OWNER",
+        "body": "Thanks"
+      }
+    },
+    "public": true,
+    "created_at": "2018-02-16T00:03:36Z",
+    "org": {
+      "id": 10727543,
+      "login": "DroidKaigi",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/DroidKaigi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10727543?"
+    }
   }
 ]
