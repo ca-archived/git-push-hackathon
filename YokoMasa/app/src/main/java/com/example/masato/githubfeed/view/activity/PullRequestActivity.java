@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.PullRequest;
+import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.PullRequestPresenter;
 import com.example.masato.githubfeed.view.PullRequestView;
@@ -90,6 +91,11 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
         addFragment(diffFileListFragment);
 
         restorePage();
+    }
+
+    @Override
+    public void showRepoInfo(Repository repository) {
+        getSupportActionBar().setSubtitle(repository.fullName);
     }
 
     private void setUpActionBar(PullRequest pr) {

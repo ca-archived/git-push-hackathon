@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.presenter;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.PullRequest;
+import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.view.PullRequestView;
 
 /**
@@ -17,6 +18,7 @@ public class PullRequestPresenter {
         if (result.isSuccessful) {
             PullRequest pr = (PullRequest) result.resultObject;
             view.showPullRequest(pr);
+            view.showRepoInfo(pr.repository);
         }
     }
 

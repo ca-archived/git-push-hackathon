@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Issue;
+import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.IssuePresenter;
 import com.example.masato.githubfeed.view.IssueView;
@@ -75,7 +76,8 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
     @Override
     public void showIssue(Issue issue) {
         this.issue = issue;
-        getSupportActionBar().setTitle(R.string.issue_title);
+        String title = getString(R.string.issue_title) + "#" + issue.number;
+        getSupportActionBar().setTitle(title);
         IssueOverviewFragment issueOverviewFragment =
                 FragmentFactory.createIssueOverviewFragment(issue, getString(R.string.tab_overview));
         addFragment(issueOverviewFragment);
@@ -84,6 +86,11 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
                 FragmentFactory.createCommentListFragment(issue.commentsUrl, getString(R.string.tab_comments));
         addFragment(commentListFragment);
         restorePage();
+    }
+
+    @Override
+    public void showRepoInfo(Repository repository) {
+        getSupportActionBar().setSubtitle(repository.fullName);
     }
 
     @Override

@@ -81,13 +81,13 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
                 FragmentFactory.createRepoOverviewFragment(repository, getString(R.string.tab_overview));
         addFragment(overviewFragment);
 
-        IssueListFragment issueListFragment =
-                FragmentFactory.createIssueListFragment(repository, getString(R.string.tab_issues));
-        addFragment(issueListFragment);
-
         CommitListFragment commitListFragment =
                 FragmentFactory.createCommitListFragment(repository, getString(R.string.tab_commits));
         addFragment(commitListFragment);
+
+        IssueListFragment issueListFragment =
+                FragmentFactory.createIssueListFragment(repository, getString(R.string.tab_issues));
+        addFragment(issueListFragment);
 
         PullRequestListFragment pullRequestListFragment =
                 FragmentFactory.createPullRequestListFragment(repository, getString(R.string.tab_pull_requests));

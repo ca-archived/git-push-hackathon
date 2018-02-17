@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.presenter;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Issue;
+import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.view.IssueView;
 
 /**
@@ -13,15 +14,23 @@ public class IssuePresenter {
 
     private IssueView view;
 
-    private void handleResult(GitHubApiResult result) {
+    private void handleFetchIssueResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             Issue issue = (Issue) result.resultObject;
             view.showIssue(issue);
+            GitHubApi.getApi().fetchRepository(issue.repoUrl, this::handleFetchRepoResult);
+        }
+    }
+
+    private void handleFetchRepoResult(GitHubApiResult result) {
+        if (result.isSuccessful) {
+            Repository repository = (Repository) result.resultObject;
+            view.showRepoInfo(repository);
         }
     }
 
     public IssuePresenter(IssueView view, String url) {
         this.view = view;
-        GitHubApi.getApi().fetchIssue(url, this::handleResult);
+        GitHubApi.getApi().fetchIssue(url, this::handleFetchIssueResult);
     }
 }
