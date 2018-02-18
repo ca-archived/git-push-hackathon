@@ -7,7 +7,7 @@ import io.moatwel.github.presentation.view.GlideApp
 object EventDataBinder {
 
   @JvmStatic
-  @BindingAdapter("app:imageUrl")
+  @BindingAdapter("imageUrl")
   fun loadUserImage(view: ImageView, avatarUrl: String) {
     GlideApp.with(view.context)
       .load(avatarUrl)
