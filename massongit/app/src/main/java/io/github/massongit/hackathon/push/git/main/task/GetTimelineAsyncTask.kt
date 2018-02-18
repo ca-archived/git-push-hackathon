@@ -241,7 +241,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
      * @return イベントのURL
      */
     private fun getHtmlUrl(jsonObject: JsonObject?): Uri {
-        Log.v(GetTimelineAsyncTask.TAG, "getEventHtmlUrl called")
+        Log.v(GetTimelineAsyncTask.TAG, "getHtmlUrl called")
         return if (jsonObject == null) {
             throw OAuthException("jsonObject is not found")
         } else {
