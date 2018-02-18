@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.widget.CompoundButton
-import android.widget.TextView
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
@@ -34,12 +33,11 @@ import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventView イベントビュー
  * @param chromeCustomTabsHelper Chrome Custom Tabs Helper
- * @param logoutButton ログアウトボタン
  * @param eventKindsMenu イベントの種類のメニュー
  * @param toolbar ToolBar
  * @param drawerLayout DrawerLayout
  */
-class MainHelper(private val activity: AppCompatActivity, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, chromeCustomTabsHelper: ChromeCustomTabsHelper, private val logoutButton: TextView, eventKindsMenu: Menu, toolbar: Toolbar, drawerLayout: DrawerLayout) {
+class MainHelper(private val activity: AppCompatActivity, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, chromeCustomTabsHelper: ChromeCustomTabsHelper, private val eventKindsMenu: Menu, toolbar: Toolbar, drawerLayout: DrawerLayout) {
     companion object {
         /**
          * ログ用タグ
@@ -74,7 +72,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         }
         val toggle = ActionBarDrawerToggle(this.activity.apply {
             setSupportActionBar(toolbar)
-        }, drawerLayout, toolbar, R.string.open_event_kinds, R.string.close_event_kinds)
+        }, drawerLayout, toolbar, R.string.open_navigation_view, R.string.close_navigation_view)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         chromeCustomTabsHelper.bind()
@@ -86,12 +84,14 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
             addItemDecoration(DividerItemDecoration(context, manager.orientation))
             addOnScrollListener(EventViewOnScrollListener(this@MainHelper))
         }
-        for (i in 0 until eventKindsMenu.size()) {
-            eventKindsMenu.getItem(i).apply {
-                val eventKind = title.toString()
-                (actionView as? CompoundButton)?.setOnCheckedChangeListener(EventKindsOnCheckedChangeListener(eventViewAdapter.apply {
-                    addEventKind(eventKind)
-                }, eventKind))
+        for (i in 0 until this.eventKindsMenu.size()) {
+            this.eventKindsMenu.getItem(i).apply {
+                if (groupId == R.id.event_kinds) {
+                    val eventKind = title.toString()
+                    (actionView as? CompoundButton)?.setOnCheckedChangeListener(EventKindsOnCheckedChangeListener(eventViewAdapter.apply {
+                        addEventKind(eventKind)
+                    }, eventKind))
+                }
             }
         }
     }
@@ -120,7 +120,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
      */
     internal fun getTimeLine(isCurrent: Boolean) {
         Log.v(MainHelper.TAG, "getTimeLine called")
-        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.logoutButton, isCurrent).execute()
+        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.eventKindsMenu.findItem(R.id.logout_menu_item), isCurrent).execute()
     }
 
     /**

@@ -6,15 +6,15 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
-import android.widget.TextView
+import android.view.MenuItem
 import android.widget.Toast
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
 import com.github.scribejava.core.exceptions.OAuthException
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
-import io.github.massongit.hackathon.push.git.main.event.github.*
 import io.github.massongit.hackathon.push.git.main.event.Event
+import io.github.massongit.hackathon.push.git.main.event.github.*
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 import org.apache.commons.lang3.time.DateFormatUtils
@@ -32,7 +32,7 @@ import java.net.URL
  * @param logoutButton ログアウトボタン
  * @param isCurrent 最新のタイムラインを取得するかどうか
  */
-class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, logoutButton: TextView, private val isCurrent: Boolean = true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, logoutButton: MenuItem, private val isCurrent: Boolean = true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
@@ -68,7 +68,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
     /**
      * ログアウトボタンを保持するWeakReference
      */
-    private val logoutButtonWeakReference: WeakReference<TextView> = WeakReference(logoutButton)
+    private val logoutButtonWeakReference: WeakReference<MenuItem> = WeakReference(logoutButton)
 
     override fun onPreExecute() {
         Log.v(GetTimelineAsyncTask.TAG, "onPreExecute called")

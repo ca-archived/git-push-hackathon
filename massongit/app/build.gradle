@@ -60,11 +60,13 @@ task makeNavigateMenu {
         File menuDir = new File(mainDir, "res/menu/")
         menuDir.mkdirs()
 
-        pw = new PrintWriter(new FileWriter(new File(menuDir, "event_kinds_menu.xml")))
+        pw = new PrintWriter(new FileWriter(new File(menuDir, "navigation_view_main_menu.xml")))
         pw.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
         pw.println("<menu xmlns:android=\"http://schemas.android.com/apk/res/android\"")
-        pw.println("    xmlns:app=\"http://schemas.android.com/apk/res-auto\">")
-        pw.println("    <group>")
+        pw.println("    xmlns:app=\"http://schemas.android.com/apk/res-auto\"")
+        pw.println("    xmlns:tools=\"http://schemas.android.com/tools\"")
+        pw.println("    tools:context=\".main.activity.MainActivity\">")
+        pw.println("    <group android:id=\"@+id/event_kinds\">")
 
         for (String fileName : new File(mainDir, "java/io/github/massongit/hackathon/push/git/main/event/github/").list().sort()) {
             String eventName = fileName.replace(".kt", "")
@@ -75,6 +77,13 @@ task makeNavigateMenu {
             }
         }
 
+        pw.println("    </group>")
+        pw.println("    <group>")
+        pw.println("        <item")
+        pw.println("            android:id=\"@+id/logout_menu_item\"")
+        pw.println("            android:enabled=\"false\"")
+        pw.println("            android:onClick=\"onLogoutMenuItemClick\"")
+        pw.println("            android:title=\"@string/logout\" />")
         pw.println("    </group>")
         pw.println("</menu>")
     } finally {

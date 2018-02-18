@@ -9,6 +9,6 @@
     <string name="getting_user_timeline">Getting User Timeline …</string>
     <string name="not_found">Not Found!</string>
     <string name="logout">Logout</string>
-    <string name="open_event_kinds">Open Event Kinds</string>
-    <string name="close_event_kinds">Close Event Kinds</string>
+    <string name="open_navigation_view">Open Navigation View</string>
+    <string name="close_navigation_view">Close Navigation View</string>
 </resources>

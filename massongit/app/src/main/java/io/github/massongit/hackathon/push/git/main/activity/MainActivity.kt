@@ -7,7 +7,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
+import android.view.MenuItem
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         this.setContentView(R.layout.activity_main)
         Toast.makeText(this, this.getString(R.string.logging_in), Toast.LENGTH_SHORT).show()
         this.chromeCustomTabsHelper = ChromeCustomTabsHelper(this)
-        this.mainHelper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById(R.id.swipe_refresh_layout), this.findViewById(R.id.event_view), this.chromeCustomTabsHelper, this.findViewById(R.id.logout_button), this.findViewById<NavigationView>(R.id.event_kinds).menu, this.findViewById(R.id.toolbar), this.findViewById(R.id.drawer_layout))
+        this.mainHelper = MainHelper(this, (this.application as? MainApplication)?.service, this.findViewById(R.id.swipe_refresh_layout), this.findViewById(R.id.event_view), this.chromeCustomTabsHelper, this.findViewById<NavigationView>(R.id.navigation_view_main).menu, this.findViewById(R.id.toolbar), this.findViewById(R.id.drawer_layout))
         Log.d(MainActivity.TAG, "data: " + this.intent.dataString)
         this.authorizedUri = this.intent.data
     }
@@ -79,10 +79,10 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * ログアウトボタン押下時のイベント
-     * @param v View
+     * @param menuItem メニューのアイテム
      */
-    fun onLogoutButtonClick(v: View) {
-        Log.v(MainActivity.TAG, "onLogoutButtonClick called")
+    fun onLogoutMenuItemClick(menuItem: MenuItem) {
+        Log.v(MainActivity.TAG, "onLogoutMenuItemClick called")
         this.mainHelper.logout()
     }
 }

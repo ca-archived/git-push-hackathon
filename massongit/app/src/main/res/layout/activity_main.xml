@@ -14,11 +14,11 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/event_kinds"
+        android:id="@+id/navigation_view_main"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/event_kinds_menu" />
+        app:menu="@menu/navigation_view_main_menu" />
 
 </android.support.v4.widget.DrawerLayout>
