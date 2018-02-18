@@ -204,6 +204,15 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                     }
                                 }
                                 "WatchEvent" -> WatchEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(repo), actorAvatar, createdAt)
+                                "ForkEvent" -> {
+                                    val forkee = payloadElement?.get("forkee") as? JsonObject
+                                    val forkeeRepoName = forkee?.get("full_name")?.asString()
+                                    if (forkee == null || forkeeRepoName == null) {
+                                        null
+                                    } else {
+                                        ForkEvent(actorLogin, forkeeRepoName, actorHtmlUrl, this.getHtmlUrl(forkee), actorAvatar, createdAt, repoName)
+                                    }
+                                }
                                 else -> null
                             })
                         } catch (ignored: OAuthException) {
