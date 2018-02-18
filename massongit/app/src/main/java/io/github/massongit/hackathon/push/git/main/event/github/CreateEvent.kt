@@ -15,6 +15,6 @@ import java.util.*
  * @param createdAt イベントが作成された日時
  * @param thingType イベントの対象オブジェクトの種類
  */
-open class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, thingType: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
+class CreateEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, thingType: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
     override val messageHTML: String = "<strong>%s</strong> created %s <strong>%s</strong>".format(this.actorLogin, this.getWordWithIndefiniteArticle(thingType), this.repoName)
 }
