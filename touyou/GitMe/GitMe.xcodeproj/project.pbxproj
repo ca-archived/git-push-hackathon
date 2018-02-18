@@ -53,6 +53,7 @@
 		46DA6D0C2015928E00767CCB /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */; };
 		46DD53F2203967BC00581AC8 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD53F1203967BC00581AC8 /* Event.swift */; };
 		46DD53F4203967FB00581AC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD53F3203967FB00581AC8 /* User.swift */; };
+		46DD53F62039780A00581AC8 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD53F52039780A00581AC8 /* UserDefaults+Extensions.swift */; };
 		46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C7E20204A70000B92A6 /* TabBarController.swift */; };
 		46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C82202052DF000B92A6 /* URL+Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -127,6 +128,7 @@
 		46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		46DD53F1203967BC00581AC8 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		46DD53F3203967FB00581AC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		46DD53F52039780A00581AC8 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		46DD8C7E20204A70000B92A6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		46DD8C82202052DF000B92A6 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		46DD8C842020579F000B92A6 /* FeedKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FeedKit.framework; path = Carthage/Build/iOS/FeedKit.framework; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				46710219202C287C007D86A8 /* UIColor+Extensions.swift */,
 				4671021F202C4C7E007D86A8 /* Date+Extensions.swift */,
 				4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */,
+				46DD53F52039780A00581AC8 /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				46AB039A2015CA910003AD21 /* LoginContainer.swift in Sources */,
 				46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */,
 				469722F9200E414D008325C4 /* Reusable.swift in Sources */,
+				46DD53F62039780A00581AC8 /* UserDefaults+Extensions.swift in Sources */,
 				4653738C202D46A4002279BD /* UINavigationController+Extensions.swift in Sources */,
 				4628D7F2201CBC9A00C66D10 /* MainConverter.swift in Sources */,
 				469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */,

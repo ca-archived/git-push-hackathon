@@ -27,15 +27,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yj-Oh-IxL">
                                 <rect key="frame" x="30" y="175.5" width="315" height="315"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyouでログインします" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-kA-Vrv">
-                                        <rect key="frame" x="8" y="40" width="299" height="97.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hogeでログインします" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-kA-Vrv">
+                                        <rect key="frame" x="8" y="40" width="299" height="52.5"/>
                                         <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feed" translatesAutoresizingMaskIntoConstraints="NO" id="jaD-ZU-QnG">
-                                        <rect key="frame" x="142.5" y="142.5" width="30" height="30"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="jaD-ZU-QnG">
+                                        <rect key="frame" x="97.5" y="97.5" width="120" height="120"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="0Kq-lP-cD3"/>
                                             <constraint firstAttribute="width" secondItem="jaD-ZU-QnG" secondAttribute="height" multiplier="1:1" id="tFK-F5-K23"/>
                                         </constraints>
                                     </imageView>
@@ -92,6 +93,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="feed" width="30" height="30"/>
+        <image name="placeholder" width="360" height="360"/>
     </resources>
 </document>

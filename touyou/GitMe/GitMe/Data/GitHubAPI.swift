@@ -48,6 +48,20 @@ class GitHubAPI {
     /// Fetch Logged In User Information
     func fetchUser() -> Observable<User> {
 
+        if cache.object(forKey: DefaultKeys.userName.rawValue) != nil {
+
+            return Observable<User>.create { [unowned self] observer in
+
+                let userName = self.cache.string(forKey: DefaultKeys.userName.rawValue)
+                let userIconUrl = self.cache.url(forKey: DefaultKeys.userIcon.rawValue)
+                // TODO: もうちょい賢い書き方が出来そう
+                let user = User(login: userName!, id: 0, avatarUrl: userIconUrl!, gravatarId: nil, url: nil, htmlUrl: nil, followersUrl: nil, followingUrlString: nil, gistsUrlString: nil, starredUrlString: nil, subscriptionsUrl: nil, organizationsUrl: nil, reposUrl: nil, eventsUrlString: nil, receivedEventsUrl: nil, type: nil, isSiteAdmin: nil, name: nil, company: nil, blog: nil, location: nil, email: nil, isHireable: nil, bio: nil, publicReposCount: nil, publicGistsCount: nil, followersCount: nil, followingCount: nil, createdAt: nil, updatedAt: nil, totalPrivateReposCount: nil, ownedPrivateReposCount: nil, privateGistsCount: nil, diskUsage: nil, collaboratorsCount: nil, isTwoFactorAuth: nil, plan: nil)
+                observer.onNext(user)
+                observer.onCompleted()
+                return Disposables.create()
+            }.share()
+        }
+
         if let url = self.createRequestUrl(.getCurrentUser) {
 
             let session = URLSession(configuration: .default)
@@ -57,6 +71,7 @@ class GitHubAPI {
                 decoder.dateDecodingStrategy = .iso8601
                 let user = try decoder.decode(User.self, from: data)
                 self.cache.set(user.login, forKey: DefaultKeys.userName.rawValue)
+                self.cache.set(user.avatarUrl, forKey: DefaultKeys.userIcon.rawValue)
                 return user
                 }.share()
         } else {
@@ -153,6 +168,7 @@ class GitHubAPI {
 
         case oauthKey
         case userName
+        case userIcon
     }
 
     private enum RequestURL {

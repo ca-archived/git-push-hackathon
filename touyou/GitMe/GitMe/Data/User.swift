@@ -30,19 +30,19 @@ struct User: Codable {
     let id: Int
     let avatarUrl: URL
     let gravatarId: String?
-    let url: URL
-    let htmlUrl: URL
-    let followersUrl: URL
-    let followingUrlString: String
-    let gistsUrlString: String
-    let starredUrlString: String
-    let subscriptionsUrl: URL
-    let organizationsUrl: URL
-    let reposUrl: URL
-    let eventsUrlString: String
-    let receivedEventsUrl: URL
-    let type: String
-    let isSiteAdmin: Bool
+    let url: URL?
+    let htmlUrl: URL?
+    let followersUrl: URL?
+    let followingUrlString: String?
+    let gistsUrlString: String?
+    let starredUrlString: String?
+    let subscriptionsUrl: URL?
+    let organizationsUrl: URL?
+    let reposUrl: URL?
+    let eventsUrlString: String?
+    let receivedEventsUrl: URL?
+    let type: String?
+    let isSiteAdmin: Bool?
     let name: String?
     let company: String?
     let blog: String?
