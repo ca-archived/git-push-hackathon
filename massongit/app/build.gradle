@@ -69,12 +69,9 @@ task makeNavigateMenu {
         pw.println("    <group android:id=\"@+id/event_kinds\">")
 
         for (String fileName : new File(mainDir, "java/io/github/massongit/hackathon/push/git/main/event/github/").list().sort()) {
-            String eventName = fileName.replace(".kt", "")
-            if (eventName != "Event") {
-                pw.println("        <item")
-                pw.println("            android:title=\"" + eventName + "\"")
-                pw.println("            app:actionLayout=\"@layout/event_kind_checkbox\" />")
-            }
+            pw.println("        <item")
+            pw.println("            android:title=\"" + fileName.replace(".kt", "") + "\"")
+            pw.println("            app:actionLayout=\"@layout/event_kind_checkbox\" />")
         }
 
         pw.println("    </group>")
