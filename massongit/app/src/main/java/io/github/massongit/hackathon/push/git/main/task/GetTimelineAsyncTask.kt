@@ -13,7 +13,8 @@ import com.eclipsesource.json.JsonObject
 import com.github.scribejava.core.exceptions.OAuthException
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
-import io.github.massongit.hackathon.push.git.main.event.*
+import io.github.massongit.hackathon.push.git.main.event.github.*
+import io.github.massongit.hackathon.push.git.main.event.Event
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 import org.apache.commons.lang3.time.DateFormatUtils

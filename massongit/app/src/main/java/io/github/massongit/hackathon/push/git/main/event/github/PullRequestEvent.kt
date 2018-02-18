@@ -1,7 +1,8 @@
-package io.github.massongit.hackathon.push.git.main.event
+package io.github.massongit.hackathon.push.git.main.event.github
 
 import android.graphics.Bitmap
 import android.net.Uri
+import io.github.massongit.hackathon.push.git.main.event.IssuesPullRequestEvent
 import java.util.*
 
 /**

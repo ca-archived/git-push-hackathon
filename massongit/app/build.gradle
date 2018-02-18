@@ -56,7 +56,8 @@ repositories {
 task makeNavigateMenu {
     PrintWriter pw = null
     try {
-        File menuDir = new File("app/src/main/res/menu/")
+        File mainDir = new File("app/src/main/")
+        File menuDir = new File(mainDir, "res/menu/")
         menuDir.mkdirs()
 
         pw = new PrintWriter(new FileWriter(new File(menuDir, "event_kinds_menu.xml")))
@@ -65,7 +66,7 @@ task makeNavigateMenu {
         pw.println("    xmlns:app=\"http://schemas.android.com/apk/res-auto\">")
         pw.println("    <group>")
 
-        for (String fileName : new File("app/src/main/java/io/github/massongit/hackathon/push/git/main/event").list().sort()) {
+        for (String fileName : new File(mainDir, "java/io/github/massongit/hackathon/push/git/main/event/github/").list().sort()) {
             String eventName = fileName.replace(".kt", "")
             if (eventName != "Event") {
                 pw.println("        <item")
