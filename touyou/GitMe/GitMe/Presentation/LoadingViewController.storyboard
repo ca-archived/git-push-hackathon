@@ -28,13 +28,13 @@
                                 <rect key="frame" x="30" y="175.5" width="315" height="315"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="touyouでログインします" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-kA-Vrv">
-                                        <rect key="frame" x="8" y="40" width="299" height="96"/>
+                                        <rect key="frame" x="8" y="40" width="299" height="97.5"/>
                                         <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feed" translatesAutoresizingMaskIntoConstraints="NO" id="jaD-ZU-QnG">
-                                        <rect key="frame" x="141" y="141" width="33" height="33"/>
+                                        <rect key="frame" x="142.5" y="142.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="jaD-ZU-QnG" secondAttribute="height" multiplier="1:1" id="tFK-F5-K23"/>
                                         </constraints>
@@ -92,6 +92,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="feed" width="33" height="33"/>
+        <image name="feed" width="30" height="30"/>
     </resources>
 </document>

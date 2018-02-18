@@ -22,7 +22,7 @@ class LoadingViewController: UIViewController {
             if loginNameLabel != nil {
 
                 loginNameLabel.text = "\(userInfo.userName)でログインします"
-                loginIconImageView.kf.setImage(with: userInfo.iconUrl, placeholder: #imageLiteral(resourceName: "feed"))
+                loginIconImageView.kf.setImage(with: userInfo.iconUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
         }
     }
@@ -34,7 +34,7 @@ class LoadingViewController: UIViewController {
         if userInfo != nil {
 
             loginNameLabel.text = "\(userInfo.userName)でログインします"
-            loginIconImageView.kf.setImage(with: userInfo.iconUrl, placeholder: #imageLiteral(resourceName: "feed"))
+            loginIconImageView.kf.setImage(with: userInfo.iconUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
         }
     }
 

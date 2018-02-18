@@ -59,7 +59,7 @@ extension MainPresenter: UICollectionViewDataSource {
         cell.eventTitleLabel.attributedText = cellData[indexPath.row].eventTitle
         cell.timeLabel.text = cellData[indexPath.row].createAt.offsetString
         cell.repositoryTitleLabel.text = cellData[indexPath.row].repositoryName
-        cell.iconImageView.kf.setImage(with: cellData[indexPath.row].iconUrl)
+        cell.iconImageView.kf.setImage(with: cellData[indexPath.row].iconUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
 
         return cell
     }
