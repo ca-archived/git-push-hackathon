@@ -27,8 +27,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="oauth"
-                    android:scheme="io.moatwel.github" />
+                    android:host="${OAUTH_HOST}"
+                    android:scheme="${OAUTH_SCHEME}" />
             </intent-filter>
         </activity>
     </application>

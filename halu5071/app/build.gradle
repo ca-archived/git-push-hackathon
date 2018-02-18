@@ -17,6 +17,8 @@ android {
 
         def CLIENT_ID
         def CLIENT_SECRET
+        def OAUTH_SCHEME
+        def OAUTH_HOST
 
         def file = project.file("gradle.properties")
         if (file.exists()) {
@@ -24,13 +26,22 @@ android {
             properties.load(file.newDataInputStream())
             CLIENT_ID = properties.get("CLIENT_ID")
             CLIENT_SECRET = properties.get("CLIENT_SECRET")
+            OAUTH_SCHEME = properties.get("OAUTH_SCHEME")
+            OAUTH_HOST = properties.get("OAUTH_HOST")
         } else {
             CLIENT_ID = System.getenv("CLIENT_ID")
             CLIENT_SECRET = System.getenv("CLIENT_SECRET")
+            OAUTH_SCHEME = System.getenv("OAUTH_SCHEME")
+            OAUTH_HOST = System.getenv("OAUTH_HOST")
         }
 
         buildConfigField 'String', 'CLIENT_ID', "$CLIENT_ID"
         buildConfigField 'String', 'CLIENT_SECRET', "$CLIENT_SECRET"
+
+        manifestPlaceholders = [
+                OAUTH_SCHEME: "${OAUTH_SCHEME}",
+                OAUTH_HOST: "${OAUTH_HOST}"
+        ]
     }
     buildTypes {
         release {
