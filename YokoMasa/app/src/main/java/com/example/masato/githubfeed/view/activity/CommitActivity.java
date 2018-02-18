@@ -67,7 +67,7 @@ public class CommitActivity extends BaseActivity implements CommitView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.activity_menu2, menu);
+        menuInflater.inflate(R.menu.activity_menu1, menu);
         return true;
     }
 
@@ -77,6 +77,9 @@ public class CommitActivity extends BaseActivity implements CommitView {
         switch (item.getItemId()) {
             case R.id.menu_id_open_in_browser:
                 Navigator.navigateToExternalBrowser(this, commit.htmlUrl);
+                break;
+            case R.id.menu_id_open_repo:
+                Navigator.navigateToRepoView(this, commit.getRepoUrl());
                 break;
             case android.R.id.home:
                 onBackPressed();

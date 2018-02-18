@@ -54,7 +54,7 @@ public class Commit extends BaseModel {
         if (url == null) {
             return "";
         }
-        return url.split("commits")[0];
+        return url.split("/commits")[0];
     }
 
     @Override
