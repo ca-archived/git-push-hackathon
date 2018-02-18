@@ -62,7 +62,7 @@ class ChromeCustomTabsHelper(private val context: Context) {
     fun unbind(afterUnbindEvent: (() -> Unit)? = null) {
         Log.v(ChromeCustomTabsHelper.TAG, "unbind called")
         this.context.unbindService(this.customTabsServiceConnection)
-        if(afterUnbindEvent!=null){
+        if (afterUnbindEvent != null) {
             afterUnbindEvent()
         }
     }
