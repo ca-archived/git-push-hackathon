@@ -108,7 +108,6 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                     actorAvatarCache[actorAvatarUrl] = actorAvatar
                 }
 
-
                 if (actorLogin != null && repoName != null) {
                     when (type) {
                         "GollumEvent" -> payload?.get("pages") as? JsonArray
