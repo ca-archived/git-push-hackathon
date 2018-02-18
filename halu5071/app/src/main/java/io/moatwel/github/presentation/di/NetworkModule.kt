@@ -30,6 +30,7 @@ import com.squareup.moshi.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.network.AppJsonAdapterFactory
+import io.moatwel.github.data.network.EventJsonAdapter
 import io.moatwel.github.data.network.HeaderInterceptor
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.network.retrofit.UserApi
@@ -86,6 +87,7 @@ class NetworkModule {
     return Moshi.Builder()
       .add(KotlinJsonAdapterFactory())
       .add(AppJsonAdapterFactory.INSTANCE)
+      .add(EventJsonAdapter.FACTORY)
       .add(Date::class.java, Rfc3339DateJsonAdapter())
       .build()
   }
