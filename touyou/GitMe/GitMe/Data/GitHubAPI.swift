@@ -9,6 +9,7 @@
 import Foundation
 import OAuthSwift
 import RxSwift
+import RxCocoa
 
 class GitHubAPI {
 
@@ -80,15 +81,42 @@ class GitHubAPI {
         if let url = self.createRequestUrl(.getEvents(page, perPage)) {
 
             let session = URLSession(configuration: .default)
-            return session.rx.data(request: URLRequest(url: url)).map { data -> [Event] in
+            return session.rx.data(request: URLRequest(url: url)).map { data in
 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
                 return try decoder.decode([Event].self, from: data)
-                }.share()
+            }
         } else {
 
             return Observable<[Event]>.empty()
+        }
+    }
+
+    func fetchRepositoryInfo(of url: URL) -> (Observable<Repository>, Observable<Readme>) {
+
+        let readmeUrlBase = url.appendingPathComponent("readme")
+        if let repoUrl = self.createRequestUrl(.customRequest(url)),
+            let readmeUrl = self.createRequestUrl(.customRequest(readmeUrlBase)) {
+
+            let session = URLSession(configuration: .default)
+            return (
+                session.rx.data(request: URLRequest(url: repoUrl)).map { data -> Repository in
+
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    return try decoder.decode(Repository.self, from: data)
+                },
+                session.rx.data(request: URLRequest(url: readmeUrl)).map { data -> Readme in
+
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    return try decoder.decode(Readme.self, from: data)
+                }
+            )
+        } else {
+
+            return (Observable<Repository>.empty(), Observable<Readme>.empty())
         }
     }
 
@@ -133,7 +161,7 @@ class GitHubAPI {
 
         guard let oauthKey = cache.object(forKey: DefaultKeys.oauthKey.rawValue) as? String else {
 
-            print("You must logged in first.")
+            print("You must log in first.")
             return nil
         }
 
@@ -149,9 +177,10 @@ class GitHubAPI {
                 return nil
             }
             urlString += "/users/\(userName)/received_events?access_token=\(oauthKey)&page=\(page)&per_page=\(perPage)"
-        }
+        case .customRequest(let url):
 
-        print(urlString)
+            urlString = url.absoluteString + "?access_token=\(oauthKey)"
+        }
 
         return URL(string: urlString)
     }
@@ -169,5 +198,6 @@ class GitHubAPI {
 
         case getCurrentUser
         case getEvents(Int, Int)
+        case customRequest(URL)
     }
 }

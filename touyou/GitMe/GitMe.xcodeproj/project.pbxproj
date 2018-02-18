@@ -43,6 +43,7 @@
 		46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46972300200E44CD008325C4 /* UIApplication+Extensions.swift */; };
 		46A58CA32039B139008D6DB9 /* PINRemoteImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A58CA12039B139008D6DB9 /* PINRemoteImage.framework */; };
 		46A58CA42039B139008D6DB9 /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A58CA22039B139008D6DB9 /* PINCache.framework */; };
+		46A58CA62039BBCB008D6DB9 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A58CA52039BBCB008D6DB9 /* Repository.swift */; };
 		46AB03912015C0950003AD21 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46AB03902015C0950003AD21 /* OAuthSwift.framework */; };
 		46AB03952015C74A0003AD21 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03942015C74A0003AD21 /* LoginViewPresenter.swift */; };
 		46AB03972015C7A60003AD21 /* LoginConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03962015C7A60003AD21 /* LoginConverter.swift */; };
@@ -120,6 +121,7 @@
 		46972300200E44CD008325C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		46A58CA12039B139008D6DB9 /* PINRemoteImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINRemoteImage.framework; path = Carthage/Build/iOS/PINRemoteImage.framework; sourceTree = "<group>"; };
 		46A58CA22039B139008D6DB9 /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/iOS/PINCache.framework; sourceTree = "<group>"; };
+		46A58CA52039BBCB008D6DB9 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		46AB03902015C0950003AD21 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		46AB03942015C74A0003AD21 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
 		46AB03962015C7A60003AD21 /* LoginConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConverter.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				464DE8332021AD8A00AB66FE /* Payload.swift */,
 				46DD53F1203967BC00581AC8 /* Event.swift */,
 				46DD53F3203967FB00581AC8 /* User.swift */,
+				46A58CA52039BBCB008D6DB9 /* Repository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				46537395202D8929002279BD /* GitMeRouter.swift in Sources */,
 				46710225202C5863007D86A8 /* EventCardCollectionViewCell.swift in Sources */,
 				46DD53F4203967FB00581AC8 /* User.swift in Sources */,
+				46A58CA62039BBCB008D6DB9 /* Repository.swift in Sources */,
 				46DA6D0A2015927D00767CCB /* MainViewController.swift in Sources */,
 				469722FB200E41CD008325C4 /* UIView+Extensions.swift in Sources */,
 				46AB039A2015CA910003AD21 /* LoginContainer.swift in Sources */,

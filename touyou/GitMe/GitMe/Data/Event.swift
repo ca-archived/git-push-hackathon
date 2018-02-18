@@ -102,16 +102,3 @@ struct Organization: Codable {
         case url
     }
 }
-
-struct Repository: Codable {
-
-    let id: Int
-    let name: String
-    let url: URL
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case url
-    }
-}
