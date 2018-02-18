@@ -65,7 +65,7 @@ class NetworkModule {
    *  This OkHttp instance will not be singleton. Because authorization header should be
    *  injected when we me access token from GitHub.
    *
-   *  @param authDataUseCase AuthDataUseCase
+   *  @param authDataRepository AuthDataRepository
    */
   @Provides
   fun provideOkHttp(authDataRepository: AuthDataRepository): OkHttpClient {
