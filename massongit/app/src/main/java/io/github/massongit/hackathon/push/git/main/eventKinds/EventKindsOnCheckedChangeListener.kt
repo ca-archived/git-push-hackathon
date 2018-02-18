@@ -19,7 +19,7 @@ class EventKindsOnCheckedChangeListener(private val eventViewAdapter: EventViewA
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        Log.v(EventKindsOnCheckedChangeListener.TAG, "onBackPressed called")
+        Log.v(EventKindsOnCheckedChangeListener.TAG, "onCheckedChanged called")
         if (isChecked) {
             this.eventViewAdapter.addEventKind(this.eventKind)
         } else {
