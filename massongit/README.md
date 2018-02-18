@@ -22,3 +22,6 @@
     <string name="client_secret" translatable="false">{Git Hub APIのClient Secret}</string>
 </resources>
 ```
+
+1. プロジェクトをビルド
+(`massongit/app/src/main/res/menu/navigation_view_main_menu.xml`が生成される)
