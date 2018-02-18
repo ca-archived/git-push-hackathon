@@ -68,6 +68,7 @@ task makeNavigateMenu {
         pw.println("    tools:context=\".main.activity.MainActivity\">")
         pw.println("    <group android:id=\"@+id/event_kinds\">")
 
+        // 対応しているGitHub APIのイベントをアイテムとして出力
         for (String fileName : new File(mainDir, "java/io/github/massongit/hackathon/push/git/main/event/github/").list().sort()) {
             pw.println("        <item")
             pw.println("            android:title=\"" + fileName.replace(".kt", "") + "\"")
