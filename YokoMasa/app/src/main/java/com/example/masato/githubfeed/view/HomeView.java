@@ -14,8 +14,6 @@ import java.util.Map;
 
 public interface HomeView extends BaseView{
 
-    public void hideLoadingView();
-
     public void closeDrawer();
 
     public void setUpContent(Profile profile);

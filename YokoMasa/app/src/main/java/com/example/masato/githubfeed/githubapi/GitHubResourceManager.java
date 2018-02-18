@@ -29,21 +29,9 @@ class GitHubResourceManager {
     void getProfile(final GitHubApiCallback callback) {
         final HandyHttpURLConnection connection = connectionPool.newConnection(GitHubUrls.PROFILE_URL);
         connection.get(result -> {
-            Profile profile = GitHubObjectMapper.mapProfile(result.getBodyString());
-            setProfileIcon(profile, callback);
-        });
-    }
-
-    private void setProfileIcon(final Profile profile, final GitHubApiCallback callback) {
-        getBitmapFromUrl(profile.iconUrl, result -> {
-            if (result.isSuccessful) {
-                Bitmap icon = (Bitmap) result.resultObject;
-                profile.icon = icon;
-                result.resultObject = profile;
-                callback.onApiResult(result);
-            } else {
-                callback.onApiResult(result);
-            }
+            GitHubApiCallbackHandler.handleResult(result, callback, successfulResult -> {
+                return GitHubObjectMapper.mapProfile(successfulResult.getBodyString());
+            });
         });
     }
 

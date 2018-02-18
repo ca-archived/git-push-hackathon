@@ -41,7 +41,6 @@ public class CommitActivity extends BaseActivity implements CommitView {
 
     private CommitPresenter presenter;
     private Commit commit;
-    private FragmentTransaction pendingTransaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

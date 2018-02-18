@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.Profile;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,6 +34,6 @@ public class ProfileFragment extends Fragment {
         AppCompatTextView textView = (AppCompatTextView) view.findViewById(R.id.profile_name);
         CircleImageView imageView = (CircleImageView) view.findViewById(R.id.profile_image);
         textView.setText(profile.name);
-        imageView.setImageBitmap(profile.icon);
+        Picasso.with(getContext()).load(profile.iconUrl).into(imageView);
     }
 }

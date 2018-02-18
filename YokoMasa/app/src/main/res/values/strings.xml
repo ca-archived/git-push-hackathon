@@ -36,6 +36,8 @@
     <string name="tab_commits">Commits</string>
     <string name="tab_pull_requests">Pull requests</string>
     <string name="tab_file_changed">File changed</string>
+    <string name="tab_action">アクション</string>
+    <string name="tab_received_action">ニュース</string>
 
     <string name="repo_readme">README</string>
     <string name="repo_no_readme">No README here</string>

@@ -61,4 +61,8 @@ public class GitHubUrls {
     public static String getEventUrl(Profile profile) {
         return getUserUrl(profile) + "/events";
     }
+
+    public static String getReceivedEventUrl(Profile profile) {
+        return getUserUrl(profile) + "/received_events";
+    }
 }

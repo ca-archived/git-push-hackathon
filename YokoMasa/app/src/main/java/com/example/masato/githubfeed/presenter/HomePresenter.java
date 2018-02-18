@@ -29,21 +29,18 @@ public class HomePresenter {
     private void handleFetchProfileResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             profile = (Profile) result.resultObject;
-            GitHubApi.getApi().fetchBitmap(profile.iconUrl, this::handleFetchProfileIconResult);
-        }
-    }
-
-    private void handleFetchProfileIconResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            Bitmap bitmap = (Bitmap) result.resultObject;
-            profile.icon = bitmap;
             view.setUpContent(profile);
-            view.hideLoadingView();
         }
     }
 
     public HomePresenter(HomeView feedView) {
         this.view = feedView;
         GitHubApi.getApi().fetchProfile(this::handleFetchProfileResult);
+    }
+
+    public HomePresenter(HomeView homeView, Profile profile) {
+        this.view = homeView;
+        this.profile = profile;
+        view.setUpContent(profile);
     }
 }
