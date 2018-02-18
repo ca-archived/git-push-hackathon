@@ -63,6 +63,7 @@ class MainActivity : DaggerAppCompatActivity() {
     if (authDataRepository.get() == null) {
       val intent = Intent(this, LoginActivity::class.java)
       startActivity(intent)
+      return
     }
 
     userUseCase.loadUserData()

@@ -39,8 +39,8 @@ android {
         buildConfigField 'String', 'CLIENT_SECRET', "$CLIENT_SECRET"
 
         manifestPlaceholders = [
-                OAUTH_SCHEME: "${OAUTH_SCHEME}",
-                OAUTH_HOST: "${OAUTH_HOST}"
+                OAUTH_SCHEME: "io.moatwel.github",
+                OAUTH_HOST: "oauth"
         ]
     }
     buildTypes {
