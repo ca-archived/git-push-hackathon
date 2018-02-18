@@ -19,7 +19,7 @@
             android:id="@+id/image_user_login"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:imageUrl="@{event.actor.avatarUrl}"/>
+            imageUrl="@{event.actor.avatarUrl}"/>
 
         <TextView
             android:id="@+id/eventActorLogin"
