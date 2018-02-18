@@ -36,7 +36,7 @@ class HandyCache {
         cache.put(url, bytes);
         eTags.put(url, eTag);
         int cacheSizeKb = cache.size() / 1024;
-        int maxCacheSizeKb = cache.maxSize();
+        int maxCacheSizeKb = cache.maxSize() / 1024;
         Log.i("gh_feed", "cache size: " + cacheSizeKb + "/" + maxCacheSizeKb + "kb");
     }
 
