@@ -23,6 +23,7 @@
 package io.moatwel.github.data.datasource
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.content.edit
 import com.squareup.moshi.Moshi
 import io.moatwel.github.BuildConfig
@@ -37,8 +38,13 @@ class AuthDataDataSource (
   private val moshi: Moshi
 ) {
 
+  private val sharedPreferences: SharedPreferences
+
+  init {
+    sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
+  }
+
   fun saveToSharedPreference(authData: AuthData) {
-    val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val adapter = moshi.adapter(AuthData::class.java)
     val jsonResource = adapter.toJson(authData)
 
@@ -48,14 +54,12 @@ class AuthDataDataSource (
   }
 
   fun readFromSharedPreference(): AuthData? {
-    val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
 
     return moshi.adapter(AuthData::class.java).fromJson(jsonResource)
   }
 
   fun removeFromSharedPreference() {
-    val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
 
     editor.remove(ARG_AUTH_DATA)
