@@ -16,6 +16,7 @@ public class ConnectionResult {
     public int responseCode;
     public Map<String, List<String>> header;
     public boolean isConnectionSuccessful;
+    public String eTag;
 
     public String getBodyString() {
         if (bodyBytes == null) {

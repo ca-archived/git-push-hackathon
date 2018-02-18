@@ -37,7 +37,6 @@ class GitHubApiCallbackHandler {
                 gitHubApiResult.isSuccessful = true;
             }
         } else {
-            Log.e("gh_feed", "error stream: " + result.getBodyString());
             if (result.responseCode != 404) {
                 logHeader(result);
             }
@@ -53,16 +52,35 @@ class GitHubApiCallbackHandler {
         }
         Log.e("gh_feed", "status code: " + result.responseCode);
         Log.e("gh_feed", "error header.");
+
+        boolean isOctet = false;
         Set<String> keys = result.header.keySet();
         Iterator<String> iterator = keys.iterator();
         while (iterator.hasNext()) {
             String key = iterator.next();
             StringBuilder stringBuilder = new StringBuilder();
             for (String val : result.header.get(key)) {
+                if (key != null & val != null) {
+                    if (key.equals("Content-Type") && val.equals("application/octet-stream")) {
+                        isOctet = true;
+                    }
+                }
                 stringBuilder.append(val);
                 stringBuilder.append(", ");
             }
             Log.e("gh_feed", "key: " + key + " val: " + stringBuilder.toString());
+        }
+
+        if (isOctet) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0;i<result.bodyBytes.length;i++) {
+                byte b = result.bodyBytes[i];
+                stringBuilder.append(b);
+                stringBuilder.append(",");
+            }
+            Log.e("gh_feed", "error bytes: " + stringBuilder.toString());
+        } else {
+            Log.e("gh_feed", "error stream: " + result.getBodyString());
         }
     }
 

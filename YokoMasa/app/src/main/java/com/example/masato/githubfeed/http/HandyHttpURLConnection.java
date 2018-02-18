@@ -32,6 +32,7 @@ public class HandyHttpURLConnection {
     private String urlString;
     private Map<String, String> header = new HashMap<>();
     private Map<String, String> params = new HashMap<>();
+    private HandyCache cache;
 
     public void setHeader(String key, String value) {
         header.put(key, value);
@@ -211,6 +212,9 @@ public class HandyHttpURLConnection {
             String key = iterator.next();
             connection.setRequestProperty(key, header.get(key));
         }
+        if (cache.hasCache(urlString)) {
+            connection.setRequestProperty("If-None-Match", cache.getETag(urlString));
+        }
     }
 
     private void handleFailure(ConnectionResultListener listener) {
@@ -223,10 +227,18 @@ public class HandyHttpURLConnection {
         ConnectionResult result = new ConnectionResult();
         result.responseCode = connection.getResponseCode();
         result.header = connection.getHeaderFields();
+        result.eTag = connection.getHeaderField("ETag");
         if (result.responseCode >= 400) {
             result.bodyBytes =  bytesFromStream(connection.getErrorStream());
+        } else if (result.responseCode == 304) {
+            result.bodyBytes = cache.getCachedBytes(urlString);
+            Log.i("gh_feed", "FROM CACHE url: " + urlString);
         } else {
             result.bodyBytes = bytesFromStream(connection.getInputStream());
+            String eTag = connection.getHeaderField("ETag");
+            if (eTag != null) {
+                cache.cache(urlString, eTag, result.bodyBytes);
+            }
         }
         result.isConnectionSuccessful = true;
         notifyResponseOnUIThread(result, listener);
@@ -245,6 +257,7 @@ public class HandyHttpURLConnection {
     public HandyHttpURLConnection(String url, ExecutorService executorService) {
         this.executorService = executorService;
         this.urlString = url;
+        this.cache = HandyCache.getInstance();
     }
 
     public interface ConnectionResultListener {

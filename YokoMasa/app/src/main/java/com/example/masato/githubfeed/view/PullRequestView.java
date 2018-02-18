@@ -7,7 +7,7 @@ import com.example.masato.githubfeed.model.Repository;
  * Created by Masato on 2018/02/14.
  */
 
-public interface PullRequestView {
+public interface PullRequestView extends BaseView {
     public void showPullRequest(PullRequest pr);
 
     public void showRepoInfo(Repository repository);

@@ -3,6 +3,7 @@ package com.example.masato.githubfeed.view.activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,14 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             FTQueue.add(runnable);
         }
+    }
+
+    public void showToast(int stringId) {
+        Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override

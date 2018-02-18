@@ -23,6 +23,8 @@ public class CommitPresenter {
         if (result.isSuccessful) {
             ArrayList<DiffFile> diffFiles = (ArrayList<DiffFile>) result.resultObject;
             view.showDiffFileList(diffFiles);
+        } else {
+            view.showToast(result.failure.textId);
         }
     }
 
@@ -30,6 +32,8 @@ public class CommitPresenter {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
             view.showRepoInfo(repository);
+        } else {
+            view.showToast(result.failure.textId);
         }
     }
 

@@ -19,6 +19,8 @@ public class IssuePresenter {
             Issue issue = (Issue) result.resultObject;
             view.showIssue(issue);
             GitHubApi.getApi().fetchRepository(issue.repoUrl, this::handleFetchRepoResult);
+        } else {
+            view.showToast(result.failure.textId);
         }
     }
 
@@ -26,6 +28,8 @@ public class IssuePresenter {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
             view.showRepoInfo(repository);
+        } else {
+            view.showToast(result.failure.textId);
         }
     }
 

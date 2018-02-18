@@ -7,7 +7,7 @@ import com.example.masato.githubfeed.model.Repository;
  * Created by Masato on 2018/02/14.
  */
 
-public interface IssueView {
+public interface IssueView extends BaseView {
     public void showIssue(Issue issue);
 
     public void showRepoInfo(Repository repository);

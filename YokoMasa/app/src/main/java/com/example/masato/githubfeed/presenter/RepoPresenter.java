@@ -23,6 +23,8 @@ public class RepoPresenter {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
             view.setUpContent(repository);
+        } else {
+            view.showToast(result.failure.textId);
         }
     }
 

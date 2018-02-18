@@ -19,6 +19,8 @@ public class PullRequestPresenter {
             PullRequest pr = (PullRequest) result.resultObject;
             view.showPullRequest(pr);
             view.showRepoInfo(pr.repository);
+        } else {
+            view.showToast(result.failure.textId);
         }
     }
 
