@@ -242,11 +242,11 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
      */
     private fun getHtmlUrl(jsonObject: JsonObject?): Uri {
         Log.v(GetTimelineAsyncTask.TAG, "getEventHtmlUrl called")
-        if (jsonObject == null) {
+        return if (jsonObject == null) {
             throw OAuthException("jsonObject is not found")
         } else {
             val htmlUrl = jsonObject.get("html_url")
-            return if (htmlUrl == null) {
+            if (htmlUrl == null) {
                 val url = jsonObject.get("url")
                 if (url == null) {
                     throw OAuthException("url is not found")
