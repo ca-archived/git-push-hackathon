@@ -38,9 +38,12 @@ android {
         buildConfigField 'String', 'CLIENT_ID', "$CLIENT_ID"
         buildConfigField 'String', 'CLIENT_SECRET', "$CLIENT_SECRET"
 
+        resValue "string", "oauth_scheme", "$OAUTH_SCHEME"
+        resValue "string", "oauth_host", "$OAUTH_HOST"
+
         manifestPlaceholders = [
-                OAUTH_SCHEME: "${OAUTH_SCHEME}",
-                OAUTH_HOST: "${OAUTH_HOST}"
+                OAUTH_SCHEME: "@string/oauth_scheme",
+                OAUTH_HOST: "@string/oauth_host"
         ]
     }
     buildTypes {

@@ -51,7 +51,11 @@ class AuthDataDataSource (
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
 
-    return moshi.adapter(AuthData::class.java).fromJson(jsonResource)
+    return if (jsonResource.isBlank()) {
+      null
+    } else {
+      moshi.adapter(AuthData::class.java).fromJson(jsonResource)
+    }
   }
 
   fun removeFromSharedPreference() {

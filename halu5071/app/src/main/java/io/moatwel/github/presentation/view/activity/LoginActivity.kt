@@ -26,7 +26,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
-import android.support.v7.app.AppCompatActivity
+import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
 import io.moatwel.github.domain.entity.AuthData
@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : DaggerAppCompatActivity() {
 
   @Inject
   lateinit var authDataRepository: AuthDataRepository
