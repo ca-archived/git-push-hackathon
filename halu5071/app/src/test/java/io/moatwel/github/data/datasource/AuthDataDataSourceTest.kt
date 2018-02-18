@@ -9,8 +9,7 @@ import io.moatwel.github.R
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers.`is`
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertThat
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,11 +44,28 @@ class AuthDataDataSourceTest {
       .thenReturn(mockSharedPreferences)
     `when`(mockSharedPreferences.edit()).thenReturn(mockEditor)
     `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, ""))
-      .thenReturn("{ \"token\": \"hogehogeToken\"}")
+      .thenReturn("{\"token\": \"hogehogeToken\"}")
 
     val authData = authDataDataSource.readFromSharedPreference()
 
     assertNotNull(authData)
+    assertThat(authData?.token, `is`("hogehogeToken"))
+  }
+
+  @Test
+  fun testReadAuthDataWithFailure() {
+    val mockSharedPreferences = PowerMockito.mock(SharedPreferences::class.java)
+    val mockEditor = PowerMockito.mock(SharedPreferences.Editor::class.java)
+
+    `when`(context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE))
+      .thenReturn(mockSharedPreferences)
+    `when`(mockSharedPreferences.edit()).thenReturn(mockEditor)
+    `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, ""))
+      .thenReturn("")
+
+    val authData = authDataDataSource.readFromSharedPreference()
+
+    assertNull(authData)
   }
 
   @Test
