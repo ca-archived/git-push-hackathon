@@ -8,11 +8,13 @@
 
 import UIKit
 import RxSwift
+import PINCache
+import PINRemoteImage
 
 protocol MainPresenterProtocol {
 
     var isLoggedIn: Bool { get }
-    var logInData: PublishSubject<UserInfoViewModel> { get }
+    var logInData: Variable<UserInfoViewModel> { get }
 
     func fetchUser()
     func reload(_ completion: @escaping () -> Void)
@@ -34,7 +36,7 @@ class MainPresenter: NSObject {
 
     private var page: Int = 1
     private var cellData: [EventCellViewModel] = []
-    private(set) var logInData = PublishSubject<UserInfoViewModel>()
+    private(set) var logInData = Variable<UserInfoViewModel>(UserInfoViewModel())
 }
 
 // MARK: - DataSource
@@ -59,7 +61,7 @@ extension MainPresenter: UICollectionViewDataSource {
         cell.eventTitleLabel.attributedText = cellData[indexPath.row].eventTitle
         cell.timeLabel.text = cellData[indexPath.row].createAt.offsetString
         cell.repositoryTitleLabel.text = cellData[indexPath.row].repositoryName
-        cell.iconImageView.kf.setImage(with: cellData[indexPath.row].iconUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
+        cell.iconImageView.pin_setImage(from: cellData[indexPath.row].iconUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
 
         return cell
     }
@@ -84,7 +86,11 @@ extension MainPresenter: MainPresenterProtocol {
 
                 switch event {
                 case .next(let value):
-                    self.logInData.onNext(value)
+
+                    self.logInData.value = value
+                case .error(let error):
+
+                    print(error)
                 default:
                     break
                 }

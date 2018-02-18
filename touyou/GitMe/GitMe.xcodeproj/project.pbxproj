@@ -41,6 +41,8 @@
 		469722FD200E4263008325C4 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722FC200E4263008325C4 /* UITableView+Extensions.swift */; };
 		469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */; };
 		46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46972300200E44CD008325C4 /* UIApplication+Extensions.swift */; };
+		46A58CA32039B139008D6DB9 /* PINRemoteImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A58CA12039B139008D6DB9 /* PINRemoteImage.framework */; };
+		46A58CA42039B139008D6DB9 /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A58CA22039B139008D6DB9 /* PINCache.framework */; };
 		46AB03912015C0950003AD21 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46AB03902015C0950003AD21 /* OAuthSwift.framework */; };
 		46AB03952015C74A0003AD21 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03942015C74A0003AD21 /* LoginViewPresenter.swift */; };
 		46AB03972015C7A60003AD21 /* LoginConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB03962015C7A60003AD21 /* LoginConverter.swift */; };
@@ -116,6 +118,8 @@
 		469722FC200E4263008325C4 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		469722FE200E4453008325C4 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		46972300200E44CD008325C4 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		46A58CA12039B139008D6DB9 /* PINRemoteImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINRemoteImage.framework; path = Carthage/Build/iOS/PINRemoteImage.framework; sourceTree = "<group>"; };
+		46A58CA22039B139008D6DB9 /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/iOS/PINCache.framework; sourceTree = "<group>"; };
 		46AB03902015C0950003AD21 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		46AB03942015C74A0003AD21 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
 		46AB03962015C7A60003AD21 /* LoginConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConverter.swift; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46A58CA32039B139008D6DB9 /* PINRemoteImage.framework in Frameworks */,
+				46A58CA42039B139008D6DB9 /* PINCache.framework in Frameworks */,
 				46AB03912015C0950003AD21 /* OAuthSwift.framework in Frameworks */,
 				46BF3B45200DB924003C2EAE /* RxSwift.framework in Frameworks */,
 				46BF3B46200DB924003C2EAE /* RxCocoa.framework in Frameworks */,
@@ -352,6 +358,8 @@
 		46BF3B42200DB924003C2EAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46A58CA22039B139008D6DB9 /* PINCache.framework */,
+				46A58CA12039B139008D6DB9 /* PINRemoteImage.framework */,
 				46DD8C842020579F000B92A6 /* FeedKit.framework */,
 				46AB03902015C0950003AD21 /* OAuthSwift.framework */,
 				46BF3B44200DB924003C2EAE /* RxCocoa.framework */,
@@ -523,7 +531,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PINRemoteImage.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PINCache.framework",
 			);
 			outputPaths = (
 			);

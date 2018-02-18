@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Kingfisher
+import PINRemoteImage
+import PINCache
 
 // MARK: - LoadingViewController
 
@@ -15,27 +16,14 @@ class LoadingViewController: UIViewController {
 
     // MARK: Internal
 
-    var userInfo: UserInfoViewModel! {
-
-        didSet {
-
-            if loginNameLabel != nil {
-
-                loginNameLabel.text = "\(userInfo.userName)でログインします"
-                loginIconImageView.kf.setImage(with: userInfo.iconUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
-            }
-        }
-    }
+    var userInfo: UserInfoViewModel!
 
     // MARK: Life Cycle
 
     override func viewDidAppear(_ animated: Bool) {
 
-        if userInfo != nil {
-
-            loginNameLabel.text = "\(userInfo.userName)でログインします"
-            loginIconImageView.kf.setImage(with: userInfo.iconUrl, placeholder: #imageLiteral(resourceName: "placeholder"))
-        }
+        loginNameLabel.text = "\(userInfo.userName ?? "unknown")でログインします"
+        loginIconImageView.pin_setImage(from: userInfo.iconUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
     }
 
     // MARK: Private

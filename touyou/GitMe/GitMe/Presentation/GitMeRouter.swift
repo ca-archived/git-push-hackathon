@@ -22,7 +22,7 @@ class GitMeRouter: NSObject {
 
         let loadingViewController = LoadingViewController.instantiate()
         loadingViewController.userInfo = userInfo
-        newWindow.rootViewController = LoadingViewController.instantiate()
+        newWindow.rootViewController = loadingViewController
         newWindow.backgroundColor = UIColor(white: 0, alpha: 0.6)
         newWindow.windowLevel = UIWindowLevelNormal + 5
         newWindow.makeKeyAndVisible()

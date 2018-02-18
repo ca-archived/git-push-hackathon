@@ -1,3 +1,4 @@
 github "OAuthSwift/OAuthSwift" "1.2.1"
 github "ReactiveX/RxSwift" "4.1.2"
-github "onevcat/Kingfisher" "4.6.1"
+github "pinterest/PINCache" "2.3"
+github "pinterest/PINRemoteImage" "2.1.4"

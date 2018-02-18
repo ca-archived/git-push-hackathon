@@ -46,6 +46,7 @@ class MainViewController: UIViewController {
 
             presenter.fetchUser()
             presenter.logInData
+                .asObservable()
                 .observeOn(MainScheduler.instance)
                 .subscribe { [unowned self] event in
 
