@@ -43,8 +43,9 @@ class ChromeCustomTabsHelper(private val context: Context) {
         Log.v(ChromeCustomTabsHelper.TAG, "bind called")
         this.customTabsServiceConnection = object : CustomTabsServiceConnection() {
             override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
-                customTabsClient = client
-                customTabsClient?.warmup(0)
+                customTabsClient = client.apply {
+                    warmup(0)
+                }
                 if (afterWarmUpEvent != null) {
                     afterWarmUpEvent()
                 }
