@@ -18,7 +18,8 @@ import java.util.concurrent.ExecutorService;
 
 class GitHubResourceManager {
 
-    private static final String MIME_TYPE_HTML = "application/vnd.github.v3.html";
+    private static final String MIME_TYPE_HTML = "application/vnd.github.v3.html+json";
+    private static final String MIME_TYPE_DEFAULT = "application/vnd.github.v3+json";
 
     private HttpConnectionPool connectionPool;
 
@@ -242,6 +243,7 @@ class GitHubResourceManager {
         this.connectionPool = new HttpConnectionPool(service);
         this.connectionPool.setDefHeader("User-Agent", "YokoMasa");
         this.connectionPool.setDefHeader("Authorization", "Token " + token);
+        this.connectionPool.setDefHeader("Accept", MIME_TYPE_DEFAULT);
     }
 
 }

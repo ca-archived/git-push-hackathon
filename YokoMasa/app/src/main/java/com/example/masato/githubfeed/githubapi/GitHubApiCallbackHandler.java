@@ -5,6 +5,10 @@ import android.util.Log;
 import com.example.masato.githubfeed.http.ConnectionResult;
 import com.example.masato.githubfeed.http.ResultBodyConverter;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by Masato on 2018/01/31.
  *
@@ -19,17 +23,47 @@ class GitHubApiCallbackHandler {
     static void handleResult(ConnectionResult result, GitHubApiCallback callback, ResultBodyConverter converter) {
         GitHubApiResult gitHubApiResult = new GitHubApiResult();
         if (isOk(result)) {
+            gitHubApiResult.header = result.header;
             if (converter != null) {
                 gitHubApiResult.resultObject = converter.convert(result);
+                if (gitHubApiResult.resultObject != null) {
+                    gitHubApiResult.isSuccessful = true;
+                } else {
+                    gitHubApiResult.isSuccessful = false;
+                    gitHubApiResult.failure = Failure.UNEXPECTED;
+                    logHeader(result);
+                }
+            } else {
+                gitHubApiResult.isSuccessful = true;
             }
-            gitHubApiResult.header = result.header;
-            gitHubApiResult.isSuccessful = true;
         } else {
             Log.e("gh_feed", "error stream: " + result.getBodyString());
+            if (result.responseCode != 404) {
+                logHeader(result);
+            }
             gitHubApiResult.isSuccessful = false;
             setFailureToGitHubApiResult(result, gitHubApiResult);
         }
         callback.onApiResult(gitHubApiResult);
+    }
+
+    private static void logHeader(ConnectionResult result) {
+        if (result.header == null) {
+            return;
+        }
+        Log.e("gh_feed", "status code: " + result.responseCode);
+        Log.e("gh_feed", "error header.");
+        Set<String> keys = result.header.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String val : result.header.get(key)) {
+                stringBuilder.append(val);
+                stringBuilder.append(", ");
+            }
+            Log.e("gh_feed", "key: " + key + " val: " + stringBuilder.toString());
+        }
     }
 
     private static void setFailureToGitHubApiResult(ConnectionResult result, GitHubApiResult gitHubApiResult) {

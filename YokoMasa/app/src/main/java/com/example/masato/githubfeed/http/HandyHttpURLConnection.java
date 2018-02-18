@@ -233,6 +233,7 @@ public class HandyHttpURLConnection {
     }
 
     private void notifyResponseOnUIThread(final ConnectionResult result, final ConnectionResultListener listener) {
+        Log.i("gh_feed", "url connection finished. url: " + urlString);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
