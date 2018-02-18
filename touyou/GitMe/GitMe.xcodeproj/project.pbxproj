@@ -12,7 +12,7 @@
 		4628D7F2201CBC9A00C66D10 /* MainConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7F1201CBC9A00C66D10 /* MainConverter.swift */; };
 		4628D7F4201CBCA700C66D10 /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7F3201CBCA700C66D10 /* EventCellViewModel.swift */; };
 		4628D7F6201CBCBA00C66D10 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7F5201CBCBA00C66D10 /* GitHubAPI.swift */; };
-		464DE8342021AD8A00AB66FE /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DE8332021AD8A00AB66FE /* EventResponse.swift */; };
+		464DE8342021AD8A00AB66FE /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DE8332021AD8A00AB66FE /* Payload.swift */; };
 		4653738A202D42E9002279BD /* TabBarController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46537389202D42E9002279BD /* TabBarController.storyboard */; };
 		4653738C202D46A4002279BD /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */; };
 		46537390202D486A002279BD /* URWDIN-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4653738D202D4869002279BD /* URWDIN-Light.ttf */; };
@@ -51,8 +51,9 @@
 		46DA6D082015925E00767CCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DA6D072015925E00767CCB /* LoginViewController.swift */; };
 		46DA6D0A2015927D00767CCB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DA6D092015927D00767CCB /* MainViewController.swift */; };
 		46DA6D0C2015928E00767CCB /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */; };
+		46DD53F2203967BC00581AC8 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD53F1203967BC00581AC8 /* Event.swift */; };
+		46DD53F4203967FB00581AC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD53F3203967FB00581AC8 /* User.swift */; };
 		46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C7E20204A70000B92A6 /* TabBarController.swift */; };
-		46DD8C8120204AE2000B92A6 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C8020204AE2000B92A6 /* FeedResponse.swift */; };
 		46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C82202052DF000B92A6 /* URL+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +80,7 @@
 		4628D7F1201CBC9A00C66D10 /* MainConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainConverter.swift; sourceTree = "<group>"; };
 		4628D7F3201CBCA700C66D10 /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 		4628D7F5201CBCBA00C66D10 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
-		464DE8332021AD8A00AB66FE /* EventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
+		464DE8332021AD8A00AB66FE /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		46537389202D42E9002279BD /* TabBarController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBarController.storyboard; sourceTree = "<group>"; };
 		4653738B202D46A4002279BD /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		4653738D202D4869002279BD /* URWDIN-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "URWDIN-Light.ttf"; sourceTree = "<group>"; };
@@ -124,8 +125,9 @@
 		46DA6D072015925E00767CCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46DA6D092015927D00767CCB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		46DA6D0B2015928E00767CCB /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		46DD53F1203967BC00581AC8 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		46DD53F3203967FB00581AC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		46DD8C7E20204A70000B92A6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		46DD8C8020204AE2000B92A6 /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		46DD8C82202052DF000B92A6 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		46DD8C842020579F000B92A6 /* FeedKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FeedKit.framework; path = Carthage/Build/iOS/FeedKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,8 +189,9 @@
 			children = (
 				4628D7F5201CBCBA00C66D10 /* GitHubAPI.swift */,
 				469722E9200E32EF008325C4 /* GitHubConstant.swift */,
-				46DD8C8020204AE2000B92A6 /* FeedResponse.swift */,
-				464DE8332021AD8A00AB66FE /* EventResponse.swift */,
+				464DE8332021AD8A00AB66FE /* Payload.swift */,
+				46DD53F1203967BC00581AC8 /* Event.swift */,
+				46DD53F3203967FB00581AC8 /* User.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -547,10 +550,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				464DE8342021AD8A00AB66FE /* EventResponse.swift in Sources */,
+				464DE8342021AD8A00AB66FE /* Payload.swift in Sources */,
 				46972301200E44CD008325C4 /* UIApplication+Extensions.swift in Sources */,
 				46537395202D8929002279BD /* GitMeRouter.swift in Sources */,
 				46710225202C5863007D86A8 /* EventCardCollectionViewCell.swift in Sources */,
+				46DD53F4203967FB00581AC8 /* User.swift in Sources */,
 				46DA6D0A2015927D00767CCB /* MainViewController.swift in Sources */,
 				469722FB200E41CD008325C4 /* UIView+Extensions.swift in Sources */,
 				46AB039A2015CA910003AD21 /* LoginContainer.swift in Sources */,
@@ -560,13 +564,13 @@
 				4628D7F2201CBC9A00C66D10 /* MainConverter.swift in Sources */,
 				469722EA200E32EF008325C4 /* GitHubConstant.swift in Sources */,
 				469722FD200E4263008325C4 /* UITableView+Extensions.swift in Sources */,
+				46DD53F2203967BC00581AC8 /* Event.swift in Sources */,
 				4628D7F0201CBC8400C66D10 /* MainPresenter.swift in Sources */,
 				4628D7F6201CBCBA00C66D10 /* GitHubAPI.swift in Sources */,
 				469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */,
 				46AB03A12015D75B0003AD21 /* UserInfoViewModel.swift in Sources */,
 				4628D7EE201CB7A900C66D10 /* MainContainer.swift in Sources */,
 				469722F5200E4037008325C4 /* StoryboardInstantiable.swift in Sources */,
-				46DD8C8120204AE2000B92A6 /* FeedResponse.swift in Sources */,
 				46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */,
 				4628D7F4201CBCA700C66D10 /* EventCellViewModel.swift in Sources */,
 				46AB03952015C74A0003AD21 /* LoginViewPresenter.swift in Sources */,
