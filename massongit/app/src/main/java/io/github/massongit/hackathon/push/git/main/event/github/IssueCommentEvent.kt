@@ -23,5 +23,5 @@ class IssueCommentEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri,
         "a pull request"
     } else {
         "an issue"
-    }, this.repoName, number, title, comment)
+    }, this.repoName, number, title, this.replaceNewLine(comment))
 }

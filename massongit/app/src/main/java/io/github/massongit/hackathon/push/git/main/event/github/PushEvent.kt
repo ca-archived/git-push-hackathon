@@ -17,5 +17,5 @@ import java.util.*
  * @param commitMessage コミットメッセージ
  */
 class PushEvent(actorLogin: String, repoName: String, actorHtmlUrl: Uri, eventHtmlUrl: Uri, actorAvatar: Bitmap, createdAt: Date, branch: String, commitMessage: String) : Event(actorLogin, repoName, actorHtmlUrl, eventHtmlUrl, actorAvatar, createdAt) {
-    override val messageHTML: String = "<strong>%s</strong> pushed to <u>%s</u> in <strong>%s</strong><br/><u>%s</u>".format(this.actorLogin, branch.replace("refs/heads/", ""), this.repoName, commitMessage)
+    override val messageHTML: String = "<strong>%s</strong> pushed to <u>%s</u> in <strong>%s</strong><br/><u>%s</u>".format(this.actorLogin, branch.replace("refs/heads/", ""), this.repoName, this.replaceNewLine(commitMessage))
 }
