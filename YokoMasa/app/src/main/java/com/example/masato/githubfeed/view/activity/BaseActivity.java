@@ -1,9 +1,9 @@
 package com.example.masato.githubfeed.view.activity;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import com.example.masato.githubfeed.view.fragment.transaction.FTTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,9 @@ import java.util.List;
  * Created by Masato on 2018/02/17.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
-    private List<Runnable> FTQueue = new ArrayList<>();
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private List<FTTask> FTQueue = new ArrayList<>();
     private boolean FTSafe;
 
     @Override
@@ -26,17 +25,17 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void execQueuedTransactions() {
-        for (Runnable runnable : FTQueue) {
-            handler.post(runnable);
+        for (FTTask ftTask : FTQueue) {
+            ftTask.execute();
         }
         FTQueue.clear();
     }
 
-    protected void doSafeFTTransaction(Runnable runnable) {
+    protected void doSafeFTTransaction(FTTask ftTask) {
         if (FTSafe) {
-            handler.post(runnable);
+            ftTask.execute();
         } else {
-            FTQueue.add(runnable);
+            FTQueue.add(ftTask);
         }
     }
 

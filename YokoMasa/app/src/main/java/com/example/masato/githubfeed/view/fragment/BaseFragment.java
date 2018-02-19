@@ -1,12 +1,12 @@
 package com.example.masato.githubfeed.view.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.masato.githubfeed.view.fragment.transaction.FTTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,7 @@ import java.util.List;
 
 public class BaseFragment extends Fragment {
 
-    private List<Runnable> FTQueue = new ArrayList<>();
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private List<FTTask> FTQueue = new ArrayList<>();
     private boolean FTSafe;
 
     @Override
@@ -29,17 +28,17 @@ public class BaseFragment extends Fragment {
     }
 
     private void execQueuedTransactions() {
-        for (Runnable runnable : FTQueue) {
-            handler.post(runnable);
+        for (FTTask ftTask : FTQueue) {
+            ftTask.execute();
         }
         FTQueue.clear();
     }
 
-    protected void doSafeFTTransaction(Runnable runnable) {
+    protected void doSafeFTTransaction(FTTask ftTask) {
         if (FTSafe) {
-            handler.post(runnable);
+            ftTask.execute();
         } else {
-            FTQueue.add(runnable);
+            FTQueue.add(ftTask);
         }
     }
 
