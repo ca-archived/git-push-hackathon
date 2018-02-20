@@ -16,9 +16,12 @@ class ViewController: UIViewController {
     
     let saveData: UserDefaults = UserDefaults.standard
     
+    //var oauthSwift: OAuth2Swift!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        print("アプリ起動")
         let token: String!
         token = saveData.object(forKey: "oauthToken") as? String
         userToken.text = token
@@ -36,32 +39,30 @@ class ViewController: UIViewController {
     
     @IBAction func singInBtn(_ sender: Any) {
         
-        
-        
         let oauthSwift = OAuth2Swift(
             consumerKey: "35372fd64ec013375a66",
             consumerSecret: "d5e895143bc269f6a378c48b0c7f897837bd72c8",
             authorizeUrl: "https://github.com/login/oauth/authorize",
-            accessTokenUrl: "https://github.com/login/oauth/access_token",
-            responseType: "code"
+            responseType: "token"
         )
-    
-        oauthSwift.authorize(
+        
+        print("認証前")
+        
+        let handle = oauthSwift.authorize(
             withCallbackURL: URL(string: "hayakawaapp://oauth-callback")!,
-            scope: "", state:"gitHubOAuth",
-            success: { (credential, response, parameters) in
+            scope: "", state: "GitHub",
+            success: { credential, response, parameters in
                 print("認証成功")
                 print(credential.oauthToken)
                 // やりたいこと
                 self.saveData.setValue(credential.oauthToken, forKey: "oauthToken")
-                self.userToken.text = self.saveData.string(forKey: "oauthToken")
+                self.userToken.text = self.saveData.object(forKey: "oauthToken") as? String
         },
             failure: { error in
                 print(error.localizedDescription)
                 print("認証失敗")
             }
         )
-
     }
 }
 
