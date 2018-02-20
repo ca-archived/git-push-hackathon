@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import io.moatwel.github.BuildConfig
-import io.moatwel.github.R
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
+import io.moatwel.github.TestUtil
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.*
 import org.junit.Before
@@ -27,6 +24,7 @@ class AuthDataDataSourceTest {
   private lateinit var moshi: Moshi
   private lateinit var context: Context
   private lateinit var authDataDataSource: AuthDataDataSource
+  private val resource: String = TestUtil.readResource("access_token.txt")
 
   @Before
   fun before() {
@@ -66,25 +64,6 @@ class AuthDataDataSourceTest {
     val authData = authDataDataSource.readFromSharedPreference()
 
     assertNull(authData)
-  }
-
-  @Test
-  fun testFetchAccessToken() {
-    val mockServer = MockWebServer()
-    mockServer.start()
-    mockServer.enqueue(MockResponse().setBody("hogehogeAccessToken"))
-
-    val code = "fugafuga"
-
-    `when`(context.getString(R.string.str_access_token_url, code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET))
-      .thenReturn(mockServer.url("").toString())
-
-    authDataDataSource.fetchFromApi(code)
-      .test()
-      .assertValue("hogehogeAccessToken")
-      .assertComplete()
-
-    mockServer.shutdown()
   }
 
   companion object {
