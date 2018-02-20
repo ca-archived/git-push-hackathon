@@ -27,9 +27,14 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
     }
 
     /**
-     * イベントリスト
+     * 全てのイベントが載っているイベントリスト
      */
-    private var items: List<Event> = emptyList()
+    private var allEventList: List<Event> = emptyList()
+
+    /**
+     * フィルター済みのイベントリスト
+     */
+    private var filteredEventList: List<Event> = emptyList()
 
     /**
      * 表示するイベントの種類
@@ -41,25 +46,23 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
         return EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.event, parent, false))
     }
 
-    override fun getItemCount(): Int = this.items.size
+    override fun getItemCount(): Int = this.allEventList.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         Log.v(EventViewAdapter.TAG, "onBindViewHolder called")
         holder.apply {
-            val item = items[position]
-            if (eventKinds.contains(item::class.simpleName)) {
-                messageLayout.setOnClickListener {
-                    chromeCustomTabsHelper.launch(item.eventHtmlUrl)
-                }
-                avatar.apply {
-                    setOnClickListener {
-                        chromeCustomTabsHelper.launch(item.actorHtmlUrl)
-                    }
-                    setImageBitmap(item.actorAvatar)
-                }
-                message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
-                createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
+            val item = filteredEventList[position]
+            messageLayout.setOnClickListener {
+                chromeCustomTabsHelper.launch(item.eventHtmlUrl)
             }
+            avatar.apply {
+                setOnClickListener {
+                    chromeCustomTabsHelper.launch(item.actorHtmlUrl)
+                }
+                setImageBitmap(item.actorAvatar)
+            }
+            message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
+            createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
         }
     }
 
@@ -70,12 +73,12 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
      */
     fun addItems(items: List<Event>, isTop: Boolean) {
         Log.v(EventViewAdapter.TAG, "addItems called")
-        this.items = if (isTop) {
-            items + this.items
+        this.allEventList = if (isTop) {
+            items + this.allEventList
         } else {
-            this.items + items
+            this.allEventList + items
         }
-        this.notifyDataSetChanged()
+        this.onDataChanged()
     }
 
     /**
@@ -85,9 +88,7 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
     fun addEventKind(eventKind: String) {
         Log.v(EventViewAdapter.TAG, "addEventKind called")
         this.eventKinds.add(eventKind)
-        if (0 < this.itemCount) {
-            this.notifyDataSetChanged()
-        }
+        this.onDataChanged()
     }
 
     /**
@@ -97,7 +98,18 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
     fun removeEventKind(eventKind: String) {
         Log.v(EventViewAdapter.TAG, "removeEventKind called")
         this.eventKinds.remove(eventKind)
+        this.onDataChanged()
+    }
+
+    /**
+     * データが変化した際のイベント
+     */
+    private fun onDataChanged() {
+        Log.v(EventViewAdapter.TAG, "onDataChanged called")
         if (0 < this.itemCount) {
+            this.filteredEventList = this.allEventList.filter {
+                this.eventKinds.contains(it::class.simpleName)
+            }
             this.notifyDataSetChanged()
         }
     }
