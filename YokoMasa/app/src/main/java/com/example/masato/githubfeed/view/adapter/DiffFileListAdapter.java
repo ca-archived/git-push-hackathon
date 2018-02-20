@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.model.diff.DiffCodeLine;
 import com.example.masato.githubfeed.model.diff.DiffFile;
+import com.example.masato.githubfeed.view.adapter.viewholders.DiffCodeLineViewHolder;
+import com.example.masato.githubfeed.view.adapter.viewholders.DiffFileHeaderViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,44 +22,39 @@ import java.util.List;
  * Created by Masato on 2018/02/06.
  */
 
-public class DiffFileListAdapter extends RecyclerView.Adapter {
+public class DiffFileListAdapter extends MultiViewTypeAdapter {
 
     private static final int CODE_LINE_VIEW = 10;
     private static final int HEADER_VIEW = 17;
 
-    private List<DiffFile> diffFiles = new ArrayList<>();
-    private List<ViewInfo> viewInfos = new ArrayList<>();
     private Context context;
     private LayoutInflater inflater;
 
     public void setDiffFiles(List<DiffFile> diffFiles) {
-        this.diffFiles = diffFiles;
-        setUpViewInfo();
-    }
-
-    private void setUpViewInfo() {
-        viewInfos.clear();
-        for (int i = 0;i<diffFiles.size();i++) {
-            ViewInfo viewInfo = new ViewInfo();
-            viewInfo.viewType = HEADER_VIEW;
-            viewInfo.fileIndex = i;
-            viewInfos.add(viewInfo);
-            List<DiffCodeLine> codeLines = diffFiles.get(i).codeLines;
-
-            for (int row = 0;row<codeLines.size();row++) {
-                viewInfo = new ViewInfo();
-                viewInfo.viewType = CODE_LINE_VIEW;
-                viewInfo.fileIndex = i;
-                viewInfo.codeLineIndex = row;
-                viewInfos.add(viewInfo);
+        clearViewInfo();
+        for (DiffFile diffFile : diffFiles) {
+            addViewInfo(diffFile, HEADER_VIEW);
+            for (DiffCodeLine diffCodeLine : diffFile.codeLines) {
+                addViewInfo(diffCodeLine, CODE_LINE_VIEW);
             }
         }
         notifyDataSetChanged();
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return viewInfos.get(position).viewType;
+    protected void onBindViewHolder(RecyclerView.ViewHolder holder, MultiViewTypeAdapter.ViewInfo viewInfo) {
+        switch (viewInfo.viewType) {
+            case HEADER_VIEW:
+                DiffFileHeaderViewHolder headerViewHolder = (DiffFileHeaderViewHolder) holder;
+                DiffFile diffFile = (DiffFile) viewInfo.info;
+                headerViewHolder.bindDiffFile(diffFile);
+                break;
+            case CODE_LINE_VIEW:
+                DiffCodeLineViewHolder codeLineViewHolder = (DiffCodeLineViewHolder) holder;
+                DiffCodeLine diffCodeLine = (DiffCodeLine) viewInfo.info;
+                codeLineViewHolder.bindCodeLine(diffCodeLine);
+                break;
+        }
     }
 
     @Override
@@ -66,35 +63,13 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
         switch (viewType) {
             case HEADER_VIEW:
                 view = inflater.inflate(R.layout.diff_header, parent, false);
-                return new HeaderViewHolder(view);
+                return new DiffFileHeaderViewHolder(view);
             case CODE_LINE_VIEW:
                 view = inflater.inflate(R.layout.diff_code_line, parent, false);
-                return new CodeLineViewHolder(view);
+                return new DiffCodeLineViewHolder(view, context);
             default:
                 return null;
         }
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewInfo viewInfo = viewInfos.get(position);
-        DiffFile diffFile = diffFiles.get(viewInfo.fileIndex);
-        switch (viewInfo.viewType) {
-            case HEADER_VIEW:
-                HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-                headerViewHolder.bindDiffFile(diffFile);
-                break;
-            case CODE_LINE_VIEW:
-                CodeLineViewHolder codeLineViewHolder = (CodeLineViewHolder) holder;
-                DiffCodeLine codeLine = diffFile.codeLines.get(viewInfo.codeLineIndex);
-                codeLineViewHolder.bindCodeLine(codeLine);
-                break;
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return viewInfos.size();
     }
 
     public DiffFileListAdapter(Context context) {
@@ -102,54 +77,4 @@ public class DiffFileListAdapter extends RecyclerView.Adapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    private class ViewInfo {
-        int viewType;
-        int fileIndex;
-        int codeLineIndex;
-    }
-
-    private class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-        AppCompatTextView title;
-        AppCompatTextView addition;
-        AppCompatTextView deletion;
-
-        void bindDiffFile(DiffFile diffFile) {
-            title.setText(diffFile.fileName);
-            addition.setText(Integer.toString(diffFile.additions));
-            deletion.setText(Integer.toString(diffFile.deletions));
-        }
-
-        HeaderViewHolder(View itemView) {
-            super(itemView);
-            this.title = (AppCompatTextView) itemView.findViewById(R.id.diff_header_title);
-            this.addition = (AppCompatTextView) itemView.findViewById(R.id.diff_header_addition);
-            this.deletion = (AppCompatTextView) itemView.findViewById(R.id.diff_header_deletion);
-        }
-    }
-
-    private class CodeLineViewHolder extends RecyclerView.ViewHolder {
-
-        AppCompatTextView code;
-
-        void bindCodeLine(DiffCodeLine codeLine) {
-            code.setText(codeLine.code);
-            switch (codeLine.status) {
-                case DiffCodeLine.ADDED:
-                    code.setBackgroundColor(context.getResources().getColor(R.color.diff_green));
-                    break;
-                case DiffCodeLine.REMOVED:
-                    code.setBackgroundColor(context.getResources().getColor(R.color.diff_red));
-                    break;
-                case DiffCodeLine.CHANGE_LINES:
-                    code.setBackgroundColor(context.getResources().getColor(R.color.diff_blue));
-                    break;
-            }
-        }
-
-        CodeLineViewHolder(View itemView) {
-            super(itemView);
-            this.code = (AppCompatTextView) itemView.findViewById(R.id.diff_code_line);
-        }
-    }
 }

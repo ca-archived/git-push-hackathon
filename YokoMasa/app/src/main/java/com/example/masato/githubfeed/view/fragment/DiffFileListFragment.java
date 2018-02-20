@@ -33,7 +33,7 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        showLoadingFragment();
+        showLoadingFragment(R.id.diff_file_list_mother);
     }
 
     @Nullable
@@ -72,27 +72,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         } else {
             new DiffFileListPresenter(this, url);
         }
-    }
-
-    private void showLoadingFragment() {
-        doSafeFTTransaction(() -> {
-            loadingFragment = new LoadingFragment();
-            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-            ft.add(R.id.diff_file_list_mother, loadingFragment);
-            ft.commit();
-        });
-    }
-
-    private void removeLoadingFragment() {
-        doSafeFTTransaction(() -> {
-            if (loadingFragment == null) {
-                return;
-            }
-            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-            ft.remove(loadingFragment);
-            ft.commit();
-            loadingFragment = null;
-        });
     }
 
     @Override

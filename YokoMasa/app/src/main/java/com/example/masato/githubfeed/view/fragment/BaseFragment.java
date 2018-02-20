@@ -3,9 +3,11 @@ package com.example.masato.githubfeed.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.view.fragment.transaction.FTTask;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 public class BaseFragment extends Fragment {
 
     private List<FTTask> FTQueue = new ArrayList<>();
+    private LoadingFragment loadingFragment;
     private boolean FTSafe;
 
     @Override
@@ -25,6 +28,27 @@ public class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FTSafe = true;
         execQueuedTransactions();
+    }
+
+    protected void showLoadingFragment(int motherId) {
+        doSafeFTTransaction(() -> {
+            loadingFragment = new LoadingFragment();
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.add(motherId, loadingFragment);
+            ft.commit();
+        });
+    }
+
+    protected void removeLoadingFragment() {
+        doSafeFTTransaction(() -> {
+            if (loadingFragment == null) {
+                return;
+            }
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.remove(loadingFragment);
+            ft.commit();
+            loadingFragment = null;
+        });
     }
 
     private void execQueuedTransactions() {
