@@ -27,6 +27,7 @@ import androidx.content.edit
 import com.squareup.moshi.Moshi
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
+import io.moatwel.github.data.network.StringConverterFactory
 import io.moatwel.github.data.network.retrofit.AccessTokenApi
 import io.moatwel.github.domain.entity.AuthData
 import io.reactivex.Observable
@@ -75,6 +76,7 @@ class AuthDataDataSource (
     // TODO: replace this implementation to Retrofit after creating StringConverterFactory
     val retrofit = Retrofit.Builder()
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(StringConverterFactory())
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .baseUrl(context.getString(R.string.str_access_token_url))
       .build()
