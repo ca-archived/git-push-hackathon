@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
 
     // MARK: Internal
 
-    var presenter: (MainPresenterProtocol & UICollectionViewDataSource)!
+    var presenter: (MainPresenterProtocol & UITableViewDataSource)!
 
     // MARK: Life Cycle
 
@@ -60,7 +60,7 @@ class MainViewController: UIViewController {
 
                                 TabBarController.router.closeLoadingWindow()
                             })
-                            self.collectionView.reloadData()
+                            self.tableView.reloadData()
                         }
                     case .error(let error):
                         print(error)
@@ -78,14 +78,18 @@ class MainViewController: UIViewController {
 
     private var isLoading: Bool = false
 
-    @IBOutlet private weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var tableView: UITableView! {
 
         didSet {
 
-            collectionView.register(EventCardCollectionViewCell.self)
-            collectionView.dataSource = presenter
-            collectionView.delegate = self
-            collectionView.refreshControl = refreshControl
+            tableView.register(EventCardTableViewCell.self)
+            tableView.dataSource = presenter
+            tableView.delegate = self
+            tableView.refreshControl = refreshControl
+            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.estimatedRowHeight = 155.0
+            tableView.allowsSelection = false
+            tableView.allowsMultipleSelection = false
         }
     }
 
@@ -96,18 +100,18 @@ class MainViewController: UIViewController {
             guard let `self` = self else { return }
 
             sender.endRefreshing()
-            self.collectionView.reloadData()
+            self.tableView.reloadData()
         }
     }
 }
 
-// MARK: - CollectionView Delegate
+// MARK: - TableView Delegate
 
-extension MainViewController: UICollectionViewDelegate {
+extension MainViewController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        if collectionView.contentOffset.y + collectionView.frame.size.height > collectionView.contentSize.height && collectionView.isDragging && !self.isLoading {
+        if tableView.contentOffset.y + tableView.frame.size.height > tableView.contentSize.height && tableView.isDragging && !self.isLoading {
 
             self.isLoading = true
             presenter.loadMore { [weak self] in
@@ -115,36 +119,11 @@ extension MainViewController: UICollectionViewDelegate {
                 guard let `self` = self else { return }
 
                 self.isLoading = false
-                self.collectionView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
-}
 
-// MARK: - CollectionView Layout
-
-extension MainViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let cellWidth = collectionView.bounds.width - 24
-        return CGSize(width: cellWidth, height: cellWidth)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-
-        return 12.0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-
-        return 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
-        return UIEdgeInsets(top: 12.0, left: 0, bottom: 0, right: 0)
-    }
 }
 
 // MARK: - Storyboard Instantiable

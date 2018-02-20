@@ -124,19 +124,13 @@ extension MainConverter: MainConverterProtocol {
                     repoViewModel.starCount = repository.stargazersCount ?? 0
                     repoViewModel.repositoryCreatedAt = repository.updatedAt
                     return repoViewModel
-                }
+                }.share()
                 eventCellViewModel.readmeObservable = readme.map { readme in
 
                     let readmeViewModel = ReadmeViewModel()
-                    if let url = readme.downloadUrl {
-
-                        readmeViewModel.markDownString = try? String(contentsOf: url, encoding: .utf8)
-                    } else {
-
-                        readmeViewModel.markDownString = nil
-                    }
+                    readmeViewModel.url = readme.downloadUrl
                     return readmeViewModel
-                }
+                }.share()
 
                 return eventCellViewModel
             }

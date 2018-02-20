@@ -17,7 +17,10 @@ class EventCellViewModel {
     var createAt: Date!
     var repoObservable: Observable<RepositoryViewModel>!
     var readmeObservable: Observable<ReadmeViewModel>!
-    
+    var isShowReadme: Bool = false
+    var repositoryDescription: String?
+    var repositoryInfo: String?
+
     init() {}
 }
 
@@ -52,8 +55,9 @@ class RepositoryViewModel {
 }
 
 class ReadmeViewModel {
-    
-    var markDownString: String?
-    
+
+    var markdownString: String?
+    var url: URL?
+
     init() {}
 }

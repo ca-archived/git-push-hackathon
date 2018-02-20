@@ -39,61 +39,79 @@ class MainPresenter: NSObject {
     private var page: Int = 1
     private var cellData: [EventCellViewModel] = []
     private(set) var logInData = Variable<UserInfoViewModel>(UserInfoViewModel())
+
+    private func subscribeEventCellViewModel(_ datas: [EventCellViewModel]) -> [EventCellViewModel] {
+
+        var newDatas = [EventCellViewModel]()
+        for data in datas {
+            var newData = data
+            data.readmeObservable
+                .observeOn(MainScheduler.instance)
+                .subscribe { event in
+
+                    switch event {
+                    case .next(let value):
+
+                        newData.repositoryDescription = value.repositoryDescription
+                        newData.repositoryInfo = value.repoInfo
+                    case .error(let error):
+
+                        print(error)
+                    case .completed:
+
+                        break
+                    }
+                }.disposed(by: disposeBag)
+        }
+        return newDatas
+    }
 }
 
 // MARK: - DataSource
 
-extension MainPresenter: UICollectionViewDataSource {
+extension MainPresenter: UITableViewDataSource {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
 
         return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return cellData.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell: EventCardCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: EventCardTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
 
-        cell.clipsToBounds = false
-        cell.eventTitleLabel.attributedText = cellData[indexPath.row].eventTitle
+        cell.eventLabel.attributedText = cellData[indexPath.row].eventTitle
         cell.timeLabel.text = cellData[indexPath.row].createAt.offsetString
-        cell.repositoryTitleLabel.text = cellData[indexPath.row].repositoryName
+        cell.repoNameLabel.text = cellData[indexPath.row].repositoryName
         cell.iconImageView.pin_setImage(from: cellData[indexPath.row].iconUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
-        cellData[indexPath.row].repoObservable.observeOn(MainScheduler.instance).subscribe { event in
 
-            switch event {
-            case .next(let value):
+        cellData[indexPath.row].readmeObservable
+            .observeOn(MainScheduler.instance)
+            .subscribe { event in
 
-                cell.descriptionLabel.text = value.repositoryDescription
-                cell.repoInfoLabel.text = value.repoInfo
-            case .error(let error):
+                switch event {
+                case .next(let value):
 
-                print(error)
-            case .completed:
+                    cell.readmeUrl = value.url
+                case .error(let error):
 
-                break
-            }
+                    print(error)
+                case .completed:
+
+                    break
+                }
             }.disposed(by: disposeBag)
+        
+        cell.completion = {
 
-        cellData[indexPath.row].readmeObservable.observeOn(MainScheduler.instance).subscribe { event in
-
-            switch event {
-            case .next(let value):
-
-                cell.markDownString = value.markDownString
-            case .error(let error):
-
-                print(error)
-            case .completed:
-
-                break
-            }
-            }.disposed(by: disposeBag)
+            self.cellData[indexPath.row].isShowReadme = !self.cellData[indexPath.row].isShowReadme
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
 
         return cell
     }
