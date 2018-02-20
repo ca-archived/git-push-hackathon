@@ -15,6 +15,7 @@ protocol MainPresenterProtocol {
 
     var isLoggedIn: Bool { get }
     var logInData: Variable<UserInfoViewModel> { get }
+    var itemCount: Int { get }
 
     func fetchUser()
     func reload(_ completion: @escaping () -> Void)
@@ -62,6 +63,35 @@ extension MainPresenter: UICollectionViewDataSource {
         cell.timeLabel.text = cellData[indexPath.row].createAt.offsetString
         cell.repositoryTitleLabel.text = cellData[indexPath.row].repositoryName
         cell.iconImageView.pin_setImage(from: cellData[indexPath.row].iconUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+        cellData[indexPath.row].repoObservable.observeOn(MainScheduler.instance).subscribe { event in
+
+            switch event {
+            case .next(let value):
+
+                cell.descriptionLabel.text = value.repositoryDescription
+                cell.repoInfoLabel.text = value.repoInfo
+            case .error(let error):
+
+                print(error)
+            case .completed:
+
+                break
+            }
+        }.disposed(by: disposeBag)
+        cellData[indexPath.row].readmeObservable.observeOn(MainScheduler.instance).subscribe { event in
+
+            switch event {
+            case .next(let value):
+
+                cell.readmeView.isHidden = false
+            case .error(let error):
+
+                print(error)
+            case .completed:
+
+                break
+            }
+        }.disposed(by: disposeBag)
 
         return cell
     }
@@ -74,6 +104,11 @@ extension MainPresenter: MainPresenterProtocol {
     var isLoggedIn: Bool {
 
         return converter.isLoggedIn
+    }
+
+    var itemCount: Int {
+
+        return cellData.count
     }
 
     func fetchUser() {

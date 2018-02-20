@@ -16,6 +16,7 @@ class EventCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var repositoryTitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var readmeView: UIView!
+    @IBOutlet weak var repoInfoLabel: UILabel!
 }
 
 extension EventCardCollectionViewCell: Reusable, NibLoadable {}

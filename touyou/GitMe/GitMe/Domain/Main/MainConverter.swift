@@ -88,7 +88,7 @@ class MainConverter {
             )
         default:
 
-            mutableAttributedString.append(NSAttributedString(string: " Unknown Event"))
+            mutableAttributedString.append(NSAttributedString(string: " \(event.type.rawValue): Unknown"))
         }
 
         return mutableAttributedString
@@ -115,6 +115,22 @@ extension MainConverter: MainConverterProtocol {
                 eventCellViewModel.eventTitle = self.convertEventTitle(of: event)
                 eventCellViewModel.createAt = event.createdAt
                 eventCellViewModel.repositoryName = event.repo?.name
+                let (repo, readme) = self.api.fetchRepositoryInfo(of: event.repo!.url)
+                eventCellViewModel.repoObservable = repo.map { (repository: Repository) in
+
+                    let repoViewModel = RepositoryViewModel()
+                    repoViewModel.repositoryDescription = repository.description
+                    repoViewModel.language = repository.language
+                    repoViewModel.starCount = repository.stargazersCount ?? 0
+                    repoViewModel.repositoryCreatedAt = repository.updatedAt
+                    return repoViewModel
+                }
+                eventCellViewModel.readmeObservable = readme.map { readme in
+
+                    let readmeViewModel = ReadmeViewModel()
+                    readmeViewModel.url = readme.downloadUrl
+                    return readmeViewModel
+                }
 
                 return eventCellViewModel
             }
