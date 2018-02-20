@@ -20,6 +20,9 @@ public class DiffFileListPresenter {
         if (result.isSuccessful) {
             ArrayList<DiffFile> diffFiles = (ArrayList<DiffFile>) result.resultObject;
             view.showDiffFiles(diffFiles);
+        } else {
+            view.showToast(result.failure.textId);
+            view.removeLoadingView();
         }
     }
 

@@ -9,6 +9,8 @@ import java.util.List;
  * Created by Masato on 2018/02/08.
  */
 
-public interface DiffFileListView {
+public interface DiffFileListView extends BaseView {
     public void showDiffFiles(ArrayList<DiffFile> diffFiles);
+
+    public void removeLoadingView();
 }

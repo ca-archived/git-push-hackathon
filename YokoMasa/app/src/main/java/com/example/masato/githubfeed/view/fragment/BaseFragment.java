@@ -30,7 +30,7 @@ public class BaseFragment extends Fragment {
         execQueuedTransactions();
     }
 
-    protected void showLoadingFragment(int motherId) {
+    public void showLoadingFragment(int motherId) {
         doSafeFTTransaction(() -> {
             loadingFragment = new LoadingFragment();
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
@@ -39,7 +39,7 @@ public class BaseFragment extends Fragment {
         });
     }
 
-    protected void removeLoadingFragment() {
+    public void removeLoadingFragment() {
         doSafeFTTransaction(() -> {
             if (loadingFragment == null) {
                 return;

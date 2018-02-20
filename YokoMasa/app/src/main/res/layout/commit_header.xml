@@ -10,6 +10,7 @@
         android:id="@+id/commit_header_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/child_padding"
         android:textSize="@dimen/text_large"/>
 
     <LinearLayout

@@ -75,6 +75,11 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     }
 
     @Override
+    public void removeLoadingView() {
+        removeLoadingFragment();
+    }
+
+    @Override
     public void showDiffFiles(ArrayList<DiffFile> diffFiles) {
         this.diffFiles = diffFiles;
         removeLoadingFragment();
