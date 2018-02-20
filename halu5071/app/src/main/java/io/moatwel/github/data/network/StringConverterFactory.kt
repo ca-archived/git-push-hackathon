@@ -22,6 +22,39 @@
 
 package io.moatwel.github.data.network
 
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Converter
+import retrofit2.Retrofit
+import java.lang.reflect.Type
 
-class StringConverterFactory : Converter.Factory()
+class StringConverterFactory : Converter.Factory() {
+
+  private val PLAIN_TEXT = MediaType.parse("text/plain; charset=UTF-8")
+
+  override fun requestBodyConverter(type: Type?,
+                                    parameterAnnotations: Array<out Annotation>?,
+                                    methodAnnotations: Array<out Annotation>?,
+                                    retrofit: Retrofit?): Converter<*, RequestBody>? {
+    return if (type == String::class.java) {
+      Converter<String, RequestBody> {
+        RequestBody.create(PLAIN_TEXT, it)
+      }
+    } else {
+      null
+    }
+  }
+
+  override fun responseBodyConverter(type: Type?,
+                                     annotations: Array<out Annotation>?,
+                                     retrofit: Retrofit?): Converter<ResponseBody, *>? {
+    return if (type == String::class.java) {
+      Converter<ResponseBody, String> {
+        it.string().toString()
+      }
+    } else {
+      null
+    }
+  }
+}
