@@ -97,7 +97,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6y4-Ap-uEt">
                                                 <rect key="frame" x="0.0" y="55" width="402" height="290.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO README!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEy-Ms-DKh">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO README!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEy-Ms-DKh">
                                                         <rect key="frame" x="0.0" y="0.0" width="402" height="290.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -199,6 +199,7 @@
                 <outlet property="descriptionLabel" destination="kaM-5u-bE4" id="5yE-tv-3Cj"/>
                 <outlet property="eventTitleLabel" destination="R5W-sb-WfQ" id="P06-UK-IuU"/>
                 <outlet property="iconImageView" destination="KjI-td-Zyi" id="WwY-U3-foF"/>
+                <outlet property="readMeLabel" destination="zEy-Ms-DKh" id="XPJ-0b-REZ"/>
                 <outlet property="readmeView" destination="6y4-Ap-uEt" id="nt7-IW-RzU"/>
                 <outlet property="repoInfoLabel" destination="iSJ-2q-h8F" id="bQS-1B-ng8"/>
                 <outlet property="repositoryTitleLabel" destination="8E7-7V-emE" id="yw8-3C-Zx7"/>

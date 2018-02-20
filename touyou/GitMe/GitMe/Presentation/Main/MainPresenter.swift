@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import PINCache
 import PINRemoteImage
+import Down
 
 protocol MainPresenterProtocol {
 
@@ -77,13 +78,14 @@ extension MainPresenter: UICollectionViewDataSource {
 
                 break
             }
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
+
         cellData[indexPath.row].readmeObservable.observeOn(MainScheduler.instance).subscribe { event in
 
             switch event {
             case .next(let value):
 
-                cell.readmeView.isHidden = false
+                cell.markDownString = value.markDownString
             case .error(let error):
 
                 print(error)
@@ -91,7 +93,7 @@ extension MainPresenter: UICollectionViewDataSource {
 
                 break
             }
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
 
         return cell
     }

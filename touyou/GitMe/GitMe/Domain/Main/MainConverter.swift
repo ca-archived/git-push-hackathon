@@ -128,7 +128,13 @@ extension MainConverter: MainConverterProtocol {
                 eventCellViewModel.readmeObservable = readme.map { readme in
 
                     let readmeViewModel = ReadmeViewModel()
-                    readmeViewModel.url = readme.downloadUrl
+                    if let url = readme.downloadUrl {
+
+                        readmeViewModel.markDownString = try? String(contentsOf: url, encoding: .utf8)
+                    } else {
+
+                        readmeViewModel.markDownString = nil
+                    }
                     return readmeViewModel
                 }
 

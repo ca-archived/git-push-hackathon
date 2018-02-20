@@ -53,7 +53,7 @@ class RepositoryViewModel {
 
 class ReadmeViewModel {
     
-    var url: URL!
+    var markDownString: String?
     
     init() {}
 }

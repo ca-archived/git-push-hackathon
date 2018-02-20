@@ -86,11 +86,6 @@ class MainViewController: UIViewController {
             collectionView.dataSource = presenter
             collectionView.delegate = self
             collectionView.refreshControl = refreshControl
-
-//            if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//
-//                layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
-//            }
         }
     }
 
@@ -132,14 +127,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-//        if presenter.itemCount <= indexPath.row {
-//
-//            return .zero
-//        }
-//
-//        let cell: EventCardCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         let cellWidth = collectionView.bounds.width - 24
-//        return cell.systemLayoutSizeFitting(CGSize(width: cellWidth, height: cellWidth))
         return CGSize(width: cellWidth, height: cellWidth)
     }
 
