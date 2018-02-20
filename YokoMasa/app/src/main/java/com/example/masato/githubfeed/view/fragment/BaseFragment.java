@@ -45,6 +45,7 @@ public class BaseFragment extends Fragment {
                 return;
             }
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.anim.fade_animation, R.anim.fade_animation);
             ft.remove(loadingFragment);
             ft.commit();
             loadingFragment = null;
