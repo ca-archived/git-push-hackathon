@@ -12,7 +12,5 @@ import java.util.ArrayList;
  */
 
 public interface CommitView extends BaseView {
-    public void showDiffFileList(ArrayList<DiffFile> diffFiles);
-
     public void showRepoInfo(Repository repository);
 }

@@ -24,8 +24,8 @@ public class BaseFragment extends Fragment {
     private boolean FTSafe;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onResume() {
+        super.onResume();
         FTSafe = true;
         execQueuedTransactions();
     }
@@ -75,8 +75,8 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onPause() {
+        super.onPause();
         FTSafe = false;
     }
 

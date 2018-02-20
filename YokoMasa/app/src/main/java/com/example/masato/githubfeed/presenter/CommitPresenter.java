@@ -19,15 +19,6 @@ public class CommitPresenter {
 
     private CommitView view;
 
-    private void handleDiffFileResult(GitHubApiResult result) {
-        if (result.isSuccessful) {
-            ArrayList<DiffFile> diffFiles = (ArrayList<DiffFile>) result.resultObject;
-            view.showDiffFileList(diffFiles);
-        } else {
-            view.showToast(result.failure.textId);
-        }
-    }
-
     private void handleRepoResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
@@ -38,7 +29,6 @@ public class CommitPresenter {
     }
 
     private void initContent(Commit commit) {
-        GitHubApi.getApi().fetchCommitDiffFileList(commit, this::handleDiffFileResult);
         if (commit.repository != null) {
             view.showRepoInfo(commit.repository);
         } else {

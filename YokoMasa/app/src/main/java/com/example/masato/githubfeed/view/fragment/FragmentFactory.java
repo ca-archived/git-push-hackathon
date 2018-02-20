@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.view.fragment;
 
 import android.os.Bundle;
 
+import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.PullRequest;
 import com.example.masato.githubfeed.model.Repository;
@@ -130,6 +131,15 @@ public class FragmentFactory {
         EventListFragment eventListFragment = new EventListFragment();
         eventListFragment.setArguments(bundle);
         return eventListFragment;
+    }
+
+    public static CommitOverviewFragment createCommitOverviewFragment(Commit commit, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("commit", commit);
+        bundle.putString("name", name);
+        CommitOverviewFragment commitOverviewFragment = new CommitOverviewFragment();
+        commitOverviewFragment.setArguments(bundle);
+        return commitOverviewFragment;
     }
 
     private FragmentFactory(){}
