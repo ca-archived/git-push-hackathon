@@ -33,7 +33,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:background="@drawable/box_border_cream_back"
+                        android:background="@drawable/box_border_gray_back"
                         android:gravity="center">
 
                         <ImageView
@@ -46,7 +46,8 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/repo_star"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"/>
 
                     </LinearLayout>
 
@@ -57,7 +58,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:background="@drawable/box_border_cream_back"
+                        android:background="@drawable/box_border_gray_back"
                         android:gravity="center">
 
                         <ImageView
@@ -70,7 +71,8 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/repo_watch"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"/>
 
                     </LinearLayout>
 
@@ -80,7 +82,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:background="@drawable/box_border_cream_back"
+                        android:background="@drawable/box_border_gray_back"
                         android:gravity="center">
 
                         <ImageView
@@ -92,7 +94,8 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/repo_fork"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"/>
 
                     </LinearLayout>
 
@@ -104,8 +107,9 @@
                     android:layout_marginTop="15dp"
                     android:textSize="@dimen/text_medium"
                     android:text="@string/repo_readme"
+                    android:textColor="@color/white"
                     android:padding="@dimen/child_padding"
-                    android:background="@drawable/box_border_cream_back"/>
+                    android:background="@drawable/box_border_gray_back"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -119,7 +123,6 @@
                         android:layout_height="wrap_content"/>
 
                 </FrameLayout>
-
 
             </LinearLayout>
 

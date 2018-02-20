@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
     android:padding="@dimen/child_padding"
-    android:background="@drawable/box_border_cream_back">
+    android:background="@drawable/box_border_gray_back">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/diff_header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_medium"/>
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_small"
-            android:textColor="@color/green"
+            android:textColor="@color/diff_green"
             android:text="+"/>
 
         <android.support.v7.widget.AppCompatTextView
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_small"
-            android:textColor="@color/green"/>
+            android:textColor="@color/diff_green"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:textSize="@dimen/text_small"
-            android:textColor="@color/red"
+            android:textColor="@color/diff_red"
             android:text="-"/>
 
         <android.support.v7.widget.AppCompatTextView
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_small"
-            android:textColor="@color/red"/>
+            android:textColor="@color/diff_red"/>
 
 
     </LinearLayout>

@@ -38,4 +38,11 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="ListCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">7dp</item>
+        <item name="android:layout_marginRight">7dp</item>
+    </style>
+
 </resources>

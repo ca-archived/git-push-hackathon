@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/child_padding"
-                android:background="@drawable/box_border_cream_back"
+                android:background="@drawable/box_border_gray_back"
                 android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -58,12 +58,14 @@
                         android:id="@+id/pull_request_overview_author_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/text_medium"/>
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/pull_request_overview_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/text_small"/>
 
                 </LinearLayout>
