@@ -22,6 +22,7 @@
 
 package io.moatwel.github.data.repository
 
+import io.moatwel.github.BuildConfig
 import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
@@ -63,7 +64,7 @@ class AuthDataDataRepository (
   }
 
   override fun fetch(code: String): Observable<AuthData> {
-    return dataSource.fetchFromApi(code)
+    return dataSource.fetchFromApi(code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET)
       .map { geneAuthDataFromResponse(it) }
   }
 
