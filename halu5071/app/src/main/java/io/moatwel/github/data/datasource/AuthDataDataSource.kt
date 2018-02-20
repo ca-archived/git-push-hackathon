@@ -25,14 +25,11 @@ package io.moatwel.github.data.datasource
 import android.content.Context
 import androidx.content.edit
 import com.squareup.moshi.Moshi
-import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
 import io.moatwel.github.data.network.StringConverterFactory
 import io.moatwel.github.data.network.retrofit.AccessTokenApi
 import io.moatwel.github.domain.entity.AuthData
 import io.reactivex.Observable
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -73,7 +70,6 @@ class AuthDataDataSource (
   }
 
   fun fetchFromApi(code: String, clientId: String, clientSecret: String): Observable<String> {
-    // TODO: replace this implementation to Retrofit after creating StringConverterFactory
     val retrofit = Retrofit.Builder()
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(StringConverterFactory())
