@@ -40,10 +40,9 @@ public abstract class PaginatingListFragment extends BaseFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        if (savedInstanceState == null) {
-            presenter = onCreatePresenter();
-            presenter.refresh();
-        }
+        presenter = onCreatePresenter();
+        presenter.refresh();
+
     }
 
     protected abstract PaginatingListPresenter onCreatePresenter();

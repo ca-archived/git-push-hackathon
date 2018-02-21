@@ -153,7 +153,9 @@ public class GitHubObjectMapper {
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0;i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                issues.add(mapIssue(jsonObject));
+                if (!jsonObject.has("pull_request")) {
+                    issues.add(mapIssue(jsonObject));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
