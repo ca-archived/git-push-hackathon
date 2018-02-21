@@ -29,14 +29,14 @@ import android.arch.paging.PagedList
 import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
-import io.moatwel.github.domain.usecase.UserUseCase
+import io.moatwel.github.domain.repository.UserRepository
 
 class EventViewModel(
   api: EventApi,
-  userUseCase: UserUseCase
+  userRepository: UserRepository
 ) : ViewModel() {
 
-  private val factory: EventDataSourceFactory = EventDataSourceFactory(api, userUseCase)
+  private val factory: EventDataSourceFactory = EventDataSourceFactory(api, userRepository)
 
   val events: LiveData<PagedList<Event>>
 

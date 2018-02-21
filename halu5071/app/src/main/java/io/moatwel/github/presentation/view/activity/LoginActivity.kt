@@ -29,6 +29,7 @@ import android.support.customtabs.CustomTabsIntent
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.R
+import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.presentation.util.observeOnMainThread
@@ -41,6 +42,9 @@ class LoginActivity : DaggerAppCompatActivity() {
 
   @Inject
   lateinit var authDataRepository: AuthDataRepository
+
+  @Inject
+  lateinit var userRepository: UserDataRepository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -82,6 +86,7 @@ class LoginActivity : DaggerAppCompatActivity() {
 
   private fun saveAuthData(authData: AuthData) {
     authDataRepository.save(authData)
+    userRepository.loadUser()
     val intent = Intent(this, MainActivity::class.java)
     startActivity(intent)
   }

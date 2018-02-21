@@ -29,13 +29,12 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.Toast
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
 import io.moatwel.github.data.network.retrofit.EventApi
+import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.databinding.ActivityMainBinding
 import io.moatwel.github.domain.repository.AuthDataRepository
-import io.moatwel.github.domain.usecase.UserUseCase
 import io.moatwel.github.presentation.view.adapter.EventAdapter
 import io.moatwel.github.presentation.view.viewmodel.EventViewModel
 import io.moatwel.github.presentation.view.viewmodel.EventViewModelFactory
@@ -51,7 +50,7 @@ class MainActivity : DaggerAppCompatActivity() {
   lateinit var eventApi: EventApi
 
   @Inject
-  lateinit var userUseCase: UserUseCase
+  lateinit var userRepository: UserDataRepository
 
   private lateinit var binding: ActivityMainBinding
   private val adapter = EventAdapter()
@@ -66,14 +65,11 @@ class MainActivity : DaggerAppCompatActivity() {
       return
     }
 
-    userUseCase.loadUserData()
-    userUseCase.loadUserObservable
+    userRepository.userLoadObservable
       .subscribe({
         // do nothing
       }, {
         Timber.e(it)
-        Toast.makeText(this, getString(R.string.str_failed_to_login), Toast.LENGTH_SHORT)
-          .show()
       }, {
         initViewModel()
       })
@@ -82,7 +78,7 @@ class MainActivity : DaggerAppCompatActivity() {
   private fun initViewModel() {
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-    val eventViewModelFactory = EventViewModelFactory(eventApi, userUseCase)
+    val eventViewModelFactory = EventViewModelFactory(eventApi, userRepository)
     val viewModel = ViewModelProviders.of(this, eventViewModelFactory)
       .get(EventViewModel::class.java)
 

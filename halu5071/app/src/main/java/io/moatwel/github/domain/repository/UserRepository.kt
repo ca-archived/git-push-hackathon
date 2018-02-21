@@ -30,5 +30,10 @@ interface UserRepository {
   /**
    *  me user data from somewhere
    */
-  fun get(): Observable<User>
+  fun me(): User?
+
+  /**
+   *  load user data
+   */
+  fun loadUser()
 }
