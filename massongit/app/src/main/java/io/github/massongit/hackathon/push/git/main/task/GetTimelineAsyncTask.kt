@@ -110,8 +110,8 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
 
                 if (actorLogin != null && repoName != null) {
                     when (type) {
-                        "GollumEvent" -> payload?.get("pages") as? JsonArray
-                        "PushEvent" -> payload?.get("commits") as? JsonArray
+                        "GollumEvent" -> (payload?.get("pages") as? JsonArray)?.reversed()
+                        "PushEvent" -> (payload?.get("commits") as? JsonArray)?.reversed()
                         else -> listOf(payload)
                     }?.forEach {
                         try {
