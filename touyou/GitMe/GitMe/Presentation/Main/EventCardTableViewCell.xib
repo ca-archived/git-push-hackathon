@@ -102,19 +102,26 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCT-SF-MhO">
                                                 <rect key="frame" x="352" y="-5" width="120" height="30"/>
                                                 <state key="normal" title="▼READMEをみる">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.1294117719" green="0.1294117719" blue="0.1294117719" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="tapReadMe:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Sxc-Kh-Jrw"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.74117648599999997" green="0.74117648599999997" blue="0.74117648599999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="HCT-SF-MhO" secondAttribute="trailing" id="TUr-ZZ-fGn"/>
                                             <constraint firstItem="HCT-SF-MhO" firstAttribute="top" secondItem="WCm-fM-gZv" secondAttribute="top" constant="-5" id="UpS-ei-TSR"/>
                                             <constraint firstAttribute="height" constant="20" id="qbj-7W-66D"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.93333333730000001" green="0.93333333730000001" blue="0.93333333730000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                             </stackView>

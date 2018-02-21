@@ -19,8 +19,8 @@ protocol MainPresenterProtocol {
     var itemCount: Int { get }
 
     func fetchUser()
-    func reload(_ completion: @escaping () -> Void)
-    func loadMore(_ completion: @escaping () -> Void)
+    func reload(_ completion: @escaping (Int?) -> Void)
+    func loadMore(_ completion: @escaping (Int?) -> Void)
 }
 
 class MainPresenter: NSObject {
@@ -40,30 +40,52 @@ class MainPresenter: NSObject {
     private var cellData: [EventCellViewModel] = []
     private(set) var logInData = Variable<UserInfoViewModel>(UserInfoViewModel())
 
-    private func subscribeEventCellViewModel(_ datas: [EventCellViewModel]) -> [EventCellViewModel] {
+    private func subscribeEventCellViewModel(_ completion: @escaping (Int?) -> Void) {
 
-        var newDatas = [EventCellViewModel]()
-        for data in datas {
-            var newData = data
-            data.readmeObservable
-                .observeOn(MainScheduler.instance)
-                .subscribe { event in
+        for i in 0 ..< cellData.count {
 
-                    switch event {
-                    case .next(let value):
+            if cellData[i].repositoryDescription == nil {
 
-                        newData.repositoryDescription = value.repositoryDescription
-                        newData.repositoryInfo = value.repoInfo
-                    case .error(let error):
+                cellData[i].repoObservable
+                    .observeOn(MainScheduler.instance)
+                    .subscribe { [unowned self] event in
 
-                        print(error)
-                    case .completed:
+                        switch event {
+                        case .next(let value):
 
-                        break
-                    }
-                }.disposed(by: disposeBag)
+                            self.cellData[i].repositoryDescription = value.repositoryDescription
+                            self.cellData[i].repositoryInfo = value.repoInfo
+                            completion(i)
+                        case .error(let error):
+
+                            print(error)
+                        case .completed:
+
+                            break
+                        }
+                    }.disposed(by: disposeBag)
+            }
+            if cellData[i].readmeUrl == nil {
+
+                cellData[i].readmeObservable
+                    .observeOn(MainScheduler.instance)
+                    .subscribe { [unowned self] event in
+
+                        switch event {
+                        case .next(let value):
+
+                            self.cellData[i].readmeUrl = value.url
+                            completion(i)
+                        case .error(let error):
+
+                            print(error)
+                        case .completed:
+
+                            break
+                        }
+                    }.disposed(by: disposeBag)
+            }
         }
-        return newDatas
     }
 }
 
@@ -89,28 +111,15 @@ extension MainPresenter: UITableViewDataSource {
         cell.timeLabel.text = cellData[indexPath.row].createAt.offsetString
         cell.repoNameLabel.text = cellData[indexPath.row].repositoryName
         cell.iconImageView.pin_setImage(from: cellData[indexPath.row].iconUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+        cell.repoDescLabel.text = cellData[indexPath.row].repositoryDescription
+        cell.repoInfoLabel.text = cellData[indexPath.row].repositoryInfo
+        cell.readmeUrl = cellData[indexPath.row].readmeUrl
 
-        cellData[indexPath.row].readmeObservable
-            .observeOn(MainScheduler.instance)
-            .subscribe { event in
-
-                switch event {
-                case .next(let value):
-
-                    cell.readmeUrl = value.url
-                case .error(let error):
-
-                    print(error)
-                case .completed:
-
-                    break
-                }
-            }.disposed(by: disposeBag)
-        
+        cell.isShowReadme = cellData[indexPath.row].isShowReadme
         cell.completion = {
 
             self.cellData[indexPath.row].isShowReadme = !self.cellData[indexPath.row].isShowReadme
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadData(at: indexPath.row)
         }
 
         return cell
@@ -152,7 +161,7 @@ extension MainPresenter: MainPresenterProtocol {
             }.disposed(by: disposeBag)
     }
 
-    func reload(_ completion: @escaping () -> Void) {
+    func reload(_ completion: @escaping (Int?) -> Void) {
 
         self.page = 1
         converter.fetchEvent(at: self.page, every: self.perPage)
@@ -163,6 +172,7 @@ extension MainPresenter: MainPresenterProtocol {
                 case .next(let value):
 
                     self.cellData = value
+                    self.subscribeEventCellViewModel(completion)
                 case .error(let error):
 
                     print(error)
@@ -170,11 +180,11 @@ extension MainPresenter: MainPresenterProtocol {
 
                     break
                 }
-                completion()
+                completion(nil)
             }.disposed(by: disposeBag)
     }
 
-    func loadMore(_ completion: @escaping () -> Void) {
+    func loadMore(_ completion: @escaping (Int?) -> Void) {
 
         self.page += 1
         converter.fetchEvent(at: self.page, every: self.perPage)
@@ -185,6 +195,7 @@ extension MainPresenter: MainPresenterProtocol {
                 case .next(let value):
 
                     self.cellData.append(contentsOf: value)
+                    self.subscribeEventCellViewModel(completion)
                 case .error(let error):
 
                     print(error)
@@ -192,7 +203,7 @@ extension MainPresenter: MainPresenterProtocol {
 
                     break
                 }
-                completion()
+                completion(nil)
             }.disposed(by: disposeBag)
     }
 }

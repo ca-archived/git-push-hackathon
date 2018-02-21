@@ -26,9 +26,43 @@ class EventCardTableViewCell: UITableViewCell {
     @IBOutlet weak var readmeConstraint: NSLayoutConstraint!
     @IBOutlet weak var readmeButton: UIButton!
 
-    var readmeUrl: URL?
+    var readmeUrl: URL? {
+
+        didSet {
+
+            if readmeUrl == nil {
+
+                readmeView.isHidden = true
+            } else {
+
+                readmeView.isHidden = false
+            }
+        }
+    }
     var downView: DownView?
     var completion: (() -> Void)!
+    var isShowReadme: Bool! {
+
+        didSet {
+
+            if !isShowReadme {
+
+                readmeConstraint.constant = 20
+                downView?.removeFromSuperview()
+                readmeButton.setTitle("▼READMEをみる", for: .normal)
+            } else if let url = self.readmeUrl {
+
+                readmeConstraint.constant = 200
+                let rect = self.readmeView.bounds
+                if let downView = try? DownView(frame: CGRect(origin: rect.origin, size: CGSize(width: UIScreen.main.bounds.width - 40, height: 200)), markdownString: String(contentsOf: url, encoding: .utf8)) {
+
+                    readmeView.insertSubview(downView, belowSubview: self.readmeButton)
+                    self.downView = downView
+                    readmeButton.setTitle("▲READMEを閉じる", for: .normal)
+                }
+            }
+        }
+    }
 
     // MARK: UITableViewCell
 
@@ -41,30 +75,8 @@ class EventCardTableViewCell: UITableViewCell {
 
     @IBAction func tapReadMe(_ sender: Any) {
 
-        print("tap the button \(self.isShowReadme) \(self.readmeUrl)")
-        if isShowReadme {
-
-            readmeConstraint.constant = 20
-            downView?.removeFromSuperview()
-            readmeButton.setTitle("▼READMEをみる", for: .normal)
-            readmeButton.setTitleColor(.white, for: .normal)
-            isShowReadme = false
-        } else if let url = self.readmeUrl {
-
-            readmeConstraint.constant = 100
-            let rect = self.readmeView.bounds
-            if let downView = try? DownView(frame: CGRect(origin: rect.origin, size: CGSize(width: rect.width, height: 100)), markdownString: String(contentsOf: url, encoding: .utf8)) {
-
-                readmeView.insertSubview(downView, belowSubview: self.readmeButton)
-                self.downView = downView
-                readmeButton.setTitle("▲READMEを閉じる", for: .normal)
-                readmeButton.setTitleColor(UIColor.GitMe.darkGray, for: .normal)
-                isShowReadme = true
-            }
-        }
         completion()
     }
-    private var isShowReadme: Bool = false
 }
 
 extension EventCardTableViewCell: Reusable, NibLoadable {}

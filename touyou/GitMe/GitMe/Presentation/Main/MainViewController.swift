@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
                     switch event {
                     case .next(let value):
                         TabBarController.router.openLoadingWindow(userInfo: value)
-                        self.presenter.reload { [weak self] in
+                        self.presenter.reload { [weak self] row in
 
                             guard let `self` = self else { return }
 
@@ -60,7 +60,8 @@ class MainViewController: UIViewController {
 
                                 TabBarController.router.closeLoadingWindow()
                             })
-                            self.tableView.reloadData()
+
+                            self.tableView.reloadData(at: row)
                         }
                     case .error(let error):
                         print(error)
@@ -86,8 +87,6 @@ class MainViewController: UIViewController {
             tableView.dataSource = presenter
             tableView.delegate = self
             tableView.refreshControl = refreshControl
-            tableView.rowHeight = UITableViewAutomaticDimension
-            tableView.estimatedRowHeight = 155.0
             tableView.allowsSelection = false
             tableView.allowsMultipleSelection = false
         }
@@ -95,12 +94,12 @@ class MainViewController: UIViewController {
 
     @objc private func refresh(_ sender: UIRefreshControl) {
 
-        presenter.reload { [weak self] in
+        presenter.reload { [weak self] row in
 
             guard let `self` = self else { return }
 
             sender.endRefreshing()
-            self.tableView.reloadData()
+            self.tableView.reloadData(at: row)
         }
     }
 }
@@ -114,12 +113,12 @@ extension MainViewController: UITableViewDelegate {
         if tableView.contentOffset.y + tableView.frame.size.height > tableView.contentSize.height && tableView.isDragging && !self.isLoading {
 
             self.isLoading = true
-            presenter.loadMore { [weak self] in
+            presenter.loadMore { [weak self] row in
 
                 guard let `self` = self else { return }
 
                 self.isLoading = false
-                self.tableView.reloadData()
+                self.tableView.reloadData(at: row)
             }
         }
     }

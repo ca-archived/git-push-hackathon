@@ -20,6 +20,7 @@ class EventCellViewModel {
     var isShowReadme: Bool = false
     var repositoryDescription: String?
     var repositoryInfo: String?
+    var readmeUrl: URL?
 
     init() {}
 }
