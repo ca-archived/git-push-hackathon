@@ -25,73 +25,68 @@ class MainConverter {
 
     private func convertEventTitle(of event: Event) -> NSMutableAttributedString {
 
-        let boldStyle: [NSAttributedStringKey: Any] = [
-            .font: UIFont(name: "URWDIN-Demi", size: 14.0) ?? UIFont.boldSystemFont(ofSize: 14.0)
-        ]
-
         let mutableAttributedString = NSMutableAttributedString()
-        mutableAttributedString.append(NSAttributedString(
-            string: event.actor.displayLogin,
-            attributes: boldStyle)
-        )
+        mutableAttributedString.append([
+            (event.actor.displayLogin, .bold)
+            ])
 
         switch event.type {
         case .create:
 
-            mutableAttributedString.append(NSAttributedString(string: " created "))
-            mutableAttributedString.append(NSAttributedString(
-                string: event.repo!.name,
-                attributes: boldStyle)
-            )
+            mutableAttributedString.append([
+                (" created ", .normal),
+                (event.repo!.name, .bold)
+                ])
         case .issueComment:
 
-            mutableAttributedString.append(NSAttributedString(string: " \(event.payload.action!) comment on issue "))
-            mutableAttributedString.append(NSAttributedString(
-                string: "#\(event.payload.issue!.number)",
-                attributes: boldStyle)
-            )
-            mutableAttributedString.append(NSAttributedString(string: " in "))
-            mutableAttributedString.append(NSAttributedString(
-                string: event.repo!.name,
-                attributes: boldStyle)
-            )
+            mutableAttributedString.append([
+                (" \(event.payload.action!) comment on issue ", .normal),
+                ("#\(event.payload.issue!.number)", .bold),
+                (" in ", .normal),
+                (event.repo!.name, .bold)
+                ])
         case .issues:
 
-            mutableAttributedString.append(NSAttributedString(string: " \(event.payload.action!)  issue "))
-            mutableAttributedString.append(NSAttributedString(
-                string: "#\(event.payload.issue!.number)",
-                attributes: boldStyle)
-            )
-            mutableAttributedString.append(NSAttributedString(string: " in "))
-            mutableAttributedString.append(NSAttributedString(
-                string: event.repo!.name,
-                attributes: boldStyle)
-            )
+            mutableAttributedString.append([
+                (" \(event.payload.action!)  issue ", .normal),
+                ("#\(event.payload.issue!.number)", .bold),
+                (" in ", .normal),
+                (event.repo!.name, .bold)
+                ])
         case .push:
 
-            mutableAttributedString.append(NSAttributedString(string: " pushed to "))
-            mutableAttributedString.append(NSAttributedString(
-                string: String(event.payload.ref!.split(separator: "/").last!),
-                attributes: boldStyle)
-            )
-            mutableAttributedString.append(NSAttributedString(string: " at "))
-            mutableAttributedString.append(NSAttributedString(
-                string: event.repo!.name,
-                attributes: boldStyle)
-            )
+            mutableAttributedString.append([
+                (" pushed to ", .normal),
+                (String(event.payload.ref!.split(separator: "/").last!), .bold),
+                (" at ", .normal),
+                (event.repo!.name, .bold)
+                ])
         case .watch:
 
-            mutableAttributedString.append(NSAttributedString(string: " starred "))
-            mutableAttributedString.append(NSAttributedString(
-                string: event.repo!.name,
-                attributes: boldStyle)
-            )
+            mutableAttributedString.append([
+                (" starred ", .normal),
+                (event.repo!.name, .bold)
+                ])
         default:
 
-            mutableAttributedString.append(NSAttributedString(string: " \(event.type.rawValue): Unknown"))
+            mutableAttributedString.append([
+                (" \(event.type.rawValue): Unknown", .normal)
+                ])
         }
 
         return mutableAttributedString
+    }
+
+    private func convertRepositoryInfo(of repo: Repository) -> String {
+
+        let starCount = repo.stargazersCount ?? 0
+        let starString = starCount >= 1000 ? "\(starCount / 1000)K" : "\(starCount)"
+        if let dateString = repo.updatedAt?.dateString {
+
+            return "\(repo.language ?? "None")   ★\(starString)  Updated \(dateString)"
+        }
+
+        return "\(repo.language ?? "None")   ★\(starString)"
     }
 }
 
@@ -120,16 +115,12 @@ extension MainConverter: MainConverterProtocol {
 
                     let repoViewModel = RepositoryViewModel()
                     repoViewModel.repositoryDescription = repository.description
-                    repoViewModel.language = repository.language
-                    repoViewModel.starCount = repository.stargazersCount ?? 0
-                    repoViewModel.repositoryCreatedAt = repository.updatedAt
+                    repoViewModel.repoInfo = self.convertRepositoryInfo(of: repository)
                     return repoViewModel
                 }.share()
                 eventCellViewModel.readmeObservable = readme.map { readme in
 
-                    let readmeViewModel = ReadmeViewModel()
-                    readmeViewModel.url = readme.downloadUrl
-                    return readmeViewModel
+                    return readme.downloadUrl
                 }.share()
 
                 return eventCellViewModel

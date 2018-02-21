@@ -74,7 +74,7 @@ class MainPresenter: NSObject {
                         switch event {
                         case .next(let value):
 
-                            self.cellData[i].readmeUrl = value.url
+                            self.cellData[i].readmeUrl = value
                             completion(i)
                         case .error(let error):
 

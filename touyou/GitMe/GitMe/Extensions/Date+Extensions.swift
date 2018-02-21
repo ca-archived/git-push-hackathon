@@ -69,4 +69,12 @@ extension Date {
         return "now"
     }
 
+    var dateString: String {
+
+        let dateFormat = DateFormatter()
+        dateFormat.dateStyle = .short
+        dateFormat.timeStyle = .none
+        dateFormat.locale = Locale(identifier: "ja_JP")
+        return dateFormat.string(from: self)
+    }
 }
