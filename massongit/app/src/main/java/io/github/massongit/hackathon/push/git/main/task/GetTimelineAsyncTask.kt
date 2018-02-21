@@ -199,11 +199,8 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                                 }
                                             }
 
-                                            if (event == null) {
-                                                PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(commitRepo), actorAvatar, createdAt, branch, commitMessage)
-                                            } else {
-                                                event
-                                            }
+                                            event
+                                                    ?: PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(commitRepo), actorAvatar, createdAt, branch, commitMessage)
                                         }
                                     }
                                 }
