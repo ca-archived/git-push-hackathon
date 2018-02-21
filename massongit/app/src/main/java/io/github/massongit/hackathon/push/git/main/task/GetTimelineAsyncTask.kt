@@ -194,13 +194,13 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                                         actorAvatarCache[userAvatarUrl] = userAvatar
                                                     }
 
-                                                    event = PushEvent(userLogin, repoName, this.getHtmlUrl(user), this.getHtmlUrl(payloadElement), userAvatar, createdAt, branch, commitMessage)
+                                                    event = PushEvent(userLogin, repoName, this.getHtmlUrl(user), this.getHtmlUrl(commitRepo), userAvatar, createdAt, branch, commitMessage)
                                                     break
                                                 }
                                             }
 
                                             if (event == null) {
-                                                PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(payloadElement), actorAvatar, createdAt, branch, commitMessage)
+                                                PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(commitRepo), actorAvatar, createdAt, branch, commitMessage)
                                             } else {
                                                 event
                                             }
