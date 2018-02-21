@@ -37,7 +37,7 @@ interface AuthDataRepository {
   /**
    *  read auth data from some where
    *
-   *  @return String which present json resouce of auth data or empty
+   *  @return AuthData nullable
    */
   fun get(): AuthData?
 

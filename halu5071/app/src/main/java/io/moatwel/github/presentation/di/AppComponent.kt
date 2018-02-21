@@ -38,7 +38,6 @@ import javax.inject.Singleton
   NetworkModule::class,
   RepositoryModule::class,
   DataSourceModule::class,
-  UseCaseModule::class,
   MainActivityBuilder::class,
   LoginActivityBuilder::class
 ])

@@ -25,7 +25,12 @@ package io.moatwel.github.data.repository
 import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
+import io.moatwel.github.presentation.util.observeOnMainThread
+import io.moatwel.github.presentation.util.subscribeOnIoThread
 import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
+import timber.log.Timber
 
 /**
  *  This class is a implementation class of [UserRepository] on domain layer
@@ -36,7 +41,26 @@ import io.reactivex.Observable
 class UserDataRepository (
   private val cloudUserDataSource: CloudUserDataSource) : UserRepository {
 
-  override fun get(): Observable<User> {
-    return cloudUserDataSource.getUser()
+  private var user: User? = null
+
+  private val userLoadSubject: Subject<Unit> = BehaviorSubject.create()
+  val userLoadObservable: Observable<Unit>
+    get() = userLoadSubject
+
+  override fun me(): User? {
+    return this.user
+  }
+
+  override fun loadUser() {
+    cloudUserDataSource.getUser()
+      .subscribeOnIoThread()
+      .observeOnMainThread()
+      .subscribe({
+        this.user = it
+        this.userLoadSubject.onComplete()
+      }, {
+        Timber.e(it)
+        this.userLoadSubject.onError(it)
+      })
   }
 }

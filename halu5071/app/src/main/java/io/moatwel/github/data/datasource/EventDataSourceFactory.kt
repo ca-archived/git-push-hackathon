@@ -25,14 +25,14 @@ package io.moatwel.github.data.datasource
 import android.arch.paging.DataSource
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
-import io.moatwel.github.domain.usecase.UserUseCase
+import io.moatwel.github.domain.repository.UserRepository
 
 class EventDataSourceFactory (
   private val api: EventApi,
-  private val userUseCase: UserUseCase
+  private val userRepository: UserRepository
 ) : DataSource.Factory<Int, Event> {
 
   override fun create(): DataSource<Int, Event> {
-    return CloudEventDataSource(api, userUseCase)
+    return CloudEventDataSource(api, userRepository)
   }
 }

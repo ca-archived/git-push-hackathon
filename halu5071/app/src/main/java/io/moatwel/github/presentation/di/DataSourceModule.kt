@@ -31,7 +31,7 @@ import io.moatwel.github.data.datasource.CloudUserDataSource
 import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.network.retrofit.UserApi
-import io.moatwel.github.domain.usecase.UserUseCase
+import io.moatwel.github.domain.repository.UserRepository
 
 @Module
 class DataSourceModule {
@@ -48,7 +48,7 @@ class DataSourceModule {
 
   @Provides
   fun provideEventDataSourceFactory(api: EventApi,
-                                    userUseCase: UserUseCase): EventDataSourceFactory {
-    return EventDataSourceFactory(api, userUseCase)
+                                    userRepository: UserRepository): EventDataSourceFactory {
+    return EventDataSourceFactory(api, userRepository)
   }
 }

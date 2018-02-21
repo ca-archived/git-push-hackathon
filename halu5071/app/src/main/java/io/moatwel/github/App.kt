@@ -29,6 +29,7 @@ import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.support.DaggerApplication
+import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.presentation.di.DaggerAppComponent
 import timber.log.Timber
@@ -39,11 +40,13 @@ class App : DaggerApplication(), HasActivityInjector {
   @Inject
   lateinit var authDataRepository: AuthDataRepository
 
+  @Inject
+  lateinit var userRepository: UserDataRepository
+
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
     DaggerAppComponent.builder()
       .application(this)
       .build()
-
 
   override fun onCreate() {
     super.onCreate()
@@ -55,7 +58,10 @@ class App : DaggerApplication(), HasActivityInjector {
   }
 
   private fun loadAuthData() {
-    Timber.d("AccessToken: ${authDataRepository.get()?.token}")
+    if (authDataRepository.get() != null) {
+      userRepository.loadUser()
+      Timber.d("AccessToken: ${authDataRepository.get()?.token}")
+    }
   }
 
   private fun initTimber() {

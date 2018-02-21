@@ -25,12 +25,12 @@ package io.moatwel.github.data.datasource
 import android.arch.paging.PageKeyedDataSource
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
-import io.moatwel.github.domain.usecase.UserUseCase
+import io.moatwel.github.domain.repository.UserRepository
 import timber.log.Timber
 
 class CloudEventDataSource (
   private val api: EventApi,
-  private val userUseCase: UserUseCase
+  private val userRepository: UserRepository
 ) : PageKeyedDataSource<Int, Event>(){
 
   private fun getList(name: String,
@@ -58,7 +58,7 @@ class CloudEventDataSource (
   }
 
   override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Event>) {
-    getList(userUseCase.user?.login ?: "", params.key) { events, next ->
+    getList(userRepository.me()?.login ?: "", params.key) { events, next ->
       Timber.d("next: $next")
       callback.onResult(events, next)
     }
@@ -66,7 +66,7 @@ class CloudEventDataSource (
 
   override fun loadInitial(params: LoadInitialParams<Int>,
                            callback: LoadInitialCallback<Int, Event>) {
-    getList(userUseCase.user?.login ?: "", 1) { events, next ->
+    getList(userRepository.me()?.login ?: "", 1) { events, next ->
       callback.onResult(events, null, next)
     }
   }
