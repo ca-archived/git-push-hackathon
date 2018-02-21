@@ -79,7 +79,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
     override fun doInBackground(vararg units: Unit): List<Event> {
         Log.v(GetTimelineAsyncTask.TAG, "doInBackground called")
         val events = mutableListOf<Event?>()
-        val actorAvatarCache = mutableMapOf<String, Bitmap>()
+        val avatarCache = mutableMapOf<String, Bitmap>()
 
         try {
             var receivedEventsUrl = "https://api.github.com/users/%s/received_events".format(this.helper.userName)
@@ -100,13 +100,13 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                 val actorLogin = actor?.get("login")?.asString()
                 val actorHtmlUrl = this.getHtmlUrl(actor)
                 val actorAvatarUrl = actor?.get("avatar_url")?.asString()
-                val actorAvatar: Bitmap = actorAvatarCache[actorAvatarUrl]
+                val actorAvatar: Bitmap = avatarCache[actorAvatarUrl]
                         ?: URL(actorAvatarUrl).openStream().use {
                             BitmapFactory.decodeStream(it)
                         }
 
-                if (actorAvatarUrl != null && !actorAvatarCache.contains(actorAvatarUrl)) {
-                    actorAvatarCache[actorAvatarUrl] = actorAvatar
+                if (actorAvatarUrl != null && !avatarCache.contains(actorAvatarUrl)) {
+                    avatarCache[actorAvatarUrl] = actorAvatar
                 }
 
                 if (actorLogin != null && repoName != null) {
@@ -185,13 +185,13 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                                 val userLogin = user?.get("login")?.asString()
                                                 if (userLogin != null) {
                                                     val userAvatarUrl = user.get("avatar_url")?.asString()
-                                                    val userAvatar: Bitmap = actorAvatarCache[userAvatarUrl]
+                                                    val userAvatar: Bitmap = avatarCache[userAvatarUrl]
                                                             ?: URL(userAvatarUrl).openStream().use {
                                                                 BitmapFactory.decodeStream(it)
                                                             }
 
-                                                    if (userAvatarUrl != null && !actorAvatarCache.contains(userAvatarUrl)) {
-                                                        actorAvatarCache[userAvatarUrl] = userAvatar
+                                                    if (userAvatarUrl != null && !avatarCache.contains(userAvatarUrl)) {
+                                                        avatarCache[userAvatarUrl] = userAvatar
                                                     }
 
                                                     event = PushEvent(userLogin, repoName, this.getHtmlUrl(user), this.getHtmlUrl(commitRepo), userAvatar, createdAt, branch, commitMessage)
