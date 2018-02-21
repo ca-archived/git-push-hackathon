@@ -41,6 +41,7 @@ class AuthDataDataRepository (
   private var authData: AuthData? = null
 
   override fun save(authData: AuthData) {
+    this.authData = authData
     dataSource.saveToSharedPreference(authData)
   }
 

@@ -8,7 +8,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "io.moatwel.github"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -19,6 +19,7 @@ android {
         def CLIENT_SECRET
         def OAUTH_SCHEME
         def OAUTH_HOST
+        def ALIAS
 
         def file = project.file("gradle.properties")
         if (file.exists()) {
@@ -28,15 +29,18 @@ android {
             CLIENT_SECRET = properties.get("CLIENT_SECRET")
             OAUTH_SCHEME = properties.get("OAUTH_SCHEME")
             OAUTH_HOST = properties.get("OAUTH_HOST")
+            ALIAS = properties.get("KEYSTORE_ALIAS")
         } else {
             CLIENT_ID = System.getenv("CLIENT_ID")
             CLIENT_SECRET = System.getenv("CLIENT_SECRET")
             OAUTH_SCHEME = System.getenv("OAUTH_SCHEME")
             OAUTH_HOST = System.getenv("OAUTH_HOST")
+            ALIAS = System.getenv("KEYSTORE_ALIAS")
         }
 
         buildConfigField 'String', 'CLIENT_ID', "$CLIENT_ID"
         buildConfigField 'String', 'CLIENT_SECRET', "$CLIENT_SECRET"
+        buildConfigField 'String', 'KEY_ALIAS', "$ALIAS"
 
         resValue "string", "oauth_scheme", "$OAUTH_SCHEME"
         resValue "string", "oauth_host", "$OAUTH_HOST"
@@ -45,6 +49,8 @@ android {
                 OAUTH_SCHEME: "@string/oauth_scheme",
                 OAUTH_HOST: "@string/oauth_host"
         ]
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -136,6 +142,11 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:$architecture_comp_version"
     kapt "android.arch.lifecycle:compiler:$architecture_comp_version"
     implementation "android.arch.paging:runtime:1.0.0-alpha5"
+
+    // Encryption
+    implementation "com.madgag.spongycastle:core:$spongy_castle_version"
+    implementation "com.madgag.spongycastle:prov:$spongy_castle_version"
+    implementation "com.github.gfx.util.encrypt:android-encrypt-utils:2.0.0"
 
     // Test
     testImplementation 'junit:junit:4.12'

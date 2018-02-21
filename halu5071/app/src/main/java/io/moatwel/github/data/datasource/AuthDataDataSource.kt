@@ -33,10 +33,12 @@ import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 
 class AuthDataDataSource (
   private val context: Context,
-  private val moshi: Moshi
+  private val moshi: Moshi,
+  private val crypto: Crypto
 ) {
 
   fun saveToSharedPreference(authData: AuthData) {
@@ -44,8 +46,14 @@ class AuthDataDataSource (
     val adapter = moshi.adapter(AuthData::class.java)
     val jsonResource = adapter.toJson(authData)
 
+    Timber.d("PlainJson: $jsonResource")
+
+    val encryptedText = crypto.encrypt(jsonResource)
+
+    Timber.d("EncryptedJson: $encryptedText")
+
     sharedPreferences.edit {
-      putString(ARG_AUTH_DATA, jsonResource)
+      putString(ARG_AUTH_DATA, encryptedText)
     }
   }
 
@@ -53,11 +61,19 @@ class AuthDataDataSource (
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
 
-    return if (jsonResource.isBlank()) {
-      null
-    } else {
-      moshi.adapter(AuthData::class.java).fromJson(jsonResource)
+    Timber.d("EncryptedJson: $jsonResource")
+
+    if (jsonResource.isBlank()) {
+      return null
     }
+
+    val decryptedText = crypto.decrypt(jsonResource)
+
+    Timber.d("DecryptedJson: $decryptedText")
+
+    decryptedText?.let {
+      return moshi.adapter(AuthData::class.java).fromJson(decryptedText)
+    } ?: return null
   }
 
   fun removeFromSharedPreference() {
