@@ -8,7 +8,7 @@
         android:id="@+id/avatar"
         android:layout_width="@android:dimen/app_icon_size"
         android:layout_height="@android:dimen/app_icon_size"
-        android:contentDescription="@string/avater" />
+        android:contentDescription="@string/avatar" />
 
     <LinearLayout
         android:id="@+id/message_layout"
