@@ -16,10 +16,11 @@ class LoginContainer {
 
     func configure(_ viewController: LoginViewController) {
 
-        let useCase: LoginUseCase = LoginUseCase(dataStore: UserDataStore())
+        let converter: LoginConverter = LoginConverter()
 
-        let presenter: LoginViewPresenter = LoginViewPresenter(useCase: useCase)
+        let presenter: LoginPresenter = LoginPresenter(converter: converter)
 
         viewController.presenter = presenter
     }
 }
+

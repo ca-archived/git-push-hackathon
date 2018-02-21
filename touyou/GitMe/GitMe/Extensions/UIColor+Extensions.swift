@@ -10,6 +10,18 @@ import UIKit
 
 extension UIColor {
 
+    struct GitMe {
+
+        static let darkGray = UIColor(hex: "333333")
+        static let gray = UIColor(hex: "666666")
+        static let lightGray = UIColor(hex: "EEEEEE")
+    }
+
+
+}
+
+extension UIColor {
+
     convenience init(hex: String) {
 
         let colorString = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased().filter { "#" != $0 }

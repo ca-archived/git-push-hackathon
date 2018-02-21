@@ -1,3 +1,4 @@
 github "ReactiveX/RxSwift" ~> 4.0
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
-github "onevcat/Kingfisher" ~> 4.0
+github "pinterest/PINRemoteImage"
+github "iwasrobbed/Down"
