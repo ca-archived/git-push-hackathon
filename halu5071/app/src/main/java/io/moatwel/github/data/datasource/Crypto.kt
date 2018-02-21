@@ -23,19 +23,10 @@
 package io.moatwel.github.data.datasource
 
 import android.content.Context
-import android.security.keystore.KeyGenParameterSpec
-import android.security.keystore.KeyProperties
-import android.util.Base64
 import com.github.gfx.util.encrypt.Encryption
-import io.moatwel.github.BuildConfig
 import timber.log.Timber
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.nio.charset.StandardCharsets
 import java.security.*
 import javax.crypto.Cipher
-import javax.crypto.CipherInputStream
-import javax.crypto.CipherOutputStream
 import javax.crypto.NoSuchPaddingException
 
 class Crypto(

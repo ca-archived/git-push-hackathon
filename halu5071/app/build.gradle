@@ -19,7 +19,6 @@ android {
         def CLIENT_SECRET
         def OAUTH_SCHEME
         def OAUTH_HOST
-        def ALIAS
 
         def file = project.file("gradle.properties")
         if (file.exists()) {
@@ -29,18 +28,15 @@ android {
             CLIENT_SECRET = properties.get("CLIENT_SECRET")
             OAUTH_SCHEME = properties.get("OAUTH_SCHEME")
             OAUTH_HOST = properties.get("OAUTH_HOST")
-            ALIAS = properties.get("KEYSTORE_ALIAS")
         } else {
             CLIENT_ID = System.getenv("CLIENT_ID")
             CLIENT_SECRET = System.getenv("CLIENT_SECRET")
             OAUTH_SCHEME = System.getenv("OAUTH_SCHEME")
             OAUTH_HOST = System.getenv("OAUTH_HOST")
-            ALIAS = System.getenv("KEYSTORE_ALIAS")
         }
 
         buildConfigField 'String', 'CLIENT_ID', "$CLIENT_ID"
         buildConfigField 'String', 'CLIENT_SECRET', "$CLIENT_SECRET"
-        buildConfigField 'String', 'KEY_ALIAS', "$ALIAS"
 
         resValue "string", "oauth_scheme", "$OAUTH_SCHEME"
         resValue "string", "oauth_host", "$OAUTH_HOST"
