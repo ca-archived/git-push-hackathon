@@ -37,11 +37,10 @@ import timber.log.Timber
 
 class AuthDataDataSource (
   private val context: Context,
-  private val moshi: Moshi,
-  private val crypto: Crypto
+  private val moshi: Moshi
 ) {
 
-  fun saveToSharedPreference(authData: AuthData) {
+  fun saveToSharedPreference(authData: AuthData, crypto: Crypto) {
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val adapter = moshi.adapter(AuthData::class.java)
     val jsonResource = adapter.toJson(authData)
@@ -57,7 +56,7 @@ class AuthDataDataSource (
     }
   }
 
-  fun readFromSharedPreference(): AuthData? {
+  fun readFromSharedPreference(crypto: Crypto): AuthData? {
     val sharedPreferences = context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE)
     val jsonResource = sharedPreferences.getString(ARG_AUTH_DATA, "")
 

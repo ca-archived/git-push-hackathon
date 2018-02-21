@@ -25,15 +25,14 @@ package io.moatwel.github.data.datasource
 import android.content.Context
 import com.github.gfx.util.encrypt.Encryption
 import timber.log.Timber
-import java.security.*
+import java.security.NoSuchAlgorithmException
+import java.security.NoSuchProviderException
 import javax.crypto.Cipher
 import javax.crypto.NoSuchPaddingException
 
-class Crypto(
+open class Crypto(
   private val context: Context
 ) {
-
-  private lateinit var keyStore: KeyStore
 
   private val cipher: Cipher? by lazy {
     var cipher: Cipher?
