@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     let saveData: UserDefaults = UserDefaults.standard
     
-    //var oauthSwift: OAuth2Swift!
+    var oauthSwift: OAuth2Swift!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +39,18 @@ class ViewController: UIViewController {
     
     @IBAction func singInBtn(_ sender: Any) {
         
-        let oauthSwift = OAuth2Swift(
+        oauthSwift = OAuth2Swift(
             consumerKey: "35372fd64ec013375a66",
             consumerSecret: "d5e895143bc269f6a378c48b0c7f897837bd72c8",
             authorizeUrl: "https://github.com/login/oauth/authorize",
+            accessTokenUrl: "https://github.com/login/oauth/access_token",
             responseType: "token"
         )
         
         print("認証前")
+        
+        self.oauthSwift.allowMissingStateCheck = false
+        self.oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: self.oauthSwift)
         
         let handle = oauthSwift.authorize(
             withCallbackURL: URL(string: "hayakawaapp://oauth-callback")!,
