@@ -33,6 +33,7 @@ import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.moatwel.github.presentation.di.DaggerAppComponent
 import timber.log.Timber
+import java.security.Security
 import javax.inject.Inject
 
 class App : DaggerApplication(), HasActivityInjector {
@@ -54,6 +55,7 @@ class App : DaggerApplication(), HasActivityInjector {
     initLeakCanary()
     initStetho()
     initTimber()
+    initSpongyCastle()
     loadAuthData()
   }
 
@@ -81,5 +83,9 @@ class App : DaggerApplication(), HasActivityInjector {
   private fun initEmoji() {
     val config = BundledEmojiCompatConfig(this)
     EmojiCompat.init(config)
+  }
+
+  private fun initSpongyCastle() {
+    Security.insertProviderAt(org.spongycastle.jce.provider.BouncyCastleProvider(), 1)
   }
 }

@@ -28,6 +28,7 @@ import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
+import io.moatwel.github.data.datasource.Crypto
 import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.network.retrofit.UserApi
@@ -50,5 +51,10 @@ class DataSourceModule {
   fun provideEventDataSourceFactory(api: EventApi,
                                     userRepository: UserRepository): EventDataSourceFactory {
     return EventDataSourceFactory(api, userRepository)
+  }
+
+  @Provides
+  fun provideCrypto(context: Context): Crypto {
+    return Crypto(context)
   }
 }

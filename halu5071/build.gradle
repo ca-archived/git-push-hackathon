@@ -21,6 +21,7 @@ buildscript {
         kotshi_version = '0.3.0'
         architecture_comp_version = '1.1.0'
         data_binding_version = '3.0.1'
+        spongy_castle_version = '1.58.0.0'
     }
 
     repositories {

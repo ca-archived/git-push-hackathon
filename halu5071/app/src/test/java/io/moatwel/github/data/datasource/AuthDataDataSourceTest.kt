@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import io.moatwel.github.TestUtil
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.*
 import org.junit.Before
@@ -23,31 +22,15 @@ class AuthDataDataSourceTest {
 
   private lateinit var moshi: Moshi
   private lateinit var context: Context
+  private lateinit var crypto: Crypto
   private lateinit var authDataDataSource: AuthDataDataSource
-  private val resource: String = TestUtil.readResource("access_token.txt")
 
   @Before
   fun before() {
     moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     context = PowerMockito.mock(Context::class.java)
+    crypto = PowerMockito.mock(Crypto::class.java)
     authDataDataSource = AuthDataDataSource(context, moshi)
-  }
-
-  @Test
-  fun testReadAuthData() {
-    val mockSharedPreferences = PowerMockito.mock(SharedPreferences::class.java)
-    val mockEditor = PowerMockito.mock(SharedPreferences.Editor::class.java)
-
-    `when`(context.getSharedPreferences(ARG_PREFERENCE_NAME, Context.MODE_PRIVATE))
-      .thenReturn(mockSharedPreferences)
-    `when`(mockSharedPreferences.edit()).thenReturn(mockEditor)
-    `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, ""))
-      .thenReturn("{\"token\": \"hogehogeToken\"}")
-
-    val authData = authDataDataSource.readFromSharedPreference()
-
-    assertNotNull(authData)
-    assertThat(authData?.token, `is`("hogehogeToken"))
   }
 
   @Test
@@ -61,7 +44,7 @@ class AuthDataDataSourceTest {
     `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, ""))
       .thenReturn("")
 
-    val authData = authDataDataSource.readFromSharedPreference()
+    val authData = authDataDataSource.readFromSharedPreference(Crypto(context))
 
     assertNull(authData)
   }

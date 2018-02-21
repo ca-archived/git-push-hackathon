@@ -24,10 +24,10 @@ package io.moatwel.github.data.network
 
 import io.moatwel.github.TestUtil
 import io.moatwel.github.data.network.retrofit.AccessTokenApi
-import junit.framework.Assert.assertNotNull
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
