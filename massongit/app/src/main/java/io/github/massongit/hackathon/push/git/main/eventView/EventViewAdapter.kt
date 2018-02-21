@@ -6,7 +6,6 @@ import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.main.event.Event
@@ -61,7 +60,7 @@ class EventViewAdapter(private val context: Context, private val chromeCustomTab
                 }
                 setImageBitmap(item.actorAvatar)
             }
-            message.setText(Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT), TextView.BufferType.SPANNABLE)
+            message.text = Html.fromHtml(item.messageHTML, Html.FROM_HTML_MODE_COMPACT)
             createdAt.text = SimpleDateFormat("yyyy/MM/dd (E) HH:mm:ss", Locale.getDefault()).format(item.createdAt)
         }
     }
