@@ -104,6 +104,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                         ?: URL(actorAvatarUrl).openStream().use {
                             BitmapFactory.decodeStream(it)
                         }
+
                 if (actorAvatarUrl != null && !actorAvatarCache.contains(actorAvatarUrl)) {
                     actorAvatarCache[actorAvatarUrl] = actorAvatar
                 }
@@ -172,7 +173,38 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
                                     if (branch == null || commitMessage == null) {
                                         null
                                     } else {
-                                        PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(payloadElement), actorAvatar, createdAt, branch, commitMessage)
+                                        val commitUrl = payloadElement.get("url")?.asString()
+                                        if (commitUrl == null) {
+                                            null
+                                        } else {
+                                            val commitRepo = this.request(commitUrl) as? JsonObject
+                                            var event: Event? = null
+
+                                            for (userKind in listOf("author", "committer")) {
+                                                val user = commitRepo?.get(userKind) as? JsonObject
+                                                val userLogin = user?.get("login")?.asString()
+                                                if (userLogin != null) {
+                                                    val userAvatarUrl = user.get("avatar_url")?.asString()
+                                                    val userAvatar: Bitmap = actorAvatarCache[userAvatarUrl]
+                                                            ?: URL(userAvatarUrl).openStream().use {
+                                                                BitmapFactory.decodeStream(it)
+                                                            }
+
+                                                    if (userAvatarUrl != null && !actorAvatarCache.contains(userAvatarUrl)) {
+                                                        actorAvatarCache[userAvatarUrl] = userAvatar
+                                                    }
+
+                                                    event = PushEvent(userLogin, repoName, this.getHtmlUrl(user), this.getHtmlUrl(payloadElement), userAvatar, createdAt, branch, commitMessage)
+                                                    break
+                                                }
+                                            }
+
+                                            if (event == null) {
+                                                PushEvent(actorLogin, repoName, actorHtmlUrl, this.getHtmlUrl(payloadElement), actorAvatar, createdAt, branch, commitMessage)
+                                            } else {
+                                                event
+                                            }
+                                        }
                                     }
                                 }
                                 "ReleaseEvent" -> {
