@@ -30,6 +30,8 @@ public class HomePresenter {
         if (result.isSuccessful) {
             profile = (Profile) result.resultObject;
             view.setUpContent(profile);
+        } else {
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

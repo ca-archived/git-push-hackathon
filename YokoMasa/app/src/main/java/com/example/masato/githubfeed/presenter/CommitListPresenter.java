@@ -47,6 +47,7 @@ public class CommitListPresenter extends PaginatingListPresenter {
             onFetchedElements(commits, true);
         } else {
             onFetchedElements(null, false);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

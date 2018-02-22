@@ -64,4 +64,8 @@
 
     <string name="menu_open_in_browser">ブラウザで開く</string>
     <string name="menu_open_repo">リポジトリを開く</string>
+
+    <string name="error">エラーが発生しました</string>
+    <string name="error_server_message">message from GitHub:</string>
+    <string name="error_try_again">try again</string>
 </resources>

@@ -38,7 +38,7 @@ public class FeedListPresenter extends PaginatingListPresenter {
             onFetchedElements(feedEntries, true);
         } else {
             onFetchedElements(null, false);
-            view.showToast(result.failure.textId);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

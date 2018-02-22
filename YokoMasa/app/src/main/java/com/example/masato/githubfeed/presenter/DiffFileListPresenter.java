@@ -21,8 +21,8 @@ public class DiffFileListPresenter {
             ArrayList<DiffFile> diffFiles = (ArrayList<DiffFile>) result.resultObject;
             view.showDiffFiles(diffFiles);
         } else {
-            view.showToast(result.failure.textId);
             view.removeLoadingView();
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

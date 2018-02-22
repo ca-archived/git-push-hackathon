@@ -13,6 +13,7 @@
     <dimen name="image_large">50dp</dimen>
     <dimen name="image_medium">40dp</dimen>
     <dimen name="image_small">30dp</dimen>
+    <dimen name="image_error">100dp</dimen>
 
     <dimen name="login_button_width">240dp</dimen>
     <dimen name="login_button_height">40dp</dimen>

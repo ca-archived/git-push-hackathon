@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Repository;
 import com.example.masato.githubfeed.presenter.RepoOverviewPresenter;
@@ -90,6 +91,16 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
         } else {
             presenter.onSubscribePressed();
         }
+    }
+
+    @Override
+    public void showErrorView(Failure failure, String message) {
+        showErrorFragment(R.id.repo_mother, failure, message);
+    }
+
+    @Override
+    public void hideErrorView() {
+        removeErrorFragment();
     }
 
     @Override

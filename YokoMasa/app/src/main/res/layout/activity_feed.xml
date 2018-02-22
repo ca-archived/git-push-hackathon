@@ -18,24 +18,31 @@
             app:popupTheme="@style/PopUpMenuStyle"
             style="@style/ToolBar" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/feed_view_pager"
+        <FrameLayout
+            android:id="@+id/feed_mother"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/feed_tab_layout"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/feed_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                app:tabIndicatorColor="@color/white"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/white"
-                app:tabTextAppearance="@style/TabTextAppearance">
+                android:layout_height="match_parent">
 
-            </android.support.design.widget.TabLayout>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/feed_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/white"
+                    app:tabTextAppearance="@style/TabTextAppearance">
 
-        </android.support.v4.view.ViewPager>
+                </android.support.design.widget.TabLayout>
+
+            </android.support.v4.view.ViewPager>
+
+        </FrameLayout>
 
     </LinearLayout>
 

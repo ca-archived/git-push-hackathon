@@ -15,6 +15,7 @@ import java.util.List;
 public class CommentListPresenter extends PaginatingListPresenter {
 
     private String commentsUrl;
+    private PaginatingListView view;
 
     @Override
     int onGetPaginatingItemViewType(BaseModel element) {
@@ -37,11 +38,13 @@ public class CommentListPresenter extends PaginatingListPresenter {
             onFetchedElements(commentList, true);
         } else {
             onFetchedElements(null, false);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 
     public CommentListPresenter(PaginatingListView view, String commentsUrl) {
         super(view);
+        this.view = view;
         this.commentsUrl = commentsUrl;
     }
 }

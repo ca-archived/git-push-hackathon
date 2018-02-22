@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.view.fragment;
 
 import android.os.Bundle;
 
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Issue;
 import com.example.masato.githubfeed.model.PullRequest;
@@ -140,6 +141,15 @@ public class FragmentFactory {
         CommitOverviewFragment commitOverviewFragment = new CommitOverviewFragment();
         commitOverviewFragment.setArguments(bundle);
         return commitOverviewFragment;
+    }
+
+    public static ErrorFragment createErrorFragment(Failure failure, String message) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("failure", failure);
+        bundle.putString("message", message);
+        ErrorFragment errorFragment = new ErrorFragment();
+        errorFragment.setArguments(bundle);
+        return errorFragment;
     }
 
     private FragmentFactory(){}

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.MainPresenter;
@@ -28,6 +29,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onResume() {
         super.onResume();
         presenter.onResume();
+    }
+
+    @Override
+    public void showErrorView(Failure failure, String message) {
+
+    }
+
+    @Override
+    public void hideErrorView() {
+
     }
 
     @Override

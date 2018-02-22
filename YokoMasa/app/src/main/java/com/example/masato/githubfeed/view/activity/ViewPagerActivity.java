@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.view.adapter.FragmentListPagerAdapter;
 import com.example.masato.githubfeed.view.fragment.BaseFragment;
 
@@ -43,6 +44,14 @@ public class ViewPagerActivity extends BaseActivity {
         if (savedInstanceState != null) {
             storedPage = savedInstanceState.getInt("page");
         }
+    }
+
+    public void showErrorView(Failure failure, String errorMessage) {
+        showErrorFragment(R.id.general_view_pager_mother, failure, errorMessage);
+    }
+
+    public void hideErrorView() {
+        removeErrorFragment();
     }
 
     @Override

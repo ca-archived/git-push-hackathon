@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.diff.DiffFile;
 import com.example.masato.githubfeed.presenter.CommitOverviewPresenter;
@@ -48,6 +49,16 @@ public class CommitOverviewFragment extends BaseFragment implements CommitOvervi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showErrorView(Failure failure, String message) {
+        showErrorFragment(R.id.general_recyclerView_mother, failure, message);
+    }
+
+    @Override
+    public void hideErrorView() {
+        removeLoadingFragment();
     }
 
     @Override

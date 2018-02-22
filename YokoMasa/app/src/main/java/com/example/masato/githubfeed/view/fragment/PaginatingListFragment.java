@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.presenter.PaginatingListPresenter;
 import com.example.masato.githubfeed.view.PaginatingListView;
@@ -46,6 +47,15 @@ public abstract class PaginatingListFragment extends BaseFragment
     }
 
     protected abstract PaginatingListPresenter onCreatePresenter();
+
+    public void showErrorView(Failure failure, String errorMessage) {
+        removeLoadingFragment();
+        showErrorFragment(R.id.feed_mother, failure, errorMessage);
+    }
+
+    public void hideErrorView() {
+        removeErrorFragment();
+    }
 
     @Nullable
     @Override

@@ -96,7 +96,7 @@ class GitHubApiCallbackHandler {
 
     private static boolean isOk(ConnectionResult result) {
         if (result.isConnectionSuccessful) {
-            return 200 <= result.responseCode && result.responseCode < 300;
+            return 200 <= result.responseCode && result.responseCode < 400;
         } else {
             return false;
         }

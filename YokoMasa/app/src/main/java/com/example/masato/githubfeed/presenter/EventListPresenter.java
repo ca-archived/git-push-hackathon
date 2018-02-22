@@ -42,6 +42,7 @@ public class EventListPresenter extends PaginatingListPresenter {
             onFetchedElements(events, true);
         } else {
             onFetchedElements(null, false);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

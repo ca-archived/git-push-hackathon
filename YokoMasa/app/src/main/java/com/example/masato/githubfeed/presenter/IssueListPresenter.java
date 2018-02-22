@@ -46,6 +46,7 @@ public class IssueListPresenter extends PaginatingListPresenter {
             onFetchedElements(issues, true);
         } else {
             onFetchedElements(null, false);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

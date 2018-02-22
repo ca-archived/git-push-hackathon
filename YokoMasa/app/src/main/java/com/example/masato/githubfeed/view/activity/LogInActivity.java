@@ -104,6 +104,16 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void showErrorView(Failure failure, String message) {
+
+    }
+
+    @Override
+    public void hideErrorView() {
+
+    }
+
+    @Override
     public void showLoginError(Failure failure) {
         loginDescription.setText(failure.textId);
     }

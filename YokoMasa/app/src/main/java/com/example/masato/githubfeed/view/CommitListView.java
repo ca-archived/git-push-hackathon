@@ -6,6 +6,6 @@ import com.example.masato.githubfeed.model.Commit;
  * Created by Masato on 2018/02/07.
  */
 
-public interface CommitListView {
+public interface CommitListView extends BaseView {
     public void showCommit(Commit commit);
 }

@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubUrls;
 import com.example.masato.githubfeed.model.Profile;
 import com.example.masato.githubfeed.navigator.Navigator;
@@ -91,6 +92,16 @@ public class HomeActivity extends BaseActivity implements HomeView, AdapterView.
             Log.i("gh_feed", "restore state profile == null");
             presenter = new HomePresenter(this);
         }
+    }
+
+    @Override
+    public void showErrorView(Failure failure, String message) {
+        showErrorFragment(R.id.feed_mother, failure, message);
+    }
+
+    @Override
+    public void hideErrorView() {
+        removeErrorFragment();
     }
 
     @Override

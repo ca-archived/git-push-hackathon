@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.view;
 
+import com.example.masato.githubfeed.githubapi.Failure;
+
 /**
  * Created by Masato on 2018/01/29.
  */
@@ -13,4 +15,8 @@ public interface PaginatingListView {
     public void stopRefreshing();
 
     public void updateAdapter();
+
+    public void showErrorView(Failure failure, String errorMessage);
+
+    public void hideErrorView();
 }

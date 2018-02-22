@@ -15,5 +15,8 @@
     <color name="green">#2cbe4e</color>
     <color name="issue_open">@color/green</color>
     <color name="issue_closed">@color/red</color>
+    <color name="error_text">#969696</color>
+    <color name="error_button">#cfcfcf</color>
+    <color name="error_button_pressed">#b0b0b0</color>
     <color name="white">#FFF</color>
 </resources>

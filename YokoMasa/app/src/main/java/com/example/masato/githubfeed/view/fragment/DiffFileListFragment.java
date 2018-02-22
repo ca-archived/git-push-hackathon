@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.diff.DiffFile;
 import com.example.masato.githubfeed.presenter.DiffFileListPresenter;
 import com.example.masato.githubfeed.view.DiffFileListView;
@@ -72,6 +73,16 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         } else {
             new DiffFileListPresenter(this, url);
         }
+    }
+
+    @Override
+    public void showErrorView(Failure failure, String message) {
+        showErrorFragment(R.id.diff_file_list_mother, failure, message);
+    }
+
+    @Override
+    public void hideErrorView() {
+        removeErrorFragment();
     }
 
     @Override

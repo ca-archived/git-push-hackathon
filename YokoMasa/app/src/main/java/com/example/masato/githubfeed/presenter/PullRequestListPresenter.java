@@ -41,6 +41,7 @@ public class PullRequestListPresenter extends PaginatingListPresenter {
             onFetchedElements(prList, true);
         } else {
             onFetchedElements(null, false);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

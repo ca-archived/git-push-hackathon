@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
@@ -90,6 +91,16 @@ public class CommitActivity extends BaseActivity implements CommitView {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void showErrorView(Failure failure, String message) {
+        showErrorFragment(R.id.commit_mother, failure, message);
+    }
+
+    @Override
+    public void hideErrorView() {
+        removeErrorFragment();
     }
 
     @Override

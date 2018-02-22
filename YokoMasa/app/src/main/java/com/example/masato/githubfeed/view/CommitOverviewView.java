@@ -8,6 +8,6 @@ import java.util.List;
  * Created by Masato on 2018/02/19.
  */
 
-public interface CommitOverviewView {
+public interface CommitOverviewView extends BaseView {
     public void showDiffFiles(List<DiffFile>diffFiles);
 }

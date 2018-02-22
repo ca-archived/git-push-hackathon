@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.view.fragment.transaction.FTTask;
 
 import java.util.ArrayList;
@@ -17,10 +18,11 @@ import java.util.List;
  * Created by Masato on 2018/02/03.
  */
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements ErrorFragment.TryAgainListener {
 
     private List<FTTask> FTQueue = new ArrayList<>();
     private LoadingFragment loadingFragment;
+    private ErrorFragment errorFragment;
     private boolean FTSafe;
 
     @Override
@@ -28,6 +30,32 @@ public class BaseFragment extends Fragment {
         super.onResume();
         FTSafe = true;
         execQueuedTransactions();
+    }
+
+    @Override
+    public void tryAgain() {
+
+    }
+
+    public void showErrorFragment(int motherId, Failure failure, String errorMessage) {
+        doSafeFTTransaction(() -> {
+            errorFragment = FragmentFactory.createErrorFragment(failure, errorMessage);
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.add(motherId, errorFragment);
+            ft.commit();
+        });
+    }
+
+    public void removeErrorFragment() {
+        doSafeFTTransaction(() -> {
+            if (errorFragment == null) {
+                return;
+            }
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.remove(errorFragment);
+            ft.commit();
+            errorFragment = null;
+        });
     }
 
     public void showLoadingFragment(int motherId) {

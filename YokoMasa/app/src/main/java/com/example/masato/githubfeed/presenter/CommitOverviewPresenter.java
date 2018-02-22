@@ -21,6 +21,8 @@ public class CommitOverviewPresenter {
         if (result.isSuccessful) {
             List<DiffFile> diffFiles = (List<DiffFile>) result.resultObject;
             view.showDiffFiles(diffFiles);
+        } else {
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 
