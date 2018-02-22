@@ -29,25 +29,25 @@ public class GitHubObjectMapper {
     }
 
     public static Profile mapProfile(String profileString) {
-        Profile profile = new Profile();
         try {
             JSONObject jsonObject = new JSONObject(profileString);
-            profile = mapProfile(jsonObject);
+            return mapProfile(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return profile;
     }
 
     public static Profile mapProfile(JSONObject jsonObject) {
-        Profile profile = new Profile();
         try {
+            Profile profile = new Profile();
             profile.name = jsonObject.getString("login");
             profile.iconUrl = jsonObject.getString("avatar_url");
+            return profile;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return profile;
     }
 
     public static String mapFeedUrl(String feedUrlJson) {
@@ -61,20 +61,18 @@ public class GitHubObjectMapper {
     }
 
     public static Repository mapRepository(String repositoryString) {
-        Repository repository = new Repository();
         try {
             JSONObject jsonObject = new JSONObject(repositoryString);
-            repository = mapRepository(jsonObject);
+            return mapRepository(jsonObject);
         } catch (Exception e) {
-            Log.e("gh_feed", repositoryString);
             e.printStackTrace();
+            return null;
         }
-        return repository;
     }
 
     public static Repository mapRepository(JSONObject jsonObject) {
-        Repository repository = new Repository();
         try {
+            Repository repository = new Repository();
             repository.fullName = jsonObject.getString("full_name");
             repository.htmlUrl = jsonObject.getString("html_url");
             repository.baseUrl = jsonObject.getString("url");
@@ -84,41 +82,44 @@ public class GitHubObjectMapper {
             repository.forks = jsonObject.getInt("forks_count");
             JSONObject ownerJsonObject = jsonObject.getJSONObject("owner");
             repository.owner = ownerJsonObject.getString("login");
+            return repository;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return repository;
     }
 
     public static Comment mapComment(JSONObject jsonObject) {
-        Comment comment = new Comment();
         try {
+            Comment comment = new Comment();
             comment.author = mapProfile(jsonObject.getJSONObject("user"));
             comment.bodyHtml = wrap(jsonObject.getString("body_html"));
             comment.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
+            return comment;
         } catch (Exception e) {
             e.printStackTrace();;
+            return null;
         }
-        return comment;
     }
 
     public static List<Comment> mapCommentList(String jsonString) {
-        List<Comment> comments = new ArrayList<>();
         try {
+            List<Comment> comments = new ArrayList<>();
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0;i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 comments.add(mapComment(jsonObject));
             }
+            return comments;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return comments;
     }
 
     public static Issue mapIssue(JSONObject jsonObject) {
-        Issue issue = new Issue();
         try {
+            Issue issue = new Issue();
             issue.url = jsonObject.getString("url");
             issue.htmlUrl = jsonObject.getString("html_url");
             issue.repoUrl = jsonObject.getString("repository_url");
@@ -131,10 +132,11 @@ public class GitHubObjectMapper {
             issue.comments = jsonObject.getInt("comments");
             issue.state = jsonObject.getString("state");
             //issue.repository = mapRepository(jsonObject.optJSONObject("repository"));
+            return issue;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return issue;
     }
 
     public static Issue mapIssue(String jsonString) {
@@ -143,13 +145,13 @@ public class GitHubObjectMapper {
             return mapIssue(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public static List<Issue> mapIssueList(String jsonString) {
-        List<Issue> issues = new ArrayList<>();
         try {
+            List<Issue> issues = new ArrayList<>();
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0;i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -157,15 +159,16 @@ public class GitHubObjectMapper {
                     issues.add(mapIssue(jsonObject));
                 }
             }
+            return issues;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return issues;
     }
     
     public static PullRequest mapPullRequest(JSONObject jsonObject) {
-        PullRequest pr = new PullRequest();
         try {
+            PullRequest pr = new PullRequest();
             pr.url = jsonObject.getString("url");
             pr.htmlUrl = jsonObject.getString("html_url");
             pr.name = jsonObject.getString("title");
@@ -178,10 +181,11 @@ public class GitHubObjectMapper {
             pr.diffUrl = jsonObject.getString("diff_url");
             pr.commitsUrl = jsonObject.getString("commits_url");
             pr.repository = mapRepository(jsonObject.getJSONObject("base").getJSONObject("repo"));
+            return pr;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return pr;
     }
 
     public static PullRequest mapPullRequest(String jsonString) {
@@ -190,27 +194,29 @@ public class GitHubObjectMapper {
             return mapPullRequest(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public static List<PullRequest> mapPullRequestList(String jsonString) {
-        List<PullRequest> prs = new ArrayList<>();
         try {
+            List<PullRequest> prs = new ArrayList<>();
+
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0;i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 prs.add(mapPullRequest(jsonObject));
             }
+            return prs;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return prs;
     }
 
     public static Commit mapCommit(JSONObject jsonObject) {
-        Commit commit = new Commit();
         try {
+            Commit commit = new Commit();
             commit.sha = jsonObject.getString("sha");
             commit.url = jsonObject.getString("url");
             commit.htmlUrl = jsonObject.getString("html_url");
@@ -226,29 +232,31 @@ public class GitHubObjectMapper {
             if (committerObject != null) {
                 commit.committerDate = dateFormat.parse(committerObject.getString("date"));
             }
+            return commit;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return commit;
     }
 
     public static List<Commit> mapCommitList(String jsonString) {
-        List<Commit> commits = new ArrayList<>();
         try {
+            List<Commit> commits = new ArrayList<>();
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0;i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 commits.add(mapCommit(jsonObject));
             }
+            return commits;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return commits;
     }
 
     public static List<DiffFile> mapCommitDiffFileList(String jsonString) {
-        List<DiffFile> diffFiles = new ArrayList<>();
         try {
+            List<DiffFile> diffFiles = new ArrayList<>();
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray filesArray = jsonObject.getJSONArray("files");
             for (int i = 0;i<filesArray.length();i++) {
@@ -256,10 +264,11 @@ public class GitHubObjectMapper {
                 DiffFile diffFile = DiffParser.parseDiffFile(fileObject.optString("patch"), fileObject.optString("filename"));
                 diffFiles.add(diffFile);
             }
+            return diffFiles;
         } catch (Exception e) {
             e.printStackTrace();
+            return  null;
         }
-        return diffFiles;
     }
 
     public static List<DiffFile> mapDiffFileList(String diffString) {
@@ -268,6 +277,17 @@ public class GitHubObjectMapper {
 
     public static List<Event> mapEventList(String jsonString) {
         return EventMapper.getMapper().mapEventList(jsonString);
+    }
+
+    public static String mapErrorMessage(String jsonString) {
+        String string = "";
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            string = jsonObject.getString("message");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return string;
     }
 
     private static String wrap(String htmlString) {

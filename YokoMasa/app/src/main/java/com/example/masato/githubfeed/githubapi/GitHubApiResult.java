@@ -12,6 +12,7 @@ import java.util.Map;
 public class GitHubApiResult {
     public boolean isSuccessful;
     public Failure failure;
+    public String errorMessage;
     public Map<String, List<String>> header;
     public Object resultObject;
 }

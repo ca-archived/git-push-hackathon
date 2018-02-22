@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.masato.githubfeed.http.ConnectionResult;
 import com.example.masato.githubfeed.http.ResultBodyConverter;
+import com.example.masato.githubfeed.model.GitHubObjectMapper;
 
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +31,7 @@ class GitHubApiCallbackHandler {
                     gitHubApiResult.isSuccessful = true;
                 } else {
                     gitHubApiResult.isSuccessful = false;
-                    gitHubApiResult.failure = Failure.UNEXPECTED;
+                    gitHubApiResult.failure = Failure.MAP;
                     logHeader(result);
                 }
             } else {
@@ -41,7 +42,7 @@ class GitHubApiCallbackHandler {
                 logHeader(result);
             }
             gitHubApiResult.isSuccessful = false;
-            setFailureToGitHubApiResult(result, gitHubApiResult);
+            setErrorInfoToGitHubApiResult(result, gitHubApiResult);
         }
         callback.onApiResult(gitHubApiResult);
     }
@@ -84,9 +85,10 @@ class GitHubApiCallbackHandler {
         }
     }
 
-    private static void setFailureToGitHubApiResult(ConnectionResult result, GitHubApiResult gitHubApiResult) {
+    private static void setErrorInfoToGitHubApiResult(ConnectionResult result, GitHubApiResult gitHubApiResult) {
         if (result.isConnectionSuccessful) {
             gitHubApiResult.failure = failureFromStatusCode(result.responseCode);
+            gitHubApiResult.errorMessage = GitHubObjectMapper.mapErrorMessage(result.getBodyString());
         } else {
             gitHubApiResult.failure = Failure.INTERNET;
         }
@@ -94,7 +96,7 @@ class GitHubApiCallbackHandler {
 
     private static boolean isOk(ConnectionResult result) {
         if (result.isConnectionSuccessful) {
-            return 200 <= result.responseCode && result.responseCode < 400;
+            return 200 <= result.responseCode && result.responseCode < 300;
         } else {
             return false;
         }
@@ -107,7 +109,7 @@ class GitHubApiCallbackHandler {
             case 404:
                 return Failure.NOT_FOUND;
             case 500:
-                return Failure.UNEXPECTED;
+                return Failure.SERVER;
             default:
                 return Failure.UNEXPECTED;
         }

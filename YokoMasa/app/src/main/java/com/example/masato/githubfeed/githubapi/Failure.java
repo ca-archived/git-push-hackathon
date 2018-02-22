@@ -13,6 +13,7 @@ public enum Failure {
     NOT_FOUND(R.string.failure_not_found),
     UNEXPECTED(R.string.failure_unexpected),
     SERVER(R.string.failure_server),
+    MAP(R.string.failure_map),
     CREATING_TOKEN(R.string.failure_creating_token);
 
     public int textId;
