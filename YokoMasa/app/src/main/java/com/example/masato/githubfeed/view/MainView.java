@@ -12,4 +12,6 @@ public interface MainView {
     public void showHomeView();
 
     public void showToast(int stringId);
+
+    public void showTryAgainDialog();
 }

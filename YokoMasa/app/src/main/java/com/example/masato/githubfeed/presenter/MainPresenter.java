@@ -15,13 +15,18 @@ import com.example.masato.githubfeed.view.MainView;
  * Created by Masato on 2018/01/17.
  */
 
-public class MainPresenter {
+public class MainPresenter extends BasePresenter {
 
     private static final int ENTRANCE_LOGO_DURATION = 2000;
     private final MainView view;
 
     public void onResume() {
         waitASec();
+    }
+
+    @Override
+    public void tryAgain() {
+        GitHubApi.getApi().checkIfTokenValid(this::handleTokenCheckResult);
     }
 
     private void waitASec() {
@@ -37,7 +42,7 @@ public class MainPresenter {
             if (result.failure == Failure.NOT_FOUND) {
                 view.showLogInView();
             } else {
-                view.showToast(result.failure.textId);
+                view.showTryAgainDialog();
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.example.masato.githubfeed.view.activity;
 
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -12,8 +14,9 @@ import com.example.masato.githubfeed.navigator.Navigator;
 import com.example.masato.githubfeed.presenter.MainPresenter;
 import com.example.masato.githubfeed.view.BaseView;
 import com.example.masato.githubfeed.view.MainView;
+import com.example.masato.githubfeed.view.fragment.TryAgainDialogFragment;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainView, TryAgainDialogFragment.TryAgainListener {
 
     private MainPresenter presenter;
 
@@ -29,6 +32,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onResume() {
         super.onResume();
         presenter.onResume();
+    }
+
+    @Override
+    public void onTryAgain() {
+        presenter.tryAgain();
+    }
+
+    @Override
+    public void showTryAgainDialog() {
+        DialogFragment dialogFragment = new TryAgainDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), "");
     }
 
     @Override
