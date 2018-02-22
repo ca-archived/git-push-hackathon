@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CCB1C888203E6D8B00CDC1CC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB1C887203E6D8B00CDC1CC /* Alamofire.framework */; };
 		CCD5D7282014D7F500D9CE91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD5D7272014D7F500D9CE91 /* AppDelegate.swift */; };
 		CCD5D72A2014D7F500D9CE91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD5D7292014D7F500D9CE91 /* ViewController.swift */; };
 		CCD5D72D2014D7F500D9CE91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD5D72B2014D7F500D9CE91 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CCB1C887203E6D8B00CDC1CC /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		CCD5D7242014D7F500D9CE91 /* tomoyukiHAYAKAWA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tomoyukiHAYAKAWA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD5D7272014D7F500D9CE91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCD5D7292014D7F500D9CE91 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCB1C888203E6D8B00CDC1CC /* Alamofire.framework in Frameworks */,
 				CCD5D7572014D8AE00D9CE91 /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,6 +135,7 @@
 		CCD5D7552014D8AE00D9CE91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCB1C887203E6D8B00CDC1CC /* Alamofire.framework */,
 				CCD5D7562014D8AE00D9CE91 /* OAuthSwift.framework */,
 			);
 			name = Frameworks;
@@ -275,6 +279,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			outputPaths = (
 			);

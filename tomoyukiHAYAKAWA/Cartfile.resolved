@@ -1,1 +1,2 @@
-github "OAuthSwift/OAuthSwift" "1.2.0"
+github "Alamofire/Alamofire" "4.6.0"
+github "OAuthSwift/OAuthSwift" "1.2.1"

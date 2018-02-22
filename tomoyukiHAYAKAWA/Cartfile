@@ -1,1 +1,2 @@
 github "OAuthSwift/OAuthSwift"
+github "Alamofire/Alamofire"

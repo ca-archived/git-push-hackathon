@@ -8,6 +8,7 @@
 
 import UIKit
 import OAuthSwift
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

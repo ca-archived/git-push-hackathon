@@ -8,6 +8,7 @@
 
 import UIKit
 import OAuthSwift
+import Alamofire
 
 class ViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    
         print("アプリ起動")
         let token: String!
         token = saveData.object(forKey: "oauthToken") as? String
@@ -52,15 +53,22 @@ class ViewController: UIViewController {
         self.oauthSwift.allowMissingStateCheck = false
         self.oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: self.oauthSwift)
         
-        let handle = oauthSwift.authorize(
+        oauthSwift.authorize(
             withCallbackURL: URL(string: "hayakawaapp://oauth-callback")!,
             scope: "", state: "GitHub",
             success: { credential, response, parameters in
                 print("認証成功")
                 print(credential.oauthToken)
-                // やりたいこと
+                // やりたいことをここに書く
                 self.saveData.setValue(credential.oauthToken, forKey: "oauthToken")
                 self.userToken.text = self.saveData.object(forKey: "oauthToken") as? String
+                
+                // JSON リクエスト送信とGET
+                Alamofire.request("https://api.github.com/user", method: .get, parameters:["access_token": credential.oauthToken]).responseJSON(completionHandler: {response in
+                    if let json = response.result.value {
+                        self.infoTextView.text = (json as AnyObject).description
+                    }
+                })
         },
             failure: { error in
                 print(error.localizedDescription)
