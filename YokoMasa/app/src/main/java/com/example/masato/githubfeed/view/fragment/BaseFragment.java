@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Masato on 2018/02/03.
  */
 
-public class BaseFragment extends Fragment implements ErrorFragment.TryAgainListener {
+public abstract class BaseFragment extends Fragment implements ErrorFragment.TryAgainListener {
 
     private List<FTTask> FTQueue = new ArrayList<>();
     private LoadingFragment loadingFragment;
@@ -30,11 +30,6 @@ public class BaseFragment extends Fragment implements ErrorFragment.TryAgainList
         super.onResume();
         FTSafe = true;
         execQueuedTransactions();
-    }
-
-    @Override
-    public void tryAgain() {
-
     }
 
     public void showErrorFragment(int motherId, Failure failure, String errorMessage) {

@@ -29,12 +29,12 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     private DiffFileListAdapter adapter;
     private LoadingFragment loadingFragment;
     private ArrayList<DiffFile> diffFiles;
+    private DiffFileListPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        showLoadingFragment(R.id.diff_file_list_mother);
     }
 
     @Nullable
@@ -71,8 +71,23 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
         if (diffFiles != null) {
             showDiffFiles(diffFiles);
         } else {
-            new DiffFileListPresenter(this, url);
+            presenter = new DiffFileListPresenter(this, url);
         }
+    }
+
+    @Override
+    public void showLoadingView() {
+        showLoadingFragment(R.id.diff_file_list_mother);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        removeLoadingFragment();
+    }
+
+    @Override
+    public void onTryAgain() {
+        presenter.tryAgain();
     }
 
     @Override
@@ -93,7 +108,6 @@ public class DiffFileListFragment extends BaseFragment implements DiffFileListVi
     @Override
     public void showDiffFiles(ArrayList<DiffFile> diffFiles) {
         this.diffFiles = diffFiles;
-        removeLoadingFragment();
         adapter.setDiffFiles(diffFiles);
     }
 

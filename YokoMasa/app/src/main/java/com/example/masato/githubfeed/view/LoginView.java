@@ -7,7 +7,7 @@ import com.example.masato.githubfeed.model.Profile;
  * Created by Masato on 2018/01/19.
  */
 
-public interface LoginView extends BaseView{
+public interface LoginView {
 
     public void startBrowser();
 
@@ -22,5 +22,7 @@ public interface LoginView extends BaseView{
     public void showProfile(Profile profile);
 
     public void showHomeView();
+
+    public void showToast(int stringId);
 
 }

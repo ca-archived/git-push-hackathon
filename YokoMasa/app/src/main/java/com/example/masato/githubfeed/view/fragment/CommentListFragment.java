@@ -42,6 +42,8 @@ public class CommentListFragment extends PaginatingListFragment {
         }
     }
 
+
+
     @Override
     protected void onBindViewHolder(PaginatingListViewHolder holder, BaseModel element, int viewType) {
         CommentViewHolder commentViewHolder = (CommentViewHolder) holder;

@@ -20,7 +20,7 @@ import com.example.masato.githubfeed.view.fragment.BaseFragment;
  * Created by Masato on 2018/02/03.
  */
 
-public class ViewPagerActivity extends BaseActivity {
+public abstract class ViewPagerActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -44,6 +44,14 @@ public class ViewPagerActivity extends BaseActivity {
         if (savedInstanceState != null) {
             storedPage = savedInstanceState.getInt("page");
         }
+    }
+
+    public void showLoadingView() {
+        showLoadingFragment(R.id.general_recyclerView_mother);
+    }
+
+    public void hideLoadingView() {
+        removeLoadingFragment();
     }
 
     public void showErrorView(Failure failure, String errorMessage) {

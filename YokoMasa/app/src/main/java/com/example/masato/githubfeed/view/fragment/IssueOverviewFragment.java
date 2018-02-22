@@ -27,6 +27,11 @@ public class IssueOverviewFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onTryAgain() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

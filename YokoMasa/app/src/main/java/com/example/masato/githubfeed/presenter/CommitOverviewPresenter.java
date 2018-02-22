@@ -13,11 +13,20 @@ import java.util.List;
  * Created by Masato on 2018/02/19.
  */
 
-public class CommitOverviewPresenter {
+public class CommitOverviewPresenter extends BasePresenter {
 
     private CommitOverviewView view;
+    private Commit commit;
+
+    @Override
+    public void tryAgain() {
+        view.hideErrorView();
+        view.showLoadingView();
+        GitHubApi.getApi().fetchCommitDiffFileList(commit, this::handleDiffFileListResult);
+    }
 
     private void handleDiffFileListResult(GitHubApiResult result) {
+        view.hideLoadingView();
         if (result.isSuccessful) {
             List<DiffFile> diffFiles = (List<DiffFile>) result.resultObject;
             view.showDiffFiles(diffFiles);
@@ -28,6 +37,8 @@ public class CommitOverviewPresenter {
 
     public CommitOverviewPresenter(CommitOverviewView view, Commit commit) {
         this.view = view;
+        this.commit = commit;
+        view.showLoadingView();
         GitHubApi.getApi().fetchCommitDiffFileList(commit, this::handleDiffFileListResult);
     }
 }

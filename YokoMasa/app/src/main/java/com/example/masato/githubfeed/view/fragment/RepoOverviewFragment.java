@@ -94,6 +94,21 @@ public class RepoOverviewFragment extends BaseFragment implements RepoOverviewVi
     }
 
     @Override
+    public void showLoadingView() {
+        showLoadingFragment(R.id.repo_mother);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        removeLoadingFragment();
+    }
+
+    @Override
+    public void onTryAgain() {
+        presenter.tryAgain();
+    }
+
+    @Override
     public void showErrorView(Failure failure, String message) {
         showErrorFragment(R.id.repo_mother, failure, message);
     }

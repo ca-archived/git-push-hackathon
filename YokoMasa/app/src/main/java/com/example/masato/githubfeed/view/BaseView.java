@@ -14,4 +14,8 @@ public interface BaseView {
     public void showErrorView(Failure failure, String message);
 
     public void hideErrorView();
+
+    public void showLoadingView();
+
+    public void hideLoadingView();
 }

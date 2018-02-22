@@ -94,6 +94,21 @@ public class CommitActivity extends BaseActivity implements CommitView {
     }
 
     @Override
+    public void showLoadingView() {
+        showLoadingFragment(R.id.commit_mother);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        removeLoadingFragment();
+    }
+
+    @Override
+    public void onTryAgain() {
+
+    }
+
+    @Override
     public void showErrorView(Failure failure, String message) {
         showErrorFragment(R.id.commit_mother, failure, message);
     }

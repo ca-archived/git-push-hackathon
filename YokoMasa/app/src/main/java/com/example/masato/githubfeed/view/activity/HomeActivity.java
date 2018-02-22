@@ -95,6 +95,21 @@ public class HomeActivity extends BaseActivity implements HomeView, AdapterView.
     }
 
     @Override
+    public void showLoadingView() {
+        showLoadingFragment(R.id.feed_mother);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        removeLoadingFragment();
+    }
+
+    @Override
+    public void onTryAgain() {
+
+    }
+
+    @Override
     public void showErrorView(Failure failure, String message) {
         showErrorFragment(R.id.feed_mother, failure, message);
     }

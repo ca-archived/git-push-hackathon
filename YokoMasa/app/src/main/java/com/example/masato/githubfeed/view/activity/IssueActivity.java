@@ -29,6 +29,7 @@ import com.example.masato.githubfeed.view.fragment.IssueOverviewFragment;
 public class IssueActivity extends ViewPagerActivity implements IssueView {
 
     private Issue issue;
+    private IssuePresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
            restoreState(savedInstanceState);
         } else {
             String url = getIntent().getStringExtra("url");
-            new IssuePresenter(this, url);
+            presenter = new IssuePresenter(this, url);
         }
     }
 
@@ -55,7 +56,7 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
             showIssue(issue);
         } else {
             String url = getIntent().getStringExtra("url");
-            new IssuePresenter(this, url);
+            presenter = new IssuePresenter(this, url);
         }
     }
 
@@ -71,6 +72,11 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onTryAgain() {
+
     }
 
     @Override

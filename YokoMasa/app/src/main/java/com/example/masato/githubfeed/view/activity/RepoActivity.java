@@ -41,6 +41,7 @@ import com.example.masato.githubfeed.view.fragment.RepoOverviewFragment;
 public class RepoActivity extends ViewPagerActivity implements RepoView {
 
     private Repository repository;
+    private RepoPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
             restoreState(savedInstanceState);
         } else {
             String url = getIntent().getStringExtra("url");
-            new RepoPresenter(this, url);
+            presenter = new RepoPresenter(this, url);
         }
     }
 
@@ -67,8 +68,13 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
             setUpContent(repository);
         } else {
             String url = getIntent().getStringExtra("url");
-            new RepoPresenter(this, url);
+            presenter = new RepoPresenter(this, url);
         }
+    }
+
+    @Override
+    public void onTryAgain() {
+
     }
 
     @Override

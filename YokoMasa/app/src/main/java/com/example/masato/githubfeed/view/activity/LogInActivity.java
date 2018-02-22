@@ -67,11 +67,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void showToast(int stringId) {
         Toast.makeText(this, stringId, Toast.LENGTH_LONG).show();
     }
@@ -101,16 +96,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         transaction.setCustomAnimations(R.anim.profile_fragment_animation, R.anim.profile_fragment_animation);
         transaction.add(R.id.login_mother, profileFragment, null);
         transaction.commit();
-    }
-
-    @Override
-    public void showErrorView(Failure failure, String message) {
-
-    }
-
-    @Override
-    public void hideErrorView() {
-
     }
 
     @Override

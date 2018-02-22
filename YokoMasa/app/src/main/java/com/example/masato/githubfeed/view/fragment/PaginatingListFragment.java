@@ -48,8 +48,20 @@ public abstract class PaginatingListFragment extends BaseFragment
 
     protected abstract PaginatingListPresenter onCreatePresenter();
 
-    public void showErrorView(Failure failure, String errorMessage) {
+    public void showLoadingView() {
+        showLoadingFragment(R.id.feed_mother);
+    }
+
+    public void hideLoadingView() {
         removeLoadingFragment();
+    }
+
+    @Override
+    public void onTryAgain() {
+        presenter.refresh();
+    }
+
+    public void showErrorView(Failure failure, String errorMessage) {
         showErrorFragment(R.id.feed_mother, failure, errorMessage);
     }
 

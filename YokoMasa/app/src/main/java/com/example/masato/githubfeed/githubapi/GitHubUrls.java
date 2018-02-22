@@ -51,7 +51,7 @@ public class GitHubUrls {
     }
 
     public static String getReadMeUrl(Repository repository) {
-        return getRepoUrl(repository) + "/contents/README.md";
+        return getRepoUrl(repository) + "/readme";
     }
 
     public static String getUserUrl(Profile profile) {

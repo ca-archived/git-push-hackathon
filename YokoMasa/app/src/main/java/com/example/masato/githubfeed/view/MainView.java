@@ -6,8 +6,10 @@ import com.example.masato.githubfeed.model.Profile;
  * Created by Masato on 2018/02/07.
  */
 
-public interface MainView extends BaseView {
+public interface MainView {
     public void showLogInView();
 
     public void showHomeView();
+
+    public void showToast(int stringId);
 }

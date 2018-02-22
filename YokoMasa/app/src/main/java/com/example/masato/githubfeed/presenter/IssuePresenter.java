@@ -10,17 +10,26 @@ import com.example.masato.githubfeed.view.IssueView;
  * Created by Masato on 2018/02/14.
  */
 
-public class IssuePresenter {
+public class IssuePresenter extends BasePresenter {
 
     private IssueView view;
+    private String url;
+
+    @Override
+    public void tryAgain() {
+        view.hideErrorView();
+        view.showLoadingView();
+        GitHubApi.getApi().fetchIssue(url, this::handleFetchIssueResult);
+    }
 
     private void handleFetchIssueResult(GitHubApiResult result) {
+        view.hideLoadingView();
         if (result.isSuccessful) {
             Issue issue = (Issue) result.resultObject;
             view.showIssue(issue);
             GitHubApi.getApi().fetchRepository(issue.repoUrl, this::handleFetchRepoResult);
         } else {
-            view.showToast(result.failure.textId);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 
@@ -35,6 +44,8 @@ public class IssuePresenter {
 
     public IssuePresenter(IssueView view, String url) {
         this.view = view;
+        this.url = url;
+        view.showLoadingView();
         GitHubApi.getApi().fetchIssue(url, this::handleFetchIssueResult);
     }
 }

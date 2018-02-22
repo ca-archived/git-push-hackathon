@@ -165,6 +165,7 @@ public abstract class PaginatingListPresenter {
      * リストを初期化するために呼びます。
      */
     public void refresh() {
+        view.hideErrorView();
         if (refreshing) {
             return;
         }

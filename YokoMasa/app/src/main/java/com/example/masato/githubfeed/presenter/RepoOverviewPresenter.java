@@ -10,7 +10,7 @@ import com.example.masato.githubfeed.view.RepoOverviewView;
  * Created by Masato on 2018/02/02.
  */
 
-public class RepoOverviewPresenter {
+public class RepoOverviewPresenter extends BasePresenter {
 
     private RepoOverviewView view;
     private Repository repository;
@@ -25,6 +25,12 @@ public class RepoOverviewPresenter {
         } else {
             loadData();
             everLoaded = true;        }
+    }
+
+    @Override
+    public void tryAgain() {
+        view.hideErrorView();
+        loadData();
     }
 
     public void showData() {
@@ -152,15 +158,17 @@ public class RepoOverviewPresenter {
     }
 
     private void fetchReadMe(Repository repository) {
+        view.showLoadingView();
         GitHubApi.getApi().fetchReadMe(repository, this::handleFetchReadMeResult);
     }
 
     private void handleFetchReadMeResult(GitHubApiResult result) {
+        view.hideLoadingView();
         if (result.isSuccessful) {
             contentHtml = (String) result.resultObject;
             view.showReadMe(contentHtml);
         } else {
-            view.showNoReadMe();
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

@@ -15,7 +15,7 @@
     <string name="feed_nothing_to_show">表示するものはありません。</string>
     <string name="feed_nav_menu_logout">ログアウト</string>
 
-    <string name="failure_internet">インターネットに接続できません</string>
+    <string name="failure_internet">サーバーに接続できません</string>
     <string name="failure_invalid_token">invalid token</string>
     <string name="failure_unexpected">予期せぬエラーが発生しました</string>
     <string name="failure_server">GitHubサーバーでエラーが発生しました</string>

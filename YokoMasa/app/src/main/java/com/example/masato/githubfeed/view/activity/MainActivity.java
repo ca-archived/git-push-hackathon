@@ -32,16 +32,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showErrorView(Failure failure, String message) {
-
-    }
-
-    @Override
-    public void hideErrorView() {
-
-    }
-
-    @Override
     public void showLogInView() {
         Navigator.navigateToLogInView(this);
     }
@@ -49,11 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showHomeView() {
         Navigator.navigateToHomeView(this);
-    }
-
-    @Override
-    public void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override

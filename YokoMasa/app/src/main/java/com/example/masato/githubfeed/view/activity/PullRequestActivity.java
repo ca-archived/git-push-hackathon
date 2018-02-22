@@ -26,6 +26,7 @@ import com.example.masato.githubfeed.view.fragment.PullRequestOverviewFragment;
 public class PullRequestActivity extends ViewPagerActivity implements PullRequestView {
 
     private PullRequest pr;
+    private PullRequestPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
             restoreState(savedInstanceState);
         } else {
             String url = getIntent().getStringExtra("url");
-            new PullRequestPresenter(this, url);
+            presenter = new PullRequestPresenter(this, url);
         }
     }
 
@@ -65,7 +66,7 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
             showPullRequest(pr);
         } else {
             String url = getIntent().getStringExtra("url");
-            new PullRequestPresenter(this, url);
+            presenter = new PullRequestPresenter(this, url);
         }
     }
 
@@ -89,6 +90,12 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
         DiffFileListFragment diffFileListFragment =
                 FragmentFactory.createDiffFileListFragment(pr.diffUrl, getString(R.string.tab_file_changed));
         addFragment(diffFileListFragment);
+    }
+
+
+    @Override
+    public void onTryAgain() {
+
     }
 
     @Override

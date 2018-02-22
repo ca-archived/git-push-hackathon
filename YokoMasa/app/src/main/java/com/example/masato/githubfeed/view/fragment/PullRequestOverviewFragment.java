@@ -25,6 +25,11 @@ public class PullRequestOverviewFragment extends BaseFragment {
 
     private PullRequest pr;
 
+    @Override
+    public void onTryAgain() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

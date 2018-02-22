@@ -14,17 +14,23 @@ import com.example.masato.githubfeed.view.RepoView;
  * Created by Masato on 2018/01/27.
  */
 
-public class RepoPresenter {
+public class RepoPresenter extends BasePresenter {
 
     private RepoView view;
     private String repoUrl;
+
+    @Override
+    public void tryAgain() {
+        view.hideErrorView();
+        GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
+    }
 
     private void handleFetchRepositoryResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
             view.setUpContent(repository);
         } else {
-            view.showToast(result.failure.textId);
+            view.showErrorView(result.failure, result.errorMessage);
         }
     }
 

@@ -25,15 +25,15 @@ import java.util.List;
 public class CommitOverviewFragment extends BaseFragment implements CommitOverviewView {
 
     private CommitOverviewAdapter adapter;
+    private CommitOverviewPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        showLoadingFragment(R.id.general_recyclerView_mother);
         Commit commit = getArguments().getParcelable("commit");
         this.adapter = new CommitOverviewAdapter(commit, getContext());
-        new CommitOverviewPresenter(this, commit);
+        presenter = new CommitOverviewPresenter(this, commit);
     }
 
     @Nullable
@@ -52,6 +52,21 @@ public class CommitOverviewFragment extends BaseFragment implements CommitOvervi
     }
 
     @Override
+    public void showLoadingView() {
+        showLoadingFragment(R.id.general_recyclerView_mother);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        removeLoadingFragment();
+    }
+
+    @Override
+    public void onTryAgain() {
+        presenter.tryAgain();
+    }
+
+    @Override
     public void showErrorView(Failure failure, String message) {
         showErrorFragment(R.id.general_recyclerView_mother, failure, message);
     }
@@ -64,6 +79,5 @@ public class CommitOverviewFragment extends BaseFragment implements CommitOvervi
     @Override
     public void showDiffFiles(List<DiffFile> diffFiles) {
         adapter.setDiffFiles(diffFiles);
-        removeLoadingFragment();
     }
 }

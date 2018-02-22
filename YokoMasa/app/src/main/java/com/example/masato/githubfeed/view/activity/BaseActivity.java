@@ -4,9 +4,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.masato.githubfeed.R;
 import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.view.fragment.ErrorFragment;
 import com.example.masato.githubfeed.view.fragment.FragmentFactory;
+import com.example.masato.githubfeed.view.fragment.LoadingFragment;
 import com.example.masato.githubfeed.view.fragment.transaction.FTTask;
 
 import java.util.ArrayList;
@@ -16,10 +18,11 @@ import java.util.List;
  * Created by Masato on 2018/02/17.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements ErrorFragment.TryAgainListener {
 
     private List<FTTask> FTQueue = new ArrayList<>();
     private boolean FTSafe;
+    private LoadingFragment loadingFragment;
     private ErrorFragment errorFragment;
 
     @Override
@@ -27,6 +30,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         FTSafe = true;
         execQueuedTransactions();
+    }
+
+    public void showLoadingFragment(int motherId) {
+        doSafeFTTransaction(() -> {
+            loadingFragment = new LoadingFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(motherId, loadingFragment);
+            ft.commit();
+        });
+    }
+
+    public void removeLoadingFragment() {
+        doSafeFTTransaction(() -> {
+            if (loadingFragment == null) {
+                return;
+            }
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.anim.fade_animation, R.anim.fade_animation);
+            ft.remove(loadingFragment);
+            ft.commit();
+            loadingFragment = null;
+        });
     }
 
     public void showErrorFragment(int motherId, Failure failure, String errorMessage) {

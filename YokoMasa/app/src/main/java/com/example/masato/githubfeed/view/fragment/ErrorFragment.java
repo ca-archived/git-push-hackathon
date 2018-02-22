@@ -43,7 +43,7 @@ public class ErrorFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (listener != null) {
-            listener.tryAgain();
+            listener.onTryAgain();
         }
     }
 
@@ -57,6 +57,6 @@ public class ErrorFragment extends Fragment implements View.OnClickListener {
     }
 
     public interface TryAgainListener {
-        public void tryAgain();
+        public void onTryAgain();
     }
 }

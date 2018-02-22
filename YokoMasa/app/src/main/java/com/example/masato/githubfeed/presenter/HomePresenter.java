@@ -11,10 +11,17 @@ import com.example.masato.githubfeed.view.HomeView;
  * Created by Masato on 2018/01/19.
  */
 
-public class HomePresenter {
+public class HomePresenter extends BasePresenter {
 
     private HomeView view;
     private Profile profile;
+
+    @Override
+    public void tryAgain() {
+        view.hideErrorView();
+        view.showLoadingView();
+        GitHubApi.getApi().fetchProfile(this::handleFetchProfileResult);
+    }
 
     public void onLogOutSelected() {
         GitHubApi.getApi().deleteToken();
@@ -27,6 +34,7 @@ public class HomePresenter {
     }
 
     private void handleFetchProfileResult(GitHubApiResult result) {
+        view.hideLoadingView();
         if (result.isSuccessful) {
             profile = (Profile) result.resultObject;
             view.setUpContent(profile);
@@ -37,6 +45,7 @@ public class HomePresenter {
 
     public HomePresenter(HomeView feedView) {
         this.view = feedView;
+        view.showLoadingView();
         GitHubApi.getApi().fetchProfile(this::handleFetchProfileResult);
     }
 
