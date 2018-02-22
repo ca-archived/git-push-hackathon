@@ -94,7 +94,7 @@ public class GitHubObjectMapper {
         Comment comment = new Comment();
         try {
             comment.author = mapProfile(jsonObject.getJSONObject("user"));
-            comment.bodyHtml = jsonObject.getString("body_html");
+            comment.bodyHtml = wrap(jsonObject.getString("body_html"));
             comment.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
         } catch (Exception e) {
             e.printStackTrace();;
@@ -124,7 +124,7 @@ public class GitHubObjectMapper {
             issue.repoUrl = jsonObject.getString("repository_url");
             issue.name = jsonObject.getString("title");
             issue.number = jsonObject.getInt("number");
-            issue.bodyHtml = jsonObject.optString("body_html");
+            issue.bodyHtml = wrap(jsonObject.optString("body_html"));
             issue.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             issue.commentsUrl = jsonObject.getString("comments_url");
             issue.author = mapProfile(jsonObject.getJSONObject("user"));
@@ -170,7 +170,7 @@ public class GitHubObjectMapper {
             pr.htmlUrl = jsonObject.getString("html_url");
             pr.name = jsonObject.getString("title");
             pr.number = jsonObject.getInt("number");
-            pr.bodyHtml = jsonObject.optString("body_html");
+            pr.bodyHtml = wrap(jsonObject.optString("body_html"));
             pr.createdAt = dateFormat.parse(jsonObject.getString("created_at"));
             pr.commentsUrl = jsonObject.getString("comments_url");
             pr.author = mapProfile(jsonObject.getJSONObject("user"));
@@ -270,6 +270,11 @@ public class GitHubObjectMapper {
         return EventMapper.getMapper().mapEventList(jsonString);
     }
 
-
+    private static String wrap(String htmlString) {
+        return "<html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body>" +
+                "<div style=\"word-wrap: break-word;\">" +
+                htmlString +
+                "</div></body></html>";
+    }
 
 }
