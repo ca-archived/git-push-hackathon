@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.masato.githubfeed.model.Commit;
 import com.example.masato.githubfeed.model.Repository;
+import com.google.android.gms.security.ProviderInstaller;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,9 +26,7 @@ public class GitHubApi {
     private static GitHubApi api;
 
     public static void init(Context appContext) {
-        SharedPreferences preferences = appContext.getSharedPreferences("token", Context.MODE_PRIVATE);
-        Resources resources = appContext.getResources();
-        api = new GitHubApi(preferences, resources);
+        api = new GitHubApi(appContext);
     }
 
     public static GitHubApi getApi() {
@@ -147,7 +146,9 @@ public class GitHubApi {
         });
     }
 
-    private GitHubApi(SharedPreferences preferences, Resources resources) {
+    private GitHubApi(Context appContext) {
+        SharedPreferences preferences = appContext.getSharedPreferences("token", Context.MODE_PRIVATE);
+        Resources resources = appContext.getResources();
         this.executorService = Executors.newFixedThreadPool(3);
         this.tokenManager = new GitHubTokenManager(resources, preferences, executorService);
         this.resourceManager = new GitHubResourceManager(tokenManager.getToken(), executorService);

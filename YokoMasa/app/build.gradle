@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.google.android.gms:play-services-base:11.8.0'
 
     compile 'com.google.firebase:firebase-core:11.8.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
