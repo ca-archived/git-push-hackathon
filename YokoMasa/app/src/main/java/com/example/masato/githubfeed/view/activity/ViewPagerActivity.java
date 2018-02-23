@@ -47,7 +47,7 @@ public abstract class ViewPagerActivity extends BaseActivity {
     }
 
     public void showLoadingView() {
-        showLoadingFragment(R.id.general_recyclerView_mother);
+        showLoadingFragment(R.id.general_view_pager_mother);
     }
 
     public void hideLoadingView() {
