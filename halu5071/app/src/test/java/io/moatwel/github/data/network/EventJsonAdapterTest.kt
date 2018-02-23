@@ -139,4 +139,15 @@ class EventJsonAdapterTest {
     assertThat((list.get(2).payload as IssueCommentPayload).comment.body, `is`("Thanks"))
     assertThat(list.get(2).actor?.login, `is`("hogeLogin"))
   }
+
+  @Test
+  fun parseEvent4() {
+    val resource = TestUtil.readResource("event_array_4.json")
+
+    val list = adapter.fromJson(resource)
+
+    assertNotNull(list)
+    assertNotNull(list?.get(0))
+    assertThat(list?.get(0)?.type, `is`(EventType.PullRequestEvent))
+  }
 }
