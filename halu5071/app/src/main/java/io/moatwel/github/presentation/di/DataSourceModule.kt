@@ -43,8 +43,8 @@ class DataSourceModule {
   }
 
   @Provides
-  fun provideAuthDataDataSource(context: Context, moshi: Moshi): AuthDataDataSource {
-    return AuthDataDataSource(context, moshi)
+  fun provideAuthDataDataSource(context: Context, moshi: Moshi, crypto: Crypto): AuthDataDataSource {
+    return AuthDataDataSource(context, moshi, crypto)
   }
 
   @Provides

@@ -24,11 +24,9 @@ package io.moatwel.github.data.repository
 
 import io.moatwel.github.BuildConfig
 import io.moatwel.github.data.datasource.AuthDataDataSource
-import io.moatwel.github.data.datasource.Crypto
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
 import io.reactivex.Observable
-import javax.inject.Inject
 
 /**
  *  This class is an implementation class of [AuthDataRepository] of domain layer.
@@ -40,14 +38,11 @@ class AuthDataDataRepository (
   private val dataSource: AuthDataDataSource
 ) : AuthDataRepository {
 
-  @Inject
-  lateinit var crypto: Crypto
-
   private var authData: AuthData? = null
 
   override fun save(authData: AuthData) {
     this.authData = authData
-    dataSource.saveToSharedPreference(authData, crypto)
+    dataSource.saveToSharedPreference(authData)
   }
 
   /**
@@ -59,7 +54,7 @@ class AuthDataDataRepository (
     authData?.let {
       return it
     } ?: run {
-      val authData = dataSource.readFromSharedPreference(crypto)
+      val authData = dataSource.readFromSharedPreference()
       this.authData = authData
       return this.authData
     }

@@ -51,7 +51,7 @@ data class Repository(
   @Json(name = "watchers_count")
   val watchers: Int,
 
-  val language: String,
+  val language: String?,
 
   @Json(name = "open_issues")
   val openIssues: Int,
