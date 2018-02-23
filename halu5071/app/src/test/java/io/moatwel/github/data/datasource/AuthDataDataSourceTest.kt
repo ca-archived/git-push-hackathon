@@ -30,7 +30,7 @@ class AuthDataDataSourceTest {
     moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     context = PowerMockito.mock(Context::class.java)
     crypto = PowerMockito.mock(Crypto::class.java)
-    authDataDataSource = AuthDataDataSource(context, moshi)
+    authDataDataSource = AuthDataDataSource(context, moshi, crypto)
   }
 
   @Test
@@ -44,7 +44,7 @@ class AuthDataDataSourceTest {
     `when`(mockSharedPreferences.getString(ARG_AUTH_DATA, ""))
       .thenReturn("")
 
-    val authData = authDataDataSource.readFromSharedPreference(Crypto(context))
+    val authData = authDataDataSource.readFromSharedPreference()
 
     assertNull(authData)
   }
