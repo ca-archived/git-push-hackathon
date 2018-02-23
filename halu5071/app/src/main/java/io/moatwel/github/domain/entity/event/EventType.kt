@@ -12,20 +12,8 @@ enum class EventType {
   @Json(name = "DeleteEvent")
   DeleteEvent,
 
-  @Json(name = "DownloadEvent")
-  DownloadEvent,
-
-  @Json(name = "FollowEvent")
-  FollowEvent,
-
   @Json(name = "ForkEvent")
   ForkEvent,
-
-  @Json(name = "ForkApplyEvent")
-  ForkApplyEvent,
-
-  @Json(name = "GistEvent")
-  GistEvent,
 
   @Json(name = "GollumEvent")
   GollumEvent,

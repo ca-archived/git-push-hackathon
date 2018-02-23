@@ -7,4 +7,20 @@
     </string>
     <string name="str_access_token_url">https://github.com</string>
     <string name="str_failed_to_login">Failed to login.\n Please login again</string>
+
+    <string name="str_issue_comment"><b>%1$s</b> commented on <b>%2$s</b></string>
+    <string name="str_pr_event">%1$s %2$s pull request on %3$s</string>
+    <string name="str_pr_title">#%1$d %2$s</string>
+    <string name="str_pr_comment">%1$s reviewed pull request on %2$s #%3$d</string>
+    <string name="str_pr_review">%1$s %2$s pull request review</string>
+    <string name="str_issue_event">%1$s %2$s issue on %3$s</string>
+    <string name="str_issue_title">#%1$d %2$s</string>
+    <string name="str_watch_event">%1$s %2$s %3$s</string>
+    <string name="str_create_event">%1$s created %2$s</string>
+    <string name="str_fork_event">%1$s forked %2$s</string>
+    <string name="str_public_event">%1$s made %2$s public</string>
+    <string name="str_push_event">%1$s pushed to %2$s at %3$s</string>
+    <string name="str_delete_event">%1$s deleted %2$s on %3$s</string>
+    <string name="str_team_add_event">%1$s added to %2$s by %3$s</string>
+    <string name="str_member_event">%1$s %2$s on %3$s</string>
 </resources>

@@ -81,8 +81,12 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
           -> moshi.adapter(ForkPayload::class.java).fromJson(value) as ForkPayload
       EventType.GollumEvent
           -> moshi.adapter(GollumPayload::class.java).fromJson(value) as GollumPayload
+      EventType.MemberEvent
+          -> moshi.adapter(MemberPayload::class.java).fromJson(value) as MemberPayload
       EventType.IssueCommentEvent
           -> moshi.adapter(IssueCommentPayload::class.java).fromJson(value) as IssueCommentPayload
+      EventType.PublicEvent
+          -> moshi.adapter(PublicPayload::class.java).fromJson(value) as PublicPayload
       EventType.PullRequestEvent
           -> moshi.adapter(PullRequestPayload::class.java).fromJson(value) as PullRequestPayload
       EventType.PullRequestReviewEvent
@@ -92,6 +96,8 @@ class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
         .fromJson(value) as PullRequestReviewCommentPayload
       EventType.PushEvent
           -> moshi.adapter(PushPayload::class.java).fromJson(value) as PushPayload
+      EventType.TeamAddEvent
+          -> moshi.adapter(TeamAddPayload::class.java).fromJson(value) as TeamAddPayload
       EventType.WatchEvent
           -> moshi.adapter(WatchPayload::class.java).fromJson(value) as WatchPayload
       EventType.IssuesEvent

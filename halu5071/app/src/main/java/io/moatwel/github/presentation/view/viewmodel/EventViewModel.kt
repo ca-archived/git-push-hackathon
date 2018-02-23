@@ -50,6 +50,11 @@ class EventViewModel(
     events = LivePagedListBuilder(factory, config).build()
   }
 
+  override fun onCleared() {
+    super.onCleared()
+    events.value?.clear()
+  }
+
   companion object {
     private const val PAGE_SIZE = 15
   }
