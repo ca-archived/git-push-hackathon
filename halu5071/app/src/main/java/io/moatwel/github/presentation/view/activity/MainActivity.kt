@@ -27,10 +27,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
+import io.moatwel.github.data.network.NetworkState
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.databinding.ActivityMainBinding
@@ -54,7 +56,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
   private lateinit var binding: ActivityMainBinding
   private val adapter = EventAdapter()
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -89,6 +90,19 @@ class MainActivity : DaggerAppCompatActivity() {
 
     viewModel.events.observe(this, Observer { pagedList ->
       adapter.setList(pagedList)
+      adapter.notifyDataSetChanged()
+    })
+    initSwipeRefresh(viewModel)
+  }
+
+  private fun initSwipeRefresh(viewModel: EventViewModel) {
+    val swipeLayout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+    swipeLayout.setOnRefreshListener {
+      viewModel.refresh()
+    }
+
+    viewModel.getNetworkState()?.observe(this, Observer {
+      swipeLayout.isRefreshing = it == NetworkState.LOADING
     })
   }
 }

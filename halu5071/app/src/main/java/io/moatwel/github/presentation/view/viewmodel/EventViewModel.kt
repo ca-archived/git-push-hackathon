@@ -23,10 +23,12 @@
 package io.moatwel.github.presentation.view.viewmodel
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import io.moatwel.github.data.datasource.EventDataSourceFactory
+import io.moatwel.github.data.network.NetworkState
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
 import io.moatwel.github.domain.repository.UserRepository
@@ -48,6 +50,10 @@ class EventViewModel(
       .build()
 
     events = LivePagedListBuilder(factory, config).build()
+  }
+
+  fun getNetworkState(): MutableLiveData<NetworkState>? {
+    return factory.sourceLiveData.value?.networkState
   }
 
   fun refresh() {
