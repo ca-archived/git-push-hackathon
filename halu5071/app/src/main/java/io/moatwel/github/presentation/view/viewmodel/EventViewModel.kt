@@ -50,6 +50,10 @@ class EventViewModel(
     events = LivePagedListBuilder(factory, config).build()
   }
 
+  fun refresh() {
+    factory.sourceLiveData.value?.invalidate()
+  }
+
   companion object {
     private const val PAGE_SIZE = 15
   }

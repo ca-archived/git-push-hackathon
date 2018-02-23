@@ -22,6 +22,7 @@
 
 package io.moatwel.github.data.datasource
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
@@ -32,7 +33,11 @@ class EventDataSourceFactory (
   private val userRepository: UserRepository
 ) : DataSource.Factory<Int, Event> {
 
+  val sourceLiveData = MutableLiveData<CloudEventDataSource>()
+
   override fun create(): DataSource<Int, Event> {
-    return CloudEventDataSource(api, userRepository)
+    val dataSource = CloudEventDataSource(api, userRepository)
+    sourceLiveData.postValue(dataSource)
+    return dataSource
   }
 }
