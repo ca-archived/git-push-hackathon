@@ -52,8 +52,10 @@ class CloudEventDataSource (
           }
         }
         callback(it.body()!!, next)
+        this.networkState.postValue(NetworkState.SUCCESS)
       }, {
         Timber.e(it)
+        this.networkState.postValue(NetworkState.FAILED)
       })
   }
 
@@ -73,7 +75,6 @@ class CloudEventDataSource (
     this.networkState.postValue(NetworkState.LOADING)
     getList(userRepository.me()?.login ?: "", 1) { events, next ->
       callback.onResult(events, null, next)
-      this.networkState.postValue(NetworkState.SUCCESS)
     }
   }
 }

@@ -25,17 +25,17 @@ package io.moatwel.github.presentation.view.viewmodel
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import io.moatwel.github.data.network.retrofit.EventApi
+import io.moatwel.github.domain.repository.EventRepository
 import io.moatwel.github.domain.repository.UserRepository
 
 class EventViewModelFactory(
-  private val api: EventApi,
-  private val userRepository: UserRepository
+  private val eventRepository: EventRepository
 ) : ViewModelProvider.Factory {
 
   @SuppressWarnings("unchecked")
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     if (modelClass.isAssignableFrom(EventViewModel::class.java)) {
-      return EventViewModel(api, userRepository) as T
+      return EventViewModel(eventRepository) as T
     }
     throw IllegalArgumentException("Unknown ViewModel class")
   }

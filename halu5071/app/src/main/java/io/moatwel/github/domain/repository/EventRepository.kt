@@ -1,7 +1,7 @@
 /*
  *  GitHub-Client
  *
- *  EventViewModel.kt
+ *  EventRepository.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -20,20 +20,13 @@
  *
  */
 
-package io.moatwel.github.presentation.view.viewmodel
+package io.moatwel.github.domain.repository
 
-import android.arch.lifecycle.ViewModel
-import io.moatwel.github.domain.repository.EventRepository
+import io.moatwel.github.domain.entity.EventEntity
 
-class EventViewModel(
-  eventRepository: EventRepository
-) : ViewModel() {
+interface EventRepository {
 
-  private val eventLiveData = eventRepository.getEventEntity()
-  val events = eventLiveData.pagedList
-  val refreshState = eventLiveData.refreshState
+  fun getEventEntity(): EventEntity
 
-  fun refresh() {
-    eventLiveData.refresh.invoke()
-  }
+  fun refresh()
 }

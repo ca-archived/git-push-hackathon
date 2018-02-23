@@ -33,7 +33,7 @@ import android.support.v7.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
 import io.moatwel.github.data.network.NetworkState
-import io.moatwel.github.data.network.retrofit.EventApi
+import io.moatwel.github.data.repository.EventDataRepository
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.databinding.ActivityMainBinding
 import io.moatwel.github.domain.repository.AuthDataRepository
@@ -49,7 +49,7 @@ class MainActivity : DaggerAppCompatActivity() {
   lateinit var authDataRepository: AuthDataRepository
 
   @Inject
-  lateinit var eventApi: EventApi
+  lateinit var eventRepository: EventDataRepository
 
   @Inject
   lateinit var userRepository: UserDataRepository
@@ -79,9 +79,11 @@ class MainActivity : DaggerAppCompatActivity() {
   private fun initViewModel() {
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-    val eventViewModelFactory = EventViewModelFactory(eventApi, userRepository)
+    val eventViewModelFactory = EventViewModelFactory(eventRepository)
     val viewModel = ViewModelProviders.of(this, eventViewModelFactory)
       .get(EventViewModel::class.java)
+
+    initSwipeRefresh(viewModel)
 
     binding.recycler.layoutManager = LinearLayoutManager(this)
     binding.recycler
@@ -92,16 +94,17 @@ class MainActivity : DaggerAppCompatActivity() {
       adapter.setList(pagedList)
       adapter.notifyDataSetChanged()
     })
-    initSwipeRefresh(viewModel)
   }
 
   private fun initSwipeRefresh(viewModel: EventViewModel) {
     val swipeLayout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
     swipeLayout.setOnRefreshListener {
+      Timber.d("Refresh")
       viewModel.refresh()
     }
 
-    viewModel.getNetworkState()?.observe(this, Observer {
+    viewModel.refreshState.observe(this, Observer {
+      Timber.d("NetworkState: $it")
       swipeLayout.isRefreshing = it == NetworkState.LOADING
     })
   }
