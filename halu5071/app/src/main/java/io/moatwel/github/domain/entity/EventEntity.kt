@@ -1,7 +1,7 @@
 /*
  *  GitHub-Client
  *
- *  EventDataSourceFactory.kt
+ *  EventEntity.kt
  *
  *  Copyright 2018 moatwel.io
  *  author : halu5071 (Yasunori Horii)
@@ -20,24 +20,17 @@
  *
  */
 
-package io.moatwel.github.data.datasource
+package io.moatwel.github.domain.entity
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.DataSource
-import io.moatwel.github.data.network.retrofit.EventApi
+import android.arch.lifecycle.LiveData
+import android.arch.paging.PagedList
+import io.moatwel.github.data.network.NetworkState
 import io.moatwel.github.domain.entity.event.Event
-import io.moatwel.github.domain.repository.UserRepository
 
-class EventDataSourceFactory (
-  private val api: EventApi,
-  private val userRepository: UserRepository
-) : DataSource.Factory<Int, Event> {
+data class EventEntity(
+  val pagedList: LiveData<PagedList<Event>>,
 
-  val sourceLiveData = MutableLiveData<CloudEventDataSource>()
+  val refreshState: LiveData<NetworkState>,
 
-  override fun create(): DataSource<Int, Event> {
-    val dataSource = CloudEventDataSource(api, userRepository)
-    sourceLiveData.postValue(dataSource)
-    return dataSource
-  }
-}
+  val refresh: () -> Unit
+)

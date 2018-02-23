@@ -27,11 +27,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
-import io.moatwel.github.data.network.retrofit.EventApi
+import io.moatwel.github.data.network.NetworkState
+import io.moatwel.github.data.repository.EventDataRepository
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.databinding.ActivityMainBinding
 import io.moatwel.github.domain.repository.AuthDataRepository
@@ -47,14 +49,13 @@ class MainActivity : DaggerAppCompatActivity() {
   lateinit var authDataRepository: AuthDataRepository
 
   @Inject
-  lateinit var eventApi: EventApi
+  lateinit var eventRepository: EventDataRepository
 
   @Inject
   lateinit var userRepository: UserDataRepository
 
   private lateinit var binding: ActivityMainBinding
   private val adapter = EventAdapter()
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -78,9 +79,11 @@ class MainActivity : DaggerAppCompatActivity() {
   private fun initViewModel() {
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-    val eventViewModelFactory = EventViewModelFactory(eventApi, userRepository)
+    val eventViewModelFactory = EventViewModelFactory(eventRepository)
     val viewModel = ViewModelProviders.of(this, eventViewModelFactory)
       .get(EventViewModel::class.java)
+
+    initSwipeRefresh(viewModel)
 
     binding.recycler.layoutManager = LinearLayoutManager(this)
     binding.recycler
@@ -89,6 +92,20 @@ class MainActivity : DaggerAppCompatActivity() {
 
     viewModel.events.observe(this, Observer { pagedList ->
       adapter.setList(pagedList)
+      adapter.notifyDataSetChanged()
+    })
+  }
+
+  private fun initSwipeRefresh(viewModel: EventViewModel) {
+    val swipeLayout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+    swipeLayout.setOnRefreshListener {
+      Timber.d("Refresh")
+      viewModel.refresh()
+    }
+
+    viewModel.refreshState.observe(this, Observer {
+      Timber.d("NetworkState: $it")
+      swipeLayout.isRefreshing = it == NetworkState.LOADING
     })
   }
 }

@@ -22,7 +22,9 @@
 
 package io.moatwel.github.data.datasource
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
+import io.moatwel.github.data.network.NetworkState
 import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.domain.entity.event.Event
 import io.moatwel.github.domain.repository.UserRepository
@@ -32,6 +34,8 @@ class CloudEventDataSource (
   private val api: EventApi,
   private val userRepository: UserRepository
 ) : PageKeyedDataSource<Int, Event>(){
+
+  val networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
   private fun getList(name: String,
                       page: Int,
@@ -48,8 +52,10 @@ class CloudEventDataSource (
           }
         }
         callback(it.body()!!, next)
+        this.networkState.postValue(NetworkState.SUCCESS)
       }, {
         Timber.e(it)
+        this.networkState.postValue(NetworkState.FAILED)
       })
   }
 
@@ -66,6 +72,7 @@ class CloudEventDataSource (
 
   override fun loadInitial(params: LoadInitialParams<Int>,
                            callback: LoadInitialCallback<Int, Event>) {
+    this.networkState.postValue(NetworkState.LOADING)
     getList(userRepository.me()?.login ?: "", 1) { events, next ->
       callback.onResult(events, null, next)
     }

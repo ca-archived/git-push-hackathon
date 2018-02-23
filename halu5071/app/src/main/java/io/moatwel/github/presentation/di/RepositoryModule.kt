@@ -27,7 +27,9 @@ import dagger.Module
 import dagger.Provides
 import io.moatwel.github.data.datasource.AuthDataDataSource
 import io.moatwel.github.data.datasource.CloudUserDataSource
+import io.moatwel.github.data.network.retrofit.EventApi
 import io.moatwel.github.data.repository.AuthDataDataRepository
+import io.moatwel.github.data.repository.EventDataRepository
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.repository.AuthDataRepository
 import javax.inject.Singleton
@@ -39,6 +41,12 @@ class RepositoryModule {
   @Singleton
   fun provideUserRepository(cloudUserDataSource: CloudUserDataSource): UserDataRepository {
     return UserDataRepository(cloudUserDataSource)
+  }
+
+  @Provides
+  @Singleton
+  fun provideEventRepository(api: EventApi, userRepository: UserDataRepository): EventDataRepository {
+    return EventDataRepository(api, userRepository)
   }
 
   @Provides
