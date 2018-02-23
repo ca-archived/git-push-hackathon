@@ -1,9 +1,7 @@
 package io.moatwel.github.domain.entity.event
 
 import com.squareup.moshi.Json
-import se.ansman.kotshi.JsonSerializable
 
-@JsonSerializable
 enum class EventType {
   @Json(name = "CommitCommentEvent")
   CommitCommentEvent,
