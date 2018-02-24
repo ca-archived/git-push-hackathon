@@ -26,3 +26,16 @@
 
 1. プロジェクトをビルド  
 (`app/src/main/res/menu/navigation_view_main_menu.xml`が生成される)
+
+## 機能
+### ログイン画面
+![](assets/login.png)
+### メイン画面 
+![](assets/main_1.png)  
+![](assets/main_2.png)  
+![](assets/main_3.png)  
+![](assets/main_4.png)
+#### ナビゲーションメニュー
+![](assets/navigation_view_1.png)  
+![](assets/navigation_view_2.png)  
+![](assets/navigation_view_3.png)
