@@ -43,7 +43,7 @@ class EventViewAdapter(private val chromeCustomTabsHelper: ChromeCustomTabsHelpe
         return EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.event, parent, false))
     }
 
-    override fun getItemCount(): Int = this.allEventList.size
+    override fun getItemCount(): Int = this.filteredEventList.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         Log.v(EventViewAdapter.TAG, "onBindViewHolder called")
@@ -103,7 +103,7 @@ class EventViewAdapter(private val chromeCustomTabsHelper: ChromeCustomTabsHelpe
      */
     private fun onDataChanged() {
         Log.v(EventViewAdapter.TAG, "onDataChanged called")
-        if (0 < this.itemCount) {
+        if (this.allEventList.isNotEmpty()) {
             this.filteredEventList = this.allEventList.filter {
                 this.eventKinds.contains(it::class.simpleName)
             }
