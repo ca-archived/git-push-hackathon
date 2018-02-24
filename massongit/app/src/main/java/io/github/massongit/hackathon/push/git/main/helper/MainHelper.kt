@@ -27,7 +27,7 @@ import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnRefreshL
 import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnScrollListener
 import io.github.massongit.hackathon.push.git.main.task.GetAccessTokenAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetTimelineAsyncTask
-import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
+import io.github.massongit.hackathon.push.git.main.task.GetUserDataAsyncTask
 
 /**
  * Main画面のHelper
@@ -122,7 +122,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
      */
     internal fun getUserName(isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getUserName called")
-        GetUserNameAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userName, isInit).execute()
+        GetUserDataAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userName, isInit).execute()
     }
 
     /**

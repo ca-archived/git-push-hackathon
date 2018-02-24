@@ -16,7 +16,7 @@ import java.net.URL
 
 
 /**
- * タイムラインを取得する非同期タスク
+ * ユーザー情報を取得する非同期タスク
  * @param service GitHub APIのサービス
  * @param mainHelper Helper
  * @param chromeCustomTabsHelper Chrome Custom Tabs Helper
@@ -25,12 +25,12 @@ import java.net.URL
  * @param userName ユーザー名表示部
  * @param isInit 初期化時の呼び出しかどうか
  */
-class GetUserNameAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationViewLayout: View, userAvatar: ImageView, userName: TextView, private val isInit: Boolean) : RequestAsyncTask<Unit, Unit, UserData?>(service, mainHelper) {
+class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationViewLayout: View, userAvatar: ImageView, userName: TextView, private val isInit: Boolean) : RequestAsyncTask<Unit, Unit, UserData?>(service, mainHelper) {
     companion object {
         /**
          * ログ用タグ
          */
-        private val TAG: String? = GetUserNameAsyncTask::class.simpleName
+        private val TAG: String? = GetUserDataAsyncTask::class.simpleName
     }
 
     /**
@@ -49,7 +49,7 @@ class GetUserNameAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, pri
     private val userNameWeakReference: WeakReference<TextView> = WeakReference(userName)
 
     override fun doInBackground(vararg units: Unit): UserData? {
-        Log.v(GetUserNameAsyncTask.TAG, "doInBackground called")
+        Log.v(GetUserDataAsyncTask.TAG, "doInBackground called")
         (this.request("https://api.github.com/user") as? JsonObject)?.apply {
             return UserData(URL(get("avatar_url")?.asString()).openStream().use {
                 BitmapFactory.decodeStream(it)
@@ -59,7 +59,7 @@ class GetUserNameAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, pri
     }
 
     override fun onPostExecute(userData: UserData?) {
-        Log.v(GetUserNameAsyncTask.TAG, "onPostExecute called")
+        Log.v(GetUserDataAsyncTask.TAG, "onPostExecute called")
         if (userData != null) {
             this.userAvatarWeakReference.get()?.setImageBitmap(userData.avatar)
             this.userNameWeakReference.get()?.text = userData.name
