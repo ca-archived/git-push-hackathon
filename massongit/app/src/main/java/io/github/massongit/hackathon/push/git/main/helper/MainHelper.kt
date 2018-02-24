@@ -49,7 +49,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     /**
      * GitHub APIのアクセストークン
      */
-    var accessToken: OAuth2AccessToken? = null
+    internal var accessToken: OAuth2AccessToken? = null
 
     /**
      * イベントビューのアダプター
