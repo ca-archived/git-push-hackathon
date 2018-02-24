@@ -46,7 +46,9 @@ public class TryAgainDialogFragment extends DialogFragment {
                     if (fragment instanceof TryAgainListener) {
                         listener = (TryAgainListener) fragment;
                     }
-                    listener.onTryAgain();
+                    if (listener != null) {
+                        listener.onTryAgain();
+                    }
                 })
                 .create();
         return alertDialog;

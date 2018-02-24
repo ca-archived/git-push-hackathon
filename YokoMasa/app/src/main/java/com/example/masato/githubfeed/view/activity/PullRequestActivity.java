@@ -95,7 +95,7 @@ public class PullRequestActivity extends ViewPagerActivity implements PullReques
 
     @Override
     public void onTryAgain() {
-
+        presenter.tryAgain();
     }
 
     @Override

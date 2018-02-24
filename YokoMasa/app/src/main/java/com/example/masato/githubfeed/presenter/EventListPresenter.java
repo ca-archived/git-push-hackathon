@@ -39,10 +39,9 @@ public class EventListPresenter extends PaginatingListPresenter {
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             List<BaseModel> events = (List<BaseModel>) result.resultObject;
-            onFetchedElements(events, true);
+            onFetchSucceeded(events);
         } else {
-            onFetchedElements(null, false);
-            view.showErrorView(result.failure, result.errorMessage);
+            onFetchFailed(result.failure, result.errorMessage);
         }
     }
 

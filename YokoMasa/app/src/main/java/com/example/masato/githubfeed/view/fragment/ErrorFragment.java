@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.view.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,22 @@ public class ErrorFragment extends Fragment implements View.OnClickListener {
 
     private TryAgainListener listener;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof TryAgainListener) {
+            this.listener = (TryAgainListener) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof TryAgainListener) {
+            this.listener = (TryAgainListener) activity;
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,22 +55,16 @@ public class ErrorFragment extends Fragment implements View.OnClickListener {
         AppCompatTextView message = (AppCompatTextView) view.findViewById(R.id.error_message);
         overview.setText(failure.textId);
         message.setText(messageString);
-
     }
 
     @Override
     public void onClick(View view) {
-        if (listener != null) {
-            listener.onTryAgain();
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         Fragment fragment = getParentFragment();
         if (fragment instanceof TryAgainListener) {
             this.listener = (TryAgainListener) fragment;
+        }
+        if (listener != null) {
+            listener.onTryAgain();
         }
     }
 

@@ -58,7 +58,7 @@ public abstract class PaginatingListFragment extends BaseFragment
 
     @Override
     public void onTryAgain() {
-        presenter.refresh();
+        presenter.tryAgain();
     }
 
     public void showErrorView(Failure failure, String errorMessage) {

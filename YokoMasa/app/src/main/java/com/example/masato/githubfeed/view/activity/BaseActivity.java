@@ -34,6 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ErrorFra
 
     public void showLoadingFragment(int motherId) {
         doSafeFTTransaction(() -> {
+            if (loadingFragment != null) {
+                return;
+            }
             loadingFragment = new LoadingFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(motherId, loadingFragment);
@@ -56,6 +59,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ErrorFra
 
     public void showErrorFragment(int motherId, Failure failure, String errorMessage) {
         doSafeFTTransaction(() -> {
+            if (errorFragment != null) {
+                return;
+            }
             errorFragment = FragmentFactory.createErrorFragment(failure, errorMessage);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(motherId, errorFragment);

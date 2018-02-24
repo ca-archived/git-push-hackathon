@@ -35,9 +35,9 @@ public class FeedListPresenter extends PaginatingListPresenter {
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             List<BaseModel> feedEntries = (List<BaseModel>) result.resultObject;
-            onFetchedElements(feedEntries, true);
+            onFetchSucceeded(feedEntries);
         } else {
-            onFetchedElements(null, false);
+            onFetchFailed(result.failure, result.errorMessage);
             view.showErrorView(result.failure, result.errorMessage);
         }
     }

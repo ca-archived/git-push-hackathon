@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -74,7 +75,7 @@ public class RepoActivity extends ViewPagerActivity implements RepoView {
 
     @Override
     public void onTryAgain() {
-
+        presenter.tryAgain();
     }
 
     @Override

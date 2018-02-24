@@ -43,10 +43,9 @@ public class IssueListPresenter extends PaginatingListPresenter {
     private void handleApiResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             ArrayList<BaseModel> issues = (ArrayList<BaseModel>) result.resultObject;
-            onFetchedElements(issues, true);
+            onFetchSucceeded(issues);
         } else {
-            onFetchedElements(null, false);
-            view.showErrorView(result.failure, result.errorMessage);
+            onFetchFailed(result.failure, result.errorMessage);
         }
     }
 

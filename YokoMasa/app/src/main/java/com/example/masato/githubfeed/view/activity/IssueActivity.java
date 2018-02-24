@@ -76,7 +76,7 @@ public class IssueActivity extends ViewPagerActivity implements IssueView {
 
     @Override
     public void onTryAgain() {
-
+        presenter.tryAgain();
     }
 
     @Override

@@ -35,10 +35,9 @@ public class CommentListPresenter extends PaginatingListPresenter {
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             List<BaseModel> commentList = (List<BaseModel>) result.resultObject;
-            onFetchedElements(commentList, true);
+            onFetchSucceeded(commentList);
         } else {
-            onFetchedElements(null, false);
-            view.showErrorView(result.failure, result.errorMessage);
+            onFetchFailed(result.failure, result.errorMessage);
         }
     }
 

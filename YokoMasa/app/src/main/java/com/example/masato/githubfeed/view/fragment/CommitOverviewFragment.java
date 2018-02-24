@@ -73,7 +73,7 @@ public class CommitOverviewFragment extends BaseFragment implements CommitOvervi
 
     @Override
     public void hideErrorView() {
-        removeLoadingFragment();
+        removeErrorFragment();
     }
 
     @Override

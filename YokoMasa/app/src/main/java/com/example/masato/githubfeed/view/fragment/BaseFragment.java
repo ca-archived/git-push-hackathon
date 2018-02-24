@@ -34,6 +34,9 @@ public abstract class BaseFragment extends Fragment implements ErrorFragment.Try
 
     public void showErrorFragment(int motherId, Failure failure, String errorMessage) {
         doSafeFTTransaction(() -> {
+            if (errorFragment != null) {
+                return;
+            }
             errorFragment = FragmentFactory.createErrorFragment(failure, errorMessage);
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ft.add(motherId, errorFragment);
@@ -55,6 +58,9 @@ public abstract class BaseFragment extends Fragment implements ErrorFragment.Try
 
     public void showLoadingFragment(int motherId) {
         doSafeFTTransaction(() -> {
+            if (loadingFragment != null) {
+                return;
+            }
             loadingFragment = new LoadingFragment();
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ft.add(motherId, loadingFragment);

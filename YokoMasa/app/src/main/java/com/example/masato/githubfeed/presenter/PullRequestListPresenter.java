@@ -38,10 +38,9 @@ public class PullRequestListPresenter extends PaginatingListPresenter {
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             List<BaseModel> prList = (List<BaseModel>) result.resultObject;
-            onFetchedElements(prList, true);
+            onFetchSucceeded(prList);
         } else {
-            onFetchedElements(null, false);
-            view.showErrorView(result.failure, result.errorMessage);
+            onFetchFailed(result.failure, result.errorMessage);
         }
     }
 

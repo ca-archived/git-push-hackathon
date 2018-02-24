@@ -1,5 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
+import android.util.Log;
+
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Commit;
@@ -30,8 +32,10 @@ public class CommitOverviewPresenter extends BasePresenter {
         if (result.isSuccessful) {
             List<DiffFile> diffFiles = (List<DiffFile>) result.resultObject;
             view.showDiffFiles(diffFiles);
+            Log.i("gh_feed", "diff success");
         } else {
             view.showErrorView(result.failure, result.errorMessage);
+            Log.i("gh_feed", "diff failure");
         }
     }
 

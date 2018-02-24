@@ -44,10 +44,9 @@ public class CommitListPresenter extends PaginatingListPresenter {
     private void handleResult(GitHubApiResult result) {
         if (result.isSuccessful) {
             List<BaseModel> commits = (List<BaseModel>) result.resultObject;
-            onFetchedElements(commits, true);
+            onFetchSucceeded(commits);
         } else {
-            onFetchedElements(null, false);
-            view.showErrorView(result.failure, result.errorMessage);
+            onFetchFailed(result.failure, result.errorMessage);
         }
     }
 

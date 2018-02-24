@@ -2,6 +2,7 @@ package com.example.masato.githubfeed.presenter;
 
 import android.os.Parcelable;
 
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.model.BaseModel;
 import com.example.masato.githubfeed.view.PaginatingListView;
 import static com.example.masato.githubfeed.view.PaginatingListView.*;
@@ -120,21 +121,15 @@ public abstract class PaginatingListPresenter {
      */
     protected abstract void onFetchElement(int page);
 
-    /**
-     * このクラスのサブクラスはonFetchElement()でアイテムの取得をした結果をこのメソッドで通知する必要があります。
-     * 取得に成功したらfetchSucceededをtrueを、失敗したらfalseを渡してください。
-     * 取得に失敗した場合はelementsはnullで構いません。取得に成功したが、アイテムが0個である場合は空のリストを渡してください。
-     * @param elements 取得したアイテムのリスト。
-     * @param fetchSucceeded アイテムの取得が成功したかどうか。
-     */
-    protected void onFetchedElements(List<BaseModel> elements, boolean fetchSucceeded) {
-        if (fetchSucceeded) {
-            addElements(elements);
-        } else {
-            view.stopRefreshing();
-            refreshing = false;
-            fetching = false;
-        }
+    protected void onFetchSucceeded(List<BaseModel> elements) {
+        addElements(elements);
+    }
+
+    protected void onFetchFailed(Failure failure, String errorMessage) {
+        view.stopRefreshing();
+        view.showErrorView(failure, errorMessage);
+        refreshing = false;
+        fetching = false;
     }
 
     /**
@@ -160,12 +155,16 @@ public abstract class PaginatingListPresenter {
         fetching = false;
     }
 
+    public void tryAgain() {
+        view.hideErrorView();
+        refresh();
+    }
+
     /**
      * PaginatingListFragmentのRecyclerViewが初期化されるとき、またはユーザーが画面を下に引っ張ったときに
      * リストを初期化するために呼びます。
      */
     public void refresh() {
-        view.hideErrorView();
         if (refreshing) {
             return;
         }
