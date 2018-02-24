@@ -34,12 +34,19 @@ git-push-hackathon/YokoMasa/app/src/main/res/values/以下にconfig.xmlという
 <string name="oauth_redirect_host">login</string>
 ```
 
-
-3. 以下のコマンドを実行してください。
+3. 以下のコマンドを実行してください。  
+Linux↓
 ```
 cd git-push-hackathon/YokoMasa
 chmod 755 gradlew
 ./gradlew assembleDebug
+```
+
+
+windows↓
+```
+cd git-push-hackathon/YokoMasa
+gradlew.bat assembleDebug
 ```
 
 ビルドが成功するとgit-push-hackathon/YokoMasa/app/build/outputs/apk/debug以下にapp-debug.apkが生成されます。これをAndroid端末にインストールしてください。
