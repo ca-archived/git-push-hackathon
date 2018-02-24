@@ -59,10 +59,6 @@ class EventDataRepository(
       })
   }
 
-  override fun refresh() {
-
-  }
-
   companion object {
     private const val PAGE_SIZE = 15
   }

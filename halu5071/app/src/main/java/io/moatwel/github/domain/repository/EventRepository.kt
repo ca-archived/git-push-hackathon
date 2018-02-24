@@ -27,6 +27,4 @@ import io.moatwel.github.domain.entity.EventEntity
 interface EventRepository {
 
   fun getEventEntity(): EventEntity
-
-  fun refresh()
 }
