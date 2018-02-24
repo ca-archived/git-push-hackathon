@@ -1,6 +1,5 @@
-package io.github.massongit.hackathon.push.git.helper
+package io.github.massongit.hackathon.push.git.chromeCustomTabs
 
-import android.content.ComponentName
 import android.content.Context
 import android.net.Uri
 import android.support.customtabs.CustomTabsClient
@@ -27,7 +26,7 @@ class ChromeCustomTabsHelper(private val context: Context) {
     /**
      * Client
      */
-    private var customTabsClient: CustomTabsClient? = null
+    internal var customTabsClient: CustomTabsClient? = null
 
     /**
      * Connection
@@ -40,18 +39,7 @@ class ChromeCustomTabsHelper(private val context: Context) {
      */
     fun bind(afterWarmUpEvent: (() -> Unit)? = null) {
         Log.v(ChromeCustomTabsHelper.TAG, "bind called")
-        this.customTabsServiceConnection = object : CustomTabsServiceConnection() {
-            override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
-                customTabsClient = client.apply {
-                    warmup(0)
-                }
-                if (afterWarmUpEvent != null) {
-                    afterWarmUpEvent()
-                }
-            }
-
-            override fun onServiceDisconnected(name: ComponentName) {}
-        }
+        this.customTabsServiceConnection = ChromeCustomTabsServiceConnection(this, afterWarmUpEvent)
         CustomTabsClient.bindCustomTabsService(this.context, CustomTabsHelper.getPackageNameToUse(this.context), this.customTabsServiceConnection)
     }
 

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.eclipsesource.json.JsonObject
 import com.github.scribejava.core.oauth.OAuth20Service
-import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
+import io.github.massongit.hackathon.push.git.chromeCustomTabs.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 import io.github.massongit.hackathon.push.git.main.user.UserData
 import java.lang.ref.WeakReference

@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.github.massongit.hackathon.push.git.R
-import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
+import io.github.massongit.hackathon.push.git.chromeCustomTabs.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.main.event.Event
 import java.text.SimpleDateFormat
 import java.util.*

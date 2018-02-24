@@ -10,7 +10,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
-import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
+import io.github.massongit.hackathon.push.git.chromeCustomTabs.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 
 

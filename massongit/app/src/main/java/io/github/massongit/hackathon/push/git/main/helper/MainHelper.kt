@@ -19,7 +19,7 @@ import android.widget.TextView
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
-import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
+import io.github.massongit.hackathon.push.git.chromeCustomTabs.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.login.activity.LoginActivity
 import io.github.massongit.hackathon.push.git.main.event.view.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.event.view.EventViewOnScrollListener
