@@ -21,10 +21,10 @@ import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.login.activity.LoginActivity
-import io.github.massongit.hackathon.push.git.main.eventKinds.EventKindsOnCheckedChangeListener
-import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
-import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnRefreshListener
-import io.github.massongit.hackathon.push.git.main.eventView.EventViewOnScrollListener
+import io.github.massongit.hackathon.push.git.main.event.kind.EventKindsOnCheckedChangeListener
+import io.github.massongit.hackathon.push.git.main.event.view.EventViewAdapter
+import io.github.massongit.hackathon.push.git.main.event.view.EventViewOnRefreshListener
+import io.github.massongit.hackathon.push.git.main.event.view.EventViewOnScrollListener
 import io.github.massongit.hackathon.push.git.main.task.GetAccessTokenAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetTimelineAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetUserDataAsyncTask

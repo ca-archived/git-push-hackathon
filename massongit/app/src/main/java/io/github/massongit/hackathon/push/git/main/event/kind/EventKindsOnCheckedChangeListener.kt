@@ -1,8 +1,8 @@
-package io.github.massongit.hackathon.push.git.main.eventKinds
+package io.github.massongit.hackathon.push.git.main.event.kind
 
 import android.util.Log
 import android.widget.CompoundButton
-import io.github.massongit.hackathon.push.git.main.eventView.EventViewAdapter
+import io.github.massongit.hackathon.push.git.main.event.view.EventViewAdapter
 import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 
 /**

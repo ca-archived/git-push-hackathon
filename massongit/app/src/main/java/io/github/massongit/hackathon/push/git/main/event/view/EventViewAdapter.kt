@@ -1,4 +1,4 @@
-package io.github.massongit.hackathon.push.git.main.eventView
+package io.github.massongit.hackathon.push.git.main.event.view
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
