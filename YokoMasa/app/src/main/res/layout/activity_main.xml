@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_mother"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light_gray"
+    tools:context=".view.activity.MainActivity">
+
+    <ImageView
+        android:layout_width="@dimen/image_cat"
+        android:layout_height="@dimen/image_cat"
+        android:layout_gravity="center"
+        android:src="@drawable/cat1"/>
+
+</FrameLayout>

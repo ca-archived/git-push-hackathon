@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">GitHub Feed</string>
+    <string name="hash_tag">#</string>
+    <string name="login">ログイン</string>
+    <string name="logout">ログアウト</string>
+    <string name="login_description">このアプリケーションをご利用になるにはGitHubにログインする必要があります。</string>
+    <string name="login_waiting">ログイン中・・・</string>
+    <string name="login_succeeded">ログイン完了</string>
+
+    <string name="feed_timeline">グローバル</string>
+    <string name="feed_current_user_public">パブリック</string>
+    <string name="feed_current_user">プライベート</string>
+    <string name="feed_current_user_action">アクション</string>
+    <string name="feed_current_user_organization">組織</string>
+    <string name="feed_nothing_to_show">表示するものはありません。</string>
+    <string name="feed_nav_menu_logout">ログアウト</string>
+
+    <string name="failure_internet">サーバーに接続できません</string>
+    <string name="failure_invalid_token">invalid token</string>
+    <string name="failure_unexpected">予期せぬエラーが発生しました</string>
+    <string name="failure_server">GitHubサーバーでエラーが発生しました</string>
+    <string name="failure_creating_token">failed to create token</string>
+    <string name="failure_not_found">404 not found</string>
+    <string name="failure_map">エラーが発生しました。GitHub Apiの仕様が変わった可能性があります。</string>
+
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
+
+    <string name="seconds_ago">秒前</string>
+    <string name="minutes_ago">分前</string>
+    <string name="hours_ago">時間前</string>
+    <string name="days_ago">日前</string>
+
+    <string name="tab_overview">概要</string>
+    <string name="tab_issues">Issues</string>
+    <string name="tab_comments">コメント</string>
+    <string name="tab_commits">Commits</string>
+    <string name="tab_pull_requests">Pull requests</string>
+    <string name="tab_file_changed">File changed</string>
+    <string name="tab_action">アクション</string>
+    <string name="tab_received_action">ニュース</string>
+
+    <string name="repo_readme">README</string>
+    <string name="repo_no_readme">No README here</string>
+    <string name="repo_loading_readme">loading README...</string>
+
+    <string name="repo_starred">スターしました</string>
+    <string name="repo_star_failed">スターできませんでした</string>
+    <string name="repo_unstarred">スター解除しました</string>
+    <string name="repo_unstar_failed">スター解除できませんでした</string>
+
+    <string name="repo_subscribed">watchしています</string>
+    <string name="repo_subscribe_failed">watchできませんでした</string>
+    <string name="repo_unsubscribed">watch解除しました</string>
+    <string name="repo_unsubscribe_failed">watch解除できませんでした</string>
+
+    <string name="issue_title">Issue</string>
+    <string name="issue_state_open">Open</string>
+    <string name="issue_state_closed">Closed</string>
+
+    <string name="commit_action_bar_title">Commit #</string>
+    <string name="commit_committer">Committer</string>
+    <string name="commit_author">Author</string>
+
+    <string name="menu_open_in_browser">ブラウザで開く</string>
+    <string name="menu_open_repo">リポジトリを開く</string>
+
+    <string name="error">エラーが発生しました</string>
+    <string name="error_server_message">message from GitHub:</string>
+    <string name="error_try_again">再試行</string>
+</resources>

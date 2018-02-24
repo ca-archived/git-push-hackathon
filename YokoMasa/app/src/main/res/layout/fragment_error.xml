@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/error_text"
+        android:textSize="@dimen/text_large"
+        android:text="@string/error"/>
+
+    <ImageView
+        android:layout_width="@dimen/image_error"
+        android:layout_height="@dimen/image_error"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/error"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/error_overview"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/error_text"
+        android:textSize="@dimen/text_medium"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/error_text"
+        android:textSize="@dimen/text_medium"
+        android:text="@string/error_server_message"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/error_message"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/error_text"
+        android:textSize="@dimen/text_medium"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/error_try_again_button"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:background="@drawable/try_again_button_statelist"
+        android:textSize="@dimen/text_medium"
+        android:textColor="@color/white"
+        android:text="@string/error_try_again"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "403044462129",
+    "firebase_url": "https://githubfeed.firebaseio.com",
+    "project_id": "githubfeed",
+    "storage_bucket": "githubfeed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403044462129:android:eb56a006959f6bf8",
+        "android_client_info": {
+          "package_name": "com.example.masato.githubfeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403044462129-6g6offdklrsdfgb2qmev4riigvvk5beu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.masato.githubfeed",
+            "certificate_hash": "b7f6ebfe2e26d006f7cfdb8cc6f5d0d2e267447a"
+          }
+        },
+        {
+          "client_id": "403044462129-c6cffp3ccefu8snfoaat9d64sdvakrm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqOr_U_Ss6lm1-gW4O6N525HbZwm1snvI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403044462129-c6cffp3ccefu8snfoaat9d64sdvakrm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

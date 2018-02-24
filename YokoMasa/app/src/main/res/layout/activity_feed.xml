@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feed_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="left">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/feed_tool_bar"
+            app:popupTheme="@style/PopUpMenuStyle"
+            style="@style/ToolBar" />
+
+        <FrameLayout
+            android:id="@+id/feed_mother"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/feed_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/feed_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/white"
+                    app:tabTextAppearance="@style/TabTextAppearance">
+
+                </android.support.design.widget.TabLayout>
+
+            </android.support.v4.view.ViewPager>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFF"
+        android:layout_gravity="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/drawer_header_height"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
+            android:padding="@dimen/mother_padding"
+            android:gravity="bottom|start">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/feed_nav_menu_icon"
+                android:layout_width="@dimen/image_large"
+                android:layout_height="@dimen/image_large" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/feed_nav_menu_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/feed_nav_menu_list"
+            android:entries="@array/nav_menu_array"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,197 @@
+{
+  "CreateEvent": {
+    "action": "REPO",
+    "comment": {
+      "switch": "ref_type",
+      "repository": "<b>{ACTOR}</b> created a repository <b>{REPO}</b>",
+      "default": "<b>{ACTOR}</b> created a {ref_type} <b>{ref}</b> on <b>{REPO}</b>"
+    }
+  },
+  "CommitCommentEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "<b>{ACTOR}</b> created comment on commit on <b>{REPO}</b>"
+    }
+  },
+  "PushEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "<b>{ACTOR}</b> pushed {size} commit(s) to <b>{REPO}</b>"
+    }
+  },
+  "DeleteEvent": {
+    "comment": {
+      "default": "{ref_type} <b>{ref}</b> on <b>{REPO}</b> was deleted"
+    }
+  },
+  "ForkEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "<b>{ACTOR}</b> forked {REPO}"
+    }
+  },
+  "GollumEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "Wiki page in <b>{REPO}</b> was modified"
+    }
+  },
+  "InstallationEvent": {
+    "comment": {
+      "switch": "action",
+      "created": "<b>{ACTOR}</b> installed GitHub app",
+      "deleted": "<b>{ACTOR}</b> uninstalled GitHub app",
+      "default": "installation event"
+    }
+  },
+  "IssueCommentEvent": {
+    "action": "ISSUE",
+    "comment": {
+      "switch": "action",
+      "created": "<b>{ACTOR}</b> created a comment on issue on <b>{REPO}</b>",
+      "deleted": "<b>{ACTOR}</b> deleted a comment on issue on <b>{REPO}</b>",
+      "edited": "<b>{ACTOR}</b> edited a comment on issue on <b>{REPO}</b>",
+      "default": "issue comment event"
+    }
+  },
+  "IssuesEvent": {
+    "action": "ISSUE",
+    "comment": {
+      "switch": "action",
+      "assigned": "<b>{assignee.login}</b> was assigned to the issue <b>{issue.title}</b> on <b>{REPO}</b> by <b>{ACTOR}</b>",
+      "unassigned": "<b>{assignee.login}</b> was unassigned from the issue <b>{issue.title}<b> on <b>{REPO}</b> by <b>{ACTOR}</b>",
+      "labeled": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was labeled as <b>{label.name}</b> by <b>{ACTOR}</b>",
+      "unlabeled": "The issue <b>{issue.title}</b> in <b>{REPO}</b> is no longer labeled as <b>{label.name}</b>",
+      "opened": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was created by <b>{ACTOR}</b>",
+      "closed": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was deleted by <b>{ACTOR}</b>",
+      "edited": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "milestoned": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was milestoned by <b>{ACTOR}</b>",
+      "demilestoned": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was demilestoned by <b>{ACTOR}</b>",
+      "reopened": "The issue <b>{issue.title}</b> in <b>{REPO}</b> was reopened by <b>{ACTOR}</b>",
+      "default": "issues event"
+    }
+  },
+  "LabelEvent": {
+    "action": "REPO",
+    "comment": {
+      "switch": "action",
+      "created": "Label <b>{label.name}</b> was created on <b>{REPO}</b> by <b>{ACTOR}</b>",
+      "edited": "Label <b>{label.name}</b> on <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "deleted": "Label <b>{label.name}</b> on <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "default": "label event"
+    }
+  },
+  "MarketplacePurchaseEvent": {
+    "comment": {
+      "default": "market purchase event"
+    }
+  },
+  "MemberEvent": {
+    "action": "REPO",
+    "comment": {
+      "switch": "action",
+      "added": "<b>{member.login}</b> was added to <b>{REPO}</b>",
+      "deleted": "<b>{member.login}</b> was removed from <b>{REPO}</b>",
+      "edited": "Permission of the member <b>{member.login}</b> was changed to <b>{changes}</b>",
+      "default": "member event"
+    }
+  },
+  "OrgBlockEvent": {
+    "comment": {
+      "switch": "action",
+      "blocked": "<b>{blocked_user}</b> was blocked by <b>{organization.login}</b>",
+      "unblocked": "<b>{blocked_user}</b> was unblocked by <b>{organization.login}</b>",
+      "default": "org block event"
+    }
+  },
+  "ProjectCardEvent": {
+    "action": "REPO",
+    "comment": {
+      "switch": "action",
+      "created": "<b>{project_card.creator.login}</b> created a project card",
+      "edited": "project card was edited by <b>{ACTOR}</b>",
+      "converted": "project card was converted to issue by <b>{ACTOR}</b>",
+      "moved": "project card was moved by <b>{ACTOR}</b>",
+      "deleted": "project card was deleted by <b>{ACTOR}</b>",
+      "default": "project card event"
+    }
+  },
+  "ProjectColumnEvent": {
+    "action": "REPO",
+    "comment": {
+      "switch": "action",
+      "created": "project column <b>{project_column.name}</b> was created by <b>{ACTOR}</b>",
+      "edited": "project column <b>{project_column.name}</b> was edited by <b>{ACTOR}</b>",
+      "moved": "project column <b>{project_column.name}</b> was moved by <b>{ACTOR}</b>",
+      "deleted": "project column <b>{project_column.name}</b> was deleted by <b>{ACTOR}</b>",
+      "default": "project column event"
+    }
+  },
+  "ProjectEvent": {
+    "action": "REPO",
+    "comment": {
+      "switch": "action",
+      "created": "Project <b>{project.name}</b> was created on <b>{REPO}</b> by <b>{project.creator.login}</b>",
+      "edited": "Project <b>{project.name}</b> on <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "closed": "Project </b>{project.name}</b> on </b>{REPO}</b> was closed by <b>{ACTOR}</b>",
+      "reopened": "Project <b>{project.name}</b> on <b>{REPO}</b> was reopened by <b>{ACTOR}</b>",
+      "deleted": "Project <b>{project.name}</b> on <b>{REPO}</b> was deleted by <b>{ACTOR}</b>",
+      "default": "Project event"
+    }
+  },
+  "PublicEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "private repository <b>{REPO}</b> is now open sourced"
+    }
+  },
+  "PullRequestEvent": {
+    "action": "PR",
+    "comment": {
+      "switch": "action",
+      "assigned": "<b>{pull_request.assignee.login}</b> was assigned to pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b>",
+      "unassigned": "A person was unassigned from pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b>",
+      "review_requested": "Review requested on pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b>",
+      "review_request_removed": "Review request was removed from pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b>",
+      "labeled": "Pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b> was labeled",
+      "unlabeled": "Pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b> was unlabeled",
+      "opened": "Pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b> was opened by <b>{pull_request.user.login}</b>",
+      "edited": "Pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "closed": "Pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b> was closed by <b>{ACTOR}</b>",
+      "reopened": "Pull request <b>#{number} {pull_request.title}</b> on <b>{REPO}</b> was reopened by <b>{ACTOR}</b>",
+      "default": "Pull request event"
+    }
+  },
+  "PullRequestReviewEvent": {
+    "action": "PR",
+    "comment": {
+      "switch": "action",
+      "submitted": "A review was submitted to pull request <b>#{pull_request.number} {pull_request.title}</b> on <b>{REPO}</b> by <b>{review.user.login}</b>",
+      "edited": "A review on pull request <b>#{pull_request.number} {pull_request.title}</b> on <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "dismissed": "A review on pull request <b>#{pull_request.number} {pull_request.title}</b> on <b>{REPO}</b> was dismissed by <b>{ACTOR}</b>",
+      "default": "pull request event"
+    }
+  },
+  "PullRequestReviewCommentEvent": {
+    "action": "PR",
+    "comment": {
+      "switch": "action",
+      "created": "A comment was made by <b>{comment.user.login}</b> on pull request <b>#{pull_request.number} {pull_request.title}</b> on <b>{REPO}</b>",
+      "edited": "A comment on pull request <b>#{pull_request.number} {pull_request.title}</b> on <b>{REPO}</b> was edited by <b>{ACTOR}</b>",
+      "deleted": "A comment on pull request <b>#{pull_request.number} {pull_request.title}</b> on <b>{REPO}</b> was deleted by <b>{ACTOR}</b>",
+      "default": "Pull request review comment event"
+    }
+  },
+  "ReleaseEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "<b>{release.tag_name}</b> was released in <b>{REPO}</b>"
+    }
+  },
+  "WatchEvent": {
+    "action": "REPO",
+    "comment": {
+      "default": "<b>{ACTOR}</b> started watching <b>{REPO}</b>"
+    }
+  }
+}

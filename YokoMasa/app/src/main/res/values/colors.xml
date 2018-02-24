@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#757575</color>
+    <color name="colorPrimaryDark">#494949</color>
+    <color name="colorPrimaryLight">#a4a4a4</color>
+    <color name="background_light_gray">#e8e8e8</color>
+    <color name="box_border_background">#eaeaea</color>
+    <color name="box_border_stroke">#e0e0e0</color>
+    <color name="background_dark_gray">#303030</color>
+    <color name="textNormal">#616161</color>
+    <color name="diff_red">#ffd0d0</color>
+    <color name="diff_green">#d0ffd0</color>
+    <color name="diff_blue">#d0d0ff</color>
+    <color name="red">#cb2431</color>
+    <color name="green">#2cbe4e</color>
+    <color name="issue_open">@color/green</color>
+    <color name="issue_closed">@color/red</color>
+    <color name="error_text">#969696</color>
+    <color name="error_button">#cfcfcf</color>
+    <color name="error_button_pressed">#b0b0b0</color>
+    <color name="white">#FFF</color>
+</resources>
