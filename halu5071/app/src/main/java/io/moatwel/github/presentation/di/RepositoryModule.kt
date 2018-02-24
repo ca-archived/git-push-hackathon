@@ -32,6 +32,8 @@ import io.moatwel.github.data.repository.AuthDataDataRepository
 import io.moatwel.github.data.repository.EventDataRepository
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.repository.AuthDataRepository
+import io.moatwel.github.domain.repository.EventRepository
+import io.moatwel.github.domain.repository.UserRepository
 import javax.inject.Singleton
 
 @Module
@@ -39,13 +41,13 @@ class RepositoryModule {
 
   @Provides
   @Singleton
-  fun provideUserRepository(cloudUserDataSource: CloudUserDataSource): UserDataRepository {
+  fun provideUserRepository(cloudUserDataSource: CloudUserDataSource): UserRepository {
     return UserDataRepository(cloudUserDataSource)
   }
 
   @Provides
   @Singleton
-  fun provideEventRepository(api: EventApi, userRepository: UserDataRepository): EventDataRepository {
+  fun provideEventRepository(api: EventApi, userRepository: UserRepository): EventRepository {
     return EventDataRepository(api, userRepository)
   }
 

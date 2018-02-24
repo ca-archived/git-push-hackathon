@@ -27,7 +27,8 @@ import io.moatwel.github.domain.entity.User
 import io.moatwel.github.domain.repository.UserRepository
 import io.moatwel.github.presentation.util.observeOnMainThread
 import io.moatwel.github.presentation.util.subscribeOnIoThread
-import io.reactivex.Observable
+import io.reactivex.Completable
+import io.reactivex.rxkotlin.mergeAllCompletables
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import timber.log.Timber
@@ -43,9 +44,10 @@ class UserDataRepository (
 
   private var user: User? = null
 
-  private val userLoadSubject: Subject<Unit> = BehaviorSubject.create()
-  val userLoadObservable: Observable<Unit>
-    get() = userLoadSubject
+  private val userLoadSubject: Subject<Completable> = BehaviorSubject.create()
+
+  override val userLoadCompletable: Completable
+    get() = userLoadSubject.mergeAllCompletables()
 
   override fun me(): User? {
     return this.user
