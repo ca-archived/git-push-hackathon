@@ -79,7 +79,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     init {
         this.swipeRefreshLayout.apply {
             setOnRefreshListener {
-                this@MainHelper.getTimeLine()
+                getTimeLine()
             }
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
         }
