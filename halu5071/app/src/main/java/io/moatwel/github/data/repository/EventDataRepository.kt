@@ -27,7 +27,7 @@ import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import io.moatwel.github.data.datasource.EventDataSourceFactory
 import io.moatwel.github.data.network.retrofit.EventApi
-import io.moatwel.github.domain.entity.EventEntity
+import io.moatwel.github.domain.entity.EventLiveData
 import io.moatwel.github.domain.repository.EventRepository
 import io.moatwel.github.domain.repository.UserRepository
 
@@ -36,7 +36,7 @@ class EventDataRepository(
   private val userRepository: UserRepository
 ) : EventRepository {
 
-  override fun getEventEntity(): EventEntity {
+  override fun getEventEntity(): EventLiveData {
     val factory = EventDataSourceFactory(api, userRepository)
 
     val config = PagedList.Config.Builder()
@@ -51,7 +51,7 @@ class EventDataRepository(
       it.networkState
     }
 
-    return EventEntity(
+    return EventLiveData(
       pagedList = events,
       refreshState = refreshState,
       refresh = {
