@@ -33,10 +33,10 @@ import android.support.v7.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import io.moatwel.github.R
 import io.moatwel.github.data.network.NetworkState
-import io.moatwel.github.data.repository.EventDataRepository
-import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.databinding.ActivityMainBinding
 import io.moatwel.github.domain.repository.AuthDataRepository
+import io.moatwel.github.domain.repository.EventRepository
+import io.moatwel.github.domain.repository.UserRepository
 import io.moatwel.github.presentation.view.adapter.EventAdapter
 import io.moatwel.github.presentation.view.viewmodel.EventViewModel
 import io.moatwel.github.presentation.view.viewmodel.EventViewModelFactory
@@ -49,10 +49,10 @@ class MainActivity : DaggerAppCompatActivity() {
   lateinit var authDataRepository: AuthDataRepository
 
   @Inject
-  lateinit var eventRepository: EventDataRepository
+  lateinit var eventRepository: EventRepository
 
   @Inject
-  lateinit var userRepository: UserDataRepository
+  lateinit var userRepository: UserRepository
 
   private lateinit var binding: ActivityMainBinding
   private val adapter = EventAdapter()

@@ -44,7 +44,8 @@ class UserDataRepository (
   private var user: User? = null
 
   private val userLoadSubject: Subject<Unit> = BehaviorSubject.create()
-  val userLoadObservable: Observable<Unit>
+
+  override val userLoadObservable: Observable<Unit>
     get() = userLoadSubject
 
   override fun me(): User? {

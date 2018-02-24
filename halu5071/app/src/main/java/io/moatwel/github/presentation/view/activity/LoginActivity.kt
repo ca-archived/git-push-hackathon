@@ -32,6 +32,7 @@ import io.moatwel.github.R
 import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.entity.AuthData
 import io.moatwel.github.domain.repository.AuthDataRepository
+import io.moatwel.github.domain.repository.UserRepository
 import io.moatwel.github.presentation.util.observeOnMainThread
 import io.moatwel.github.presentation.util.subscribeOnIoThread
 import kotlinx.android.synthetic.main.activity_login.*
@@ -44,7 +45,7 @@ class LoginActivity : DaggerAppCompatActivity() {
   lateinit var authDataRepository: AuthDataRepository
 
   @Inject
-  lateinit var userRepository: UserDataRepository
+  lateinit var userRepository: UserRepository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

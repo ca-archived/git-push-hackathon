@@ -29,8 +29,8 @@ import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.support.DaggerApplication
-import io.moatwel.github.data.repository.UserDataRepository
 import io.moatwel.github.domain.repository.AuthDataRepository
+import io.moatwel.github.domain.repository.UserRepository
 import io.moatwel.github.presentation.di.DaggerAppComponent
 import timber.log.Timber
 import java.security.Security
@@ -42,7 +42,7 @@ class App : DaggerApplication(), HasActivityInjector {
   lateinit var authDataRepository: AuthDataRepository
 
   @Inject
-  lateinit var userRepository: UserDataRepository
+  lateinit var userRepository: UserRepository
 
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
     DaggerAppComponent.builder()
