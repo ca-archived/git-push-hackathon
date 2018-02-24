@@ -40,7 +40,8 @@ import timber.log.Timber
  *  Actual operation class is [CloudUserDataSource]
  */
 class UserDataRepository (
-  private val cloudUserDataSource: CloudUserDataSource) : UserRepository {
+  private val cloudUserDataSource: CloudUserDataSource
+) : UserRepository {
 
   private var user: User? = null
 
