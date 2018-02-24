@@ -139,6 +139,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     /**
      * タイムラインを取得する
      * @param isCurrent 最新のタイムラインを取得するかどうか
+     * @param isInit 初期化時の呼び出しかどうか
      */
     internal fun getTimeLine(isCurrent: Boolean = true, isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getTimeLine called")
