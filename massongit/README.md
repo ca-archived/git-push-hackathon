@@ -8,6 +8,9 @@ Kotlin 1.2.21
 * Ubuntu 16.04 LTS
 * Android Studio 3.0.1
 
+## 検証環境
+DIGNO V (KYV42 / Android 7.1.1 搭載)
+
 ## 導入手順
 1. `git clone https://github.com/CyberAgent/git-push-hackathon`
 1. `cd git-push-hackathon`
