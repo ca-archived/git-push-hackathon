@@ -4,6 +4,10 @@ Android 7.0 以降
 ## 開発言語
 Kotlin 1.2.21
 
+## 開発環境
+* Ubuntu 16.04 LTS
+* Android Studio 3.0.1
+
 ## 導入手順
 1. `git clone https://github.com/CyberAgent/git-push-hackathon`
 1. `cd git-push-hackathon`
