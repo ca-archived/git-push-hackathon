@@ -1,3 +1,9 @@
+## 対象プラットフォーム
+Android 7.0 以降
+
+## 開発言語
+Kotlin 1.2.21
+
 ## 導入手順
 1. `git clone https://github.com/CyberAgent/git-push-hackathon`
 1. `cd git-push-hackathon`
