@@ -21,11 +21,13 @@ public class RepoPresenter extends BasePresenter {
 
     @Override
     public void tryAgain() {
+        view.showLoadingView();
         view.hideErrorView();
         GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
     }
 
     private void handleFetchRepositoryResult(GitHubApiResult result) {
+        view.hideLoadingView();
         if (result.isSuccessful) {
             Repository repository = (Repository) result.resultObject;
             view.setUpContent(repository);
@@ -37,6 +39,7 @@ public class RepoPresenter extends BasePresenter {
     public RepoPresenter(RepoView view, String url) {
         this.view = view;
         this.repoUrl = url;
+        view.showLoadingView();
         GitHubApi.getApi().fetchRepository(repoUrl, this::handleFetchRepositoryResult);
     }
 }

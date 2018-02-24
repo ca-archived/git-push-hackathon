@@ -1,6 +1,7 @@
 package com.example.masato.githubfeed.presenter;
 
 import com.example.masato.githubfeed.R;
+import com.example.masato.githubfeed.githubapi.Failure;
 import com.example.masato.githubfeed.githubapi.GitHubApi;
 import com.example.masato.githubfeed.githubapi.GitHubApiResult;
 import com.example.masato.githubfeed.model.Repository;
@@ -168,7 +169,11 @@ public class RepoOverviewPresenter extends BasePresenter {
             contentHtml = (String) result.resultObject;
             view.showReadMe(contentHtml);
         } else {
-            view.showErrorView(result.failure, result.errorMessage);
+            if (result.failure == Failure.NOT_FOUND) {
+                view.showNoReadMe();
+            } else {
+                view.showErrorView(result.failure, result.errorMessage);
+            }
         }
     }
 

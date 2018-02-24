@@ -17,11 +17,13 @@ public class PullRequestPresenter extends BasePresenter {
 
     @Override
     public void tryAgain() {
+        view.showLoadingView();
         view.hideErrorView();
         GitHubApi.getApi().fetchPullRequest(url, this::handleResult);
     }
 
     private void handleResult(GitHubApiResult result) {
+        view.hideLoadingView();
         if (result.isSuccessful) {
             PullRequest pr = (PullRequest) result.resultObject;
             view.showPullRequest(pr);
@@ -34,6 +36,7 @@ public class PullRequestPresenter extends BasePresenter {
     public PullRequestPresenter(PullRequestView view, String url) {
         this.view = view;
         this.url = url;
+        view.showLoadingView();
         GitHubApi.getApi().fetchPullRequest(url, this::handleResult);
     }
 }
