@@ -1,0 +1,3 @@
+[submodule "itome/GithubMVI"]
+	path = itome/GithubMVI
+	url = https://github.com/itome/GithubMVI.git
