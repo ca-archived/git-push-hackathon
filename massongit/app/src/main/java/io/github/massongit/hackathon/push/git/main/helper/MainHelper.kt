@@ -21,9 +21,7 @@ import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.helper.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.login.activity.LoginActivity
-import io.github.massongit.hackathon.push.git.main.event.kind.EventKindsOnCheckedChangeListener
 import io.github.massongit.hackathon.push.git.main.event.view.EventViewAdapter
-import io.github.massongit.hackathon.push.git.main.event.view.EventViewOnRefreshListener
 import io.github.massongit.hackathon.push.git.main.event.view.EventViewOnScrollListener
 import io.github.massongit.hackathon.push.git.main.task.GetAccessTokenAsyncTask
 import io.github.massongit.hackathon.push.git.main.task.GetTimelineAsyncTask
@@ -80,7 +78,9 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
 
     init {
         this.swipeRefreshLayout.apply {
-            setOnRefreshListener(EventViewOnRefreshListener(this@MainHelper))
+            setOnRefreshListener {
+                this@MainHelper.getTimeLine()
+            }
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
         }
         this.activity.setSupportActionBar(this.toolbar)
@@ -99,9 +99,14 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
             navigationViewMenu.getItem(i).apply {
                 if (groupId == R.id.event_kinds) {
                     val eventKind = title.toString()
-                    (actionView as? CompoundButton)?.setOnCheckedChangeListener(EventKindsOnCheckedChangeListener(eventViewAdapter.apply {
-                        addEventKind(eventKind)
-                    }, eventKind))
+                    eventViewAdapter.addEventKind(eventKind)
+                    (actionView as? CompoundButton)?.setOnCheckedChangeListener { _, isChecked ->
+                        if (isChecked) {
+                            eventViewAdapter.addEventKind(eventKind)
+                        } else {
+                            eventViewAdapter.removeEventKind(eventKind)
+                        }
+                    }
                 }
             }
         }
