@@ -78,7 +78,6 @@ task makeNavigateMenu {
         pw.println("    </group>")
         pw.println("    <group>")
         pw.println("        <item")
-        pw.println("            android:enabled=\"false\"")
         pw.println("            android:onClick=\"onLogoutMenuItemClick\"")
         pw.println("            android:title=\"@string/logout\" />")
         pw.println("    </group>")
