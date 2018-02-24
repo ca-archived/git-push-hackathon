@@ -29,6 +29,8 @@ public class DiffCodeLineViewHolder extends RecyclerView.ViewHolder {
             case DiffCodeLine.CHANGE_LINES:
                 code.setBackgroundColor(context.getResources().getColor(R.color.diff_blue));
                 break;
+            default:
+                code.setBackgroundColor(context.getResources().getColor(R.color.white));
         }
     }
 
