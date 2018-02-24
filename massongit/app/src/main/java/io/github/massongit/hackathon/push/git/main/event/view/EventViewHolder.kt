@@ -12,8 +12,23 @@ import io.github.massongit.hackathon.push.git.R
  * @param itemView View
  */
 class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val messageLayout: LinearLayout = this.itemView.findViewById(R.id.message_layout)
-    val avatar: ImageView = this.itemView.findViewById(R.id.avatar)
-    val message: TextView = this.itemView.findViewById(R.id.message)
-    val createdAt: TextView = this.itemView.findViewById(R.id.created_at)
+    /**
+     * メッセージ部のレイアウト
+     */
+    val messageLayout: LinearLayout = this.itemView.findViewById(R.id.event_message_layout)
+
+    /**
+     * サムネイル部
+     */
+    val actorAvatar: ImageView = this.itemView.findViewById(R.id.event_actor_avatar)
+
+    /**
+     * メッセージ部
+     */
+    val message: TextView = this.itemView.findViewById(R.id.event_message)
+
+    /**
+     * イベントの生成時刻表示部
+     */
+    val createdAt: TextView = this.itemView.findViewById(R.id.event_created_at)
 }

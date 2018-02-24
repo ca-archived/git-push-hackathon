@@ -52,7 +52,7 @@ class EventViewAdapter(private val chromeCustomTabsHelper: ChromeCustomTabsHelpe
             messageLayout.setOnClickListener {
                 chromeCustomTabsHelper.launch(item.eventHtmlUrl)
             }
-            avatar.apply {
+            actorAvatar.apply {
                 setOnClickListener {
                     chromeCustomTabsHelper.launch(item.actorHtmlUrl)
                 }
