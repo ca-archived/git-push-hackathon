@@ -27,7 +27,7 @@ import android.arch.paging.PagedList
 import io.moatwel.github.data.network.NetworkState
 import io.moatwel.github.domain.entity.event.Event
 
-data class EventEntity(
+data class EventLiveData(
   val pagedList: LiveData<PagedList<Event>>,
 
   val refreshState: LiveData<NetworkState>,

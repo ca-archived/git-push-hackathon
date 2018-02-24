@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">rosseta</string>
+    <string name="app_name">GitHubClient</string>
 
     <string name="str_login">Login</string>
     <string name="str_oath_url">
