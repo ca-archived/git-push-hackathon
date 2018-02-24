@@ -32,7 +32,9 @@ class LoginHelper(private val activity: Activity, private val loginButton: TextV
     private val chromeCustomTabsHelper: ChromeCustomTabsHelper = ChromeCustomTabsHelper(this.activity)
 
     init {
-        this.chromeCustomTabsHelper.bind({ this.loginButton.isEnabled = true })
+        this.chromeCustomTabsHelper.bind({
+            this.loginButton.isEnabled = true
+        })
     }
 
     /**
@@ -40,7 +42,9 @@ class LoginHelper(private val activity: Activity, private val loginButton: TextV
      */
     fun unbindChromeCustomTabs() {
         Log.v(LoginHelper.TAG, "unbindChromeCustomTabs called")
-        this.chromeCustomTabsHelper.unbind({ this.loginButton.isEnabled = false })
+        this.chromeCustomTabsHelper.unbind({
+            this.loginButton.isEnabled = false
+        })
     }
 
     /**
