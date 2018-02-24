@@ -21,11 +21,12 @@ import java.net.URL
  * @param mainHelper Helper
  * @param chromeCustomTabsHelper Chrome Custom Tabs Helper
  * @param navigationViewLayout ナビゲーションメニューのヘッダーのレイアウト
- * @param userAvatar サムネイル部
- * @param userName ユーザー名表示部
+ * @param userAvatar ナビゲーションメニューのヘッダーのサムネイル表示部
+ * @param userID ナビゲーションメニューのヘッダーのユーザーID表示部
+ * @param userName ナビゲーションメニューのヘッダーのユーザー名表示部
  * @param isInit 初期化時の呼び出しかどうか
  */
-class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationViewLayout: View, userAvatar: ImageView, userName: TextView, private val isInit: Boolean) : RequestAsyncTask<Unit, Unit, UserData?>(service, mainHelper) {
+class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationViewLayout: View, userAvatar: ImageView, userID: TextView, userName: TextView, private val isInit: Boolean) : RequestAsyncTask<Unit, Unit, UserData?>(service, mainHelper) {
     companion object {
         /**
          * ログ用タグ
@@ -39,12 +40,17 @@ class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, pri
     private val navigationViewLayoutWeakReference: WeakReference<View> = WeakReference(navigationViewLayout)
 
     /**
-     * サムネイル部を保持するWeakReference
+     * ナビゲーションメニューのヘッダーのサムネイル表示部を保持するWeakReference
      */
     private val userAvatarWeakReference: WeakReference<ImageView> = WeakReference(userAvatar)
 
     /**
-     * ユーザー名表示部を保持するWeakReference
+     * ナビゲーションメニューのヘッダーのユーザーID表示部を保持するWeakReference
+     */
+    private val userIDWeakReference: WeakReference<TextView> = WeakReference(userID)
+
+    /**
+     * ナビゲーションメニューのヘッダーのユーザー名表示部を保持するWeakReference
      */
     private val userNameWeakReference: WeakReference<TextView> = WeakReference(userName)
 
@@ -53,7 +59,7 @@ class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, pri
         (this.request("https://api.github.com/user") as? JsonObject)?.apply {
             return UserData(URL(get("avatar_url")?.asString()).openStream().use {
                 BitmapFactory.decodeStream(it)
-            }, get("login")?.asString(), Uri.parse(get("html_url")?.asString()))
+            }, get("login")?.asString(), get("name")?.asString(), Uri.parse(get("html_url")?.asString()))
         }
         return null
     }
@@ -62,13 +68,14 @@ class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, pri
         Log.v(GetUserDataAsyncTask.TAG, "onPostExecute called")
         if (userData != null) {
             this.userAvatarWeakReference.get()?.setImageBitmap(userData.avatar)
+            this.userIDWeakReference.get()?.text = userData.id
             this.userNameWeakReference.get()?.text = userData.name
             this.navigationViewLayoutWeakReference.get()?.setOnClickListener {
                 this.chromeCustomTabsHelper.launch(userData.url)
             }
         }
         if (this.isInit) {
-            this.helper.getTimeLine(true, true)
+            this.helper.getTimeLine(isInit = true)
         }
     }
 }

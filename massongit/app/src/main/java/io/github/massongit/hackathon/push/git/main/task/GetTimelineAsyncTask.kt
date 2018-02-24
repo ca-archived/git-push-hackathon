@@ -29,11 +29,11 @@ import java.net.URL
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventViewAdapter イベントビューのアダプター
  * @param helper Helper
- * @param userName ユーザー名表示部
+ * @param userID ナビゲーションメニューのヘッダーのユーザーID表示部
  * @param isCurrent 最新のタイムラインを取得するかどうか
  * @param isInit 初期化時の呼び出しかどうか
  */
-class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, userName: TextView, private val isCurrent: Boolean = true, private val isInit: Boolean = false) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, userID: TextView, private val isCurrent: Boolean = true, private val isInit: Boolean = false) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
@@ -67,9 +67,9 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
     private val swipeRefreshLayoutWeakReference: WeakReference<SwipeRefreshLayout> = WeakReference(swipeRefreshLayout)
 
     /**
-     * ユーザー名表示部を保持するWeakReference
+     * ナビゲーションメニューのヘッダーのユーザーID表示部を保持するWeakReference
      */
-    private val userNameWeakReference: WeakReference<TextView> = WeakReference(userName)
+    private val userIDWeakReference: WeakReference<TextView> = WeakReference(userID)
 
     override fun onPreExecute() {
         Log.v(GetTimelineAsyncTask.TAG, "onPreExecute called")
@@ -83,7 +83,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
         val avatarCache = mutableMapOf<String, Bitmap>()
 
         try {
-            var receivedEventsUrl = "https://api.github.com/users/%s/received_events".format(this.userNameWeakReference.get()?.text)
+            var receivedEventsUrl = "https://api.github.com/users/%s/received_events".format(this.userIDWeakReference.get()?.text)
 
             if (!this.isCurrent) {
                 GetTimelineAsyncTask.page++

@@ -69,6 +69,11 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     private val userAvatar: ImageView
 
     /**
+     * ナビゲーションメニューのヘッダーのユーザーID
+     */
+    private val userID: TextView
+
+    /**
      * ナビゲーションメニューのヘッダーのユーザー名
      */
     private val userName: TextView
@@ -104,6 +109,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         val navigationViewHeaderView = navigationView.getHeaderView(0)
         this.navigationViewLayout = navigationViewHeaderView.findViewById(R.id.navigation_view_main_layout)
         this.userAvatar = navigationViewHeaderView.findViewById(R.id.user_avatar)
+        this.userID = navigationViewHeaderView.findViewById(R.id.user_id)
         this.userName = navigationViewHeaderView.findViewById(R.id.user_name)
     }
 
@@ -122,16 +128,16 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
      */
     internal fun getUserName(isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getUserName called")
-        GetUserDataAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userName, isInit).execute()
+        GetUserDataAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userID, this.userName, isInit).execute()
     }
 
     /**
      * タイムラインを取得する
      * @param isCurrent 最新のタイムラインを取得するかどうか
      */
-    internal fun getTimeLine(isCurrent: Boolean, isInit: Boolean = false) {
+    internal fun getTimeLine(isCurrent: Boolean = true, isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getTimeLine called")
-        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userName, isCurrent, isInit).execute()
+        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userID, isCurrent, isInit).execute()
     }
 
     internal fun enableNavigationView() {

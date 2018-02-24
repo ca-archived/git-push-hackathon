@@ -18,6 +18,6 @@ class EventViewOnRefreshListener(private val helper: MainHelper) : SwipeRefreshL
 
     override fun onRefresh() {
         Log.v(EventViewOnRefreshListener.TAG, "onRefresh called")
-        this.helper.getTimeLine(true)
+        this.helper.getTimeLine()
     }
 }
