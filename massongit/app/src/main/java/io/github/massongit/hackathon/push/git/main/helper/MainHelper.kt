@@ -140,6 +140,9 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userID, isCurrent, isInit).execute()
     }
 
+    /**
+     * ナビゲーションメニューを有効にする
+     */
     internal fun enableNavigationView() {
         val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar, R.string.open_navigation_view, R.string.close_navigation_view)
         this.drawerLayout.addDrawerListener(toggle)
