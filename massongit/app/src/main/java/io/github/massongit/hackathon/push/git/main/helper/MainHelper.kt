@@ -56,7 +56,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     /**
      * イベントビューのアダプター
      */
-    private var eventViewAdapter: EventViewAdapter = EventViewAdapter(this.activity, this.chromeCustomTabsHelper)
+    private var eventViewAdapter: EventViewAdapter = EventViewAdapter(this.chromeCustomTabsHelper)
 
     /**
      * ナビゲーションメニューのヘッダーのレイアウト

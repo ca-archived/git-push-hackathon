@@ -1,6 +1,5 @@
 package io.github.massongit.hackathon.push.git.main.event.view
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.util.Log
@@ -14,10 +13,9 @@ import java.util.*
 
 /**
  * イベントビューのアダプター
- * @param context Activity
  * @param chromeCustomTabsHelper Chrome Custom Tabs Helper
  */
-class EventViewAdapter(private val context: Context, private val chromeCustomTabsHelper: ChromeCustomTabsHelper) : RecyclerView.Adapter<EventViewHolder>() {
+class EventViewAdapter(private val chromeCustomTabsHelper: ChromeCustomTabsHelper) : RecyclerView.Adapter<EventViewHolder>() {
     companion object {
         /**
          * ログ用タグ
