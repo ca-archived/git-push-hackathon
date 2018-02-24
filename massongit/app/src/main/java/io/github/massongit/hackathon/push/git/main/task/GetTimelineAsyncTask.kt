@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
-import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonObject
@@ -29,10 +29,11 @@ import java.net.URL
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventViewAdapter イベントビューのアダプター
  * @param helper Helper
- * @param logoutButton ログアウトボタン
+ * @param userName ユーザー名表示部
  * @param isCurrent 最新のタイムラインを取得するかどうか
+ * @param isInit 初期化時の呼び出しかどうか
  */
-class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, logoutButton: MenuItem, private val isCurrent: Boolean = true) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, userName: TextView, private val isCurrent: Boolean = true, private val isInit: Boolean = false) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
@@ -66,9 +67,9 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
     private val swipeRefreshLayoutWeakReference: WeakReference<SwipeRefreshLayout> = WeakReference(swipeRefreshLayout)
 
     /**
-     * ログアウトボタンを保持するWeakReference
+     * ユーザー名表示部を保持するWeakReference
      */
-    private val logoutButtonWeakReference: WeakReference<MenuItem> = WeakReference(logoutButton)
+    private val userNameWeakReference: WeakReference<TextView> = WeakReference(userName)
 
     override fun onPreExecute() {
         Log.v(GetTimelineAsyncTask.TAG, "onPreExecute called")
@@ -82,7 +83,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
         val avatarCache = mutableMapOf<String, Bitmap>()
 
         try {
-            var receivedEventsUrl = "https://api.github.com/users/%s/received_events".format(this.helper.userName)
+            var receivedEventsUrl = "https://api.github.com/users/%s/received_events".format(this.userNameWeakReference.get()?.text)
 
             if (!this.isCurrent) {
                 GetTimelineAsyncTask.page++
@@ -261,7 +262,9 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
         this.eventViewAdapter.addItems(events, this.isCurrent)
         this.swipeRefreshLayoutWeakReference.get()?.isRefreshing = false
         Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.get_user_timeline_completed), Toast.LENGTH_SHORT).show()
-        this.logoutButtonWeakReference.get()?.isEnabled = true
+        if (this.isInit) {
+            this.helper.enableNavigationView()
+        }
     }
 
     /**

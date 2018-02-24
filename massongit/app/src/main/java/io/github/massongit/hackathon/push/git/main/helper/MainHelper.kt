@@ -2,6 +2,7 @@ package io.github.massongit.hackathon.push.git.main.helper
 
 import android.content.Intent
 import android.net.Uri
+import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -11,8 +12,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.Menu
+import android.view.View
 import android.widget.CompoundButton
+import android.widget.ImageView
+import android.widget.TextView
 import com.github.scribejava.core.model.OAuth2AccessToken
 import com.github.scribejava.core.oauth.OAuth20Service
 import io.github.massongit.hackathon.push.git.R
@@ -33,11 +36,11 @@ import io.github.massongit.hackathon.push.git.main.task.GetUserNameAsyncTask
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param eventView イベントビュー
  * @param chromeCustomTabsHelper Chrome Custom Tabs Helper
- * @param eventKindsMenu イベントの種類のメニュー
+ * @param navigationView ナビゲーションメニュー
  * @param toolbar ToolBar
  * @param drawerLayout DrawerLayout
  */
-class MainHelper(private val activity: AppCompatActivity, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, chromeCustomTabsHelper: ChromeCustomTabsHelper, private val eventKindsMenu: Menu, toolbar: Toolbar, drawerLayout: DrawerLayout) {
+class MainHelper(private val activity: AppCompatActivity, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationView: NavigationView, private val toolbar: Toolbar, private val drawerLayout: DrawerLayout) {
     companion object {
         /**
          * ログ用タグ
@@ -51,31 +54,32 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     var accessToken: OAuth2AccessToken? = null
 
     /**
-     * ログインしているユーザーのユーザー名
-     */
-    var userName: String? = null
-
-    /**
-     * SwipeRefreshLayoutの更新イベント
-     */
-    private val onRefreshListener = EventViewOnRefreshListener(this)
-
-    /**
      * イベントビューのアダプター
      */
-    private var eventViewAdapter: EventViewAdapter = EventViewAdapter(this.activity, chromeCustomTabsHelper)
+    private var eventViewAdapter: EventViewAdapter = EventViewAdapter(this.activity, this.chromeCustomTabsHelper)
+
+    /**
+     * ナビゲーションメニューのヘッダーのレイアウト
+     */
+    private val navigationViewLayout: View
+
+    /**
+     * ナビゲーションメニューのヘッダーのサムネイル
+     */
+    private val userAvatar: ImageView
+
+    /**
+     * ナビゲーションメニューのヘッダーのユーザー名
+     */
+    private val userName: TextView
 
     init {
         this.swipeRefreshLayout.apply {
-            setOnRefreshListener(onRefreshListener)
+            setOnRefreshListener(EventViewOnRefreshListener(this@MainHelper))
             setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent)
         }
-        val toggle = ActionBarDrawerToggle(this.activity.apply {
-            setSupportActionBar(toolbar)
-        }, drawerLayout, toolbar, R.string.open_navigation_view, R.string.close_navigation_view)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        chromeCustomTabsHelper.bind()
+        this.activity.setSupportActionBar(this.toolbar)
+        this.chromeCustomTabsHelper.bind()
         eventView.apply {
             val manager = LinearLayoutManager(context)
             layoutManager = manager
@@ -84,8 +88,10 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
             addItemDecoration(DividerItemDecoration(context, manager.orientation))
             addOnScrollListener(EventViewOnScrollListener(this@MainHelper))
         }
-        for (i in 0 until this.eventKindsMenu.size()) {
-            this.eventKindsMenu.getItem(i).apply {
+        val navigationViewMenu = navigationView.menu
+
+        for (i in 0 until navigationViewMenu.size()) {
+            navigationViewMenu.getItem(i).apply {
                 if (groupId == R.id.event_kinds) {
                     val eventKind = title.toString()
                     (actionView as? CompoundButton)?.setOnCheckedChangeListener(EventKindsOnCheckedChangeListener(eventViewAdapter.apply {
@@ -94,6 +100,11 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
                 }
             }
         }
+
+        val navigationViewHeaderView = navigationView.getHeaderView(0)
+        this.navigationViewLayout = navigationViewHeaderView.findViewById(R.id.navigation_view_main_layout)
+        this.userAvatar = navigationViewHeaderView.findViewById(R.id.user_avatar)
+        this.userName = navigationViewHeaderView.findViewById(R.id.user_name)
     }
 
     /**
@@ -111,16 +122,22 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
      */
     internal fun getUserName(isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getUserName called")
-        GetUserNameAsyncTask(this.service, this, isInit, this.onRefreshListener).execute()
+        GetUserNameAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userName, isInit).execute()
     }
 
     /**
      * タイムラインを取得する
      * @param isCurrent 最新のタイムラインを取得するかどうか
      */
-    internal fun getTimeLine(isCurrent: Boolean) {
+    internal fun getTimeLine(isCurrent: Boolean, isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getTimeLine called")
-        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.eventKindsMenu.findItem(R.id.logout_menu_item), isCurrent).execute()
+        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userName, isCurrent, isInit).execute()
+    }
+
+    internal fun enableNavigationView() {
+        val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar, R.string.open_navigation_view, R.string.close_navigation_view)
+        this.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
     }
 
     /**
