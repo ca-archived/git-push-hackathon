@@ -66,13 +66,11 @@ class MainActivity : DaggerAppCompatActivity() {
       return
     }
 
-    userRepository.userLoadObservable
+    userRepository.userLoadCompletable
       .subscribe({
-        // do nothing
+        initViewModel()
       }, {
         Timber.e(it)
-      }, {
-        initViewModel()
       })
   }
 

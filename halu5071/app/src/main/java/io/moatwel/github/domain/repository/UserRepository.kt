@@ -23,14 +23,14 @@
 package io.moatwel.github.domain.repository
 
 import io.moatwel.github.domain.entity.User
-import io.reactivex.Observable
+import io.reactivex.Completable
 
 interface UserRepository {
 
   /**
    *  notify that loading user data completed.
    */
-  val userLoadObservable: Observable<Unit>
+  val userLoadCompletable: Completable
 
   /**
    *  me user data from somewhere.
