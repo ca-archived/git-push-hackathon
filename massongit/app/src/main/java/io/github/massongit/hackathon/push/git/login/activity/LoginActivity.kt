@@ -47,9 +47,9 @@ class LoginActivity : AppCompatActivity() {
 
     /**
      * ログインボタン押下時のイベント
-     * @param v View
+     * @param view View
      */
-    fun onLoginButtonClick(v: View) {
+    fun onLoginButtonClick(view: View) {
         Log.v(LoginActivity.TAG, "onLoginButtonClick called")
         this.loginHelper.authorize()
     }
