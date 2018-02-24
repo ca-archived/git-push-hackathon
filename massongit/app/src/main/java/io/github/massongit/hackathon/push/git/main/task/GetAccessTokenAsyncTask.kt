@@ -56,7 +56,7 @@ class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Serv
             Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
         } else {
             this.mainHelperWeakReference.get()?.accessToken = accessToken
-            Log.d(GetAccessTokenAsyncTask.TAG, this.mainHelperWeakReference.get()?.accessToken.toString())
+            Log.d(GetAccessTokenAsyncTask.TAG, "accessToken: " + this.mainHelperWeakReference.get()?.accessToken?.accessToken)
             this.mainHelperWeakReference.get()?.getUserName(true)
         }
     }
