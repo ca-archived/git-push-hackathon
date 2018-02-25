@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507102042D34F00C64A0F /* AppDelegate.swift */; };
+		BE1507132042D34F00C64A0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507122042D34F00C64A0F /* ViewController.swift */; };
+		BE1507162042D34F00C64A0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE1507142042D34F00C64A0F /* Main.storyboard */; };
+		BE1507192042D34F00C64A0F /* tomkenta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE1507172042D34F00C64A0F /* tomkenta.xcdatamodeld */; };
+		BE15071B2042D34F00C64A0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE15071A2042D34F00C64A0F /* Assets.xcassets */; };
+		BE15071E2042D34F00C64A0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE15071C2042D34F00C64A0F /* LaunchScreen.storyboard */; };
+		BE1507292042D34F00C64A0F /* tomkentaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507282042D34F00C64A0F /* tomkentaTests.swift */; };
+		BE1507342042D34F00C64A0F /* tomkentaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507332042D34F00C64A0F /* tomkentaUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE1507252042D34F00C64A0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE1507052042D34F00C64A0F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE15070C2042D34F00C64A0F;
+			remoteInfo = tomkenta;
+		};
+		BE1507302042D34F00C64A0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE1507052042D34F00C64A0F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE15070C2042D34F00C64A0F;
+			remoteInfo = tomkenta;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BE15070D2042D34F00C64A0F /* tomkenta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tomkenta.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE1507102042D34F00C64A0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BE1507122042D34F00C64A0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BE1507152042D34F00C64A0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE1507182042D34F00C64A0F /* tomkenta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tomkenta.xcdatamodel; sourceTree = "<group>"; };
+		BE15071A2042D34F00C64A0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE15071D2042D34F00C64A0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BE15071F2042D34F00C64A0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE1507242042D34F00C64A0F /* tomkentaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tomkentaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE1507282042D34F00C64A0F /* tomkentaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tomkentaTests.swift; sourceTree = "<group>"; };
+		BE15072A2042D34F00C64A0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE15072F2042D34F00C64A0F /* tomkentaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tomkentaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE1507332042D34F00C64A0F /* tomkentaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tomkentaUITests.swift; sourceTree = "<group>"; };
+		BE1507352042D34F00C64A0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE15070A2042D34F00C64A0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE1507212042D34F00C64A0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE15072C2042D34F00C64A0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE1507042042D34F00C64A0F = {
+			isa = PBXGroup;
+			children = (
+				BE15070F2042D34F00C64A0F /* tomkenta */,
+				BE1507272042D34F00C64A0F /* tomkentaTests */,
+				BE1507322042D34F00C64A0F /* tomkentaUITests */,
+				BE15070E2042D34F00C64A0F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BE15070E2042D34F00C64A0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE15070D2042D34F00C64A0F /* tomkenta.app */,
+				BE1507242042D34F00C64A0F /* tomkentaTests.xctest */,
+				BE15072F2042D34F00C64A0F /* tomkentaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE15070F2042D34F00C64A0F /* tomkenta */ = {
+			isa = PBXGroup;
+			children = (
+				BE1507102042D34F00C64A0F /* AppDelegate.swift */,
+				BE1507122042D34F00C64A0F /* ViewController.swift */,
+				BE1507142042D34F00C64A0F /* Main.storyboard */,
+				BE15071A2042D34F00C64A0F /* Assets.xcassets */,
+				BE15071C2042D34F00C64A0F /* LaunchScreen.storyboard */,
+				BE15071F2042D34F00C64A0F /* Info.plist */,
+				BE1507172042D34F00C64A0F /* tomkenta.xcdatamodeld */,
+			);
+			path = tomkenta;
+			sourceTree = "<group>";
+		};
+		BE1507272042D34F00C64A0F /* tomkentaTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE1507282042D34F00C64A0F /* tomkentaTests.swift */,
+				BE15072A2042D34F00C64A0F /* Info.plist */,
+			);
+			path = tomkentaTests;
+			sourceTree = "<group>";
+		};
+		BE1507322042D34F00C64A0F /* tomkentaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BE1507332042D34F00C64A0F /* tomkentaUITests.swift */,
+				BE1507352042D34F00C64A0F /* Info.plist */,
+			);
+			path = tomkentaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE15070C2042D34F00C64A0F /* tomkenta */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE1507382042D34F00C64A0F /* Build configuration list for PBXNativeTarget "tomkenta" */;
+			buildPhases = (
+				BE1507092042D34F00C64A0F /* Sources */,
+				BE15070A2042D34F00C64A0F /* Frameworks */,
+				BE15070B2042D34F00C64A0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tomkenta;
+			productName = tomkenta;
+			productReference = BE15070D2042D34F00C64A0F /* tomkenta.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BE1507232042D34F00C64A0F /* tomkentaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE15073B2042D34F00C64A0F /* Build configuration list for PBXNativeTarget "tomkentaTests" */;
+			buildPhases = (
+				BE1507202042D34F00C64A0F /* Sources */,
+				BE1507212042D34F00C64A0F /* Frameworks */,
+				BE1507222042D34F00C64A0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE1507262042D34F00C64A0F /* PBXTargetDependency */,
+			);
+			name = tomkentaTests;
+			productName = tomkentaTests;
+			productReference = BE1507242042D34F00C64A0F /* tomkentaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BE15072E2042D34F00C64A0F /* tomkentaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE15073E2042D34F00C64A0F /* Build configuration list for PBXNativeTarget "tomkentaUITests" */;
+			buildPhases = (
+				BE15072B2042D34F00C64A0F /* Sources */,
+				BE15072C2042D34F00C64A0F /* Frameworks */,
+				BE15072D2042D34F00C64A0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE1507312042D34F00C64A0F /* PBXTargetDependency */,
+			);
+			name = tomkentaUITests;
+			productName = tomkentaUITests;
+			productReference = BE15072F2042D34F00C64A0F /* tomkentaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE1507052042D34F00C64A0F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Kenta Yokota";
+				TargetAttributes = {
+					BE15070C2042D34F00C64A0F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					BE1507232042D34F00C64A0F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BE15070C2042D34F00C64A0F;
+					};
+					BE15072E2042D34F00C64A0F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BE15070C2042D34F00C64A0F;
+					};
+				};
+			};
+			buildConfigurationList = BE1507082042D34F00C64A0F /* Build configuration list for PBXProject "tomkenta" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE1507042042D34F00C64A0F;
+			productRefGroup = BE15070E2042D34F00C64A0F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE15070C2042D34F00C64A0F /* tomkenta */,
+				BE1507232042D34F00C64A0F /* tomkentaTests */,
+				BE15072E2042D34F00C64A0F /* tomkentaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE15070B2042D34F00C64A0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE15071E2042D34F00C64A0F /* LaunchScreen.storyboard in Resources */,
+				BE15071B2042D34F00C64A0F /* Assets.xcassets in Resources */,
+				BE1507162042D34F00C64A0F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE1507222042D34F00C64A0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE15072D2042D34F00C64A0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE1507092042D34F00C64A0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE1507192042D34F00C64A0F /* tomkenta.xcdatamodeld in Sources */,
+				BE1507132042D34F00C64A0F /* ViewController.swift in Sources */,
+				BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE1507202042D34F00C64A0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE1507292042D34F00C64A0F /* tomkentaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE15072B2042D34F00C64A0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE1507342042D34F00C64A0F /* tomkentaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE1507262042D34F00C64A0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE15070C2042D34F00C64A0F /* tomkenta */;
+			targetProxy = BE1507252042D34F00C64A0F /* PBXContainerItemProxy */;
+		};
+		BE1507312042D34F00C64A0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE15070C2042D34F00C64A0F /* tomkenta */;
+			targetProxy = BE1507302042D34F00C64A0F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BE1507142042D34F00C64A0F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE1507152042D34F00C64A0F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BE15071C2042D34F00C64A0F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE15071D2042D34F00C64A0F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE1507362042D34F00C64A0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BE1507372042D34F00C64A0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BE1507392042D34F00C64A0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				INFOPLIST_FILE = tomkenta/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkenta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE15073A2042D34F00C64A0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				INFOPLIST_FILE = tomkenta/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkenta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BE15073C2042D34F00C64A0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				INFOPLIST_FILE = tomkentaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkentaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tomkenta.app/tomkenta";
+			};
+			name = Debug;
+		};
+		BE15073D2042D34F00C64A0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				INFOPLIST_FILE = tomkentaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkentaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tomkenta.app/tomkenta";
+			};
+			name = Release;
+		};
+		BE15073F2042D34F00C64A0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				INFOPLIST_FILE = tomkentaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkentaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = tomkenta;
+			};
+			name = Debug;
+		};
+		BE1507402042D34F00C64A0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				INFOPLIST_FILE = tomkentaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkentaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = tomkenta;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE1507082042D34F00C64A0F /* Build configuration list for PBXProject "tomkenta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE1507362042D34F00C64A0F /* Debug */,
+				BE1507372042D34F00C64A0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE1507382042D34F00C64A0F /* Build configuration list for PBXNativeTarget "tomkenta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE1507392042D34F00C64A0F /* Debug */,
+				BE15073A2042D34F00C64A0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE15073B2042D34F00C64A0F /* Build configuration list for PBXNativeTarget "tomkentaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE15073C2042D34F00C64A0F /* Debug */,
+				BE15073D2042D34F00C64A0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE15073E2042D34F00C64A0F /* Build configuration list for PBXNativeTarget "tomkentaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE15073F2042D34F00C64A0F /* Debug */,
+				BE1507402042D34F00C64A0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BE1507172042D34F00C64A0F /* tomkenta.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BE1507182042D34F00C64A0F /* tomkenta.xcdatamodel */,
+			);
+			currentVersion = BE1507182042D34F00C64A0F /* tomkenta.xcdatamodel */;
+			path = tomkenta.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = BE1507052042D34F00C64A0F /* Project object */;
+}
