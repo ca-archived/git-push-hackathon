@@ -17,6 +17,8 @@
 		6451E4682019D2440017FEB5 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4672019D2440017FEB5 /* UIViewControllerExtension.swift */; };
 		6451E46A2019D4DE0017FEB5 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4692019D4DE0017FEB5 /* HomeTableViewCell.swift */; };
 		6451E4722019D9C50017FEB5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6451E4712019D9C50017FEB5 /* HomeViewModel.swift */; };
+		64A0ECCC2042D38B00880D8F /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A0ECCB2042D38B00880D8F /* LaunchViewController.swift */; };
+		64A0ECCE2042D39400880D8F /* LaunchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64A0ECCD2042D39400880D8F /* LaunchViewController.storyboard */; };
 		64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DE75ED2019A3240056539C /* AppDelegate.swift */; };
 		64DE75F52019A3240056539C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F42019A3240056539C /* Assets.xcassets */; };
 		64DE75F82019A3240056539C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64DE75F62019A3240056539C /* LaunchScreen.storyboard */; };
@@ -65,6 +67,8 @@
 		6451E4672019D2440017FEB5 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		6451E4692019D4DE0017FEB5 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		6451E4712019D9C50017FEB5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		64A0ECCB2042D38B00880D8F /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		64A0ECCD2042D39400880D8F /* LaunchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchViewController.storyboard; sourceTree = "<group>"; };
 		64DE75EA2019A3240056539C /* Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64DE75ED2019A3240056539C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64DE75F42019A3240056539C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 		64E280EA2019A7B200774A83 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				64A0ECCB2042D38B00880D8F /* LaunchViewController.swift */,
+				64A0ECCD2042D39400880D8F /* LaunchViewController.storyboard */,
 				64E280F02019A87700774A83 /* LoginViewController.swift */,
 				64E280F22019A88200774A83 /* LoginViewController.storyboard */,
 				64E280F82019C49E00774A83 /* HomeViewController.swift */,
@@ -379,6 +385,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64A0ECCE2042D39400880D8F /* LaunchViewController.storyboard in Resources */,
 				64E280FB2019C4A500774A83 /* HomeViewController.storyboard in Resources */,
 				64E280F32019A88200774A83 /* LoginViewController.storyboard in Resources */,
 				6448291720216F36008A2320 /* MenuViewController.storyboard in Resources */,
@@ -568,6 +575,7 @@
 				64E280F12019A87700774A83 /* LoginViewController.swift in Sources */,
 				6451E46A2019D4DE0017FEB5 /* HomeTableViewCell.swift in Sources */,
 				64E280F72019B23F00774A83 /* Config.swift in Sources */,
+				64A0ECCC2042D38B00880D8F /* LaunchViewController.swift in Sources */,
 				6448291B20216F66008A2320 /* User.swift in Sources */,
 				64DE75EE2019A3240056539C /* AppDelegate.swift in Sources */,
 				6448291520216F29008A2320 /* MenuViewController.swift in Sources */,
