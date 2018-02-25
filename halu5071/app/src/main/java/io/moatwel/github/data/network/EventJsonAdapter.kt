@@ -28,7 +28,9 @@ import io.moatwel.github.domain.entity.event.*
 import java.lang.reflect.Type
 import java.util.*
 
-class EventJsonAdapter(val moshi: Moshi) : JsonAdapter<List<Event?>>() {
+class EventJsonAdapter(
+  val moshi: Moshi
+) : JsonAdapter<List<Event?>>() {
 
   @FromJson
   override fun fromJson(reader: JsonReader): List<Event?> {

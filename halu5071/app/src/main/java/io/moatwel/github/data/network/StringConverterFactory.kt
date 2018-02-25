@@ -31,8 +31,6 @@ import java.lang.reflect.Type
 
 class StringConverterFactory : Converter.Factory() {
 
-  private val PLAIN_TEXT = MediaType.parse("text/plain; charset=UTF-8")
-
   override fun requestBodyConverter(type: Type?,
                                     parameterAnnotations: Array<out Annotation>?,
                                     methodAnnotations: Array<out Annotation>?,
@@ -56,5 +54,9 @@ class StringConverterFactory : Converter.Factory() {
     } else {
       null
     }
+  }
+
+  companion object {
+    private val PLAIN_TEXT = MediaType.parse("text/plain; charset=UTF-8")
   }
 }
