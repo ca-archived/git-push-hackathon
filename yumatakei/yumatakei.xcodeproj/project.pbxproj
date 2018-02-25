@@ -1,0 +1,786 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		46AD8D1C19918B3B52EFD3AD /* Pods_yumatakeiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19C8690E9E2A8EE76349884 /* Pods_yumatakeiTests.framework */; };
+		8F7332E1C55ED6DD40493526 /* Pods_yumatakei.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A0B7524BB5F92D199C8AB9 /* Pods_yumatakei.framework */; };
+		914214360871A63C94CC1E83 /* Pods_yumatakeiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7230B9BEFEB7D7F8093C17F /* Pods_yumatakeiUITests.framework */; };
+		EC21033720238B2F00670D5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC21033620238B2F00670D5F /* AppDelegate.swift */; };
+		EC21033920238B2F00670D5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC21033820238B2F00670D5F /* ViewController.swift */; };
+		EC21033C20238B2F00670D5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC21033A20238B2F00670D5F /* Main.storyboard */; };
+		EC21033E20238B2F00670D5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC21033D20238B2F00670D5F /* Assets.xcassets */; };
+		EC21034120238B2F00670D5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC21033F20238B2F00670D5F /* LaunchScreen.storyboard */; };
+		EC21034C20238B2F00670D5F /* yumatakeiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC21034B20238B2F00670D5F /* yumatakeiTests.swift */; };
+		EC21035720238B2F00670D5F /* yumatakeiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC21035620238B2F00670D5F /* yumatakeiUITests.swift */; };
+		EC624D722040C97B0093F6DA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC624D712040C97B0093F6DA /* TableViewController.swift */; };
+		EC624D732040CB070093F6DA /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC624D742040CB070093F6DA /* SwiftyJSON.framework */; };
+		EC624D752040CB0C0093F6DA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC624D762040CB0C0093F6DA /* Alamofire.framework */; };
+		EC8CD942203F237300C83BBB /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8CD943203F237300C83BBB /* OAuthSwift.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EC21034820238B2F00670D5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC21032B20238B2F00670D5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC21033220238B2F00670D5F;
+			remoteInfo = yumatakei;
+		};
+		EC21035320238B2F00670D5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC21032B20238B2F00670D5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC21033220238B2F00670D5F;
+			remoteInfo = yumatakei;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3738C83741E02A48E91D4CFB /* Pods-yumatakei.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yumatakei.release.xcconfig"; path = "Pods/Target Support Files/Pods-yumatakei/Pods-yumatakei.release.xcconfig"; sourceTree = "<group>"; };
+		74A0B7524BB5F92D199C8AB9 /* Pods_yumatakei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yumatakei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7230B9BEFEB7D7F8093C17F /* Pods_yumatakeiUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yumatakeiUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B22C04165808B042F4F4D642 /* Pods-yumatakei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yumatakei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yumatakei/Pods-yumatakei.debug.xcconfig"; sourceTree = "<group>"; };
+		C8FAE22BD2433053A13B41E3 /* Pods-yumatakeiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yumatakeiUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-yumatakeiUITests/Pods-yumatakeiUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CD1263DAE77B86765ECB4756 /* Pods-yumatakeiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yumatakeiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-yumatakeiTests/Pods-yumatakeiTests.release.xcconfig"; sourceTree = "<group>"; };
+		D1AA7FBAAF1F6F7AEE3A00A6 /* Pods-yumatakeiUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yumatakeiUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yumatakeiUITests/Pods-yumatakeiUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D26C6CEC4D63532E7532C643 /* Pods-yumatakeiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yumatakeiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yumatakeiTests/Pods-yumatakeiTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E19C8690E9E2A8EE76349884 /* Pods_yumatakeiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yumatakeiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC21033320238B2F00670D5F /* yumatakei.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yumatakei.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC21033620238B2F00670D5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EC21033820238B2F00670D5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EC21033B20238B2F00670D5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC21033D20238B2F00670D5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EC21034020238B2F00670D5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EC21034220238B2F00670D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC21034720238B2F00670D5F /* yumatakeiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yumatakeiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC21034B20238B2F00670D5F /* yumatakeiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yumatakeiTests.swift; sourceTree = "<group>"; };
+		EC21034D20238B2F00670D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC21035220238B2F00670D5F /* yumatakeiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yumatakeiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC21035620238B2F00670D5F /* yumatakeiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yumatakeiUITests.swift; sourceTree = "<group>"; };
+		EC21035820238B2F00670D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC624D712040C97B0093F6DA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		EC624D742040CB070093F6DA /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC624D762040CB0C0093F6DA /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC8CD943203F237300C83BBB /* OAuthSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OAuthSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC21033020238B2F00670D5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC624D752040CB0C0093F6DA /* Alamofire.framework in Frameworks */,
+				EC624D732040CB070093F6DA /* SwiftyJSON.framework in Frameworks */,
+				EC8CD942203F237300C83BBB /* OAuthSwift.framework in Frameworks */,
+				8F7332E1C55ED6DD40493526 /* Pods_yumatakei.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC21034420238B2F00670D5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46AD8D1C19918B3B52EFD3AD /* Pods_yumatakeiTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC21034F20238B2F00670D5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				914214360871A63C94CC1E83 /* Pods_yumatakeiUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7B7453DEFC115D2D415316EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC624D762040CB0C0093F6DA /* Alamofire.framework */,
+				EC624D742040CB070093F6DA /* SwiftyJSON.framework */,
+				EC8CD943203F237300C83BBB /* OAuthSwift.framework */,
+				74A0B7524BB5F92D199C8AB9 /* Pods_yumatakei.framework */,
+				E19C8690E9E2A8EE76349884 /* Pods_yumatakeiTests.framework */,
+				A7230B9BEFEB7D7F8093C17F /* Pods_yumatakeiUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC21032A20238B2F00670D5F = {
+			isa = PBXGroup;
+			children = (
+				EC21033520238B2F00670D5F /* yumatakei */,
+				EC21034A20238B2F00670D5F /* yumatakeiTests */,
+				EC21035520238B2F00670D5F /* yumatakeiUITests */,
+				EC21033420238B2F00670D5F /* Products */,
+				FD6FB27DBF650BC166F426E7 /* Pods */,
+				7B7453DEFC115D2D415316EC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EC21033420238B2F00670D5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC21033320238B2F00670D5F /* yumatakei.app */,
+				EC21034720238B2F00670D5F /* yumatakeiTests.xctest */,
+				EC21035220238B2F00670D5F /* yumatakeiUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC21033520238B2F00670D5F /* yumatakei */ = {
+			isa = PBXGroup;
+			children = (
+				EC21033620238B2F00670D5F /* AppDelegate.swift */,
+				EC21033820238B2F00670D5F /* ViewController.swift */,
+				EC624D712040C97B0093F6DA /* TableViewController.swift */,
+				EC21033A20238B2F00670D5F /* Main.storyboard */,
+				EC21033D20238B2F00670D5F /* Assets.xcassets */,
+				EC21033F20238B2F00670D5F /* LaunchScreen.storyboard */,
+				EC21034220238B2F00670D5F /* Info.plist */,
+			);
+			path = yumatakei;
+			sourceTree = "<group>";
+		};
+		EC21034A20238B2F00670D5F /* yumatakeiTests */ = {
+			isa = PBXGroup;
+			children = (
+				EC21034B20238B2F00670D5F /* yumatakeiTests.swift */,
+				EC21034D20238B2F00670D5F /* Info.plist */,
+			);
+			path = yumatakeiTests;
+			sourceTree = "<group>";
+		};
+		EC21035520238B2F00670D5F /* yumatakeiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EC21035620238B2F00670D5F /* yumatakeiUITests.swift */,
+				EC21035820238B2F00670D5F /* Info.plist */,
+			);
+			path = yumatakeiUITests;
+			sourceTree = "<group>";
+		};
+		FD6FB27DBF650BC166F426E7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B22C04165808B042F4F4D642 /* Pods-yumatakei.debug.xcconfig */,
+				3738C83741E02A48E91D4CFB /* Pods-yumatakei.release.xcconfig */,
+				D26C6CEC4D63532E7532C643 /* Pods-yumatakeiTests.debug.xcconfig */,
+				CD1263DAE77B86765ECB4756 /* Pods-yumatakeiTests.release.xcconfig */,
+				D1AA7FBAAF1F6F7AEE3A00A6 /* Pods-yumatakeiUITests.debug.xcconfig */,
+				C8FAE22BD2433053A13B41E3 /* Pods-yumatakeiUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC21033220238B2F00670D5F /* yumatakei */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC21035B20238B2F00670D5F /* Build configuration list for PBXNativeTarget "yumatakei" */;
+			buildPhases = (
+				A895BFBFBFDFE4DAA9CBE70E /* [CP] Check Pods Manifest.lock */,
+				EC21032F20238B2F00670D5F /* Sources */,
+				EC21033020238B2F00670D5F /* Frameworks */,
+				EC21033120238B2F00670D5F /* Resources */,
+				5125F09491555DCFB3F968BF /* [CP] Embed Pods Frameworks */,
+				34A9A34F1B0BAFA245F1465F /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yumatakei;
+			productName = yumatakei;
+			productReference = EC21033320238B2F00670D5F /* yumatakei.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EC21034620238B2F00670D5F /* yumatakeiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC21035E20238B2F00670D5F /* Build configuration list for PBXNativeTarget "yumatakeiTests" */;
+			buildPhases = (
+				FA06DDEBDA411904B42B925A /* [CP] Check Pods Manifest.lock */,
+				EC21034320238B2F00670D5F /* Sources */,
+				EC21034420238B2F00670D5F /* Frameworks */,
+				EC21034520238B2F00670D5F /* Resources */,
+				83D246396B9047298221CFBB /* [CP] Embed Pods Frameworks */,
+				F0E240D7389B5F977B743A7D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC21034920238B2F00670D5F /* PBXTargetDependency */,
+			);
+			name = yumatakeiTests;
+			productName = yumatakeiTests;
+			productReference = EC21034720238B2F00670D5F /* yumatakeiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EC21035120238B2F00670D5F /* yumatakeiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC21036120238B2F00670D5F /* Build configuration list for PBXNativeTarget "yumatakeiUITests" */;
+			buildPhases = (
+				E04977CD3BC522614BD7C750 /* [CP] Check Pods Manifest.lock */,
+				EC21034E20238B2F00670D5F /* Sources */,
+				EC21034F20238B2F00670D5F /* Frameworks */,
+				EC21035020238B2F00670D5F /* Resources */,
+				5B7487BC03440E3E61977E81 /* [CP] Embed Pods Frameworks */,
+				AE7CB6131A3AF828A3F8E479 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC21035420238B2F00670D5F /* PBXTargetDependency */,
+			);
+			name = yumatakeiUITests;
+			productName = yumatakeiUITests;
+			productReference = EC21035220238B2F00670D5F /* yumatakeiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC21032B20238B2F00670D5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = yuma;
+				TargetAttributes = {
+					EC21033220238B2F00670D5F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					EC21034620238B2F00670D5F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EC21033220238B2F00670D5F;
+					};
+					EC21035120238B2F00670D5F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EC21033220238B2F00670D5F;
+					};
+				};
+			};
+			buildConfigurationList = EC21032E20238B2F00670D5F /* Build configuration list for PBXProject "yumatakei" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EC21032A20238B2F00670D5F;
+			productRefGroup = EC21033420238B2F00670D5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC21033220238B2F00670D5F /* yumatakei */,
+				EC21034620238B2F00670D5F /* yumatakeiTests */,
+				EC21035120238B2F00670D5F /* yumatakeiUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC21033120238B2F00670D5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC21034120238B2F00670D5F /* LaunchScreen.storyboard in Resources */,
+				EC21033E20238B2F00670D5F /* Assets.xcassets in Resources */,
+				EC21033C20238B2F00670D5F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC21034520238B2F00670D5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC21035020238B2F00670D5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34A9A34F1B0BAFA245F1465F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yumatakei/Pods-yumatakei-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5125F09491555DCFB3F968BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-yumatakei/Pods-yumatakei-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yumatakei/Pods-yumatakei-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B7487BC03440E3E61977E81 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yumatakeiUITests/Pods-yumatakeiUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83D246396B9047298221CFBB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yumatakeiTests/Pods-yumatakeiTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A895BFBFBFDFE4DAA9CBE70E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-yumatakei-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE7CB6131A3AF828A3F8E479 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yumatakeiUITests/Pods-yumatakeiUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E04977CD3BC522614BD7C750 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-yumatakeiUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0E240D7389B5F977B743A7D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yumatakeiTests/Pods-yumatakeiTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA06DDEBDA411904B42B925A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-yumatakeiTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC21032F20238B2F00670D5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC21033920238B2F00670D5F /* ViewController.swift in Sources */,
+				EC624D722040C97B0093F6DA /* TableViewController.swift in Sources */,
+				EC21033720238B2F00670D5F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC21034320238B2F00670D5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC21034C20238B2F00670D5F /* yumatakeiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC21034E20238B2F00670D5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC21035720238B2F00670D5F /* yumatakeiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC21034920238B2F00670D5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC21033220238B2F00670D5F /* yumatakei */;
+			targetProxy = EC21034820238B2F00670D5F /* PBXContainerItemProxy */;
+		};
+		EC21035420238B2F00670D5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC21033220238B2F00670D5F /* yumatakei */;
+			targetProxy = EC21035320238B2F00670D5F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EC21033A20238B2F00670D5F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC21033B20238B2F00670D5F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EC21033F20238B2F00670D5F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC21034020238B2F00670D5F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC21035920238B2F00670D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EC21035A20238B2F00670D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC21035C20238B2F00670D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B22C04165808B042F4F4D642 /* Pods-yumatakei.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3BJGRH9H53;
+				INFOPLIST_FILE = yumatakei/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = yuma.yumatakei;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC21035D20238B2F00670D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3738C83741E02A48E91D4CFB /* Pods-yumatakei.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3BJGRH9H53;
+				INFOPLIST_FILE = yumatakei/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = yuma.yumatakei;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EC21035F20238B2F00670D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D26C6CEC4D63532E7532C643 /* Pods-yumatakeiTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = yumatakeiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = yuma.yumatakeiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yumatakei.app/yumatakei";
+			};
+			name = Debug;
+		};
+		EC21036020238B2F00670D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD1263DAE77B86765ECB4756 /* Pods-yumatakeiTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = yumatakeiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = yuma.yumatakeiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yumatakei.app/yumatakei";
+			};
+			name = Release;
+		};
+		EC21036220238B2F00670D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1AA7FBAAF1F6F7AEE3A00A6 /* Pods-yumatakeiUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = yumatakeiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = yuma.yumatakeiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = yumatakei;
+			};
+			name = Debug;
+		};
+		EC21036320238B2F00670D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8FAE22BD2433053A13B41E3 /* Pods-yumatakeiUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = yumatakeiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = yuma.yumatakeiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = yumatakei;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC21032E20238B2F00670D5F /* Build configuration list for PBXProject "yumatakei" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC21035920238B2F00670D5F /* Debug */,
+				EC21035A20238B2F00670D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC21035B20238B2F00670D5F /* Build configuration list for PBXNativeTarget "yumatakei" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC21035C20238B2F00670D5F /* Debug */,
+				EC21035D20238B2F00670D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC21035E20238B2F00670D5F /* Build configuration list for PBXNativeTarget "yumatakeiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC21035F20238B2F00670D5F /* Debug */,
+				EC21036020238B2F00670D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC21036120238B2F00670D5F /* Build configuration list for PBXNativeTarget "yumatakeiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC21036220238B2F00670D5F /* Debug */,
+				EC21036320238B2F00670D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC21032B20238B2F00670D5F /* Project object */;
+}
