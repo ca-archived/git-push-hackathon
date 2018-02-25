@@ -63,6 +63,8 @@
 		46DD53F62039780A00581AC8 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD53F52039780A00581AC8 /* UserDefaults+Extensions.swift */; };
 		46DD8C7F20204A70000B92A6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C7E20204A70000B92A6 /* TabBarController.swift */; };
 		46DD8C83202052DF000B92A6 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8C82202052DF000B92A6 /* URL+Extensions.swift */; };
+		46F071262042681500AFF66E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F071252042681500AFF66E /* SettingsViewController.swift */; };
+		46F071282042682300AFF66E /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46F071272042682300AFF66E /* SettingsViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +148,8 @@
 		46DD8C7E20204A70000B92A6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		46DD8C82202052DF000B92A6 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		46DD8C842020579F000B92A6 /* FeedKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FeedKit.framework; path = Carthage/Build/iOS/FeedKit.framework; sourceTree = "<group>"; };
+		46F071252042681500AFF66E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		46F071272042682300AFF66E /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,7 @@
 				4653739C202D8A83002279BD /* LoadingViewController.storyboard */,
 				46537394202D8929002279BD /* GitMeRouter.swift */,
 				46092DE4202C9DEA00D32FF6 /* Main */,
+				46F07124204267FA00AFF66E /* Settings */,
 				46092DE5202C9DF000D32FF6 /* Login */,
 			);
 			path = Presentation;
@@ -392,6 +397,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		46F07124204267FA00AFF66E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				46F071252042681500AFF66E /* SettingsViewController.swift */,
+				46F071272042682300AFF66E /* SettingsViewController.storyboard */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -512,6 +526,7 @@
 				46DA6D0C2015928E00767CCB /* LoginViewController.storyboard in Resources */,
 				46537392202D486A002279BD /* URWDIN-Demi.ttf in Resources */,
 				4695C95A200DAC3E0097F066 /* Assets.xcassets in Resources */,
+				46F071282042682300AFF66E /* SettingsViewController.storyboard in Resources */,
 				46537391202D486A002279BD /* URWDIN-Medium.ttf in Resources */,
 				4695C958200DAC3E0097F066 /* MainViewController.storyboard in Resources */,
 			);
@@ -623,6 +638,7 @@
 				4695C953200DAC3E0097F066 /* AppDelegate.swift in Sources */,
 				4671021A202C287C007D86A8 /* UIColor+Extensions.swift in Sources */,
 				46DA6D082015925E00767CCB /* LoginViewController.swift in Sources */,
+				46F071262042681500AFF66E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
