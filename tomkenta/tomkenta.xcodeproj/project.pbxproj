@@ -15,6 +15,12 @@
 		BE15071E2042D34F00C64A0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE15071C2042D34F00C64A0F /* LaunchScreen.storyboard */; };
 		BE1507292042D34F00C64A0F /* tomkentaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507282042D34F00C64A0F /* tomkentaTests.swift */; };
 		BE1507342042D34F00C64A0F /* tomkentaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507332042D34F00C64A0F /* tomkentaUITests.swift */; };
+		BE1507482042E05700C64A0F /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507422042E05600C64A0F /* Kingfisher.framework */; };
+		BE1507492042E05700C64A0F /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507432042E05600C64A0F /* SwiftyJSON.framework */; };
+		BE15074A2042E05700C64A0F /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507442042E05600C64A0F /* Result.framework */; };
+		BE15074B2042E05700C64A0F /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507452042E05600C64A0F /* SVProgressHUD.framework */; };
+		BE15074C2042E05700C64A0F /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507462042E05700C64A0F /* APIKit.framework */; };
+		BE15074D2042E05700C64A0F /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507472042E05700C64A0F /* OAuthSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +55,12 @@
 		BE15072F2042D34F00C64A0F /* tomkentaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tomkentaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1507332042D34F00C64A0F /* tomkentaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tomkentaUITests.swift; sourceTree = "<group>"; };
 		BE1507352042D34F00C64A0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE1507422042E05600C64A0F /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		BE1507432042E05600C64A0F /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		BE1507442042E05600C64A0F /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		BE1507452042E05600C64A0F /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
+		BE1507462042E05700C64A0F /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
+		BE1507472042E05700C64A0F /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE1507482042E05700C64A0F /* Kingfisher.framework in Frameworks */,
+				BE1507492042E05700C64A0F /* SwiftyJSON.framework in Frameworks */,
+				BE15074A2042E05700C64A0F /* Result.framework in Frameworks */,
+				BE15074B2042E05700C64A0F /* SVProgressHUD.framework in Frameworks */,
+				BE15074C2042E05700C64A0F /* APIKit.framework in Frameworks */,
+				BE15074D2042E05700C64A0F /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +101,7 @@
 				BE1507272042D34F00C64A0F /* tomkentaTests */,
 				BE1507322042D34F00C64A0F /* tomkentaUITests */,
 				BE15070E2042D34F00C64A0F /* Products */,
+				BE1507412042E05600C64A0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +147,19 @@
 			path = tomkentaUITests;
 			sourceTree = "<group>";
 		};
+		BE1507412042E05600C64A0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE1507462042E05700C64A0F /* APIKit.framework */,
+				BE1507422042E05600C64A0F /* Kingfisher.framework */,
+				BE1507472042E05700C64A0F /* OAuthSwift.framework */,
+				BE1507442042E05600C64A0F /* Result.framework */,
+				BE1507452042E05600C64A0F /* SVProgressHUD.framework */,
+				BE1507432042E05600C64A0F /* SwiftyJSON.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +170,7 @@
 				BE1507092042D34F00C64A0F /* Sources */,
 				BE15070A2042D34F00C64A0F /* Frameworks */,
 				BE15070B2042D34F00C64A0F /* Resources */,
+				BE15074E2042E08100C64A0F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -256,6 +289,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BE15074E2042E08100C64A0F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/APIKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BE1507092042D34F00C64A0F /* Sources */ = {
@@ -432,6 +487,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = tomkenta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkenta;
@@ -447,6 +506,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E6QUGA3SUU;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = tomkenta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yokochinapp.tomkenta;
