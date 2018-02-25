@@ -32,6 +32,8 @@ class GitHubAPI {
             accessTokenUrl: "https://github.com/login/oauth/access_token",
             responseType: "code"
         )
+        self.decoder = JSONDecoder()
+        self.decoder.dateDecodingStrategy = .iso8601
     }
 
     /// Log in function
@@ -40,10 +42,9 @@ class GitHubAPI {
         if cache.object(forKey: DefaultKeys.oauthKey.rawValue) != nil {
 
             return self.fetchUser()
-        } else {
-
-            return self.authorize()
         }
+
+        return self.authorize()
     }
 
     /// Fetch Logged In User Information
@@ -59,20 +60,16 @@ class GitHubAPI {
 
         if let url = self.createRequestUrl(.getCurrentUser) {
 
-            let session = URLSession(configuration: .default)
-            return session.rx.data(request: URLRequest(url: url)).map { data -> User in
+            return self.session.rx.data(request: URLRequest(url: url)).map { data -> User in
 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let user = try decoder.decode(User.self, from: data)
+                let user = try self.decoder.decode(User.self, from: data)
                 self.cache.set(user.login, forKey: DefaultKeys.userName.rawValue)
                 self.cache.set(user.avatarUrl, forKey: DefaultKeys.userIcon.rawValue)
                 return user
                 }.share()
-        } else {
-
-            return Observable<User>.empty()
         }
+
+        return Observable<User>.empty()
     }
 
     /// Fetch Event List
@@ -80,44 +77,35 @@ class GitHubAPI {
 
         if let url = self.createRequestUrl(.getEvents(page, perPage)) {
 
-            let session = URLSession(configuration: .default)
-            return session.rx.data(request: URLRequest(url: url)).map { data in
+            return self.session.rx.data(request: URLRequest(url: url)).map { data in
 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                return try decoder.decode([Event].self, from: data)
+                return try self.decoder.decode([Event].self, from: data)
             }
-        } else {
-
-            return Observable<[Event]>.empty()
         }
+
+        return Observable<[Event]>.empty()
     }
 
+    /// Fetch Repository Infomation
     func fetchRepositoryInfo(of url: URL) -> (Observable<Repository>, Observable<Readme>) {
 
         let readmeUrlBase = url.appendingPathComponent("readme")
         if let repoUrl = self.createRequestUrl(.customRequest(url)),
             let readmeUrl = self.createRequestUrl(.customRequest(readmeUrlBase)) {
 
-            let session = URLSession(configuration: .default)
             return (
-                session.rx.data(request: URLRequest(url: repoUrl)).map { data -> Repository in
+                self.session.rx.data(request: URLRequest(url: repoUrl)).map { data -> Repository in
 
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
-                    return try decoder.decode(Repository.self, from: data)
+                    return try self.decoder.decode(Repository.self, from: data)
                 },
-                session.rx.data(request: URLRequest(url: readmeUrl)).map { data -> Readme in
+                self.session.rx.data(request: URLRequest(url: readmeUrl)).map { data -> Readme in
 
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
-                    return try decoder.decode(Readme.self, from: data)
+                    return try self.decoder.decode(Readme.self, from: data)
                 }
             )
-        } else {
-
-            return (Observable<Repository>.empty(), Observable<Readme>.empty())
         }
+
+        return (Observable<Repository>.empty(), Observable<Readme>.empty())
     }
 
     // MARK: Private
@@ -125,6 +113,8 @@ class GitHubAPI {
     private let oauthSwift: OAuth2Swift!
     private let base: String = "https://api.github.com"
     private let cache = UserDefaults.standard
+    private let session = URLSession(configuration: .default)
+    private let decoder: JSONDecoder!
 
     /// If there is no auth key, then you should log in first
     private func authorize() -> Observable<User> {
