@@ -48,7 +48,7 @@ DIGNO V (KYV42 / Android 7.1.1 搭載)
 ### ログイン画面
 ![](assets/login.png)
 ### メイン画面   
-![](assets/main_5.png)
+![](assets/main_5.png)  
 ![](assets/main_1.png)  
 ![](assets/main_2.png)  
 ![](assets/main_3.png)  
