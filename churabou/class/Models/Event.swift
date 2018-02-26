@@ -25,7 +25,7 @@ struct Event {
     init(_ object: Any) {
         
         guard let dic = object as? [String: Any] else {
-            fatalError("辞書変換失敗")
+            fatalError("dic failed")
         }
         
         guard let type = dic["type"] as? String else {
@@ -59,7 +59,7 @@ struct Event {
     static func map(_ object: Any) -> [Event] {
         
         guard let ary = object as? [Any] else {
-            fatalError("辞書変換失敗")
+            fatalError("dic failed")
         }
         
         return ary.map { Event($0) }
