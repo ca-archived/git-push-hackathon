@@ -27,7 +27,8 @@ final class AuthorizeViewController: UIViewController {
     func auth() {
         oauth.authorize(
             withCallbackURL: URL(string: "tomkenta://testapp-callback")!,
-            scope: "repo", state: "sample",
+            scope: "repo",
+            state: "sample",
             success: { credential, response, parameters in
                 Token.oauthToken = credential.oauthToken
         },
