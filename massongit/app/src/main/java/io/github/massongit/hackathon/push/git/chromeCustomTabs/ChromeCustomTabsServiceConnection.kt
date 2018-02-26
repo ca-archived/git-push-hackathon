@@ -23,9 +23,7 @@ class ChromeCustomTabsServiceConnection(private val helper: ChromeCustomTabsHelp
         this.helper.customTabsClient = client.apply {
             warmup(0)
         }
-        if (this.afterWarmUpEvent != null) {
-            this.afterWarmUpEvent.invoke()
-        }
+        this.afterWarmUpEvent?.invoke()
     }
 
     override fun onServiceDisconnected(name: ComponentName) {
