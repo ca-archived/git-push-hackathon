@@ -20,8 +20,11 @@ class TabBarController: UITabBarController {
         let mainViewController = UINavigationController(rootViewController: MainViewController.instantiate())
         mainViewController.title = "Feeds"
         mainViewController.tabBarItem.image = UIImage(named: "feed")
+        let settingsViewController = UINavigationController(rootViewController: SettingsViewController.instantiate())
+        settingsViewController.title = "Settings"
+        settingsViewController.tabBarItem.image = UIImage(named: "settings")
 
-        self.setViewControllers([mainViewController], animated: false)
+        self.viewControllers = [mainViewController, settingsViewController]
     }
 }
 

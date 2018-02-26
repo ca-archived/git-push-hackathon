@@ -112,7 +112,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="HCT-SF-MhO" secondAttribute="trailing" id="TUr-ZZ-fGn"/>
                                             <constraint firstItem="HCT-SF-MhO" firstAttribute="top" secondItem="WCm-fM-gZv" secondAttribute="top" constant="-5" id="UpS-ei-TSR"/>
-                                            <constraint firstAttribute="height" constant="20" id="qbj-7W-66D"/>
+                                            <constraint firstAttribute="height" priority="999" constant="20" id="qbj-7W-66D"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

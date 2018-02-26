@@ -53,9 +53,20 @@ class LoginViewController: UIViewController {
             .subscribe { [unowned self] event in
 
                 switch event {
-                case .next(let value):
-                    TabBarController.router.openLoadingWindow(userInfo: value)
-                    self.dismiss(animated: true, completion: nil)
+                case .next:
+                    self.dismiss(animated: true, completion: {
+
+                        guard let tabBarController = UIApplication.shared.topPresentedTabBarController else {
+
+                            return
+                        }
+                        
+                        tabBarController.selectedIndex = 0
+                        if let mainViewController = tabBarController.firstViewController as? MainViewController {
+
+                            mainViewController.firstLoading()
+                        }
+                    })
                 case .error(let error):
                     print(error)
                 case .completed:

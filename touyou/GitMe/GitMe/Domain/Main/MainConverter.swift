@@ -67,6 +67,33 @@ class MainConverter {
                 (" starred ", .normal),
                 (event.repo!.name, .bold)
                 ])
+        case .fork:
+
+            mutableAttributedString.append([
+                (" forked ", .normal),
+                (event.repo!.name, .bold)
+                ])
+
+        case .pullRequest:
+
+            mutableAttributedString.append([
+                (" did pull request event in ", .normal),
+                (event.repo!.name, .bold)
+                ])
+
+        case .public:
+
+            mutableAttributedString.append([
+                (" has open sourced ", .normal),
+                (event.repo!.name, .bold)
+                ])
+
+        case .member:
+
+            mutableAttributedString.append([
+                (" change collaborator in ", .normal),
+                (event.repo!.name, .bold)
+                ])
         default:
 
             mutableAttributedString.append([

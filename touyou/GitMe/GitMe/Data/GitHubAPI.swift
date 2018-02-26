@@ -47,6 +47,14 @@ class GitHubAPI {
         return self.authorize()
     }
 
+    /// Log out function
+    func logOut() {
+
+        cache.removeObject(forKey: DefaultKeys.oauthKey.rawValue)
+        cache.removeObject(forKey: DefaultKeys.userName.rawValue)
+        cache.removeObject(forKey: DefaultKeys.userIcon.rawValue)
+    }
+
     /// Fetch Logged In User Information
     func fetchUser() -> Observable<User> {
 
