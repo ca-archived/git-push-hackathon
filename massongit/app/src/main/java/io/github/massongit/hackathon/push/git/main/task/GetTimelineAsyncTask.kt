@@ -31,9 +31,9 @@ import java.net.URL
  * @param helper Helper
  * @param userID ナビゲーションメニューのヘッダーのユーザーID表示部
  * @param isCurrent 最新のタイムラインを取得するかどうか
- * @param initEvent 初期化イベント
+ * @param isInit 初期化時の呼び出しかどうか
  */
-class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, userID: TextView, private val isCurrent: Boolean = true, private val initEvent: (() -> Unit)? = null) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
+class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefreshLayout: SwipeRefreshLayout, private val eventViewAdapter: EventViewAdapter, helper: MainHelper, userID: TextView, private val isCurrent: Boolean = true, private val isInit: Boolean = false) : RequestAsyncTask<Unit, Unit, List<Event>>(service, helper) {
     companion object {
         /**
          * ログ用タグ
@@ -262,7 +262,9 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
         this.eventViewAdapter.addItems(events, this.isCurrent)
         this.swipeRefreshLayoutWeakReference.get()?.isRefreshing = false
         Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.get_user_timeline_completed), Toast.LENGTH_SHORT).show()
-        this.initEvent?.invoke()
+        if (this.isInit) {
+            this.mainHelper.initFinished()
+        }
     }
 
     /**

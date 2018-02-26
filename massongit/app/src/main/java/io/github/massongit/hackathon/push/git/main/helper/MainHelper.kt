@@ -142,17 +142,19 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
      */
     internal fun getTimeLine(isCurrent: Boolean = true, isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getTimeLine called")
-        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userID, isCurrent, if (isInit) {
-            fun() {
-                val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar.apply {
-                    isClickable = true
-                }, R.string.open_navigation_view, R.string.close_navigation_view)
-                this.drawerLayout.addDrawerListener(toggle)
-                toggle.syncState()
-            }
-        } else {
-            null
-        }).execute()
+        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userID, isCurrent, isInit).execute()
+    }
+
+    /**
+     * 初期化終了後のイベント
+     */
+    internal fun initFinished() {
+        Log.v(MainHelper.TAG, "initFinished called")
+        val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar.apply {
+            isClickable = true
+        }, R.string.open_navigation_view, R.string.close_navigation_view)
+        this.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
     }
 
     /**
