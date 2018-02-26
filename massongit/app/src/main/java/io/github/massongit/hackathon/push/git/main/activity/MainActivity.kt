@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.application.MainApplication
@@ -83,5 +84,14 @@ class MainActivity : AppCompatActivity() {
     fun onLogoutMenuItemClick(menuItem: MenuItem) {
         Log.v(MainActivity.TAG, "onLogoutMenuItemClick called")
         this.mainHelper.logout()
+    }
+
+    /**
+     * ツールバー押下時のイベント
+     * @param view View
+     */
+    fun onToolbarClick(view: View) {
+        Log.v(MainActivity.TAG, "onToolbarClick called")
+        this.mainHelper.scrollToTopEventView()
     }
 }

@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
  * @param mainHelper Helper
  * @param uri 認証後のURI
  */
-class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Service?, mainHelper: MainHelper, private val uri: Uri?) : AsyncTask<Unit, Unit, OAuth2AccessToken>() {
+class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Service?, private val mainHelper: MainHelper, private val uri: Uri?) : AsyncTask<Unit, Unit, OAuth2AccessToken>() {
     companion object {
         /**
          * ログ用タグ
@@ -30,11 +30,6 @@ class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Serv
      * Activityを保持するWeakReference
      */
     private val contextWeakReference: WeakReference<Context> = WeakReference(context)
-
-    /**
-     * Helperを保持するWeakReference
-     */
-    private val mainHelperWeakReference: WeakReference<MainHelper> = WeakReference(mainHelper)
 
     override fun doInBackground(vararg units: Unit): OAuth2AccessToken? {
         Log.v(GetAccessTokenAsyncTask.TAG, "doInBackground called")
@@ -55,9 +50,9 @@ class GetAccessTokenAsyncTask(context: Context, private val service: OAuth20Serv
             Log.v(GetAccessTokenAsyncTask.TAG, "Token Error!")
             Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.error_happen), Toast.LENGTH_LONG).show()
         } else {
-            this.mainHelperWeakReference.get()?.accessToken = accessToken
-            Log.d(GetAccessTokenAsyncTask.TAG, "accessToken: " + this.mainHelperWeakReference.get()?.accessToken?.accessToken)
-            this.mainHelperWeakReference.get()?.getUserName(true)
+            this.mainHelper.accessToken = accessToken
+            Log.d(GetAccessTokenAsyncTask.TAG, "accessToken: " + this.mainHelper.accessToken?.accessToken)
+            this.mainHelper.getUserName()
         }
     }
 }

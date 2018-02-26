@@ -38,7 +38,7 @@ import io.github.massongit.hackathon.push.git.main.task.GetUserDataAsyncTask
  * @param toolbar ToolBar
  * @param drawerLayout DrawerLayout
  */
-class MainHelper(private val activity: AppCompatActivity, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, eventView: RecyclerView, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationView: NavigationView, private val toolbar: Toolbar, private val drawerLayout: DrawerLayout) {
+class MainHelper(private val activity: AppCompatActivity, private var service: OAuth20Service?, private val swipeRefreshLayout: SwipeRefreshLayout, private val eventView: RecyclerView, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationView: NavigationView, private val toolbar: Toolbar, private val drawerLayout: DrawerLayout) {
     companion object {
         /**
          * ログ用タグ
@@ -85,7 +85,7 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         }
         this.activity.setSupportActionBar(this.toolbar)
         this.chromeCustomTabsHelper.bind()
-        eventView.apply {
+        this.eventView.apply {
             val manager = LinearLayoutManager(context)
             layoutManager = manager
             adapter = eventViewAdapter
@@ -129,11 +129,10 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
 
     /**
      * ユーザー名を取得する
-     * @param isInit 初期化時の呼び出しかどうか
      */
-    internal fun getUserName(isInit: Boolean = false) {
+    internal fun getUserName() {
         Log.v(MainHelper.TAG, "getUserName called")
-        GetUserDataAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userID, this.userName, isInit).execute()
+        GetUserDataAsyncTask(this.service, this, this.chromeCustomTabsHelper, this.navigationViewLayout, this.userAvatar, this.userID, this.userName).execute()
     }
 
     /**
@@ -143,16 +142,17 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
      */
     internal fun getTimeLine(isCurrent: Boolean = true, isInit: Boolean = false) {
         Log.v(MainHelper.TAG, "getTimeLine called")
-        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userID, isCurrent, isInit).execute()
-    }
-
-    /**
-     * ナビゲーションメニューを有効にする
-     */
-    internal fun enableNavigationView() {
-        val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar, R.string.open_navigation_view, R.string.close_navigation_view)
-        this.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        GetTimelineAsyncTask(this.activity, this.service, this.swipeRefreshLayout, this.eventViewAdapter, this, this.userID, isCurrent, if (isInit) {
+            fun() {
+                val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar.apply {
+                    isClickable = true
+                }, R.string.open_navigation_view, R.string.close_navigation_view)
+                this.drawerLayout.addDrawerListener(toggle)
+                toggle.syncState()
+            }
+        } else {
+            null
+        }).execute()
     }
 
     /**
@@ -163,5 +163,13 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
         GetTimelineAsyncTask.reset()
         this.activity.startActivity(Intent(this.activity, LoginActivity::class.java))
         this.activity.finish()
+    }
+
+    /**
+     * イベントビューを先頭へスクロールする
+     */
+    internal fun scrollToTopEventView() {
+        Log.v(MainHelper.TAG, "scrollToTopEventView called")
+        this.eventView.scrollToPosition(0)
     }
 }

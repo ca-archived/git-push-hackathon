@@ -24,9 +24,8 @@ import java.net.URL
  * @param userAvatar ナビゲーションメニューのヘッダーのサムネイル表示部
  * @param userID ナビゲーションメニューのヘッダーのユーザーID表示部
  * @param userName ナビゲーションメニューのヘッダーのユーザー名表示部
- * @param isInit 初期化時の呼び出しかどうか
  */
-class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationViewLayout: View, userAvatar: ImageView, userID: TextView, userName: TextView, private val isInit: Boolean) : RequestAsyncTask<Unit, Unit, UserData?>(service, mainHelper) {
+class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, private val chromeCustomTabsHelper: ChromeCustomTabsHelper, navigationViewLayout: View, userAvatar: ImageView, userID: TextView, userName: TextView) : RequestAsyncTask<Unit, Unit, UserData?>(service, mainHelper) {
     companion object {
         /**
          * ログ用タグ
@@ -74,8 +73,6 @@ class GetUserDataAsyncTask(service: OAuth20Service?, mainHelper: MainHelper, pri
                 this.chromeCustomTabsHelper.launch(userData.url)
             }
         }
-        if (this.isInit) {
-            this.helper.getTimeLine(isInit = true)
-        }
+        this.mainHelper.getTimeLine(isInit = true)
     }
 }

@@ -14,9 +14,9 @@ import io.github.massongit.hackathon.push.git.main.helper.MainHelper
 /**
  * タイムラインを取得する非同期タスク
  * @param service GitHub APIのサービス
- * @param helper Helper
+ * @param mainHelper Helper
  */
-abstract class RequestAsyncTask<Params, Progress, Result>(private val service: OAuth20Service?, protected val helper: MainHelper) : AsyncTask<Params, Progress, Result>() {
+abstract class RequestAsyncTask<Params, Progress, Result>(private val service: OAuth20Service?, protected val mainHelper: MainHelper) : AsyncTask<Params, Progress, Result>() {
     companion object {
         /**
          * ログ用タグ
@@ -61,7 +61,7 @@ abstract class RequestAsyncTask<Params, Progress, Result>(private val service: O
                 }
             }
             val newResponse = this.service?.apply {
-                signRequest(helper.accessToken, request)
+                signRequest(mainHelper.accessToken, request)
             }?.execute(request)
             if (newResponse == null || !newResponse.isSuccessful || newResponse.code == 304) {
                 throw OAuthException("%s (url: %s)".format(if (newResponse == null) {
