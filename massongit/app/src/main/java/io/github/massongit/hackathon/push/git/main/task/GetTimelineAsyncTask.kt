@@ -263,7 +263,7 @@ class GetTimelineAsyncTask(context: Context, service: OAuth20Service?, swipeRefr
         this.swipeRefreshLayoutWeakReference.get()?.isRefreshing = false
         Toast.makeText(this.contextWeakReference.get(), this.contextWeakReference.get()?.getString(R.string.get_user_timeline_completed), Toast.LENGTH_SHORT).show()
         if (this.isInit) {
-            this.mainHelper.initFinished()
+            this.mainHelper.finishInit()
         }
     }
 

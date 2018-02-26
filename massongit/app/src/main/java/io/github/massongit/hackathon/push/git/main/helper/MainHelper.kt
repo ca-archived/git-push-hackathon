@@ -146,10 +146,10 @@ class MainHelper(private val activity: AppCompatActivity, private var service: O
     }
 
     /**
-     * 初期化終了後のイベント
+     * 初期化を完了させる
      */
-    internal fun initFinished() {
-        Log.v(MainHelper.TAG, "initFinished called")
+    internal fun finishInit() {
+        Log.v(MainHelper.TAG, "finishInit called")
         val toggle = ActionBarDrawerToggle(this.activity, this.drawerLayout, this.toolbar.apply {
             isClickable = true
         }, R.string.open_navigation_view, R.string.close_navigation_view)
