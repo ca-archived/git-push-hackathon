@@ -20,7 +20,6 @@ class MainController: UIViewController {
     }
     
     @objc fileprivate func actionMenu() {
-        print("toggel menu")
         toggleSideMenu(show: !isSideMenuShowing)
     }
     

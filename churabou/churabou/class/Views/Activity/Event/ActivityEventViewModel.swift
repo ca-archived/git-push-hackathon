@@ -43,7 +43,7 @@ class ActivityEventViewModel {
                 self.events = events                
                 completion()
             case .failure(_, let message):
-                print("failed \(message)")
+                self.error = message
             }
         })
     }

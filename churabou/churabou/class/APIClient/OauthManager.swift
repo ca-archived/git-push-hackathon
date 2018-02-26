@@ -24,11 +24,10 @@ class OauthManager {
         
         let task: URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
             
-            print("実は毎回してました")
             guard let data = data, let result = String(data: data, encoding: .utf8) else {
                 return
             }
-            print("result:\(result)")
+//            print("result:\(result)")
             if result.prefix(7) == "access_" {
             let token = result.split(separator: "=")[1].split(separator: "&")[0]
                   completion(String(token))

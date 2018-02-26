@@ -40,7 +40,7 @@ extension AtomReader: XMLParserDelegate {
     
     // XML解析開始時に実行されるメソッド
     func parserDidStartDocument(_ parser: XMLParser) {
-        print("XML解析開始しました")
+//        print("XML解析開始しました")
     }
     
     // 解析中に要素の開始タグがあったときに実行されるメソッド
@@ -87,12 +87,12 @@ extension AtomReader: XMLParserDelegate {
     
     // XML解析終了時に実行されるメソッド
     func parserDidEndDocument(_ parser: XMLParser) {
-        print("XML解析終了しました")
+//        print("XML解析終了しました")
     }
     
     // 解析中にエラーが発生した時に実行されるメソッド
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        print("エラー:" + parseError.localizedDescription)
+//        print("エラー:" + parseError.localizedDescription)
     }
 }
 

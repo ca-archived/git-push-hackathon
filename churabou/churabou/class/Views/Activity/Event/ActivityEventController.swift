@@ -39,7 +39,6 @@ class ActivityEventController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
                      self.hud.hide()
                 })
-   
             }
         }
         

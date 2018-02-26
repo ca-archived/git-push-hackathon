@@ -43,7 +43,7 @@ class ActivityFeedViewModel {
                 self.parceActivity()
             case .failure(_, let message):
                 self.isLoading = false
-                print("failed \(message)")
+                self.error = message
             }
         })
     }

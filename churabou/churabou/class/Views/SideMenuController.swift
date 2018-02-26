@@ -53,7 +53,6 @@ class SideMenuView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("init not called")
         initializeView()
     }
 
