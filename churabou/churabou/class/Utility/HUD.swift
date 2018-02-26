@@ -15,6 +15,7 @@ class HUDView: UIView {
         frame = view.frame
         view.addSubview(self)
         initializeView()
+        hide()
     }
     
     fileprivate var indicator = UIActivityIndicatorView()

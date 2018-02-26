@@ -30,7 +30,7 @@ extension Date {
         }
         
         if let month = components.month, month >= 1 {
-            return "Last month"
+            return "last month"
         }
         
         if let week = components.weekOfYear, week >= 2 {
@@ -38,7 +38,7 @@ extension Date {
         }
         
         if let week = components.weekOfYear, week >= 1 {
-            return "Last week"
+            return "last week"
         }
         
         if let day = components.day, day >= 2 {

@@ -18,23 +18,22 @@ class ActivityEventController: UIViewController {
 
     let viewModel = ActivityEventViewModel()
     let baseView = ActivityEventView()
+    let hud = HUDView()
     
     override func viewDidLoad() {
         baseView.viewModel = viewModel
         baseView.frame = view.frame
         view.addSubview(baseView)
+        hud.setUp(view)
         bindToViewModel()
         baseView.refresh()
-        hud.setUp(view)
     }
-    
-    
-    let hud = HUDView()
+
     fileprivate func bindToViewModel() {
         
         viewModel.isLoadingDidSet = { (isloading) in
             if isloading {
-                self.hud.show()
+               self.hud.show() 
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
                      self.hud.hide()

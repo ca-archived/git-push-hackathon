@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
         
         let c = LoginUserController()
         let n = UINavigationController(rootViewController: c)
-        self.present(n, animated: true, completion: nil)
+        self.present(n, animated: false, completion: nil)
     }
     
     //リダイレクトで受け取ったcodeを使ってTokenを取得する

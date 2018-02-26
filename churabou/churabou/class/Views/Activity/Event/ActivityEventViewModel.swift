@@ -35,8 +35,9 @@ class ActivityEventViewModel {
     func fetchEvent(completion: @escaping ()->()){
 
         let request = GetEventRequest(target)
+//        isLoading = true
         GithubSession.send(request: request, completion: { (response) in
-            self.isLoading = false
+//            self.isLoading = false
             switch response {
             case .success(_, let events):
                 if events.count < 30 { self.isFeachedAll = true}
@@ -57,7 +58,7 @@ class ActivityEventViewModel {
         GithubSession.send(request: request, completion: { (response) in
             switch response {
             case .success(_, let events):
-                if events.isEmpty { self.isFeachedAll = true }
+                if events.count < 30 { self.isFeachedAll = true }
                 self.events += events
                 self.isLoading = false
             case .failure(_, let message):
