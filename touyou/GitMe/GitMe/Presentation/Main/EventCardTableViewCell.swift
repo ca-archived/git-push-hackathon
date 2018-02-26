@@ -47,9 +47,10 @@ class EventCardTableViewCell: UITableViewCell {
 
             if !isShowReadme {
 
-                readmeConstraint.constant = 20
+                readmeConstraint.constant = 22
                 downView?.removeFromSuperview()
-                readmeButton.setTitle("▼READMEをみる", for: .normal)
+                readmeButton.setImage(#imageLiteral(resourceName: "open_readme"), for: .normal)
+                readmeButton.imageView?.contentMode = .scaleAspectFill
             } else if let url = self.readmeUrl {
 
                 readmeConstraint.constant = 200
@@ -58,7 +59,8 @@ class EventCardTableViewCell: UITableViewCell {
 
                     readmeView.insertSubview(downView, belowSubview: self.readmeButton)
                     self.downView = downView
-                    readmeButton.setTitle("▲READMEを閉じる", for: .normal)
+                    readmeButton.setImage(#imageLiteral(resourceName: "close_readme"), for: .normal)
+                    readmeButton.imageView?.contentMode = .scaleAspectFill
                 }
             }
         }
