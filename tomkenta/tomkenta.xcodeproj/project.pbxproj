@@ -25,7 +25,6 @@
 		BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE36657F2043C9B000EAC1C3 /* Alert.swift */; };
 		BEAB63D82044AB0300162421 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63D72044AB0300162421 /* BaseResponse.swift */; };
 		BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E7552042F56A00B6D22E /* BaseRequest.swift */; };
-		BEC4E758204307D100B6D22E /* DecodableDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E757204307D100B6D22E /* DecodableDataParser.swift */; };
 		BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75920430FA900B6D22E /* GitHubAppError.swift */; };
 		BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75B2043219A00B6D22E /* APIClient.swift */; };
 		BEC4E75E20433C7300B6D22E /* AppConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75D20433C7300B6D22E /* AppConst.swift */; };
@@ -75,7 +74,6 @@
 		BE36657F2043C9B000EAC1C3 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		BEAB63D72044AB0300162421 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		BEC4E7552042F56A00B6D22E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
-		BEC4E757204307D100B6D22E /* DecodableDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableDataParser.swift; sourceTree = "<group>"; };
 		BEC4E75920430FA900B6D22E /* GitHubAppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAppError.swift; sourceTree = "<group>"; };
 		BEC4E75B2043219A00B6D22E /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		BEC4E75D20433C7300B6D22E /* AppConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConst.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 			children = (
 				BEC4E7542042F50200B6D22E /* Request */,
 				BEC4E7512042F4DB00B6D22E /* Response */,
-				BEC4E757204307D100B6D22E /* DecodableDataParser.swift */,
 				BEC4E75920430FA900B6D22E /* GitHubAppError.swift */,
 				BEC4E75B2043219A00B6D22E /* APIClient.swift */,
 			);
@@ -403,7 +400,6 @@
 				BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */,
 				BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */,
 				BE1507132042D34F00C64A0F /* ViewController.swift in Sources */,
-				BEC4E758204307D100B6D22E /* DecodableDataParser.swift in Sources */,
 				BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */,
 				BE36657E2043C8EF00EAC1C3 /* UIAlertController+extension.swift in Sources */,
 				BEC4E76120433DD500B6D22E /* AuthorizeViewController.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import Foundation
 import APIKit
+import SwiftyJSON
 
 protocol BaseRequest: APIKit.Request {}
 
@@ -17,10 +18,14 @@ extension BaseRequest {
     }
     
     var headerFields: [String: String] {
-        return ["Authorization": "token "]
+        let token = Token.oauthToken ?? ""
+        return ["Authorization": "token \(token)",
+                "Accept": "application/json"
+        ]
     }
     
     func intercept(object: Any, urlResponse: HTTPURLResponse) throws -> Any {
+        print(object)
         guard(200 ..< 300).contains(urlResponse.statusCode) else {
             throw GitHubAppError(object: object, url: urlResponse.url)
         }
@@ -28,26 +33,13 @@ extension BaseRequest {
     }
 }
 
-extension BaseRequest where Response: Decodable {
-    var dataParser: DataParser {
-        return DecodableDataParser()
-    }
-    
+extension BaseRequest where Response: BaseResponse {
     func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Self.Response {
-        guard let data = object as? Data else {
-            throw ResponseError.unexpectedObject(object)
-        }
         do {
-            return try JSONDecoder().decode(Response.self, from: data)
+            let json = SwiftyJSON.JSON(object)
+            return try Response.decode(from: json)
         } catch {
             throw ResponseError.unexpectedObject(object)
         }
     }
 }
-
-
-
-
-
-
-
