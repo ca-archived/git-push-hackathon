@@ -14,4 +14,6 @@ OAUTH_SCHEME="hogefuga"
 OAUTH_HOST="fugahoge"
 ```
 
+<img src="https://github.com/halu5071/git-push-hackathon/blob/master/assets/gradle.png?raw=true" />
+
 build.gradle on app read these values and generate BuildConfig variants.

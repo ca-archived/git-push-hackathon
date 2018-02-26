@@ -30,6 +30,5 @@ import java.io.Serializable
 data class MemberPayload(
   val action: String,
 
-  val member: User,
-
-  val repository: EventRepository): Payload(), Serializable
+  val member: User
+): Payload(), Serializable
