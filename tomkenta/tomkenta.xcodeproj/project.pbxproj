@@ -24,6 +24,10 @@
 		BE36657E2043C8EF00EAC1C3 /* UIAlertController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE36657D2043C8EF00EAC1C3 /* UIAlertController+extension.swift */; };
 		BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE36657F2043C9B000EAC1C3 /* Alert.swift */; };
 		BEAB63D82044AB0300162421 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63D72044AB0300162421 /* BaseResponse.swift */; };
+		BEAB63DA2044B4CB00162421 /* ObjectsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63D92044B4CB00162421 /* ObjectsRequest.swift */; };
+		BEAB63DD2044BDB700162421 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63DC2044BDB700162421 /* Actor.swift */; };
+		BEAB63DF2044BE9400162421 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63DE2044BE9400162421 /* Repo.swift */; };
+		BEAB63E12044BEC800162421 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63E02044BEC800162421 /* Activity.swift */; };
 		BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E7552042F56A00B6D22E /* BaseRequest.swift */; };
 		BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75920430FA900B6D22E /* GitHubAppError.swift */; };
 		BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75B2043219A00B6D22E /* APIClient.swift */; };
@@ -73,6 +77,10 @@
 		BE36657D2043C8EF00EAC1C3 /* UIAlertController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+extension.swift"; sourceTree = "<group>"; };
 		BE36657F2043C9B000EAC1C3 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		BEAB63D72044AB0300162421 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		BEAB63D92044B4CB00162421 /* ObjectsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsRequest.swift; sourceTree = "<group>"; };
+		BEAB63DC2044BDB700162421 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
+		BEAB63DE2044BE9400162421 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
+		BEAB63E02044BEC800162421 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		BEC4E7552042F56A00B6D22E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		BEC4E75920430FA900B6D22E /* GitHubAppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAppError.swift; sourceTree = "<group>"; };
 		BEC4E75B2043219A00B6D22E /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -138,6 +146,7 @@
 			children = (
 				BEC4E75F20433DA600B6D22E /* Authorize Page */,
 				BEC4E7502042F4CA00B6D22E /* API */,
+				BEAB63DB2044B75000162421 /* Model */,
 				BE36657B2043C87600EAC1C3 /* Helper */,
 				BE1507102042D34F00C64A0F /* AppDelegate.swift */,
 				BEC4E75D20433C7300B6D22E /* AppConst.swift */,
@@ -200,6 +209,16 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		BEAB63DB2044B75000162421 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BEAB63DC2044BDB700162421 /* Actor.swift */,
+				BEAB63DE2044BE9400162421 /* Repo.swift */,
+				BEAB63E02044BEC800162421 /* Activity.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BEC4E7502042F4CA00B6D22E /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				BEC4E7552042F56A00B6D22E /* BaseRequest.swift */,
+				BEAB63D92044B4CB00162421 /* ObjectsRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -395,13 +415,17 @@
 				BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */,
 				BEC4E763204340F300B6D22E /* Token.swift in Sources */,
 				BEC4E75E20433C7300B6D22E /* AppConst.swift in Sources */,
+				BEAB63DD2044BDB700162421 /* Actor.swift in Sources */,
 				BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */,
 				BE1507192042D34F00C64A0F /* tomkenta.xcdatamodeld in Sources */,
+				BEAB63E12044BEC800162421 /* Activity.swift in Sources */,
 				BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */,
 				BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */,
 				BE1507132042D34F00C64A0F /* ViewController.swift in Sources */,
+				BEAB63DA2044B4CB00162421 /* ObjectsRequest.swift in Sources */,
 				BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */,
 				BE36657E2043C8EF00EAC1C3 /* UIAlertController+extension.swift in Sources */,
+				BEAB63DF2044BE9400162421 /* Repo.swift in Sources */,
 				BEC4E76120433DD500B6D22E /* AuthorizeViewController.swift in Sources */,
 				BEAB63D82044AB0300162421 /* BaseResponse.swift in Sources */,
 			);
