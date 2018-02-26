@@ -31,17 +31,15 @@ final class AuthorizeViewController: UIViewController {
             success: { credential, response, parameters in
                 Token.oauthToken = credential.oauthToken
         },
-            // TODO: alertのHelper追加
             failure: {[weak self] error in
                 guard let wSelf = self else { return }
-                let alert = UIAlertController(
-                    title: "ログインに失敗しました",
-                    message: nil,
-                    preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self?.present(alert, animated: true, completion: nil)
-
+                Alert.showAlert(on: wSelf,
+                                title: "ログインに失敗しました",
+                                message: nil,
+                                cancelButtonTitle: "OK",
+                                destructiveButtonTitle: nil,
+                                otherButtonTitles: nil,
+                                tapBlock: nil)
         }
         )
     }

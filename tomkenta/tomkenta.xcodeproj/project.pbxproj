@@ -21,6 +21,15 @@
 		BE15074B2042E05700C64A0F /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507452042E05600C64A0F /* SVProgressHUD.framework */; };
 		BE15074C2042E05700C64A0F /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507462042E05700C64A0F /* APIKit.framework */; };
 		BE15074D2042E05700C64A0F /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1507472042E05700C64A0F /* OAuthSwift.framework */; };
+		BE36657E2043C8EF00EAC1C3 /* UIAlertController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE36657D2043C8EF00EAC1C3 /* UIAlertController+extension.swift */; };
+		BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE36657F2043C9B000EAC1C3 /* Alert.swift */; };
+		BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E7552042F56A00B6D22E /* BaseRequest.swift */; };
+		BEC4E758204307D100B6D22E /* DecodableDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E757204307D100B6D22E /* DecodableDataParser.swift */; };
+		BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75920430FA900B6D22E /* GitHubAppError.swift */; };
+		BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75B2043219A00B6D22E /* APIClient.swift */; };
+		BEC4E75E20433C7300B6D22E /* AppConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75D20433C7300B6D22E /* AppConst.swift */; };
+		BEC4E76120433DD500B6D22E /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E76020433DD500B6D22E /* AuthorizeViewController.swift */; };
+		BEC4E763204340F300B6D22E /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E762204340F300B6D22E /* Token.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +70,15 @@
 		BE1507452042E05600C64A0F /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		BE1507462042E05700C64A0F /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
 		BE1507472042E05700C64A0F /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
+		BE36657D2043C8EF00EAC1C3 /* UIAlertController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+extension.swift"; sourceTree = "<group>"; };
+		BE36657F2043C9B000EAC1C3 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		BEC4E7552042F56A00B6D22E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		BEC4E757204307D100B6D22E /* DecodableDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableDataParser.swift; sourceTree = "<group>"; };
+		BEC4E75920430FA900B6D22E /* GitHubAppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAppError.swift; sourceTree = "<group>"; };
+		BEC4E75B2043219A00B6D22E /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		BEC4E75D20433C7300B6D22E /* AppConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConst.swift; sourceTree = "<group>"; };
+		BEC4E76020433DD500B6D22E /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
+		BEC4E762204340F300B6D22E /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +136,13 @@
 		BE15070F2042D34F00C64A0F /* tomkenta */ = {
 			isa = PBXGroup;
 			children = (
+				BEC4E75F20433DA600B6D22E /* Authorize Page */,
+				BEC4E7502042F4CA00B6D22E /* API */,
+				BE36657B2043C87600EAC1C3 /* Helper */,
 				BE1507102042D34F00C64A0F /* AppDelegate.swift */,
+				BEC4E75D20433C7300B6D22E /* AppConst.swift */,
 				BE1507122042D34F00C64A0F /* ViewController.swift */,
+				BEC4E762204340F300B6D22E /* Token.swift */,
 				BE1507142042D34F00C64A0F /* Main.storyboard */,
 				BE15071A2042D34F00C64A0F /* Assets.xcassets */,
 				BE15071C2042D34F00C64A0F /* LaunchScreen.storyboard */,
@@ -158,6 +181,58 @@
 				BE1507432042E05600C64A0F /* SwiftyJSON.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE36657B2043C87600EAC1C3 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BE36657C2043C87D00EAC1C3 /* Alert */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		BE36657C2043C87D00EAC1C3 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				BE36657D2043C8EF00EAC1C3 /* UIAlertController+extension.swift */,
+				BE36657F2043C9B000EAC1C3 /* Alert.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		BEC4E7502042F4CA00B6D22E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				BEC4E7542042F50200B6D22E /* Request */,
+				BEC4E7512042F4DB00B6D22E /* Response */,
+				BEC4E757204307D100B6D22E /* DecodableDataParser.swift */,
+				BEC4E75920430FA900B6D22E /* GitHubAppError.swift */,
+				BEC4E75B2043219A00B6D22E /* APIClient.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		BEC4E7512042F4DB00B6D22E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		BEC4E7542042F50200B6D22E /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				BEC4E7552042F56A00B6D22E /* BaseRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		BEC4E75F20433DA600B6D22E /* Authorize Page */ = {
+			isa = PBXGroup;
+			children = (
+				BEC4E76020433DD500B6D22E /* AuthorizeViewController.swift */,
+			);
+			path = "Authorize Page";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,9 +392,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */,
+				BEC4E763204340F300B6D22E /* Token.swift in Sources */,
+				BEC4E75E20433C7300B6D22E /* AppConst.swift in Sources */,
+				BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */,
 				BE1507192042D34F00C64A0F /* tomkenta.xcdatamodeld in Sources */,
+				BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */,
+				BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */,
 				BE1507132042D34F00C64A0F /* ViewController.swift in Sources */,
+				BEC4E758204307D100B6D22E /* DecodableDataParser.swift in Sources */,
 				BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */,
+				BE36657E2043C8EF00EAC1C3 /* UIAlertController+extension.swift in Sources */,
+				BEC4E76120433DD500B6D22E /* AuthorizeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
