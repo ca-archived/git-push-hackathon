@@ -28,12 +28,12 @@ class ActivityTableViewCell: UITableViewCell, NibLoadable, Reusable {
     func setActivity(feed: Entry) {
         iconView.loadImage(urlString: feed.icon)
         activityLabel.text = feed.title
-        timeLabel.text = "★ 3days ago"//TODO: 時間の計算
+        timeLabel.text = "★ time ago"
     }
     
     func setActivity(event: Event) {
         iconView.loadImage(urlString: event.user.iconURL)
         activityLabel.text = event.displayedString
-        timeLabel.text = "★  \(event.timeago)"//TODO : 時間の計算
+        timeLabel.text = "★  \(event.timeago)"
     }
 }

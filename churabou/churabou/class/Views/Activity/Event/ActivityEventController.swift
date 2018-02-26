@@ -20,7 +20,6 @@ class ActivityEventController: UIViewController {
     let baseView = ActivityEventView()
     
     override func viewDidLoad() {
-        parent?.title = "News"
         baseView.viewModel = viewModel
         baseView.frame = view.frame
         view.addSubview(baseView)

@@ -4,23 +4,26 @@ class RLController: UIViewController {
     
     let viewModel = RLViewModel()
     let baseView = RLView()
+    let hud = HUDView()
     
     override func viewDidLoad() {
         baseView.viewModel = viewModel
         baseView.delegate = self
         baseView.frame = view.frame
         view.addSubview(baseView)
+        hud.setUp(view)
         bindToViewModel()
         viewModel.fetchRepository()
     }
+    
     
     fileprivate func bindToViewModel() {
         
         viewModel.isLoadingDidSet = { (isloading) in
             if isloading {
-                HUD.show()
+                self.hud.show()
             } else {
-                HUD.hide()
+                self.hud.hide()
             }
         }
         

@@ -25,13 +25,9 @@ class ActivityEventView: UIView {
         return t
     }()
     
-    fileprivate var _refreshControl = UIRefreshControl()
-    
-    var refreshControl: UIRefreshControl {
-        return _refreshControl
-    }
-    
-    func refresh() {
+    fileprivate var refreshControl = UIRefreshControl()
+
+    @objc func refresh() {
         viewModel.events = []
         refreshControl.beginRefreshing()
         viewModel.fetchEvent(completion: {
@@ -40,7 +36,8 @@ class ActivityEventView: UIView {
     }
     
     fileprivate func initializeView() {
-        tableView.addSubview(_refreshControl)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
         addSubview(tableView)
     }
     
