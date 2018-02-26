@@ -42,7 +42,9 @@ class LoginViewController: UIViewController {
             if !token.isEmpty {
 
                 Config.token = token
-                self.presenView()
+                DispatchQueue.main.async {
+                     self.presenView()
+                }
             }
         })
     }
