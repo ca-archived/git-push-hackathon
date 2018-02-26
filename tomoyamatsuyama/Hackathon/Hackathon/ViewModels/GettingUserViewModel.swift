@@ -20,6 +20,10 @@ class GettingUserViewModel {
                 onNext: { [weak self] user in
                     guard let `self` = self else { return }
                     self.user.value = user
+                },
+                onError: { [weak self] error in
+                    guard let `self` = self else { return }
+                    print(error)
                 }
             )
             .disposed(by: disposeBag)

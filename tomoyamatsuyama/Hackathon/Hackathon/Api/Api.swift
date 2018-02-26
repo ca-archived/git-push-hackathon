@@ -81,6 +81,7 @@ class Api {
         return nil
     }
     
+    
     private func request(completion: (@escaping (Data) -> Void)) {
         Alamofire.request(self.baseUrl, parameters: self.parameters).responseJSON { result in
             guard let response = result.response else {
@@ -94,7 +95,7 @@ class Api {
             }
         }
     }
-    
+
     func request<E: Decodable>() -> Observable<E> {
         return .create({(observer : AnyObserver<E>) in
             self.request(completion: { data in
@@ -114,7 +115,7 @@ class Api {
                 }
             })
             return Disposables.create {
-                
+
             }
         })
     }

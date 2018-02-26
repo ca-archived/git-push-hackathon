@@ -175,9 +175,9 @@
 				64E280EA2019A7B200774A83 /* ViewControllers */,
 				64E280EF2019A7FE00774A83 /* ViewModels */,
 				64E280EE2019A7F500774A83 /* Models */,
-				64E280ED2019A7E700774A83 /* Protocols */,
 				64E280EC2019A7DE00774A83 /* Api */,
 				64E280EB2019A7D000774A83 /* Extensions */,
+				64E280ED2019A7E700774A83 /* Protocols */,
 				64DE75ED2019A3240056539C /* AppDelegate.swift */,
 				648337E72043BE9B00F91F79 /* ApiInfomation.swift */,
 				64DE75F42019A3240056539C /* Assets.xcassets */,
@@ -218,10 +218,10 @@
 		64E280EA2019A7B200774A83 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				64E280F02019A87700774A83 /* LoginViewController.swift */,
-				64E280F22019A88200774A83 /* LoginViewController.storyboard */,
 				648337D72042D61F00F91F79 /* GettingUserViewController.swift */,
 				648337D92042D62600F91F79 /* GettingUserViewController.storyboard */,
+				64E280F02019A87700774A83 /* LoginViewController.swift */,
+				64E280F22019A88200774A83 /* LoginViewController.storyboard */,
 				64E280F82019C49E00774A83 /* HomeViewController.swift */,
 				64E280FA2019C4A500774A83 /* HomeViewController.storyboard */,
 				6448291420216F29008A2320 /* MenuViewController.swift */,
@@ -269,10 +269,10 @@
 		64E280EF2019A7FE00774A83 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				6451E4712019D9C50017FEB5 /* HomeViewModel.swift */,
-				6448291820216F55008A2320 /* MenuViewModel.swift */,
 				648337DB2042D78300F91F79 /* GettingUserViewModel.swift */,
 				648337E52043BE8600F91F79 /* LoginViewModel.swift */,
+				6451E4712019D9C50017FEB5 /* HomeViewModel.swift */,
+				6448291820216F55008A2320 /* MenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";

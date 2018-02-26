@@ -32,16 +32,14 @@ class LoginViewModel: NSObject {
             .subscribe(
                 onNext: { [weak self] Authentication in
                     guard let `self` = self else { return }
-                    print(Authentication.accessToken)
                     ApiInfomation.set(key: .acccessToken, value: Authentication.accessToken)
                     self.isStatus.value = true
                 },
                 onCompleted: { () in
                     
-            }
+                }
             )
             .disposed(by: disposeBag)
-        
     }
 }
 

@@ -35,11 +35,10 @@ class LoginViewController: UIViewController, Instantiatable {
     }
     
     private func goToGettingUserVC() {
-        let gettingUserVC = GettingUserViewController.instantiate()
-        self.present(gettingUserVC, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
-    //MARK: ここのwarningを消したい。
     private func bindLoginVC() {
         loginVM.isStatus.asObservable()
             .subscribe({_ in
@@ -60,7 +59,7 @@ class LoginViewController: UIViewController, Instantiatable {
 extension LoginViewController: UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         guard let callBackUrl = request.url else { return false }
-        if callBackUrl.absoluteString.contains("hackathonapp://?code=") {
+        if callBackUrl.absoluteString.contains("hackathon://?code=") {
             self.startIndicator(indicator: indicator)
             self.loginVM.getCodeFromCallBackUrl(callBackUrl: callBackUrl)
         }

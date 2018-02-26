@@ -16,9 +16,23 @@ class GettingUserViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private let gettingUserVM = GettingUserViewModel()
     
-    @objc private func goToHomeVC(){
+    private func goToHomeVC(){
         let homeVC = HomeViewController.instatiate(user: gettingUserVM.user.value)
         self.navigationController?.pushViewController(homeVC, animated: true)
+    }
+    
+    private func goToLoginVC() {
+        let loginVC = LoginViewController.instantiate()
+        self.navigationController?.present(loginVC, animated: true, completion: nil)
+    }
+    
+    private func accessTokenIsNil() {
+        if ApiInfomation.get(key: .acccessToken) != nil {
+            self.gettingUserVM.requestUserData()
+            self.bindUserData()
+        } else {
+            self.goToLoginVC()
+        }
     }
     
     private func bindUserData() {
@@ -49,9 +63,9 @@ class GettingUserViewController: UIViewController {
         self.userIconImageView.image = UIImage(named: "defaultIcon")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        self.gettingUserVM.requestUserData()
-        self.bindUserData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.accessTokenIsNil()
+        
     }
 }
