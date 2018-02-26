@@ -26,11 +26,12 @@ final class AuthorizeViewController: UIViewController {
     
     func auth() {
         oauth.authorize(
-            withCallbackURL: URL(string: "tomkenta://testapp-callback")!,
+            withCallbackURL: URL(string: "githubtest://")!,
             scope: "repo",
-            state: "sample",
+            state: "GithubApp",
             success: { credential, response, parameters in
                 Token.oauthToken = credential.oauthToken
+
         },
             failure: {[weak self] error in
                 guard let wSelf = self else { return }
