@@ -6,14 +6,13 @@
 //  Copyright © 2018年 Tomoya Matsuyama. All rights reserved.
 //
 
-import Foundation
-
 struct Events: Codable {
     var actor: Actors
     var created_at: String
     var id: String
     var repo: Repos
     var type: String
+    var payload: Payload?
     
     struct Actors: Codable {
         var avatar_url: String
@@ -29,5 +28,21 @@ struct Events: Codable {
         var name: String
         var url: String
     }
+    
+    struct Payload: Codable {
+        var forkee: Forkee?
+        var member: Member?
+        
+        struct Forkee: Codable {
+            var id: Int?
+            var name: String?
+            var full_name: String?
+        }
+        
+        struct Member: Codable {
+            var login: String
+        }
+    }
 }
+
 

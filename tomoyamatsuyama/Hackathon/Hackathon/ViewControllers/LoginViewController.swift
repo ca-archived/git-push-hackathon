@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
-class LoginViewController: UIViewController, UIWebViewDelegate {
+class LoginViewController: UIViewController, Instantiatable {
+    static var storyboardName: String = "LoginViewController"
+    private let loginVM = LoginViewModel()
     private let indicator = UIActivityIndicatorView()
+    
     @IBOutlet weak var webViewOfLogin: UIWebView!
     
     @IBAction func viewGoBack(_ sender: Any) {
@@ -24,37 +28,44 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         self.webViewOfLogin.reload()
     }
     
-    private func loadOfWebView(){
-        let config = Config()
-        guard let loginUrl = URL(string: "https://github.com/login/oauth/authorize?client_id=\(config.get(key: "client_id"))&redirect_uri=\(config.get(key: "redirect_uri"))&scope=\(config.get(key: "scope"))") else { return }
-        let request = URLRequest(url: loginUrl)
+    private func loadWebViewOfLogin(){
+        guard let webViewUrl = Api.Oauth.webViewUrl else { return }
+        let request = URLRequest(url: webViewUrl)
         self.webViewOfLogin.loadRequest(request)
     }
     
-    private func goToHomeVC(){
-        let homeVC = HomeViewController.instatiate()
-        self.present(homeVC, animated: true, completion: nil)
+    private func goToGettingUserVC() {
+        let gettingUserVC = GettingUserViewController.instantiate()
+        self.present(gettingUserVC, animated: true, completion: nil)
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        guard let callBackUrl = request.url else { return false }
-        if callBackUrl.absoluteString.contains("hackathon://?code=") {
-            showIndicator(indicator: indicator)
-            GithubApiManager.getCodeFromCallBackUrl(callBackUrl: callBackUrl, completion: { isStatus in
-                if isStatus {
-                    self.goToHomeVC()
-                } else {
-                    print("error")
+    //MARK: ここのwarningを消したい。
+    private func bindLoginVC() {
+        loginVM.isStatus.asObservable()
+            .subscribe({_ in
+                if self.loginVM.isStatus.value {
+                    self.stopIndicator(indicator: self.indicator)
+                    self.goToGettingUserVC()
                 }
-                self.stopIndecator(indicator: self.indicator)
             })
-        }
-        return true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadOfWebView()
+        self.loadWebViewOfLogin()
+        self.bindLoginVC()
     }
 }
+
+extension LoginViewController: UIWebViewDelegate {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        guard let callBackUrl = request.url else { return false }
+        if callBackUrl.absoluteString.contains("hackathonapp://?code=") {
+            self.startIndicator(indicator: indicator)
+            self.loginVM.getCodeFromCallBackUrl(callBackUrl: callBackUrl)
+        }
+        return true
+    }
+}
+
 

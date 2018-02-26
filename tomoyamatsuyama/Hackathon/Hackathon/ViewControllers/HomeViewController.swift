@@ -7,66 +7,68 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var homeTableView: UITableView!
-    private let homeVM = HomeViewModel()
-    private var user = User()
+    static var storyboardName: String = "HomeViewController"
+    private var homeVM = HomeViewModel()
+    private let refreshControl = UIRefreshControl()
     private let indicator = UIActivityIndicatorView()
+    private let disposeBag = DisposeBag()
+    @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak private var avatarImageButton: UIButton!
     
     @IBAction private func avatarImageButtonTapped(_ sender: Any) {
-        let menuVC = MenuViewController.instatiate(user: self.user)
+        let menuVC = MenuViewController.instatiate(user: homeVM.user)
         self.present(menuVC, animated: true, completion: nil)
     }
     
-    private func getUserData() {
-        homeVM.requestUserData(completion: { user in
-            let image = self.imageSet(avatarUrl: user.avatar_url)
-            self.user = user
-            self.avatarImageButton.setBackgroundImage(image, for: .normal)
-            self.getEvents()
-        })
+    static func instatiate(user: User) -> HomeViewController {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        let homeVC = storyboard.instantiateInitialViewController() as! HomeViewController
+        homeVC.homeVM = HomeViewModel.instantiate(user: user)
+        return homeVC
     }
     
-    private func imageSet(avatarUrl: String) -> UIImage? {
+    /*MARK: driver */
+    private func bindViewModel() {
+        self.homeVM.events.asDriver()
+            .drive(self.homeTableView.rx.items(cellIdentifier: "homeCell", cellType: HomeTableViewCell.self)) { _, event, cell in
+                cell.bind(cell, event: event)
+            }.disposed(by: disposeBag)
+    }
+    
+    
+    private func setTableView() {
+        self.homeTableView.refreshControl = refreshControl
+        self.homeTableView.delegate = self
+        refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged(sender:)), for: .valueChanged)
+    }
+    
+    @objc func refreshControlValueChanged(sender: UIRefreshControl) {
+        self.homeVM.reloadTableView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            sender.endRefreshing()
+        }
+    }
+    
+    private func configure()  {
         avatarImageButton.layer.cornerRadius = avatarImageButton.frame.size.width * 0.5
         avatarImageButton.layer.masksToBounds = true
         avatarImageButton.imageView?.contentMode = .scaleAspectFit
         avatarImageButton.contentHorizontalAlignment = .fill
         avatarImageButton.contentVerticalAlignment = .fill
-        guard let imageUrl = URL(string: avatarUrl) else { return nil }
-        do {
-            let imageData = try Data(contentsOf: imageUrl, options: Data.ReadingOptions.mappedIfSafe)
-            guard let image = UIImage(data: imageData) else { return nil }
-            return image
-        } catch {
-            print("Error: cant create image.")
-            return nil
-        }
-    }
-    
-    static func instatiate() -> HomeViewController {
-        let storyboard = UIStoryboard(name: "HomeViewController", bundle: nil)
-        let homeVC = storyboard.instantiateInitialViewController() as! HomeViewController
-        return homeVC
-    }
-    
-    private func getEvents(){
-        self.showIndicator(indicator: indicator)
-        homeVM.requestEvents(userName: user.login, completion: { [weak self] in
-            guard let `self` = self else { return }
-            self.homeTableView.reloadData()
-            self.stopIndecator(indicator: self.indicator)
-        })
+        self.avatarImageButton.setBackgroundImage(imageSet(avatarUrl: homeVM.user.avatar_url), for: .normal)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getUserData()
-        self.homeTableView.dataSource = homeVM
-        self.homeTableView.delegate = self
+        self.configure()
+        self.setTableView()
+        self.bindViewModel()
+        self.homeVM.reloadTableView()
     }
 }
 
@@ -75,3 +77,4 @@ extension HomeViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+

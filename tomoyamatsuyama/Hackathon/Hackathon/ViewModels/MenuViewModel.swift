@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 class MenuViewModel: NSObject, UITableViewDataSource {
-    
-    private var user = User()
+    private(set) var user: User = User()
     private var cellItems: [String] = ["Events", "Organaizations", "Repositories", "Gists"]
     
     static func instantiate(user: User) -> MenuViewModel {
@@ -38,7 +37,7 @@ class MenuViewModel: NSObject, UITableViewDataSource {
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "userDataCell") as! UITableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "userDataCell") else { fatalError("error for cell") }
             cell.textLabel!.text = cellItems[indexPath.row]
             return cell
         }
@@ -47,5 +46,4 @@ class MenuViewModel: NSObject, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
 }

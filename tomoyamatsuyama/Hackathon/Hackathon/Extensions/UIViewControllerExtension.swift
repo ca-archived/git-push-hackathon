@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 extension UIViewController {
-    func showIndicator(indicator: UIActivityIndicatorView) {
+    func startIndicator(indicator: UIActivityIndicatorView) {
         indicator.activityIndicatorViewStyle = .whiteLarge
             indicator.center = self.view.center
             indicator.color = UIColor.gray
@@ -19,7 +20,24 @@ extension UIViewController {
             indicator.startAnimating()
         }
     
-    func stopIndecator(indicator: UIActivityIndicatorView){
+    func stopIndicator(indicator: UIActivityIndicatorView){
         indicator.stopAnimating()
+    }
+    
+    func setImage(imageView: UIImageView, urlString: String) {
+        let resourse = URL(string: urlString)
+        imageView.kf.setImage(with: resourse)
+    }
+    
+    func imageSet(avatarUrl: String) -> UIImage? {
+        guard let imageUrl = URL(string: avatarUrl) else { return nil }
+        do {
+            let imageData = try Data(contentsOf: imageUrl, options: Data.ReadingOptions.mappedIfSafe)
+            guard let image = UIImage(data: imageData) else { return nil }
+            return image
+        } catch {
+            print("Error: cant create image.")
+            return nil
+        }
     }
 }
