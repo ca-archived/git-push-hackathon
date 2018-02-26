@@ -35,6 +35,9 @@ class LoginViewModel: NSObject {
                     ApiInfomation.set(key: .acccessToken, value: Authentication.accessToken)
                     self.isStatus.value = true
                 },
+                onError: { error in
+                    print(error)
+                },
                 onCompleted: { () in
                     
                 }

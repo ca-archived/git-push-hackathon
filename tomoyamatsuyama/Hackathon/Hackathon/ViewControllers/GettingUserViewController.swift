@@ -15,6 +15,13 @@ class GettingUserViewController: UIViewController {
     @IBOutlet private weak var loginDescription: UILabel!
     private var disposeBag = DisposeBag()
     private let gettingUserVM = GettingUserViewModel()
+    @IBOutlet private weak var reloadButton: UIButton!
+    
+    @IBAction func reloadButtonTapped(_ sender: Any) {
+        self.gettingUserVM.isError.value = false
+        self.gettingUserVM.requestUserData()
+    }
+    
     
     private func goToHomeVC(){
         let homeVC = HomeViewController.instatiate(user: gettingUserVM.user.value)
@@ -35,19 +42,34 @@ class GettingUserViewController: UIViewController {
         }
     }
     
+    private func showAlert() {
+        let alert = UIAlertController(title: "ネットワークエラー", message: "ネットワーク環境をご確認ください", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     private func bindUserData() {
         gettingUserVM.user.asObservable()
             .subscribeOn(MainScheduler.instance)
-            .subscribe(
-                {_ in
-                    if !self.gettingUserVM.user.value.avatar_url.isEmpty && !self.gettingUserVM.user.value.login.isEmpty {
-                        self.setImage(imageView: self.userIconImageView, urlString: self.gettingUserVM.user.value.avatar_url)
-                        self.loginDescription.text! += self.gettingUserVM.user.value.login
-                        self.goToHomeVC()
-                    }
+            .subscribe({[weak self] _ in
+                guard let `self` = self else { return }
+                if !self.gettingUserVM.user.value.avatar_url.isEmpty && !self.gettingUserVM.user.value.login.isEmpty {
+                    self.setImage(imageView: self.userIconImageView, urlString: self.gettingUserVM.user.value.avatar_url)
+                    self.loginDescription.text! += self.gettingUserVM.user.value.login
+                    self.goToHomeVC()
                 }
-            )
+            })
             .disposed(by: disposeBag)
+        
+        gettingUserVM.isError.asObservable()
+            .subscribeOn(MainScheduler.instance)
+            .subscribe({[weak self] _ in
+                guard let `self` = self else { return }
+                if self.gettingUserVM.isError.value {
+                    self.showAlert()
+                    self.reloadButton.isHidden = false
+                }
+            })
     }
     
     static func instantiate() -> UINavigationController {
@@ -61,11 +83,11 @@ class GettingUserViewController: UIViewController {
         self.userIconImageView.layer.cornerRadius = self.userIconImageView.frame.size.width * 0.5
         self.userIconImageView.layer.masksToBounds = true
         self.userIconImageView.image = UIImage(named: "defaultIcon")
+        self.reloadButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.accessTokenIsNil()
-        
     }
 }

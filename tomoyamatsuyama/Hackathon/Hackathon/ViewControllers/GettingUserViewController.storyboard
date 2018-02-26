@@ -31,11 +31,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMm-yd-gd0">
+                                <rect key="frame" x="143.5" y="366" width="87" height="33"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="再読み込み"/>
+                                <connections>
+                                    <action selector="reloadButtonTapped:" destination="NeV-Q0-eXv" eventType="touchUpInside" id="Tnr-Is-oRA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Nbf-2b-cNT" firstAttribute="trailing" secondItem="xO8-WP-zVj" secondAttribute="trailing" constant="30" id="0CI-m6-m4R"/>
+                            <constraint firstItem="vMm-yd-gd0" firstAttribute="top" secondItem="xO8-WP-zVj" secondAttribute="bottom" constant="20" id="5SP-ET-LGR"/>
                             <constraint firstItem="dxZ-YA-PFW" firstAttribute="centerX" secondItem="cUO-AP-5oa" secondAttribute="centerX" id="8SZ-dy-e9u"/>
+                            <constraint firstItem="vMm-yd-gd0" firstAttribute="centerX" secondItem="cUO-AP-5oa" secondAttribute="centerX" id="KSg-Eq-h0R"/>
                             <constraint firstItem="xO8-WP-zVj" firstAttribute="top" secondItem="dxZ-YA-PFW" secondAttribute="bottom" constant="20" id="WGQ-pw-7II"/>
                             <constraint firstItem="dxZ-YA-PFW" firstAttribute="top" secondItem="Nbf-2b-cNT" secondAttribute="top" constant="185" id="edn-Z1-XjE"/>
                             <constraint firstItem="xO8-WP-zVj" firstAttribute="leading" secondItem="Nbf-2b-cNT" secondAttribute="leading" constant="30" id="u4J-qW-Z4C"/>
@@ -45,6 +55,7 @@
                     <navigationItem key="navigationItem" id="95a-At-sDV"/>
                     <connections>
                         <outlet property="loginDescription" destination="xO8-WP-zVj" id="3LN-XD-zgu"/>
+                        <outlet property="reloadButton" destination="vMm-yd-gd0" id="1Sq-kW-HVc"/>
                         <outlet property="userIconImageView" destination="dxZ-YA-PFW" id="puV-Aa-FCF"/>
                     </connections>
                 </viewController>
@@ -55,7 +66,6 @@
         <!--Navigation Controller-->
         <scene sceneID="j6t-Sw-XiF">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4B7-MY-Qgk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9VW-Rn-vb1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -67,6 +77,7 @@
                         <segue destination="NeV-Q0-eXv" kind="relationship" relationship="rootViewController" id="z4J-BS-mb9"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4B7-MY-Qgk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-633" y="10"/>
         </scene>

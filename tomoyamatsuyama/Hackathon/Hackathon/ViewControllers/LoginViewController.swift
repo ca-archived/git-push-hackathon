@@ -25,7 +25,13 @@ class LoginViewController: UIViewController, Instantiatable {
     }
     
     @IBAction func viewReload(_ sender: Any) {
-        self.webViewOfLogin.reload()
+        self.loadWebViewOfLogin()
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "ネットワークエラー", message: "ネットワーク環境をご確認ください", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func loadWebViewOfLogin(){
@@ -64,6 +70,10 @@ extension LoginViewController: UIWebViewDelegate {
             self.loginVM.getCodeFromCallBackUrl(callBackUrl: callBackUrl)
         }
         return true
+    }
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.showAlert()
     }
 }
 

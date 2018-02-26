@@ -31,10 +31,10 @@ enum ApiMethod {
     }
 }
 
-enum Result<T, E> {
-    case success(T)
-    case failure(E)
-}
+//enum Result<T, E> {
+//    case success(T)
+//    case failure(E)
+//}
 
 typealias Palameters = Parameters
 
@@ -60,13 +60,6 @@ class Api {
         return .init(configure: configure)
     }
     
-    private func checkIsStatus(statusCode: Int) -> Bool {
-        if 200 <= statusCode || statusCode < 300 {
-            return true
-        } else {
-            return false
-        }
-    }
     
     private func getAccessTokenFromTokenResponse<E: Decodable>(response: String) -> E? {
         let responseItems = response.split(separator: "&")
@@ -81,42 +74,71 @@ class Api {
         return nil
     }
     
-    
-    private func request(completion: (@escaping (Data) -> Void)) {
-        Alamofire.request(self.baseUrl, parameters: self.parameters).responseJSON { result in
-            guard let response = result.response else {
-                fatalError("response is nil")
-            }
-            if self.checkIsStatus(statusCode: response.statusCode) {
-                guard let data = result.data else { return }
-                completion(data)
-            } else {
-                fatalError("status code is error")
-            }
-        }
-    }
-
     func request<E: Decodable>() -> Observable<E> {
         return .create({(observer : AnyObserver<E>) in
-            self.request(completion: { data in
-                if E.self != Authentication.self {
-                    do {
-                        let result = try JSONDecoder().decode(E.self, from: data)
-                        observer.onNext(result)
+            Alamofire.request(self.baseUrl, parameters: self.parameters).responseJSON { result in
+                switch result.result {
+                case .success:
+                    guard let data = result.data else { return }
+                    if E.self != Authentication.self {
+                        do {
+                            let result = try JSONDecoder().decode(E.self, from: data)
+                            observer.onNext(result)
+                            observer.onCompleted()
+                        } catch let error {
+                            observer.onError(error)
+                        }
+                    } else {
+                        guard let dataString = String(data: data, encoding: .utf8) else { return }
+                        let token: E = self.getAccessTokenFromTokenResponse(response: dataString)!
+                        observer.onNext(token)
                         observer.onCompleted()
-                    } catch let error {
-                        observer.onError(error)
                     }
-                } else {
-                    guard let dataString = String(data: data, encoding: .utf8) else { return }
-                    let token: E = self.getAccessTokenFromTokenResponse(response: dataString)!
-                    observer.onNext(token)
-                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
                 }
-            })
+            }
             return Disposables.create {
-
+                
             }
         })
     }
+
+//    private func request(completion: (@escaping (Data) -> Void)) {
+//        Alamofire.request(self.baseUrl, parameters: self.parameters).responseJSON { result in
+//            guard let response = result.response else {
+//                fatalError("response is nil")
+//            }
+//            if self.checkIsStatus(statusCode: response.statusCode) {
+//                guard let data = result.data else { return }
+//                completion(data)
+//            } else {
+//                fatalError("status code is error")
+//            }
+//        }
+//    }
+
+//    func request<E: Decodable>() -> Observable<E> {
+//        return .create({(observer : AnyObserver<E>) in
+//            self.request(completion: { data in
+//                if E.self != Authentication.self {
+//                    do {
+//                        let result = try JSONDecoder().decode(E.self, from: data)
+//                        observer.onNext(result)
+//                        observer.onCompleted()
+//                    } catch let error {
+//                        observer.onError(error)
+//                    }
+//                } else {
+//                    guard let dataString = String(data: data, encoding: .utf8) else { return }
+//                    let token: E = self.getAccessTokenFromTokenResponse(response: dataString)!
+//                    observer.onNext(token)
+//                    observer.onCompleted()
+//                }
+//            })
+//            return Disposables.create {
+//
+//            }
+//        })
+//    }
 }

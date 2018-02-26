@@ -11,7 +11,9 @@ import RxSwift
 
 class GettingUserViewModel {
     private(set) var user: Variable<User> = .init(User())
+    private(set) var isError: Variable<Bool> = .init(false)
     private var disposeBag = DisposeBag()
+    
     
     func requestUserData(){
         Api.Users.getUser()
@@ -23,7 +25,7 @@ class GettingUserViewModel {
                 },
                 onError: { [weak self] error in
                     guard let `self` = self else { return }
-                    print(error)
+                    self.isError.value = true
                 }
             )
             .disposed(by: disposeBag)
