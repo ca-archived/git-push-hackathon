@@ -7,6 +7,15 @@
     android:fitsSystemWindows="true"
     tools:context="jp.example.ghclient.print">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteY="-63dp" />
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -14,18 +23,52 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="jp.example.ghclient.print"
-        tools:showIn="@layout/activity_print">
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        tools:layout_editor_absoluteY="5dp"
+        tools:showIn="@layout/activity_print"
+        android:layout_marginTop="?attr/actionBarSize" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_in" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/progressBar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="65dp"
+                android:text="Loading now ..."
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+
             <ListView
+                android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/listView" />
+                android:layout_height="match_parent" />
+
+            <!--</RelativeLayout>-->
         </android.support.v4.widget.SwipeRefreshLayout>
+
     </RelativeLayout>
-    <!--<include layout="@layout/content_print" />-->
 
 </android.support.design.widget.CoordinatorLayout>

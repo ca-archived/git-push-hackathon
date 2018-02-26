@@ -11,30 +11,31 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".login"
-            android:launchMode="singleTask">
+            android:name=".splash"
+            android:launchMode="singleTask"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="xmz"
-                    android:scheme="login" />
+                    android:scheme="splash" />
             </intent-filter>
         </activity>>
         <activity
             android:name=".callback"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -46,7 +47,6 @@
         </activity>
         <activity
             android:name=".print"
-            android:label="@string/title_activity_print"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -59,6 +59,36 @@
                 <data
                     android:host="xmz"
                     android:scheme="print" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".profile"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="xmz"
+                    android:scheme="profile" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".emptyCache"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="xmz"
+                    android:scheme="emptycache" />
             </intent-filter>
         </activity>
     </application>

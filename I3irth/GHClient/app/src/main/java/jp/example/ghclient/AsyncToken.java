@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,25 +22,24 @@ public class AsyncToken extends AsyncTask<String, Void, String> {
     private String auth_code;
     private String client_id;
     private String client_secret;
-    private String access_token;
 
     public AsyncToken(Uri uri, Context context) {
         this.uri = uri;
         this.context = context;
     }
-
     @Override
     protected String doInBackground(String... param) {
-
-        System.out.println("Start AsyncToken");
 
         auth_code = param[0];
         client_id = param[1];
         client_secret = param[2] ;
-        access_token = null;
+        String access_token = null;
 
-        try { access_token = getTokens(); }
-        catch (IOException e) { e.printStackTrace(); }
+        try {
+            access_token = getTokens();
+        } catch (IOException e) {
+            System.out.println("errorだよ〜ん : " + this);
+        }
 
         return access_token;
     }
@@ -50,8 +51,6 @@ public class AsyncToken extends AsyncTask<String, Void, String> {
         sb.append("&client_id=").append(client_id);
         sb.append("&client_secret=").append(client_secret);
         byte[] payload = sb.toString().getBytes();
-
-        System.out.println(sb.toString());
 
         HttpURLConnection connection = (HttpURLConnection) new URL(sb.toString()).openConnection();
         connection.setRequestMethod("GET");
@@ -66,21 +65,23 @@ public class AsyncToken extends AsyncTask<String, Void, String> {
 
         String line = null;
         sb = new StringBuilder();
-        while ((line = br.readLine()) != null) { sb.append(line).append("\n"); }
+        while ((line = br.readLine()) != null) { sb.append(line); }
         String tokens[] = sb.toString().split("[= &]");
+
+        connection.disconnect();
+        is.close();
+        isr.close();
+        br.close();
 
         return tokens[1];
     }
     @Override
     protected void onPostExecute(String access_token){
 
-        System.out.println("AsyncToken-AccessToken : " + access_token);
         Intent intent = new Intent(Intent.ACTION_VIEW , uri);
         intent.putExtra("access_token", access_token);
         context.startActivity(intent);
 
     }
-
-
 }
 

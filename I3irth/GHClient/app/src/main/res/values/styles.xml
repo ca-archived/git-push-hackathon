@@ -17,4 +17,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="Animation" parent="android:Animation" />
+    <style name="Animation.Activity" parent="android:Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@animator/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@animator/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@animator/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@animator/slide_out_right</item>
+    </style>
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
 </resources>

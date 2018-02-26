@@ -11,9 +11,15 @@ public class callback extends AppCompatActivity {
     static final String client_secret = "32a28d1f7ecae1958671f34d2eb7ff59b717fbe5";
 
     @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_callback);
+        overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
 
         System.out.println("Start callback");
 
