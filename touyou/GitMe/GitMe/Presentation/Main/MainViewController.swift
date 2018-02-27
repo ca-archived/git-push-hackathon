@@ -15,7 +15,43 @@ class MainViewController: UIViewController {
 
     // MARK: Internal
 
-    var presenter: (MainPresenterProtocol & UITableViewDataSource)!
+    var presenter: MainPresenterProtocol!
+
+    func firstLoading() {
+
+        presenter.fetchUser()
+        presenter.logInData
+            .asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe { [unowned self] event in
+
+                switch event {
+                case .next(let value):
+                    TabBarController.router.openLoadingWindow(userInfo: value)
+                    self.presenter.reload { [weak self] row in
+
+                        guard let `self` = self else { return }
+
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+
+                            TabBarController.router.closeLoadingWindow()
+                        })
+
+                        self.tableView.reloadData(at: row)
+                    }
+                case .error(let error):
+                    print(error)
+                case .completed:
+                    break
+                }
+            }.disposed(by: disposeBag)
+    }
+
+    func logOut() {
+
+        presenter.logOut()
+        tableView.reloadData()
+    }
 
     // MARK: Life Cycle
 
@@ -32,43 +68,13 @@ class MainViewController: UIViewController {
 
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         self.navigationController?.setupBarColor()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-
-        super.viewDidAppear(animated)
 
         if !presenter.isLoggedIn {
 
             TabBarController.router.openLogInView()
         } else {
 
-            presenter.fetchUser()
-            presenter.logInData
-                .asObservable()
-                .observeOn(MainScheduler.instance)
-                .subscribe { [unowned self] event in
-
-                    switch event {
-                    case .next(let value):
-                        TabBarController.router.openLoadingWindow(userInfo: value)
-                        self.presenter.reload { [weak self] row in
-
-                            guard let `self` = self else { return }
-
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
-
-                                TabBarController.router.closeLoadingWindow()
-                            })
-
-                            self.tableView.reloadData(at: row)
-                        }
-                    case .error(let error):
-                        print(error)
-                    case .completed:
-                        break
-                    }
-                }.disposed(by: disposeBag)
+            firstLoading()
         }
     }
 

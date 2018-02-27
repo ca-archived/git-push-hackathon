@@ -73,5 +73,6 @@ extension UITableView {
 
             self.reloadData()
         }
+        self.layoutIfNeeded()
     }
 }

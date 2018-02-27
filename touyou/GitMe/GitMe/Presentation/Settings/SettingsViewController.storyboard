@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="Hv3-tv-wXU">
             <objects>
                 <viewController id="63A-OW-swt" customClass="SettingsViewController" customModule="GitMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,6 +32,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hSe-Ip-KQi"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Settings" id="MFf-6x-2x3"/>
                     <connections>
                         <outlet property="tableView" destination="lsi-vI-Jfx" id="Ebd-ao-8Ah"/>
                     </connections>

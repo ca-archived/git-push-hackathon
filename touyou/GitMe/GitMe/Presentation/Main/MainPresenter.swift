@@ -12,7 +12,7 @@ import PINCache
 import PINRemoteImage
 import Down
 
-protocol MainPresenterProtocol {
+protocol MainPresenterProtocol: UITableViewDataSource {
 
     var isLoggedIn: Bool { get }
     var logInData: Variable<UserInfoViewModel> { get }
@@ -21,6 +21,7 @@ protocol MainPresenterProtocol {
     func fetchUser()
     func reload(_ completion: @escaping (Int?) -> Void)
     func loadMore(_ completion: @escaping (Int?) -> Void)
+    func logOut()
 }
 
 class MainPresenter: NSObject {
@@ -91,7 +92,7 @@ class MainPresenter: NSObject {
 
 // MARK: - DataSource
 
-extension MainPresenter: UITableViewDataSource {
+extension MainPresenter {
 
     func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -205,5 +206,10 @@ extension MainPresenter: MainPresenterProtocol {
                 }
                 completion(nil)
             }.disposed(by: disposeBag)
+    }
+
+    func logOut() {
+
+        cellData = []
     }
 }

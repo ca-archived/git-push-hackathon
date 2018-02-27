@@ -28,4 +28,9 @@ extension UIApplication {
 
         return topPresentedViewController as? UINavigationController
     }
+
+    var topPresentedTabBarController: UITabBarController? {
+
+        return topPresentedViewController as? UITabBarController
+    }
 }
