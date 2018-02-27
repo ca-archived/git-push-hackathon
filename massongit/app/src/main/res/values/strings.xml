@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name" translatable="false">Git Git Hub!</string>
+    <string name="login">Login</string>
+    <string name="update">Update</string>
+    <string name="error_happen">Error!</string>
+    <string name="logging_in">Logging in …</string>
+    <string name="avatar">Avatar</string>
+    <string name="get_user_timeline_completed">Get user timeline completed!</string>
+    <string name="getting_user_timeline">Getting User Timeline …</string>
+    <string name="not_found">Not Found!</string>
+    <string name="logout">Logout</string>
+    <string name="open_navigation_view">Open Navigation View</string>
+    <string name="close_navigation_view">Close Navigation View</string>
+    <string name="url_copied">URL copied!</string>
+    <string name="failed_to_copy_url">Failed to copy URL …</string>
+</resources>

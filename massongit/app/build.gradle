@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "io.github.massongit.githubapi"
+        minSdkVersion 24
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.mergeAssets.dependsOn('makeNavigateMenu')
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile 'com.github.scribejava:scribejava-apis:4.2.0'
+    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    compile project(':custom-tabs-client:customtabs')
+    compile project(':custom-tabs-client:shared')
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    mavenCentral()
+}
+
+/**
+ * Navigation Menuを作成する
+ */
+task makeNavigateMenu {
+    PrintWriter pw = null
+    try {
+        File mainDir = new File("app/src/main/")
+        File menuDir = new File(mainDir, "res/menu/")
+        menuDir.mkdirs()
+
+        pw = new PrintWriter(new FileWriter(new File(menuDir, "navigation_view_main_menu.xml")))
+        pw.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+        pw.println("<menu xmlns:android=\"http://schemas.android.com/apk/res/android\"")
+        pw.println("    xmlns:app=\"http://schemas.android.com/apk/res-auto\"")
+        pw.println("    xmlns:tools=\"http://schemas.android.com/tools\"")
+        pw.println("    tools:context=\".main.activity.MainActivity\">")
+        pw.println("    <group android:id=\"@+id/event_kinds\">")
+
+        // 対応しているGitHub APIのイベントをアイテムとして出力
+        for (String fileName : new File(mainDir, "java/io/github/massongit/hackathon/push/git/main/event/github/").list().sort()) {
+            pw.println("        <item")
+            pw.println("            android:title=\"" + fileName.replace(".kt", "") + "\"")
+            pw.println("            app:actionLayout=\"@layout/event_kind_checkbox\" />")
+        }
+
+        pw.println("    </group>")
+        pw.println("    <group>")
+        pw.println("        <item")
+        pw.println("            android:onClick=\"onLogoutMenuItemClick\"")
+        pw.println("            android:title=\"@string/logout\" />")
+        pw.println("    </group>")
+        pw.println("</menu>")
+    } finally {
+        if (pw != null) {
+            pw.close()
+        }
+    }
+}
