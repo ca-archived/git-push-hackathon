@@ -3,6 +3,9 @@ package com.dev.touyou.gitme.Data
 import android.content.SharedPreferences
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -26,31 +29,29 @@ interface GitHubAPIInterface {
             @Query("access_token") accessToken: String,
             @Query("page") page: Int,
             @Query("per_page") perPage: Int): Observable<Array<Event>>
+
+    companion object {
+
+        fun create(): GitHubAPIInterface = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://api.github.com/")
+                .build()
+                .create(GitHubAPIInterface::class.java)
+    }
 }
 
 object GitHubAPI {
 
     /// Check log in or not
     val isLoggedIn: Boolean
-        get() {
-
-
-            return cache.get(DefaultKeys.OAuthKey.rawValue, "") != ""
-        }
+        get() = cache.get(DefaultKeys.OAuthKey.rawValue, "") != ""
 
     init {
     }
 
     /// Log in function
-    fun logIn(): Observable<User> {
-
-        if (cache.get(DefaultKeys.OAuthKey.rawValue, "") != "") {
-
-            return fetchUser()
-        }
-
-        return authorize()
-    }
+    fun logIn(): Observable<User> = if (cache.get(DefaultKeys.OAuthKey.rawValue, "") != "") fetchUser() else authorize()
 
     /// Log out function
     fun logOut() {
@@ -60,63 +61,54 @@ object GitHubAPI {
         cache.put(DefaultKeys.UserIcon.rawValue, "")
     }
 
-    fun fetchUser(): Observable<User> {
+    fun fetchUser(): Observable<User> = if (cache.get(DefaultKeys.UserName.rawValue, "") != "" && cache.get(DefaultKeys.UserIcon.rawValue, "") != "") {
 
-        if (cache.get(DefaultKeys.UserName.rawValue) != "" && cache.get(DefaultKeys.UserIcon.rawValue) != "") {
+        Observable.just(User(cache.get(DefaultKeys.UserName.rawValue, ""), 0, URL(cache.get(DefaultKeys.UserIcon.rawValue, ""))))
+    } else {
 
-            val userName = cache.get(DefaultKeys.UserName.rawValue, "")
-            val userIconUrl = URL(cache.get(DefaultKeys.UserIcon.rawValue))
-            val user = User(userName, 0, userIconUrl)
-            return Observable.just(user)
+        cache.get(DefaultKeys.OAuthKey.rawValue, "").let {
+
+            base.getCurrentUser(it)
         }
-
-        // TODO: ここでGitHubAPIInterfaceのリクエストを叩く?
-
-        return Observable.empty()
+        // TODO: ログインした後にとれたデータをどうにかして保存したい
     }
 
-    fun fetchEvents(page: Int, perPage: Int): Observable<Array<Event> > {
-
-        return Observable.empty()
-    }
+    fun fetchEvents(page: Int, perPage: Int): Observable<Array<Event> > = base.getEvents(
+            cache.get(DefaultKeys.UserName.rawValue, ""),
+            cache.get(DefaultKeys.OAuthKey.rawValue, ""),
+            page,
+            perPage
+    )
 
     fun fetchRepositoryInfo(url: URL): Pair<Observable<Repository>, Observable<Readme>> {
 
         return Pair(Observable.empty(), Observable.empty())
     }
 
-    private val base: String = "https://api.github.com"
-    private val oauthKey: String? = null
+    private val base: GitHubAPIInterface = GitHubAPIInterface.create()
     private val cache: Preferences = Preferences.userRoot().node("GitMe")
-    private val okHttpClient: OkHttpClient.Builder = OkHttpClient.Builder()
 
     private fun authorize(): Observable<User> {
 
         return Observable.empty()
     }
 
-    private fun createRequestUrl(type: RequestURL): URL? {
-
-        val userName = "touyou"
-
-        val urlString = when(type) {
-            is RequestURL.GetCurrentUser -> this.base + "/user?access_token=$oauthKey"
-            is RequestURL.GetEvents -> this.base + "/users/$userName/received_events?access_token=$oauthKey&page=${type.page}&per_page=${type.perPage}"
-            is RequestURL.CustomRequest -> type.url.toString() + "?access_token=$oauthKey"
-        }
-
-        return URL(urlString)
-    }
+//    private fun createRequestUrl(type: RequestURL): URL? {
+//
+//        val userName = "touyou"
+//
+//        val urlString = when(type) {
+//            is RequestURL.GetCurrentUser -> this.base + "/user?access_token=$oauthKey"
+//            is RequestURL.GetEvents -> this.base + "/users/$userName/received_events?access_token=$oauthKey&page=${type.page}&per_page=${type.perPage}"
+//            is RequestURL.CustomRequest -> type.url.toString() + "?access_token=$oauthKey"
+//        }
+//
+//        return URL(urlString)
+//    }
 }
 
 enum class DefaultKeys(val rawValue: String) {
     OAuthKey("OAuthKey"),
     UserName("UserName"),
     UserIcon("UserIcon")
-}
-
-sealed class RequestURL {
-    class GetCurrentUser: RequestURL()
-    class GetEvents(val page: Int, val perPage: Int): RequestURL()
-    class CustomRequest(val url: URL): RequestURL()
 }
