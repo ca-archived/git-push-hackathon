@@ -1,10 +1,15 @@
 package io.github.massongit.hackathon.push.git.main.event.view
 
+import android.content.ClipData
+import android.content.ClipDescription
+import android.content.ClipboardManager
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import io.github.massongit.hackathon.push.git.R
 import io.github.massongit.hackathon.push.git.chromeCustomTabs.ChromeCustomTabsHelper
 import io.github.massongit.hackathon.push.git.main.event.Event
@@ -49,8 +54,22 @@ class EventViewAdapter(private val chromeCustomTabsHelper: ChromeCustomTabsHelpe
         Log.v(EventViewAdapter.TAG, "onBindViewHolder called")
         holder.apply {
             val item = filteredEventList[position]
-            messageLayout.setOnClickListener {
-                chromeCustomTabsHelper.launch(item.eventHtmlUrl)
+            messageLayout.apply {
+                setOnClickListener {
+                    chromeCustomTabsHelper.launch(item.eventHtmlUrl)
+                }
+                setOnLongClickListener {
+                    val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+
+                    if (clipboardManager == null) {
+                        Toast.makeText(context, context.getString(R.string.url_copied), Toast.LENGTH_SHORT).show()
+                    } else {
+                        clipboardManager.primaryClip = ClipData(ClipDescription("github_event_url", arrayOf(ClipDescription.MIMETYPE_TEXT_URILIST)), ClipData.Item(item.eventHtmlUrl))
+                        Toast.makeText(context, context.getString(R.string.url_copied), Toast.LENGTH_SHORT).show()
+                    }
+
+                    true
+                }
             }
             actorAvatar.apply {
                 setOnClickListener {

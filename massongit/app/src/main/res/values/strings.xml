@@ -11,4 +11,6 @@
     <string name="logout">Logout</string>
     <string name="open_navigation_view">Open Navigation View</string>
     <string name="close_navigation_view">Close Navigation View</string>
+    <string name="url_copied">URL copied!</string>
+    <string name="failed_to_copy_url">Failed to copy URL …</string>
 </resources>

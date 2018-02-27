@@ -11,4 +11,6 @@
     <string name="logout">ログアウト</string>
     <string name="open_navigation_view">ナビゲーションメニューを開きました</string>
     <string name="close_navigation_view">ナビゲーションメニューを閉じました</string>
+    <string name="url_copied">URLをコピーしました！</string>
+    <string name="failed_to_copy_url">URLのコピーに失敗しました......</string>
 </resources>
