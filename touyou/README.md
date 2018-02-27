@@ -1,11 +1,11 @@
 # Git Push Hackathon
 
-touyou（藤井陽介）のプロジェクト一覧です。
+touyou（藤井陽介）のプロジェクトです。
 
 ## プロジェクト構成
 
 - GitMe ... iOS版
-- GitMeAndroid ... 同様の設計でのAndroid移植（今回の提出期間内にはできなかったのでロジックの一部のみ移植されていますが、最低要件を満たしていないので無視して頂いて大丈夫です。引き続き時間のある時にissue/4ブランチで製作していく予定です。）
+- GitMeAndroid ... 同様の設計でのAndroid移植（今回の提出期間内にはできなかったのでロジックの一部のみ移植されていますが、最低要件を満たしていないので無視して頂いて大丈夫です。引き続き時間のある時にdevelopブランチで製作していく予定です。）
 - Assets ... 共通のアセット一式が入っています。
 - GitMe.sketch ... デザインを行ったファイルです。
 
@@ -32,29 +32,29 @@ $ make
 ## 機能
 
 今回は普段自分がWebのGitHubや、CodeHubを実際に使う中で感じていた「タイムラインの情報の消化のしにくさ」を解消するべく最低要件に加えて独自の機能をつけています。
-具体的には、自分はこの「情報の消化のしにくさ」がアクションを起こした人、種類、リポジトリの名前しかわからない（Webのほうはこれに加えDescription）ところからくると考え、もっとリポジトリ一個一個の個性がタイムラインの時点でわかるという状態を目指すべくREADMEを見れる機能をタイムライン上に追加しました。
+具体的には、自分はこの「情報の消化のしにくさ」がアクションを起こした人、アクションの種類、リポジトリの名前しかわからない（Webのほうはこれに加えDescription）ところからくると考え、もっとリポジトリ一個一個の個性がタイムラインの時点でわかるという状態を目指すべくREADMEを見れる機能をタイムライン上に追加しました。
 
-普段は隠れていて、READMEのあるものはWatch READMEというViewが出てくるのでそれをタップすることでスクロールして見れるREADMEのプレビューを開くことが出来ます。
+普段は隠れて邪魔をセず、READMEのあるものはWatch READMEというViewが出てくるのでそれをタップすることでスクロールして見れるREADMEのプレビューを開くことが出来ます。
 
 その他ログアウト機能も搭載しています。
 
 ## 設計
 
-設計はiOS Clean Architectureをベースに独自にわかりやすさと管理のしやすさを目指して変更をくわえたものを使用しています。
+設計はiOS Clean Architectureをベースに独自にわかりやすさと管理のしやすさを目指して変更を加えたものを使用しています。
 大まかな構成が以下のような形です。
 
 ![](Assets/desc2.png)
 
 まずClean Architecture同様、大きくわけて３つの層に分かれています。これがData層、Domain層、Presentation層です。これをシングルトンを用いた簡単なDIによって管理しています。
 
-そして大きくその層を横断して使われているのがその層で使われるデータの形式です。こちらのRxによるObservableが矢印の方向に受け渡されていって主にPresenter、一部がViewControllerによって購読されます。
+そして大きく層を横断して使われているのがその層で使われるデータの形式です。こちらのRxによるObservableが矢印の方向に受け渡されていって主にPresenter、一部がViewControllerによって購読されます。
 
 基本はRxの購読によりデータが流れるという形ですが、各段階ではシングルトンパターンを除き依存度を一方向にするためにProtocolを用いて必要な関数のみ呼び出せるようになっています。これを明示的に示すため、Protocolで使われる部分はextensionに切り出し、内部で使う関数にはすべて明示的にprivateを指定しています。
 
 ### Data層
 
 まず一番の変更が加わっているのがData層の部分です。ここで一般のClean Architectureでは分割されるローカルやネット通信をシングルトンによって一元管理するようにしました。これによってURLSessionやJSONDecoder、キャッシュとして利用したUserDefaultsが共通化でき簡潔なコードになっています。
-EntityにおいてはSwift4のCodableをフル活用しています。CodableとJSONDecoderを用いることによって最低限の記述でエラーなくネットワークから得られたJSONをEntityに変換することができます。こちらは次のSwiftアップデートでCodingKeysを書かなくてもできるようになるので将来的にもさらに簡潔になると考えられます。
+EntityにおいてはSwift4のCodableをフル活用しています。CodableとJSONDecoderを用いることによって最低限の記述でエラーなくネットワークから得られたJSONをEntityに変換することができます。こちらは次のSwiftアップデートでCodingKeysを書かなくてもできるようになるので将来的にはさらに簡潔になると考えられます。
 
 ### Domain層
 
@@ -75,10 +75,10 @@ Presentation層のみ他の層と違ってさらに中で大きく２つにわ�
 
 #### サードパーティ製ライブラリ
 
-- RxSwift / RxCocoa ... Rxを導入しているため
-- OAuthSwift ... OAuth2認証を簡潔に書くため
-- PINRemoteImage ... 画像の非同期表示としては機能の多さからこちらを選択してみました
-- Down ... Markdownの表示のため
+- [RxSwift / RxCocoa](https://github.com/ReactiveX/RxSwift) ... Rxを導入しているため
+- [OAuthSwift](https://github.com/OAuthSwift/OAuthSwift) ... OAuth2認証を簡潔に書くため
+- [PINRemoteImage](https://github.com/pinterest/PINRemoteImage/) ... 画像の非同期表示としては機能の多さからこちらを選択してみました
+- [Down](https://github.com/iwasrobbed/Down) ... Markdownの表示のため
 
 #### Protocol
 
@@ -104,5 +104,5 @@ Storyboard分割、nib読み込みを簡易にする定番のプロトコルに�
 
 ## おまけ：デザインについて
 
-デザインは最近の流れを取り入れてカード形式の[Complexion Reductionデザイン](https://medium.com/amazing-stuff/complexion-reduction-a-new-trend-in-mobile-design-cef033a0b978)を採用してみました。UI/UXを組むのも好きなのでSketchで1からデザインして実装しています。
+デザインは最近のトレンドを取り入れてカード形式の[Complexion Reductionデザイン](https://medium.com/amazing-stuff/complexion-reduction-a-new-trend-in-mobile-design-cef033a0b978)を採用してみました。UI/UXを組むのも好きなのでSketchで1からデザインして実装しています。
 リポジトリの詳細やREADMEを別個で読み込むことにすると扱うObservableの簡潔さとのトレードオフが生じてしまいましたが、UXを優先し各セルごとに情報が来たら更新という形をとっています。
