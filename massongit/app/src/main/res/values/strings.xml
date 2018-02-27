@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Git Git Hub!</string>
+    <string name="app_name" translatable="false">Git Git Hub!</string>
     <string name="login">Login</string>
     <string name="update">Update</string>
     <string name="error_happen">Error!</string>
