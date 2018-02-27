@@ -31,7 +31,7 @@ final class AuthorizeViewController: UIViewController {
             state: "GithubApp",
             success: { credential, response, parameters in
                 Token.oauthToken = credential.oauthToken
-
+                (UIApplication.shared.delegate as! AppDelegate).switchRootControllerAfterLogin()
         },
             failure: {[weak self] error in
                 guard let wSelf = self else { return }

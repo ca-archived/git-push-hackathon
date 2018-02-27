@@ -39,6 +39,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return EventListPageViewController()
     }
     
+    public func switchRootControllerAfterLogin() {
+        let eventListController = EventListPageViewController()
+        UIView.transition(with: window!,
+                          duration: 0.7,
+                          options: .transitionCrossDissolve,
+                          animations: {
+                            let oldState: Bool = UIView.areAnimationsEnabled
+                            UIView.setAnimationsEnabled(false)
+                            self.window?.rootViewController = eventListController
+                            UIView.setAnimationsEnabled(oldState)
+        },
+                          completion: nil)
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         OAuthSwift.handle(url: url)
         return true
