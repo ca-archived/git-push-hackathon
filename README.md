@@ -1,5 +1,7 @@
 <img src="./assets/GPH.png" alt="main image">
 
+*Read this in other languages: [English](README.en-US.md)*
+
 株式会社サイバーエージェントが主催する、ネイティブエンジニア向け学生限定ハッカソンです。成果物をレポジトリにpushするだけのリモート参加型のイベントです。
 
 ## エントリー方法
@@ -26,7 +28,7 @@
 下にあるGIF画像の挙動を参考に、
 
 - OAuth認証を用いたログイン
-- [activity/feeds API](https://developer.github.com/v3/activity/feeds/)を用いたフィードの一覧表示
+- [activity/events API](https://developer.github.com/v3/activity/events/)を用いたイベントの一覧表示
 
 を実装してください。
 

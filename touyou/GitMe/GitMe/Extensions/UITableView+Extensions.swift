@@ -59,4 +59,20 @@ extension UITableView {
 
         return view
     }
+
+    // MARK: Realod Utility
+
+    func reloadData(at row: Int? = nil) {
+
+        if let row = row {
+
+            self.beginUpdates()
+            self.reloadRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+            self.endUpdates()
+        } else {
+
+            self.reloadData()
+        }
+        self.layoutIfNeeded()
+    }
 }

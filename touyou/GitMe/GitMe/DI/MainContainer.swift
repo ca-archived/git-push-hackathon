@@ -8,14 +8,20 @@
 
 import Foundation
 
-class MainContainer {
+// MARK: - MainContainer
 
-    // MARK: Internal
+class MainContainer {
 
     static let shared = MainContainer()
 
+    // MARK: Internal
+
     func configure(_ viewController: MainViewController) {
 
-        
+        let converter: MainConverter = MainConverter()
+
+        let presenter: MainPresenter = MainPresenter(converter: converter)
+
+        viewController.presenter = presenter
     }
 }
