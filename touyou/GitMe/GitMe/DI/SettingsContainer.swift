@@ -8,11 +8,13 @@
 
 import Foundation
 
+// MARK: - SettingsContainer
+
 class SettingsContainer {
 
-    // MARK: Internal
-
     static let shared = SettingsContainer()
+
+    // MARK: Internal
 
     func configure(_ viewController: SettingsViewController) {
 

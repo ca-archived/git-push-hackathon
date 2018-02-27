@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Event
+
 struct Event: Codable {
 
     let actor: Actor
@@ -67,6 +69,8 @@ struct Event: Codable {
     }
 }
 
+// MARK: - Actor
+
 struct Actor: Codable {
 
     let avatarUrl: URL
@@ -85,6 +89,8 @@ struct Actor: Codable {
         case url
     }
 }
+
+// MARK: - Organization
 
 struct Organization: Codable {
 

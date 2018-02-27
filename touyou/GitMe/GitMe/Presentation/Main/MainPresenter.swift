@@ -12,6 +12,8 @@ import PINCache
 import PINRemoteImage
 import Down
 
+// MARK: - MainPresenterProtocol
+
 protocol MainPresenterProtocol: UITableViewDataSource {
 
     var isLoggedIn: Bool { get }
@@ -23,6 +25,8 @@ protocol MainPresenterProtocol: UITableViewDataSource {
     func loadMore(_ completion: @escaping (Int?) -> Void)
     func logOut()
 }
+
+// MARK: - MainPresenter
 
 class MainPresenter: NSObject {
 

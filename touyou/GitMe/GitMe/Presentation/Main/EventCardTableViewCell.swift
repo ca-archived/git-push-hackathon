@@ -81,4 +81,6 @@ class EventCardTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: Reusable and NibLoadable
+
 extension EventCardTableViewCell: Reusable, NibLoadable {}

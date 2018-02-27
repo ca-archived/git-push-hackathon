@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Easy Setup Extensions
+
 extension UIAlertController {
 
     func addAction(title: String, style: UIAlertActionStyle = .default, handler: ((UIAlertAction) -> Void)? = nil) -> Self {

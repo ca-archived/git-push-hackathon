@@ -9,12 +9,16 @@
 import Foundation
 import RxSwift
 
+// MARK: - LoginPresenterProtocol
+
 protocol LoginPresenterProtocol {
 
     var logInData: PublishSubject<UserInfoViewModel> { get }
 
     func logIn()
 }
+
+// MARK: - LoginPresenter
 
 class LoginPresenter {
 

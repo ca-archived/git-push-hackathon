@@ -8,11 +8,13 @@
 
 import Foundation
 
+// MARK: - MainContainer
+
 class MainContainer {
 
-    // MARK: Internal
-
     static let shared = MainContainer()
+
+    // MARK: Internal
 
     func configure(_ viewController: MainViewController) {
 

@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 
+// MARK: - EventCellViewModel
+
 class EventCellViewModel {
     
     var repositoryName: String!
@@ -24,6 +26,8 @@ class EventCellViewModel {
 
     init() {}
 }
+
+// MARK: - RepositoryViewModel
 
 class RepositoryViewModel {
     

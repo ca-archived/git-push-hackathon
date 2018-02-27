@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Image Extensions
+
 extension UserDefaults {
 
     func set(_ image: UIImage, forKey key: String) {

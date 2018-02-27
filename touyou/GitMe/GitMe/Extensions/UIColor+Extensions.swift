@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Project Color
+
 extension UIColor {
 
     struct GitMe {
@@ -17,6 +19,8 @@ extension UIColor {
         static let lightGray = UIColor(hex: "EEEEEE")
     }
 }
+
+// MARK: - Initialization Extensions
 
 extension UIColor {
 

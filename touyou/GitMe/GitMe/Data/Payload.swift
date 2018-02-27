@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Payload
+
 struct Payload: Codable {
 
     /// IssueCommnet, Issues, Watch
@@ -60,6 +62,8 @@ struct Payload: Codable {
     }
 }
 
+// MARK: - Comment
+
 struct Comment: Codable {
 
     let authorAssociation: String
@@ -85,6 +89,8 @@ struct Comment: Codable {
         case user
     }
 }
+
+// MARK: - Issue
 
 struct Issue: Codable {
 
@@ -138,6 +144,8 @@ struct Issue: Codable {
     }
 }
 
+// MARK: - Commit
+
 struct Commit: Codable {
 
     struct Author: Codable {
@@ -152,6 +160,8 @@ struct Commit: Codable {
     let sha: String
     let url: URL
 }
+
+// MARK: - Label
 
 struct Label: Codable {
 
@@ -169,6 +179,8 @@ struct Label: Codable {
         case url
     }
 }
+
+// MARK: - Forkee
 
 struct Forkee: Codable {
 }

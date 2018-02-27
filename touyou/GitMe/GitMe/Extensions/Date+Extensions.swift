@@ -8,34 +8,36 @@
 
 import Foundation
 
+// MARK: - String Extensions
+
 extension Date {
 
-    var yearsFrom: Int {
+    private var yearsFrom: Int {
 
         return Calendar.current.dateComponents([.year], from: self, to: Date()).year!
     }
 
-    var monthsFrom: Int {
+    private var monthsFrom: Int {
 
         return Calendar.current.dateComponents([.month], from: self, to: Date()).month!
     }
 
-    var daysFrom: Int {
+    private var daysFrom: Int {
 
         return Calendar.current.dateComponents([.day], from: self, to: Date()).day!
     }
 
-    var hoursFrom: Int {
+    private var hoursFrom: Int {
 
         return Calendar.current.dateComponents([.hour], from: self, to: Date()).hour!
     }
 
-    var minutesFrom: Int {
+    private var minutesFrom: Int {
 
         return Calendar.current.dateComponents([.minute], from: self, to: Date()).minute!
     }
 
-    var secondsFrom: Int {
+    private var secondsFrom: Int {
 
         return Calendar.current.dateComponents([.second], from: self, to: Date()).second!
     }

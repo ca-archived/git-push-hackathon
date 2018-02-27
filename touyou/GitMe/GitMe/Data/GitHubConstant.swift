@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - GitHubConstant
+
 class GitHubConstant {
 
     // ここで取り出せないということはセットアップができていないということなので落としている

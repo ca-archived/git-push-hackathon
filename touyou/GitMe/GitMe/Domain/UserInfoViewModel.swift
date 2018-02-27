@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 
+// MARK: - UserInfoViewModel
+
 class UserInfoViewModel {
 
     var userName: String!

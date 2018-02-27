@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		461869E62045769B00BA7D76 /* UserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461869E42045769B00BA7D76 /* UserInfoTableViewCell.swift */; };
+		461869E72045769B00BA7D76 /* UserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 461869E52045769B00BA7D76 /* UserInfoTableViewCell.xib */; };
 		4628D7EE201CB7A900C66D10 /* MainContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7ED201CB7A900C66D10 /* MainContainer.swift */; };
 		4628D7F0201CBC8400C66D10 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7EF201CBC8400C66D10 /* MainPresenter.swift */; };
 		4628D7F2201CBC9A00C66D10 /* MainConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628D7F1201CBC9A00C66D10 /* MainConverter.swift */; };
@@ -88,6 +90,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		461869E42045769B00BA7D76 /* UserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewCell.swift; sourceTree = "<group>"; };
+		461869E52045769B00BA7D76 /* UserInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoTableViewCell.xib; sourceTree = "<group>"; };
 		4628D7ED201CB7A900C66D10 /* MainContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainer.swift; sourceTree = "<group>"; };
 		4628D7EF201CBC8400C66D10 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		4628D7F1201CBC9A00C66D10 /* MainConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainConverter.swift; sourceTree = "<group>"; };
@@ -411,6 +415,8 @@
 				46F071252042681500AFF66E /* SettingsViewController.swift */,
 				46F071272042682300AFF66E /* SettingsViewController.storyboard */,
 				46B2EEC42043B6C50075F83F /* SettingsPresenter.swift */,
+				461869E42045769B00BA7D76 /* UserInfoTableViewCell.swift */,
+				461869E52045769B00BA7D76 /* UserInfoTableViewCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -537,6 +543,7 @@
 				46F071282042682300AFF66E /* SettingsViewController.storyboard in Resources */,
 				46537391202D486A002279BD /* URWDIN-Medium.ttf in Resources */,
 				4695C958200DAC3E0097F066 /* MainViewController.storyboard in Resources */,
+				461869E72045769B00BA7D76 /* UserInfoTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +640,7 @@
 				46DD53F2203967BC00581AC8 /* Event.swift in Sources */,
 				4628D7F0201CBC8400C66D10 /* MainPresenter.swift in Sources */,
 				4628D7F6201CBCBA00C66D10 /* GitHubAPI.swift in Sources */,
+				461869E62045769B00BA7D76 /* UserInfoTableViewCell.swift in Sources */,
 				469722FF200E4453008325C4 /* UICollectionView+Extensions.swift in Sources */,
 				46AB03A12015D75B0003AD21 /* UserInfoViewModel.swift in Sources */,
 				4628D7EE201CB7A900C66D10 /* MainContainer.swift in Sources */,

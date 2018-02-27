@@ -9,10 +9,14 @@
 import UIKit
 import RxSwift
 
+// MARK: - LoginConverterProtocol
+
 protocol LoginConverterProtocol {
 
     func logIn() -> Observable<UserInfoViewModel>
 }
+
+// MARK: - LoginConverter
 
 class LoginConverter {
 

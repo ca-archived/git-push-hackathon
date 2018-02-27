@@ -8,11 +8,13 @@
 
 import Foundation
 
+// MARK: - LoginContainer
+
 class LoginContainer {
 
-    // MARK: Internal
-
     static let shared = LoginContainer()
+
+    // MARK: Internal
 
     func configure(_ viewController: LoginViewController) {
 

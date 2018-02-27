@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Making Attributed String Extensions
+
 extension NSMutableAttributedString {
 
     enum GitMeStyle {

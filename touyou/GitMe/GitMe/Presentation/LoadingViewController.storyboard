@@ -39,6 +39,14 @@
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="0Kq-lP-cD3"/>
                                             <constraint firstAttribute="width" secondItem="jaD-ZU-QnG" secondAttribute="height" multiplier="1:1" id="tFK-F5-K23"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ご利用ありがとうございます。 素敵なGitHubライフをお楽しみください。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKG-yQ-Krh">
                                         <rect key="frame" x="8" y="271.5" width="299" height="31.5"/>

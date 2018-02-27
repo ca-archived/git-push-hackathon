@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 
+// MARK: - MainConverterProtocol
+
 protocol MainConverterProtocol {
 
     var isLoggedIn: Bool { get }
@@ -16,6 +18,8 @@ protocol MainConverterProtocol {
     func fetchEvent(at page: Int, every perPage: Int) -> Observable<[EventCellViewModel]>
     func fetchLoginUserInfo() -> Observable<UserInfoViewModel>
 }
+
+// MARK: - MainConverter
 
 class MainConverter {
 

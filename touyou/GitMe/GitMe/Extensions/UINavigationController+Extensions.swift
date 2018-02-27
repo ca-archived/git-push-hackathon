@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Project Layout
+
 extension UINavigationController {
 
     func setupBarColor() {

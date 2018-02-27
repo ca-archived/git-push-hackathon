@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - User
+
 struct User: Codable {
 
     let login: String

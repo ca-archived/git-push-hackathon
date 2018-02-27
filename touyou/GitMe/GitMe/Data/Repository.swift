@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Repository
+
 struct Repository: Codable {
 
     let id: Int
@@ -28,6 +30,8 @@ struct Repository: Codable {
         case language
     }
 }
+
+// MARK: - Readme
 
 struct Readme: Codable {
 

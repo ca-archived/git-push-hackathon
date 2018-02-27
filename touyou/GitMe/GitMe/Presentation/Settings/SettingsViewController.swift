@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 // MARK: - SettingsViewController
 
 class SettingsViewController: UIViewController {
@@ -37,8 +36,13 @@ class SettingsViewController: UIViewController {
 
         didSet {
 
+            tableView.register(UserInfoTableViewCell.self)
             tableView.dataSource = presenter
             tableView.delegate = self
+            presenter.fetchUser {
+
+                self.tableView.reloadData()
+            }
         }
     }
 }
@@ -49,14 +53,17 @@ extension SettingsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        UIAlertController(title: "ログアウトしますか？", message: "", preferredStyle: .alert)
-            .addAction(title: "OK", style: .default, handler: { _ in
+        if indexPath.section == 1 {
+            
+            UIAlertController(title: "ログアウトしますか？", message: "", preferredStyle: .alert)
+                .addAction(title: "OK", style: .default, handler: { _ in
 
-            self.presenter.logOut()
-            (self.tabBarController?.firstViewController as? MainViewController)?.logOut()
-            TabBarController.router.openLogInView()
-        })
-            .addAction(title: "Cancel", style: .cancel).show()
+                    self.presenter.logOut()
+                    (self.tabBarController?.firstViewController as? MainViewController)?.logOut()
+                    TabBarController.router.openLogInView()
+                })
+                .addAction(title: "Cancel", style: .cancel).show()
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
