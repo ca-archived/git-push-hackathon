@@ -29,6 +29,10 @@
 		BEAB63DF2044BE9400162421 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63DE2044BE9400162421 /* Repo.swift */; };
 		BEAB63E12044BEC800162421 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63E02044BEC800162421 /* Activity.swift */; };
 		BEAB63E32044C2B500162421 /* GetActivityEventsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63E22044C2B500162421 /* GetActivityEventsRequest.swift */; };
+		BEAB63E82044C55500162421 /* EventListPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63E72044C55500162421 /* EventListPageViewController.swift */; };
+		BEAB63EA204510FB00162421 /* EventListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63E9204510FB00162421 /* EventListCell.swift */; };
+		BEAB63EC2045111C00162421 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63EB2045111C00162421 /* LoadMoreCell.swift */; };
+		BEAB63EE2045142000162421 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB63ED2045142000162421 /* DataSource.swift */; };
 		BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E7552042F56A00B6D22E /* BaseRequest.swift */; };
 		BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75920430FA900B6D22E /* GitHubAppError.swift */; };
 		BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC4E75B2043219A00B6D22E /* APIClient.swift */; };
@@ -83,6 +87,10 @@
 		BEAB63DE2044BE9400162421 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		BEAB63E02044BEC800162421 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		BEAB63E22044C2B500162421 /* GetActivityEventsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetActivityEventsRequest.swift; sourceTree = "<group>"; };
+		BEAB63E72044C55500162421 /* EventListPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPageViewController.swift; sourceTree = "<group>"; };
+		BEAB63E9204510FB00162421 /* EventListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListCell.swift; sourceTree = "<group>"; };
+		BEAB63EB2045111C00162421 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
+		BEAB63ED2045142000162421 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		BEC4E7552042F56A00B6D22E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		BEC4E75920430FA900B6D22E /* GitHubAppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAppError.swift; sourceTree = "<group>"; };
 		BEC4E75B2043219A00B6D22E /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				BEC4E75F20433DA600B6D22E /* Authorize Page */,
+				BEAB63E42044C4F100162421 /* Event List Page */,
 				BEC4E7502042F4CA00B6D22E /* API */,
 				BEAB63DB2044B75000162421 /* Model */,
 				BE36657B2043C87600EAC1C3 /* Helper */,
@@ -219,6 +228,33 @@
 				BEAB63E02044BEC800162421 /* Activity.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BEAB63E42044C4F100162421 /* Event List Page */ = {
+			isa = PBXGroup;
+			children = (
+				BEAB63ED2045142000162421 /* DataSource.swift */,
+				BEAB63E62044C53600162421 /* View */,
+				BEAB63E52044C52B00162421 /* ViewController */,
+			);
+			path = "Event List Page";
+			sourceTree = "<group>";
+		};
+		BEAB63E52044C52B00162421 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BEAB63E72044C55500162421 /* EventListPageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BEAB63E62044C53600162421 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BEAB63E9204510FB00162421 /* EventListCell.swift */,
+				BEAB63EB2045111C00162421 /* LoadMoreCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BEC4E7502042F4CA00B6D22E /* API */ = {
@@ -415,13 +451,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEAB63EE2045142000162421 /* DataSource.swift in Sources */,
 				BEC4E7562042F56A00B6D22E /* BaseRequest.swift in Sources */,
+				BEAB63E82044C55500162421 /* EventListPageViewController.swift in Sources */,
 				BEC4E763204340F300B6D22E /* Token.swift in Sources */,
 				BEC4E75E20433C7300B6D22E /* AppConst.swift in Sources */,
 				BEAB63DD2044BDB700162421 /* Actor.swift in Sources */,
 				BEC4E75C2043219A00B6D22E /* APIClient.swift in Sources */,
 				BE1507192042D34F00C64A0F /* tomkenta.xcdatamodeld in Sources */,
 				BEAB63E12044BEC800162421 /* Activity.swift in Sources */,
+				BEAB63EC2045111C00162421 /* LoadMoreCell.swift in Sources */,
+				BEAB63EA204510FB00162421 /* EventListCell.swift in Sources */,
 				BEAB63E32044C2B500162421 /* GetActivityEventsRequest.swift in Sources */,
 				BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */,
 				BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */,

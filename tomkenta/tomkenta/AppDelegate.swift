@@ -36,8 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Token.oauthToken == nil {
             return AuthorizeViewController()
         }
-        // TODO: eventViewControllerの実装
-        return UIViewController()
+        return EventListPageViewController()
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
