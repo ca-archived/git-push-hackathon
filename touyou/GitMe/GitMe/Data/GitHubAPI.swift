@@ -177,7 +177,8 @@ class GitHubAPI {
             urlString += "/users/\(userName)/received_events?access_token=\(oauthKey)&page=\(page)&per_page=\(perPage)"
         case .customRequest(let url):
 
-            urlString = url.absoluteString + "?access_token=\(oauthKey)"
+//            urlString = url.absoluteString + "?access_token=\(oauthKey)"
+            return url.queryAdded(name: "access_token", value: oauthKey)
         }
 
         return URL(string: urlString)

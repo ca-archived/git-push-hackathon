@@ -32,11 +32,9 @@ struct Repository: Codable {
 struct Readme: Codable {
 
     let downloadUrl: URL?
-//    let content: Data
 
     enum CodingKeys: String, CodingKey {
 
         case downloadUrl = "download_url"
-//        case content
     }
 }

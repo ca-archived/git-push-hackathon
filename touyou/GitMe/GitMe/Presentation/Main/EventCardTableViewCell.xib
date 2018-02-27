@@ -107,8 +107,8 @@
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCT-SF-MhO">
-                                        <rect key="frame" x="444" y="0.0" width="19" height="22"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCT-SF-MhO">
+                                        <rect key="frame" x="8" y="0.0" width="455" height="22"/>
                                         <state key="normal" image="open_readme">
                                             <color key="titleColor" red="0.1294117719" green="0.1294117719" blue="0.1294117719" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -124,7 +124,8 @@
                                     <constraint firstItem="HCT-SF-MhO" firstAttribute="top" secondItem="WCm-fM-gZv" secondAttribute="top" id="UpS-ei-TSR"/>
                                     <constraint firstItem="QnX-vZ-5ly" firstAttribute="leading" secondItem="WCm-fM-gZv" secondAttribute="leading" constant="8" id="aeO-WN-mIX"/>
                                     <constraint firstAttribute="bottom" secondItem="QnX-vZ-5ly" secondAttribute="bottom" constant="3" id="fzT-OL-69U"/>
-                                    <constraint firstAttribute="height" constant="22" id="qbj-7W-66D"/>
+                                    <constraint firstAttribute="height" priority="999" constant="22" id="qbj-7W-66D"/>
+                                    <constraint firstItem="HCT-SF-MhO" firstAttribute="leading" secondItem="WCm-fM-gZv" secondAttribute="leading" constant="8" id="uhQ-eN-XfD"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -171,10 +172,10 @@
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="1"/>
+                                <real key="value" value="5"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                <real key="value" value="0.40000000000000002"/>
+                                <real key="value" value="0.20000000000000001"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                 <size key="value" width="0.0" height="0.0"/>

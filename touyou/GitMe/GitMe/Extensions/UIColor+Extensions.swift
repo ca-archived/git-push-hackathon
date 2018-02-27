@@ -16,8 +16,6 @@ extension UIColor {
         static let gray = UIColor(hex: "666666")
         static let lightGray = UIColor(hex: "EEEEEE")
     }
-
-
 }
 
 extension UIColor {
