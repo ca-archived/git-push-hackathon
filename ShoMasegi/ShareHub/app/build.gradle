@@ -1,0 +1,115 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "masegi.sho.sharehub"
+        minSdkVersion 22
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+kapt {
+    generateStubs = true
+    correctErrorTypes = true
+}
+
+dependencies {
+
+    def versions = [
+            supportLibrary: "27.0.2",
+            retrofit      : "2.3.0",
+            kotshi        : "0.3.0",
+            dagger        : "2.13",
+            arch          : "1.0.0",
+            kotpref       : "2.3.0",
+            parcel        : "1.1.1",
+            glide         : "4.5.0",
+            viewAnimator  : "1.0.5"
+    ]
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // date
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+
+    // =====Network
+    // okhttp
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    // retrofit
+    compile "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    compile "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+    // =====Structure
+    // kotshi
+    implementation "se.ansman.kotshi:api:$versions.kotshi"
+    kapt "se.ansman.kotshi:compiler:$versions.kotshi"
+    // rx
+    compile 'io.reactivex.rxjava2:rxjava:2.1.8'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    // dagger
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    // binding
+    kapt "com.android.databinding:compiler:3.0.1"
+    // lifecycle
+    implementation "android.arch.lifecycle:runtime:$versions.arch"
+    implementation "android.arch.lifecycle:extensions:$versions.arch"
+    implementation "android.arch.lifecycle:reactivestreams:$versions.arch"
+    kapt "android.arch.lifecycle:compiler:$versions.arch"
+    // paging
+    implementation 'android.arch.paging:runtime:1.0.0-alpha5'
+    // kotpref
+    implementation "com.chibatching.kotpref:kotpref:$versions.kotpref"
+    implementation "com.chibatching.kotpref:initializer:$versions.kotpref"
+    implementation "com.chibatching.kotpref:enum-support:$versions.kotpref"
+    // parcel
+    compile "org.parceler:parceler-api:$versions.parcel"
+    kapt "org.parceler:parceler:$versions.parcel"
+    // =====Support Library
+    //noinspection GradleCompatible
+    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    //noinspection GradleCompatible
+    implementation "com.android.support:customtabs:$versions.supportLibrary"
+
+    // =====Ui
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    // glide
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    // view animator
+    compile "com.github.florent37:viewanimator:1.0.5"
+
+    // =====Ktx
+    implementation "androidx.core:core-ktx:0.1"
+
+    // =====Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

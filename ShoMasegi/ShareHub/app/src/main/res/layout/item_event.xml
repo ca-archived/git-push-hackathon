@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <data>
+
+        <variable
+            name="event"
+            type="masegi.sho.sharehub.data.model.event.Event" />
+
+        <import type="masegi.sho.sharehub.util.LocalDateTimeUtil"
+            alias="TimeUtil" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/actor_avatar"
+            android:layout_width="@{@dimen/actor_image_size, default=@dimen/actor_image_size}"
+            android:layout_height="@{@dimen/actor_image_size, default=@dimen/actor_image_size}"
+            android:contentDescription="@string/actor_avatar"
+            app:image_url="@{event.actor.avatarUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeHolder="@{@drawable/actor_placeholder}"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/event_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@color/eventBackground"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:text="@{event.type.toString()}"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/actor_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/event_type" />
+
+        <TextView
+            android:id="@+id/by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="by "
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/in"
+            app:layout_constraintStart_toStartOf="@+id/in"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />
+
+        <TextView
+            android:id="@+id/actor_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text='@{event.actor.login}'
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/by"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/by"
+            app:layout_constraintTop_toBottomOf="@+id/event_name"
+            tools:text="ShoMasegi" />
+
+        <TextView
+            android:id="@+id/in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="at "
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/event_name"
+            app:layout_constraintTop_toBottomOf="@+id/by" />
+
+        <TextView
+            android:id="@+id/repo_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text='@{event.repo.name}'
+            android:textSize="13sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/in"
+            tools:text="CyberAgent/git-push-hackathon" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{TimeUtil.durationFromToday(event.createdAt)}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/event_name"
+            tools:text="3 days ago" />
+
+        <View
+            android:id="@+id/event_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repo_name" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

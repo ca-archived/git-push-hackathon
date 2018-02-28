@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#2D8C3C</color>
+    <color name="color_primary_dark">#005e10</color>
+    <color name="color_accent">#FFFFFF</color>
+    
+    <color name="app_bar_text_color">#FFFFFF</color>
+
+    <!-- Splash Colors -->
+    <color name="splashBackground"></color>
+    <color name="splashPrimaryDark"></color>
+
+    <!-- Event Colors -->
+    <color name="eventBackground">#F06292</color>
+
+    <!-- Drawer Colors -->
+    <color name="drawer_menu_background">#3C3F41</color>
+</resources>

@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="actor_image_size">46dp</dimen>
+
+    <dimen name="drawer_menu_size">84dp</dimen>
+    <dimen name="drawer_menu_icon">18dp</dimen>
+    <dimen name="drawer_header_height">180dp</dimen>
+    <dimen name="drawer_header_icon">42dp</dimen>
+    <!--<dimen name="design_navigation_icon_size" tools:override="true">24dp</dimen>-->
+
+    <dimen name="splash_icon">180dp</dimen>
+    <dimen name="splash_icon_low">150dp</dimen>
+
+    <!-- Login dimens -->
+    <dimen name="login_button_height">48dp</dimen>
+    <dimen name="login_button_corner_radius">24dp</dimen>
+</resources>
