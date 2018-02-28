@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9VW-Rn-vb1">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Getting User View Controller-->
+        <scene sceneID="xqs-JE-3Fh">
+            <objects>
+                <viewController id="NeV-Q0-eXv" customClass="GettingUserViewController" customModule="Hackathon" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cUO-AP-5oa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dxZ-YA-PFW">
+                                <rect key="frame" x="137" y="207" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="VNV-Hy-pXt"/>
+                                    <constraint firstAttribute="height" constant="100" id="XIa-4a-NfE"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logging in as ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xO8-WP-zVj">
+                                <rect key="frame" x="16" y="323" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMm-yd-gd0">
+                                <rect key="frame" x="143.5" y="368" width="87" height="33"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="再読み込み"/>
+                                <connections>
+                                    <action selector="reloadButtonTapped:" destination="NeV-Q0-eXv" eventType="touchUpInside" id="Tnr-Is-oRA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dxZ-YA-PFW" firstAttribute="centerX" secondItem="cUO-AP-5oa" secondAttribute="centerX" id="GEH-rl-j2F"/>
+                            <constraint firstItem="xO8-WP-zVj" firstAttribute="top" secondItem="dxZ-YA-PFW" secondAttribute="bottom" constant="16" id="ITQ-hs-mrA"/>
+                            <constraint firstItem="xO8-WP-zVj" firstAttribute="centerY" secondItem="cUO-AP-5oa" secondAttribute="centerY" id="JXw-88-Fxh"/>
+                            <constraint firstItem="Nbf-2b-cNT" firstAttribute="trailing" secondItem="xO8-WP-zVj" secondAttribute="trailing" constant="16" id="SRA-g8-Ibb"/>
+                            <constraint firstItem="xO8-WP-zVj" firstAttribute="centerX" secondItem="cUO-AP-5oa" secondAttribute="centerX" id="bPn-Jq-KOH"/>
+                            <constraint firstItem="vMm-yd-gd0" firstAttribute="centerX" secondItem="cUO-AP-5oa" secondAttribute="centerX" id="cpU-JN-Tpc"/>
+                            <constraint firstItem="xO8-WP-zVj" firstAttribute="leading" secondItem="Nbf-2b-cNT" secondAttribute="leading" constant="16" id="q3B-dd-67v"/>
+                            <constraint firstItem="vMm-yd-gd0" firstAttribute="top" secondItem="xO8-WP-zVj" secondAttribute="bottom" constant="24" id="ytU-Xq-igH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Nbf-2b-cNT"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="95a-At-sDV"/>
+                    <connections>
+                        <outlet property="loginDescription" destination="xO8-WP-zVj" id="3LN-XD-zgu"/>
+                        <outlet property="reloadButton" destination="vMm-yd-gd0" id="1Sq-kW-HVc"/>
+                        <outlet property="userIconImageView" destination="dxZ-YA-PFW" id="puV-Aa-FCF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vgd-CZ-YKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="10.344827586206897"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="j6t-Sw-XiF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9VW-Rn-vb1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MaU-g0-zAc">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="NeV-Q0-eXv" kind="relationship" relationship="rootViewController" id="z4J-BS-mb9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4B7-MY-Qgk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-633" y="10"/>
+        </scene>
+    </scenes>
+</document>
