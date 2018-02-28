@@ -22,9 +22,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWx-eD-QG7">
-                                        <rect key="frame" x="161.5" y="34" width="52.5" height="21"/>
+                                        <rect key="frame" x="166" y="34" width="43.5" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="52.5" id="KBx-j6-G0V"/>
                                             <constraint firstAttribute="height" constant="21" id="bDw-BP-tUR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -44,9 +43,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.019607843140000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="CYw-wm-i89" firstAttribute="top" secondItem="z1v-cX-S3e" secondAttribute="top" constant="30" id="3Bq-WA-v52"/>
                                     <constraint firstItem="CYw-wm-i89" firstAttribute="leading" secondItem="z1v-cX-S3e" secondAttribute="leading" constant="12" id="4F8-y1-5hz"/>
-                                    <constraint firstItem="TWx-eD-QG7" firstAttribute="top" secondItem="z1v-cX-S3e" secondAttribute="top" constant="34" id="6LL-er-ADe"/>
                                     <constraint firstItem="TWx-eD-QG7" firstAttribute="centerX" secondItem="z1v-cX-S3e" secondAttribute="centerX" id="L1B-s9-PrS"/>
                                     <constraint firstAttribute="bottom" secondItem="CYw-wm-i89" secondAttribute="bottom" constant="4" id="SCZ-31-GVK"/>
                                     <constraint firstAttribute="bottom" secondItem="TWx-eD-QG7" secondAttribute="bottom" constant="9" id="avn-fX-eUm"/>

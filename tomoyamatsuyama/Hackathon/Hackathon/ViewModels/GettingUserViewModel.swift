@@ -14,7 +14,6 @@ class GettingUserViewModel {
     private(set) var isError: Variable<Bool> = .init(false)
     private var disposeBag = DisposeBag()
     
-    
     func requestUserData(){
         Api.Users.getUser()
             .subscribeOn(SerialDispatchQueueScheduler(qos: .background))

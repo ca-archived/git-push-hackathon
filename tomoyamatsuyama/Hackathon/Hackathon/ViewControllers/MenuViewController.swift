@@ -15,7 +15,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak private var menuTableView: UITableView!
     
     @IBAction private func completionButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     private var menuVM = MenuViewModel()
@@ -29,16 +29,16 @@ class MenuViewController: UIViewController {
     private func initialize() {
         avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width * 0.5
         avatarImageView.layer.masksToBounds = true
-        self.setImage(imageView: self.avatarImageView, urlString: self.menuVM.user.avatar_url)
-        self.name.text = menuVM.user.name
+        setImage(imageView: avatarImageView, urlString: menuVM.user.avatar_url)
+        name.text = menuVM.user.name
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initialize()
+        initialize()
         menuTableView.dataSource = menuVM
         menuTableView.delegate = self
-        menuTableView.tableFooterView = UIView(frame: .zero)
+        menuTableView.tableFooterView = .init(frame: .zero)
     }
 }
 

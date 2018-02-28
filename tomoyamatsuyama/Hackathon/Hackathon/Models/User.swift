@@ -22,4 +22,3 @@ struct User: Codable {
     var avatar_url: String = ""
     var login: String = ""
 }
-

@@ -11,4 +11,3 @@ import Foundation
 struct Authentication: Decodable {
     var accessToken: String
 }
-

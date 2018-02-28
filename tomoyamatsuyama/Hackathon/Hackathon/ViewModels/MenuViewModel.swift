@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class MenuViewModel: NSObject, UITableViewDataSource {
-    private(set) var user: User = User()
+    private(set) var user: User = .init()
     private var cellItems: [String] = ["Events", "Organaizations", "Repositories", "Gists"]
     
     static func instantiate(user: User) -> MenuViewModel {

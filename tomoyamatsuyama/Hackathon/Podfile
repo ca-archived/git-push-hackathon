@@ -4,10 +4,10 @@
 target 'Hackathon' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'Alamofire', '~> 4.5'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'Kingfisher'
+  pod 'Alamofire', '4.6.0'
+  pod 'RxSwift', '4.1.1'
+  pod 'RxCocoa', '4.1.1'
+  pod 'Kingfisher', '4.6.1'
   # Pods for Hackathon
 
   target 'HackathonTests' do

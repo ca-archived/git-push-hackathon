@@ -10,8 +10,8 @@ import UIKit
 
 class FollowDataTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var contentName: UILabel!
-    @IBOutlet weak var contentValue: UILabel!
+    @IBOutlet private weak var contentName: UILabel!
+    @IBOutlet private weak var contentValue: UILabel!
     
     func bind(_ cell: FollowDataTableViewCell, name: String, value: String) {
         cell.contentName.text = name
@@ -25,5 +25,4 @@ class FollowDataTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }

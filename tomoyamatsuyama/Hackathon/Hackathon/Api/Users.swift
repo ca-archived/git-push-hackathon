@@ -55,7 +55,7 @@ extension Api {
             return Api.create(configure: Requests.user).request()
         }
         
-        static func getEvents(name: String) -> Observable<[Events]> {
+        static func getEvents(name: String) -> Observable<[Event]> {
             return Api.create(configure: Requests.events(name: name)).request()
         }
     }

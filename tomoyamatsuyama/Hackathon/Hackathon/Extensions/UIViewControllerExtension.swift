@@ -16,7 +16,6 @@ extension UIViewController {
             indicator.color = UIColor.gray
             indicator.hidesWhenStopped = true
             self.view.addSubview(indicator)
-            self.view.bringSubview(toFront: indicator)
             indicator.startAnimating()
         }
     
@@ -33,11 +32,11 @@ extension UIViewController {
         guard let imageUrl = URL(string: avatarUrl) else { return nil }
         do {
             let imageData = try Data(contentsOf: imageUrl, options: Data.ReadingOptions.mappedIfSafe)
-            guard let image = UIImage(data: imageData) else { return nil }
+            let image = UIImage(data: imageData)
             return image
         } catch {
-            print("Error: cant create image.")
-            return nil
+            let image = UIImage(named: "defaultIcon")
+            return image
         }
     }
 }

@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 
 class HomeViewModel: NSObject {
-    private(set) var user: User = User()
-    private(set) var events: Variable<[Events]> = .init([])
+    private(set) var user: User = .init()
+    private(set) var events: Variable<[Event]> = .init([])
     private let users = Api.Users()
     private let disposeBag = DisposeBag()
     
@@ -33,4 +33,3 @@ class HomeViewModel: NSObject {
             .disposed(by: disposeBag)
     }
 }
-
