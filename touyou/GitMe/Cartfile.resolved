@@ -1,0 +1,5 @@
+github "OAuthSwift/OAuthSwift" "1.2.1"
+github "ReactiveX/RxSwift" "4.1.2"
+github "iwasrobbed/Down" "v0.4.2"
+github "pinterest/PINCache" "2.3"
+github "pinterest/PINRemoteImage" "2.1.4"

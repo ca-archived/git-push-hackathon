@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O2D-Nb-MKI">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="URWDIN-Light.ttf">
+            <string>URWDIN-Light</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Loading View Controller-->
+        <scene sceneID="tbY-Dx-5cK">
+            <objects>
+                <viewController id="O2D-Nb-MKI" customClass="LoadingViewController" customModule="GitMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Iu-Yu-Rkc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yj-Oh-IxL">
+                                <rect key="frame" x="30" y="175.5" width="315" height="315"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hogeでログインします" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-kA-Vrv">
+                                        <rect key="frame" x="8" y="40" width="299" height="52.5"/>
+                                        <fontDescription key="fontDescription" name="URWDIN-Light" family="URW DIN" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="jaD-ZU-QnG">
+                                        <rect key="frame" x="97.5" y="97.5" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="0Kq-lP-cD3"/>
+                                            <constraint firstAttribute="width" secondItem="jaD-ZU-QnG" secondAttribute="height" multiplier="1:1" id="tFK-F5-K23"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ご利用ありがとうございます。 素敵なGitHubライフをお楽しみください。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKG-yQ-Krh">
+                                        <rect key="frame" x="8" y="271.5" width="299" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="yKG-yQ-Krh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jaD-ZU-QnG" secondAttribute="bottom" constant="20" id="0nr-FK-A11"/>
+                                    <constraint firstItem="jAu-kA-Vrv" firstAttribute="leading" secondItem="8yj-Oh-IxL" secondAttribute="leading" constant="8" id="5Sv-Ud-Lr4"/>
+                                    <constraint firstItem="yKG-yQ-Krh" firstAttribute="leading" secondItem="8yj-Oh-IxL" secondAttribute="leading" constant="8" id="9rS-wW-w20"/>
+                                    <constraint firstItem="jaD-ZU-QnG" firstAttribute="top" secondItem="jAu-kA-Vrv" secondAttribute="bottom" constant="5" id="NpO-5w-Nmr"/>
+                                    <constraint firstItem="jaD-ZU-QnG" firstAttribute="centerX" secondItem="8yj-Oh-IxL" secondAttribute="centerX" id="Q5r-Zg-33e"/>
+                                    <constraint firstAttribute="width" secondItem="8yj-Oh-IxL" secondAttribute="height" multiplier="1:1" id="VGh-BZ-YNR"/>
+                                    <constraint firstAttribute="bottom" secondItem="yKG-yQ-Krh" secondAttribute="bottom" constant="12" id="WrZ-y1-AJ1"/>
+                                    <constraint firstAttribute="trailing" secondItem="yKG-yQ-Krh" secondAttribute="trailing" constant="8" id="bvt-5B-ZqS"/>
+                                    <constraint firstItem="jaD-ZU-QnG" firstAttribute="centerY" secondItem="8yj-Oh-IxL" secondAttribute="centerY" id="koa-iX-ah2"/>
+                                    <constraint firstItem="jAu-kA-Vrv" firstAttribute="top" secondItem="8yj-Oh-IxL" secondAttribute="top" constant="40" id="mHT-g2-F7N"/>
+                                    <constraint firstAttribute="trailing" secondItem="jAu-kA-Vrv" secondAttribute="trailing" constant="8" id="su6-GQ-Xfd"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8yj-Oh-IxL" firstAttribute="leading" secondItem="tmT-Kt-pjd" secondAttribute="leading" constant="30" id="0Od-Fc-dCa"/>
+                            <constraint firstItem="8yj-Oh-IxL" firstAttribute="centerY" secondItem="2Iu-Yu-Rkc" secondAttribute="centerY" id="JLp-A0-aPl"/>
+                            <constraint firstItem="tmT-Kt-pjd" firstAttribute="trailing" secondItem="8yj-Oh-IxL" secondAttribute="trailing" constant="30" id="iWu-jg-SRU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tmT-Kt-pjd"/>
+                    </view>
+                    <connections>
+                        <outlet property="loginIconImageView" destination="jaD-ZU-QnG" id="IDo-21-Zue"/>
+                        <outlet property="loginNameLabel" destination="jAu-kA-Vrv" id="1hR-bR-Pq0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DVV-X7-Nce" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-218.40000000000001" y="91.304347826086968"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="placeholder" width="360" height="360"/>
+    </resources>
+</document>
