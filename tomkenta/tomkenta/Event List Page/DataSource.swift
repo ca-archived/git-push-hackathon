@@ -42,9 +42,9 @@ final class DataSource {
     private func fetchingData(_ array: [Activity]?, shouldRefresh: Bool, error: GitHubAppError?) {
         isRefreshing = false
         
-        if let _ = error {
+        if let error = error {
             isMoreAvailable = false
-            delegate?.finishedFetchDatas(error: nil)
+            delegate?.finishedFetchDatas(error: error)
             return
         }
         
