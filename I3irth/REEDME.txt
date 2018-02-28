@@ -1,0 +1,4 @@
+emptyCache.java １２行目
+callback.java 10,11行目
+以上にClient ID Client Secret 入力お願いします。
+Android Studio 3.0.1
