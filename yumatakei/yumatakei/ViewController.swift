@@ -6,6 +6,10 @@
 //  Copyright © 2018年 yuma. All rights reserved.
 //
 
+let CLIENT_ID:String = ""
+let CLIENT_SECRET:String = ""
+
+
 var accesstoken: String = ""
 
 import UIKit
@@ -30,8 +34,8 @@ class ViewController: UIViewController {
     
     @IBAction func login() {
         let oauthswift = OAuth2Swift(
-            consumerKey:    "340e530f1a38c1ababd4",
-            consumerSecret: "ed21c79ee00639d6dc5d0a92e33d33c2262c0d1e",
+            consumerKey:    CLIENT_ID,
+            consumerSecret: CLIENT_SECRET,
             authorizeUrl:   "https://github.com/login/oauth/authorize",
             accessTokenUrl: "https://github.com/login/oauth/access_token",
             responseType:   "token"
@@ -48,7 +52,6 @@ class ViewController: UIViewController {
                 let storyboard: UIStoryboard = self.storyboard!
                 let timeline = storyboard.instantiateViewController(withIdentifier: "timeline")
                 self.present(timeline, animated: true, completion: nil)
-                // Do your request
             },
             failure: { error in
                 print("--------error--------")

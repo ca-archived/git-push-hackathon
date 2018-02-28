@@ -40,13 +40,13 @@
         <!--Table View Controller-->
         <scene sceneID="6FX-sa-fKB">
             <objects>
-                <tableViewController storyboardIdentifier="timeline" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QEE-L2-wWH" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="timeline" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QEE-L2-wWH" customClass="TableViewController" customModule="yumatakei" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="W2u-LK-n5B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="65" id="EyC-RC-Wwz">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="65" id="EyC-RC-Wwz">
                                 <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EyC-RC-Wwz" id="JDg-eW-WZc">
@@ -60,10 +60,13 @@
                             <outlet property="delegate" destination="QEE-L2-wWH" id="8De-PI-hZB"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="tableview" destination="W2u-LK-n5B" id="RL8-zq-URn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kxb-x2-6qa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="863.20000000000005" y="132.68365817091455"/>
+            <point key="canvasLocation" x="1448.8" y="132.68365817091455"/>
         </scene>
     </scenes>
 </document>
