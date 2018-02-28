@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if controller is AuthorizeViewController {
             (controller as? AuthorizeViewController)?.auth()
         }
-
+        
         return true
     }
     
