@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>redirect_uri</key>
-	<string></string>
+	<string>hackathon://</string>
 	<key>scope</key>
 	<string>user:follow,repo,notifications,gist,read:org</string>
 	<key>client_id</key>
