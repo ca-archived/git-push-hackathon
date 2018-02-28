@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "net.matsudamper.git_push_hackathon"
+        minSdkVersion 19
+        targetSdkVersion 27
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Support
+    implementation "com.android.support:recyclerview-v7:27.0.2"
+    implementation "com.android.support:support-v4:27.0.2"
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:customtabs:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:multidex:1.0.2'
+
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation "com.willowtreeapps.assertk:assertk:0.9"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.2"
+    implementation 'androidx.core:core-ktx:0.1'
+
+    // DataBinding
+    kapt "com.android.databinding:compiler:3.0.1"
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi:1.5.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.5.0"
+}
