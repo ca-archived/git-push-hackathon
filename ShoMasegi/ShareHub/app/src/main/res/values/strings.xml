@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">ShareHub</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- login form -->
+    <string name="login_user_name">User name</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">Sign in</string>
+    <string name="login_two_factor">Two-Factor code</string>
+    <string name="login_require_two_factor">Please fill in two-factor code</string>
+    <string name="login_open_browser">Open in Browser</string>
+    <string name="login_fail_cant_get_token_data">Failed : Can not get Token Data</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- NavigationDrawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Preference Key -->
+    <string name="pref_key_access_token">pref_key_access_token</string>
+    <string name="pref_key_otp">pref_key_otp</string>
+    <string name="pref_key_login">pref_key_login</string>
+    <string name="pref_key_avatar">pref_key_avatar</string>
+    <string name="pref_key_url">pref_key_url</string>
+
+    <!-- Layout -->
+    <string name="actor_avatar">actor avatar</string>
+    <string name="event_type">EventType</string>
+
+    <!-- TItles -->
+    <string name="main_title">Event</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        style="@style/DrawerLayout"
+        tools:openDrawer="start"
+        tools:context="masegi.sho.sharehub.presentation.event.MainActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:elevation="4dp" >
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/Toolbar.Title"
+                    android:text="Title" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <FrameLayout
+                android:id="@+id/content"
+                style="@style/ContentFrameLayout" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/drawer"
+            style="@style/DrawerNavigation">
+
+            <include
+                android:id="@+id/nav_content"
+                layout="@layout/nav_content"/>
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</layout>

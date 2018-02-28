@@ -1,0 +1,92 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="DrawerLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="DrawerNavigation">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/drawer_menu_size</item>
+        <item name="android:background">@color/drawer_menu_background</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:theme">@style/NavigationTheme</item>
+    </style>
+
+    <style name="NavigationTheme">
+        <item name="android:listPreferredItemHeightSmall">@dimen/drawer_menu_size</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+        <item name="titleTextAppearance">@style/Toolbar.NoTitleTextAppearance</item>
+    </style>
+
+    <style name="Toolbar.NoTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+
+        <item name="android:textColor">#00FFFFFF</item>
+    </style>
+
+    <style name="Toolbar.Title">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/app_bar_text_color</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="ContentFrameLayout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@id/toolbar</item>
+    </style>
+
+    <style name="ContentFrameLayoutWithoutToolbar">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="LoginEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:colorControlNormal">#CDC3C4</item>
+        <item name="android:colorControlActivated">@android:color/white</item>
+        <item name="android:textColorHint">#CDC3C4</item>
+        <item name="android:textColorHighlight">@color/color_primary_dark</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style name="LoginTextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">#CDC3C4</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style name="LoginButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingEnd">25dp</item>
+        <item name="android:paddingStart">25dp</item>
+        <item name="android:textColor">@drawable/login_button_text_style</item>
+        <item name="android:background">@drawable/login_button_style</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">@dimen/login_button_height</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+</resources>
