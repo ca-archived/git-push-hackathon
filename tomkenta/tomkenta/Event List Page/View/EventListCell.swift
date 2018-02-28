@@ -16,7 +16,7 @@ private let screenHeight : CGFloat = screenSize.height
 
 private let topMargin: CGFloat = 10.0
 private let leftMargin: CGFloat = 10.0
-private let bottomMargin: CGFloat = 10.0
+private let bottomMargin: CGFloat = 20.0
 private let margin10: CGFloat = 10.0
 private let margin5: CGFloat = 5.0
 
