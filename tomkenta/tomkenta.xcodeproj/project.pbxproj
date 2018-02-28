@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507102042D34F00C64A0F /* AppDelegate.swift */; };
-		BE1507132042D34F00C64A0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1507122042D34F00C64A0F /* ViewController.swift */; };
 		BE1507162042D34F00C64A0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE1507142042D34F00C64A0F /* Main.storyboard */; };
 		BE1507192042D34F00C64A0F /* tomkenta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE1507172042D34F00C64A0F /* tomkenta.xcdatamodeld */; };
 		BE15071B2042D34F00C64A0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE15071A2042D34F00C64A0F /* Assets.xcassets */; };
@@ -61,7 +60,6 @@
 /* Begin PBXFileReference section */
 		BE15070D2042D34F00C64A0F /* tomkenta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tomkenta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1507102042D34F00C64A0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BE1507122042D34F00C64A0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BE1507152042D34F00C64A0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE1507182042D34F00C64A0F /* tomkenta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tomkenta.xcdatamodel; sourceTree = "<group>"; };
 		BE15071A2042D34F00C64A0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 				BE36657B2043C87600EAC1C3 /* Helper */,
 				BE1507102042D34F00C64A0F /* AppDelegate.swift */,
 				BEC4E75D20433C7300B6D22E /* AppConst.swift */,
-				BE1507122042D34F00C64A0F /* ViewController.swift */,
 				BEC4E762204340F300B6D22E /* Token.swift */,
 				BE1507142042D34F00C64A0F /* Main.storyboard */,
 				BE15071A2042D34F00C64A0F /* Assets.xcassets */,
@@ -465,7 +462,6 @@
 				BEAB63E32044C2B500162421 /* GetActivityEventsRequest.swift in Sources */,
 				BEC4E75A20430FA900B6D22E /* GitHubAppError.swift in Sources */,
 				BE3665802043C9B000EAC1C3 /* Alert.swift in Sources */,
-				BE1507132042D34F00C64A0F /* ViewController.swift in Sources */,
 				BEAB63DA2044B4CB00162421 /* ObjectsRequest.swift in Sources */,
 				BE1507112042D34F00C64A0F /* AppDelegate.swift in Sources */,
 				BE36657E2043C8EF00EAC1C3 /* UIAlertController+extension.swift in Sources */,

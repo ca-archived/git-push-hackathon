@@ -48,10 +48,10 @@ final class EventListPageViewController: UIViewController {
 
 extension EventListPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let object = dataSource.data(at: indexPath.row) else {
+        guard let _ = dataSource.data(at: indexPath.row) else {
             return LoadMoreCell.height()
         }
-        return EventListCell.height(activity: object)
+        return EventListCell.height()
     }
 }
 

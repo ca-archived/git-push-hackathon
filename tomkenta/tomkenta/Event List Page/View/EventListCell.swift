@@ -118,7 +118,7 @@ final class EventListCell: UITableViewCell {
         }
     }
     
-    class func height(activity: Activity) ->CGFloat {
+    class func height() ->CGFloat {
         let cellHeight: CGFloat = topMargin + dateLabelPadding + dateLabelSize.height + margin5 + iconSize.height + bottomMargin
         return cellHeight
     }

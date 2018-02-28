@@ -10,8 +10,6 @@ import Foundation
 
 enum GitHubAppErrorCode: Int {
     case unknown                        = 0
-    case invalidParameter               = -1
-    case invalidPassword                = -201
     case badRequest                     = 400
     case wrongToken                     = 401
     case accessForbidden                = 403
@@ -21,13 +19,10 @@ enum GitHubAppErrorCode: Int {
     var errorDescription: String {
         switch self {
         case .unknown,
-             .invalidParameter,
              .badRequest,
              .accessForbidden,
              .internalServer:
             return "不明なエラー \(rawValue)"
-        case .invalidPassword:
-            return "パスワードが正しくありません"
         case .notFound:
             return "見つかりません"
         case .wrongToken:
