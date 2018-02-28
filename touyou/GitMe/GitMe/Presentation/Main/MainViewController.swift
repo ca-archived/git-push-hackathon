@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
 
                 switch event {
                 case .next(let value):
+
                     TabBarController.router.openLoadingWindow(userInfo: value)
                     self.presenter.reload { [weak self] row in
 
@@ -40,8 +41,10 @@ class MainViewController: UIViewController {
                         self.tableView.reloadData(at: row)
                     }
                 case .error(let error):
+
                     print(error)
                 case .completed:
+                    
                     break
                 }
             }.disposed(by: disposeBag)

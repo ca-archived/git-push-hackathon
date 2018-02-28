@@ -30,82 +30,98 @@ class MainConverter {
     private func convertEventTitle(of event: Event) -> NSMutableAttributedString {
 
         let mutableAttributedString = NSMutableAttributedString()
-        mutableAttributedString.append([
-            (event.actor.displayLogin, .bold)
-            ])
+        mutableAttributedString.append([(event.actor.displayLogin, .bold)])
+        mutableAttributedString.append(createMutableTemplate(of: event))
+        return mutableAttributedString
+    }
+
+    /// イベントに応じてメッセージをつくる。
+    private func createMutableTemplate(of event: Event) -> [(String, NSMutableAttributedString.GitMeStyle)] {
 
         switch event.type {
+        case .commitComment:
+
+            return [(" \(event.payload.action!) comment \"\(event.payload.comment!.body)\"", .normal)]
         case .create:
 
-            mutableAttributedString.append([
-                (" created ", .normal),
-                (event.repo!.name, .bold)
-                ])
-        case .issueComment:
+            if let ref = event.payload.ref {
 
-            mutableAttributedString.append([
-                (" \(event.payload.action!) comment on issue ", .normal),
-                ("#\(event.payload.issue!.number)", .bold),
-                (" in ", .normal),
-                (event.repo!.name, .bold)
-                ])
-        case .issues:
+                return [(" created \(event.payload.refType!) ", .normal), (ref, .bold)]
+            } else {
 
-            mutableAttributedString.append([
-                (" \(event.payload.action!)  issue ", .normal),
-                ("#\(event.payload.issue!.number)", .bold),
-                (" in ", .normal),
-                (event.repo!.name, .bold)
-                ])
-        case .push:
+                return [(" created repository", .normal)]
+            }
+        case .delete:
 
-            mutableAttributedString.append([
-                (" pushed to ", .normal),
-                (String(event.payload.ref!.split(separator: "/").last!), .bold),
-                (" at ", .normal),
-                (event.repo!.name, .bold)
-                ])
-        case .watch:
+            if let ref = event.payload.ref {
 
-            mutableAttributedString.append([
-                (" starred ", .normal),
-                (event.repo!.name, .bold)
-                ])
+                return [(" deleted \(event.payload.refType!) ", .normal), (ref, .bold)]
+            } else {
+
+                return [(" deleted repository", .normal)]
+            }
         case .fork:
 
-            mutableAttributedString.append([
-                (" forked ", .normal),
-                (event.repo!.name, .bold)
-                ])
+            return [(" forked ", .normal), (event.payload.forkee!.fullName!, .bold)]
+        case .gollum:
 
-        case .pullRequest:
+            return [(" did wiki page action", .normal)]
+        case .installation:
 
-            mutableAttributedString.append([
-                (" did pull request event in ", .normal),
-                (event.repo!.name, .bold)
-                ])
+            return [(" \(event.payload.action!) installation", .normal)]
+        case .installationRepositories:
 
-        case .public:
+            return [(" \(event.payload.action!) installation", .normal)]
+        case .issueComment:
 
-            mutableAttributedString.append([
-                (" has open sourced ", .normal),
-                (event.repo!.name, .bold)
-                ])
+            return [(" \(event.payload.action!) comment on issue ", .normal), ("#\(event.payload.issue!.number)", .bold)]
+        case .issues:
 
+           return [(" \(event.payload.action!) issue ", .normal), ("#\(event.payload.issue!.number)", .bold)]
+        case .marketplacePurchase:
+
+            return [(" \(event.payload.action!) marketplace", .normal)]
         case .member:
 
-            mutableAttributedString.append([
-                (" change collaborator in ", .normal),
-                (event.repo!.name, .bold)
-                ])
+            return [(" \(event.payload.action!) ", .normal), (event.payload.member!.login, .bold)]
+        case .orgBlock:
+
+            return [(" \(event.payload.action!) ", .normal), (event.payload.member!.login, .bold)]
+        case .projectCard:
+
+            return [(" \(event.payload.action!) project card", .normal)]
+        case .projectColumn:
+
+            return [(" \(event.payload.action!) project column", .normal)]
+        case .project:
+
+            return [(" \(event.payload.action!) project", .normal)]
+        case .public:
+
+            return [(" made public", .normal)]
+        case .pullRequest:
+
+            return [(" \(event.payload.action!) pull request ", .normal), ("#\(event.payload.pullRequest!.number)", .bold)]
+        case .pullRequestReview:
+
+            return [(" \(event.payload.action!) review on pull request ", .normal), ("#\(event.payload.pullRequest!.number)", .bold)]
+        case .pullRequestReviewComment:
+
+            return [(" \(event.payload.action!) review comment on pull request ", .normal), ("#\(event.payload.pullRequest!.number)", .bold)]
+        case .push:
+
+            return [(" pushed to ", .normal), (event.payload.ref!.split(separator: "/").dropFirst(2).joined(separator: "/"), .bold)]
+        case .release:
+
+            return [(" \(event.payload.action!) \(event.payload.release!.tagName)", .normal)]
+        case .watch:
+
+            return [(" starred", .normal)]
         default:
 
-            mutableAttributedString.append([
-                (" \(event.type.rawValue): Unknown", .normal)
-                ])
+            // ドキュメントを見る限りこれ意外はタイムラインとしては流れてこないということになっているはずなので
+            return [(" created wrong event.", .normal)]
         }
-
-        return mutableAttributedString
     }
 
     private func convertRepositoryInfo(of repo: Repository) -> String {
