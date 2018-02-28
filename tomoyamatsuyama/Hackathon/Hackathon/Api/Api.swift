@@ -76,10 +76,14 @@ class Api {
     
     func request<E: Decodable>() -> Observable<E> {
         return .create({(observer : AnyObserver<E>) in
-            Alamofire.request(self.baseUrl, parameters: self.parameters).responseJSON { result in
-                switch result.result {
+            Alamofire.request(self.baseUrl, parameters: self.parameters)
+                .validate()
+                .responseData { response in
+                    
+                    
+                switch response.result {
                 case .success:
-                    guard let data = result.data else { return }
+                    guard let data = response.data else { return }
                     if E.self != Authentication.self {
                         do {
                             let result = try JSONDecoder().decode(E.self, from: data)
