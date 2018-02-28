@@ -1,0 +1,5 @@
+github "ishkawa/APIKit"				== 3.1.2
+github "onevcat/Kingfisher" 		   	== 4.2.0
+github "SVProgressHUD/SVProgressHUD"            == 2.2.2
+github "OAuthSwift/OAuthSwift"			== 1.2.1
+github "SwiftyJSON/SwiftyJSON"			== 4.0.0

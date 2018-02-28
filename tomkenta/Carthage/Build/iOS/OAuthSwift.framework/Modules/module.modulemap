@@ -1,0 +1,11 @@
+framework module OAuthSwift {
+  umbrella header "OAuthSwift.h"
+
+  export *
+  module * { export * }
+}
+
+module OAuthSwift.Swift {
+    header "OAuthSwift-Swift.h"
+    requires objc
+}
