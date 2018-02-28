@@ -263,13 +263,13 @@
 		C9EC92A120446B30007CD128 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C9EC92A220446B30007CD128 /* Activity */,
-				C9EC92AD20446B30007CD128 /* ContainerController.swift */,
-				C9EC92AE20446B30007CD128 /* Login */,
 				C9EC92B120446B30007CD128 /* MainController.swift */,
+				C9EC92BB20446B30007CD128 /* SideMenuController.swift */,
+				C9EC92AD20446B30007CD128 /* ContainerController.swift */,
+				C9EC92A220446B30007CD128 /* Activity */,
+				C9EC92AE20446B30007CD128 /* Login */,
 				C9EC92B220446B30007CD128 /* Profile */,
 				C9EC92B520446B30007CD128 /* RepositoryList */,
-				C9EC92BB20446B30007CD128 /* SideMenuController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

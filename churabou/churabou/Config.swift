@@ -2,8 +2,8 @@ import Foundation
 
 struct Config {
     
-    static let client_id = "3b4c1dac674c96b2b7db"
-    static let client_secret = "d06432d2db33fc447af9c5650dc119a24713e963"
+    static let client_id = ""
+    static let client_secret = ""
     static var token = ""
     static var login = ""
 }
