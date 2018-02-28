@@ -103,4 +103,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_myprofile">My Profile</string>
+    <string name="action_event">My Events</string>
 </resources>

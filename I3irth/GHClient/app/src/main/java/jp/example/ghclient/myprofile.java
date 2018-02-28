@@ -1,13 +1,12 @@
 package jp.example.ghclient;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,7 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class profile extends AppCompatActivity {
+public class myprofile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +28,31 @@ public class profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Profile");
+        toolbar.setTitle("My Profile");
         setSupportActionBar(toolbar);
 
-        String userName =  getIntent().getData().getQueryParameter("username");
+        String myname = null;
+        try {
+            myname = getNameByCache();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ImageView imageView = findViewById(R.id.imageView);
-        File file = new File(getCacheDir(), userName.toLowerCase()+".bmp");
-        if(file.exists()){
+        File file = new File(getCacheDir(), myname+".bmp");
         try {
             InputStream is = new FileInputStream(file);
             Bitmap bitmap = BitmapFactory.decodeStream(new BufferedInputStream(is));
             is.close();
             imageView.setImageBitmap(bitmap);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        } else {
-            Resources resources = getResources();
-            imageView.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.octocat));
-        }
         TextView textView = findViewById(R.id.textView);
-        textView.setText(userName.toString());
+        textView.setText(myname.toString());
     }
     @Override
     public void finish() {
@@ -69,7 +69,6 @@ public class profile extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.action_myprofile) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("myprofile://xmz")));
             return true;
         } else if (id == R.id.action_myevent) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("event://xmz")));
@@ -81,8 +80,8 @@ public class profile extends AppCompatActivity {
     protected String getNameByCache() throws IOException{
         String myname=null;
         FileInputStream fis = null;
-        byte[] buffer = new byte[40];
         File file = new File(getCacheDir(), "myname.txt");
+        byte[] buffer = new byte[Integer.parseInt(String.valueOf(file.length()))];
         if (file.exists()) {
             fis = new FileInputStream(file);
             fis.read(buffer);

@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,16 +33,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class print extends AppCompatActivity {
+public class event extends AppCompatActivity {
 
     private String access_token;
+    private String myname;
     private Context context = this;
     private Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_print);
+        setContentView(R.layout.activity_event);
         overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Events");
@@ -57,17 +58,17 @@ public class print extends AppCompatActivity {
                 access_token = getByCache(file);
             else {
                 setAccessToken();
-                createCacheFile();
+                createTokenFile();
             }
             // スレッド作成 スタート
-            getEventThread getEvent = new getEventThread();
+            mThread getEvent = new mThread();
             getEvent.start();
 
             final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    getEventThread getEvent = new getEventThread();
+                    mThread getEvent = new mThread();
                     getEvent.start();
                     if (swipeRefreshLayout.isRefreshing()) {
                         swipeRefreshLayout.setRefreshing(false);
@@ -75,7 +76,7 @@ public class print extends AppCompatActivity {
                 }
             });
         }catch(IOException e ){
-            System.out.println("errorだよ〜ん : " + this);
+            e.printStackTrace();
         }
     }
     //  前のアクティビティからアクセストークンを受け取る
@@ -84,15 +85,13 @@ public class print extends AppCompatActivity {
         access_token = intent.getStringExtra("access_token");
     }
     //  cache.txtを作成してアクセストークを保存
-    protected void createCacheFile() throws IOException{
+    protected void createTokenFile() throws IOException{
         File file = new File(getCacheDir(), "cache.txt");
         FileOutputStream fos = null;
         file.createNewFile();
         fos = new FileOutputStream(file);
         fos.write(access_token.getBytes());
-        if (fos != null) {
-            fos.close();
-        }
+        fos.close();
     }
     //  cache.txtからアクセストークンを読み取る
     protected String getByCache(File file) throws IOException{
@@ -110,35 +109,35 @@ public class print extends AppCompatActivity {
         return access_token;
     }
 
-    class getEventThread extends Thread {
+    class mThread extends Thread {
 
+        JSONArray eventData = null;
         String[] eventType = null;
         String[] userName = null;
-        String[] targetName = null;
-        String[] actionType = null;
+        String[] repoName = null;
+        String[] actionType =null;
         String[] eventDate = null;
         String[] userIcon = null;
-        String[] list = null;
-        int addLength = 0;
+        String[] uniqueName = null;
+        int eventLength = 0;
 
         // Thread
         public void run(){
             try {
-                JSONObject userData = getUserData();
-                JSONArray eventData = getReceivedEvents(userData.getString("login"));
+                getUserData();
+                eventData = getReceivedEvents(myname);
                 setData(eventData);
-                setList();
             } catch (IOException e1) {
-                System.out.println("errorだよ〜ん : " + this);
+                e1.printStackTrace();
             } catch (JSONException e) {
-                System.out.println("errorだよ〜ん : " + this);
+                e.printStackTrace();
             }
             // Handler run
             handler.post(new Runnable() {
                 public void run() {
 
                     ListView listView = findViewById(R.id.listView);
-                    baseAdapter mBaseAdapter = new baseAdapter(context, R.layout.list_layout, list, userIcon, eventDate);
+                    baseAdapter mBaseAdapter = new baseAdapter(context, R.layout.list_layout, eventLength, eventDate, userName, repoName, actionType, eventType, uniqueName);
                     listView.setAdapter(mBaseAdapter);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -153,8 +152,8 @@ public class print extends AppCompatActivity {
                 }
             });
         }
-        //  ユーザのデータをJSON形式で受け取り保存する
-        protected JSONObject getUserData() throws JSONException, IOException {
+        //  ユーザのデータをJSON形式で受け取り保存、ダウンロードする
+        protected void getUserData() throws JSONException, IOException {
 
             StringBuilder sb = new StringBuilder();
             sb.append("https://api.github.com/user");
@@ -177,10 +176,32 @@ public class print extends AppCompatActivity {
             isr.close();
             br.close();
 
-            return userData;
+            myname = userData.getString("login");
+            String fileName = myname + ".bmp";
+            File file = new File(getCacheDir(), fileName);
+            if(file.exists()){}
+            else {
+                Bitmap bitMap = null;
+                connection = (HttpURLConnection) new URL(userData.getString("avatar_url")).openConnection();
+                connection.connect();
+
+                is = connection.getInputStream();
+                bitMap = BitmapFactory.decodeStream(new BufferedInputStream(is));
+                FileOutputStream fos = new FileOutputStream(file);
+                bitMap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                is.close();
+                fos.close();
+            }
+            file = new File(getCacheDir(), "myname.txt");
+            FileOutputStream fos = null;
+            file.createNewFile();
+            fos = new FileOutputStream(file);
+            fos.write(myname.getBytes());
+            fos.close();
+
         }
         //  ユーザが受け取ったイベントを読み取る
-        protected JSONArray getReceivedEvents(String userName) throws IOException {
+        protected JSONArray getReceivedEvents(String myname) throws IOException {
 
             JSONArray data = new JSONArray();
             int page = 1;
@@ -188,7 +209,7 @@ public class print extends AppCompatActivity {
 
                 StringBuilder sb = new StringBuilder();
                 sb.append("https://api.github.com/users/");
-                sb.append(userName);
+                sb.append(myname);
                 sb.append("/received_events");
                 sb.append("?page=").append(page);
                 sb.append("&access_token=").append(access_token);
@@ -207,7 +228,7 @@ public class print extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = new JSONArray(String.valueOf(sb));
                     if(jsonArray.length() > 1) {
-                        addLength += jsonArray.length();
+                        eventLength += jsonArray.length();
                         data.put(jsonArray);
                     }else {
                         page = 11;
@@ -225,7 +246,7 @@ public class print extends AppCompatActivity {
         }
         //  引数で受け取ったname(ユーザ名)のアイコン画像をキャッシュに保存する
         protected String getUserIcon(String url,String name) throws IOException{
-            String fileName = name + ".bmp";
+            String fileName = name.toLowerCase() + ".bmp";
             File file = new File(getCacheDir(), fileName);
             if(file.exists()){
                 return fileName;
@@ -246,44 +267,49 @@ public class print extends AppCompatActivity {
         }
         //  JSONからイベントタイプ、ユーザーネーム(login)、リポジトリなど、日付、アイコンをセットする
         protected void setData(JSONArray data) throws IOException, JSONException {
-            eventType = new String[addLength];
-            userName = new String[addLength];
-            targetName = new String[addLength];
-            actionType = new String[addLength];
-            eventDate = new String[addLength];
-            userIcon = new String[addLength];
+            eventType = new String[eventLength];
+            userName = new String[eventLength];
+            repoName = new String[eventLength];
+            actionType = new String[eventLength];
+            eventDate = new String[eventLength];
+            userIcon = new String[eventLength];
+            uniqueName = new String[eventLength];
 
             for (int j = 0; j < data.length(); j++) {              // page
                 JSONArray json = data.getJSONArray(j);         // object in page
                 for (int i = 0; i < json.length(); i++) {
-                    eventType[j*30+i] = json.getJSONObject(i).getString("type");
+                    eventType[j * 30 + i] = json.getJSONObject(i).getString("type");
+                    if (eventType[j * 30 + i].equals("WatchEvent")) {
+                        actionType[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getString("action");
+                        uniqueName[j * 30 + i] = "null";
+                    } else if (eventType[j * 30 + i].equals("MemberEvent")) {
+                        actionType[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getString("action");
+                        uniqueName[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getJSONObject("member").getString("login");
+                    } else if (eventType[j * 30 + i].equals("CreateEvent")) {
+                        actionType[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getString("ref_type");
+                        uniqueName[j * 30 + i] = "null";
+                    } else if (eventType[j * 30 + i].equals("CommitCommentEvent")) {
+                        actionType[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getString("comment");
+                        uniqueName[j * 30 + i] = "null";
+                    } else if (eventType[j * 30 + i].equals("DeleteEvent")) {
+                        actionType[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getString("ref_type");
+                        uniqueName[j * 30 + i] = "null";
+                    } else if (eventType[j * 30 + i].equals("ForkEvent")) {
+                        actionType[j * 30 + i] = json.getJSONObject(i).getJSONObject("payload").getString("forkee");
+                        uniqueName[j * 30 + i] = "null";
+                    } else if (eventType[j * 30 + i].equals("PublicEvent")) {
+                        actionType[j * 30 + i] = "null";
+                        uniqueName[j * 30 + i] = "null";
+                    } else {
+                        eventType[j * 30 + i] = "null";
+                        uniqueName[j * 30 + i] = "null";
+                    }
 
-                    if (eventType[j*30+i].equals("WatchEvent"))                 actionType[j*30+i] = json.getJSONObject(i).getJSONObject("payload").getString("action");
-                    else if (eventType[j*30+i].equals("MemberEvent"))           actionType[j*30+i] = json.getJSONObject(i).getJSONObject("payload").getString("action");
-                    else if (eventType[j*30+i].equals("CreateEvent"))           actionType[j*30+i] = json.getJSONObject(i).getJSONObject("payload").getString("ref_type");
-                    else if (eventType[j*30+i].equals("CommitCommentEvent"))    actionType[j*30+i] = json.getJSONObject(i).getJSONObject("payload").getString("comment");
-                    else if (eventType[j*30+i].equals("DeleteEvent"))           actionType[j*30+i] = json.getJSONObject(i).getJSONObject("payload").getString("ref_type");
-                    else if (eventType[j*30+i].equals("ForkEvent"))             actionType[j*30+i] = json.getJSONObject(i).getJSONObject("payload").getString("forkee");
-                    else eventType[i] = null;
-
-                    userName[j*30+i] = json.getJSONObject(i).getJSONObject("actor").getString("login");
-                    targetName[j*30+i] = json.getJSONObject(i).getJSONObject("repo").getString("name");
-                    eventDate[j*30+i] = json.getJSONObject(i).getString("created_at");
-                    userIcon[j*30+i] = getUserIcon(json.getJSONObject(i).getJSONObject("actor").getString("avatar_url"),userName[j*30+i]);
+                    userName[j * 30 + i] = json.getJSONObject(i).getJSONObject("actor").getString("login");
+                    repoName[j * 30 + i] = json.getJSONObject(i).getJSONObject("repo").getString("name");
+                    eventDate[j * 30 + i] = json.getJSONObject(i).getString("created_at");
+                    userIcon[j * 30 + i] = getUserIcon(json.getJSONObject(i).getJSONObject("actor").getString("avatar_url"), userName[j * 30 + i]);
                 }
-            }
-        }
-        //  ListViewに表示するデータ(文章)を作成し、セットする
-        protected void setList() {
-            list = new String[eventType.length];
-            for(int i=0; i<eventType.length; i++) {
-                if (eventType[i].equals("WatchEvent"))                  list[i] =  userName[i]+" starred "+targetName[i];
-                else if (eventType[i].equals("MemberEvent"))            list[i] =  userName[i]+" "+actionType[i]+" "+userName[i]+" as a collaborator to "+targetName[i];
-                else if (eventType[i].equals("CreateEvent"))            list[i] =  userName[i] + " created " + actionType[i] + " " + targetName[i];
-                else if (eventType[i].equals("CommitCommentEvent"))     list[i] =  userName[i]+" commented "+targetName[i];
-                else if (eventType[i].equals("DeleteEvent"))            list[i] =  userName[i]+" deleted "+targetName[i];
-                else if (eventType[i].equals("ForkEvent"))              list[i] =  userName[i]+" forked "+targetName[i];
-                else                                                    list[i] =  null;
             }
         }
     }
@@ -302,8 +328,9 @@ public class print extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.action_myprofile) {
-            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("profile://xmz")));
-            Toast.makeText(this, "設定", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("myprofile://xmz")));
+            return true;
+        } else if (id == R.id.action_myevent) {
             return true;
         }
         return super.onOptionsItemSelected(item);

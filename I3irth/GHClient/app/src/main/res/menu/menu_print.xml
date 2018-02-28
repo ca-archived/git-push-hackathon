@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="@string/action_myprofile"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_myevent"
+        android:orderInCategory="100"
+        android:title="@string/action_event"
+        app:showAsAction="never" />
 </menu>

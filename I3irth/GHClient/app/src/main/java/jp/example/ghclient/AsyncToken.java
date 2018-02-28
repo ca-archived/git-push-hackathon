@@ -38,7 +38,7 @@ public class AsyncToken extends AsyncTask<String, Void, String> {
         try {
             access_token = getTokens();
         } catch (IOException e) {
-            System.out.println("errorだよ〜ん : " + this);
+            e.printStackTrace();
         }
 
         return access_token;

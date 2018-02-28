@@ -19,15 +19,11 @@ public class splash extends Activity {
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_splash);
         overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_left);
-//        try {
-//            Thread.sleep(Long.parseLong("1000"));
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
         File file = new File(getCacheDir(), "cache.txt");
         if(file.exists()){
             String access_token = getByCache(file);
-            Uri uri = Uri.parse("print://xmz");
+            Uri uri = Uri.parse("event://xmz");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.putExtra("access_token", access_token);
             startActivity(intent);
@@ -48,7 +44,7 @@ public class splash extends Activity {
             }
             fis.close();
         } catch (IOException e) {
-            System.out.println();
+            e.printStackTrace();
         }
         return access_token;
     }

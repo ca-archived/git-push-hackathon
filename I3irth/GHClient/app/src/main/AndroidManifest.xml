@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".print"
+            android:name=".event"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -58,7 +58,7 @@
 
                 <data
                     android:host="xmz"
-                    android:scheme="print" />
+                    android:scheme="event" />
             </intent-filter>
         </activity>
         <activity
@@ -89,6 +89,21 @@
                 <data
                     android:host="xmz"
                     android:scheme="emptycache" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".myprofile"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="xmz"
+                    android:scheme="myprofile" />
             </intent-filter>
         </activity>
     </application>
