@@ -5,6 +5,8 @@ disabled_rules:
 - nesting
 - trailing_newline
 - vertical_whitespace
+# ペイロードの文言はどうしようもないため
+- cyclomatic_complexity
 
 # 追加したOSSライブラリは対象に含めたくない
 excluded:

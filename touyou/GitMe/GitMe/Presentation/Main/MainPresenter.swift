@@ -58,9 +58,12 @@ class MainPresenter: NSObject {
                         switch event {
                         case .next(let value):
 
-                            self.cellData[i].repositoryDescription = value.repositoryDescription
-                            self.cellData[i].repositoryInfo = value.repoInfo
-                            completion(i)
+                            if self.cellData.count > i {
+
+                                self.cellData[i].repositoryDescription = value.repositoryDescription
+                                self.cellData[i].repositoryInfo = value.repoInfo
+                                completion(i)
+                            }
                         case .error(let error):
 
                             print(error)
@@ -79,8 +82,11 @@ class MainPresenter: NSObject {
                         switch event {
                         case .next(let value):
 
-                            self.cellData[i].readmeUrl = value
-                            completion(i)
+                            if self.cellData.count > i {
+
+                                self.cellData[i].readmeUrl = value
+                                completion(i)
+                            }
                         case .error(let error):
 
                             print(error)
@@ -177,15 +183,14 @@ extension MainPresenter: MainPresenterProtocol {
                 case .next(let value):
 
                     self.cellData = value
-                    self.subscribeEventCellViewModel(completion)
                 case .error(let error):
 
                     print(error)
                 case .completed:
 
-                    break
+                    completion(nil)
+                    self.subscribeEventCellViewModel(completion)
                 }
-                completion(nil)
             }.disposed(by: disposeBag)
     }
 
@@ -200,15 +205,14 @@ extension MainPresenter: MainPresenterProtocol {
                 case .next(let value):
 
                     self.cellData.append(contentsOf: value)
-                    self.subscribeEventCellViewModel(completion)
                 case .error(let error):
 
                     print(error)
                 case .completed:
 
-                    break
+                    completion(nil)
+                    self.subscribeEventCellViewModel(completion)
                 }
-                completion(nil)
             }.disposed(by: disposeBag)
     }
 

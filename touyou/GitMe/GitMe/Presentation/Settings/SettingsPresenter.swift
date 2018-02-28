@@ -16,7 +16,7 @@ import PINRemoteImage
 protocol SettingsPresenterProtocol: UITableViewDataSource {
 
     func logOut()
-    func fetchUser(_ completion: @escaping ()->Void)
+    func fetchUser(_ completion: @escaping () -> Void)
 }
 
 // MARK: - SettingsPresenter
