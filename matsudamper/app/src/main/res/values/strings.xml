@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">git-push-hackathon</string>
+
+    <string name="login_state_not">認証してください</string>
+    <string name="login_state_now">認証中</string>
+    <string name="login_state_complete">認証完了</string>
+    <string name="login_state_failed">認証失敗</string>
+
+    <string name="logout">Logout</string>
+    <string name="license">License</string>
+
+    <string name="client_id"></string>
+    <string name="client_secret"></string>
+    <string name="host"></string>
+    <string name="scheme"></string>
+</resources>
