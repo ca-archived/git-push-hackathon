@@ -1,4 +1,4 @@
-# ![Git Push Hackathon](./assets/GitPushHackathon.png)
+<img src="./assets/GPH.png" alt="main image">
 
 Git Push Hackathon is a remote hackathon event for students, hosted by CyberAgent, Inc. Once you apply, all you need to do is to push what you’ve written.
 
@@ -6,7 +6,7 @@ Git Push Hackathon is a remote hackathon event for students, hosted by CyberAgen
 
 In order to confirm that you are student, you must provide your email address provided from your school; We only accept applications from students.
 
-Just fill out [the application](https://goo.gl/forms/dCJPL6Py4A6m5t172) and send it to us.
+Just fill out [the application](https://docs.google.com/forms/d/e/1FAIpQLSePYirFzO3yPYaCTm6BHum9rB_jpEhGe9fX5hVjhMdwilgCUg/viewform) and send it to us.
 
 ## What to do?
 
@@ -20,13 +20,35 @@ Just fill out [the application](https://goo.gl/forms/dCJPL6Py4A6m5t172) and send
 
 ## Requirements
 
-In Hackathon, you create one of the Web / iOS / Android applications that satisfies the specified theme.
-The theme will be published when the period is held.
+Develop a GitHub client-side mobile application using [GitHub API](https://developer.github.com/v3/)s.
+
+### Minimum requirements
+
+- "Sign in" functionality using OAuth authentication
+- Show a list of User's activity-events using [activity/events API](https://developer.github.com/v3/activity/events/)
+
+as "Sample" Gifs below show.
+
+### Note
+
+If your application requires some dependencies to be resolved, 
+
+- Create README inside your own repository, and
+- Write down step-by-step, clear explanation how to solve those dependencies
+
+When we evaluate your application and source code, we will take a look at your README and resolve any dependency according to your README. Therefore, any package or module generated for resolving those dependencies does not have to be included inside your repository as long as we can resolve it. However, note that if we cannnot figure out how to build your project, **we may not be able to evaluate your project at all.**
+
+You may need to generate any variable necessary when devleoping an application(e.g. Client ID, Client secret). When you send a pull request, you should NOT include the values of those credentials; instead you must claify where(e.g. File name) to put those credentials on your README. When we evaluate your application and source code, we will use ours so do not include those credentials when you make a pull request.
+
+### Sample
+
+|iOS|Android|
+|:---:|:---:|
+|<img src="./assets/sample_ios.gif" alt="GitHub Client Sample iOS" width="250">|<img src="./assets/sample_android.gif" alt="GitHub Client Sample Android" width="250">|
 
 ## Deadline
 
-- Application period: **2018/09/07 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**
-- Deadline: **2018/10/09 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**
+2018/02/28 23:59 (JST)
 
 ## Evaluation
 
@@ -37,8 +59,6 @@ We evaluate your application and source code based on those factors (In priority
 1. Architecture
 2. Implementation with modern technologies and understanding of language speficiations
 3. UI/UX (Extra)
-4. Any other points devised. (Please explain with a pull request)
-  - ex: Performance, Accessibility, Security, etc...
 
 ### Out of Evaluation
 
@@ -52,23 +72,27 @@ After deadline, we evaluate all the projects for both iOS and Android and announ
 
 ## Prizes
 
-### Most Excellent（1 for each: iOS, Android and Web）
+### Most Excellent（1 for each: iOS and Android）
 
 - **¥300,000**
-- Dinner with iOS/Android/Web developers at CyberAgent, Inc.(We will provide all the transport expenses and accommodations)
+- Dinner with mobile iOS/Android developers at CyberAgent, Inc.(We will provide all the transport expenses and accommodations)
 
 ### Excellent（We may choose multiple nominees）
 
-- Dinner with iOS/Android/Web developers at CyberAgent, Inc.(We will provide all the transport expenses and accommodations)
+- Dinner with mobile iOS/Android developers at CyberAgent, Inc.(We will provide all the transport expenses and accommodations)
 
-### Q&A
+## Q&A
 
 If you have any question, check [questions in the past](https://github.com/CyberAgent/git-push-hackathon/issues?q=is%3Aissue+is%3Aopen+label%3AQuestion) at first if anyone has already asked the same one. If you do not find any question or answer relevant to yours, then [create a new issue](https://github.com/CyberAgent/git-push-hackathon/issues/new). (Even if you receive relevant answers, leave your issue open for future references.) You can ask questions in English, of course.
 
-### Organizers
+## Credits
+- [CodeHub - A Client for GitHub / Dillon Buchanan](https://itunes.apple.com/jp/app/codehub-a-client-for-github/id707173885?mt=8)
+- [FastHub for GitHub / Fast Access](https://play.google.com/store/apps/details?id=com.fastaccess.github)
+
+## Organizers
 
 - [kaelaela](https://github.com/kaelaela)
 - [shaunkawano](https://github.com/shaunkawano)
+- [ra1028](https://github.com/ra1028)
 - [shoheiyokoyama](https://github.com/shoheiyokoyama)
-- [ryo_suga](https://github.com/RyotaSugawara)
-
+- [kazk1018](https://github.com/kazk1018)
