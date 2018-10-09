@@ -22,6 +22,8 @@ header{
     width:100%;
     background:#24292E;
     color:#fff;
+    display: flex;
+    justify-content: space-between;
 }
 h1{
     margin:0;
