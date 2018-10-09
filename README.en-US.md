@@ -20,8 +20,25 @@ Just fill out [the application](https://goo.gl/forms/dCJPL6Py4A6m5t172) and send
 
 ## Requirements
 
-In Hackathon, you create one of the Web / iOS / Android applications that satisfies the specified theme.
-The theme will be published when the period is held.
+Develop a GitHub client-side mobile application using [GitHub API](https://developer.github.com/v3/)s.
+
+### Minimum requirements
+
+- "Sign in" functionality using OAuth authentication
+- Using [/gists API](https://developer.github.com/v3/gists/)
+  - Show a list of User's gists
+  - Post a new gist
+
+### Note
+
+If your application requires some dependencies to be resolved, 
+
+- Create README inside your own repository, and
+- Write down step-by-step, clear explanation how to solve those dependencies
+
+When we evaluate your application and source code, we will take a look at your README and resolve any dependency according to your README. Therefore, any package or module generated for resolving those dependencies does not have to be included inside your repository as long as we can resolve it. However, note that if we cannnot figure out how to build your project, **we may not be able to evaluate your project at all.**
+
+You may need to generate any variable necessary when devleoping an application(e.g. Client ID, Client secret). When you send a pull request, you should NOT include the values of those credentials; instead you must claify where(e.g. File name) to put those credentials on your README. When we evaluate your application and source code, we will use ours so do not include those credentials when you make a pull request.
 
 ## Deadline
 
