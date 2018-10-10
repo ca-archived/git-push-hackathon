@@ -1,3 +1,9 @@
 <p>
-  message works!
+    message works!
 </p>
+
+<ul *ngIf="messageService.messages.length">
+    <li *ngFor="let message of messageService.messages">
+        <div>{{message.contributor}} : {{message.text}}</div>
+    </li>
+</ul>
