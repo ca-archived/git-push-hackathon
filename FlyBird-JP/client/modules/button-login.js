@@ -1,32 +1,36 @@
-const endpoint = 'https://api.github.com'
+const apis = {
+    "github": {
+        "endpoint": "https://api.github.com",
+        "icon" : "GitHub-Mark-120px-plus.png"
+    }
+}
+
 const template = `
     <style>
         :host {
              display: flex;
-             justify-content: flex-end;
              color: #fff;
              height: 100%;
+             max-height: 100px;
+             padding: 0.5em;
         }
         a {
             color: inherit;
             text-decoration: none;
-            display: grid;
-            grid-template-rows: 100%;
-            align-items: center;
             width: 100%;
             height: 100%;
         }
-        #login, #logout{
+        #login, #logout, a{
             display: grid;
-            grid-template-rows: 100%;
+            grid-template-columns: calc(75px - 1em) 1fr;
+            grid-template-rows: 3fr 2fr;
             align-items: center;
         }
         #login, #logout, #user{
-            width: 150px;
-            height: calc(100% - 1em);
+            width: 175px;
+            height: 100%;
             border: solid 1px #fff;
             border-radius: 150px;
-            margin: 0.5em;
             transition: background ease-in-out 0.3s;
             cursor: pointer;
         }
@@ -37,14 +41,22 @@ const template = `
         }
         .icon{
             grid-column: 1;
-            grid-row: 1;
+            grid-row: 1 / 3;
             border-radius: 50%;
             width: auto;
             height: 100%;
+            background: #fff;
         }
         .label {
             grid-column: 2;
             grid-row: 1;
+            text-align: center;
+        }
+        .desc {
+            font-size: x-small;
+            grid-column: 2;
+            grid-row: 2;
+            text-align: center;
         }
         .disabled{
             display:none!important;
@@ -61,11 +73,11 @@ class ButtonLogin extends HTMLElement {
         this.attachShadow({ 'mode': 'open' })
         this.shadowRoot.innerHTML = template
 
-        const allowServices = ["github", "twitter"]
-        this.service = this.getAttribute('service') || allowServices[0]
+        this.service = this.getAttribute('service').toLowerCase()
+        if(!this.service in apis) this.service = "github"
 
-        this.shadowRoot.getElementById('login').innerHTML = `<img id='serviceIcon' src='/test.jpg' class='icon' /><div class='label'>${this.service.charAt(0).toUpperCase()}${this.service.slice(1).toLowerCase()}</div>`
-        
+        this.shadowRoot.getElementById('login').innerHTML = `<img id='serviceIcon' src='/images/${apis[this.service].icon}' class='icon' /><div class='label'>${this.service.charAt(0).toUpperCase()}${this.service.slice(1)}</div><div class="desc">Authorization</div>`
+
         this.accessToken = localStorage.getItem(`${this.service}AccessToken`)
         if (this.accessToken == null) {
             this.shadowRoot.getElementById('user').classList.add('disabled')
@@ -84,8 +96,10 @@ class ButtonLogin extends HTMLElement {
             })
 
             this.getUser().then((user) => {
-                const userEl = this.shadowRoot.getElementById('user')
-                userEl.innerHTML = `<a href='${user['page']}'><img src='${user['img']}' class='icon' /><div class='label'>${user['name']}</div></a>`
+                if (user != null) {
+                    const userEl = this.shadowRoot.getElementById('user')
+                    userEl.innerHTML = `<a href='${user['page']}'><img src='${user['img']}' class='icon' /><div class='label'>${user['name']}</div><div class='desc'>${this.service.charAt(0).toUpperCase()}${this.service.slice(1)}</div></a>`
+                }
             })
         }
     }
@@ -97,11 +111,14 @@ class ButtonLogin extends HTMLElement {
 
         switch (this.service) {
             case "github":
-                const res = await fetch(`${endpoint}/user`, { headers: { 'Authorization': ` token ${this.accessToken}` } })
+                const res = await fetch(`${apis[this.service].endpoint}/user`, { headers: { 'Authorization': ` token ${this.accessToken}` } })
                 const json = await res.json()
                 user.img = json['avatar_url']
                 user.name = json['login']
                 user.page = json['html_url']
+                break;
+            default:
+                user = null;
                 break;
         }
 

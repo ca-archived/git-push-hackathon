@@ -20,7 +20,7 @@ body {
 }
 header{
     width: 100%;
-    height: 10vmin;
+    height: 75px;
     background:#24292E;
     color:#fff;
     display: flex;
@@ -30,9 +30,10 @@ h1{
     margin: 0;
     padding-left: 1em;
     font-weight: 100;
-    line-height: 10vmin;
+    line-height: 75px;
     font-size:xx-large;
 }
 #buttons{
     display: flex;
+    height: 100%;
 }
