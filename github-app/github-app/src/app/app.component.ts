@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'github-app';
+  title = 'GithubApp';
+  sub_title = 'AOuth and any operate of some gist';
 }
