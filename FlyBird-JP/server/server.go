@@ -1,13 +1,14 @@
 package main
 
 import(
-	"fmt"
 	"net"
 	"net/http"
 	"net/http/fcgi"
 	"path/filepath"
+	"encoding/json"
 	"io/ioutil"
 	"golang.org/x/oauth2"
+	"github.com/gorilla/mux"
 )
 
 const(
@@ -33,17 +34,18 @@ func main(){
 	clientId := string(bytes)
 
 	github = &oauth2.Config{
-		ClientID :     clientId,
+		ClientID : clientId,
 		ClientSecret: clientSecret,
-		Endpoint:    oauth2.Endpoint{
+		Endpoint: oauth2.Endpoint{
 			AuthURL:  "https://github.com/login/oauth/authorize",
 			TokenURL: "https://github.com/login/oauth/access_token",
 		},
-		Scopes:       []string{"gist", "read:user"},
+		Scopes: []string{"gist", "read:user"},
 	  }
 
-	http.HandleFunc("/auth", auth)
-	http.HandleFunc("/token", token)
+	router := mux.NewRouter().StrictSlash(false)
+	router.HandleFunc("/auth", auth).Methods("GET")
+	router.HandleFunc("/token", token).Methods("POST")
 	
 	listener, err := net.Listen("tcp", "127.0.0.1:49651")
 	if err != nil {
@@ -51,7 +53,7 @@ func main(){
 	}
 	defer listener.Close()
 
-	fcgi.Serve(listener, nil)
+	fcgi.Serve(listener, router)
 }
 
 func auth(res http.ResponseWriter, req *http.Request) {
@@ -68,27 +70,43 @@ func auth(res http.ResponseWriter, req *http.Request) {
 }
 
 func token(res http.ResponseWriter, req *http.Request) {
-	parameter := req.URL.Query()
-	code := parameter["code"][0]
-	service := parameter["service"][0]
-
-	var token *oauth2.Token
-	var err error
-	switch service {
-		case "github":	token, err = github.Exchange(oauth2.NoContext, code)
-	}
-  	if err != nil {
+	bytes, err := ioutil.ReadAll(req.Body)
+	defer req.Body.Close()
+	if err != nil {
     	panic(err.Error())
-  	}
+	}
 
-	fmt.Fprint(res, 
-		`<!DOCTYPE html>
-		<html>
-		<head>
-			<title>Gist</title>
-		</head>
-		<body>
-			<script>localStorage.setItem("`+ service +`AccessToken", "` + token.AccessToken + `");location.href = "/";</script>
-		</body>
-		</html>`)
+	var reqJson interface{}
+	err = json.Unmarshal(bytes, &reqJson)
+
+	service := reqJson.(map[string]interface{})["service"]
+	code := reqJson.(map[string]interface{})["code"]
+
+	if service != nil && code != nil {
+		var token *oauth2.Token
+		switch service.(string) {
+			case "github":	token, err = github.Exchange(oauth2.NoContext, code.(string))
+		}
+  		if err != nil {
+    		panic(err.Error())
+		}
+		resJson := map[string]string{}
+		resJson["service"] = service.(string)
+		resJson["accessToken"] = token.AccessToken
+	  
+		respondWithJson(resJson, res)
+	} else {
+		res.WriteHeader(http.StatusNotFound)
+	}
+}
+
+func respondWithJson(data interface{}, res http.ResponseWriter) {
+	res.Header().Set("Content-Type", "application/json")
+	encorder := json.NewEncoder(res)
+	encorder.SetIndent("", "\t")
+
+	err := encorder.Encode(data)
+	if err != nil {
+		panic(err.Error())
+	}
 }

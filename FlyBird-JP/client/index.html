@@ -7,17 +7,22 @@
     <meta id='themeColor' content='#303F9F' name='theme-color' />
     <meta name='viewport' content='width=device-width,user-scalable=no' />
     <meta name='mobile-web-app-capable' content='yes' />
-    <script type="module" src="/index.js"></script>
+    <script type='module' src='/modules/index.js'></script>
+    <script src='https://unpkg.com/vue/dist/vue.js'></script>
+    <script src='https://unpkg.com/vue-router/dist/vue-router.js'></script>
     <script src='/script.js'></script>
 </head>
 
 <body>
     <header>
         <h1>Gist Client</h1>
-        <div id="buttons">
-            <button-login service="github"></button-login>
+        <div id='buttons'>
+            <button-auth service='github'></button-auth>
         </div>
     </header>
+    <div id='content'>
+        <router-view></router-view>
+    </div>
 </body>
 
 </html>
