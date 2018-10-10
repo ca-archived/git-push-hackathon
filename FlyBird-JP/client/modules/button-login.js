@@ -31,7 +31,7 @@ const template = `
         }
     </style>
     <button id='login' disabled='disabled'>Login</button>
-    <button id='logout' disabled='disabled'>Login</button>
+    <button id='logout' disabled='disabled'>Logout</button>
 `;
 
 class ButtonLogin extends HTMLElement {
@@ -43,7 +43,7 @@ class ButtonLogin extends HTMLElement {
         if (accessToken == null) {
             this.shadowRoot.getElementById('login').disabled = false
             this.shadowRoot.getElementById('login').addEventListener('click', (event) => {
-                location.href = `https://github.com/login/oauth/authorize?client_id=${this.getAttribute("clientId")}`
+                location.href = "/auth"
             })
         } else {
             this.shadowRoot.getElementById('logout').disabled = false
