@@ -7,28 +7,32 @@ html {
     box-sizing: inherit;
 }
 body {
-    width:100%;
+    width: 100%;
     margin: 0 auto;
-    padding:0;
-    font-size:16px;
+    padding: 0;
+    font-size: 16px;
     background: #fff;
     color: #111;
-    font-family:"游ゴシック", "YuGothic", "Yu Gothic", 'ヒラギノ角ゴ ProN W3', "Hiragino Kaku Gothic ProN", "Meiryo", Helvetica, Arial, sans-serif;
+    font-family: "游ゴシック", "YuGothic", "Yu Gothic", 'ヒラギノ角ゴ ProN W3', "Hiragino Kaku Gothic ProN", "Meiryo", Helvetica, Arial, sans-serif;
     font-weight: 100;
-    padding:0;
-    overflow-x:hidden;
+    padding: 0;
+    overflow-x: hidden;
 }
 header{
-    width:100%;
+    width: 100%;
+    height: 10vmin;
     background:#24292E;
     color:#fff;
     display: flex;
     justify-content: space-between;
 }
 h1{
-    margin:0;
-    padding-left:1em;
+    margin: 0;
+    padding-left: 1em;
     font-weight: 100;
-    line-height: 10vh;
+    line-height: 10vmin;
     font-size:xx-large;
+}
+#buttons{
+    display: flex;
 }

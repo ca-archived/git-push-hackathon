@@ -5,19 +5,17 @@ import(
 	"net"
 	"net/http"
 	"net/http/fcgi"
-	"net/url"
 	"path/filepath"
 	"io/ioutil"
+	"golang.org/x/oauth2"
 )
 
 const(
 	clientSecretPath = "../setting/client_secret.txt"
 	clientIdPath = "../setting/client_id.txt"
-	endpoint = "https://github.com/login/oauth/access_token"
 )
 
-var clientSecret string
-var clientId string
+var github *oauth2.Config
 
 func main(){
 	path,_ := filepath.Abs(clientSecretPath)
@@ -25,17 +23,27 @@ func main(){
 	if err != nil{
 		panic(err.Error())
 	}
-	clientSecret = string(bytes)
+	clientSecret := string(bytes)
 
 	path,_ = filepath.Abs(clientIdPath)
 	bytes, err = ioutil.ReadFile(path)
 	if err != nil{
 		panic(err.Error())
 	}
-	clientId = string(bytes)
+	clientId := string(bytes)
+
+	github = &oauth2.Config{
+		ClientID :     clientId,
+		ClientSecret: clientSecret,
+		Endpoint:    oauth2.Endpoint{
+			AuthURL:  "https://github.com/login/oauth/authorize",
+			TokenURL: "https://github.com/login/oauth/access_token",
+		},
+		Scopes:       []string{"gist", "read:user"},
+	  }
 
 	http.HandleFunc("/auth", auth)
-	http.HandleFunc("/auth_callback", authCallback)
+	http.HandleFunc("/token", token)
 	
 	listener, err := net.Listen("tcp", "127.0.0.1:49651")
 	if err != nil {
@@ -47,40 +55,40 @@ func main(){
 }
 
 func auth(res http.ResponseWriter, req *http.Request) {
-	http.Redirect(res, req, "https://github.com/login/oauth/authorize?client_id=" + clientId, 303)
+	parameter := req.URL.Query()
+	service := parameter["service"][0]
+
+	var authUrl string
+	state := "test"
+	switch service {
+		case "github":	authUrl = github.AuthCodeURL(state)
+		default: authUrl = "/"
+	}
+	http.Redirect(res, req, authUrl, 303)
 }
 
-func authCallback(res http.ResponseWriter, req *http.Request) {
+func token(res http.ResponseWriter, req *http.Request) {
 	parameter := req.URL.Query()
 	code := parameter["code"][0]
+	service := parameter["service"][0]
 
-	values := url.Values{}
-	values.Add("client_id", clientId)
-	values.Add("client_secret", clientSecret)
-	values.Add("code", code)
-
-	postRes, err := http.PostForm(endpoint, values)
-	if err != nil {
-		panic(err.Error())
+	var token *oauth2.Token
+	var err error
+	switch service {
+		case "github":	token, err = github.Exchange(oauth2.NoContext, code)
 	}
+  	if err != nil {
+    	panic(err.Error())
+  	}
 
-	if postRes.StatusCode == 200 {
-		defer postRes.Body.Close()
-		body,_ := ioutil.ReadAll(postRes.Body)
-		bodyString := string(body)
-		data,_ := url.ParseQuery(bodyString)
-		
-		fmt.Fprint(res, 
-			`<!DOCTYPE html>
-			<html>
-			<head>
-				<title>Gist</title>
-			</head>
-			<body>
-				<script>localStorage.setItem("accessToken", "` + data["access_token"][0] + `");location.href = new URL(location.href).origin;</script>
-			</body>
-			</html>`)
-	} else {
-		http.Redirect(res, req, "/", 303)
-	}
+	fmt.Fprint(res, 
+		`<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Gist</title>
+		</head>
+		<body>
+			<script>localStorage.setItem("`+ service +`AccessToken", "` + token.AccessToken + `");location.href = "/";</script>
+		</body>
+		</html>`)
 }
