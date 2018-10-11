@@ -50,6 +50,7 @@ export class ApiService {
     }
 
     OAuth2() {
+        /*
         var httpObj = this.http.post(this.OAuthURL2
             + "?client_id=" + this.clientId
             + "&client_secret=" + this.clientSecret
@@ -58,19 +59,14 @@ export class ApiService {
             + "&state=" + this.state
         );
         httpObj.subscribe(this.OAuth2Next, this.RequestError)
+        */
     }
-
-    temp =this.OAuthURL2
-        + "?client_id=" + this.clientId
-        + "&client_secret=" + this.clientSecret
-        + "&code=" + this.redirect_code
-        + "&state=" + this.state
 
     OAuth2Next() {
         console.log("Response");
         console.log(res);
-
     }
+
     OAuth3() {
 
     }
