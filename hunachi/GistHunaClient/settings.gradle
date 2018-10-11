@@ -1,1 +1,1 @@
-include ':app', ':oauth'
+include ':app', ':oauth', ':shared'
