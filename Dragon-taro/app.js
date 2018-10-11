@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { OAuth } from "oauthio-web";
 import { HashRouter, Route, Link, Switch } from "react-router-dom";
 
 class App extends React.Component {
@@ -36,12 +37,32 @@ class App extends React.Component {
   }
 }
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-    <p>Welcome to ようこそ</p>
-  </div>
-);
+class Home extends React.Component {
+  constructor() {
+    super();
+  }
+
+  handleOAuth() {
+    const self = this;
+    OAuth.initialize("ACCESS_TOKEN");
+    OAuth.popup("github").done(function(result) {
+      self.setState(result);
+    });
+  }
+
+  render() {
+    console.log(proccess.env.ACCESS_TOKEN);
+
+    return (
+      <div>
+        <h2>Home</h2>
+        <p>home</p>
+        <button onClick={() => this.handleOAuth()}>GitHubでログイン</button>
+      </div>
+    );
+  }
+}
+
 const About = () => (
   <div>
     <h2>About</h2>

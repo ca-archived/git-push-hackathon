@@ -1,4 +1,12 @@
 const path = require("path");
+var webpack = require("webpack");
+require("dotenv").config();
+
+var defineEnv = new webpack.DefinePlugin({
+  "process.env": {
+    TEST: JSON.stringify(process.env.TEST)
+  }
+});
 
 module.exports = {
   entry: "./app.js",
@@ -23,5 +31,6 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [defineEnv]
 };
