@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "watch": "npx webpack --mode development --watch",
-    "build": "npx webpack --mode production"
+    "build": "npx webpack --mode production",
+    "start": "http-server -o"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -19,6 +21,7 @@
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "http-server": "^0.11.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   }
