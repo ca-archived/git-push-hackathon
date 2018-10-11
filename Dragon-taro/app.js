@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { OAuth } from "oauthio-web";
 import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import { ACCESS_TOKEN } from "./secret";
 
 class App extends React.Component {
   constructor() {
@@ -44,14 +45,14 @@ class Home extends React.Component {
 
   handleOAuth() {
     const self = this;
-    OAuth.initialize("ACCESS_TOKEN");
+    OAuth.initialize(ACCESS_TOKEN);
     OAuth.popup("github").done(function(result) {
-      self.setState(result);
+      self.setState(result.toJson());
     });
   }
 
   render() {
-    console.log(proccess.env.ACCESS_TOKEN);
+    console.log(ACCESS_TOKEN);
 
     return (
       <div>
