@@ -6,12 +6,21 @@ module.exports = {
     path: path.join(__dirname, "static/js"),
     filename: "bundle.js"
   },
+  resolve: {
+    modules: ["node_modules"],
+    extensions: [".js", ".jsx"]
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"]
+          }
+        }
       }
     ]
   }
