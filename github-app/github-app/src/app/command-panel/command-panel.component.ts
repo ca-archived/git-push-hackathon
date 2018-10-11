@@ -17,7 +17,7 @@ export class CommandPanelComponent implements OnInit {
     ngOnInit() {
         console.log("command-panel OnInit");
         console.log("GetTest");
-        this.apiService.GetTest();
+        //this.apiService.GetTest();
         //console.log("PostTest");
         //this.apiService.PostTest();
         //console.log("OAuth1");

@@ -33,7 +33,7 @@ export class OauthRedirectComponent implements OnInit {
         && (this.apiService.redirect_state == this.apiService.state)) {
       this.message += "OAuth認証の第一段階に成功しました\n";
     }
-    this.apiService.OAuth2();
+    //this.apiService.OAuth2();
 
 
   }

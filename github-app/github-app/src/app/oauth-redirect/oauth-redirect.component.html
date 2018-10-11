@@ -18,7 +18,7 @@
   </div>
   <div>
     <label for="redirect_url">redirect_url</label>
-    <input name="redirect_url" id="redirect_url" value="{{this.apiService.redirectUrl}}">
+    <input name="redirect_url" id="redirect_url" value="http://localhost:4200/oauth-redirect">
   </div>
   <div>
     <label for="state">state</label>
@@ -28,3 +28,5 @@
     <button>アクセストークンを取得</button>
   </div>
 </form>
+
+<button (click) ="this.apiService.OAuth2()">アクセストークンを取得by ApiService</button>

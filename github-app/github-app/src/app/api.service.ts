@@ -16,15 +16,16 @@ export class ApiService {
     redirectUrl: string = "http://localhost:4200";
     state: string = "alkjsoivuejngiausy"; //random文字列ってこれでいいの？
 
-    redirect_code :string = "";
-    redirect_state :string = "";
+    redirect_code: string = "";
+    redirect_state: string = "";
 
-    temp : string = "";
+    temp: string = "";
     httpOptions = {
         header: new HttpHeaders({
             'Content-Type': 'application/json',
         })
     };
+
     constructor(private http: HttpClient) {
     }
 
@@ -49,21 +50,25 @@ export class ApiService {
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
+
     OAuth2() {
-        /*
-        var httpObj = this.http.post(this.OAuthURL2
-            + "?client_id=" + this.clientId
-            + "&client_secret=" + this.clientSecret
-            + "&code=" + this.redirect_code
-            + "&redirect_url=" + "http://localhost:4200/oauth-redirect"
-            + "&state=" + this.state
+        var httpObj = this.http.post(
+            this.OAuthURL2,
+            new HttpParams()
+                .set('client_id', this.clientId)
+                .set('client_secret', this.clientSecret)
+                .set('code', this.redirect_code)// default is empty
+                .set('redirect_url', "http://localhost:4200")
+                .set('state', this.state), // default is true
+            {headers : new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })}
         );
         httpObj.subscribe(this.OAuth2Next, this.RequestError)
-        */
     }
 
-    OAuth2Next() {
-        console.log("Response");
+    OAuth2Next(res) {
+        console.log("OAuth2Next Response");
         console.log(res);
     }
 
