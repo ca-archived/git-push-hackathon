@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mobile_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/mainActivity">
 
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="io.github.hunachi.gisthunaclient.MainActivity"
+        android:label="MainActivity" />
 </navigation>

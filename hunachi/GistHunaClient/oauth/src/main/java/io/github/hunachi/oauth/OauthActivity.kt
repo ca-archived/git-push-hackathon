@@ -1,14 +1,14 @@
-package io.github.hunachi.gisthunaclient
+package io.github.hunachi.oauth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import io.github.hunachi.gisthunaclient.databinding.ActivityMainBinding
+import io.github.hunachi.oauth.databinding.ActivityOauthBinding
 
-class MainActivity : AppCompatActivity() {
+class OauthActivity : AppCompatActivity() {
 
     val binding by lazy {
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        DataBindingUtil.setContentView<ActivityOauthBinding>(this, R.layout.activity_oauth)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
