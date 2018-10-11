@@ -8,6 +8,8 @@ import {MenuComponent} from './menu/menu.component';
 import {CommandPanelComponent} from './command-panel/command-panel.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
+import { AllGistComponent } from './all-gist/all-gist.component';
+import { PostGistComponent } from './post-gist/post-gist.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import {HttpClientModule} from '@angular/common/http';
         DashboardComponent,
         MessageComponent,
         MenuComponent,
-        CommandPanelComponent
+        CommandPanelComponent,
+        AllGistComponent,
+        PostGistComponent
     ],
     imports: [
         BrowserModule,

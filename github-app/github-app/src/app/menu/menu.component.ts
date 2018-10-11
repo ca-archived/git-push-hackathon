@@ -11,8 +11,10 @@ export class MenuComponent implements OnInit {
     }
 
     menuItems: string[] = [
-        "logins",
-        "gist"
+        "gist",
+        "view All gist",
+        "view gist by id",
+        "post gist",
     ];
 
     ngOnInit() {

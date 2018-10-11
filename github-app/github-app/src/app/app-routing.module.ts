@@ -6,8 +6,8 @@ import { MenuComponent } from './menu/menu.component';
 import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
-    { path: '', component: DashboardComponent },
-    { path: 'command-panel', component: CommandPanelComponent }
+    { path: 'command-panel', component: DashboardComponent },
+    { path: '', component: CommandPanelComponent }
 ];
 
 @NgModule({
