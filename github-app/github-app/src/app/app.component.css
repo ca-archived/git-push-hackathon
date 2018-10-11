@@ -1,0 +1,45 @@
+#titile_container{
+    display: block;
+    height : 75px;
+    width : 100%;
+
+}
+
+#title , #sub_title {
+    display: inline-block;
+    height : 50%;
+    margin-top : 10px;
+    margin-left : 50px;
+}
+
+#sub_title {
+
+}
+#sub_title {
+
+}
+
+hr {
+    margin : 0;
+    padding: 0;
+}
+#main {
+    display: block;
+    overflow: hidden;
+}
+app-menu {
+    top : 0;
+    left : 0;
+    width : 20%;
+    display: block;
+    float: left;
+}
+#router_outlet {
+    top : 0;
+    right : 0;
+    width : 80%;
+    min-height: 200px;
+    display: block;
+    margin : 0;
+    float: left;
+}
