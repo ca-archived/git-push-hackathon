@@ -10,6 +10,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import { AllGistComponent } from './all-gist/all-gist.component';
 import { PostGistComponent } from './post-gist/post-gist.component';
+import { OauthComponent } from './oauth/oauth.component';
+import { OauthRedirectComponent } from './oauth-redirect/oauth-redirect.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,9 @@ import { PostGistComponent } from './post-gist/post-gist.component';
         MenuComponent,
         CommandPanelComponent,
         AllGistComponent,
-        PostGistComponent
+        PostGistComponent,
+        OauthComponent,
+        OauthRedirectComponent
     ],
     imports: [
         BrowserModule,

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
-import {HttpClient, HttpHeaders ,HttpParams} from '@angular/common/http';
-import {GitHubApiParam1, GitHubApiParam2} from'./github_api_param';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +8,7 @@ import {GitHubApiParam1, GitHubApiParam2} from'./github_api_param';
 export class ApiService {
 
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET
-    //OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
-    OAuthURL2: string = "https://github.com/login?return_to=%2Flogin%2Foauth%2Fauthorize"; //POST
+    OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
     OAuthURL3: string = "https://api.github.com/user?access_token="; //GET
 
     clientId: string = "0bc6d4e0794201162940";
@@ -18,32 +16,15 @@ export class ApiService {
     redirectUrl: string = "http://localhost:4200";
     state: string = "alkjsoivuejngiausy"; //random文字列ってこれでいいの？
 
+    redirect_code :string = "";
+    redirect_state :string = "";
+
+    temp : string = "";
     httpOptions = {
         header: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': "*",
-            'Access-Control-Allow-Origin': "http://localhost:4200",
-            'Origin': "http://localhost:4200"
         })
     };
-    githubApiParam1: GitHubApiParam1;
-    githubApiParam1 = {
-        client_id: this.clientId,
-        redirect_url: this.redirectUrl,
-        scope: "", // default is empty
-        state: this.state,
-        allow_singup: false // default is true
-    }
-
-    githubApiParam2: GitHubApiParam2;
-    gitHubApiParam2 = {
-        client_id: this.clientId,
-        client_secret: this.clientSecret,
-        code: "", // OAuth1のレスポンスに入っているので、後で代入する
-        redirect_url: this.redirectUrl,
-        state: this.state
-    }
-
     constructor(private http: HttpClient) {
     }
 
@@ -68,36 +49,28 @@ export class ApiService {
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
-    OAuth1() {
-        var httpObj = this.http.get("https://github.com/login/oauth/authorize",
-            {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json'
-                }),
-                params: new HttpParams({
-                    client_id: this.clientId,
-                    redirect_url: this.redirectUrl,
-                    scope: "", // default is empty
-                    state: this.state,
-                    allow_singup: false // default is true
-                })
-            });
-        console.log(this.githubApiParam1);
-        httpObj.subscribe(this.OAuth1Next, this.RequestError);
+    OAuth2() {
+        var httpObj = this.http.post(this.OAuthURL2
+            + "?client_id=" + this.clientId
+            + "&client_secret=" + this.clientSecret
+            + "&code=" + this.redirect_code
+            + "&redirect_url=" + "http://localhost:4200/oauth-redirect"
+            + "&state=" + this.state
+        );
+        httpObj.subscribe(this.OAuth2Next, this.RequestError)
     }
 
-    OAuth1Next(res: GitHubApiParam1) {
+    temp =this.OAuthURL2
+        + "?client_id=" + this.clientId
+        + "&client_secret=" + this.clientSecret
+        + "&code=" + this.redirect_code
+        + "&state=" + this.state
+
+    OAuth2Next() {
         console.log("Response");
         console.log(res);
-        this.githubApiParam2["code"] = res["code"];
-    }
 
-    OAuth2() {
-        var httpObj = this.http.post(this.OAuthURL2, this.githubApiParam2, this.httpOptions);
-        console.log(this.githubApiParam2);
-        httpObj.subscribe(this.RequestNext, this.RequestError);
     }
-
     OAuth3() {
 
     }

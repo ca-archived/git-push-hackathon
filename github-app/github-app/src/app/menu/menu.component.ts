@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
 
     menuItems: {name : string, parent: string, url: string}[] = [
         {name : "HOME" , parent:"", url:"/"},
+        {name : "LoginGithub(OAuth)" , parent:"", url:"/oauth"},
         {name : "Gist" , parent:"", url:""},
         {name : "view All gist", parent:"Gist", url:"/all-gist"},
         {name : "post gist", parent:"Gist", url:"/post-gist"},
