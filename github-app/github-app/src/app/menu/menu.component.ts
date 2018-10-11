@@ -10,11 +10,10 @@ export class MenuComponent implements OnInit {
     constructor() {
     }
 
-    menuItems: string[] = [
-        "gist",
-        "view All gist",
-        "view gist by id",
-        "post gist",
+    menuItems: {name : string, parent: string, url: string}[] = [
+        {name : "gist" , parent:"", url:""},
+        {name : "view All gist", parent:"gist", url:"/all-gist"},
+        {name : "post gist", parent:"gist", url:"/post-gist"},
     ];
 
     ngOnInit() {

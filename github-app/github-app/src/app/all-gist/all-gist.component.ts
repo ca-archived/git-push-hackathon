@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-all-gist',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllGistComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private apiService : ApiService
+  ) { }
 
   ngOnInit() {
   }
