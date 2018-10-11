@@ -14,3 +14,5 @@ var Store = new Vuex.Store({
   actions: {
   }
 }
+
+export default Store
