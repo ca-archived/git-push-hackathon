@@ -1,16 +1,41 @@
 'use strict'
 
+Vue.config.ignoredElements = [
+    'login-button'
+];
+
 const routes = [
     {
         'path': '/',
         'component': {
-            'template': '<div>top page</div>'
+            'template': `
+                <div id='root'>
+                    <header>
+                        <h1>
+                            <router-link to='/'>Gist Client</router-link>
+                        </h1>
+                        <div id='buttons'>
+                            <login-button service='github'></login-button>
+                        </div>
+                    </header>
+                </div>
+            `
         }
     },
     {
         'path': '/callback_auth',
         'component': {
-            'template': '<div>foo</div>',
+            'template': `
+                <div id='root'>
+                    <header>
+                        <h1>
+                            <router-link to='/'>Gist Client</router-link>
+                        </h1>
+                    </header>
+                        <p class='logging_messeage'>ログイン中...</p>
+                    </main>
+                </div>
+            `,
             'created': function () {
                 const url = new URL(location.href)
                 if (url.searchParams.has('code') && url.searchParams.has('service') && url.searchParams.has('state')) {
@@ -28,7 +53,6 @@ const routes = [
                             localStorage.setItem(`${json['service']}AccessToken`, json['accessToken'])
                             location.href = '/'
                         })
-                }
             }
         }
     }

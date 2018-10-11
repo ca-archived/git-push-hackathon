@@ -1,3 +1,4 @@
 "use strict";
 
-import '/modules/button-auth.js'
+import LoginButton from '/modules/login-button.js'
+window.customElements.define('login-button', LoginButton)
