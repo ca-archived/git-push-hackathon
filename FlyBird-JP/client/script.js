@@ -32,6 +32,7 @@ const routes = [
                             <router-link to='/'>Gist Client</router-link>
                         </h1>
                     </header>
+                    <main class='relative'>
                         <p class='logging_messeage'>ログイン中...</p>
                     </main>
                 </div>
@@ -53,6 +54,7 @@ const routes = [
                             localStorage.setItem(`${json['service']}AccessToken`, json['accessToken'])
                             location.href = '/'
                         })
+                } else location.href = '/'
             }
         }
     }
