@@ -1,8 +1,6 @@
 'use strict'
 
-Vue.config.ignoredElements = [
-    'login-button'
-];
+Vue.config.ignoredElements = ['login-button', 'gist-list', 'gist-item', 'git-event'];
 
 const routes = [
     {
@@ -12,12 +10,15 @@ const routes = [
                 <div id='root'>
                     <header>
                         <h1>
-                            <router-link to='/'>Gist Client</router-link>
+                            <a href='/'>Gist Client</a>
                         </h1>
                         <div id='buttons'>
                             <login-button service='github'></login-button>
                         </div>
                     </header>
+                    <main>
+                        <gist-list></gist-list>
+                    </main>
                 </div>
             `
         }
@@ -33,7 +34,7 @@ const routes = [
                         </h1>
                     </header>
                     <main class='relative'>
-                        <p class='logging_messeage'>ログイン中...</p>
+                        <div class="spinner center"></div>
                     </main>
                 </div>
             `,
@@ -54,7 +55,7 @@ const routes = [
                             localStorage.setItem(`${json['service']}AccessToken`, json['accessToken'])
                             location.href = '/'
                         })
-                } else location.href = '/'
+                } else ;//location.href = '/'
             }
         }
     }
