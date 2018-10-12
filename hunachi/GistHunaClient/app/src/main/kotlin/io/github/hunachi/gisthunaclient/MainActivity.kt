@@ -1,9 +1,11 @@
 package io.github.hunachi.gisthunaclient
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import io.github.hunachi.gisthunaclient.databinding.ActivityMainBinding
+import io.github.hunachi.oauth.OauthActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.apply {  }
+        binding.apply {
+            button.setOnClickListener {
+                startActivity(Intent(this@MainActivity, OauthActivity::class.java))
+            }
+        }
     }
 }
