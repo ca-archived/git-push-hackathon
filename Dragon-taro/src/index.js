@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { OAuth } from "oauthio-web";
-import { HashRouter, Route, Link, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import { ACCESS_TOKEN } from "./secret";
+import { HeaderContainer } from "./containers/HeaderContainer";
 
 class App extends React.Component {
   constructor() {
@@ -13,19 +14,7 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-
-            <li>
-              <Link to="/friends">Friends</Link>
-            </li>
-          </ul>
+          <HeaderContainer />
           <hr />
           <Switch>
             <Route exact path="/" component={Home} />
