@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 })
 export class ApiService {
 
-    OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET
+    OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
     OAuthURL3: string = "https://api.github.com/user?access_token="; //GET
 
@@ -19,7 +19,11 @@ export class ApiService {
     redirect_code: string = "";
     redirect_state: string = "";
 
+    access_token : string ="xxx";
+
     temp: string = "";
+
+
     httpOptions = {
         header: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -50,7 +54,6 @@ export class ApiService {
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
-
     OAuth2() {
         var httpObj = this.http.post(
             this.OAuthURL2,
@@ -60,15 +63,17 @@ export class ApiService {
                 .set('code', this.redirect_code)// default is empty
                 .set('redirect_url', "http://localhost:4200")
                 .set('state', this.state), // default is true
-            {headers : new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })}
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
         );
-        httpObj.subscribe(this.OAuth2Next, this.RequestError)
+        httpObj.subscribe(this.OAuth2Next, this.RequestError);
     }
 
     OAuth2Next(res) {
-        console.log("OAuth2Next Response");
+        console.log("Response");
         console.log(res);
     }
 
