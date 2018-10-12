@@ -1,1 +1,1 @@
-include ':app', ':oauth', ':shared'
+include ':app', ':oauth', ':shared', ':model', ':gist'
