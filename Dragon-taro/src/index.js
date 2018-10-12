@@ -52,8 +52,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(ACCESS_TOKEN);
-
     return (
       <div>
         <h2>Home</h2>

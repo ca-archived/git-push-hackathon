@@ -15,5 +15,5 @@ gulp.task("build", function() {
 });
 
 gulp.task("watch", function() {
-  gulp.watch(scssPath, ["build"]);
+  return gulp.watch(scssPath, gulp.series("build"));
 });
