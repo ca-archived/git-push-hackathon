@@ -6,7 +6,9 @@
   "scripts": {
     "watch": "npx webpack --mode development --watch",
     "build": "npx webpack --mode production",
-    "start": "http-server -o"
+    "start": "http-server -o",
+    "build-css": "gulp build",
+    "watch-css": "gulp watch"
   },
   "author": "",
   "license": "ISC",
@@ -22,8 +24,11 @@
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.1",
     "http-server": "^0.11.1",
-    "webpack": "^4.20.2",
+    "postcss-cssnext": "^3.1.0",
     "webpack-cli": "^3.1.2"
   }
 }
