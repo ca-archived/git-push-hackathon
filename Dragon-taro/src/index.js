@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { HeaderContainer } from "./containers/HeaderContainer";
+import Header from "./containers/HeaderContainer";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 
@@ -14,7 +14,7 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div>
-          <HeaderContainer />
+          <Header />
           <hr />
           <Switch>
             <Route exact path="/" component={Home} />

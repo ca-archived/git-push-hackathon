@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import oauth from "../reducers/oauth";
 
 class Header extends Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class Header extends Component {
   handleOAuth() {}
 
   render() {
+    const {
+      oauth,
+      actions: { requestOAuth }
+    } = this.props;
+
     return (
       <div>
         <ul>
@@ -26,7 +32,7 @@ class Header extends Component {
             <Link to="/friends">Friends</Link>
           </li>
         </ul>
-        <button onClick={() => this.handleOAuth()}>GitHubでログイン</button>
+        <button onClick={() => requestOAuth()}>GitHubでログイン</button>
       </div>
     );
   }
