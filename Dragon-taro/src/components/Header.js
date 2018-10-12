@@ -8,6 +8,8 @@ class Header extends Component {
     this.state = {};
   }
 
+  handleOAuth() {}
+
   render() {
     return (
       <div>
@@ -24,6 +26,7 @@ class Header extends Component {
             <Link to="/friends">Friends</Link>
           </li>
         </ul>
+        <button onClick={() => this.handleOAuth()}>GitHubでログイン</button>
       </div>
     );
   }

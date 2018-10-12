@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { OAuth } from "oauthio-web";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { ACCESS_TOKEN } from "./secret";
 import { HeaderContainer } from "./containers/HeaderContainer";
+import { Provider } from "react-redux";
+import configureStore from "./store";
 
 class App extends React.Component {
   constructor() {
@@ -32,20 +32,11 @@ class Home extends React.Component {
     super();
   }
 
-  handleOAuth() {
-    const self = this;
-    OAuth.initialize(ACCESS_TOKEN);
-    OAuth.popup("github").done(function(result) {
-      self.setState(result.toJson());
-    });
-  }
-
   render() {
     return (
       <div>
         <h2>Home</h2>
         <p>home</p>
-        <button onClick={() => this.handleOAuth()}>GitHubでログイン</button>
       </div>
     );
   }
@@ -64,4 +55,9 @@ const Friends = () => (
   </div>
 );
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={configureStore()}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);

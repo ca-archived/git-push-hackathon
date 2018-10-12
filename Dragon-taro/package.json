@@ -13,10 +13,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "oauthio-web": "^0.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-router-dom": "^4.3.1"
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-action": "^1.2.2",
+    "redux-saga": "^0.16.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
