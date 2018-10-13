@@ -1,28 +1,30 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {TEMP_ACCESS_KEYS} from'./temp-access-keys';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
 
+    constructor(
+        private http: HttpClient
+    ) {    }
+
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
     OAuthURL3: string = "https://api.github.com/user?access_token="; //GET
 
-    clientId: string = "0bc6d4e0794201162940";
-    clientSecret: string = "473798ee1cdead1152b7a66e164e7bb1b873f049";
-    redirectUrl: string = "http://localhost:4200";
-    state: string = "alkjsoivuejngiausy"; //random文字列ってこれでいいの？
+    clientId: string = TEMP_ACCESS_KEYS.clientId;
+    clientSecret: string = TEMP_ACCESS_KEYS.clientSecret;
+    redirectUrl: string = TEMP_ACCESS_KEYS.redirectUrl;
+    state: string = TEMP_ACCESS_KEYS.state; //random文字列ってこれでいいの？
 
     redirect_code: string = "";
     redirect_state: string = "";
 
-    access_token : string ="xxx";
-
-    temp: string = "";
-
+    access_token: string = TEMP_ACCESS_KEYS.access_token;
 
     httpOptions = {
         header: new HttpHeaders({
@@ -30,8 +32,6 @@ export class ApiService {
         })
     };
 
-    constructor(private http: HttpClient) {
-    }
 
     OnInit() {
     }
@@ -79,6 +79,14 @@ export class ApiService {
 
     OAuth3() {
 
+    }
+
+    GithubApiTest() {
+        console.log("GithubApiTest");
+        var httpObj = this.http.get(
+            "https://api.github.com/users/Kusunoki-19",
+        );
+        httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
 
