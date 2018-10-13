@@ -28,7 +28,7 @@ a {
 }
 #root{
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
 }
 header {
     width: 100%;
@@ -60,7 +60,7 @@ header > .content > .buttons {
 }
 main {
     width: 100%;
-    height: calc(100% - 60px);
+    height: 100%;
     overflow: hidden;
 }
 main > .tab_area {
@@ -216,7 +216,7 @@ main > .content {
 }
 
 .login-github > .dashboard > .events {
-    height: calc(100% - 4rem);
+    height: calc(100% - 60px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
  }
@@ -234,9 +234,9 @@ main > .content {
 }
 .login-github > .dashboard > .buttons > .button {
    width: 50%;
-   height: 4rem;
+   height: 60px;
    text-align: center;
-   line-height: 4rem;
+   line-height: 60px;
    cursor: pointer;
    transition: border-color ease-in-out 0.3s;
    font-weight: 500;
@@ -283,9 +283,6 @@ main > .content {
     grid-column: 2;
     grid-row: 2;
 }
-.github-event > .date {
-    font-size: small;
-}
 
 /* gist-list */
 .gist-list {
@@ -309,4 +306,80 @@ main > .content {
     border-radius: 5px;
     text-align: center;
     margin-bottom: 1rem;
+}
+
+.my-dialog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    transition: transform 0.3s ease-in-out;
+    font-size:medium;
+    background:rgba(0,0,0,0.5);
+    display: none;
+}
+.my-dialog.visible {
+    display: block;
+}
+.my-dialog > .dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5000;
+    border: none;
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 13px 19px 2px rgba(0,0,0,.14), 0 5px 24px 4px rgba(0,0,0,.12);;
+    background: #fff;
+    border-radius: 4px;
+    width: 450px;
+    height: 200px;
+    max-width: 90%;
+    margin: auto;
+    padding: 1rem;
+}
+.my-dialog > .dialog > h2 {
+    margin: 0;
+    font-size: larger;
+    font-weight: 500;
+    line-height: 3rem;
+}
+.my-dialog > .dialog > p {
+    height: calc(100% - 5rem);
+    margin: 0;
+    padding: 0 1rem;
+}
+.my-dialog > .dialog > p.min {
+    height: 2rem;
+}
+.my-dialog > .dialog > input {
+    width: 100%;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: solid 1px #2196f3;
+    outline: 0;
+}
+.my-dialog > .dialog > .buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+.my-dialog > .dialog > .buttons > .button{
+    width: 100px;
+    text-align: center;
+    border: solid 0.5px #999;
+    border-radius: 5px;
+    margin-left: 1rem;
+    line-height: 2rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+.my-dialog > .dialog > .buttons > .button.positive{
+    border: none;
+    background: #2196f3;
+    color: #fff;
 }

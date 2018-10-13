@@ -11,7 +11,7 @@ export default {
     template: `<div class='github-event'>
                     <img v-bind:data-url='user.img' />
                     <div>
-                        <a v-bind:url='user.page'>{{ user.name }}</a>&nbsp;<span class='action' v-html='action'></span>
+                        <a v-bind:href='user.page'>{{ user.name }}</a>&nbsp;<span class='action' v-html='action'></span>
                     </div>
                     <span class='target' v-html='target'></span>
                     <span class='date'>{{ date | dateFormat }}</span>

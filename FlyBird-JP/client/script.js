@@ -8,14 +8,6 @@ const routes = [
         'component': {
             'template': `
                 <div id='root'>
-                    <header>
-                        <div class='content'>
-                            <h1><a href='/'>Gist Client</a></h1>
-                            <div class='buttons'>
-                                <login-github></login-github>
-                            </div>
-                        </div>
-                    </header>
                     <main>
                         <div class='tab_area'>
                             <div class='tabs'>
@@ -38,14 +30,6 @@ const routes = [
         'component': {
             'template': `
                 <div id='root'>
-                    <header>
-                        <div class='content'>
-                            <h1><a href='/'>Gist Client</a></h1>
-                            <div class='buttons'>
-                                <login-github></login-github>
-                            </div>
-                        </div>
-                    </header>
                     <main>
                         <div class='tab_area'>
                             <div class='tabs'>
@@ -67,14 +51,6 @@ const routes = [
         'component': {
             'template': `
                 <div id='root'>
-                    <header>
-                        <div class='content'>
-                            <h1><a href='/'>Gist Client</a></h1>
-                            <div class='buttons'>
-                                <login-github></login-github>
-                            </div>
-                        </div>
-                    </header>
                     <main>
                         <div class='tab_area'>
                             <div class='tabs'>
@@ -96,13 +72,6 @@ const routes = [
         'component': {
             'template': `
                 <div id='root'>
-                <header>
-                    <div class='content'>
-                        <h1><router-link to='/'>Gist Client</router-link></h1>
-                        <div class='buttons'>
-                        </div>
-                    </div>
-                </header>
                     <main class='relative'>
                         <div class="spinner center"></div>
                     </main>
@@ -115,7 +84,7 @@ const routes = [
                         'method': 'POST',
                         'body': JSON.stringify({
                             'code': url.searchParams.get('code'),
-                            'state' : url.searchParams.get('state')
+                            'state': url.searchParams.get('state')
                         }),
                         'headers': new Headers({ 'Content-type': 'application/json' })
                     })
@@ -130,25 +99,32 @@ const routes = [
     }
 ]
 
-const router = new VueRouter({
-    'routes': routes,
-    'mode': 'history',
-    'scrollBehavior': (to, from, savedPosition) => {
-        if (savedPosition) {
-            return savedPosition
-        } else {
-            return { x: 0, y: 0 }
-        }
-    }
-})
-
-router.beforeEach((to, from, next) => {
-    if(['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) next('/gists/public') 
-    else next()
-})
-
 window.addEventListener('load', (e) => {
-    new Vue({
+    const router = new VueRouter({
+        'routes': routes,
+        'mode': 'history',
+        'scrollBehavior': (to, from, savedPosition) => {
+            if (savedPosition) {
+                return savedPosition
+            } else {
+                return { x: 0, y: 0 }
+            }
+        }
+    })
+
+    router.beforeEach((to, from, next) => {
+        if(to.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'hidden'
+        else document.getElementById('loginGithub').style.visibility = 'visible'
+
+        if (['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) {
+            const vm = document.getElementById('dialog').__vue__
+            if(vm != null) vm.alert('ログインしませんか？', 'ログインするとgistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
+            next('/gists/public')
+        }
+        else next()
+    })
+
+    window.vm = new Vue({
         'router': router
     }).$mount('#content')
 })

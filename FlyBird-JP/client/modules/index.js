@@ -14,3 +14,6 @@ Vue.component('gist-list', GistList)
 
 import GistItem from '/modules/gist-item.js'
 window.customElements.define('gist-item', GistItem)
+
+import MyDialog from '/modules/my-dialog.js'
+Vue.component("my-dialog", MyDialog);
