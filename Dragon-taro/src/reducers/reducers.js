@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import oauth from "./oauth";
+import { oauth, user } from "./oauth";
 
-export default combineReducers({ oauth });
+export default combineReducers({ oauth, user });
