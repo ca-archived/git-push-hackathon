@@ -39,6 +39,17 @@ export default {
     },
     created: function () {
         this.accessToken = localStorage.getItem(`githubAccessToken`)
+        if ("IntersectionObserver" in window) {
+            this.imageObserver = new IntersectionObserver((entries) => {
+                for (let entry of entries) {
+                    if (entry.isIntersecting) {
+                        entry.target.src = entry.target.dataset.url
+                        delete entry.target.dataset.url
+                        this.imageObserver.unobserve(entry.target)
+                    }
+                }
+            })
+        }
         this.isAuth = this.accessToken != null
         if (this.isAuth) this.getUser().then((user) => {
             this.user = user
@@ -92,27 +103,15 @@ export default {
                 fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events')
                     .then((response) => response.json())
                     .then((json => {
-                        let events = []
                         for (let event of json) {
                             const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
-                            events.push(URL.createObjectURL(blob))
+                            this.events.push(URL.createObjectURL(blob))
                         }
-                        this.events = events
 
                         this.$nextTick().then(() => {
                             if ("IntersectionObserver" in window) {
-                                const imageObserver = new IntersectionObserver((entries) => {
-                                    for (let entry of entries) {
-                                        if (entry.isIntersecting) {
-                                            entry.target.src = entry.target.dataset.url
-                                            delete entry.target.dataset.url
-                                            imageObserver.unobserve(entry.target)
-                                        }
-                                    }
-                                })
-
                                 for (let img of this.$el.getElementsByTagName('img')) {
-                                    if ('url' in img.dataset) imageObserver.observe(img)
+                                    if ('url' in img.dataset) this.imageObserver.observe(img)
                                 }
                             }
                         })

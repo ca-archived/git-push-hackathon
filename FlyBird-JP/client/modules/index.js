@@ -9,7 +9,8 @@ Vue.component('git-event', GithubEvent)
 //window.customElements.define('git-event', GithubEvent)
 
 import GistList from '/modules/gist-list.js'
-window.customElements.define('gist-list', GistList)
+Vue.component('gist-list', GistList)
+//window.customElements.define('gist-list', GistList)
 
 import GistItem from '/modules/gist-item.js'
 window.customElements.define('gist-item', GistItem)

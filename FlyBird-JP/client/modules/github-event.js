@@ -26,7 +26,7 @@ export default {
             },
             'action': '',
             'target': '',
-            'date': ''
+            'date': new Date().toLocaleDateString()
         }
     },
     created: function () {

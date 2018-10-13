@@ -1,6 +1,6 @@
 'use strict'
 
-Vue.config.ignoredElements = ['gist-list', 'gist-item'];
+Vue.config.ignoredElements = ['gist-item'];
 
 const routes = [
     {
@@ -11,13 +11,51 @@ const routes = [
                     <header>
                         <div class='content'>
                             <h1><a href='/'>Gist Client</a></h1>
-                            <div id='buttons'>
+                            <div class='buttons'>
                                 <login-github></login-github>
                             </div>
                         </div>
                     </header>
                     <main>
-                        <gist-list></gist-list>
+                        <div class='tab_area'>
+                            <div class='tabs'>
+                                <h2 class='tab active'><router-link to='/'>Yours</router-link></h2>
+                                <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
+                            </div>
+                        </div>
+                        <div class='content'>
+                            <router-link class='add' to='/gist/create' >追加する</router-link>
+                            <gist-list user='user'></gist-list>
+                        </div>
+                    </main>
+                </div>
+            `
+        }
+    },
+    {
+        'path': '/gists/public',
+        'component': {
+            'template': `
+                <div id='root'>
+                    <header>
+                        <div class='content'>
+                            <h1><a href='/'>Gist Client</a></h1>
+                            <div class='buttons'>
+                                <login-github></login-github>
+                            </div>
+                        </div>
+                    </header>
+                    <main>
+                        <div class='tab_area'>
+                            <div class='tabs'>
+                                <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
+                                <h2 class='tab active'><router-link to='/gists/public'>Public</router-link></h2>
+                            </div>
+                        </div>
+                        <div class='content'>
+                            <router-link class='add' to='/gist/create' >追加する</router-link>
+                            <gist-list user='public'></gist-list>
+                        </div>
                     </main>
                 </div>
             `
@@ -28,11 +66,13 @@ const routes = [
         'component': {
             'template': `
                 <div id='root'>
-                    <header>
-                        <h1>
-                            <router-link to='/'>Gist Client</router-link>
-                        </h1>
-                    </header>
+                <header>
+                    <div class='content'>
+                        <h1><router-link to='/'>Gist Client</router-link></h1>
+                        <div class='buttons'>
+                        </div>
+                    </div>
+                </header>
                     <main class='relative'>
                         <div class="spinner center"></div>
                     </main>
