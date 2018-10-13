@@ -37,6 +37,11 @@ header {
     height: 60px;
     background:#24292E;
     color:#fff;
+}
+header .content {
+    width: 100%;
+    max-width: 1000px;
+    margin:0 auto;
     display: flex;
     justify-content: space-between;
 }
@@ -55,11 +60,11 @@ h1 > a {
     display: flex;
     height: 100%;
 }
-login-button {
+login-github {
     color: #fff;
     transition: background ease-in-out 0.3s;
 }
-login-button:hover {
+login-github:hover {
     color: #000;
     background: #fff;
 }

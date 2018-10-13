@@ -1,6 +1,6 @@
 'use strict'
 
-Vue.config.ignoredElements = ['login-button', 'gist-list', 'gist-item', 'git-event'];
+Vue.config.ignoredElements = ['login-github', 'gist-list', 'gist-item', 'git-event'];
 
 const routes = [
     {
@@ -9,11 +9,11 @@ const routes = [
             'template': `
                 <div id='root'>
                     <header>
-                        <h1>
-                            <a href='/'>Gist Client</a>
-                        </h1>
-                        <div id='buttons'>
-                            <login-button service='github'></login-button>
+                        <div class='content'>
+                            <h1><a href='/'>Gist Client</a></h1>
+                            <div id='buttons'>
+                                <login-github></login-github>
+                            </div>
                         </div>
                     </header>
                     <main>
@@ -24,7 +24,7 @@ const routes = [
         }
     },
     {
-        'path': '/callback_auth',
+        'path': '/callback_auth/:service',
         'component': {
             'template': `
                 <div id='root'>
@@ -40,12 +40,11 @@ const routes = [
             `,
             'created': function () {
                 const url = new URL(location.href)
-                if (url.searchParams.has('code') && url.searchParams.has('service') && url.searchParams.has('state')) {
-                    fetch('/token', {
+                if (url.searchParams.has('code') && url.searchParams.has('state')) {
+                    fetch(`/token/${this.$route.params['service']}`, {
                         'method': 'POST',
                         'body': JSON.stringify({
                             'code': url.searchParams.get('code'),
-                            'service' : url.searchParams.get('service'),
                             'state' : url.searchParams.get('state')
                         }),
                         'headers': new Headers({ 'Content-type': 'application/json' })
@@ -55,7 +54,7 @@ const routes = [
                             localStorage.setItem(`${json['service']}AccessToken`, json['accessToken'])
                             location.href = '/'
                         })
-                } else ;//location.href = '/'
+                } else location.href = '/'
             }
         }
     }
