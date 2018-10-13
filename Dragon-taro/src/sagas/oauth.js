@@ -1,8 +1,8 @@
 import { fork, call, put, take, select } from "redux-saga/effects";
-import { REQUEST_OAUTH, SUCCESS_LOGIN } from "../actions/constants";
+import { REQUEST_OAUTH } from "../actions/constants";
 import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
-import { alreadyLogin, successLogin } from "../actions/actions";
+import { alreadyLogin, successLogin, failureLogin } from "../actions/actions";
 
 function* signIn() {
   let isSuccess = false;
@@ -21,10 +21,9 @@ function* signIn() {
     });
 
   if (isSuccess) {
-    yield put(successLogin("hi"));
+    yield put(successLogin());
   } else {
-    // errorがnullじゃないからそれをstateに流す
-    //   put(FAILURE_LOGIN);
+    yield put(failureLogin({ err: error }));
   }
 }
 
