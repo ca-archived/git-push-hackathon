@@ -16,6 +16,8 @@ const initial = {
 };
 
 export function oauth(state = initial.ouath, { type, payload }) {
+  console.log(type);
+
   switch (type) {
     case REQUEST_OAUTH:
       return { ...state, isAuthorized: false, err: null };

@@ -1,4 +1,4 @@
-export default function Get(path) {
+export function Get(path) {
   const url = `https://api.github.com/${path}`;
   const accessToken = sessionStorage.getItem("access_token");
   const headers = {
