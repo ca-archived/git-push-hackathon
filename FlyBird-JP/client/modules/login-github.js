@@ -32,7 +32,7 @@ export default {
             'user': {
                 'name': '',
                 'img': '',
-                'url' : ''
+                'url': ''
             },
             'events': []
         }
@@ -88,42 +88,38 @@ export default {
             }
         },
         showEvents: function () {
-            fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events')
-                .then((response) => response.json())
-                .then((json => {
-                    let events = []
-                    for (let event of json) {
-                        const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
-                        events.push(URL.createObjectURL(blob))
-                    }
-                    this.events = events
+            if (this.events.length == 0) {
+                fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events')
+                    .then((response) => response.json())
+                    .then((json => {
+                        let events = []
+                        for (let event of json) {
+                            const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
+                            events.push(URL.createObjectURL(blob))
+                        }
+                        this.events = events
 
-                    let eventsDom = this.$el.getElementsByClassName('events')[0]
-                    this.$nextTick().then(() => {
-                        if ("IntersectionObserver" in window) {
-                            const imageObserver = new IntersectionObserver((entries) => {
-                                for (let entry of entries) {
-                                    if (entry.isIntersecting) {
-                                        entry.target.src = entry.target.dataset.url
-                                        delete entry.target.dataset.url
-                                        imageObserver.unobserve(entry.target)
+                        this.$nextTick().then(() => {
+                            if ("IntersectionObserver" in window) {
+                                const imageObserver = new IntersectionObserver((entries) => {
+                                    for (let entry of entries) {
+                                        if (entry.isIntersecting) {
+                                            entry.target.src = entry.target.dataset.url
+                                            delete entry.target.dataset.url
+                                            imageObserver.unobserve(entry.target)
+                                        }
                                     }
-                                }
-                            })
+                                })
 
-                            for (let img of eventsDom.getElementsByTagName('img')) {
-                                if('url' in img.dataset) imageObserver.observe(img)
+                                for (let img of this.$el.getElementsByTagName('img')) {
+                                    if ('url' in img.dataset) imageObserver.observe(img)
+                                }
                             }
-                        }
-                        else {
-                            for (let img of eventsDom.getElementsByTagName('img')) {
-                                if('url' in img.dataset) img.src = img.dataset.url
-                            }
-                        }
-                    })
-                }))
+                        })
+                    }))
+            }
         },
-        jump: function() {
+        jump: function () {
             location.href = this.user.url
         }
     }
