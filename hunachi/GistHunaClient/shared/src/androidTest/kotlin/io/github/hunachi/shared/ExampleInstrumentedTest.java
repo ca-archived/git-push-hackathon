@@ -1,4 +1,4 @@
-package io.github.hunachi.common;
+package io.github.hunachi.shared;
 
 import android.content.Context;
 

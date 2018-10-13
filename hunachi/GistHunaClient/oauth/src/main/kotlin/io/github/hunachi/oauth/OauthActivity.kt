@@ -15,4 +15,8 @@ class OauthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.apply {  }
     }
+
+    companion object {
+        fun newInstance() = OauthActivity()
+    }
 }

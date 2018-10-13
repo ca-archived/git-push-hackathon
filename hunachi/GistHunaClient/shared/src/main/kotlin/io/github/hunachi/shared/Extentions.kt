@@ -1,9 +1,11 @@
 package io.github.hunachi.shared
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -27,6 +29,10 @@ inline fun FragmentManager.inTransaction(
         func: FragmentTransaction.() -> FragmentTransaction
 ) {
     beginTransaction().func().commit()
+}
+
+inline fun AppCompatActivity.startActivity (next: AppCompatActivity){
+    startActivity(Intent(this, next.javaClass))
 }
 
 // ViewModelProvider

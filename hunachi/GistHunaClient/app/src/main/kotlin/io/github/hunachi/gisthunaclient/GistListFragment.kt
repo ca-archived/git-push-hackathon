@@ -1,6 +1,5 @@
 package io.github.hunachi.gisthunaclient
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,12 +23,8 @@ class GistListFragment : Fragment() {
         }.root
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-    }
-
     companion object {
-        fun newInstance(columnCount: Int) =
+        fun newInstance() =
                 GistListFragment().apply { arguments = bundleOf() }
     }
 }
