@@ -1,4 +1,4 @@
-export default class GistItem extends HTMLElement {
+export default class GithubEvent extends HTMLElement {
     get template() {
         return `
         <style>
@@ -8,11 +8,13 @@ export default class GistItem extends HTMLElement {
                 grid-template-columns: 5.5rem 1fr;
                 grid-template-rows: 1.5rem 1.5rem 1.5rem;
                 box-sizing: border-box;
-                border-bottom: solid 0.5px #ddd;
                 padding: 1rem;
             }
             :host * {
                 box-sizing: inherit;
+            }
+            a {
+                color: #2196f3;
             }
             #user {
                 display: grid;
@@ -43,6 +45,9 @@ export default class GistItem extends HTMLElement {
                 grid-column: 2;
                 grid-row: 2;
             }
+            #date {
+                font-size: small;
+            }
         </style>
         <img id='usericon' />
         <div>
@@ -57,18 +62,14 @@ export default class GistItem extends HTMLElement {
         super();
         this.attachShadow({ 'mode': 'open' })
         this.shadowRoot.innerHTML = this.template
-        this.action = {
-            'ForkEvent' : 'forked',
-            'DeleteEvent' : 'deleted',
-
-        }
     }
     static get observedAttributes() {
         return ['url'];
     }
     print(json) {
         this.shadowRoot.getElementById('usericon').src = json.actor.avatar_url
-        this.shadowRoot.getElementById('username').innerHTML = `<a href='/user/${json.actor.login}'>${json.actor.login}</a>`
+        this.shadowRoot.getElementById('username').innerHTML = `<a href='https://github.com/${json.actor.login}'>${json.actor.login}</a>`
+        console.log(json)
 
         let action
         switch(json.type){
@@ -76,19 +77,19 @@ export default class GistItem extends HTMLElement {
                 action = 'started'
                 break
             case 'ForkEvent':
-                action = `forked`
+                action = `<a href='${json.payload.forkee.html_url}' target='_blank'>forked</a>`
                 break
             case 'CommitCommentEvent':
-                action = `${json.payload.action} <a href='${json.payload.comment.html_url}'>comment</a> on commit`
+                action = `${json.payload.action} <a href='${json.payload.comment.html_url}' target='_blank'>comment</a> on commit`
                 break
             case 'IssueCommentEvent':
-                action = `${json.payload.action} <a href='${json.payload.comment.html_url}'>comment</a> on <a href='${json.payload.issue.html_url}'>issue</a>`
+                action = `${json.payload.action} <a href='${json.payload.comment.html_url}' target='_blank'>comment</a> on <a href='${json.payload.issue.html_url}' target='_blank'>issue</a>`
                 break
             case 'PullRequestEvent':
-                action = `${json.payload.action} <a href='${json.payload.pull_request.html_url}'>pull request</a>`
+                action = `${json.payload.action} <a href='${json.payload.pull_request.html_url}'  target='_blank'>pull request</a>`
                 break
             case 'IssuesEvent':
-                action = `${json.payload.action} <a href='${json.payload.issue.html_url}'>issue</a>`
+                action = `${json.payload.action} <a href='${json.payload.issue.html_url}' target='_blank'>issue</a>`
                 break
             case 'PushEvent':
                 action = `pushed`
@@ -100,7 +101,7 @@ export default class GistItem extends HTMLElement {
                 action = `deleted ${json.payload.ref_type}`
                 break
             case 'PullRequestReviewCommentEvent':
-                action = `${json.payload.action} <a href='${json.payload.comment.html_url}'>comment</a> on <a href='${json.payload.pull_request.html_url}'>pull request</a>`
+                action = `${json.payload.action} <a href='${json.payload.comment.html_url}' target='_blank'>comment</a> on <a href='${json.payload.pull_request.html_url}' target='_blank'>pull request</a>`
                 break
             case 'ReleaseEvent':
                 action = `released`
@@ -111,8 +112,8 @@ export default class GistItem extends HTMLElement {
         }
         this.shadowRoot.getElementById('action').innerHTML = action
 
-        this.shadowRoot.getElementById('target').innerHTML = `<a href='/repos/${json.repo.name}'>${json.repo.name}</a>`
-        this.shadowRoot.getElementById('date').textContent = new Date(json.created_at).toLocaleDateString('ja-JP', {'year': 'numeric', 'month': 'numeric', 'day': 'numeric', 'minute': 'numeric', 'second': 'numeric'})
+        this.shadowRoot.getElementById('target').innerHTML = `<a href='https://github.com/${json.repo.name}'  target='_blank'>${json.repo.name}</a>`
+        this.shadowRoot.getElementById('date').textContent = new Date(json.created_at).toLocaleDateString('ja-JP', {'year': 'numeric', 'month': 'numeric', 'day': 'numeric', 'hour' : 'numeric', 'minute': 'numeric', 'second': 'numeric'})
     }
     connectedCallback() {
     }

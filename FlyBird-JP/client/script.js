@@ -1,6 +1,6 @@
 'use strict'
 
-Vue.config.ignoredElements = ['login-github', 'gist-list', 'gist-item', 'git-event'];
+Vue.config.ignoredElements = ['gist-list', 'gist-item'];
 
 const routes = [
     {

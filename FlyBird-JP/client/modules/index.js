@@ -1,13 +1,15 @@
 "use strict";
 
-import LoginButton from '/modules/login-button.js'
-window.customElements.define('login-button', LoginButton)
+import LoginGithub from '/modules/login-github.js'
+Vue.component('login-github', LoginGithub)
+//window.customElements.define('login-github', LoginGithub)
+
+import GithubEvent from '/modules/github-event.js'
+Vue.component('git-event', GithubEvent)
+//window.customElements.define('git-event', GithubEvent)
 
 import GistList from '/modules/gist-list.js'
 window.customElements.define('gist-list', GistList)
 
 import GistItem from '/modules/gist-item.js'
 window.customElements.define('gist-item', GistItem)
-
-import GitEvent from '/modules/git-event.js'
-window.customElements.define('git-event', GitEvent)

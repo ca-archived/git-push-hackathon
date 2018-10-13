@@ -19,6 +19,9 @@ body {
     padding: 0;
     overflow-x: hidden;
 }
+a {
+    color: #2196f3;
+}
 #content {
     width: 100%;
     height: 100%;
@@ -200,11 +203,36 @@ git-event {
    border-top: solid 0.5px #ddd;
 }
 
-.center {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
- }
+.github-event {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    grid-template-rows: 1.5rem 1.5rem 1.5rem;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-top: solid 0.5px #ddd;
+}
+.github-event > img {
+    width: auto;
+    height: 100%;
+    border-radius: 50%;
+    grid-row: 1 / -1;
+    text-align: center;
+    align-items: center;
+    grid-column: 1;
+}
+.github-event > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.github-event > div > .action {
+    font-weight: 500;
+}
+.github-event > .target {
+    grid-column: 2;
+    grid-row: 2;
+}
+.github-event > .date {
+    font-size: small;
+}
