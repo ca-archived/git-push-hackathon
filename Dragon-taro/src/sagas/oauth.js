@@ -2,41 +2,43 @@ import { fork, call, put, take, select } from "redux-saga/effects";
 import { REQUEST_OAUTH, SUCCESS_LOGIN } from "../actions/constants";
 import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
+import { alreadyLogin, successLogin } from "../actions/actions";
 
-function signIn() {
+function* signIn() {
+  let isSuccess = false;
+  let error = null;
   OAuth.initialize(ACCESS_TOKEN);
-  OAuth.popup("github")
+
+  yield OAuth.popup("github")
     .done(function(result) {
       const json = result.toJson();
-      console.log(json);
 
       sessionStorage.setItem("access_token", json.access_token);
-      return null;
+      isSuccess = true;
     })
     .fail(function(err) {
-      return err;
+      error = err;
     });
+
+  if (isSuccess) {
+    yield put(successLogin("hi"));
+  } else {
+    // errorがnullじゃないからそれをstateに流す
+    //   put(FAILURE_LOGIN);
+  }
 }
 
 function* handleRequestOAuth() {
   while (true) {
     // すでにログインしてたらここでputしてすでにログインしてます的なことを流す
     if (sessionStorage.getItem("access_token")) {
-      console.log("already loged in.");
-
-      //   put(ALREADY_LOGIN);
+      yield put(alreadyLogin());
     }
 
-    // oauthの認証を叩く
     yield take(REQUEST_OAUTH);
 
-    const err = yield call(signIn);
-    if (!err) {
-      put(SUCCESS_LOGIN);
-    } else {
-      console.log("failure login.");
-      //   put(FAILURE_LOGIN);
-    }
+    // ここでcallしてもなぜかすり抜けられてしまう
+    yield fork(signIn);
   }
 }
 

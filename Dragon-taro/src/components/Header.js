@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import oauth from "../reducers/oauth";
+import { If } from "./If";
 
 class Header extends Component {
   constructor(props) {
@@ -8,8 +8,6 @@ class Header extends Component {
 
     this.state = {};
   }
-
-  handleOAuth() {}
 
   render() {
     const {
@@ -32,7 +30,9 @@ class Header extends Component {
             <Link to="/friends">Friends</Link>
           </li>
         </ul>
-        <button onClick={() => requestOAuth()}>GitHubでログイン</button>
+        <If condition={!oauth.isAuthorized}>
+          <button onClick={() => requestOAuth()}>GitHubでログイン</button>
+        </If>
       </div>
     );
   }
