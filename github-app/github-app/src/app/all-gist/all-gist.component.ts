@@ -13,8 +13,9 @@ export class AllGistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("GithubApiTest")
-    this.apiService.GithubApiTest();
+    //this.apiService.GithubApiTest();
+    this.apiService.GithubApiOAuthTest();
+    this.apiService.GithubApiOAuth_gist();
   }
 
 }

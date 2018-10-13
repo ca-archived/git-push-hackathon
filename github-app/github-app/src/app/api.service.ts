@@ -20,6 +20,7 @@ export class ApiService {
     clientSecret: string = TEMP_ACCESS_KEYS.clientSecret;
     redirectUrl: string = TEMP_ACCESS_KEYS.redirectUrl;
     state: string = TEMP_ACCESS_KEYS.state; //random文字列ってこれでいいの？
+    scope : string = "gist";
 
     redirect_code: string = "";
     redirect_state: string = "";
@@ -85,6 +86,23 @@ export class ApiService {
         console.log("GithubApiTest");
         var httpObj = this.http.get(
             "https://api.github.com/users/Kusunoki-19",
+        );
+        httpObj.subscribe(this.RequestNext, this.RequestError);
+    }
+    GithubApiOAuthTest() {
+        console.log("GithubApiOAuthTest");
+        var httpObj = this.http.get(
+            "https://api.github.com/"
+            +"?access_token=" + TEMP_ACCESS_KEYS.access_token
+        );
+        httpObj.subscribe(this.RequestNext, this.RequestError);
+    }
+    GithubApiOAuth_gist() {
+        console.log("GithubApiOAuth_gist");
+        var httpObj = this.http.get(
+            "https://api.github.com/"
+            +"gists"
+            +"?access_token=" + TEMP_ACCESS_KEYS.access_token
         );
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
