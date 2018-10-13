@@ -97,3 +97,114 @@ login-github:hover {
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
 }
+
+
+
+.login-github {
+    display: flex;
+    min-width: 175px;
+    flex-wrap: wrap;
+    height: 100%;
+    box-sizing: border-box;
+}
+.login-github > .button {
+   width: 175px;
+   height: 60px;
+   display: grid;
+   grid-template-columns: calc(60px - 1em) 1fr;
+   grid-template-rows: 3fr 2fr;
+   align-items: center;
+   padding: 0.5em;
+   cursor: pointer;
+   margin: auto 0;
+}
+.login-github > .button.disabled {
+    display:none;
+}
+.login-github > .button > .icon{
+   grid-column: 1;
+   grid-row: 1 / 3;
+   border-radius: 50%;
+   width: auto;
+   height: 100%;
+   background: #fff;
+}
+.login-github > .button > .label {
+   grid-column: 2;
+   grid-row: 1;
+   text-align: center;
+}
+.login-github > .button > .desc {
+   font-size: x-small;
+   grid-column: 2;
+   grid-row: 2;
+   text-align: center;
+}
+.login-github > .dashboard {
+   position: fixed;
+   width: 450px;
+   height: calc(100% - 60px);
+   transform: translateX(450px);
+   transition: transform ease-in-out 0.3s;
+   background: #fff;
+   top: 60px; 
+   right: 0;
+   z-index: 500;
+   color: #000;
+   overflow: hidden;
+   border: solid 0.5px #ddd;
+}
+.login-github > .dashboard.visible{
+   transform: translateX(0);
+}
+
+.login-github > .dashboard > .events {
+    height: calc(100% - 4rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+ }
+ .login-github > .dashboard > .events > .messeage {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    bottom: 4rem;
+ }
+ .login-github > .dashboard > .buttons {
+   width: 100%;
+   display: flex;
+   border-top: solid 0.5px #ddd;
+}
+.login-github > .dashboard > .buttons > .button {
+   width: 50%;
+   height: 4rem;
+   text-align: center;
+   line-height: 4rem;
+   cursor: pointer;
+   transition: border-color ease-in-out 0.3s;
+   font-weight: 500;
+   border: solid 0.5px #ddd;
+}
+.login-github > .dashboard > .buttons > .button:hover {
+    border-color: #999;
+}
+.login-github > .dashboard > .buttons > .negative.button {
+    color: #f00;
+}
+.login-github > .dashboard > .buttons > .negative.button:hover {
+    border-color: #f00;
+}
+
+
+git-event {
+   border-top: solid 0.5px #ddd;
+}
+
+.center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+ }
