@@ -19,40 +19,49 @@ export default {
                         v-bind:url="gist"
                         v-if='gists.length > 0'
                     ></gist-item>
-                    <div class='messeage center' v-else='v-else'>表示できる gist がまだありません。</div>
+                    <div class='load' v-on:click='load()' v-if='gists.length > 0 &&isShowLoadButton && !isLast'>さらに読み込む</div>
+                    <div class='messeage center' v-if='gists.length == 0'>表示できる gist がまだありません。</div>
                 </div>`,
     data: function () {
         return {
             'gists': [],
-            'isAuth': false,
-            'user' : 'public'
+            'isLast': false,
+            'isShowLoadButton': false
         }
     },
     created: function () {
-        /*
-        this.intersectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if ((entry.isIntersecting && this.scrollTop > 0)) {
-                    this.intersectionObserver.unobserve(entry.target);
-                    this.load()
-                }
-            });
-        });
-        this.mutationObserver = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                const lastChild = mutation.addedNodes[mutation.addedNodes.length - 1];
-                if ('tagName' in lastChild && lastChild.tagName.toLowerCase() == 'gist-item') {
-                    this.intersectionObserver.observe(lastChild);
-                }
-            });
-        });
-        this.mutationObserver.observe(this.$el.getElementById('list'), { 'childList': true });*/
         this.url = 'https://api.github.com/gists'
         this.isLast = false
-        this.isAuth = localStorage.getItem('githubAccessToken') != null
+        this.isAuth = 'accessToken' in localStorage
         if (!this.isAuth || this.user == 'public') this.url += '/public'
+        else if(this.user == 'starred') this.url += '/starred'
 
         this.load()
+        this.isShowLoadButton = !('IntersectionObserver' in window && 'MutationObserver' in window)
+        if ('IntersectionObserver' in window && 'MutationObserver' in window) {
+            this.intersectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if ((entry.isIntersecting && this.$el.parentElement.scrollTop > 0)) {
+                        this.intersectionObserver.unobserve(entry.target);
+                        this.load()
+                    }
+                });
+            });
+        }
+        this.mutationObserver = new MutationObserver((mutations) => {
+            for(let i = mutations.length - 1;i >= 0;i--){
+                if(mutations[i].addedNodes.length == 0) continue
+                const lastChild = mutations[i].addedNodes[mutations[i].addedNodes.length - 1]
+                if ('tagName' in lastChild && lastChild.tagName.toLowerCase() == 'gist-item') {
+                    this.intersectionObserver.observe(lastChild);
+                    break
+                }
+                else continue
+            }
+        });
+        this.$nextTick().then(() => {
+            this.mutationObserver.observe(this.$el, { 'childList': true });
+        })
     },
     methods: {
         load() {
@@ -60,7 +69,7 @@ export default {
                 let promise
                 if (this.isAuth) {
                     promise = fetch(this.url, {
-                        'headers': { 'Authorization': ` token ${localStorage.getItem('githubAccessToken')}` },
+                        'headers': { 'Authorization': ` token ${localStorage.getItem('accessToken')}` },
                         'cache': 'no-cache'
                     })
                 }
@@ -76,17 +85,19 @@ export default {
                         const linkPattern = /<(http(?:s)?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-.\/?%&=]*)?)>; rel="(.+?)"/g
                         let match
                         while ((match = linkPattern.exec(links)) != null) {
-                            if(match[2] == 'next') {
+                            if (match[2] == 'next') {
                                 this.url = match[1]
                                 break;
                             }
                         }
                     }
 
+                    const gists = []
                     for (let item of await response.json()) {
                         const blob = new Blob([JSON.stringify(item)], { type: 'application/json' })
-                        this.gists.push(URL.createObjectURL(blob))
+                        gists.push(URL.createObjectURL(blob))
                     }
+                    this.gists = this.gists.concat(gists)
                 })
             }
         }

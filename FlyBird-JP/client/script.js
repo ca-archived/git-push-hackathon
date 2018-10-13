@@ -20,12 +20,42 @@ const routes = [
                         <div class='tab_area'>
                             <div class='tabs'>
                                 <h2 class='tab active'><router-link to='/'>Yours</router-link></h2>
+                                <h2 class='tab'><router-link to='/gists/starred'>Starred</router-link></h2>
                                 <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
                             </div>
                         </div>
                         <div class='content'>
-                            <router-link class='add' to='/gist/create' >追加する</router-link>
+                            <router-link class='add' to='/gist/create'>追加する</router-link>
                             <gist-list user='user'></gist-list>
+                        </div>
+                    </main>
+                </div>
+            `
+        }
+    },
+    {
+        'path': '/gists/starred',
+        'component': {
+            'template': `
+                <div id='root'>
+                    <header>
+                        <div class='content'>
+                            <h1><a href='/'>Gist Client</a></h1>
+                            <div class='buttons'>
+                                <login-github></login-github>
+                            </div>
+                        </div>
+                    </header>
+                    <main>
+                        <div class='tab_area'>
+                            <div class='tabs'>
+                                <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
+                                <h2 class='tab active'><router-link to='/gists/starred'>Starred</router-link></h2>
+                                <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
+                            </div>
+                        </div>
+                        <div class='content'>
+                            <gist-list user='starred'></gist-list>
                         </div>
                     </main>
                 </div>
@@ -49,11 +79,11 @@ const routes = [
                         <div class='tab_area'>
                             <div class='tabs'>
                                 <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
+                                <h2 class='tab'><router-link to='/gists/starred'>Starred</router-link></h2>
                                 <h2 class='tab active'><router-link to='/gists/public'>Public</router-link></h2>
                             </div>
                         </div>
                         <div class='content'>
-                            <router-link class='add' to='/gist/create' >追加する</router-link>
                             <gist-list user='public'></gist-list>
                         </div>
                     </main>
@@ -91,7 +121,7 @@ const routes = [
                     })
                         .then((response) => response.json())
                         .then((json) => {
-                            localStorage.setItem(`${json['service']}AccessToken`, json['accessToken'])
+                            localStorage.setItem(`accessToken`, json['accessToken'])
                             location.href = '/'
                         })
                 } else location.href = '/'
@@ -110,6 +140,11 @@ const router = new VueRouter({
             return { x: 0, y: 0 }
         }
     }
+})
+
+router.beforeEach((to, from, next) => {
+    if(['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) next('/gists/public') 
+    else next()
 })
 
 window.addEventListener('load', (e) => {

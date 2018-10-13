@@ -142,7 +142,7 @@ export default class LoginGithub extends HTMLElement {
             this.logout()
         });
 
-        this.accessToken = localStorage.getItem(`githubAccessToken`)
+        this.accessToken = localStorage.getItem(`accessToken`)
         if (this.accessToken == null) {
             this.shadowRoot.getElementById('user').classList.add('disabled')
         } else {
@@ -206,7 +206,7 @@ export default class LoginGithub extends HTMLElement {
         location.href = `/auth/github`
     }
     logout() {
-        localStorage.clear(`githubAccessToken`)
+        localStorage.clear(`accessToken`)
         location.href = '/'
     }
     popup(title, msg) {

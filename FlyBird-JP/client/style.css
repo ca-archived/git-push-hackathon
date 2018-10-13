@@ -79,27 +79,27 @@ main > .tab_area > .tabs{
     transform: translateY(1px);
  }
  main > .tab_area > .tabs > .tab {
-    height: 40px;
-    padding: 0 1rem;
-    line-height: 39px;
+    height: 45px;
+    line-height: 44px;
     margin: 0;
     margin-left: 1rem;
     font-weight: 500;
     font-size: large;
-    cursor: pointer;
     color: #666;
  }
  main > .tab_area > .tabs > .tab > a {
-     color: #666;
-     text-decoration: none;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding: 0 1rem;
  }
  main > .tab_area > .tabs > .tab.active{
-     border: solid 1px #ddd;
-     border-bottom: none;
-     border-top: solid 3px #ff9800;
-     border-radius: 5px 5px 0 0;
-     background: #fff;
-     color: #333;
+    border: solid 1px #ddd;
+    border-bottom: none;
+    border-top: solid 3px #ff9800;
+    border-radius: 5px 5px 0 0;
+    background: #fff;
+    color: #333;
 }
 main > .content > .add{
     width: 100%;
@@ -115,8 +115,11 @@ main > .content > .add{
 main > .content {
     width: 100%;
     max-width: 900px;
-    margin: auto;
-    padding: 1rem 0;
+    height: calc(100% - 60px - 2rem);
+    margin: 1rem auto;
+    padding: 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .relative{
     position: relative;
@@ -134,7 +137,7 @@ main > .content {
 .spinner {
     width: 40px;
     height: 40px;
-    background-color: #333;
+    background-color: #24292E;
     animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 
@@ -286,13 +289,24 @@ main > .content {
 
 /* gist-list */
 .gist-list {
-width: 100%;
-   height: calc(100% - 120px);
-   position: relative;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
 }
 .gist-list > .messeage {
-   width: 100%;
-   height: 2rem;
-   line-height: 2rem;
-   text-align: center;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+.gist-list > .load {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    box-sizing: border-box;
+    box-shadow: 0 2px 2px rgba(0,0,0, 0.24), 0 0 2px rgba(0,0,0, 0.12);
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 1rem;
 }

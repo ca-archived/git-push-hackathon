@@ -38,7 +38,7 @@ export default {
         }
     },
     created: function () {
-        this.accessToken = localStorage.getItem(`githubAccessToken`)
+        this.isAuth = 'accessToken' in localStorage
         if ("IntersectionObserver" in window) {
             this.imageObserver = new IntersectionObserver((entries) => {
                 for (let entry of entries) {
@@ -50,7 +50,6 @@ export default {
                 }
             })
         }
-        this.isAuth = this.accessToken != null
         if (this.isAuth) this.getUser().then((user) => {
             this.user = user
         })
@@ -60,7 +59,7 @@ export default {
             location.href = `/auth/github`
         },
         logout: function () {
-            localStorage.clear(`githubAccessToken`)
+            localStorage.clear(`accessToken`)
             location.href = '/'
         },
         popup: function (title, msg) {
@@ -90,7 +89,7 @@ export default {
             }
         },
         getUser: async function () {
-            const response = await fetch('https://api.github.com/user', { 'headers': { 'Authorization': ` token ${this.accessToken}` } })
+            const response = await fetch('https://api.github.com/user', { 'headers': { 'Authorization': ` token ${localStorage.getItem('accessToken')}` } })
             const json = await response.json()
             return {
                 'name': json.login,
@@ -103,10 +102,12 @@ export default {
                 fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events')
                     .then((response) => response.json())
                     .then((json => {
+                        const events = []
                         for (let event of json) {
                             const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
-                            this.events.push(URL.createObjectURL(blob))
+                            events.push(URL.createObjectURL(blob))
                         }
+                        this.events = this.events.concat(events)
 
                         this.$nextTick().then(() => {
                             if ("IntersectionObserver" in window) {
