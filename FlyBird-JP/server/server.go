@@ -1,6 +1,7 @@
 package main
 
 import(
+	"strconv"
 	"net"
 	"net/http"
 	"net/http/fcgi"
@@ -14,6 +15,7 @@ import(
 const(
 	clientSecretPath = "../setting/client_secret.txt"
 	clientIdPath = "../setting/client_id.txt"
+	port = 49651
 )
 
 var github *oauth2.Config
@@ -44,10 +46,10 @@ func main(){
 	  }
 
 	router := mux.NewRouter().StrictSlash(false)
-	router.HandleFunc("/auth", auth).Methods("GET")
-	router.HandleFunc("/token", token).Methods("POST")
+	router.HandleFunc("/auth/{service}", auth).Methods("GET")
+	router.HandleFunc("/token/{service}", token).Methods("POST")
 	
-	listener, err := net.Listen("tcp", "127.0.0.1:49651")
+	listener, err := net.Listen("tcp", "127.0.0.1:" + strconv.Itoa(port))
 	if err != nil {
 		panic(err.Error())
 	}
@@ -57,8 +59,8 @@ func main(){
 }
 
 func auth(res http.ResponseWriter, req *http.Request) {
-	parameter := req.URL.Query()
-	service := parameter["service"][0]
+	vars := mux.Vars(req)
+	service := vars["service"]
 
 	var authUrl string
 	state := "test"
@@ -70,6 +72,9 @@ func auth(res http.ResponseWriter, req *http.Request) {
 }
 
 func token(res http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	service := vars["service"]
+
 	bytes, err := ioutil.ReadAll(req.Body)
 	defer req.Body.Close()
 	if err != nil {
@@ -78,25 +83,23 @@ func token(res http.ResponseWriter, req *http.Request) {
 
 	var reqJson interface{}
 	err = json.Unmarshal(bytes, &reqJson)
-
-	service := reqJson.(map[string]interface{})["service"]
 	code := reqJson.(map[string]interface{})["code"]
 
-	if service != nil && code != nil {
+	if code != nil {
 		var token *oauth2.Token
-		switch service.(string) {
+		switch service {
 			case "github":	token, err = github.Exchange(oauth2.NoContext, code.(string))
 		}
-  		if err != nil {
-    		panic(err.Error())
+  		if  token == nil || err != nil {
+    		res.WriteHeader(http.StatusBadRequest)
+		} else {
+			resJson := map[string]string{}
+			resJson["service"] = service
+			resJson["accessToken"] = token.AccessToken
+			respondWithJson(resJson, res)
 		}
-		resJson := map[string]string{}
-		resJson["service"] = service.(string)
-		resJson["accessToken"] = token.AccessToken
-	  
-		respondWithJson(resJson, res)
 	} else {
-		res.WriteHeader(http.StatusNotFound)
+		res.WriteHeader(http.StatusBadRequest)
 	}
 }
 
