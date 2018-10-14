@@ -3,7 +3,7 @@ import Home from "../components/Home";
 import mapDispatchToProps from "./mapDispatchToProps";
 
 function mapStateToProps(state) {
-  return state;
+  return { gists: state.gists };
 }
 
 export default connect(

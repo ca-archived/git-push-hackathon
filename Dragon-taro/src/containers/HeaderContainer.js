@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import mapDispatchToProps from "./mapDispatchToProps";
 
 function mapStateToProps(state) {
-  return state;
+  return { oauth: state.oauth, user: state.user };
 }
 
 export default connect(
