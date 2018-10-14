@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MessageComponent } from './message.component';
 
-describe('MessageComponent', () => {
-  let component: MessageComponent;
-  let fixture: ComponentFixture<MessageComponent>;
+import { OauthComponent } from './oauth.component';
+
+describe('OauthComponent', () => {
+  let component: OauthComponent;
+  let fixture: ComponentFixture<OauthComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageComponent ]
+      declarations: [ OauthComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageComponent);
+    fixture = TestBed.createComponent(OauthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

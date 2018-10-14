@@ -3,6 +3,16 @@
 </p>
 <ul>
     <li *ngFor="let item of menuItems">
-        <span class ="menu-item">{{item}}</span>
+        <a *ngIf="item.parent == '' && item.url != '' " class="menu_item" href="{{item.url}}">
+            {{item.name}}
+        </a>
+        <span *ngIf="item.parent == '' && item.url == '' " class="menu_item">
+            {{item.name}}
+            <ul *ngFor="let sub_item of menuItems">
+                <a *ngIf="sub_item.parent == item.name" class="menu_sub_item" href="{{sub_item.url}}">
+                    {{sub_item.name}}
+                </a>
+            </ul>
+        </span>
     </li>
 </ul>
