@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   constructor() {
@@ -18,7 +19,10 @@ class Home extends Component {
       ? gists.map(gist => {
           return (
             <li key={gist.id}>
-              <div>{gist.description}</div>
+              <Link to={`/gists/${gist.id}`}>
+                <div>{gist.description}</div>
+                <div>{gist.created_at}</div>
+              </Link>
             </li>
           );
         })

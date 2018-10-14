@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { If } from "./If";
-import { user } from "../reducers/oauth";
 
 class Header extends Component {
   constructor(props) {
@@ -22,14 +21,6 @@ class Header extends Component {
         <ul>
           <li>
             <Link to="/">Home</Link>
-          </li>
-
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-
-          <li>
-            <Link to="/friends">Friends</Link>
           </li>
         </ul>
         <If condition={!oauth.isAuthorized}>
