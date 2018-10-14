@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import Header from "./containers/HeaderContainer";
+import Home from "./containers/HomeContainer";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 
@@ -23,21 +24,6 @@ class App extends React.Component {
           </Switch>
         </div>
       </HashRouter>
-    );
-  }
-}
-
-class Home extends React.Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (
-      <div>
-        <h2>Home</h2>
-        <p>home</p>
-      </div>
     );
   }
 }

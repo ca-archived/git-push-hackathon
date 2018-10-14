@@ -6,7 +6,9 @@ import {
   FAILURE_LOGIN,
   GET_USER,
   SET_USER,
-  NO_USER
+  NO_USER,
+  GET_GISTS,
+  SET_GISTS
 } from "./constants";
 
 // 認証周り
@@ -19,3 +21,7 @@ export const alreadyLogin = createAction(ALREADY_LOGIN);
 export const getUser = createAction(GET_USER);
 export const setUser = createAction(SET_USER);
 export const noUser = createAction(NO_USER);
+
+// Gist周り
+export const getGists = createAction(GET_GISTS);
+export const setGists = createAction(SET_GISTS);

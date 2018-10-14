@@ -8,3 +8,7 @@ export const ALREADY_LOGIN = "ALREADY_LOGIN";
 export const GET_USER = "GET_USER";
 export const SET_USER = "SET_USER";
 export const NO_USER = "NO_USER";
+
+// Gist周り
+export const GET_GISTS = "GET_GISTS";
+export const SET_GISTS = "SET_GISTS";
