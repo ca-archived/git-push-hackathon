@@ -1,7 +1,7 @@
 import { SET_GISTS } from "../actions/constants";
 
 const initial = {
-  gists: []
+  gists: { gists: [] }
 };
 
 export function gists(state = initial.gists, { type, payload }) {

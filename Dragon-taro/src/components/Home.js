@@ -9,8 +9,30 @@ class Home extends Component {
     this.props.actions.getGists();
   }
 
+  gistsList() {
+    const {
+      gists: { gists }
+    } = this.props;
+
+    const gistsList = gists.length
+      ? gists.map(gist => {
+          return (
+            <li key={gist.id}>
+              <div>{gist.description}</div>
+            </li>
+          );
+        })
+      : null;
+
+    return gistsList;
+  }
+
   render() {
-    return <div>home</div>;
+    return (
+      <div>
+        <ul>{this.gistsList()}</ul>
+      </div>
+    );
   }
 }
 

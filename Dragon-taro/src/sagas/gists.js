@@ -7,8 +7,6 @@ function* handleGetGists() {
   while (true) {
     yield take(GET_GISTS);
 
-    console.log(GET_GISTS);
-
     const { payload, error } = yield call(Get, "gists");
     if (!error) {
       yield put(setGists(payload));
