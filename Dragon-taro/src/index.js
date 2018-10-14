@@ -6,6 +6,7 @@ import Home from "./containers/HomeContainer";
 import Gist from "./containers/GistContainer";
 import { Provider } from "react-redux";
 import configureStore from "./store";
+import NewGist from "./containers/NewGistContainer";
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +21,7 @@ class App extends React.Component {
           <hr />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/gists/new" component={NewGist} />
             <Route path="/gists/:id" component={Gist} />
           </Switch>
         </div>
