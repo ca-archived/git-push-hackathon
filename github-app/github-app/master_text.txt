@@ -1,1 +1,1 @@
-made most component and service 
+made functions dispalay one gist
