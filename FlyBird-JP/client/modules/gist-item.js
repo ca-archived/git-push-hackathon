@@ -1,95 +1,60 @@
-export default class GistItem extends HTMLElement {
-    get template() {
-        return `
-        <style>
-            :host {
-                width: 100%;
-                display: grid;
-                grid-template-columns: 6rem 1fr;
-                grid-template-rows: 1.5rem 1.5rem 1.5rem;
-                box-sizing: border-box;
-                border: solid 0.5px #ddd;
-                border-radius: 5px;
-                padding: 1rem;
-                margin-bottom: 1rem;
-            }
-            :host * {
-                box-sizing: inherit;
-            }
-            #user {
-                display: grid;
-            }
-            #usericon {
-                width: auto;
-                height: 100%;
-                border-radius: 50%;
-                grid-row: 1 / -1;
-                text-align: center;
-                align-items: center;
-                grid-column: 1;
-            }
-            #files, #desc, #username {
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-                line-height: 1.5rem;
-            }
-            #files {
-                grid-column: 2;
-                grid-row: 1;
-            }
-            #desc {
-                grid-column: 2;
-                grid-row: 2;
-            }
-            #username {
-                grid-column: 2;
-                grid-row: 3;
-            }
-        </style>
-        <img id='usericon' />
-        <span id='files'></span>
-        <span id='desc'></span>
-        <span id='username'></span>
-    `
-    }
 
-    constructor() {
-        super();
-        this.attachShadow({ 'mode': 'open' })
-        this.shadowRoot.innerHTML = this.template
-    }
-    static get observedAttributes() {
-        return ['url'];
-    }
-    print(json) {
-        let files = []
-        for (let fileName in json.files) {
-            files.push(`<a href='${json.files[fileName].raw_url}'>${json.files[fileName].filename}</a>`)
-        }
+Vue.filter('dateFormat', (date) => {
+    let differ = (new Date() - new Date(date)) / (1000 * 60)
+    if (differ > 24 * 60) return new Date(date).toLocaleDateString()
+    else if (differ > 60) return `${Math.floor(differ / 60)}時間前`
+    else return `${Math.floor(differ)}分前`
+})
 
-        this.shadowRoot.getElementById('files').innerHTML = files.join(', ')
-        if (json.description.length > 0) {
-            this.shadowRoot.getElementById('desc').innerHTML = json.description
+export default {
+    props: ['url'],
+    template: `<div class='gist-item' v-on:click='jump()'>
+                    <img v-bind:data-url='user.img' />
+                    <span class='name_and_fiels'>{{ user.name }} / {{ files }}</span>
+                    <span class='desc'>{{ desc }}</span>
+                    <span class='date'>{{ date | dateFormat }}</span>
+                </div>`,
+    data: function () {
+        return {
+            'user': {
+                'img':'',
+                'name' : ''
+            },
+            'files' : '',
+            'desc' : 'No description.',
+            'date': new Date().toLocaleDateString()
         }
-        else {
-            this.shadowRoot.getElementById('desc').innerHTML = 'No descripton.'
+    },
+    created: function () {
+        if (this.url != null) {
+            fetch(this.url)
+                .then((response) => response.json())
+                .then((json) => {
+                    this.print(json)
+                })
         }
-        this.shadowRoot.getElementById('usericon').src = json.owner.avatar_url
-        this.shadowRoot.getElementById('username').innerHTML = `by <a href='${json.owner.html_url}'>${json.owner.login}</a>`
-    }
-    connectedCallback() {
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (oldValue != newValue) switch (name) {
-            case 'url':
-                fetch(newValue)
-                    .then((response) => response.json())
-                    .then((json) => {
-                        this.print(json)
-                    })
-                break;
-            default: break;
+    },
+    methods: {
+        jump: function (){
+            if(this.id != null) this.$router.push(`/gists/${this.id}`)
+        },
+        print: function (json) {
+            this.user =  {
+               'name' : json.owner.login,
+               'img' : json.owner.avatar_url
+            }
+            this.files = Object.keys(json.files).join(', ')
+            this.desc = json.description || 'No description.'
+            this.date = json.updated_at
+            this.id = json.id
+
+            if (!("IntersectionObserver" in window)) {
+                this.$nextTick().then(() => {
+                    for (let img of this.$el.getElementsByTagName('img')) {
+                        if ('url' in img.dataset) img.src = img.dataset.url
+                    }
+                })
+            }
         }
     }
 }

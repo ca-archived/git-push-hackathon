@@ -68,7 +68,7 @@ main > .tab_area {
     height: 60px;
     background: #fafbfc;
     border-bottom: solid 1px #ddd;
- }
+}
 main > .tab_area > .tabs{
     display: flex;
     align-items: flex-end;
@@ -77,7 +77,7 @@ main > .tab_area > .tabs{
     height: 100%;
     margin: 0 auto;
     transform: translateY(1px);
- }
+}
  main > .tab_area > .tabs > .tab {
     height: 45px;
     line-height: 44px;
@@ -86,13 +86,13 @@ main > .tab_area > .tabs{
     font-weight: 500;
     font-size: large;
     color: #666;
- }
+}
  main > .tab_area > .tabs > .tab > a {
     color: #666;
     text-decoration: none;
     display: block;
     padding: 0 1rem;
- }
+}
  main > .tab_area > .tabs > .tab.active{
     border: solid 1px #ddd;
     border-bottom: none;
@@ -102,7 +102,7 @@ main > .tab_area > .tabs{
     color: #333;
 }
 main > .content > .add{
-    width: 100%;
+    width: calc(100% - 2rem);
     height: 60px;
     line-height: 60px;
     display: block;
@@ -110,14 +110,13 @@ main > .content > .add{
     box-shadow: 0 2px 2px rgba(0,0,0, 0.24), 0 0 2px rgba(0,0,0, 0.12);
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 1rem;
+    margin:0 auto 1rem;
  }
 main > .content {
     width: 100%;
     max-width: 900px;
     height: calc(100% - 60px - 2rem);
     margin: 1rem auto;
-    padding: 1rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -297,7 +296,7 @@ main > .content {
     text-align: center;
 }
 .gist-list > .load {
-    width: 100%;
+    width: calc(100% - 2rem);
     height: 60px;
     line-height: 60px;
     display: block;
@@ -305,7 +304,7 @@ main > .content {
     box-shadow: 0 2px 2px rgba(0,0,0, 0.24), 0 0 2px rgba(0,0,0, 0.12);
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem;
 }
 
 .my-dialog {
@@ -368,7 +367,7 @@ main > .content {
     display: flex;
     justify-content: flex-end;
 }
-.my-dialog > .dialog > .buttons > .button{
+.my-dialog > .dialog > .buttons > .button {
     width: 100px;
     text-align: center;
     border: solid 0.5px #999;
@@ -377,9 +376,50 @@ main > .content {
     line-height: 2rem;
     cursor: pointer;
     font-weight: 500;
+    transition: background ease-in-out 0.1s;
 }
-.my-dialog > .dialog > .buttons > .button.positive{
+.my-dialog > .dialog > .buttons > .button.positive {
     border: none;
     background: #2196f3;
     color: #fff;
+}
+.my-dialog > .dialog > .buttons > .button.positive:hover {
+    background: #63b5f6;
+}
+
+.gist-item {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    grid-template-rows: 1.5rem 1.5rem 1.5rem;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-top: solid 0.5px #ddd;
+    cursor: pointer;
+}
+.gist-item > img {
+    width: auto;
+    height: 100%;
+    border-radius: 50%;
+    grid-row: 1 / -1;
+    text-align: center;
+    align-items: center;
+    grid-column: 1;
+}
+.gist-item > span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.gist-item > .name_and_fiels {
+    grid-column: 2;
+    grid-row: 1;
+}
+.gist-item > .desc {
+    grid-column: 2;
+    grid-row: 2;
+}
+.gist-item > .date {
+    grid-column: 2;
+    grid-row: 3;
 }

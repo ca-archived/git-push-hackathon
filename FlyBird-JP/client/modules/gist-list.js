@@ -47,12 +47,21 @@ export default {
                     }
                 });
             });
+            this.imageObserver = new IntersectionObserver((entries) => {
+                for (let entry of entries) {
+                    if (entry.isIntersecting) {
+                        entry.target.src = entry.target.dataset.url
+                        delete entry.target.dataset.url
+                        this.imageObserver.unobserve(entry.target)
+                    }
+                }
+            })
         }
         this.mutationObserver = new MutationObserver((mutations) => {
             for(let i = mutations.length - 1;i >= 0;i--){
                 if(mutations[i].addedNodes.length == 0) continue
                 const lastChild = mutations[i].addedNodes[mutations[i].addedNodes.length - 1]
-                if ('tagName' in lastChild && lastChild.tagName.toLowerCase() == 'gist-item') {
+                if ('classList' in lastChild && lastChild.classList.contains('gist-item')) {
                     this.intersectionObserver.observe(lastChild);
                     break
                 }
@@ -98,6 +107,14 @@ export default {
                         gists.push(URL.createObjectURL(blob))
                     }
                     this.gists = this.gists.concat(gists)
+
+                    this.$nextTick().then(() => {
+                        if ("IntersectionObserver" in window) {
+                            for (let img of this.$el.getElementsByTagName('img')) {
+                                if ('url' in img.dataset) this.imageObserver.observe(img)
+                            }
+                        }
+                    })
                 })
             }
         }

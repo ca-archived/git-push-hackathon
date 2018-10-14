@@ -113,12 +113,13 @@ window.addEventListener('load', (e) => {
     })
 
     router.beforeEach((to, from, next) => {
-        if(to.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'hidden'
-        else document.getElementById('loginGithub').style.visibility = 'visible'
+        if (to.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'hidden'
+        if (from.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'visible'
 
         if (['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) {
-            const vm = document.getElementById('dialog').__vue__
-            if(vm != null) vm.alert('ログインしませんか？', 'ログインするとgistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
+            if (from.path == '/gists/public') {
+                document.getElementById('dialog').__vue__.alert('ログインしませんか？', 'ログインするとGistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
+            }
             next('/gists/public')
         }
         else next()
