@@ -13,6 +13,8 @@ import { PostGistComponent } from './post-gist/post-gist.component';
 import { OauthComponent } from './oauth/oauth.component';
 import { OauthRedirectComponent } from './oauth-redirect/oauth-redirect.component';
 
+import { GistModule } from '@sgbj/angular-gist';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,12 +25,13 @@ import { OauthRedirectComponent } from './oauth-redirect/oauth-redirect.componen
         AllGistComponent,
         PostGistComponent,
         OauthComponent,
-        OauthRedirectComponent
+        OauthRedirectComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        GistModule
     ],
     providers: [],
     bootstrap: [AppComponent]

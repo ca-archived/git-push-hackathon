@@ -3,6 +3,7 @@ import {Http, Response} from "@angular/http";
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {TEMP_ACCESS_KEYS} from'./temp-access-keys';
 
+import {Observable} from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
@@ -101,6 +102,16 @@ export class ApiService {
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
+    createGetGistDataObserval() {
+        console.log("createGetGistDataObserval");
+        var httpObj = this.http.get(
+            "https://api.github.com/"
+            + "gists"
+            + "?access_token=" + TEMP_ACCESS_KEYS.access_token
+        );
+        return httpObj;
+    }
+
     GithubApiOAuth_gist() {
         console.log("GithubApiOAuth_gist");
         var httpObj = this.http.get(
@@ -125,10 +136,29 @@ export class ApiService {
         console.log(gist_id);
         console.log("gist_owner_name");
         console.log(gist_owner_name);
-
-
+    }
+/*
+    getGistData(): Promise<GistData> {
+        console.log("GithubApiOAuth_gist");
+        return this.http.get(
+            "https://api.github.com/"
+            + "gists"
+            + "?access_token=" + TEMP_ACCESS_KEYS.access_token
+        ).toPromise().then(this.extractGistData);
     }
 
+    extractGistData(res):  Promise<GistData> {
+        let gist_id: string = res["0"]["owner"]["login"];
+        let gist_owner_name: string = res["0"]["id"];
+
+        this.gist_id = gist_id;
+        this.gist_owner_name = gist_owner_name;
+
+        let gistData : GistData;
+        gistData = new GistData(gist_id, gist_owner_name)
+        return Promise.resolve(gistData);
+    }
+    */
 
 
     private RequestNext(res) {
@@ -142,4 +172,10 @@ export class ApiService {
     }
 
 
+}
+
+export class GistData {
+    constructor(gistId: string,
+                gistOwnerName: string) {
+    }
 }

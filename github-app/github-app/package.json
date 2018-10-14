@@ -20,8 +20,10 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@sgbj/angular-gist": "0.3.0",
     "core-js": "^2.5.4",
-    "rxjs": "~6.2.0",
+    "postscribe": "^2.0.8",
+    "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
