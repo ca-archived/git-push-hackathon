@@ -1,6 +1,11 @@
 <p>
     all-gist works!
 </p>
-<div id="gist_area"></div>
-    <!--gh-gist src="https://gist.github.com/{{this.gist_owner_name}}/{{this.gist_id}}.js"></gh-gist-->
-    <gh-gist src="https://gist.github.com/Kusunoki-19/02f3410e48643458f221d72eef3a8557.js"></gh-gist>
+gist_id =「 gistInfo.id 」<br>
+gist_owner_name = 「 gist_owner_name.owner_name 」
+<div id="gist_area">
+    gist_area
+    <!--app-gist-single [gist]="this.gistData"></app-gist-single-->
+</div>
+<!--gh-gist src="https://gist.github.com/{{gist_owner_name}}/{{gist_id}}.js"></gh-gist^^>
+<!--gh-gist src="https://gist.github.com/Kusunoki-19/02f3410e48643458f221d72eef3a8557.js"></gh-gist-->

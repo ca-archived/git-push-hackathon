@@ -1,5 +1,6 @@
-import {Component, OnInit, Renderer2 , ElementRef} from '@angular/core';
+import {Component, OnInit, Renderer2, ElementRef} from '@angular/core';
 import {ApiService} from '../api.service';
+import {GistData} from '../GistData';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -9,14 +10,16 @@ import {Observable} from 'rxjs';
 })
 export class AllGistComponent implements OnInit {
 
-    constructor(
-        private apiService: ApiService,
-        private renderer: Renderer2,
-        private elementRef: ElementRef,
-    ) {}
+    gistData: GistData = {
+        id: "init", owner_name: "init"
+    };
+    temp: string = "init";
 
-    gist_id : string;
-    gist_owner_name : string;
+    constructor(private apiService: ApiService,
+                private renderer: Renderer2,
+                private elementRef: ElementRef,) {
+    }
+
 
     ngOnInit() {
         //this.apiService.GithubApiTest();
@@ -25,44 +28,38 @@ export class AllGistComponent implements OnInit {
 
         //this.appendGistScript();
 
+        this.GetGistData();
+
+    }
+
+    GetGistData(): void {
+
+        console.log("this.temp");
+        console.log(this.temp);
         var getGistDataObsbles = this.apiService.createGetGistDataObserval();
-        getGistDataObsbles.subscribe(this.handleGistData);
+        getGistDataObsbles.subscribe(res => {
+            this.gistData =
+            {"id": res["0"]["id"], "owner_name": res["0"]["owner"]["login"]};
+            this.appendGistScript();
+        });
 
     }
 
-    private handleGistData(res) {
-        console.log("handleGistData");
-        console.log("res");
-        console.log(res);
-        let gist_id: string = res["0"]["id"];
-        let gist_owner_name: string = res["0"]["owner"]["login"];
-
-        this.gist_id = gist_id;
-        this.gist_owner_name = gist_owner_name;
-
-        console.log("gist_id");
-        console.log(gist_id);
-        console.log("gist_owner_name");
-        console.log(gist_owner_name);
-
-        //this.appendGistScript();
-
-        console.log("appendGistScript");
-
-        const gist_script = document.createElement('gh-gist');
-        gist_script.setAttribute("src", "https://gist.github.com/" + this.gist_owner_name + "/" + this.gist_id + ".js");
-        var div = document.getElementById('gist_area');
-        div.parentNode.insertBefore(gist_script, div.nextSibling);
-    }
-    /*
     appendGistScript() {
+        /*
         console.log("appendGistScript");
-        var gist_script = this.renderer.createElement("script");
-        gist_script.setAttribute("src", "https://gist.github.com/" + this.gist_owner_name + "/" + this.gist_id + ".js");
+        const gist_script = document.createElement('gh-gist');
+        gist_script.setAttribute("src", "https://gist.github.com/" + this.gistData.owner_name + "/" + this.gistData.id + ".js");
+        var div = document.getElementById('gist_area');
+        div.parentNode.insertBefore(gist_script, div.nextSibling);
+        */
+
+        console.log("appendGistScript");
+        const gist_script = document.createElement('app-gist-single');
+        //gist_script.setAttribute("[gist]", "this.gistData");
         var div = document.getElementById('gist_area');
         div.parentNode.insertBefore(gist_script, div.nextSibling);
     }
-    */
 
 
 }

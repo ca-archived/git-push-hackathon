@@ -13,7 +13,10 @@ import { PostGistComponent } from './post-gist/post-gist.component';
 import { OauthComponent } from './oauth/oauth.component';
 import { OauthRedirectComponent } from './oauth-redirect/oauth-redirect.component';
 
+import { FormsModule }      from '@angular/forms';
 import { GistModule } from '@sgbj/angular-gist';
+import { GistSingleComponent } from './gist-single/gist-single.component';
+
 
 @NgModule({
     declarations: [
@@ -26,11 +29,13 @@ import { GistModule } from '@sgbj/angular-gist';
         PostGistComponent,
         OauthComponent,
         OauthRedirectComponent,
+        GistSingleComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
+        FormsModule,
         GistModule
     ],
     providers: [],
