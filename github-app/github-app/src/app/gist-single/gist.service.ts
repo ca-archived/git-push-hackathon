@@ -9,11 +9,15 @@ export class GistService {
 
     constructor(private apiService: ApiService,) {
         let i : number = 0;
-        var getGistObsbles = this.apiService.createGetGistDataObserval();
+        var getGistObsbles = this.apiService.GetGistDataReq();
         getGistObsbles.subscribe(res => {
-            for (i = 0; i < res.length ; i++) { //this response has length propaerty if succeded
-                this.gistItems[i] = new GistItem(GistHtmlComponent
-                    , {id: res[i]["id"], owner_name: res[i]["owner"]["login"]});
+            try {
+                for (let a_res in res) { //this response has length propaerty if succeded
+                    this.gistItems[i] =
+                        new GistItem(GistHtmlComponent , {id: res[i]["id"], owner_name: res[i]["owner"]["login"]});
+                }
+            } catch (error) {
+                console.log(error);
             }
         });
     }

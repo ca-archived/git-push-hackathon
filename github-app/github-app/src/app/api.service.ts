@@ -101,7 +101,7 @@ export class ApiService {
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
-    createGetGistDataObserval() {
+    GetGistDataReq() {
         console.log("createGetGistDataObserval");
         var httpObj = this.http.get(
             "https://api.github.com/"
@@ -109,6 +109,10 @@ export class ApiService {
             + "?access_token=" + TEMP_ACCESS_KEYS.access_token
         );
         return httpObj;
+    }
+
+    GetPostGistReq() {
+
     }
 
     GithubApiOAuth_gist() {
