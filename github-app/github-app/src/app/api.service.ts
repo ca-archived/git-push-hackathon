@@ -82,7 +82,6 @@ export class ApiService {
     }
 
     OAuth3() {
-
     }
 
     GithubApiTest() {
@@ -137,30 +136,6 @@ export class ApiService {
         console.log("gist_owner_name");
         console.log(gist_owner_name);
     }
-/*
-    getGistData(): Promise<GistData> {
-        console.log("GithubApiOAuth_gist");
-        return this.http.get(
-            "https://api.github.com/"
-            + "gists"
-            + "?access_token=" + TEMP_ACCESS_KEYS.access_token
-        ).toPromise().then(this.extractGistData);
-    }
-
-    extractGistData(res):  Promise<GistData> {
-        let gist_id: string = res["0"]["owner"]["login"];
-        let gist_owner_name: string = res["0"]["id"];
-
-        this.gist_id = gist_id;
-        this.gist_owner_name = gist_owner_name;
-
-        let gistData : GistData;
-        gistData = new GistData(gist_id, gist_owner_name)
-        return Promise.resolve(gistData);
-    }
-    */
-
-
     private RequestNext(res) {
         console.log("Response");
         console.log(res);
