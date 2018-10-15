@@ -8,7 +8,9 @@ import {
   SET_USER,
   NO_USER,
   GET_GISTS,
-  SET_GISTS
+  SET_GISTS,
+  GET_ONE_GIST,
+  SET_ONE_GIST
 } from "./constants";
 
 // 認証周り
@@ -25,3 +27,5 @@ export const noUser = createAction(NO_USER);
 // Gist周り
 export const getGists = createAction(GET_GISTS);
 export const setGists = createAction(SET_GISTS);
+export const getOneGist = createAction(GET_ONE_GIST);
+export const setOneGist = createAction(SET_ONE_GIST);

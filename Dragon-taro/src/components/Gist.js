@@ -5,14 +5,21 @@ class Gist extends Component {
     super();
   }
 
-  //   componentDidMount() {
-  //     this.props.actions.getGists();
-  //   }
+  componentDidMount() {
+    const {
+      params: { id }
+    } = this.props.match;
+
+    this.props.actions.getOneGist({ id: id });
+  }
 
   render() {
-    const { params } = this.props.match;
+    const {
+      params: { id }
+    } = this.props.match;
+    const gist = this.props.gist[id];
 
-    return <div>{params.id}</div>;
+    return <div>{gist ? gist.url : null}</div>;
   }
 }
 

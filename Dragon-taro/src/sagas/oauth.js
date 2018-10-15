@@ -47,9 +47,9 @@ function* getUserInfo() {
   while (true) {
     yield take(GET_USER);
 
-    const { payload, error } = yield call(Get, "user");
+    const { resp, error } = yield call(Get, "user");
     if (!error) {
-      yield put(setUser(payload));
+      yield put(setUser(resp));
     } else {
       yield put(noUser(error));
     }

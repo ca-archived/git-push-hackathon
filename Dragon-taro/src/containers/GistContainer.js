@@ -3,7 +3,7 @@ import Gist from "../components/Gist";
 import mapDispatchToProps from "./mapDispatchToProps";
 
 function mapStateToProps(state) {
-  return { oauth: state.oauth, user: state.user };
+  return { gist: state.gist };
 }
 
 export default connect(

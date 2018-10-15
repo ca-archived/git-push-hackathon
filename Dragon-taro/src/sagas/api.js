@@ -13,7 +13,7 @@ export function Get(path) {
   })
     .then(res => res.json())
     .then(payload => {
-      return { payload: payload };
+      return { resp: payload };
     })
     .catch(error => {
       return { error: error };
