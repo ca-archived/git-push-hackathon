@@ -170,12 +170,4 @@ export class ApiService {
         console.log("Error");
         console.log(error);
     }
-
-
-}
-
-export class GistData {
-    constructor(gistId: string,
-                gistOwnerName: string) {
-    }
 }

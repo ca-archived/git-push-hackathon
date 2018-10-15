@@ -1,7 +1,10 @@
-import {Component, OnInit, Renderer2, ElementRef} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {ApiService} from '../api.service';
+import {GistService} from '../gist-single/gist.service';
 import {GistData} from '../GistData';
 import {Observable} from 'rxjs';
+
+import {GistItem} from'../gist-single/gist-item';
 
 @Component({
     selector: 'app-all-gist',
@@ -15,9 +18,12 @@ export class AllGistComponent implements OnInit {
     };
     temp: string = "init";
 
+    gists : GistItem[];
+
     constructor(private apiService: ApiService,
                 private renderer: Renderer2,
-                private elementRef: ElementRef,) {
+                private gistService : GistService,
+    ) {
     }
 
 
@@ -28,7 +34,9 @@ export class AllGistComponent implements OnInit {
 
         //this.appendGistScript();
 
-        this.GetGistData();
+        //this.GetGistData();
+
+        this.gists = this.gistService.getGists();
 
     }
 
