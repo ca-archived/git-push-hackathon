@@ -1,0 +1,14 @@
+#gist_editor {
+    display: block;
+    widht: 400px;
+    height: 250px;
+
+}
+#gist_editor_label {
+    padding-top : 5px;
+    vertical-align: top;
+}
+
+#post_button {
+    margin-left: auto;
+}

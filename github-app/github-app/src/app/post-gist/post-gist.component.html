@@ -1,3 +1,36 @@
 <p>
-  post-gist works!
+    post-gist works!
 </p>
+<form [formGroup]="postGistForm" (ngSubmit)="onSubmit()">
+    <table>
+        <tr>
+            <td> Description</td>
+            <td>
+                <input type="text" formControlName="description" name="description">
+            </td>
+        </tr>
+        <tr>
+            <td>Release</td>
+            <td>
+                <label>public
+                    <input type="radio" formControlName="release" name="release" value="public" required>
+                </label>
+                <label>private
+                    <input type="radio" formControlName="release" name="release" value="private" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>File name</td>
+            <td><input type="text" formControlName="fileName" name="fileName"></td>
+        </tr>
+        <tr>
+            <td id="gist_editor_label">content</td>
+            <td><input id="gist_editor" type="text" formControlName="content" name="content"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button id="post_button" type="submit">Post Gist !!</button></td>
+        </tr>
+    </table>
+</form>
