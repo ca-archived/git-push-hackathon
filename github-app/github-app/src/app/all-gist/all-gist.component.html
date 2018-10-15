@@ -1,7 +1,8 @@
-
 <div id="gist_area">
     <h3>All Gists</h3>
-    <div *ngFor="let gist of gists">
-         <app-gist-single [gist]="gist"></app-gist-single>
+    <div *ngFor="let gist of gists" class="gist_container">
+        <div>
+            <app-gist-single [gist]="gist"></app-gist-single>
+        </div>
     </div>
 </div>

@@ -1,0 +1,16 @@
+.gist_container {
+    max-height : 350px;
+    display: block;
+    overflow: hidden;
+    border:1px solid #000000;
+    border-radius: 5px;
+    margin : 5px;
+    padding: 1px;
+}
+.gist_container div {
+    max-height : 400px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+
+}

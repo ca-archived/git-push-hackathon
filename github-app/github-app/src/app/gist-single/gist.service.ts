@@ -12,7 +12,8 @@ export class GistService {
         var getGistObsbles = this.apiService.createGetGistDataObserval();
         getGistObsbles.subscribe(res => {
             for (i = 0; i < res.length ; i++) { //this response has length propaerty if succeded
-                this.gistItems[i] = new GistItem(GistHtmlComponent, {id: res[i]["id"], owner_name: res[i]["owner"]["login"]});
+                this.gistItems[i] = new GistItem(GistHtmlComponent
+                    , {id: res[i]["id"], owner_name: res[i]["owner"]["login"]});
             }
         });
     }
