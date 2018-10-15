@@ -11,16 +11,13 @@ export class GistService {
         let i : number = 0;
         var getGistObsbles = this.apiService.createGetGistDataObserval();
         getGistObsbles.subscribe(res => {
-            for (i = 0; i < res.length ; i++) {
+            for (i = 0; i < res.length ; i++) { //this response has length propaerty if succeded
                 this.gistItems[i] = new GistItem(GistHtmlComponent, {id: res[i]["id"], owner_name: res[i]["owner"]["login"]});
             }
         });
     }
 
     gistItems : GistItem[] = [];
-
-    OnInit() {
-    }
 
     getGists() {
         return this.gistItems ;

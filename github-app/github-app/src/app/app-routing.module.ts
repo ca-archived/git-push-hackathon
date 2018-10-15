@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommandPanelComponent } from './command-panel/command-panel.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuComponent } from './menu/menu.component';
-import { MessageComponent } from './message/message.component';
 import {AllGistComponent} from "./all-gist/all-gist.component";
 import {PostGistComponent} from "./post-gist/post-gist.component";
 import {OauthComponent} from "./oauth/oauth.component";
