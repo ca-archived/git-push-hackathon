@@ -17,7 +17,9 @@ import{ GistComponent } from './gist.component';
 
 export class GistSingleComponent implements OnInit {
   @Input() gist : GistItem;
+
   @ViewChild(GistDirective) gistHost : GistDirective;
+
 
   constructor(private componentFactoryResolver : ComponentFactoryResolver) { }
 
