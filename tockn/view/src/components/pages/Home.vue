@@ -9,7 +9,7 @@ const endpoint = process.env.OAUTH_ENDPOINT
 export default {
   methods: {
     login () {
-      location.href = `${endpoint}/auth/github?redirect_url=${location.href}/auth/callback`
+      location.href = `${endpoint}/auth/github?redirect_url=${location.href}auth/callback`
     }
   }
 }
