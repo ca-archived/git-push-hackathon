@@ -23,8 +23,6 @@ export function oauth(state = initial.ouath, { type, payload }) {
       return { ...state, isAuthorized: true, err: null };
     case FAILURE_LOGIN:
       return { ...state, isAuthorized: true, err: payload.err };
-    case ALREADY_LOGIN:
-      return { ...state, isAuthorized: true, err: null };
   }
 
   return state;

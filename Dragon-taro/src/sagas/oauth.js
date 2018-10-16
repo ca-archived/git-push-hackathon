@@ -4,7 +4,6 @@ import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
 import { Get } from "./api";
 import {
-  alreadyLogin,
   successLogin,
   failureLogin,
   getUser,
@@ -17,7 +16,7 @@ const token = sessionStorage.getItem("access_token");
 function signIn() {
   OAuth.initialize(ACCESS_TOKEN);
 
-  return OAuth.popup("github", {scopes: ["gist"]})
+  return OAuth.popup("github", { scopes: ["gist"] })
     .done(function(result) {
       const json = result.toJson();
       return { access_token: json.access_token };
@@ -59,7 +58,7 @@ function* getUserInfo() {
 // 初期化したときにすでにログイン済みだったらUser情報を取得
 function* initialize() {
   if (token) {
-    yield put(alreadyLogin());
+    yield put(successLogin());
     yield put(getUser());
   }
 }
