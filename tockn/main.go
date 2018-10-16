@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 	"os"
 
@@ -13,29 +12,32 @@ import (
 	"github.com/markbates/goth/providers/github"
 )
 
-type AccessToken struct {
-	AccessToken string `json:"access_token"`
-}
-
 func main() {
 	goth.UseProviders(
 		github.New(os.Getenv("CLIENT_ID"), os.Getenv("CLIENT_SECRET"), "http://localhost:3000/auth/github/callback"),
 	)
 
 	p := pat.New()
-	p.Get("/auth/{provider}/callback", func(res http.ResponseWriter, req *http.Request) {
+	p.Get("/auth/{provider}/callback", func(w http.ResponseWriter, r *http.Request) {
 
-		user, err := gothic.CompleteUserAuth(res, req)
+		user, err := gothic.CompleteUserAuth(w, r)
 		if err != nil {
-			res.WriteHeader(http.StatusUnauthorized)
+			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		a := AccessToken{user.AccessToken}
-		json.NewEncoder(res).Encode(a)
+		cookie, _ := r.Cookie("redirect_url")
+		redirectURL := cookie.Value + "?access_token=" + user.AccessToken
+		http.Redirect(w, r, redirectURL, http.StatusSeeOther)
 	})
 
-	p.Get("/auth/{provider}", func(res http.ResponseWriter, req *http.Request) {
-		gothic.BeginAuthHandler(res, req)
+	p.Get("/auth/{provider}", func(w http.ResponseWriter, r *http.Request) {
+		redirectURL := r.URL.Query().Get("redirect_url")
+		cookie := &http.Cookie{
+			Name:  "redirect_url",
+			Value: redirectURL,
+		}
+		http.SetCookie(w, cookie)
+		gothic.BeginAuthHandler(w, r)
 	})
 
 	log.Fatal(http.ListenAndServe(":3000", p))
