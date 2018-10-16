@@ -4,6 +4,14 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {TEMP_ACCESS_KEYS} from'./temp-access-keys';
 
 import {Observable} from 'rxjs';
+
+import {Observable, throwError} from 'rxjs';
+import {catchError, last, map, tap} from 'rxjs/operators';
+import {
+    HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
+} from '@angular/common/http';
+
+
 @Injectable({
     providedIn: 'root'
 })
@@ -59,29 +67,69 @@ export class ApiService {
     }
 
     OAuth2() {
-        var httpObj = this.http.post(
-            this.OAuthURL2,
-            new HttpParams()
+        //↓CORS eroor catched by angular httpClient error catch function
+        /*
+         var httpObj = this.http.post(
+         this.OAuthURL2,
+         new HttpParams()
+         .set('client_id', this.clientId)
+         .set('client_secret', this.clientSecret)
+         .set('code', this.redirect_code)// default is empty
+         .set('redirect_url', "http://localhost:4200")
+         .set('state', this.state), // default is true
+         {
+         headers: new HttpHeaders({
+         'Content-Type': 'application/x-www-form-urlencoded'
+         })
+         }
+         )
+         httpObj.subscribe(this.OAuth2Next, this.RequestError);
+         */
+
+        var postOAuthReq = new XMLHttpRequest();
+        postOAuthReq.open("POST", this.OAuthURL2, true);//false = synchronized request
+        postOAuthReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        postOAuthReq.onreadystatechange = () => {
+            if(this.readyState == postOAuthReq.DONE &&this.status == 200){
+                console.log(this.responseText)
+            }
+
+        };
+
+        postOAuthReq.send(
+            'access_token='+ TEMP_ACCESS_KEYS.access_token
+            +'&client_id='+ this.clientId
+            +'&client_secret'+ this.clientSecret
+            +'&code'+ this.redirect_code
+            +'&redirect_url'+ "http://localhost:4200"
+            +'&state'+ this.state
+        );
+
+        /*
+        const req = new HttpRequest(
+            'POST'
+            , this.OAuthURL2
+            , new HttpParams()
                 .set('client_id', this.clientId)
                 .set('client_secret', this.clientSecret)
                 .set('code', this.redirect_code)// default is empty
                 .set('redirect_url', "http://localhost:4200")
-                .set('state', this.state), // default is true
-            {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            }
+                .set('state', this.state) // default is true,
+            , {reportProgress: true});
+
+        return this.http.request(req).pipe(
+            map(event => "aaa"),
+            tap(message => "bbb"),
+            last(), // return last (completed) message to caller
+            catchError()
         );
-        httpObj.subscribe(this.OAuth2Next, this.RequestError);
+         */
+
     }
 
     OAuth2Next(res) {
         console.log("Response");
         console.log(res);
-    }
-
-    OAuth3() {
     }
 
     GithubApiTest() {
@@ -121,8 +169,8 @@ export class ApiService {
                 {
                     'description': description,
                     'public': release,
-                    'files' : {
-                        [fileName]: {'content' :  content  }
+                    'files': {
+                        [fileName]: {'content': content}
                     }
                 }
             )
