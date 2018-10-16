@@ -6,27 +6,32 @@
         <tr>
             <td> Description</td>
             <td>
-                <input type="text" formControlName="description" name="description">
+                <input type="text" formControlName="description"
+                       name="description" placeholder="test code from my github app" value="">
             </td>
         </tr>
         <tr>
             <td>Release</td>
             <td>
                 <label>public
-                    <input type="radio" formControlName="release" name="release" value="public" required>
+                    <input type="radio" formControlName="release" name="release" value="true" checked="checked">
                 </label>
                 <label>private
-                    <input type="radio" formControlName="release" name="release" value="private" required>
+                    <input type="radio" formControlName="release" name="release" value="false" >
                 </label>
             </td>
         </tr>
         <tr>
             <td>File name</td>
-            <td><input type="text" formControlName="fileName" name="fileName"></td>
+            <td><input type="text" formControlName="fileName"
+                       name="fileName" placeholder="from_my_github_app.txt"value="">
+            </td>
         </tr>
         <tr>
             <td id="gist_editor_label">content</td>
-            <td><input id="gist_editor" type="text" formControlName="content" name="content"></td>
+            <td><input id="gist_editor" type="text" formControlName="content"
+                       name="content" placeholder="test code text" value="">
+            </td>
         </tr>
         <tr>
             <td></td>

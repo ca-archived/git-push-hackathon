@@ -102,7 +102,7 @@ export class ApiService {
     }
 
     GetGistDataReq() {
-        console.log("createGetGistDataObserval");
+        console.log("GetGistDataReq");
         var httpObj = this.http.get(
             "https://api.github.com/"
             + "gists"
@@ -111,8 +111,29 @@ export class ApiService {
         return httpObj;
     }
 
-    GetPostGistReq() {
+    GetPostGistReq(description, release, fileName, content) {
+        console.log("GetPostGistReq");
 
+        var httpObj = this.http.post(
+            "https://api.github.com/"
+            + "gists"
+            , JSON.stringify(
+                {
+                    'description': description,
+                    'public': release,
+                    'files' : {
+                        [fileName]: {'content' :  content  }
+                    }
+                }
+            )
+            , {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'token ' + TEMP_ACCESS_KEYS.access_token
+                })
+            }
+        );
+        return httpObj;
     }
 
     GithubApiOAuth_gist() {
@@ -140,6 +161,7 @@ export class ApiService {
         console.log("gist_owner_name");
         console.log(gist_owner_name);
     }
+
     private RequestNext(res) {
         console.log("Response");
         console.log(res);
