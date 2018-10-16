@@ -2,17 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-Vue.use(Vuex)
+// const API_ENDPOINT = 'https://api.github.com'
 
-var http = axios.create({withCredentials: true})
+Vue.use(Vuex)
 
 var Store = new Vuex.Store({
   state: {
+    access_token: ''
   },
   mutations: {
   },
   actions: {
   }
-}
+})
 
 export default Store
