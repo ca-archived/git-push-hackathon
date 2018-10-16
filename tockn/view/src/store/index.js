@@ -8,9 +8,13 @@ Vue.use(Vuex)
 
 var Store = new Vuex.Store({
   state: {
-    access_token: ''
+    // アクセストークン
+    at: ''
   },
   mutations: {
+    setAccessToken (state, at) {
+      state.at = at
+    }
   },
   actions: {
   }
