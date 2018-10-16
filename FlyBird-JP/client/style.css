@@ -14,10 +14,13 @@ body {
     font-size: 16px;
     background: #fff;
     color: #111;
-    font-family: "游ゴシック", "YuGothic", "Yu Gothic", 'ヒラギノ角ゴ ProN W3', "Hiragino Kaku Gothic ProN", "Meiryo", Helvetica, Arial, sans-serif;
     font-weight: 100;
     padding: 0;
     overflow-x: hidden;
+}
+body, input {
+    font-family: "游ゴシック", "YuGothic", "Yu Gothic", 'ヒラギノ角ゴ ProN W3', "Hiragino Kaku Gothic ProN", "Meiryo", Helvetica, Arial, sans-serif;
+    font-weight: 100;
 }
 a {
     color: #2196f3;
@@ -66,8 +69,8 @@ main {
 main > .tab_area {
     width: 100%;
     height: 60px;
-    background: #fafbfc;
-    border-bottom: solid 1px #ddd;
+    background: #fafafa;
+    border-bottom: solid 1px #ccc;
 }
 main > .tab_area > .tabs{
     display: flex;
@@ -94,12 +97,31 @@ main > .tab_area > .tabs{
     padding: 0 1rem;
 }
  main > .tab_area > .tabs > .tab.active{
-    border: solid 1px #ddd;
+    border: solid 1px #ccc;
     border-bottom: none;
     border-top: solid 3px #ff9800;
     border-radius: 5px 5px 0 0;
     background: #fff;
     color: #333;
+}
+main > .content {
+    width: 100%;
+    max-width: 900px;
+    height: calc(100% - 2rem);
+    margin: 1rem auto;
+    padding: 1rem 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+main > .content.with_tab {
+    height: calc(100% - 60px - 2rem);
+}
+main > .content.with_padding {
+    padding: 0 1rem;
+}
+main > .content > h2 {
+    font-weight: 500;
+    margin: 0;
 }
 main > .content > .add{
     width: calc(100% - 2rem);
@@ -107,19 +129,20 @@ main > .content > .add{
     line-height: 60px;
     display: block;
     box-sizing: border-box;
-    box-shadow: 0 2px 2px rgba(0,0,0, 0.24), 0 0 2px rgba(0,0,0, 0.12);
+    border: solid 1px #ccc;
     border-radius: 5px;
     text-align: center;
     margin:0 auto 1rem;
+    text-decoration: none;
+    background: #fafafa;
+    color: #333;
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
  }
-main > .content {
-    width: 100%;
-    max-width: 900px;
-    height: calc(100% - 60px - 2rem);
-    margin: 1rem auto;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
+ main > .content > .add:hover {
+     background: #eee;
+     border-color: #bbb;
+ }
 .relative{
     position: relative;
 }
@@ -208,7 +231,7 @@ main > .content {
    z-index: 500;
    color: #000;
    overflow: hidden;
-   border: solid 0.5px #ddd;
+   border: solid 0.5px #ccc;
 }
 .login-github > .dashboard.visible{
    transform: translateX(0);
@@ -229,7 +252,7 @@ main > .content {
  .login-github > .dashboard > .buttons {
    width: 100%;
    display: flex;
-   border-top: solid 0.5px #ddd;
+   border-top: solid 0.5px #ccc;
 }
 .login-github > .dashboard > .buttons > .button {
    width: 50%;
@@ -239,7 +262,7 @@ main > .content {
    cursor: pointer;
    transition: border-color ease-in-out 0.3s;
    font-weight: 500;
-   border: solid 0.5px #ddd;
+   border: solid 0.5px #ccc;
 }
 .login-github > .dashboard > .buttons > .button:hover {
     border-color: #999;
@@ -259,10 +282,10 @@ main > .content {
     grid-template-rows: 1.5rem 1.5rem 1.5rem;
     box-sizing: border-box;
     padding: 1rem;
-    border-top: solid 0.5px #ddd;
+    border-top: solid 0.5px #ccc;
 }
 .github-event > img {
-    width: auto;
+    width: calc(100% - 1rem);
     height: 100%;
     border-radius: 50%;
     grid-row: 1 / -1;
@@ -288,6 +311,8 @@ main > .content {
     width: 100%;
     min-height: 100%;
     position: relative;
+    border-top: solid 0.5px #ccc;
+    border-bottom: solid 0.5px #ccc;
 }
 .gist-list > .messeage {
     width: 100%;
@@ -301,12 +326,20 @@ main > .content {
     line-height: 60px;
     display: block;
     box-sizing: border-box;
-    box-shadow: 0 2px 2px rgba(0,0,0, 0.24), 0 0 2px rgba(0,0,0, 0.12);
+    border: solid 1px #ccc;
     border-radius: 5px;
     text-align: center;
-    margin: 0 auto 1rem;
+    background: #fafafa;
+    margin: 1rem auto;
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
+}
+.gist-list > .load:hover {
+    background: #eee;
+    border-color: #bbb;
 }
 
+/* my-dialog */
 .my-dialog {
     position: fixed;
     top: 0;
@@ -387,18 +420,19 @@ main > .content {
     background: #63b5f6;
 }
 
+/* gist-item */
 .gist-item {
     width: 100%;
     display: grid;
-    grid-template-columns: 5.5rem 1fr;
+    grid-template-columns: 5.5rem 1fr 1fr;
     grid-template-rows: 1.5rem 1.5rem 1.5rem;
     box-sizing: border-box;
     padding: 1rem;
-    border-top: solid 0.5px #ddd;
+    border-bottom: solid 0.5px #ccc;
     cursor: pointer;
 }
 .gist-item > img {
-    width: auto;
+    width: calc(100% - 1rem);
     height: 100%;
     border-radius: 50%;
     grid-row: 1 / -1;
@@ -411,15 +445,109 @@ main > .content {
     overflow: hidden;
     white-space: nowrap;
 }
-.gist-item > .name_and_fiels {
-    grid-column: 2;
+.gist-item > .name_and_files {
+    grid-column: 2 / -1;
     grid-row: 1;
+    font-weight: 500;
 }
 .gist-item > .desc {
-    grid-column: 2;
+    grid-column: 2 / -1;
     grid-row: 2;
 }
 .gist-item > .date {
-    grid-column: 2;
+    grid-column: 2 / -1;
     grid-row: 3;
+}
+.gist-item > .comments {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+/* gist-editor */
+
+.gist-editor {
+    width: 100%;
+}
+.gist-editor input {
+    font-size: medium;
+}
+.gist-editor > .desc {
+    width: 100%;
+    display: block;
+    line-height: 2rem;
+    border-radius: 5px;
+    border: solid 0.5px #ccc;
+    outline: 0;
+    margin: 1rem 0 0 0;
+    font-weight: 500;
+    padding-left: 1rem;
+}
+.gist-editor > .desc, .gist-editor > .file > .filename {
+    transition: border-color ease-in-out 0.3s;
+}
+.gist-editor > .desc:focus, .gist-editor > .file > .filename:focus {
+    border-color: #2196f3;
+}
+.gist-editor > .file > .button {
+    margin-top: 1rem;
+    border: solid 0.5px #ccc;
+    width: 100px;
+    border-radius: 5px;
+    line-height: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+.gist-editor > .file > .button.negative {
+    border-color: #f00;
+    color: #f00;
+}
+.gist-editor > .file > .filename {
+    width: 100%;
+    display: block;
+    line-height: 2rem;
+    border-radius: 5px 5px 0 0;
+    border: solid 0.5px #ccc;
+    outline: 0;
+    margin-top: 1rem;
+    font-weight: 500;
+    padding-left: 1rem;
+}
+.gist-editor > .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.gist-editor > .buttons .button {
+    border: solid 0.5px #ccc;
+    background: #fafafa;
+    border-radius: 5px;
+    line-height: 2rem;
+    padding: 0 1rem;
+    cursor: pointer;
+    transition: background ease-in-out 0.3s;
+}
+.gist-editor > .buttons > div {
+    display: flex;
+}
+.gist-editor > .buttons > div > .button.secret {
+    background: #ebf1af;
+}
+.gist-editor > .buttons > div > .button:first-child {
+    margin-right: 1rem;
+}
+.gist-editor > .buttons .button:hover {
+    background: #eee;
+    border-color: #bbb;
+}
+.CodeMirror {
+    font-family: monospace;
+    font-size: 14px;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    border: solid 0.5px #ccc;
+    border-top: none;
+}
+.CodeMirror-gutters {
+    background: #fff!important;
+    border-right: none!important;
 }

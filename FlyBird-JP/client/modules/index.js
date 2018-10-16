@@ -18,3 +18,6 @@ Vue.component('gist-item', GistItem)
 
 import MyDialog from '/modules/my-dialog.js'
 Vue.component("my-dialog", MyDialog);
+
+import GistEditor from '/modules/gist-editor.js'
+Vue.component("gist-editor", GistEditor);

@@ -42,7 +42,7 @@ export default {
         if ("IntersectionObserver" in window) {
             this.imageObserver = new IntersectionObserver((entries) => {
                 for (let entry of entries) {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && 'url' in entry.target.dataset) {
                         entry.target.src = entry.target.dataset.url
                         delete entry.target.dataset.url
                         this.imageObserver.unobserve(entry.target)

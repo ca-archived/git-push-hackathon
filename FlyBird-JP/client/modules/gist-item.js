@@ -1,18 +1,11 @@
-
-Vue.filter('dateFormat', (date) => {
-    let differ = (new Date() - new Date(date)) / (1000 * 60)
-    if (differ > 24 * 60) return new Date(date).toLocaleDateString()
-    else if (differ > 60) return `${Math.floor(differ / 60)}時間前`
-    else return `${Math.floor(differ)}分前`
-})
-
 export default {
     props: ['url'],
     template: `<div class='gist-item' v-on:click='jump()'>
                     <img v-bind:data-url='user.img' />
-                    <span class='name_and_fiels'>{{ user.name }} / {{ files }}</span>
+                    <span class='name_and_files'>{{ user.name }} / {{ files }}</span>
                     <span class='desc'>{{ desc }}</span>
                     <span class='date'>{{ date | dateFormat }}</span>
+                    <span class='comments'>コメント:{{ comments }}件</span>
                 </div>`,
     data: function () {
         return {
@@ -22,7 +15,8 @@ export default {
             },
             'files' : '',
             'desc' : 'No description.',
-            'date': new Date().toLocaleDateString()
+            'date': new Date().toLocaleDateString(),
+            'comments' : 0
         }
     },
     created: function () {
@@ -45,7 +39,8 @@ export default {
             }
             this.files = Object.keys(json.files).join(', ')
             this.desc = json.description || 'No description.'
-            this.date = json.updated_at
+            this.date = json.created_at
+            this.comments = json.comments
             this.id = json.id
 
             if (!("IntersectionObserver" in window)) {

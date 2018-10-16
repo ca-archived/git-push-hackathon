@@ -54,6 +54,7 @@ export default class GistItem extends HTMLElement {
         <span id='files'></span>
         <span id='desc'></span>
         <span id='username'></span>
+        <span id='username'></span>
     `
     }
 

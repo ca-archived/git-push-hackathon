@@ -11,6 +11,8 @@
     <script type='module' src='/modules/index.js'></script>
     <script src='https://unpkg.com/vue/dist/vue.js'></script>
     <script src='https://unpkg.com/vue-router/dist/vue-router.js'></script>
+    <link rel='stylesheet' href='/codemirror/lib/codemirror.css' />
+    <script src='/codemirror/lib/codemirror.js'></script>
     <script src='/script.js'></script>
 </head>
 
@@ -18,7 +20,7 @@
     <div id='content'>
         <header>
             <div class='content'>
-                <h1><a href='/'>Gist Client</a></h1>
+                <h1><router-link to='/'>Gist Client</router-link></h1>
                 <div class='buttons'>
                     <login-github id='loginGithub'></login-github>
                 </div>

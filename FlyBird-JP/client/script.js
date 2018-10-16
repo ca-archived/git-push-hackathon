@@ -16,13 +16,12 @@ const routes = [
                                 <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
                             </div>
                         </div>
-                        <div class='content'>
-                            <router-link class='add' to='/gist/create'>追加する</router-link>
+                        <div class='content with_tab'>
+                            <router-link class='add' to='/gists/new'>作成する</router-link>
                             <gist-list user='user'></gist-list>
                         </div>
                     </main>
-                </div>
-            `
+                </div>`
         }
     },
     {
@@ -38,12 +37,25 @@ const routes = [
                                 <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
                             </div>
                         </div>
-                        <div class='content'>
+                        <div class='content with_tab'>
                             <gist-list user='starred'></gist-list>
                         </div>
                     </main>
-                </div>
-            `
+                </div>`
+        }
+    },
+    {
+        'path': '/gists/new',
+        'component': {
+            'template': `
+                <div id='root'>
+                    <main>
+                        <div class='content with_padding'>
+                            <h2>Gistの新規作成</h2>
+                            <gist-editor></gist-editor>
+                        </div>
+                    </main>
+                </div>`
         }
     },
     {
@@ -59,12 +71,11 @@ const routes = [
                                 <h2 class='tab active'><router-link to='/gists/public'>Public</router-link></h2>
                             </div>
                         </div>
-                        <div class='content'>
+                        <div class='content with_tab'>
                             <gist-list user='public'></gist-list>
                         </div>
                     </main>
-                </div>
-            `
+                </div>`
         }
     },
     {
@@ -75,8 +86,7 @@ const routes = [
                     <main class='relative'>
                         <div class="spinner center"></div>
                     </main>
-                </div>
-            `,
+                </div>`,
             'created': function () {
                 const url = new URL(location.href)
                 if (url.searchParams.has('code') && url.searchParams.has('state')) {
@@ -98,6 +108,14 @@ const routes = [
         }
     }
 ]
+
+Vue.filter('dateFormat', (date) => {
+    let differ = (new Date() - new Date(date)) / 1000
+    if (differ > 24 * 60 * 60) return new Date(date).toLocaleDateString()
+    else if (differ > 60 * 60) return `${Math.floor(differ / (60 * 60))}時間前`
+    else if (differ > 60) return `${Math.floor(differ / 60)}分前`
+    else return `${Math.floor(differ)}秒前`
+})
 
 window.addEventListener('load', (e) => {
     const router = new VueRouter({

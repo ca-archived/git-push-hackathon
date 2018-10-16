@@ -1,11 +1,3 @@
-
-Vue.filter('dateFormat', (date) => {
-    let differ = (new Date() - new Date(date)) / (1000 * 60)
-    if (differ > 24 * 60) return new Date(date).toLocaleDateString()
-    else if (differ > 60) return `${Math.floor(differ / 60)}時間前`
-    else return `${Math.floor(differ)}分前`
-})
-
 export default {
     props: {
         'user': {
@@ -34,9 +26,8 @@ export default {
         this.isLast = false
         this.isAuth = 'accessToken' in localStorage
         if (!this.isAuth || this.user == 'public') this.url += '/public'
-        else if(this.user == 'starred') this.url += '/starred'
+        else if (this.user == 'starred') this.url += '/starred'
 
-        this.load()
         this.isShowLoadButton = !('IntersectionObserver' in window && 'MutationObserver' in window)
         if ('IntersectionObserver' in window && 'MutationObserver' in window) {
             this.intersectionObserver = new IntersectionObserver((entries) => {
@@ -49,7 +40,7 @@ export default {
             });
             this.imageObserver = new IntersectionObserver((entries) => {
                 for (let entry of entries) {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && 'url' in entry.target.dataset) {
                         entry.target.src = entry.target.dataset.url
                         delete entry.target.dataset.url
                         this.imageObserver.unobserve(entry.target)
@@ -58,19 +49,20 @@ export default {
             })
         }
         this.mutationObserver = new MutationObserver((mutations) => {
-            for(let i = mutations.length - 1;i >= 0;i--){
-                if(mutations[i].addedNodes.length == 0) continue
-                const lastChild = mutations[i].addedNodes[mutations[i].addedNodes.length - 1]
-                if ('classList' in lastChild && lastChild.classList.contains('gist-item')) {
-                    this.intersectionObserver.observe(lastChild);
-                    break
+            for (let i = mutations.length - 1; i >= 0; i--) {
+                if (mutations[i].addedNodes.length > 0) {
+                    const lastChild = mutations[i].addedNodes[mutations[i].addedNodes.length - 1]
+                    if ('classList' in lastChild && lastChild.classList.contains('gist-item')) {
+                        this.intersectionObserver.observe(lastChild);
+                        break
+                    }
                 }
-                else continue
             }
         });
-        this.$nextTick().then(() => {
-            this.mutationObserver.observe(this.$el, { 'childList': true });
-        })
+    },
+    mounted: function () {
+        this.mutationObserver.observe(this.$el, { 'childList': true });
+        this.load()
     },
     methods: {
         load() {

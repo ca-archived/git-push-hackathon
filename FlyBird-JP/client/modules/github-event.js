@@ -1,11 +1,3 @@
-
-Vue.filter('dateFormat', (date) => {
-    let differ = (new Date() - new Date(date)) / (1000 * 60)
-    if (differ > 24 * 60) return new Date(date).toLocaleDateString()
-    else if (differ > 60) return `${Math.floor(differ / 60)}時間前`
-    else return `${Math.floor(differ)}分前`
-})
-
 export default {
     props: ['url'],
     template: `<div class='github-event'>
@@ -35,6 +27,13 @@ export default {
                 .then((response) => response.json())
                 .then((json) => {
                     this.print(json)
+                    if (!("IntersectionObserver" in window)) {
+                        this.$nextTick().then(() => {
+                            for (let img of this.$el.getElementsByTagName('img')) {
+                                if ('url' in img.dataset) img.src = img.dataset.url
+                            }
+                        })
+                    }
                 })
         }
     },
@@ -85,14 +84,6 @@ export default {
                 default:
                     this.action = 'did action'
                     break
-            }
-
-            if (!("IntersectionObserver" in window)) {
-                this.$nextTick().then(() => {
-                    for (let img of this.$el.getElementsByTagName('img')) {
-                        if ('url' in img.dataset) img.src = img.dataset.url
-                    }
-                })
             }
         }
     }
