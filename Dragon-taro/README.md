@@ -10,6 +10,8 @@ export const ACCESS_TOKEN = "YOUR ACCESS TOKEN";
 
 に追記します。
 
+oauth.io での設定の際に scope の設定で gist の設定をするところがあるのでそれを忘れないようにしてください。（ここで僕は無駄に詰んでしまいました。）
+
 これをしてから、
 
 ```shell
