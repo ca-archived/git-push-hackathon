@@ -9,8 +9,10 @@ class Gist extends Component {
     const {
       params: { id }
     } = this.props.match;
-
-    this.props.actions.getOneGist({ id: id });
+    const gist = this.props.gist[id];
+    if (!gist) {
+      this.props.actions.getOneGist({ id: id });
+    }
   }
 
   render() {

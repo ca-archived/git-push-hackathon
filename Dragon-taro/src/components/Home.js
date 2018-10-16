@@ -10,6 +10,13 @@ class Home extends Component {
     this.props.actions.getGists();
   }
 
+  getGist(id) {
+    const gist = this.props.gist[id];
+    if (!gist) {
+      this.props.actions.getOneGist({ id: id });
+    }
+  }
+
   gistsList() {
     const {
       gists: { gists }
@@ -18,7 +25,7 @@ class Home extends Component {
     const gistsList = gists.length
       ? gists.map(gist => {
           return (
-            <li key={gist.id}>
+            <li key={gist.id} onMouseEnter={() => this.getGist(gist.id)}>
               <Link to={`/gists/${gist.id}`}>
                 <div>{gist.description}</div>
                 <div>{gist.created_at}</div>

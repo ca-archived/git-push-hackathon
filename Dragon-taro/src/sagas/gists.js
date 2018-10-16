@@ -43,7 +43,7 @@ function* handleCreateGist() {
 
     const { resp, error } = yield call(Post, "gists", createBody(data));
     if (!error) {
-      console.log(resp);
+      yield put(setOneGist(resp));
     }
   }
 }
