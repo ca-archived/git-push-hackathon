@@ -32,6 +32,16 @@ class Editor extends Component {
     this.setState({ files: newFiles });
   }
 
+  handleSubmit() {
+    const { type } = this.props;
+    const {
+      actions: { createGist }
+    } = this.props;
+    if (type == "create") {
+      createGist({ data: this.state });
+    }
+  }
+
   fileEditors() {
     const fileEditorList = this.state.files.map(f => {
       return (
@@ -48,6 +58,8 @@ class Editor extends Component {
 
   render() {
     const { description } = this.state;
+    const { type } = this.props;
+    const buttonMessage = type == "create" ? "Create" : "Edit";
     return (
       <div>
         <input
@@ -58,6 +70,7 @@ class Editor extends Component {
         />
         <ul>{this.fileEditors()}</ul>
         <button onClick={() => this.addFile()}>Add File</button>
+        <button onClick={() => this.handleSubmit()}>{buttonMessage}</button>
       </div>
     );
   }

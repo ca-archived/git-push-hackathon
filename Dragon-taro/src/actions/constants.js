@@ -14,3 +14,5 @@ export const GET_GISTS = "GET_GISTS";
 export const SET_GISTS = "SET_GISTS";
 export const GET_ONE_GIST = "GET_ONE_GIST";
 export const SET_ONE_GIST = "SET_ONE_GIST";
+export const CREATE_GIST = "CREATE_GIST";
+export const CREATED_GIST = "CREATED_GIST";

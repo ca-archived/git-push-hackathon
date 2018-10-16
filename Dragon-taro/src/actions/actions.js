@@ -10,7 +10,9 @@ import {
   GET_GISTS,
   SET_GISTS,
   GET_ONE_GIST,
-  SET_ONE_GIST
+  SET_ONE_GIST,
+  CREATE_GIST,
+  CREATED_GIST
 } from "./constants";
 
 // 認証周り
@@ -29,3 +31,5 @@ export const getGists = createAction(GET_GISTS);
 export const setGists = createAction(SET_GISTS);
 export const getOneGist = createAction(GET_ONE_GIST);
 export const setOneGist = createAction(SET_ONE_GIST);
+export const createGist = createAction(CREATE_GIST);
+export const createdGist = createAction(CREATED_GIST);

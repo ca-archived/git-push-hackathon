@@ -17,7 +17,7 @@ const token = sessionStorage.getItem("access_token");
 function signIn() {
   OAuth.initialize(ACCESS_TOKEN);
 
-  return OAuth.popup("github")
+  return OAuth.popup("github", {scopes: ["gist"]})
     .done(function(result) {
       const json = result.toJson();
       return { access_token: json.access_token };
