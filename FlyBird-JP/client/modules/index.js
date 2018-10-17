@@ -21,3 +21,11 @@ Vue.component("my-dialog", MyDialog);
 
 import GistEditor from '/modules/gist-editor.js'
 Vue.component("gist-editor", GistEditor);
+
+Vue.filter('dateFormat', (date) => {
+    let differ = (new Date() - new Date(date)) / 1000
+    if (differ > 24 * 60 * 60) return new Date(date).toLocaleDateString()
+    else if (differ > 60 * 60) return `${Math.floor(differ / (60 * 60))}時間前`
+    else if (differ > 60) return `${Math.floor(differ / 60)}分前`
+    else return `${Math.floor(differ)}秒前`
+})

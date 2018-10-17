@@ -1,7 +1,23 @@
+let imageObserver
+if ('IntersectionObserver' in window) {
+    imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && 'url' in entry.target.dataset && entry.target.dataset.url.length > 0) {
+                entry.target.src = entry.target.dataset.url
+                delete entry.target.dataset.url
+                imageObserver.unobserve(entry.target)
+            }
+        })
+    })
+}
+
 export default {
     props: ['url'],
-    template: `<div class='github-event'>
-                    <img v-bind:data-url='user.img' />
+    template: `<div class='github-event' v-if='url != null'>
+                    <a v-bind:href='user.page'>
+                        <img v-bind:data-url='user.img' v-if='lazyLoad' />
+                        <img v-bind:src='user.img' v-if='!lazyLoad' />
+                    </a>
                     <div>
                         <a v-bind:href='user.page'>{{ user.name }}</a>&nbsp;<span class='action' v-html='action'></span>
                     </div>
@@ -14,31 +30,26 @@ export default {
                 'name': '',
                 'img': '',
                 'page': '',
-
             },
             'action': '',
             'target': '',
-            'date': new Date().toLocaleDateString()
+            'date': new Date().toLocaleDateString(),
+            'lazyLoad': false
         }
     },
     created: function () {
+        this.lazyLoad = imageObserver != null
         if (this.url != null) {
             fetch(this.url)
                 .then((response) => response.json())
                 .then((json) => {
-                    this.print(json)
-                    if (!("IntersectionObserver" in window)) {
-                        this.$nextTick().then(() => {
-                            for (let img of this.$el.getElementsByTagName('img')) {
-                                if ('url' in img.dataset) img.src = img.dataset.url
-                            }
-                        })
-                    }
+                    this.setEvent(json)
+                    if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
                 })
         }
     },
     methods: {
-        print: function (json) {
+        setEvent: function (json) {
             this.user = {
                 'name': json.actor.login,
                 'page': `https://github.com/${json.actor.login}`,
@@ -84,6 +95,10 @@ export default {
                 default:
                     this.action = 'did action'
                     break
+            }
+
+            if(this.lazyLoad) {
+                imageObserver.observe(this.$el.getElementsByTagName('img')[0])
             }
         }
     }

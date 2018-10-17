@@ -1,7 +1,21 @@
+let imageObserver
+if ('IntersectionObserver' in window) {
+    imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && 'url' in entry.target.dataset && entry.target.dataset.url.length > 0) {
+                entry.target.src = entry.target.dataset.url
+                delete entry.target.dataset.url
+                imageObserver.unobserve(entry.target)
+            }
+        })
+    })
+}
+
 export default {
     props: ['url'],
-    template: `<div class='gist-item' v-on:click='jump()'>
-                    <img v-bind:data-url='user.img' />
+    template: `<div class='gist-item' v-if='url != null'>
+                    <img v-bind:data-url='user.img' v-if='lazyLoad' />
+                    <img v-bind:src='user.img' v-if='!lazyLoad' />
                     <span class='name_and_files'>{{ user.name }} / {{ files }}</span>
                     <span class='desc'>{{ desc }}</span>
                     <span class='date'>{{ date | dateFormat }}</span>
@@ -10,45 +24,40 @@ export default {
     data: function () {
         return {
             'user': {
-                'img':'',
-                'name' : ''
+                'img': '',
+                'name': ''
             },
-            'files' : '',
-            'desc' : 'No description.',
+            'files': '',
+            'desc': 'No description.',
             'date': new Date().toLocaleDateString(),
-            'comments' : 0
+            'comments': 0,
+            'lazyLoad' : false
         }
     },
     created: function () {
+        this.lazyLoad = imageObserver != null
         if (this.url != null) {
             fetch(this.url)
                 .then((response) => response.json())
                 .then((json) => {
-                    this.print(json)
+                    this.setGist(json)
+                    if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
                 })
         }
     },
     methods: {
-        jump: function (){
-            if(this.id != null) this.$router.push(`/gists/${this.id}`)
-        },
-        print: function (json) {
-            this.user =  {
-               'name' : json.owner.login,
-               'img' : json.owner.avatar_url
+        setGist: function (json) {
+            this.user = {
+                'name': json.owner.login,
+                'img': json.owner.avatar_url
             }
             this.files = Object.keys(json.files).join(', ')
             this.desc = json.description || 'No description.'
             this.date = json.created_at
             this.comments = json.comments
-            this.id = json.id
 
-            if (!("IntersectionObserver" in window)) {
-                this.$nextTick().then(() => {
-                    for (let img of this.$el.getElementsByTagName('img')) {
-                        if ('url' in img.dataset) img.src = img.dataset.url
-                    }
-                })
+            if(this.lazyLoad) {
+                imageObserver.observe(this.$el.getElementsByTagName('img')[0])
             }
         }
     }

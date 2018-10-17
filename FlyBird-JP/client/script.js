@@ -1,7 +1,5 @@
 'use strict'
 
-Vue.config.ignoredElements = ['gist-item'];
-
 const routes = [
     {
         'path': '/',
@@ -79,6 +77,17 @@ const routes = [
         }
     },
     {
+        'path': '/gists/:id',
+        'component': {
+            'template': `
+                <div id='root'>
+                    <main>
+                        {{ $route.params.id }}
+                    </main>
+                </div>`
+        }
+    },
+    {
         'path': '/callback_auth/:service',
         'component': {
             'template': `
@@ -108,41 +117,32 @@ const routes = [
         }
     }
 ]
+const router = new VueRouter({
+    'routes': routes,
+    'mode': 'history',
+    'scrollBehavior': (to, from, savedPosition) => {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
+})
 
-Vue.filter('dateFormat', (date) => {
-    let differ = (new Date() - new Date(date)) / 1000
-    if (differ > 24 * 60 * 60) return new Date(date).toLocaleDateString()
-    else if (differ > 60 * 60) return `${Math.floor(differ / (60 * 60))}時間前`
-    else if (differ > 60) return `${Math.floor(differ / 60)}分前`
-    else return `${Math.floor(differ)}秒前`
+router.beforeEach((to, from, next) => {
+    if (to.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'hidden'
+    if (from.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'visible'
+
+    if (['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) {
+        if (from.path == '/gists/public') {
+            document.getElementById('dialog').__vue__.alert('ログインしませんか？', 'ログインするとGistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
+        }
+        next('/gists/public')
+    }
+    else next()
 })
 
 window.addEventListener('load', (e) => {
-    const router = new VueRouter({
-        'routes': routes,
-        'mode': 'history',
-        'scrollBehavior': (to, from, savedPosition) => {
-            if (savedPosition) {
-                return savedPosition
-            } else {
-                return { x: 0, y: 0 }
-            }
-        }
-    })
-
-    router.beforeEach((to, from, next) => {
-        if (to.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'hidden'
-        if (from.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'visible'
-
-        if (['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) {
-            if (from.path == '/gists/public') {
-                document.getElementById('dialog').__vue__.alert('ログインしませんか？', 'ログインするとGistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
-            }
-            next('/gists/public')
-        }
-        else next()
-    })
-
     window.vm = new Vue({
         'router': router
     }).$mount('#content')

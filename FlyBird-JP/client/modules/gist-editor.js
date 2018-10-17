@@ -1,4 +1,4 @@
-const codeMirrorPath = '/codemirror/mode'
+const codeMirrorPath = '/codemirror'
 const extentions = {
     'js': 'javascript',
     'py': 'python',
@@ -6,22 +6,36 @@ const extentions = {
     'md': 'markdown'
 }
 
+const link = document.createElement('link')
+link.rel = 'stylesheet'
+link.href = `${codeMirrorPath}/lib/codemirror.css`
+document.body.appendChild(link)
+const script = document.createElement('script')
+script.src = `${codeMirrorPath}/lib/codemirror.js`
+document.body.appendChild(script)
+
+
 export default {
     props: [],
-    template: `<div class='gist-editor' v-if='!isSended'>
-                    <input type='text' placeholder='Gist description...' class='desc' v-model="description"></input>
-                    <div class='file' v-for="(file, index) in files">
-                        <input type='text' placeholder='Filename including extention...' class='filename' v-on:input='loadLang(file.id, $event)' v-model="file.name"></input>
-                        <textarea v-bind:class='"editor" + file.id'></textarea>
-                        <div v-if='index == files.length - 1 && index > 0' v-on:click='del(file.id)' class='button negative'>Delete</div>
-                    </div>
-                    <div class='buttons'>
-                        <div class='button' v-on:click='add()'>Add file</div>
-                        <div>
-                            <div class='button' v-if='isPublic' v-on:click='isPublic = !isPublic'>Publicにする</div>
-                            <div class='button secret' v-else='v-else' v-on:click='isPublic = !isPublic'>Secretにする</div>
-                            <div class='button' v-on:click='send()'>Create gist</div>
+    template: `<div class='gist-editor'>
+                    <div class='editor' v-if='!isSended'>
+                        <input type='text' placeholder='Gist description...' class='desc' v-model="description"></input>
+                        <div class='file' v-for="(file, index) in files">
+                            <input type='text' placeholder='Filename including extention...' class='filename' v-on:input='loadMode(file.id, $event)' v-model="file.name"></input>
+                            <textarea v-bind:class='"editor" + file.id'></textarea>
+                            <div v-if='index == files.length - 1 && index > 0' v-on:click='del(file.id)' class='button negative'>Delete</div>
                         </div>
+                        <div class='buttons'>
+                            <div class='button' v-on:click='add()'>Add file</div>
+                            <div>
+                                <div class='button' v-if='isPublic' v-on:click='isPublic = !isPublic'>Publicにする</div>
+                                <div class='button secret' v-else='v-else' v-on:click='isPublic = !isPublic'>Secretにする</div>
+                                <div class='button' v-on:click='send()'>Create gist</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='messeage center' v-if='isSended'>
+                        送信しました。
                     </div>
                 </div>`,
     data: function () {
@@ -68,12 +82,12 @@ export default {
                 }
             }
         },
-        loadLang: function (id, event) {
+        loadMode: function (id, event) {
             if (event.target.value.includes('.') && !event.target.value.endsWith('.')) {
                 const extention = event.target.value.split('.').slice(-1)[0]
                 if (extention in extentions) {
-                    const script = document.createElement('script');
-                    script.src = `${codeMirrorPath}/${extentions[extention]}/${extentions[extention]}.js`
+                    const script = document.createElement('script')
+                    script.src = `${codeMirrorPath}/mode/${extentions[extention]}/${extentions[extention]}.js`
                     script.addEventListener('load', (event) => {
                         this.files[id].cm.setOption('mode', extentions[extention])
                     })

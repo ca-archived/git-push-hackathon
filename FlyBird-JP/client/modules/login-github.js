@@ -10,6 +10,7 @@ export default {
                         <div class='label' id='username'>{{ user.name }}</div>
                         <div class='desc'>Github</div>
                     </div>
+                    <div class='blur'></div>
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
                         <div class='events'>
                             <git-event
@@ -39,20 +40,16 @@ export default {
     },
     created: function () {
         this.isAuth = 'accessToken' in localStorage
-        if ("IntersectionObserver" in window) {
-            this.imageObserver = new IntersectionObserver((entries) => {
-                for (let entry of entries) {
-                    if (entry.isIntersecting && 'url' in entry.target.dataset) {
-                        entry.target.src = entry.target.dataset.url
-                        delete entry.target.dataset.url
-                        this.imageObserver.unobserve(entry.target)
-                    }
-                }
+        if (this.isAuth) {
+            this.getUser().then((user) => {
+                this.user = user
+                this.popup(`ようこそ！${this.user.name}さん`, {
+                    "body": "Githubにログインしています。",
+                    "icon": this.user.img,
+                    "tag": "login"
+                })
             })
         }
-        if (this.isAuth) this.getUser().then((user) => {
-            this.user = user
-        })
     },
     methods: {
         login: function () {
@@ -99,24 +96,18 @@ export default {
         },
         showEvents: function () {
             if (this.events.length == 0) {
-                fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events')
+                fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events', {
+                    headers: new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` })
+                })
                     .then((response) => response.json())
-                    .then((json => {
+                    .then((json) => {
                         const events = []
                         for (let event of json) {
                             const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
                             events.push(URL.createObjectURL(blob))
                         }
                         this.events = this.events.concat(events)
-
-                        this.$nextTick().then(() => {
-                            if ("IntersectionObserver" in window) {
-                                for (let img of this.$el.getElementsByTagName('img')) {
-                                    if ('url' in img.dataset) this.imageObserver.observe(img)
-                                }
-                            }
-                        })
-                    }))
+                    })
             }
         },
         jump: function () {
