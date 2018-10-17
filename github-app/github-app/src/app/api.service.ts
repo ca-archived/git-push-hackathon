@@ -3,8 +3,6 @@ import {Http, Response} from "@angular/http";
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {TEMP_ACCESS_KEYS} from'./temp-access-keys';
 
-import {Observable} from 'rxjs';
-
 import {Observable, throwError} from 'rxjs';
 import {catchError, last, map, tap} from 'rxjs/operators';
 import {
@@ -27,7 +25,7 @@ export class ApiService {
     clientId: string = TEMP_ACCESS_KEYS.clientId;
     clientSecret: string = TEMP_ACCESS_KEYS.clientSecret;
     redirectUrl: string = TEMP_ACCESS_KEYS.redirectUrl;
-    state: string = TEMP_ACCESS_KEYS.state; //random文字列ってこれでいいの？
+    state: string = TEMP_ACCESS_KEYS.state;
     scope: string = "gist";
 
     redirect_code: string = "";
