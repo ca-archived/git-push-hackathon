@@ -5,6 +5,6 @@
 
     <activity
         android:id="@+id/oauthActivity"
-        android:name="io.github.hunachi.oauth.OauthActivity"
+        android:name="io.github.hunachi.oauth.OAuthActivity"
         android:label="OauthActivity" />
 </navigation>

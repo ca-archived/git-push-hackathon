@@ -57,8 +57,16 @@ inline fun <reified VM : ViewModel> Fragment.parentViewModelProvider(
 val <T> T.checkAllMatched: T
     get() = this
 
-fun <T> LiveData<T>.nonNullObseve(owner: LifecycleOwner, observer: (T) -> Unit) {
+fun <T> LiveData<T>.nonNullObserve(owner: LifecycleOwner, observer: (T) -> Unit) {
     this.observe(owner, Observer { it?.let(observer) })
+}
+
+fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) {
+    this.observe(owner, Observer(observer))
+}
+
+fun <T> MutableLiveData<T>.call() {
+    this.value = null
 }
 
 fun <T> singleLiveData(): MutableLiveData<T> {

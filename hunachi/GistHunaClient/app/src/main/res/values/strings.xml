@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GistHunaClient</string>
+    <string name="sorry_aouth_toast_text">ごめんなさい，もう一度認証をしてください！</string>
 </resources>
