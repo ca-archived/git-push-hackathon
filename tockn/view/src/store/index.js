@@ -11,6 +11,7 @@ var Store = new Vuex.Store({
     // 認可したユーザー情報
     me: undefined,
 
+    gist: undefined,
     gists: undefined,
 
     // アクセストークン
@@ -25,6 +26,9 @@ var Store = new Vuex.Store({
     },
     getGists (state, response) {
       state.gists = response.data
+    },
+    getGist (state, response) {
+      state.gist = response.data
     }
   },
   actions: {
@@ -56,6 +60,15 @@ var Store = new Vuex.Store({
       })
         .then(response => {
           commit('getGists', response)
+        })
+    },
+    getGist ({ commit }, id) {
+      axios({
+        method: 'GET',
+        url: `${API_ENDPOINT}/gists/${id}`
+      })
+        .then(response => {
+          commit('getGist', response)
         })
     }
   }
