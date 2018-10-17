@@ -3,7 +3,7 @@
     <div v-if="gists">
       <v-ons-card v-for="(gist, index) in gists" :key="index" >
         <div class="title">
-          {{ Object.getOwnPropertyNames(gist.files)[0] }}
+          {{ Object.keys(gist.files)[0] }}
         </div>
         <div class="content">
           {{ gist.description }}
