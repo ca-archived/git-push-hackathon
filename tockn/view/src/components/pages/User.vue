@@ -1,41 +1,34 @@
 <template>
   <div>
-    {{ gists }}
+    <div v-if="gists">
+      <v-ons-card v-for="(gist, index) in gists" :key="index" >
+        <div class="title">
+          {{ Object.getOwnPropertyNames(gist.files)[0] }}
+        </div>
+        <div class="content">
+          {{ gist.description }}
+        </div>
+      </v-ons-card>
+    </div>
   </div>
 </template>
 
 <script>
 import store from '../../store/index'
-import axios from 'axios'
-
-const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
-  data () {
-    return {
-      gists: {}
+  computed: {
+    gists () {
+      return store.state.gists || false
     }
   },
   created () {
     let username = this.$route.params.username
     if (store.state.me !== undefined &&
       store.state.me.login === username) {
-      axios({
-        method: 'GET',
-        url: `${API_ENDPOINT}/gists`,
-        headers: {'Authorization': `bearer ${store.state.at}`}
-      })
-        .then(response => {
-          this.gists = response.data
-        })
+      store.dispatch('getMyGists')
     } else {
-      axios({
-        method: 'GET',
-        url: `${API_ENDPOINT}/users/${username}/gists`
-      })
-        .then(response => {
-          this.gists = response.data
-        })
+      store.dispatch('getGists', username)
     }
   }
 }

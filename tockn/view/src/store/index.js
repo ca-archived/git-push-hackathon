@@ -11,6 +11,8 @@ var Store = new Vuex.Store({
     // 認可したユーザー情報
     me: undefined,
 
+    gists: undefined,
+
     // アクセストークン
     at: ''
   },
@@ -20,10 +22,14 @@ var Store = new Vuex.Store({
     },
     getMyData (state, response) {
       state.me = response.data
+    },
+    getGists (state, response) {
+      state.gists = response.data
     }
   },
   actions: {
     getMyData ({ commit, state }) {
+      if (state.at === '') throw new Error('not set access token')
       axios({
         method: 'GET',
         url: `${API_ENDPOINT}/user`,
@@ -31,6 +37,25 @@ var Store = new Vuex.Store({
       })
         .then(response => {
           commit('getMyData', response)
+        })
+    },
+    getGists ({ commit, state }, username) {
+      axios({
+        method: 'GET',
+        url: `${API_ENDPOINT}/users/${username}/gists`
+      })
+        .then(response => {
+          commit('getGists', response)
+        })
+    },
+    getMyGists ({ commit, state }) {
+      axios({
+        method: 'GET',
+        url: `${API_ENDPOINT}/gists`,
+        headers: {'Authorization': `bearer ${state.at}`}
+      })
+        .then(response => {
+          commit('getGists', response)
         })
     }
   }
