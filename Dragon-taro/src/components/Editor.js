@@ -40,19 +40,7 @@ class Editor extends Component {
     const currentGist = gist[id];
 
     if (currentGist) {
-      let files = [];
-      let index = 0;
-      for (let name in currentGist.files) {
-        const file = {
-          file: name,
-          content: currentGist.files[name].content,
-          index: index
-        };
-        files.push(file);
-        index++;
-      }
-
-      this.setState({ ...currentGist, files: files, isSetGist: true });
+      this.setState({ ...currentGist, isSetGist: true });
     }
   }
 

@@ -11,6 +11,21 @@ function createBody(data) {
   return { description: data.description, public: data.public, files: files };
 }
 
+function reshapeGist(gist) {
+  let files = [];
+  let index = 0;
+  for (let name in gist.files) {
+    const file = {
+      file: name,
+      content: gist.files[name].content,
+      index: index
+    };
+    files.push(file);
+    index++;
+  }
+  return { ...gist, files: files };
+}
+
 function* handleGetGists() {
   while (true) {
     yield take(GET_GISTS);
@@ -30,7 +45,7 @@ function* handleGetOneGist() {
 
     const { resp, error } = yield call(Get, `gists/${id}`);
     if (!error) {
-      yield put(setOneGist(resp));
+      yield put(setOneGist(reshapeGist(resp)));
     }
   }
 }
@@ -48,8 +63,26 @@ function* handleCreateGist() {
   }
 }
 
+function* handleInitEditor() {
+  while (true) {
+    // editorに必要なstateの初期化を行う
+    // newならinitのstateでeditならそのページのgistをreducerに投げる（だからforkしてる）
+    // 必要なactionはsetEditorState的なやつとtakeするINIT_EDITOR
+  }
+}
+
+function* handleEditGist() {
+  while (true) {
+    // gistのpatchを投げる
+    // 成功したらsetOneGist()
+    // takeするEDIT_GISTのみ必要
+  }
+}
+
 export default function* rootSaga() {
   yield fork(handleGetGists);
   yield fork(handleGetOneGist);
   yield fork(handleCreateGist);
+  // yield fork(handleInitEditor);
+  // yield fork(handleEditGist);
 }
