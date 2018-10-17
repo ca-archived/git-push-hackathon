@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-if="gists">
-      <v-ons-card v-for="(gist, index) in gists" :key="index" >
+      <card v-for="(gist, index) in gists" :key="index" :title="gist.description" :content="'hoge'">
+      <!--
         <div class="title">
           {{ gist.description }}
         </div>
@@ -10,13 +11,15 @@
           {{ file }}
           </p>
         </div>
-      </v-ons-card>
+      -->
+      </card>
     </div>
   </div>
 </template>
 
 <script>
 import store from '../../store/index'
+import Card from '../modules/GistCard'
 
 export default {
   computed: {
@@ -32,6 +35,9 @@ export default {
     } else {
       store.dispatch('getGists', username)
     }
+  },
+  components: {
+    'card': Card
   }
 }
 </script>
