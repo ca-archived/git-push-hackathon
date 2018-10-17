@@ -3,14 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueOnsen from 'vue-onsenui'
+// import VueOnsen from 'vue-onsenui'
 
-import 'onsenui/css/onsenui.css'
-import 'onsenui/css/onsen-css-components.css'
+// import 'onsenui/css/onsenui.css'
+// import 'onsenui/css/onsen-css-components.css'
 
 Vue.config.productionTip = false
 
-Vue.use(VueOnsen)
+// Vue.use(VueOnsen)
 
 /* eslint-disable no-new */
 new Vue({
