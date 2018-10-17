@@ -1,1 +1,18 @@
-include ':app', ':oauth', ':shared', ':model', ':gist'
+include ':app', ':shared', ':model'
+
+def gistModule = new File('gist')
+include ':gistlocal', ':gistnetwork', ':gist'
+project(':gistlocal').projectDir = new File(gistModule, 'gistlocal')
+project(':gistnetwork').projectDir = new File(gistModule, 'gistnetwork')
+project(':gist').projectDir = new File(gistModule, 'gist')
+
+def userModule = new File('user')
+include ':user', ':usernetwork', ':userlocal'
+project(':userlocal').projectDir = new File(userModule, 'userlocal')
+project(':usernetwork').projectDir = new File(userModule, 'usernetwork')
+project(':user').projectDir = new File(userModule, 'user')
+
+def oauthModule = new File('oauth')
+include ':oauth', ':oauthnetwork'
+project(':oauthnetwork').projectDir = new File(oauthModule, 'oauthnetwork')
+project(':oauth').projectDir = new File(oauthModule, 'oauth')
