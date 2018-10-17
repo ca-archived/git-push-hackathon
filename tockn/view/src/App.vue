@@ -17,6 +17,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   margin-top: 60px;
 }
+
 .card {
   box-shadow:0px 3px 3px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
