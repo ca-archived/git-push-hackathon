@@ -9,8 +9,45 @@ class Editor extends Component {
       description: "",
       public: true,
       files: [{ index: 0, file: "", content: "" }],
-      isSubmit: false
+      isSubmit: false,
+      isSetGist: false
     };
+  }
+
+  componentDidMount() {
+    this.setGist();
+  }
+
+  componentWillReceiveProps() {
+    if (!this.state.isSetGist) {
+      this.setGist();
+    }
+  }
+
+  setGist() {
+    const {
+      gist,
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    const currentGist = gist[id];
+
+    if (currentGist) {
+      let files = [];
+      let index = 0;
+      for (let name in currentGist.files) {
+        const file = {
+          file: name,
+          content: currentGist.files[name].content,
+          index: index
+        };
+        files.push(file);
+        index++;
+      }
+
+      this.setState({ ...currentGist, files: files, isSetGist: true });
+    }
   }
 
   handleChange(keyValue) {
