@@ -15,13 +15,19 @@ class Editor extends Component {
   }
 
   componentDidMount() {
-    this.setGist();
+    if (this.isEdit()) {
+      this.setGist();
+    }
   }
 
   componentWillReceiveProps() {
-    if (!this.state.isSetGist) {
+    if (!this.state.isSetGist && this.isEdit()) {
       this.setGist();
     }
+  }
+
+  isEdit() {
+    return this.props.type == "edit";
   }
 
   setGist() {

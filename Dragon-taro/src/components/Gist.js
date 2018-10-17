@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Gist extends Component {
   constructor() {
@@ -19,9 +20,13 @@ class Gist extends Component {
     const {
       params: { id }
     } = this.props.match;
-    const gist = this.props.gist[id];
+    // const gist = this.props.gist[id];
 
-    return <div>{gist ? gist.url : null}</div>;
+    return (
+      <div>
+        <Link to={`/gists/${id}/edit`}>Edit</Link>
+      </div>
+    );
   }
 }
 
