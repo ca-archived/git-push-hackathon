@@ -17,6 +17,23 @@ var Store = new Vuex.Store({
     // アクセストークン
     at: ''
   },
+  getters: {
+    gists: (state) => {
+      let objs = []
+      state.gists.forEach(gist => {
+        let obj = {}
+        obj.id = gist.id
+        let files = []
+        Object.keys(gist.files).forEach(file => {
+          files.push(file)
+        })
+        obj.files = files
+        obj.description = gist.description
+        objs.push(obj)
+      })
+      return objs
+    }
+  },
   mutations: {
     setAccessToken (state, at) {
       state.at = at
