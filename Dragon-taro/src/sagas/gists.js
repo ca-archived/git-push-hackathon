@@ -1,7 +1,12 @@
-import { fork, call, put, take } from "redux-saga/effects";
-import { GET_GISTS, GET_ONE_GIST, CREATE_GIST } from "../actions/constants";
+import { fork, call, put, take, select } from "redux-saga/effects";
+import {
+  GET_GISTS,
+  GET_ONE_GIST,
+  SUBMIT_GIST,
+  INIT_EDITOR
+} from "../actions/constants";
 import { Get, Post } from "./api";
-import { setGists, setOneGist } from "../actions/actions";
+import { setGists, setOneGist, setEditorState } from "../actions/actions";
 
 function createBody(data) {
   let files = {};
@@ -16,8 +21,7 @@ function reshapeGist(gist) {
   let index = 0;
   for (let name in gist.files) {
     const file = {
-      file: name,
-      content: gist.files[name].content,
+      ...gist.files[name],
       index: index
     };
     files.push(file);
@@ -50,12 +54,13 @@ function* handleGetOneGist() {
   }
 }
 
-function* handleCreateGist() {
+function* handleSubmitGist() {
   while (true) {
     const {
-      payload: { data }
-    } = yield take(CREATE_GIST);
+      payload: { data, type }
+    } = yield take(SUBMIT_GIST);
 
+    // 場合分けしてgistのpatchを投げる
     const { resp, error } = yield call(Post, "gists", createBody(data));
     if (!error) {
       yield put(setOneGist(resp));
@@ -65,24 +70,32 @@ function* handleCreateGist() {
 
 function* handleInitEditor() {
   while (true) {
-    // editorに必要なstateの初期化を行う
-    // newならinitのstateでeditならそのページのgistをreducerに投げる（だからforkしてる）
-    // 必要なactionはsetEditorState的なやつとtakeするINIT_EDITOR
-  }
-}
+    const {
+      payload: { type, id } // type = "new" or "edit"
+    } = yield take(INIT_EDITOR);
 
-function* handleEditGist() {
-  while (true) {
-    // gistのpatchを投げる
-    // 成功したらsetOneGist()
-    // takeするEDIT_GISTのみ必要
+    if (type == "edit") {
+      // 編集用のgistをset
+      const editingGist = yield gist[id] || call(Get, `gist/${id}`); // 要検討
+
+      // editorのstateをset
+      // yield put(setEditorState);
+    } else {
+      const initState = {
+        description: "",
+        public: true,
+        files: [{ index: 0, filename: "", content: "" }]
+      };
+
+      // editorのstateをset
+      // yield put(setEditorState);
+    }
   }
 }
 
 export default function* rootSaga() {
   yield fork(handleGetGists);
   yield fork(handleGetOneGist);
-  yield fork(handleCreateGist);
-  // yield fork(handleInitEditor);
-  // yield fork(handleEditGist);
+  yield fork(handleSubmitGist);
+  yield fork(handleInitEditor);
 }

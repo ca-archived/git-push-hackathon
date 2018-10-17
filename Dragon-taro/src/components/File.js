@@ -11,13 +11,13 @@ class File extends Component {
   }
 
   render() {
-    const { file, content } = this.props;
+    const { filename, content } = this.props;
     return (
       <div>
         <input
           type="text"
-          name="file"
-          value={file}
+          name="filename"
+          value={filename}
           onChange={e => this.handleChange(e)}
         />
         <textarea

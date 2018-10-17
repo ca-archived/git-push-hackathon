@@ -8,7 +8,7 @@ class Editor extends Component {
     this.state = {
       description: "",
       public: true,
-      files: [{ index: 0, file: "", content: "" }],
+      files: [{ index: 0, filename: "", content: "" }],
       isSubmit: false,
       isSetGist: false
     };
@@ -59,7 +59,7 @@ class Editor extends Component {
 
   addFile() {
     const { files } = this.state;
-    const newFile = { index: files.length, file: "", content: "" };
+    const newFile = { index: files.length, filename: "", content: "" };
     const newFiles = this.state.files.concat(newFile);
     this.setState({ files: newFiles });
   }
@@ -68,11 +68,9 @@ class Editor extends Component {
     if (!this.state.isSubmit) {
       const { type } = this.props;
       const {
-        actions: { createGist }
+        actions: { submitGist }
       } = this.props;
-      if (type == "create") {
-        createGist({ data: this.state });
-      }
+      submitGist({ data: this.state, type: type });
       this.setState({ isSubmit: true });
     }
   }

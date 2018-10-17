@@ -1,8 +1,15 @@
-import { SET_GISTS, SET_ONE_GIST } from "../actions/constants";
+import {
+  SET_GISTS,
+  SET_ONE_GIST,
+  SET_EDITOR_STATE
+} from "../actions/constants";
 
 const initial = {
   gists: { gists: [] },
-  gist: {}
+  gist: {},
+  editor: {
+    files: []
+  }
 };
 
 export function gists(state = initial.gists, { type, payload }) {
@@ -17,6 +24,15 @@ export function gists(state = initial.gists, { type, payload }) {
 export function gist(state = initial.gist, { type, payload }) {
   switch (type) {
     case SET_ONE_GIST:
+      return { ...state, [payload.id]: payload };
+  }
+
+  return state;
+}
+
+export function editor(state = initial.editor, { type, payload }) {
+  switch (type) {
+    case SET_EDITOR_STATE:
       return { ...state, [payload.id]: payload };
   }
 

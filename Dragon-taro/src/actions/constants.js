@@ -13,5 +13,9 @@ export const GET_GISTS = "GET_GISTS";
 export const SET_GISTS = "SET_GISTS";
 export const GET_ONE_GIST = "GET_ONE_GIST";
 export const SET_ONE_GIST = "SET_ONE_GIST";
-export const CREATE_GIST = "CREATE_GIST";
-export const CREATED_GIST = "CREATED_GIST";
+export const SUBMIT_GIST = "SUBMIT_GIST";
+
+// Editor周り
+export const INIT_EDITOR = "INIT_EDITOR";
+export const SET_EDITOR_STATE = "SET_EDITOR_STATE";
+export const HANDLE_CHANGE_EDITOR = "HANDLE_CHANGE_EDITOR";
