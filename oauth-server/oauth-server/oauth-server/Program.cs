@@ -39,11 +39,6 @@ namespace oauth_server
             public string state { get; set; }         
         }
 
-        static void Main(string[] args)
-        {
-            OAuthServer();
-        }
-
         static string apiPost(string url, PostReqBody reqBody)
         {
             //リクエスト本体 Dict -> text(json形式)
@@ -67,7 +62,7 @@ namespace oauth_server
 
             try
             {
-                WebResponse response = request.GetResponse();
+                WebResponse response = request.GetResponse(); //api.github.comサーバーに要求
                 string resText;
                 using (Stream responseStream = response.GetResponseStream())
                 {
@@ -85,7 +80,7 @@ namespace oauth_server
             }
         }
 
-        static void domainUrl(HttpListenerRequest req, HttpListenerResponse res)
+        static void originAccess(HttpListenerRequest req, HttpListenerResponse res)
         {
             // 実際のローカルファイルパス
             string contentStr = "accesse in domain url";
@@ -108,6 +103,9 @@ namespace oauth_server
 
         static void OAuth2Post(HttpListenerRequest req, HttpListenerResponse res)
         {
+            /*
+             * api.github.comサーバーにOAuthのaccess_tokenをcodeと引き換えに要求
+            */
             PostReqBody reqBody;
             reqBody = new PostReqBody();
             
@@ -144,10 +142,8 @@ namespace oauth_server
             listener.Prefixes.Add(GlobalVals.SERVER_ORIGIN); // "http://localhost:xxxx/"
             listener.Start();
 
-
             while (true)
             {
-
                 //アクセスがあるまでlistener.GetContext() でとまる
                 Console.WriteLine("Access waiting : ");
                 HttpListenerContext context = listener.GetContext();
@@ -161,15 +157,18 @@ namespace oauth_server
 
                 if (req.RawUrl == "/")
                 {
-                    domainUrl(req, res);
+                    originAccess(req, res);
                 }
                 else if (req.RawUrl == "/oauth2-post")
                 {
                     OAuth2Post(req, res);
                 }
-
             }
+        }
 
+        static void Main(string[] args)
+        {
+            OAuthServer();
         }
     }
 }
