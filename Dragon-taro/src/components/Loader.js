@@ -8,7 +8,7 @@ const Loader = props => {
   } = props;
   return (
     <If condition={isLoading}>
-      <div>
+      <div className="p-button">
         <span className="cssload-loader">
           <span className="cssload-loader-inner" />
         </span>

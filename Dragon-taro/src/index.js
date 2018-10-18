@@ -38,7 +38,6 @@ class App extends React.Component {
         <Provider store={configureStore()}>
           <div>
             <Header />
-            <hr />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/gists/new" component={NewGist} />
