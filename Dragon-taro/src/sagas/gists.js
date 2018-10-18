@@ -35,9 +35,9 @@ function reshapeGist(gist) {
 
 function* handleGetGists() {
   while (true) {
-    yield take(GET_GISTS);
+    const { payload } = yield take(GET_GISTS);
 
-    const { resp, error } = yield call(Get, "gists");
+    const { resp, error } = yield call(Get, "gists", payload);
     if (!error) {
       yield put(setGists(resp));
     }
@@ -104,9 +104,9 @@ function* handleInitEditor() {
   }
 }
 
-export default function* rootSaga() {
-  yield fork(handleGetGists);
-  yield fork(handleGetOneGist);
-  yield fork(handleSubmitGist);
-  yield fork(handleInitEditor);
+export default function* rootSaga(context) {
+  yield fork(handleGetGists, context);
+  yield fork(handleGetOneGist, context);
+  yield fork(handleSubmitGist, context);
+  yield fork(handleInitEditor, context);
 }

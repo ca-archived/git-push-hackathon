@@ -8,7 +8,8 @@ import {
   failureLogin,
   getUser,
   setUser,
-  noUser
+  noUser,
+  getGists
 } from "../actions/actions";
 
 const token = sessionStorage.getItem("access_token");
@@ -36,6 +37,7 @@ function* handleRequestOAuth() {
 
       yield put(successLogin());
       yield put(getUser(access_token));
+      yield put(getGists(access_token));
     } else {
       yield put(failureLogin({ err: err }));
     }
