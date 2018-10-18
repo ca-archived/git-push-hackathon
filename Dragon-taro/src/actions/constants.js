@@ -19,3 +19,7 @@ export const SUBMIT_GIST = "SUBMIT_GIST";
 export const INIT_EDITOR = "INIT_EDITOR";
 export const SET_EDITOR_STATE = "SET_EDITOR_STATE";
 export const HANDLE_CHANGE_EDITOR = "HANDLE_CHANGE_EDITOR";
+
+// Load周り
+export const LOADING = "LOADING";
+export const LOADED = "LOADED";

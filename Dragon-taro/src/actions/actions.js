@@ -13,7 +13,9 @@ import {
   SUBMIT_GIST,
   INIT_EDITOR,
   SET_EDITOR_STATE,
-  HANDLE_CHANGE_EDITOR
+  HANDLE_CHANGE_EDITOR,
+  LOADING,
+  LOADED
 } from "./constants";
 
 // 認証周り
@@ -37,3 +39,7 @@ export const submitGist = createAction(SUBMIT_GIST);
 export const initEditor = createAction(INIT_EDITOR);
 export const setEditorState = createAction(SET_EDITOR_STATE);
 export const handleEditorChange = createAction(HANDLE_CHANGE_EDITOR);
+
+// Load周り
+export const loading = createAction(LOADING);
+export const loaded = createAction(LOADED);

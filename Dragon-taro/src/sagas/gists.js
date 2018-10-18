@@ -6,7 +6,13 @@ import {
   INIT_EDITOR
 } from "../actions/constants";
 import { Get, Send } from "./api";
-import { setGists, setOneGist, setEditorState } from "../actions/actions";
+import {
+  setGists,
+  setOneGist,
+  setEditorState,
+  loading,
+  loaded
+} from "../actions/actions";
 
 const selectGist = state => state.gist;
 const selectEditor = state => state.editor;
@@ -37,10 +43,12 @@ function* handleGetGists() {
   while (true) {
     const { payload } = yield take(GET_GISTS);
 
+    yield put(loading());
     const { resp, error } = yield call(Get, "gists", payload);
     if (!error) {
       yield put(setGists(resp));
     }
+    yield put(loaded());
   }
 }
 
@@ -79,6 +87,7 @@ function* handleInitEditor() {
       payload: { type, id } // type = "new" or "edit"
     } = yield take(INIT_EDITOR);
 
+    yield put(loading());
     if (type == "edit") {
       const gist = yield select(selectGist);
       let targetGist = {};
@@ -102,6 +111,7 @@ function* handleInitEditor() {
 
       yield put(setEditorState(initState));
     }
+    yield put(loaded());
   }
 }
 

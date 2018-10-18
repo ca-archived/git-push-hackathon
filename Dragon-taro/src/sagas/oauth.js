@@ -9,7 +9,9 @@ import {
   getUser,
   setUser,
   noUser,
-  getGists
+  getGists,
+  loading,
+  loaded
 } from "../actions/actions";
 
 const token = sessionStorage.getItem("access_token");
@@ -31,6 +33,7 @@ function* handleRequestOAuth() {
   while (true) {
     yield take(REQUEST_OAUTH);
 
+    yield put(loading());
     const { access_token, err } = yield call(signIn);
     if (!err) {
       sessionStorage.setItem("access_token", access_token);
@@ -40,6 +43,7 @@ function* handleRequestOAuth() {
       yield put(getGists(access_token));
     } else {
       yield put(failureLogin({ err: err }));
+      yield put(loaded());
     }
   }
 }

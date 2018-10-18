@@ -13,6 +13,7 @@ class Header extends Component {
     const {
       oauth,
       user,
+      load,
       actions: { requestOAuth }
     } = this.props;
 

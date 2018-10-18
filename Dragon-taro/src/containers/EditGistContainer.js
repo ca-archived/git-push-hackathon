@@ -3,7 +3,7 @@ import mapDispatchToProps from "./mapDispatchToProps";
 import { EditGist } from "../components/EditGist";
 
 function mapStateToProps(state) {
-  return { editor: state.editor, gist: state.gist };
+  return { editor: state.editor, gist: state.gist, load: state.load };
 }
 
 export default connect(

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import File from "./File";
+import { If } from "./If";
 
 class Editor extends Component {
   constructor() {
@@ -83,21 +84,26 @@ class Editor extends Component {
 
   render() {
     const {
-      editor: { description }
+      editor: { description },
+      load: { isLoading }
     } = this.props;
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
     return (
       <div>
-        <input
-          type="text"
-          value={description}
-          placeholder="description"
-          name="description"
-          onChange={e => this.handleChange({ description: e.target.value })}
-        />
-        <ul>{this.fileEditors()}</ul>
-        <button onClick={() => this.addFile()}>Add File</button>
-        <button onClick={() => this.handleSubmit()}>{buttonMessage}</button>
+        <If condition={!isLoading}>
+          <div>
+            <input
+              type="text"
+              value={description}
+              placeholder="description"
+              name="description"
+              onChange={e => this.handleChange({ description: e.target.value })}
+            />
+            <ul>{this.fileEditors()}</ul>
+            <button onClick={() => this.addFile()}>Add File</button>
+            <button onClick={() => this.handleSubmit()}>{buttonMessage}</button>
+          </div>
+        </If>
       </div>
     );
   }
