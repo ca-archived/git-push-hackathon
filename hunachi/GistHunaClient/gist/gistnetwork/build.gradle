@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':model')
     implementation project(':shared')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'
@@ -56,4 +57,10 @@ dependencies {
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }

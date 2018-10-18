@@ -1,6 +1,6 @@
 package io.github.hunachi.gistnetwork.api
 
-data class GistDetailJson(
+data class DetailGistJson(
         val url: String?,
         val forks_url: String?,
         val commits_url: String?,
