@@ -1,7 +1,8 @@
 import {
   SET_GISTS,
   SET_ONE_GIST,
-  SET_EDITOR_STATE
+  SET_EDITOR_STATE,
+  HANDLE_CHANGE_EDITOR
 } from "../actions/constants";
 
 const initial = {
@@ -34,6 +35,8 @@ export function editor(state = initial.editor, { type, payload }) {
   switch (type) {
     case SET_EDITOR_STATE:
       return { ...payload };
+    case HANDLE_CHANGE_EDITOR:
+      return { ...state, ...payload };
   }
 
   return state;

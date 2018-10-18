@@ -6,9 +6,6 @@ class Editor extends Component {
     super();
 
     this.state = {
-      description: "",
-      public: true,
-      files: [{ index: 0, filename: "", content: "" }],
       isSubmit: false,
       isSetGist: false
     };
@@ -23,12 +20,6 @@ class Editor extends Component {
       }
     } = this.props;
     initEditor({ type: type, id: id });
-  }
-
-  componentWillReceiveProps() {
-    if (!this.state.isSetGist && this.isEdit()) {
-      this.setGist();
-    }
   }
 
   isEdit() {
@@ -50,23 +41,30 @@ class Editor extends Component {
   }
 
   handleChange(keyValue) {
-    this.setState(keyValue);
+    const {
+      actions: { handleEditorChange }
+    } = this.props;
+    handleEditorChange(keyValue);
   }
 
   handleFileChange(keyValue, index) {
-    const { files } = this.state;
-    const value = { ...this.state.files[index], ...keyValue };
+    const {
+      editor: { files }
+    } = this.props;
+    const value = { ...files[index], ...keyValue };
     let newFiles = files.concat();
     newFiles[index] = value;
 
-    this.setState({ files: newFiles });
+    this.handleChange({ files: newFiles });
   }
 
   addFile() {
-    const { files } = this.state;
+    const {
+      editor: { files }
+    } = this.props;
     const newFile = { index: files.length, filename: "", content: "" };
-    const newFiles = this.state.files.concat(newFile);
-    this.setState({ files: newFiles });
+    const newFiles = files.concat(newFile);
+    this.handleChange({ files: newFiles });
   }
 
   handleSubmit() {
@@ -81,7 +79,10 @@ class Editor extends Component {
   }
 
   fileEditors() {
-    const fileEditorList = this.state.files.map(f => {
+    const {
+      editor: { files }
+    } = this.props;
+    const fileEditorList = files.map(f => {
       return (
         <li key={f.index}>
           <File
@@ -95,9 +96,8 @@ class Editor extends Component {
   }
 
   render() {
-    const { description } = this.state;
-    const { type } = this.props;
-    const buttonMessage = type == "create" ? "Create" : "Edit";
+    const { description } = this.props;
+    const buttonMessage = this.isEdit() ? "Edit" : "Create";
     return (
       <div>
         <input

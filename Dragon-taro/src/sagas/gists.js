@@ -6,14 +6,10 @@ import {
   INIT_EDITOR
 } from "../actions/constants";
 import { Get, Post } from "./api";
-import {
-  setGists,
-  setOneGist,
-  getOneGist,
-  setEditorState
-} from "../actions/actions";
+import { setGists, setOneGist, setEditorState } from "../actions/actions";
 
 const selectGist = state => state.gist;
+const selectEditor = state => state.editor;
 
 function createBody(data) {
   let files = {};
@@ -64,11 +60,12 @@ function* handleGetOneGist() {
 function* handleSubmitGist() {
   while (true) {
     const {
-      payload: { data, type }
+      payload: { type }
     } = yield take(SUBMIT_GIST);
 
     // 場合分けしてgistのpatchを投げる
-    const { resp, error } = yield call(Post, "gists", createBody(data));
+    const editor = yield select(selectEditor);
+    const { resp, error } = yield call(Post, "gists", createBody(editor));
     if (!error) {
       yield put(setOneGist(resp));
     }
