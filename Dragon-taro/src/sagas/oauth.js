@@ -35,7 +35,7 @@ function* handleRequestOAuth() {
       sessionStorage.setItem("access_token", access_token);
 
       yield put(successLogin());
-      yield put(getUser());
+      yield put(getUser(access_token));
     } else {
       yield put(failureLogin({ err: err }));
     }
@@ -44,9 +44,9 @@ function* handleRequestOAuth() {
 
 function* getUserInfo() {
   while (true) {
-    yield take(GET_USER);
+    const { payload } = yield take(GET_USER);
 
-    const { resp, error } = yield call(Get, "user");
+    const { resp, error } = yield call(Get, "user", payload);
     if (!error) {
       yield put(setUser(resp));
     } else {
