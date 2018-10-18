@@ -24,28 +24,28 @@ namespace oauth_server
             public const string STEP2_REDIRECT_URL = SERVER_ORIGIN + "/step2-redirect";
             public const string CLIENT_ID = "0bc6d4e0794201162940";
             public const string CLIENT_SECRET = "473798ee1cdead1152b7a66e164e7bb1b873f049";
-            public const string OAUTH_URL2 = "0bc6d4e0794201162940";
+            public const string OAUTH_URL2 = "https://github.com/login/oauth/access_token";
             public static string code = "";
             public const string STATE = "";
 
             public static string access_token = "";
         }
 
-        class PostReqBody
+        static string apiPost(string url, Dictionary<string, string> reqParams)
         {
-            public string client_id { get; set; }            //PostReqBody.name
-            public string client_secret { get; set; }            //PostReqBody.name
-            public string code { get; set; }            //PostReqBody.name
-            public string redirect_url { get; set; }            //PostReqBody.name
-            public string state { get; set; }
-        }
+            string bodyText = "";
 
-        static string apiPost(string url, PostReqBody reqBody)
-        {
-            //リクエスト本体 Dict -> text(json形式)
-            string bodyText = JsonConvert.SerializeObject(reqBody);
-
-            //リクエスト本体 text(json形式) -> ascii codes(json形式)
+            if (reqParams.Count != 0)
+            {
+                bodyText += "?";
+                //リクエスト本体 Dict -> url query 形式
+                foreach (KeyValuePair<string, string> reqParam in reqParams)
+                {
+                    bodyText += reqParam.Key + "=" + reqParam.Value + "&";
+                }
+                bodyText.Remove(bodyText.Length - 1); //最後の文字を削除=余分な"&"
+            }
+            //リクエスト本体 text -> ascii codes(json形式)
             byte[] bodyAscii = Encoding.ASCII.GetBytes(bodyText);
 
             //reqestオブジェクト作成
@@ -104,7 +104,7 @@ namespace oauth_server
         static void notFoundAccess(HttpListenerRequest req, HttpListenerResponse res)
         {
             string contentStr = "404 Not Found Page";
-            res.ContentType = "text/html";
+            res.ContentType = "text/plain";
             // ファイル内容を出力
             try
             {
@@ -121,22 +121,14 @@ namespace oauth_server
             res.Close();
         }
 
-        static void OAuth2Post(HttpListenerRequest req, HttpListenerResponse res)
+        static void OAuth2Post(HttpListenerRequest req, HttpListenerResponse res, Dictionary<string, string> reqParams)
         {
             /*
              * api.github.comサーバーにOAuthのaccess_tokenをcodeと引き換えに要求
             */
-            PostReqBody reqBody;
-            reqBody = new PostReqBody();
-
-            reqBody.client_id = GlobalVals.CLIENT_ID;
-            reqBody.client_secret = GlobalVals.CLIENT_SECRET;
-            reqBody.code = GlobalVals.code;
-            reqBody.redirect_url = GlobalVals.STEP2_REDIRECT_URL;
-            reqBody.state = GlobalVals.STATE;
-
             string OAuthResText = "";
-            OAuthResText = apiPost(GlobalVals.OAUTH_URL2, reqBody);
+            reqParams.Add("client_secret", GlobalVals.CLIENT_SECRET);
+            OAuthResText = apiPost(GlobalVals.OAUTH_URL2, reqParams);//api.github.comにPOST
 
             res.ContentType = "application/x-www-form-urlencoded";
 
@@ -161,17 +153,18 @@ namespace oauth_server
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(GlobalVals.SERVER_ORIGIN); // "http://localhost:xxxx/"
             listener.Start();
-            
+
             //req.RawUrl --> /directry-01A?param1=asdf&param2=
 
             //match "directry-01A"
-            Regex dirReg = 
+            Regex dirReg =
                 new Regex("(?<=/)([a-z]|[A-Z]|[0-9]|-)+");
 
             //match "param1=asdf" and "param2="
-            Regex paramsReg = 
-                new Regex("(?<=[?|&])([a-z]|[A-Z]|[0-9]|-)+=([a-z]|[A-Z]|[0-9]|-)*");
-            
+            Regex paramsReg =
+                new Regex("(?<=[?|&])([a-z]|[A-Z]|[0-9]|-|_)+=([a-z]|[A-Z]|[0-9]|-|_|/|:)*");
+                //new Regex("(?<=[?|&])([a-z]|[A-Z]|[0-9]|-)+=([a-z]|[A-Z]|[0-9]|-)*");
+
             while (true)
             {
                 //アクセスがあるまでlistener.GetContext() でとまる
@@ -183,59 +176,56 @@ namespace oauth_server
 
                 // URL (ここには "/" とか "/index.html" 等が入ってくる)
                 string dir_params = req.RawUrl;
-                
+
                 MatchCollection dirMatches = dirReg.Matches(req.RawUrl);
                 MatchCollection paramMatches = paramsReg.Matches(req.RawUrl);
 
-                string[] dirTexts = 
-                    new string [0];
+                string[] reqDirs =
+                    new string[0];
 
-                Dictionary<string, string>[] paramTexts = 
-                    new Dictionary<string, string>[0];
+                Dictionary<string, string> reqParams = new Dictionary<string, string>();
 
                 // MatchesObject --> [ "" , "" , ..]
                 foreach (Match dirMatch in dirMatches)
                 {
-                    int len = dirTexts.Length;
-                    Array.Resize(ref dirTexts, len + 1);
-                    dirTexts[len] = dirMatch.Value;
+                    int len = reqDirs.Length;
+                    Array.Resize(ref reqDirs, len + 1);
+                    reqDirs[len] = dirMatch.Value;
                 }
 
-                // MatchesObject --> [ {"" : ""} , { "" : "" }, ..]
+                // MatchesObject --> { {"" : ""} , { "" : "" }, ..}
                 foreach (Match paramMatch in paramMatches)
                 {
-                    int len = paramTexts.Length;
-                    string[] param_pair 
+                    string[] param_pair
                         = paramMatch.Value.Split('=');
 
                     //paramの値がないときの処理
                     if (param_pair[1] == null) param_pair[1] = "";
 
-                    Array.Resize(ref paramTexts, len + 1);
-                    paramTexts[len] = 
-                        new Dictionary<string,string>(){ {param_pair[0],param_pair[1]} };
+                    reqParams.Add(param_pair[0], param_pair[1]);
                 }
 
-                Console.WriteLine("Access in \t: " + req.RawUrl);
-                Console.WriteLine("directry in \t: ");
-                foreach (string dir in dirTexts)
+                Console.WriteLine("Access   in: " + req.RawUrl);
+                Console.WriteLine("directry in: ");
+                foreach (string dir in reqDirs)
                 {
-                    Console.WriteLine("\t" +dir + "\n");
+                    Console.WriteLine("\t" + dir);
                 }
-                Console.WriteLine("params is \t: ");
-                foreach (Dictionary<string,string> param in paramTexts)
+                Console.WriteLine("params {key : value} : ");
+                foreach (KeyValuePair<string, string> reqParam in reqParams)
                 {
-                    Console.WriteLine("\t" + param + "\n");
+                    Console.WriteLine("\t{ " + reqParam.Key + " : " + reqParam.Value + " }");
                 }
 
 
-                if (dirTexts[0] == "/")
+
+                if (reqDirs[0] == null)
                 {
                     originAccess(req, res);
                 }
-                else if (dirTexts[0] == "/oauth2-post")
+                else if (reqDirs[0] == "oauth2-post")
                 {
-                    OAuth2Post(req, res);
+                    OAuth2Post(req, res, reqParams);
                 }
                 else
                 {
