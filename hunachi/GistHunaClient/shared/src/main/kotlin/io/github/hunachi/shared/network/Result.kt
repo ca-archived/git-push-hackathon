@@ -1,4 +1,4 @@
-package io.github.hunachi.shared
+package io.github.hunachi.shared.network
 
 sealed class Result<out R, out E>{
 

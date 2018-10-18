@@ -1,4 +1,4 @@
-package io.github.hunachi.shared
+package io.github.hunachi.shared.flux
 
 import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.channels.*
