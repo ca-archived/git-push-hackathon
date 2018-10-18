@@ -24,6 +24,7 @@ class Gist extends Component {
 
     return (
       <div>
+        <Loader />
         <Link to={`/gists/${id}/edit`}>Edit</Link>
       </div>
     );

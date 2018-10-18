@@ -87,7 +87,6 @@ function* handleInitEditor() {
       payload: { type, id } // type = "new" or "edit"
     } = yield take(INIT_EDITOR);
 
-    yield put(loading());
     if (type == "edit") {
       const gist = yield select(selectGist);
       let targetGist = {};

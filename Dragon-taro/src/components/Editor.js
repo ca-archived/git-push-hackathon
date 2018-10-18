@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import File from "./File";
 import { If } from "./If";
+import Loader from "./Loader";
 
 class Editor extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isSubmit: false,
       isSetGist: false
     };
+
+    props.actions.loading();
   }
 
   componentDidMount() {
@@ -90,6 +93,7 @@ class Editor extends Component {
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
     return (
       <div>
+        <Loader />
         <If condition={!isLoading}>
           <div>
             <input

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 class Home extends Component {
   constructor() {
@@ -41,6 +42,7 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <Loader />
         <ul>{this.gistsList()}</ul>
       </div>
     );
