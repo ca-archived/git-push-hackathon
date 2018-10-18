@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import Loader from "./Loader";
 
 class Home extends Component {
@@ -18,6 +19,16 @@ class Home extends Component {
     }
   }
 
+  fileList(gist) {
+    let fileList = [];
+    for (let file in gist.files) {
+      const wrappedFile = <span key={file}>{file}</span>;
+      fileList.push(wrappedFile);
+    }
+
+    return fileList;
+  }
+
   gistsList() {
     const {
       gists: { gists }
@@ -25,11 +36,17 @@ class Home extends Component {
 
     const gistsList = gists.length
       ? gists.map(gist => {
+          const date = moment(gist.created_at).format("YYYY.MM.DD");
           return (
             <li key={gist.id} onMouseEnter={() => this.getGist(gist.id)}>
               <Link to={`/gists/${gist.id}`}>
-                <div>{gist.description}</div>
-                <div>{gist.created_at}</div>
+                <h2>{gist.description}</h2>
+                <div className="details">
+                  <div className="file-list">{this.fileList(gist)}</div>
+                  <div className="date">
+                    <span>{date}</span>
+                  </div>
+                </div>
               </Link>
             </li>
           );
@@ -41,9 +58,9 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="m-home">
         <Loader />
-        <ul>{this.gistsList()}</ul>
+        <ul className="gist-list">{this.gistsList()}</ul>
       </div>
     );
   }

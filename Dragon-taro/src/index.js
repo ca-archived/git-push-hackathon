@@ -38,12 +38,14 @@ class App extends React.Component {
         <Provider store={configureStore()}>
           <div>
             <Header />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/gists/new" component={NewGist} />
-              <Route path="/gists/:id/edit" component={EditGist} />
-              <Route path="/gists/:id" component={Gist} />
-            </Switch>
+            <div className="inner-wrapper">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/gists/new" component={NewGist} />
+                <Route path="/gists/:id/edit" component={EditGist} />
+                <Route path="/gists/:id" component={Gist} />
+              </Switch>
+            </div>
           </div>
         </Provider>
       </Router>

@@ -18,21 +18,23 @@ class Header extends Component {
     } = this.props;
 
     return (
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
-        <If condition={!oauth.isAuthorized}>
-          <button onClick={() => requestOAuth()}>GitHubでログイン</button>
-        </If>
-        <If condition={oauth.isAuthorized && !user.err}>
-          <div>
-            <p>{user.login}</p>
-            <img src={user.avatar_url} alt="ユーザー画像" width="50px" />
-          </div>
-        </If>
+      <div className="m-header">
+        <div className="inner-wrapper">
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+          </ul>
+          <If condition={!oauth.isAuthorized}>
+            <button onClick={() => requestOAuth()}>GitHubでログイン</button>
+          </If>
+          <If condition={oauth.isAuthorized && !user.err}>
+            <div>
+              <p>{user.login}</p>
+              <img src={user.avatar_url} alt="ユーザー画像" width="50px" />
+            </div>
+          </If>
+        </div>
       </div>
     );
   }

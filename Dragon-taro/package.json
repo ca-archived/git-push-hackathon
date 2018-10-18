@@ -15,6 +15,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "history": "^4.7.2",
+    "moment": "^2.22.2",
     "oauthio-web": "^0.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -36,6 +37,7 @@
     "gulp-sass": "^4.0.1",
     "postcss-cssnext": "^3.1.0",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   }
 }
