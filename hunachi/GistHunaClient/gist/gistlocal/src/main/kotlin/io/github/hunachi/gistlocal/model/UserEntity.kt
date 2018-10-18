@@ -1,4 +1,4 @@
-package io.github.hunachi.gist.data.local.model
+package io.github.hunachi.gistlocal.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

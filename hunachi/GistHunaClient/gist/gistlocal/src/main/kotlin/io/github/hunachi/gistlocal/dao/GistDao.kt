@@ -1,18 +1,18 @@
-package io.github.hunachi.gist.data.local.dao
+package io.github.hunachi.gistlocal.dao
 
-import androidx.paging.PagedList
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.github.hunachi.gist.data.local.model.GistEntity
+import io.github.hunachi.model.Gist
 
 @Dao
 interface GistDao {
 
-    @Query("select * from gistentity order by updated_at DESC")
-    fun findGists(): PagedList<GistEntity>
+    @Query("select * from gist order by updated_at DESC")
+    fun findGists(): DataSource.Factory<Int, Gist>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGists(list: List<GistEntity>)
+    fun insertGists(list: List<Gist>)
 }

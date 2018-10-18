@@ -1,11 +1,11 @@
-package io.github.hunachi.gist.data.local.dao
+package io.github.hunachi.gistlocal.dao
 
 import androidx.paging.PagedList
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.github.hunachi.gist.data.local.model.DraftGistEntity
+import io.github.hunachi.gistlocal.model.DraftGistEntity
 
 @Dao
 interface DraftGistDao {

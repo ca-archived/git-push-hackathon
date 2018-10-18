@@ -1,10 +1,10 @@
-package io.github.hunachi.gist.data.local.dao
+package io.github.hunachi.gistlocal.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.github.hunachi.gist.data.local.model.UserEntity
+import io.github.hunachi.gistlocal.model.UserEntity
 
 @Dao
 interface UserDao {

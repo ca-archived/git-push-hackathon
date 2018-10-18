@@ -1,10 +1,10 @@
-package io.github.hunachi.gist.data.local.model
+package io.github.hunachi.gistlocal.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import io.github.hunachi.gist.data.local.converter.IdListConverter
+import io.github.hunachi.gistlocal.converter.IdListConverter
 
 @TypeConverters(IdListConverter::class)
 @Entity
@@ -13,7 +13,7 @@ data class GistEntity(
         val id: String,
         val html_url: String,
         val public: Boolean = false,
-        val files: List<Int> = listOf(), // TypeConverterを作る．
+        val files: List<String> = listOf(), // TypeConverterを作る．
         @ColumnInfo(name = "created_at")
         val createdAt: String,
         @ColumnInfo(name = "updated_at")

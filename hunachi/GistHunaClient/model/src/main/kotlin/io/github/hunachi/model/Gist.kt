@@ -1,23 +1,37 @@
 package io.github.hunachi.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+
+
+/*
 data class Gist(
         val id: String,
-        val url: String,
-        val forks_url: String?,
-        val commits_url: String?,
-        val node_id: String?,
-        val git_pull_url: String?,
-        val git_push_url: String?,
-        val html_url: String?,
-        val files: List<File>,
-        val public: Boolean?,
-        val created_at: String?,
-        val updated_at: String?,
-        val description: String?,
-        val comments: Int?,
-        val user: Any?,
-        val comments_url: String?,
-        val owner: User?,
-        val truncated: Boolean?
+        val html_url: String,
+        val public: Boolean = false,
+        val files: List<File> = listOf(),
+        val createdAt: String,
+        val updatedAt: String,
+        val description: String = "",
+        val ownerName: String
 )
+*/
+
+@Entity
+data class Gist(
+        @PrimaryKey(autoGenerate = false)
+        val id: String,
+        val html_url: String,
+        val public: Boolean = false,
+        val fileSize: Int = 0,
+        @ColumnInfo(name = "created_at")
+        val createdAt: String,
+        @ColumnInfo(name = "updated_at")
+        val updatedAt: String,
+        val description: String = "",
+        val ownerName: String
+)
+
 

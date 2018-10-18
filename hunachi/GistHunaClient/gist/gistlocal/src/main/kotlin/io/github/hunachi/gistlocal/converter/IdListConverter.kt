@@ -1,4 +1,4 @@
-package io.github.hunachi.gist.data.local.converter
+package io.github.hunachi.gistlocal.converter
 
 import androidx.room.TypeConverter
 import java.lang.Math.max
