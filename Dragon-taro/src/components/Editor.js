@@ -90,6 +90,8 @@ class Editor extends Component {
       editor: { description },
       load: { isLoading }
     } = this.props;
+    console.log(isLoading);
+
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
     return (
       <div>

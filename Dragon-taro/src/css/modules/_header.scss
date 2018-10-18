@@ -1,2 +1,23 @@
 .m-header {
+  background-color: #252a2e;
+  padding: 20px 0;
+  .inner-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      line-height: 40px;
+      a {
+        font-size: 24px;
+        color: #fff;
+        vertical-align: middle;
+        font-weight: bold;
+      }
+    }
+    img {
+      width: 40px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-left: 20px;
+    }
+  }
 }

@@ -62,6 +62,7 @@ function* handleGetOneGist() {
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
     }
+    yield put(loaded());
   }
 }
 
@@ -71,6 +72,7 @@ function* handleSubmitGist(history) {
       payload: { method }
     } = yield take(SUBMIT_GIST);
 
+    yield put(loading());
     const editor = yield select(selectEditor);
     const path = method == "POST" ? "gists" : `gists/${editor.id}`;
     const { resp, error } = yield call(Send, path, createBody(editor), method);
@@ -78,6 +80,7 @@ function* handleSubmitGist(history) {
       yield put(setOneGist(reshapeGist(resp)));
       yield call(history.push, `/gists/${resp.id}`);
     }
+    yield put(loaded());
   }
 }
 

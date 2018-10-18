@@ -68,6 +68,7 @@ function* initialize(history) {
     yield put(getUser());
   } else {
     yield call(history.push, "/");
+    yield put(loaded());
   }
 }
 

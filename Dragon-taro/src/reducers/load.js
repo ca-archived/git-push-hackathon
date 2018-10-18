@@ -1,9 +1,10 @@
 import { LOADING, LOADED } from "../actions/constants";
 
 const initial = {
-  isLoading: false
+  isLoading: true
 };
 
+// get~系のときにtrueにset~系のときにfalseに戻すようにしたらいいのかも
 export function load(state = initial, { type }) {
   switch (type) {
     case LOADING:

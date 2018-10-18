@@ -26,7 +26,9 @@ class Gist extends Component {
     return (
       <div>
         <Loader />
-        <Link to={`/gists/${id}/edit`}>Edit</Link>
+        <button className="p-button">
+          <Link to={`/gists/${id}/edit`}>Edit</Link>
+        </button>
       </div>
     );
   }
