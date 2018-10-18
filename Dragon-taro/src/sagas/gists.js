@@ -5,7 +5,7 @@ import {
   SUBMIT_GIST,
   INIT_EDITOR
 } from "../actions/constants";
-import { Get, Post } from "./api";
+import { Get, Send } from "./api";
 import { setGists, setOneGist, setEditorState } from "../actions/actions";
 
 const selectGist = state => state.gist;
@@ -14,7 +14,7 @@ const selectEditor = state => state.editor;
 function createBody(data) {
   let files = {};
   data.files.map(f => {
-    files[f.file] = { content: f.content };
+    files[f.filename] = { content: f.content };
   });
   return { description: data.description, public: data.public, files: files };
 }
@@ -60,14 +60,14 @@ function* handleGetOneGist() {
 function* handleSubmitGist() {
   while (true) {
     const {
-      payload: { type }
+      payload: { method }
     } = yield take(SUBMIT_GIST);
 
-    // 場合分けしてgistのpatchを投げる
     const editor = yield select(selectEditor);
-    const { resp, error } = yield call(Post, "gists", createBody(editor));
+    const path = method == "POST" ? "gists" : `gists/${editor.id}`;
+    const { resp, error } = yield call(Send, path, createBody(editor), method);
     if (!error) {
-      yield put(setOneGist(resp));
+      yield put(setOneGist(reshapeGist(resp)));
     }
   }
 }

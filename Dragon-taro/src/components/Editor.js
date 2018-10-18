@@ -26,20 +26,6 @@ class Editor extends Component {
     return this.props.type == "edit";
   }
 
-  setGist() {
-    const {
-      gist,
-      match: {
-        params: { id }
-      }
-    } = this.props;
-    const currentGist = gist[id];
-
-    if (currentGist) {
-      this.setState({ ...currentGist, isSetGist: true });
-    }
-  }
-
   handleChange(keyValue) {
     const {
       actions: { handleEditorChange }
@@ -69,11 +55,11 @@ class Editor extends Component {
 
   handleSubmit() {
     if (!this.state.isSubmit) {
-      const { type } = this.props;
       const {
         actions: { submitGist }
       } = this.props;
-      submitGist({ data: this.state, type: type });
+      const method = this.isEdit() ? "PATCH" : "POST";
+      submitGist({ data: this.state, method: method });
       this.setState({ isSubmit: true });
     }
   }
@@ -96,7 +82,9 @@ class Editor extends Component {
   }
 
   render() {
-    const { description } = this.props;
+    const {
+      editor: { description }
+    } = this.props;
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
     return (
       <div>
@@ -104,6 +92,7 @@ class Editor extends Component {
           type="text"
           value={description}
           placeholder="description"
+          name="description"
           onChange={e => this.handleChange({ description: e.target.value })}
         />
         <ul>{this.fileEditors()}</ul>

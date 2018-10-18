@@ -20,9 +20,9 @@ export function Get(path) {
     });
 }
 
-export function Post(path, data) {
+export function Send(path, data, method) {
   return fetch(url(path), {
-    method: "POST",
+    method: method,
     headers: headers,
     body: JSON.stringify(data)
   })
