@@ -1,5 +1,9 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -29,7 +33,10 @@ android {
 }
 
 dependencies {
+    def paging_version = "2.0.0"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':model')
     implementation project(':shared')
     implementation project(':gistnetwork')
     implementation project(':gistlocal')
@@ -40,7 +47,20 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    testImplementation "androidx.paging:paging-common:$paging_version"
+
     // koin
     implementation 'org.koin:koin-android:1.0.1'
     implementation 'org.koin:koin-androidx-viewmodel:1.0.1'
+
+    // coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
