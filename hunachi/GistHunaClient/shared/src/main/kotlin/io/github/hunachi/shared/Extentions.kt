@@ -33,7 +33,7 @@ inline fun FragmentManager.inTransaction(
     beginTransaction().func().commit()
 }
 
-inline fun AppCompatActivity.startActivity(next: AppCompatActivity) {
+fun AppCompatActivity.startActivity(next: AppCompatActivity) {
     startActivity(Intent(this, next.javaClass))
 }
 

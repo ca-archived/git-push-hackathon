@@ -93,3 +93,9 @@ dependencies {
     // ktx
     implementation 'androidx.core:core-ktx:1.0.0'
 }
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

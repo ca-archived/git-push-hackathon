@@ -1,6 +1,5 @@
 package io.github.hunachi.gistlocal.dao
 
-import androidx.paging.PagedList
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +10,7 @@ import io.github.hunachi.model.File
 interface FileDao {
 
     @Query("select * from file where gistId = :gistId order by filename")
-    fun findFiles(gistId: Int): PagedList<File>
+    fun findFiles(gistId: Int): List<File>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFiles(list: List<File>)

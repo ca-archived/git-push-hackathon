@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import io.github.hunachi.gistnetwork.GistClient
+import io.github.hunachi.model.File
 import io.github.hunachi.model.Gist
 import io.github.hunachi.shared.network.NetWorkError
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.launch
 
-class GistBoundaryCallback(
+internal class GistBoundaryCallback(
         private val userName: String,
         private val token: String,
         private val client: GistClient,
@@ -43,7 +44,24 @@ class GistBoundaryCallback(
                 _isLoadingState.postValue(true)
                 try {
                     val gists = client.gists(userName, lastPage, PER_PAGE_COUNT, token).await()
-                    localRepository.insertGists(gists) {
+                    localRepository.insertGists(gists = gists.map { gistJson ->
+                            localRepository.insertFiles(gistJson.files?.map {
+                                File(
+                                    filename = it.key,
+                                    gistId = gistJson.id,
+                                    language = it.value.language,
+                                    content = it.value.content ?: ""
+                            ) }?: listOf(),{})
+                        Gist(
+                                id = gistJson.id,
+                                html_url = gistJson.html_url,
+                                public = gistJson.public,
+                                createdAt = gistJson.created_at,
+                                updatedAt = gistJson.updated_at,
+                                description = gistJson.description ?: "",
+                                ownerName = gistJson.owner.login
+                        )
+                    }) {
                         lastPage++
                         _isLoadingState.postValue(false)
                     }

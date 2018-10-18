@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun tokenIsDuplicatedOrFailed() {
+    fun tokenIsDuplicatedOrFailed() {
         Toast.makeText(this, getString(R.string.sorry_aouth_toast_text), Toast.LENGTH_SHORT).show()
         startActivity(OAuthActivity.newInstance())
     }

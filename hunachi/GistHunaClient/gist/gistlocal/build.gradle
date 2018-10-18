@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -50,8 +52,9 @@ dependencies {
     testImplementation "androidx.paging:paging-common:$paging_version"
 
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
+    api "android.arch.persistence.room:runtime:$room_version"
 
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2'
