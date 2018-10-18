@@ -1,10 +1,10 @@
 package io.github.hunachi.oauth
 
 import android.net.Uri
-import io.github.hunachi.oauth.data.OauthRepository
-import io.github.hunachi.oauth.data.Token
-import io.github.hunachi.shared.Dispatcher
-import io.github.hunachi.shared.Result
+import io.github.hunachi.oauthnetwork.OauthRepository
+import io.github.hunachi.oauthnetwork.Token
+import io.github.hunachi.shared.flux.Dispatcher
+import io.github.hunachi.shared.network.Result
 import kotlinx.coroutines.experimental.*
 import java.lang.Exception
 
@@ -39,6 +39,8 @@ internal class OAuthActionCreator(
                 }
                 dispatcher.send(OAuthAction.IsLoading(false))
             }
+
+            //repeat() を使ってもいいかも．
         }
     }
 

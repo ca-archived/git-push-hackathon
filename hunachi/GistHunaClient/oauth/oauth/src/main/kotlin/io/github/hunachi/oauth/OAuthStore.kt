@@ -1,10 +1,11 @@
 package io.github.hunachi.oauth
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.hunachi.shared.*
+import io.github.hunachi.shared.flux.Dispatcher
+import io.github.hunachi.shared.flux.Store
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job

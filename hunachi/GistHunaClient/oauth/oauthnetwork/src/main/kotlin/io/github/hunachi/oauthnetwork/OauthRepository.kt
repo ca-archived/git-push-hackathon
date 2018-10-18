@@ -1,18 +1,20 @@
-package io.github.hunachi.oauth.data
+package io.github.hunachi.oauthnetwork
 
-import io.github.hunachi.oauthnetwork.BuildConfig
-import io.github.hunachi.shared.Result
+import io.github.hunachi.shared.network.Result
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.coroutineScope
+import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.runBlocking
 
-class OauthRepository(private val oauthService: OauthService, private val url: String) {
+class OauthRepository(private val oauthClient: OauthClient, private val url: String) {
 
     companion object {
         const val STATE_CODE = "gist-hunachi"
     }
 
-    suspend fun register(code: String) = runBlocking {
+    suspend fun register(code: String): Result<Token, Exception> = runBlocking(Dispatchers.IO) {
         try {
-            val token = oauthService.accessToken(
+            val token = oauthClient.accessToken(
                     BuildConfig.CLIENT_ID,
                     BuildConfig.CLIENT_SECRET,
                     code
