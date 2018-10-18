@@ -4,7 +4,7 @@ const headers = accessToken => {
   return { Authorization: `token ${accessToken || sessionAccessToken}` };
 };
 
-export function Get(path, accessToken) {
+export function Get(path, accessToken = null) {
   // 二箇所returnを書かないとPromiseが返らない
   return fetch(url(path), {
     method: "GET",

@@ -58,17 +58,17 @@ function* getUserInfo() {
 }
 
 // 初期化したときにすでにログイン済みだったらUser情報を取得
-function* initialize(context) {
+function* initialize(history) {
   if (token) {
     yield put(successLogin());
     yield put(getUser());
   } else {
-    yield call(context.history.push, "/");
+    yield call(history.push, "/");
   }
 }
 
-export default function* rootSaga(context) {
+export default function* rootSaga(history) {
   yield fork(handleRequestOAuth);
   yield fork(getUserInfo);
-  yield fork(initialize, context);
+  yield fork(initialize, history);
 }

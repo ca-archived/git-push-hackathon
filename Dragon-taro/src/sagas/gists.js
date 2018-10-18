@@ -57,7 +57,7 @@ function* handleGetOneGist() {
   }
 }
 
-function* handleSubmitGist() {
+function* handleSubmitGist(history) {
   while (true) {
     const {
       payload: { method }
@@ -68,6 +68,7 @@ function* handleSubmitGist() {
     const { resp, error } = yield call(Send, path, createBody(editor), method);
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
+      yield call(history.push, `/gists/${resp.id}`);
     }
   }
 }
@@ -104,9 +105,9 @@ function* handleInitEditor() {
   }
 }
 
-export default function* rootSaga(context) {
-  yield fork(handleGetGists, context);
-  yield fork(handleGetOneGist, context);
-  yield fork(handleSubmitGist, context);
-  yield fork(handleInitEditor, context);
+export default function* rootSaga(history) {
+  yield fork(handleGetGists, history);
+  yield fork(handleGetOneGist, history);
+  yield fork(handleSubmitGist, history);
+  yield fork(handleInitEditor, history);
 }

@@ -7,7 +7,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getGists();
+    if (this.props.oauth.isAuthorized) this.props.actions.getGists();
   }
 
   getGist(id) {
