@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 using Newtonsoft.Json;
 
@@ -16,9 +17,9 @@ namespace oauth_server
 
         public static class GlobalVals
         {
-            
+
             public const string SERVER_ORIGIN = "http://localhost:4201/";
-            public const string GITHUB_APP_ORIGIN = "http://localhost:4200/";
+            public const string CLIENT_ORIGIN = "http://localhost:4200/";
 
             public const string STEP2_REDIRECT_URL = SERVER_ORIGIN + "/step2-redirect";
             public const string CLIENT_ID = "0bc6d4e0794201162940";
@@ -36,7 +37,7 @@ namespace oauth_server
             public string client_secret { get; set; }            //PostReqBody.name
             public string code { get; set; }            //PostReqBody.name
             public string redirect_url { get; set; }            //PostReqBody.name
-            public string state { get; set; }         
+            public string state { get; set; }
         }
 
         static string apiPost(string url, PostReqBody reqBody)
@@ -51,7 +52,7 @@ namespace oauth_server
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            request.Accept = "application/x-www-form-urlencoded"; 
+            request.Accept = "application/x-www-form-urlencoded";
             request.ContentLength = bodyAscii.Length;
 
             //(HttpWebRequest).GetRequestStream : 要求データを書きこむために使用するStreamオブジェクトを取得する
@@ -82,8 +83,27 @@ namespace oauth_server
 
         static void originAccess(HttpListenerRequest req, HttpListenerResponse res)
         {
-            // 実際のローカルファイルパス
             string contentStr = "accesse in domain url";
+            res.ContentType = "text/html";
+            // ファイル内容を出力
+            try
+            {
+                res.StatusCode = 200;
+                byte[] content = File.ReadAllBytes(contentStr);
+                res.OutputStream.Write(content, 0, content.Length);
+            }
+            catch (Exception ex)
+            {
+                res.StatusCode = 500; // 404 でも良いのだがここは雑に 500 にまとめておく
+                byte[] content = Encoding.UTF8.GetBytes(ex.Message);
+                res.OutputStream.Write(content, 0, content.Length);
+            }
+            res.Close();
+        }
+
+        static void notFoundAccess(HttpListenerRequest req, HttpListenerResponse res)
+        {
+            string contentStr = "404 Not Found Page";
             res.ContentType = "text/html";
             // ファイル内容を出力
             try
@@ -108,7 +128,7 @@ namespace oauth_server
             */
             PostReqBody reqBody;
             reqBody = new PostReqBody();
-            
+
             reqBody.client_id = GlobalVals.CLIENT_ID;
             reqBody.client_secret = GlobalVals.CLIENT_SECRET;
             reqBody.code = GlobalVals.code;
@@ -141,7 +161,17 @@ namespace oauth_server
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(GlobalVals.SERVER_ORIGIN); // "http://localhost:xxxx/"
             listener.Start();
+            
+            //req.RawUrl --> /directry-01A?param1=asdf&param2=
 
+            //match "directry-01A"
+            Regex dirReg = 
+                new Regex("(?<=/)([a-z]|[A-Z]|[0-9]|-)+");
+
+            //match "param1=asdf" and "param2="
+            Regex paramsReg = 
+                new Regex("(?<=[?|&])([a-z]|[A-Z]|[0-9]|-)+=([a-z]|[A-Z]|[0-9]|-)*");
+            
             while (true)
             {
                 //アクセスがあるまでlistener.GetContext() でとまる
@@ -152,16 +182,64 @@ namespace oauth_server
                 //res.ContentType イメージ: image/拡張子 html: text/html　にする
 
                 // URL (ここには "/" とか "/index.html" 等が入ってくる)
-                string urlPath = req.RawUrl;
-                Console.WriteLine("Access in : " + urlPath);
+                string dir_params = req.RawUrl;
+                
+                MatchCollection dirMatches = dirReg.Matches(req.RawUrl);
+                MatchCollection paramMatches = paramsReg.Matches(req.RawUrl);
 
-                if (req.RawUrl == "/")
+                string[] dirTexts = 
+                    new string [0];
+
+                Dictionary<string, string>[] paramTexts = 
+                    new Dictionary<string, string>[0];
+
+                // MatchesObject --> [ "" , "" , ..]
+                foreach (Match dirMatch in dirMatches)
+                {
+                    int len = dirTexts.Length;
+                    Array.Resize(ref dirTexts, len + 1);
+                    dirTexts[len] = dirMatch.Value;
+                }
+
+                // MatchesObject --> [ {"" : ""} , { "" : "" }, ..]
+                foreach (Match paramMatch in paramMatches)
+                {
+                    int len = paramTexts.Length;
+                    string[] param_pair 
+                        = paramMatch.Value.Split('=');
+
+                    //paramの値がないときの処理
+                    if (param_pair[1] == null) param_pair[1] = "";
+
+                    Array.Resize(ref paramTexts, len + 1);
+                    paramTexts[len] = 
+                        new Dictionary<string,string>(){ {param_pair[0],param_pair[1]} };
+                }
+
+                Console.WriteLine("Access in \t: " + req.RawUrl);
+                Console.WriteLine("directry in \t: ");
+                foreach (string dir in dirTexts)
+                {
+                    Console.WriteLine("\t" +dir + "\n");
+                }
+                Console.WriteLine("params is \t: ");
+                foreach (Dictionary<string,string> param in paramTexts)
+                {
+                    Console.WriteLine("\t" + param + "\n");
+                }
+
+
+                if (dirTexts[0] == "/")
                 {
                     originAccess(req, res);
                 }
-                else if (req.RawUrl == "/oauth2-post")
+                else if (dirTexts[0] == "/oauth2-post")
                 {
                     OAuth2Post(req, res);
+                }
+                else
+                {
+                    notFoundAccess(req, res);
                 }
             }
         }
