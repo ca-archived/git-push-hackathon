@@ -6,7 +6,14 @@ import {
   INIT_EDITOR
 } from "../actions/constants";
 import { Get, Post } from "./api";
-import { setGists, setOneGist, setEditorState } from "../actions/actions";
+import {
+  setGists,
+  setOneGist,
+  getOneGist,
+  setEditorState
+} from "../actions/actions";
+
+const selectGist = state => state.gist;
 
 function createBody(data) {
   let files = {};
@@ -75,11 +82,19 @@ function* handleInitEditor() {
     } = yield take(INIT_EDITOR);
 
     if (type == "edit") {
-      // 編集用のgistをset
-      const editingGist = yield gist[id] || call(Get, `gist/${id}`); // 要検討
+      const gist = yield select(selectGist);
+      let targetGist = {};
 
-      // editorのstateをset
-      // yield put(setEditorState);
+      if (!gist[id]) {
+        const { resp, error } = yield call(Get, `gists/${id}`);
+        if (!error) {
+          targetGist = reshapeGist(resp);
+        }
+      } else {
+        targetGist = gist[id];
+      }
+
+      yield put(setEditorState(targetGist));
     } else {
       const initState = {
         description: "",
@@ -87,8 +102,7 @@ function* handleInitEditor() {
         files: [{ index: 0, filename: "", content: "" }]
       };
 
-      // editorのstateをset
-      // yield put(setEditorState);
+      yield put(setEditorState(initState));
     }
   }
 }

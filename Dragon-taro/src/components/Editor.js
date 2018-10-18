@@ -15,9 +15,14 @@ class Editor extends Component {
   }
 
   componentDidMount() {
-    if (this.isEdit()) {
-      this.setGist();
-    }
+    const {
+      type,
+      actions: { initEditor },
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    initEditor({ type: type, id: id });
   }
 
   componentWillReceiveProps() {

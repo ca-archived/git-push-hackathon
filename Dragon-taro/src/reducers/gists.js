@@ -33,7 +33,7 @@ export function gist(state = initial.gist, { type, payload }) {
 export function editor(state = initial.editor, { type, payload }) {
   switch (type) {
     case SET_EDITOR_STATE:
-      return { ...state, [payload.id]: payload };
+      return { ...payload };
   }
 
   return state;
