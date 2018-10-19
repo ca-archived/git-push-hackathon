@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
+import { If } from "./If";
 
 class Gist extends Component {
   constructor() {
@@ -8,27 +9,50 @@ class Gist extends Component {
   }
 
   componentDidMount() {
-    const {
-      params: { id }
-    } = this.props.match;
-    const gist = this.props.gist[id];
+    const { gist, id } = this.getGist();
+
     if (!gist) {
       this.props.actions.getOneGist({ id: id });
     }
   }
 
-  render() {
+  getGist() {
     const {
       params: { id }
     } = this.props.match;
-    // const gist = this.props.gist[id];
+    const gist = this.props.gist[id] || false; // ここを綺麗にかけるようにしたい
+    return { id, gist };
+  }
+
+  fileList() {
+    const { gist } = this.getGist();
+
+    if (gist.files)
+      return gist.files.map(f => {
+        return (
+          <li key={f.filename}>
+            <span>{f.filename}</span>
+            <div>{f.content}</div>
+          </li>
+        );
+      });
+  }
+
+  render() {
+    const { gist, id } = this.getGist();
 
     return (
-      <div>
+      <div className="m-gist">
         <Loader />
-        <button className="p-button">
-          <Link to={`/gists/${id}/edit`}>Edit</Link>
-        </button>
+        <If condition={gist}>
+          <div>
+            <button className="p-button">
+              <Link to={`/gists/${id}/edit`}>Edit Gist</Link>
+            </button>
+            <div className="description">{gist.description}</div>
+            <ul>{this.fileList()}</ul>
+          </div>
+        </If>
       </div>
     );
   }
