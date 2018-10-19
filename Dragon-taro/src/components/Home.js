@@ -57,9 +57,11 @@ class Home extends Component {
   }
 
   render() {
+    const isDisableLaod = this.props.gists.gists.length != 0;
+
     return (
       <div className="m-home">
-        <Loader />
+        <Loader isDisableLaod={isDisableLaod} />
         <ul className="gist-list">{this.gistsList()}</ul>
       </div>
     );

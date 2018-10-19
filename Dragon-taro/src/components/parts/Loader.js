@@ -4,18 +4,25 @@ import { connect } from "react-redux";
 
 const Loader = props => {
   const {
-    load: { isLoading }
+    load: { isLoading },
+    isDisableLaod,
+    message
   } = props;
   return (
-    <If condition={isLoading}>
+    <If condition={isLoading && !isDisableLaod}>
       <div className="p-loader">
         <span className="cssload-loader">
           <span className="cssload-loader-inner" />
         </span>
-        <p>Loading...</p>
+        <p>{message}</p>
       </div>
     </If>
   );
+};
+
+Loader.defaultProps = {
+  isDisableLaod: false,
+  message: "Loading..."
 };
 
 export default connect(state => state)(Loader);

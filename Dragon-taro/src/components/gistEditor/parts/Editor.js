@@ -84,10 +84,11 @@ class Editor extends Component {
       load: { isLoading }
     } = this.props;
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
+    const loadMessage = this.isEdit() ? "Updating..." : "Creating...";
 
     return (
       <div>
-        <Loader />
+        <Loader message={loadMessage} />
         <If condition={!isLoading}>
           <div className="m-editor">
             <div className="description">
