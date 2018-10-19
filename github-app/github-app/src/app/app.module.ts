@@ -23,7 +23,6 @@ import { GistDirective } from './gist-single/gist.directive';
 import { GistService } from './gist-single/gist.service';
 
 import { GistModule } from '@sgbj/angular-gist';
-import { AllGistUserComponent } from './all-gist-user/all-gist-user.component';
 
 
 @NgModule({
