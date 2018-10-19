@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Textarea from "react-textarea-autosize";
 
 class File extends Component {
   constructor() {
@@ -13,17 +14,20 @@ class File extends Component {
   render() {
     const { filename, content } = this.props;
     return (
-      <div>
+      <div className="file">
         <input
           type="text"
           name="filename"
+          placeholder="Filename"
           value={filename}
           onChange={e => this.handleChange(e)}
         />
-        <textarea
+        <Textarea
+          minRows={10}
           name="content"
           value={content}
           onChange={e => this.handleChange(e)}
+          placeholder="Content"
         />
       </div>
     );

@@ -97,17 +97,27 @@ class Editor extends Component {
       <div>
         <Loader />
         <If condition={!isLoading}>
-          <div>
-            <input
-              type="text"
-              value={description}
-              placeholder="description"
-              name="description"
-              onChange={e => this.handleChange({ description: e.target.value })}
-            />
+          <div className="m-editor">
+            <div className="description">
+              <input
+                type="text"
+                value={description}
+                placeholder="description"
+                name="description"
+                onChange={e =>
+                  this.handleChange({ description: e.target.value })
+                }
+              />
+            </div>
             <ul>{this.fileEditors()}</ul>
-            <button onClick={() => this.addFile()}>Add File</button>
-            <button onClick={() => this.handleSubmit()}>{buttonMessage}</button>
+            <div className="button-zone">
+              <button className="p-button" onClick={() => this.addFile()}>
+                Add File
+              </button>
+              <button className="p-button" onClick={() => this.handleSubmit()}>
+                {buttonMessage}
+              </button>
+            </div>
           </div>
         </If>
       </div>
