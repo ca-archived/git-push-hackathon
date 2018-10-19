@@ -1,24 +1,22 @@
 export default {
     template: `<div class='login-github'>
-                    <div class='button' v-on:click='login()' v-if='!isAuth'>
+                    <div class='button' v-on:click='login()' v-if='user == null'>
                         <img class='icon' src='/images/GitHub-Mark-120px-plus.png' />
                         <div class='label'>Github</div>
                         <div class='desc'>Githubにログインする</div>
                     </div>
-                    <div class='button' v-on:click='showEvents();isActive = !isActive;' v-if='isAuth'>
-                        <img class='icon' id='usericon' v-bind:src='user.img' />
-                        <div class='label' id='username'>{{ user.name }}</div>
+                    <div class='button' v-on:click='showEvents();isActive = !isActive;' v-if='user != null'>
+                        <img class='icon' id='usericon' v-bind:src='user.avatar_url' />
+                        <div class='label' id='username'>{{ user.login }}</div>
                         <div class='desc'>Github</div>
                     </div>
-                    <div class='blur'></div>
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
                         <div class='events'>
                             <git-event
-                                v-for="event in events"
-                                v-bind:url="event"
-                                v-if='events.length > 0'
+                                v-for='event in events'
+                                v-bind:url='event'
                             ></git-event>
-                            <div class='messeage center' v-else='v-else'>表示できるイベントがまだありません。</div>
+                            <div class='messeage center' v-if='events != null && events.length == 0'>表示できるイベントがまだありません。</div>
                         </div>
                         <div class='buttons'>
                             <div class='button' v-on:click='jump()'>Github.comで見る</div>
@@ -29,23 +27,18 @@ export default {
     data: function () {
         return {
             'isActive': false,
-            'isAuth': false,
-            'user': {
-                'name': '',
-                'img': '',
-                'url': ''
-            },
-            'events': []
+            'user': null,
+            'events': null
         }
     },
     created: function () {
-        this.isAuth = 'accessToken' in localStorage
-        if (this.isAuth) {
+        if ('accessToken' in localStorage) {
             this.getUser().then((user) => {
                 this.user = user
-                this.popup(`ようこそ！${this.user.name}さん`, {
+                localStorage.setItem('username', this.user.login)
+                this.popup(`ようこそ！${this.user.login}さん`, {
                     "body": "Githubにログインしています。",
-                    "icon": this.user.img,
+                    "icon": this.user.avatar_url,
                     "tag": "login"
                 })
             })
@@ -57,6 +50,7 @@ export default {
         },
         logout: function () {
             localStorage.clear(`accessToken`)
+            localStorage.clear(`username`)
             location.href = '/'
         },
         popup: function (title, msg) {
@@ -87,16 +81,15 @@ export default {
         },
         getUser: async function () {
             const response = await fetch('https://api.github.com/user', { 'headers': { 'Authorization': ` token ${localStorage.getItem('accessToken')}` } })
-            const json = await response.json()
-            return {
-                'name': json.login,
-                'img': json.avatar_url,
-                'url': json.html_url
+            if (response.status == 401) this.logout()
+            else {
+                this.isAuth = true
+                return response.json()
             }
         },
         showEvents: function () {
-            if (this.events.length == 0) {
-                fetch(/*`${this.user.url}/received_events`*/'https://api.github.com/users/leeyh0216/received_events', {
+            if (this.events == null) {
+                fetch(this.user.received_events_url, {
                     headers: new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` })
                 })
                     .then((response) => response.json())
@@ -106,7 +99,7 @@ export default {
                             const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
                             events.push(URL.createObjectURL(blob))
                         }
-                        this.events = this.events.concat(events)
+                        this.events = events
                     })
             }
         },

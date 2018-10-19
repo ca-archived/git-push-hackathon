@@ -2,40 +2,37 @@ export default {
     props: {
         'user': {
             type: String,
-            default: 'user'
+            default: 'mine'
+        },
+        'name': {
+            type: String
+        }
+    },
+    watch: {
+        'name': function (newVal, oldVal) {
+            this.gists = []
+            this.isLast = false
+            this.setUrl()
+            this.load()
         }
     },
     template: `<div class='gist-list'>
-                    <router-link
+                    <gist-item 
+                        v-bind:url='gist.url'
                         v-for='gist in gists'
-                        v-bind:to='"/gists/" + gist.id'
-                        v-if='gists.length > 0'
-                    >
-                        <gist-item v-bind:url='gist.url'></gist-item>
-                    </router-link>
-                    <div class='load' v-on:click='load()' v-if='gists.length > 0 && infiniteScroll && !isLast'>さらに読み込む</div>
-                    <div class='messeage center' v-if='gists.length == 0'>表示できる gist がまだありません。</div>
+                    ></gist-item>
+                    <button class='load' v-on:click='load()' v-if='gists != null && gists.length > 0 && !infiniteScroll && !isLast'>さらに読み込む</button>
+                    <div class='messeage center' v-if='gists != null && gists.length == 0'>表示できる gist がまだありません。</div>
                 </div>`,
     data: function () {
         return {
-            'gists': [],
+            'gists': null,
             'isLast': false,
             'infiniteScroll': false
         }
     },
     created: function () {
-        const urls = {
-            'user': 'https://api.github.com/gists',
-            'public': 'https://api.github.com/gists/public',
-            'starred': 'https://api.github.com/gists/starred'
-        }
-
-        this.isAuth = 'accessToken' in localStorage
-        if (!(this.user in urls)) this.url = urls['public']
-        else if (!this.isAuth) this.url = urls['public']
-        else this.url = urls[this.user]
-
-        this.infiniteScroll = !('IntersectionObserver' in window && 'MutationObserver' in window)
+        this.infiniteScroll = ('IntersectionObserver' in window && 'MutationObserver' in window)
         if ('IntersectionObserver' in window) {
             this.intersectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
@@ -46,6 +43,7 @@ export default {
                 })
             })
         }
+        this.setUrl()
     },
     mounted: function () {
         if (this.intersectionObserver != null) {
@@ -64,6 +62,26 @@ export default {
         this.load()
     },
     methods: {
+        setUrl: function () {
+            const urls = {
+                'mine': 'https://api.github.com/gists',
+                'user': 'https://api.github.com/users',
+                'public': 'https://api.github.com/gists/public',
+                'starred': 'https://api.github.com/gists/starred',
+            }
+
+            this.isAuth = 'accessToken' in localStorage
+            if (!(this.user in urls)) this.url = urls['public']
+            else if (this.name != null) {
+                this.url = `${urls['user']}/${this.name}/gists`
+            }
+            else if (this.isAuth) {
+                this.url = urls[this.user]
+            }
+            else this.url = urls['public']
+
+            this.url += '?per_page=20'
+        },
         load: function () {
             if (!this.isLast) {
                 const headers = new Headers()
@@ -75,8 +93,7 @@ export default {
                     'cache': 'no-cache'
                 })
                     .then(async (response) => {
-                        this.isLast = !response.headers.has('Link')
-                        if (!this.isLast) {
+                        if (response.headers.has('Link')) {
                             const links = response.headers.get('Link')
                             const linkPattern = /<(http(?:s)?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-.\/?%&=]*)?)>; rel="(.+?)"/g
                             let match
@@ -87,6 +104,7 @@ export default {
                                 }
                             }
                         }
+                        else this.isLast = true
 
                         this.addGist(await response.json())
                     })
@@ -97,10 +115,12 @@ export default {
             for (let item of json) {
                 const blob = new Blob([JSON.stringify(item)], { type: 'application/json' })
                 gists.push({
-                    'id' : item.id,
-                    'url' : URL.createObjectURL(blob)
+                    'id': item.id,
+                    'url': URL.createObjectURL(blob),
+                    'to': `/gists/${item.id}`
                 })
             }
+            if (this.gists == null) this.gists = []
             this.gists = this.gists.concat(gists)
         }
     }

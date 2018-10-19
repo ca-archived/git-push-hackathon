@@ -12,11 +12,11 @@ const routes = [
                                 <h2 class='tab active'><router-link to='/'>Yours</router-link></h2>
                                 <h2 class='tab'><router-link to='/gists/starred'>Starred</router-link></h2>
                                 <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
+                                <h2 class='tab'><router-link to='/users'>入力する</router-link></h2>
                             </div>
                         </div>
                         <div class='content with_tab'>
-                            <router-link class='add' to='/gists/new'>作成する</router-link>
-                            <gist-list user='user'></gist-list>
+                            <gist-list></gist-list>
                         </div>
                     </main>
                 </div>`
@@ -33,6 +33,7 @@ const routes = [
                                 <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
                                 <h2 class='tab active'><router-link to='/gists/starred'>Starred</router-link></h2>
                                 <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
+                                <h2 class='tab'><router-link to='/users'>入力する</router-link></h2>
                             </div>
                         </div>
                         <div class='content with_tab'>
@@ -48,8 +49,12 @@ const routes = [
             'template': `
                 <div id='root'>
                     <main>
-                        <div class='content with_padding'>
-                            <h2>Gistの新規作成</h2>
+                        <div class='tab_area'>
+                            <div class='content'>
+                                <h2>Gistの新規作成</h2>
+                            </div>
+                        </div>
+                        <div class='content with_tab with_padding'>
                             <gist-editor></gist-editor>
                         </div>
                     </main>
@@ -67,6 +72,7 @@ const routes = [
                                 <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
                                 <h2 class='tab'><router-link to='/gists/starred'>Starred</router-link></h2>
                                 <h2 class='tab active'><router-link to='/gists/public'>Public</router-link></h2>
+                                <h2 class='tab'><router-link to='/users'>入力する</router-link></h2>
                             </div>
                         </div>
                         <div class='content with_tab'>
@@ -77,12 +83,35 @@ const routes = [
         }
     },
     {
+        'path': '/users/:username/gists',
+        'component': {
+            'template': `
+                <div id='root'>
+                    <main>
+                    <div class='tab_area'>
+                        <div class='tabs'>
+                            <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
+                            <h2 class='tab'><router-link to='/gists/starred'>Starred</router-link></h2>
+                            <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
+                            <h2 class='tab active'><router-link to='/users'>{{ $route.params.username }}</router-link></h2>
+                        </div>
+                    </div>
+                    <div class='content with_tab'>
+                    <gist-list user='user' v-bind:name='$route.params.username'></gist-list>
+                </div>
+            </main>
+                </div>`
+        }
+    },
+    {
         'path': '/gists/:id',
         'component': {
             'template': `
                 <div id='root'>
                     <main>
-                        {{ $route.params.id }}
+                        <div class='content'>
+                        <gist-item v-bind:id='this.$route.params.id' detail='detail'></gist-item>
+                    </div>
                     </main>
                 </div>`
         }
@@ -93,7 +122,7 @@ const routes = [
             'template': `
                 <div id='root'>
                     <main class='relative'>
-                        <div class="spinner center"></div>
+                        <div class='spinner center'></div>
                     </main>
                 </div>`,
             'created': function () {
@@ -129,17 +158,42 @@ const router = new VueRouter({
     }
 })
 
-router.beforeEach((to, from, next) => {
-    if (to.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'hidden'
-    if (from.path.startsWith('/callback_auth')) document.getElementById('loginGithub').style.visibility = 'visible'
+const needAuthPaths = ['/', '/gists/new', '/gists/starred']
 
-    if (['/', '/gists/starred'].includes(to.path) && !('accessToken' in localStorage)) {
-        if (from.path == '/gists/public') {
-            document.getElementById('dialog').__vue__.alert('ログインしませんか？', 'ログインするとGistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
+router.beforeEach((to, from, next) => {
+    if (to.path.startsWith('/callback_auth')) document.getElementById('buttons').style.visibility = 'hidden'
+    if (from.path.startsWith('/callback_auth')) document.getElementById('buttons').style.visibility = 'visible'
+
+    if (!('accessToken' in localStorage) && needAuthPaths.includes(to.path)) {
+        if (to.path == '/') {
+            next('/gists/public')
         }
-        next('/gists/public')
+        else {
+            document.getElementById('dialog').__vue__.alert('ログインしませんか？', 'ログインするとGistの作成や1時間あたりのリクエスト回数制限が60回から5000回になります！')
+            next(false)
+        }
     }
-    else next()
+    else {
+        switch (to.path) {
+            case '/':
+                if (from.path == '/gists/new') {
+                    document.getElementById('dialog').__vue__.confirm('このページを離れてもよろしいですか？', '作成途中場合、その内容は失われてしまいます。', (bool) => {
+                        if (bool) next()
+                        else next(false)
+                    })
+                }
+                else next()
+                break;
+            case '/users':
+                document.getElementById('dialog').__vue__.prompt('ユーザー名を入力してください。', '指定したユーザーのGistsを表示します。', (input) => {
+                    if (input != false) next(`/users/${input.trim()}/gists`)
+                    else next(false)
+                })
+                break;
+            default: next()
+                break;
+        }
+    }
 })
 
 window.addEventListener('load', (e) => {

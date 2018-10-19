@@ -13,24 +13,21 @@ if ('IntersectionObserver' in window) {
 
 export default {
     props: ['url'],
-    template: `<div class='github-event' v-if='url != null'>
-                    <a v-bind:href='user.page'>
-                        <img v-bind:data-url='user.img' v-if='lazyLoad' />
-                        <img v-bind:src='user.img' v-if='!lazyLoad' />
-                    </a>
-                    <div>
-                        <a v-bind:href='user.page'>{{ user.name }}</a>&nbsp;<span class='action' v-html='action'></span>
+    template: `<div class='github-event'>
+                    <div v-if='url != null && user != null'>
+                        <a v-bind:href='user.page'>
+                            <img v-bind:data-url='user.img' v-if='lazyLoad' />
+                            <img v-bind:src='user.img' v-if='!lazyLoad' />
+                        </a>
+                        <a v-bind:href='user.page' class='name'>{{ user.name }}</a>
+                        <span class='date'>{{ date | dateFormat }}</span>
+                        <span class='action' v-html='action'></span>
+                        <span class='target' v-html='target'></span>
                     </div>
-                    <span class='target' v-html='target'></span>
-                    <span class='date'>{{ date | dateFormat }}</span>
                 </div>`,
     data: function () {
         return {
-            'user': {
-                'name': '',
-                'img': '',
-                'page': '',
-            },
+            'user': null,
             'action': '',
             'target': '',
             'date': new Date().toLocaleDateString(),
@@ -97,8 +94,10 @@ export default {
                     break
             }
 
-            if(this.lazyLoad) {
-                imageObserver.observe(this.$el.getElementsByTagName('img')[0])
+            if (this.lazyLoad) {
+                this.$nextTick().then(() => {
+                    imageObserver.observe(this.$el.getElementsByTagName('img')[0])
+                })
             }
         }
     }

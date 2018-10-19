@@ -1,9 +1,33 @@
 const codeMirrorPath = '/codemirror'
 const extentions = {
-    'js': 'javascript',
-    'py': 'python',
-    'go': 'go',
-    'md': 'markdown'
+    'js': {
+        'mode': 'javascript',
+        'mime': 'text/javascript'
+    },
+    'py': {
+        'mode': 'python',
+        'mime': 'text/x-python'
+    },
+    'go': {
+        'mode': 'go',
+        'mime': 'text/x-go'
+    },
+    'md': {
+        'mode': 'markdown',
+        'mime': 'text/x-markdown'
+    },
+    'html': {
+        'mode': 'htmlmixed',
+        'mime': 'text/html'
+    },
+    'css': {
+        'mode': 'css',
+        'mime': 'text/css'
+    },
+    'java': {
+        'mode': 'clike',
+        'mime': 'text/x-java'
+    }
 }
 
 const link = document.createElement('link')
@@ -14,7 +38,6 @@ const script = document.createElement('script')
 script.src = `${codeMirrorPath}/lib/codemirror.js`
 document.body.appendChild(script)
 
-
 export default {
     props: [],
     template: `<div class='gist-editor'>
@@ -23,7 +46,7 @@ export default {
                         <div class='file' v-for="(file, index) in files">
                             <input type='text' placeholder='Filename including extention...' class='filename' v-on:input='loadMode(file.id, $event)' v-model="file.name"></input>
                             <textarea v-bind:class='"editor" + file.id'></textarea>
-                            <div v-if='index == files.length - 1 && index > 0' v-on:click='del(file.id)' class='button negative'>Delete</div>
+                            <div v-if='index == files.length - 1 && index > 0' v-on:click='del(file.id)' class='button delete'>Delete</div>
                         </div>
                         <div class='buttons'>
                             <div class='button' v-on:click='add()'>Add file</div>
@@ -34,9 +57,7 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <div class='messeage center' v-if='isSended'>
-                        送信しました。
-                    </div>
+                    <div class='spinner center' v-if='isSended'></div>
                 </div>`,
     data: function () {
         return {
@@ -87,9 +108,9 @@ export default {
                 const extention = event.target.value.split('.').slice(-1)[0]
                 if (extention in extentions) {
                     const script = document.createElement('script')
-                    script.src = `${codeMirrorPath}/mode/${extentions[extention]}/${extentions[extention]}.js`
+                    script.src = `${codeMirrorPath}/mode/${extentions[extention].mode}/${extentions[extention].mode}.js`
                     script.addEventListener('load', (event) => {
-                        this.files[id].cm.setOption('mode', extentions[extention])
+                        this.files[id].cm.setOption('mode', extentions[extention].mime)
                     })
                     document.body.appendChild(script)
                 }

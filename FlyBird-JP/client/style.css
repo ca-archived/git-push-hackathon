@@ -1,3 +1,20 @@
+@keyframes popup {
+    0% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes slide {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 html {
     box-sizing: border-box;
     width: 100%;
@@ -18,12 +35,16 @@ body {
     padding: 0;
     overflow-x: hidden;
 }
-body, input {
+body, input, button {
     font-family: "游ゴシック", "YuGothic", "Yu Gothic", 'ヒラギノ角ゴ ProN W3', "Hiragino Kaku Gothic ProN", "Meiryo", Helvetica, Arial, sans-serif;
     font-weight: 100;
 }
 a {
     color: #2196f3;
+}
+input, button {
+    font-size: medium;
+    outline: 0;
 }
 #content {
     width: 100%;
@@ -36,7 +57,7 @@ a {
 header {
     width: 100%;
     height: 60px;
-    background:#24292E;
+    background:#2A2A32;
     color:#fff;
 }
 header > .content {
@@ -61,6 +82,18 @@ header > .content > .buttons {
     display: flex;
     height: 100%;
 }
+header .add {
+    width: 60px;
+    height:60px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    font-family: 'Material Icons';
+    color: #fff;
+    font-size: xx-large;
+    cursor: pointer;
+    padding: 0;
+}
 main {
     width: 100%;
     height: 100%;
@@ -72,6 +105,17 @@ main > .tab_area {
     background: #fafafa;
     border-bottom: solid 1px #ccc;
 }
+main > .tab_area > .content {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+main > .tab_area > .content > h2 {
+    margin: 0;
+    line-height: 60px;
+    padding-left: 1rem;
+    font-weight: 500;
+}
 main > .tab_area > .tabs{
     display: flex;
     align-items: flex-end;
@@ -79,16 +123,21 @@ main > .tab_area > .tabs{
     max-width: 900px;
     height: 100%;
     margin: 0 auto;
+    padding:0 1rem;
     transform: translateY(1px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
 }
- main > .tab_area > .tabs > .tab {
+main > .tab_area > .tabs > .tab {
     height: 45px;
     line-height: 44px;
     margin: 0;
-    margin-left: 1rem;
+    margin-right: 1rem;
     font-weight: 500;
     font-size: large;
     color: #666;
+    white-space: nowrap;
 }
  main > .tab_area > .tabs > .tab > a {
     color: #666;
@@ -100,51 +149,36 @@ main > .tab_area > .tabs{
     border: solid 1px #ccc;
     border-bottom: none;
     border-top: solid 3px #ff9800;
-    border-radius: 5px 5px 0 0;
+    border-radius: 3px 3px 0 0;
     background: #fff;
     color: #333;
 }
 main > .content {
     width: 100%;
     max-width: 900px;
-    height: calc(100% - 2rem);
-    margin: 1rem auto;
-    padding: 1rem 0;
+    height: 100%;
+    margin: 0 auto;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 main > .content.with_tab {
     height: calc(100% - 60px - 2rem);
+    margin: 1rem auto;
 }
 main > .content.with_padding {
     padding: 0 1rem;
 }
+main > .content.without_padding {
+    padding: 0;
+}
+
 main > .content > h2 {
     line-height: 4rem;
     font-weight: 500;
     margin: 0;
     border-bottom: solid 0.5px #ddd;
 }
-main > .content > .add{
-    width: calc(100% - 2rem);
-    height: 60px;
-    line-height: 60px;
-    display: block;
-    box-sizing: border-box;
-    border: solid 1px #ccc;
-    border-radius: 5px;
-    text-align: center;
-    margin:0 auto 1rem;
-    text-decoration: none;
-    background: #fafafa;
-    color: #333;
-    font-weight: bold;
-    transition: background ease-in-out 0.3s;
- }
- main > .content > .add:hover {
-     background: #eee;
-     border-color: #bbb;
- }
 .relative{
     position: relative;
 }
@@ -235,16 +269,13 @@ main > .content > .add{
    overflow: hidden;
    border: solid 0.5px #ccc;
 }
-.blur {
-    filter: blur(5px)
-}
 .login-github > .dashboard.visible{
    transform: translateX(0);
 }
-
 .login-github > .dashboard > .events {
     height: calc(100% - 60px);
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
  }
  .login-github > .dashboard > .events > .messeage {
@@ -282,41 +313,50 @@ main > .content > .add{
 /* github-event */
 .github-event {
     width: 100%;
+}
+.github-event > div {
+    width: 100%;
     display: grid;
-    grid-template-columns: 4.5rem 1rem 1fr;
+    grid-template-columns: 4.5rem 1rem 1fr 6rem;
     grid-template-rows: 1.5rem 1.5rem 1.5rem;
     box-sizing: border-box;
     padding: 1rem;
     border-top: solid 0.5px #ccc;
+    animation: slide 0.5s ease-in-out;
 }
-.github-event > a {
+.github-event > div > a {
     grid-row: 1 / -1;
     grid-column: 1;
     border-radius: 50%;
 }
-.github-event > a > img {
+.github-event > div > a > img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     text-align: center;
     align-items: center;
 }
-.github-event > div {
+.github-event > div > span {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+.github-event > div > .name {
     grid-column: 3;
+    grid-row: 1;
+    font-weight: 500;
+}
+.github-event > div > .date {
+    text-align: right;
+    grid-column: 4;
     grid-row: 1;
 }
 .github-event > div > .action {
-    font-weight: 500;
-}
-.github-event > .target {
-    grid-column: 3;
+    grid-column: 3 / -1;
     grid-row: 2;
 }
-.github-event > .date {
-    grid-column: 3;
+.github-event > div > .target {
+    grid-column: 3 / -1;
     grid-row: 3;
 }
 
@@ -332,6 +372,9 @@ main > .content > .add{
     color: #333;
     text-decoration: none;
 }
+.gist-list > a > .gist-item {
+    border-bottom: solid 0.5px #ccc;
+}
 .gist-list > .messeage {
     width: 100%;
     height: 2rem;
@@ -344,17 +387,18 @@ main > .content > .add{
     line-height: 60px;
     display: block;
     box-sizing: border-box;
-    border: solid 1px #ccc;
-    border-radius: 5px;
+    border: solid 1px #ddd;
+    border-radius: 3px;
     text-align: center;
-    background: #fafafa;
+    background: #fff;
     margin: 1rem auto;
     font-weight: bold;
     transition: background ease-in-out 0.3s;
+    cursor: pointer;
 }
 .gist-list > .load:hover {
-    background: #eee;
-    border-color: #bbb;
+    background: #fafafa;
+    border-color: #999;
 }
 
 /* my-dialog */
@@ -401,7 +445,7 @@ main > .content > .add{
 .my-dialog > .dialog > p {
     height: calc(100% - 5rem);
     margin: 0;
-    padding: 0 1rem;
+    padding: 0;
 }
 .my-dialog > .dialog > p.min {
     height: 2rem;
@@ -411,8 +455,12 @@ main > .content > .add{
     line-height: 2rem;
     margin-bottom: 1rem;
     border: none;
-    border-bottom: solid 1px #2196f3;
-    outline: 0;
+    border-bottom: solid 1px #ddd;
+    transition: border-color ease-in-out 0.3s;
+    font-size: medium;
+}
+.my-dialog > .dialog > input:focus{
+    border-color: #1E90FF;
 }
 .my-dialog > .dialog > .buttons {
     display: flex;
@@ -421,8 +469,8 @@ main > .content > .add{
 .my-dialog > .dialog > .buttons > .button {
     width: 100px;
     text-align: center;
-    border: solid 0.5px #999;
-    border-radius: 5px;
+    border: solid 1px #999;
+    border-radius: 3px;
     margin-left: 1rem;
     line-height: 2rem;
     cursor: pointer;
@@ -441,62 +489,169 @@ main > .content > .add{
 /* gist-item */
 .gist-item {
     width: 100%;
-    display: grid;
-    grid-template-columns: 5.5rem 1fr 1fr;
-    grid-template-rows: 1.5rem 1.5rem 1.5rem;
-    box-sizing: border-box;
+}
+.gist-item > .root {
+    width: 100%;
+    border-bottom: solid 0.5px #ddd;
     padding: 1rem;
-    border-bottom: solid 0.5px #ccc;
-    cursor: pointer;
+    display: grid;
+    grid-template-columns: 4.5rem 1rem 1fr 6rem;
+    line-height: 1.5rem;
+    grid-auto-rows: minmax(min-content, max-content);
+    animation: popup 0.5s ease-in-out;
 }
-.gist-item > img {
-    width: calc(100% - 1rem);
-    height: 100%;
-    border-radius: 50%;
-    grid-row: 1 / -1;
-    text-align: center;
-    align-items: center;
-    grid-column: 1;
-}
-.gist-item > span {
+.gist-item > .root > span, .gist-item > .root > div {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-.gist-item > .name_and_files {
-    grid-column: 2 / -1;
+.gist-item > .root > a.icon {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    border-radius: 50%;
+}
+.gist-item > .root > a > img {
+    width: 100%;
+    height: 4.5rem;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+}
+.gist-item > .root > div {
+    grid-column: 3;
     grid-row: 1;
     font-weight: 500;
 }
-.gist-item > .desc {
-    grid-column: 2 / -1;
+.gist-item > .root > .secret::before {
+    content: 'lock ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .date {
+    grid-column: 4;
+    grid-row: 1;
+    text-align: right;
+}
+.gist-item > .root > .desc {
+    grid-column: 3 / -1;
     grid-row: 2;
 }
-.gist-item > .date {
-    grid-column: 2 / -1;
+.gist-item > .root > .open {
+    grid-column: 1 / -1;
     grid-row: 3;
+    text-align: center;
 }
-.gist-item > .comments {
+
+.gist-item.detail {
+    height: 100%;
+}
+.gist-item.detail > .root {
+    width: 100%;
+    border-bottom: none;
+}
+.gist-item.detail > .root > .comments {
     grid-column: 3;
     grid-row: 3;
+}
+.gist-item.detail > .root > .gist {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    grid-column: 1 / -1;
+    grid-row: 5;
+}
+.gist-item.detail > .root > .gist > iframe {
+    width: 100%;
+    border: none;
+}
+.gist-item.detail > .root > div, .gist-item.detail > .root > span {
+    text-overflow: initial;
+    overflow: initial;
+    white-space: initial;
+}
+.gist-item > .root > .buttons {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    display: flex;
+    justify-content: space-between;
+}
+.gist-item > .root > .buttons > button {
+    background: #fff;
+    border: solid 1px;
+    border-radius: 3px;
+    width: calc(50% - 0.5rem);
+    height: 2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.gist-item > .root > .buttons > .star, .gist-item > .root > .buttons > .forks {
+    border-color: #ddd;
+}
+.gist-item > .root > .buttons > .star, .gist-item > .root > .buttons > .forks:hover {
+    transition: border-color ease-in-out 0.3s;
+}
+.gist-item > .root > .buttons > .star:hover, .gist-item > .root > .buttons > .forks:hover {
+    border-color: #999;
+}
+.gist-item > .root > .buttons > .star::before {
+    content: 'star_border ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .buttons > .star.starred {
+    border-color: #FFC107;
+    color: #FFC107;
+}
+.gist-item > .root > .buttons > .star.starred::before {
+    content: 'star ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .buttons > .delete {
+    color: #f00;
+    border-color: #ddd;
+    transition: background ease-in-out 0.3s;
+}
+.gist-item > .root > .buttons > .delete:hover {
+    color: #fff;
+    font-weight: 500;
+    background: #f00;
+    border-color:  #f00;
+}
+.gist-item > .root > .buttons > .delete::before{
+    content: 'delete_outline ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .buttons > .delete:hover::before{
+    content: 'delete ';
+}
+.gist-item > .root > .buttons > .delete.confirm {
+    color: #fff;
+    font-weight: 500;
+    background: #f00;
+    border-color:  #f00;
+}
+.gist-item > .root > .buttons > .delete.confirm::before{
+    content: none;
 }
 
 /* gist-editor */
 .gist-editor {
     width: 100%;
-    height: calc(100% - 4rem);
+    height: calc(100% - 6rem);
     position: relative;
 }
 .gist-editor input {
     font-size: medium;
+    -webkit-appearance: none; 
 }
 .gist-editor > .editor > .desc {
     width: 100%;
     display: block;
     line-height: 2rem;
-    border-radius: 5px;
+    border-radius: 3px;
     border: solid 0.5px #ccc;
-    outline: 0;
     margin: 1rem 0 0 0;
     font-weight: 500;
     padding-left: 1rem;
@@ -509,16 +664,21 @@ main > .content > .add{
 }
 .gist-editor > .editor > .file > .button {
     margin-top: 1rem;
-    border: solid 0.5px #ccc;
+    border: solid 1px #ddd;
     width: 100px;
-    border-radius: 5px;
+    border-radius: 3px;
     line-height: 2rem;
     text-align: center;
     cursor: pointer;
 }
-.gist-editor > .editor > .file > .button.negative {
+.gist-editor > .editor > .file > .button.delete {
     border-color: #f00;
     color: #f00;
+    transition: background ease-in-out 0.3s;
+}
+.gist-editor > .editor > .file > .button.delete:hover {
+    background: #f00;
+    color: #fff;
 }
 .gist-editor > .editor > .file > .filename {
     width: 100%;
@@ -526,7 +686,6 @@ main > .content > .add{
     line-height: 2rem;
     border-radius: 5px 5px 0 0;
     border: solid 0.5px #ccc;
-    outline: 0;
     margin-top: 1rem;
     font-weight: 500;
     padding-left: 1rem;
@@ -537,26 +696,25 @@ main > .content > .add{
     margin-top: 1rem;
 }
 .gist-editor > .editor > .buttons .button {
-    border: solid 0.5px #ccc;
-    background: #fafafa;
-    border-radius: 5px;
+    border: solid 1px #ddd;
+    background: #fff;
+    border-radius: 3px;
     line-height: 2rem;
     padding: 0 1rem;
     cursor: pointer;
-    transition: background ease-in-out 0.3s;
+    transition: border-color ease-in-out 0.3s;
 }
 .gist-editor > .editor > .buttons > div {
     display: flex;
 }
 .gist-editor > .editor > .buttons > div > .button.secret {
-    background: #ebf1af;
+    background: #faf6c0;
 }
 .gist-editor > .editor > .buttons > div > .button:first-child {
     margin-right: 1rem;
 }
 .gist-editor > .editor > .buttons .button:hover {
-    background: #eee;
-    border-color: #bbb;
+    border-color: #999;
 }
 .gist-editor > .messeage {
     width: 100%;
@@ -567,10 +725,11 @@ main > .content > .add{
 .CodeMirror {
     font-family: monospace;
     font-size: 14px;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 3px 3px;
     overflow: hidden;
     border: solid 0.5px #ccc;
     border-top: none;
+    cursor: text;
 }
 .CodeMirror-gutters {
     background: #fff!important;

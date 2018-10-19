@@ -1,0 +1,14 @@
+{
+    "name": "Gist Client",
+    "icons": [
+        {
+            "src": "/images/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "theme_color": "#2A2A32",
+    "background_color": "#2A2A32",
+    "display": "fullscreen"
+}

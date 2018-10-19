@@ -13,8 +13,8 @@ import(
 )
 
 const(
-	clientSecretPath = "../setting/client_secret.txt"
-	clientIdPath = "../setting/client_id.txt"
+	clientSecretPath = "../environment/client_secret.txt"
+	clientIdPath = "../environment/client_id.txt"
 	port = 49651
 )
 
