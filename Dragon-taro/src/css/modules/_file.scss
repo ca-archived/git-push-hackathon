@@ -1,0 +1,81 @@
+.m-file {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 30px 0;
+  .filename-zone {
+    span {
+      color: #fff;
+      background-color: #252a2e;
+      display: inline-block;
+      padding: 10px 20px;
+    }
+  }
+  .content-zone {
+    overflow: auto;
+    padding: 20px;
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
+        monospace;
+      line-height: 1.4;
+      font-size: 14px;
+    }
+    .markdown {
+      line-height: 1.6;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: 1.8;
+        font-weight: bold;
+      }
+      h1 {
+        font-size: 26px;
+        border-bottom: 1px solid #eee;
+        margin: 20px 0;
+      }
+      h2 {
+        font-size: 24px;
+        margin: 10px 0;
+      }
+      h3 {
+        font-size: 22px;
+      }
+      h4 {
+        font-size: 20px;
+      }
+      h5 {
+        font-size: 18px;
+      }
+      h6 {
+        font-size: 16px;
+      }
+      ul {
+        padding-left: 16px;
+        li {
+          list-style: disc;
+        }
+      }
+      ol {
+        li {
+          list-style: decimal;
+        }
+      }
+      pre,
+      code {
+        background-color: #f1f1f1;
+        border-radius: 3px;
+      }
+      code {
+        padding: 5px;
+      }
+      pre {
+        padding: 5px;
+        code {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

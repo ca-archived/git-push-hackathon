@@ -1,0 +1,14 @@
+.m-gist {
+  .description-zone {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    .description {
+      width: 90%;
+    }
+    .button {
+      min-width: 100px;
+      text-align: right;
+    }
+  }
+}
