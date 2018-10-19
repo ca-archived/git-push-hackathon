@@ -1,32 +1,4 @@
 <p>
   oauth-redirect works!
 </p>
-<div>{{this.message}}</div>
-
-<form action="{{this.apiService.OAuthURL2}}" method="post">
-  <div>
-    <!--label for="client_id">client_id</label-->
-    <input name="client_id" id="client_id" value="{{this.apiService.clientId}}" type="hidden">
-  </div>
-  <div>
-    <!--label for="client_secret">client_secret</label-->
-    <input name="client_secret" id="client_secret" value="{{this.apiService.clientSecret}}"type="hidden">
-  </div>
-  <div>
-    <!--label for="code">code</label-->
-    <input name="code" id="code" value="{{this.apiService.redirect_code}}" type="hidden">
-  </div>
-  <div>
-    <!--label for="redirect_url">redirect_url</label-->
-    <input name="redirect_url" id="redirect_url" value="http://localhost:4200/oauth-redirect"type="hidden">
-  </div>
-  <div>
-    <!--abel for="state">state</label-->
-    <input name="state" id="state" value="{{this.apiService.state}}"type="hidden">
-  </div>
-  <div>
-    <button>アクセストークンを取得</button>
-  </div>
-</form>
-
 <button (click) ="this.apiService.OAuth2()">アクセストークンを取得by ApiService</button>

@@ -12,6 +12,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {MenuComponent} from './menu/menu.component';
 import {CommandPanelComponent} from './command-panel/command-panel.component';
 import { AllGistComponent } from './all-gist/all-gist.component';
+import { AllGistUserComponent } from './all-gist-user/all-gist-user.component';
 import { PostGistComponent } from './post-gist/post-gist.component';
 import { OauthComponent } from './oauth/oauth.component';
 import { OauthRedirectComponent } from './oauth-redirect/oauth-redirect.component';
@@ -22,6 +23,7 @@ import { GistDirective } from './gist-single/gist.directive';
 import { GistService } from './gist-single/gist.service';
 
 import { GistModule } from '@sgbj/angular-gist';
+import { AllGistUserComponent } from './all-gist-user/all-gist-user.component';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { GistModule } from '@sgbj/angular-gist';
         MenuComponent,
         CommandPanelComponent,
         AllGistComponent,
+        AllGistUserComponent,
         PostGistComponent,
         OauthComponent,
         OauthRedirectComponent,
@@ -38,7 +41,7 @@ import { GistModule } from '@sgbj/angular-gist';
         GistSingleComponent,
         GistHtmlComponent,
         GistDirective,
-
+        AllGistUserComponent,
     ],
     imports: [
         BrowserModule,
