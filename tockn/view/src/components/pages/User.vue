@@ -6,7 +6,7 @@
           {{ cutDesc(gist.description) }}
         </div>
         <div class="content">
-          <p>{{ fileName(gist.files) }}</p>
+          <p v-for="(name, index) in fileNames(gist.files)" :key="index">{{ name }}</p>
         </div>
       </div>
     </div>
@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import store from '../../store/index'
+import {mapGetters} from 'vuex'
 import Card from '../modules/GistCard'
 
 export default {
   computed: {
-    gists () {
-      return store.state.gists || false
-    }
+    ...mapGetters('gists', {
+      gists: 'gists'
+    })
   },
   methods: {
     cutDesc (text) {
@@ -33,22 +33,22 @@ export default {
       }
       return text
     },
-    fileName (files) {
+    fileNames (files) {
       let names = Object.keys(files)
       if (names.length > 10) {
         names = names.slice(0, 10)
         names.push('...and more!')
       }
-      return names.join(', ')
+      return names
     }
   },
   created () {
     let username = this.$route.params.username
-    if (store.state.me !== undefined &&
-      store.state.me.login === username) {
-      store.dispatch('getMyGists')
+    if (this.$store.state.me !== undefined &&
+      this.$store.state.me.login === username) {
+      this.$store.dispatch('gists/getMyGists')
     } else {
-      store.dispatch('getGists', username)
+      this.$store.dispatch('gists/getGists', username)
     }
   },
   components: {

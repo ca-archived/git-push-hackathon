@@ -4,11 +4,9 @@
 
 <script>
 
-import Store from '../../store/index'
-
 export default {
   created () {
-    Store.commit('setAccessToken', this.$route.query.access_token)
+    this.$store.commit('gists/setAccessToken', this.$route.query.access_token)
     this.$router.push('/')
   }
 }

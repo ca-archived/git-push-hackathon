@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import Store from '../../store/index'
-
 const endpoint = process.env.OAUTH_ENDPOINT
 
 export default {
@@ -23,7 +21,7 @@ export default {
     }
   },
   created () {
-    Store.dispatch('getMyData')
+    this.$store.dispatch('gists/getMyData')
   }
 }
 

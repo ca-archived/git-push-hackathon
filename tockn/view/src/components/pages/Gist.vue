@@ -7,16 +7,16 @@
 </template>
 
 <script>
-import store from '../../store/index'
+import {mapGetters} from 'vuex'
 
 export default {
   computed: {
-    gist () {
-      return store.state.gist || false
-    }
+    ...mapGetters('gists', {
+      gist: 'gist'
+    })
   },
   created () {
-    store.dispatch('getGist', this.$route.params.id)
+    this.$store.dispatch('gists/getGist', this.$route.params.id)
   }
 }
 
