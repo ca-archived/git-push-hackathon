@@ -68,19 +68,6 @@ export class ApiService {
 
     OAuth2() {
         var httpObj = this.http.get(
-            /*
-             this.OAuthServerOrigin + "/oauth2-post",
-             new HttpParams()
-             .set('client_id', this.clientId)
-             //.set('client_secret', this.clientSecret) //added in servre
-             .set('code', this.redirect_code)// default is empty
-             .set('redirect_url', "http://localhost:4200")
-             .set('state', this.state), // default is true
-             {
-             headers: new HttpHeaders({
-             'Content-Type': 'application/x-www-form-urlencoded'
-             })
-             }*/
             this.OAuthServerOrigin + "/oauth2-post"
             + "?" + "client_id=" + this.clientId
             + "&" + "code=" + this.redirect_code
@@ -96,68 +83,6 @@ export class ApiService {
                 console.log(err);
             }
         );
-
-        //↓CORS eroor catched by angular httpClient error catch function
-        /*
-         var httpObj = this.http.post(
-         this.OAuthURL2,
-         new HttpParams()
-         .set('client_id', this.clientId)
-         .set('client_secret', this.clientSecret)
-         .set('code', this.redirect_code)// default is empty
-         .set('redirect_url', "http://localhost:4200")
-         .set('state', this.state), // default is true
-         {
-         headers: new HttpHeaders({
-         'Content-Type': 'application/x-www-form-urlencoded'
-         })
-         }
-         )
-         httpObj.subscribe(this.OAuth2Next, this.RequestError);
-         */
-
-        //↓CORS eroor catched by angular httpClient error catch function
-        /*
-         var postOAuthReq = new XMLHttpRequest();
-         postOAuthReq.open("POST", this.OAuthURL2, true);//false = synchronized request
-         postOAuthReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-         postOAuthReq.onreadystatechange = () => {
-         if(this.readyState == postOAuthReq.DONE &&this.status == 200){
-         console.log(this.responseText)
-         }
-
-         };
-
-         postOAuthReq.send(
-         'access_token='+ TEMP_ACCESS_KEYS.access_token
-         +'&client_id='+ this.clientId
-         +'&client_secret'+ this.clientSecret
-         +'&code'+ this.redirect_code
-         +'&redirect_url'+ "http://localhost:4200"
-         +'&state'+ this.state
-         );
-         */
-
-        /*
-         const req = new HttpRequest(
-         'POST'
-         , this.OAuthURL2
-         , new HttpParams()
-         .set('client_id', this.clientId)
-         .set('client_secret', this.clientSecret)
-         .set('code', this.redirect_code)// default is empty
-         .set('redirect_url', "http://localhost:4200")
-         .set('state', this.state) // default is true,
-         , {reportProgress: true});
-
-         return this.http.request(req).pipe(
-         map(event => "aaa"),
-         tap(message => "bbb"),
-         last(), // return last (completed) message to caller
-         catchError()
-         );
-
-         */
     }
 
     OAuth2Next(res) {
