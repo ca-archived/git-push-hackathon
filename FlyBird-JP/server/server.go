@@ -1,6 +1,7 @@
 package main
 
 import(
+	"fmt"
 	"strconv"
 	"net"
 	"net/http"
@@ -10,6 +11,7 @@ import(
 	"io/ioutil"
 	"golang.org/x/oauth2"
 	"github.com/gorilla/mux"
+	"github.com/google/uuid"
 )
 
 const(
@@ -19,6 +21,7 @@ const(
 )
 
 var github *oauth2.Config
+var stateMap map[string]string = map[string]string{}
 
 func main(){
 	path,_ := filepath.Abs(clientSecretPath)
@@ -62,13 +65,16 @@ func auth(res http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	service := vars["service"]
 
+	state := uuid.New().String()
+	cliendId := req.RemoteAddr + "_git-push-hackathon_" + req.Header.Get("User-Agent")
+	stateMap[cliendId] = state
+
 	var authUrl string
-	state := "test"
 	switch service {
 		case "github":	authUrl = github.AuthCodeURL(state)
 		default: authUrl = "/"
 	}
-	http.Redirect(res, req, authUrl, 303)
+	http.Redirect(res, req, authUrl, 302)
 }
 
 func token(res http.ResponseWriter, req *http.Request) {
@@ -84,8 +90,10 @@ func token(res http.ResponseWriter, req *http.Request) {
 	var reqJson interface{}
 	err = json.Unmarshal(bytes, &reqJson)
 	code := reqJson.(map[string]interface{})["code"]
+	state := reqJson.(map[string]interface{})["state"]
+	cliendId := req.RemoteAddr + "_git-push-hackathon_" + req.Header.Get("User-Agent")
 
-	if code != nil {
+	if code != nil && stateMap[cliendId] == state {
 		var token *oauth2.Token
 		switch service {
 			case "github":	token, err = github.Exchange(oauth2.NoContext, code.(string))

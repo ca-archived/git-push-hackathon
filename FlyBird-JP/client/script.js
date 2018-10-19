@@ -136,9 +136,12 @@ const routes = [
                         }),
                         'headers': new Headers({ 'Content-type': 'application/json' })
                     })
-                        .then((response) => response.json())
-                        .then((json) => {
-                            localStorage.setItem(`accessToken`, json['accessToken'])
+                        .then(async (response) => {
+                            if (response.ok) {
+                                const json = await response.json()
+                                localStorage.setItem(`accessToken`, json['accessToken'])
+                            }
+                        }).then(() => {
                             location.href = '/'
                         })
                 } else location.href = '/'
