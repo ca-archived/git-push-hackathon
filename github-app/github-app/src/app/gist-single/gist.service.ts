@@ -7,18 +7,28 @@ import {ApiService} from "../api.service";
 
 export class GistService {
 
+    gistItems: GistItem[] = [];
+
     constructor(private apiService: ApiService,) {
 
-        let i: number = 0;
-        var getGistObsbles = this.apiService.GetGistDataReq();
+    }
+
+    getGistItems(readLimit : number = 10 ){
+        this.gistItems = [];
+        var getGistObsbles = this.apiService.GetAllGistDataReq();
+
         getGistObsbles.subscribe(
             res => {
                 try {
                     console.log("GistService Response");
                     console.log(res);
-                    for (let count = 0; count < res.length ; count) { //this response has length propaerty if succeded
-                        this.gistItems[count] =
-                            new GistItem(GistHtmlComponent, {id: res[count]["id"], owner_name: res[count]["owner"]["login"]});
+                    for (let count = 0; count < res.length && count < readLimit; count) {
+                        //this response has length propaerty if succeded
+                        this.gistItems[count] = new GistItem( GistHtmlComponent ,
+                            {
+                                id: res[count]["id"],
+                                owner_name: res[count]["owner"]["login"]
+                            });
                         count++;
                     }
                 } catch (error) {
@@ -30,12 +40,11 @@ export class GistService {
                 console.log("http request error (here is subscribe callback)");
                 console.log(error);
             });
-
     }
-
-    gistItems: GistItem[] = [];
 
     getGists() {
         return this.gistItems;
     }
+
+
 }
