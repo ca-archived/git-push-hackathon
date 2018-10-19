@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../parts/Loader";
 import { If } from "../parts/If";
+import File from "./File";
 
 class Gist extends Component {
   constructor() {
@@ -28,14 +29,7 @@ class Gist extends Component {
     const { gist } = this.getGist();
 
     if (gist.files)
-      return gist.files.map(f => {
-        return (
-          <li key={f.filename}>
-            <span>{f.filename}</span>
-            <div>{f.content}</div>
-          </li>
-        );
-      });
+      return gist.files.map(f => <File file={f} key={f.filename} />);
   }
 
   render() {
