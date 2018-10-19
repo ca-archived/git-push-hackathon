@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { NewGist } from "../components/NewGist";
+import { NewGist } from "../components/gistEditor/NewGist";
 import mapDispatchToProps from "./mapDispatchToProps";
 
 function mapStateToProps(state) {

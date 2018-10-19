@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import File from "./File";
-import { If } from "./If";
-import Loader from "./Loader";
+import { If } from "../../parts/If";
+import Loader from "../../parts/Loader";
 
 class Editor extends Component {
   constructor(props) {

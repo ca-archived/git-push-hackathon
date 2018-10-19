@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import Loader from "./Loader";
+import Loader from "./parts/Loader";
 
 class Home extends Component {
   constructor() {

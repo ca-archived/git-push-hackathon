@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
-import { If } from "./If";
+import Loader from "../parts/Loader";
+import { If } from "../parts/If";
 
 class Gist extends Component {
   constructor() {

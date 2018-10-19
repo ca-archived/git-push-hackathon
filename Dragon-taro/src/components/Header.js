@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { If } from "./If";
+import { If } from "./parts/If";
 
 const Header = ({ oauth, user, actions: { requestOAuth } }) => {
   return (
