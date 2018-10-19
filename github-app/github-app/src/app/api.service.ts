@@ -20,7 +20,8 @@ export class ApiService {
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
 
-    access_token : string ="";
+    access_token: string = "";
+    APP_CLIENT_ID: string = "tachimoka01"; //used to identfy in OAuth server of this app
     OAuthServerOrigin: string = "http://localhost:4201";
 
     clientId: string = "0bc6d4e0794201162940";
@@ -30,8 +31,6 @@ export class ApiService {
 
     redirect_code: string = "";
     redirect_state: string = "";
-
-    access_token: string = "";
 
     gist_id: string = "";
     gist_owner_name: string = "";
@@ -65,6 +64,7 @@ export class ApiService {
     }
 
     OAuth2() {
+        console.log("OAuth2");
         var httpObj = this.http.get(
             this.OAuthServerOrigin + "/oauth2-post"
             + "?" + "client_id=" + this.clientId
@@ -76,19 +76,66 @@ export class ApiService {
             res => {
                 console.log("res");
                 console.log(res);
-                if(res.hasOwnProperty("access_token")){
+                if (res.hasOwnProperty("access_token")) {
                     this.access_token = res["access_token"];
-                    console.log("access_token is : "+this.access_token);
+                    console.log("access_token is : " + this.access_token);
                 }
-                if(res.hasOwnProperty("error")){
-                    console.log("OAuth step2 post error : ");
+                if (res.hasOwnProperty("error")) {
+                    console.log("error between my OAuth server and Github server: ");
+                    this.access_token = "error";
                     console.log(res["error"]);
                 }
-            }, err => {
+            },
+            err => {
                 console.log("error between client and my OAuth server");
                 console.log(err);
             }
         );
+    }
+
+    GetAcquiredAccessToken() {
+        console.log("GetAcquiredAccessToken");
+        var httpObj = this.http.get(
+            this.OAuthServerOrigin + "/get-token"
+        );
+        httpObj.subscribe(
+            res => {
+                console.log("res");
+                console.log(res);
+                if (res.hasOwnProperty("access_token")) {
+                    this.access_token = res["access_token"];
+                    console.log("access_token is : " + this.access_token);
+                }
+                if (res.hasOwnProperty("error")) {
+                    console.log("error between my OAuth server and Github server: ");
+                    this.access_token = "error";
+                    console.log(res["error"]);
+                }
+            },
+            err => {
+                console.log("error between client and my OAuth server");
+                console.log(err);
+            }
+        );
+    }
+
+    private GetAccessTokenNext(res) {
+        console.log("res");
+        console.log(res);
+        if (res.hasOwnProperty("access_token")) {
+            this.access_token = res["access_token"];
+            console.log("access_token is : " + this.access_token);
+        }
+        if (res.hasOwnProperty("error")) {
+            console.log("error between my OAuth server and Github server: ");
+            this.access_token = "error";
+            console.log(res["error"]);
+        }
+    }
+
+    private BetweenMyOAuthServerErr(err) {
+        console.log("error between client and my OAuth server");
+        console.log(err);
     }
 
     GithubApiTest() {
@@ -109,7 +156,7 @@ export class ApiService {
     }
 
     GetAllGistDataReq() {
-        console.log("GetGistDataReq");
+        console.log("GetAllGistDataReq");
         var httpObj = this.http.get(
             "https://api.github.com"
             + "/gists"
@@ -117,8 +164,10 @@ export class ApiService {
         );
         return httpObj;
     }
-    GetAllGistDataReq_byUser(userName : string) {
-        if(userName == "" | null) {
+
+    GetAllGistDataReq_byUser(userName: string) {
+        console.log("GetAllGistDataReq_byUser");
+        if (userName == "" || null) {
             userName = "Kusunoki-19";
         }
         console.log("GetGistDataReq");
@@ -133,7 +182,7 @@ export class ApiService {
 
     GetPostGistReq(description, release, fileName, content) {
         console.log("GetPostGistReq");
-
+        console.log("now access_token is : " + this.access_token);
         var httpObj = this.http.post(
             "https://api.github.com/"
             + "gists"

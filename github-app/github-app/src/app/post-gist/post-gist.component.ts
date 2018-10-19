@@ -17,7 +17,9 @@ export class PostGistComponent implements OnInit {
     });
 
     constructor(private apiService: ApiService) {
+        this.apiService.GetAcquiredAccessToken();
     }
+
 
     ngOnInit() {
     }
@@ -39,6 +41,7 @@ export class PostGistComponent implements OnInit {
                 }
             },
             error=> {
+                error.y
                 console.log("http request error (here is subscribe callback)");
                 console.log(error);
             }
