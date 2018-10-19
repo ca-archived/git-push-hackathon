@@ -10,7 +10,9 @@ const Header = ({ oauth, user, actions: { requestOAuth } }) => {
           <Link to="/">Fast Gist</Link>
         </div>
         <If condition={!oauth.isAuthorized}>
-          <button onClick={() => requestOAuth()}>GitHubでログイン</button>
+          <button className="p-button" onClick={() => requestOAuth()}>
+            GitHubでログイン
+          </button>
         </If>
         <If condition={oauth.isAuthorized && user.avatar_url}>
           <div>

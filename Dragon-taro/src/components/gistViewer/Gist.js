@@ -40,10 +40,14 @@ class Gist extends Component {
         <Loader />
         <If condition={gist}>
           <div>
-            <button className="p-button">
-              <Link to={`/gists/${id}/edit`}>Edit Gist</Link>
-            </button>
-            <div className="description">{gist.description}</div>
+            <div className="description-zone">
+              <div className="description">{gist.description}</div>
+              <div className="button">
+                <button className="p-button">
+                  <Link to={`/gists/${id}/edit`}>Edit Gist</Link>
+                </button>
+              </div>
+            </div>
             <ul>{this.fileList()}</ul>
           </div>
         </If>
