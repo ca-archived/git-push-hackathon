@@ -1,9 +1,14 @@
+<h3>OAuth認証</h3>
 <p>
-  oauth works!
+    OAuth認証を行います。
 </p>
-<a href="https://github.com/login/oauth/authorize?
+<p>
+    OAuth認証とは「ユーザー名+パスワード」でGithubの権限をつかうのではなく、
+    Githubからこのアプリケーションに渡されたアクセスキーを使うという方式です。
+</p>
+<a id="oauth_submit_link" href="https://github.com/login/oauth/authorize?
 client_id={{apiService.clientId}}&
 redirect_url={{apiService.redirectUrl}}&
 scope={{apiService.scope}}&
 state={{apiService.state}}&
-allow_singup=ture">https://github.com/login/oauth/authorize</a>
+allow_singup=ture">OAuth認証を行う</a>

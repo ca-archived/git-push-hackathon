@@ -1,4 +1,9 @@
-<p>
-  oauth-redirect works!
-</p>
-<button (click) ="this.apiService.OAuth2()">アクセストークンを取得by ApiService</button>
+<div *ngIf="this.apiService.access_token =='' ">
+  アクセストークンを取得中です
+</div>
+<div *ngIf="this.apiService.access_token !='' ">
+  現在のアクセストークンは「{{this.apiService.access_token}}」です
+</div>
+<div *ngIf="this.apiService.access_token =='error' ">
+  アクセストークンの取得に失敗しました
+</div>
