@@ -1,7 +1,6 @@
 package main
 
 import(
-	"fmt"
 	"strconv"
 	"net"
 	"net/http"
@@ -109,6 +108,8 @@ func token(res http.ResponseWriter, req *http.Request) {
 	} else {
 		res.WriteHeader(http.StatusBadRequest)
 	}
+
+	delete(stateMap, cliendId)
 }
 
 func respondWithJson(data interface{}, res http.ResponseWriter) {
