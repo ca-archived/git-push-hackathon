@@ -37,7 +37,6 @@ namespace oauth_server
 
             if (reqParams.Count != 0)
             {
-                bodyText += "?";
                 //リクエスト本体 Dict -> url query 形式
                 foreach (KeyValuePair<string, string> reqParam in reqParams)
                 {
@@ -48,12 +47,19 @@ namespace oauth_server
             //リクエスト本体 text -> ascii codes(json形式)
             byte[] bodyAscii = Encoding.ASCII.GetBytes(bodyText);
 
+            ServicePointManager.SecurityProtocol
+                = SecurityProtocolType.Tls
+                | SecurityProtocolType.Tls11
+                | SecurityProtocolType.Tls12;
+
             //reqestオブジェクト作成
+            url += "?" + bodyText;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.Accept = "application/x-www-form-urlencoded";
             request.ContentLength = bodyAscii.Length;
+
 
             //(HttpWebRequest).GetRequestStream : 要求データを書きこむために使用するStreamオブジェクトを取得する
             using (Stream reqStream = request.GetRequestStream())
@@ -130,13 +136,26 @@ namespace oauth_server
             reqParams.Add("client_secret", GlobalVals.CLIENT_SECRET);
             OAuthResText = apiPost(GlobalVals.OAUTH_URL2, reqParams);//api.github.comにPOST
 
-            res.ContentType = "application/x-www-form-urlencoded";
+            Dictionary<string, string> resDict = new Dictionary<string, string>();
+
+            string[] paramtPairTexts = OAuthResText.Split('&');
+
+            foreach (string paramtPairText in paramtPairTexts) {
+
+                string[] paramPair = paramtPairText.Split('=');
+                resDict.Add(paramPair[0], paramPair[1]);
+
+            }
+            string bodyText = JsonConvert.SerializeObject(resDict);
+            
+            res.ContentType = "application/json";
+            res.AddHeader("Access-Control-Allow-Origin", "*");
 
             // ファイル内容を出力
             try
             {
                 res.StatusCode = 200;
-                byte[] content = File.ReadAllBytes(OAuthResText);
+                byte[] content = Encoding.UTF8.GetBytes(bodyText);
                 res.OutputStream.Write(content, 0, content.Length);
             }
             catch (Exception ex)
@@ -160,7 +179,7 @@ namespace oauth_server
             Regex dirReg =
                 new Regex("(?<=/)([a-z]|[A-Z]|[0-9]|-)+");
 
-            //match "param1=asdf" and "param2="
+            //match "param1=asdf" and "param2=" and "redirect_uri=//localhost:4201"
             Regex paramsReg =
                 new Regex("(?<=[?|&])([a-z]|[A-Z]|[0-9]|-|_)+=([a-z]|[A-Z]|[0-9]|-|_|/|:)*");
                 //new Regex("(?<=[?|&])([a-z]|[A-Z]|[0-9]|-)+=([a-z]|[A-Z]|[0-9]|-)*");

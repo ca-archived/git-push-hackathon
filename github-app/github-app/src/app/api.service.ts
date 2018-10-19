@@ -89,8 +89,10 @@ export class ApiService {
         );
         httpObj.subscribe(
             res => {
+                console.log("res");
                 console.log(res);
             }, err => {
+                console.log("err");
                 console.log(err);
             }
         );
