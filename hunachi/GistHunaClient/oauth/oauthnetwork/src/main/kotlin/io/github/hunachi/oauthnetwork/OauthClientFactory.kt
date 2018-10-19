@@ -12,7 +12,5 @@ object OauthClientFactory{
             "client_id=" + clientId +
             "&scope=" + scopes
 
-    private val oauthClient: OauthClient = createClient(isLenientMode = true)
-
-    fun oauthClientInstance(): OauthClient = oauthClient
+    fun oauthClientInstance(): OauthClient = createClient(isLenientMode = true)
 }

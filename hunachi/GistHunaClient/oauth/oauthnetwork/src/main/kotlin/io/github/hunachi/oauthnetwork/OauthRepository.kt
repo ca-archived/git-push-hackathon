@@ -12,7 +12,7 @@ class OauthRepository(private val oauthClient: OauthClient, private val url: Str
         const val STATE_CODE = "gist-hunachi"
     }
 
-    suspend fun register(code: String): Result<Token, Exception> = runBlocking(Dispatchers.IO) {
+    fun register(code: String): Result<Token, Exception> = runBlocking {
         try {
             val token = oauthClient.accessToken(
                     BuildConfig.CLIENT_ID,

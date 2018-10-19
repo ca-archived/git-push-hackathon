@@ -3,8 +3,10 @@ package io.github.hunachi.gisthunaclient
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import io.github.hunachi.gisthunaclient.databinding.ActivityMainBinding
 import io.github.hunachi.oauth.OAuthActivity
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupView() {
         binding.apply {
             text.text = "認証に成功しています！"
+            button.isVisible = false
         }
         supportFragmentManager.inTransaction {
             replace(R.id.list_container, GistListFragment.newInstance())

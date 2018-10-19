@@ -45,7 +45,7 @@ internal class OAuthStore(
 
                     is OAuthAction.IsLoading -> _isLoadingState.value = it.isLoading
 
-                    is OAuthAction.IsError -> _isErrorState.call()
+                    is OAuthAction.IsError -> _isErrorState.value = null
                 }
             }
         }

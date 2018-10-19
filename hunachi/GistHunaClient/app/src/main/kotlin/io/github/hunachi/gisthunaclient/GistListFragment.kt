@@ -55,7 +55,7 @@ class GistListFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         preference.savedToken()?.let {
-            gistListActionCreator.updateList("hunachi", it)
+            gistListActionCreator.updateList("Hunachi", it)
         }?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
     }
 

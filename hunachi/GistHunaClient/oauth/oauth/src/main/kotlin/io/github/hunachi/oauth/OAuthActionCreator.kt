@@ -1,6 +1,7 @@
 package io.github.hunachi.oauth
 
 import android.net.Uri
+import android.util.Log
 import io.github.hunachi.oauthnetwork.OauthRepository
 import io.github.hunachi.oauthnetwork.Token
 import io.github.hunachi.shared.flux.Dispatcher
@@ -27,13 +28,14 @@ internal class OAuthActionCreator(
         if (state == OauthRepository.STATE_CODE && code != null) {
             job = CoroutineScope(Dispatchers.IO).launch {
                 dispatcher.send(OAuthAction.IsLoading(true))
-                val token: Result<Token, Exception> = repository.register(code)
+                val token: Result<Token, Exception> = async { repository.register(code) }.await()
 
                 when (token) {
                     is Result.Success -> {
                         dispatcher.send(OAuthAction.SaveToken(token.data.token))
                     }
                     is Result.Error -> {
+                        Log.d(token.e.message, "eror")
                         dispatcher.send(OAuthAction.IsError)
                     }
                 }

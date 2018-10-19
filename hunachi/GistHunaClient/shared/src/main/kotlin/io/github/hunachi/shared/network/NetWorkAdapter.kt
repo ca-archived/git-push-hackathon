@@ -13,9 +13,6 @@ inline fun <reified T> createClient(
         adapter: CustomNetworkAdapter? = null,
         isLenientMode: Boolean = false
 ): T {
-    if (T::class is NetWorkClient) {
-        throw IllegalAccessException("createClient can create for only NetWorkClient")
-    }
 
     val moshi by lazy {
         Moshi.Builder()
@@ -37,9 +34,7 @@ inline fun <reified T> createClient(
     val retrofit by lazy {
         Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(MoshiConverterFactory.create(moshi).apply {
-                    if (isLenientMode) asLenient()
-                })
+                .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(httpClient.build())
                 .build()
