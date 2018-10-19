@@ -1,0 +1,43 @@
+.m-editor {
+  input,
+  textarea {
+    padding: 5px 10px;
+    font-size: 16px;
+    line-height: 1.8;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+  }
+  .description {
+    input {
+      width: 100%;
+      margin-top: 30px;
+    }
+  }
+  .file {
+    margin: 30px 0;
+    textarea,
+    input {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
+        monospace;
+      line-height: 1.4;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 100%;
+      line-height: 1.6;
+      resize: none;
+    }
+  }
+  .button-zone {
+    text-align: right;
+    .p-button {
+      margin-left: 10px;
+      display: inline-block;
+    }
+  }
+}

@@ -7,11 +7,6 @@ class Editor extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isSubmit: false,
-      isSetGist: false
-    };
-
     props.actions.loading();
   }
 
@@ -58,14 +53,12 @@ class Editor extends Component {
   }
 
   handleSubmit() {
-    if (!this.state.isSubmit) {
-      const {
-        actions: { submitGist }
-      } = this.props;
-      const method = this.isEdit() ? "PATCH" : "POST";
-      submitGist({ data: this.state, method: method });
-      this.setState({ isSubmit: true });
-    }
+    const {
+      actions: { submitGist }
+    } = this.props;
+    const method = this.isEdit() ? "PATCH" : "POST";
+    submitGist({ data: this.state, method: method });
+    this.setState({ isSubmit: true });
   }
 
   fileEditors() {
@@ -90,9 +83,8 @@ class Editor extends Component {
       editor: { description },
       load: { isLoading }
     } = this.props;
-    console.log(isLoading);
-
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
+
     return (
       <div>
         <Loader />

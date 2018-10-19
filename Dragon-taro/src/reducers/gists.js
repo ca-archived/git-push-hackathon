@@ -9,7 +9,9 @@ const initial = {
   gists: { gists: [] },
   gist: {},
   editor: {
-    files: []
+    files: [],
+    description: "",
+    public: true
   }
 };
 
