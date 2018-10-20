@@ -3,6 +3,7 @@ const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
   getUser ({ commit, rootState }, username) {
+    commit('initUser')
     let req = request('GET', `${API_ENDPOINT}/users/${username}`, rootState.auth.at)
     axios(req)
       .then(response => {

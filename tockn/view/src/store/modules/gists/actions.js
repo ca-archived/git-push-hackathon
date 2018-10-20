@@ -3,7 +3,7 @@ const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
   getGists ({ commit, state, rootState }, username) {
-    commit('initGist')
+    commit('initGists')
     let req = request('GET', `${API_ENDPOINT}/users/${username}/gists`, rootState.auth.at)
     axios(req)
       .then(response => {
@@ -11,7 +11,7 @@ export default {
       })
   },
   getMyGists ({ commit, state, rootState }) {
-    commit('initGist')
+    commit('initGists')
     axios({
       method: 'GET',
       url: `${API_ENDPOINT}/gists`,
