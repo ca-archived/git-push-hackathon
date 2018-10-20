@@ -41,7 +41,7 @@ oauth-serverはgithubb-app(アプリケーションのクライアントサイ�
 
 その場合は、OAuthServerのProgram.csにあるGlobalValsクラスのSERVER_ORIGIN変数の中身を編集し、使用していないポート番号に変更します。
 それに伴い、Github-appのプログラムに記載されているサーバーのアドレスも変更する必要があります。
-変更は、Kusunoki-19/github-app/github-app/src/app/api.service.ts にある ApiServiceクラス,OAuthServerOriginを変更します。
+変更は、Kusunoki-19/github-app/github-app/src/app/api.service.ts にある ApiServiceクラス,OAuthServerOriginメンバを変更します。
 
 ## 必要な環境がそろっていない
 
