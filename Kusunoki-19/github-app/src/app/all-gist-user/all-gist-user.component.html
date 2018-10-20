@@ -1,0 +1,16 @@
+<div id="gist_area">
+  <h3>All Gists</h3>
+  <label>読み込みGist数:
+    <input [(ngModel)]="readLimit">
+  </label>
+  <label>参照 User Name :
+    <input [(ngModel)]="userName">
+  </label>
+  <button (click)="reloadGists()">reload Gists</button>
+
+  <div *ngFor="let gist of gists" class="gist_container">
+    <div>
+      <app-gist-single [gist]="gist"></app-gist-single>
+    </div>
+  </div>
+</div>
