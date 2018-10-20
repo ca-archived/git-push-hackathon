@@ -15,13 +15,15 @@ import {
   SET_EDITOR_STATE,
   HANDLE_CHANGE_EDITOR,
   LOADING,
-  LOADED
+  LOADED,
+  LOGOUT
 } from "./constants";
 
 // 認証周り
 export const successLogin = createAction(SUCCESS_LOGIN);
 export const failureLogin = createAction(FAILURE_LOGIN);
 export const requestOAuth = createAction(REQUEST_OAUTH);
+export const logout = createAction(LOGOUT);
 
 // User周り
 export const getUser = createAction(GET_USER);

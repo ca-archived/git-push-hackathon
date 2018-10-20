@@ -1,5 +1,5 @@
 import { fork, call, put, take } from "redux-saga/effects";
-import { REQUEST_OAUTH, GET_USER } from "../actions/constants";
+import { REQUEST_OAUTH, GET_USER, LOGOUT } from "../actions/constants";
 import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
 import { Get } from "./api";
@@ -37,7 +37,6 @@ function* handleRequestOAuth() {
     const { access_token, err } = yield call(signIn);
     if (!err) {
       sessionStorage.setItem("access_token", access_token);
-
       location.reload();
     } else {
       yield put(failureLogin({ err: err }));
@@ -70,8 +69,17 @@ function* initialize(history) {
   }
 }
 
+function* handleLogout() {
+  while (true) {
+    yield take(LOGOUT);
+    sessionStorage.removeItem("access_token");
+    location.reload();
+  }
+}
+
 export default function* rootSaga(history) {
   yield fork(handleRequestOAuth);
   yield fork(getUserInfo);
   yield fork(initialize, history);
+  yield fork(handleLogout);
 }

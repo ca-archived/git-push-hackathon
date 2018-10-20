@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { If } from "./parts/If";
 
-const Header = ({ oauth, user, actions: { requestOAuth } }) => {
+const Header = ({ oauth, user, actions: { requestOAuth, logout } }) => {
   return (
     <div className="m-header">
       <div className="inner-wrapper">
@@ -20,6 +20,7 @@ const Header = ({ oauth, user, actions: { requestOAuth } }) => {
               <Link to="/gists/new">New Gist</Link>
             </button>
             <img src={user.avatar_url} alt="ユーザー画像" />
+            <button onClick={() => logout()}>Logout</button>
           </div>
         </If>
       </div>
