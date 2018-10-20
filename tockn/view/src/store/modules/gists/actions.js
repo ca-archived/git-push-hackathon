@@ -14,15 +14,21 @@ export default {
       })
   },
   getGists ({ commit, state }, username) {
-    axios({
+    commit('initGist')
+    let reqObj = {
       method: 'GET',
       url: `${API_ENDPOINT}/users/${username}/gists`
-    })
+    }
+    if (state.at !== '') {
+      reqObj.headers = {'Authorization': `bearer ${state.at}`}
+    }
+    axios(reqObj)
       .then(response => {
         commit('getGists', response)
       })
   },
   getMyGists ({ commit, state }) {
+    commit('initGist')
     axios({
       method: 'GET',
       url: `${API_ENDPOINT}/gists`,
@@ -32,11 +38,16 @@ export default {
         commit('getGists', response)
       })
   },
-  getGist ({ commit }, id) {
-    axios({
+  getGist ({ commit, state }, id) {
+    commit('initGist')
+    let reqObj = {
       method: 'GET',
       url: `${API_ENDPOINT}/gists/${id}`
-    })
+    }
+    if (state.at !== '') {
+      reqObj.headers = {'Authorization': `bearer ${state.at}`}
+    }
+    axios(reqObj)
       .then(response => {
         commit('getGist', response)
       })

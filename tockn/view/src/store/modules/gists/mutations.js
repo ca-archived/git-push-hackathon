@@ -10,5 +10,11 @@ export default {
   },
   getGist (state, response) {
     state.gist = response.data
+  },
+  initGists (state) {
+    state.gists = undefined
+  },
+  initGist (state) {
+    state.gist = undefined
   }
 }
