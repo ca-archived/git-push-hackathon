@@ -21,7 +21,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('gists/getMyData')
+    this.$store.dispatch('auth/getMyData')
   }
 }
 
