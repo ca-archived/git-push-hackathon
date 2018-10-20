@@ -26,7 +26,7 @@ export default new Router({
       component: User
     },
     {
-      path: '/gist/:id',
+      path: '/gists/:id',
       name: 'Gist',
       component: Gist
     }
