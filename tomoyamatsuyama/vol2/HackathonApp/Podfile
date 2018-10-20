@@ -8,6 +8,7 @@ target 'HackathonApp' do
   pod 'RxCocoa'
   pod 'RxSwift'
   pod 'SwiftGen'
+  pod 'ReSwift'
   # Pods for HackathonApp
 
   target 'HackathonAppTests' do
