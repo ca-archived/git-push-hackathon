@@ -38,9 +38,7 @@ function* handleRequestOAuth() {
     if (!err) {
       sessionStorage.setItem("access_token", access_token);
 
-      yield put(successLogin());
-      yield put(getUser(access_token));
-      yield put(getGists(access_token));
+      location.reload();
     } else {
       yield put(failureLogin({ err: err }));
       yield put(loaded());
