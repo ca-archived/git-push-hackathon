@@ -7,7 +7,7 @@
     <div v-if="gists">
       <gists :gists="gists" />
     </div>
-    <loading v-else :withCard="true" />
+    <loading v-else />
   </div>
 </template>
 
