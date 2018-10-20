@@ -26,20 +26,37 @@ export default {
       gists: 'gists'
     })
   },
-  created () {
-    this.$store.dispatch('users/getUser', this.$route.params.username)
-    let username = this.$route.params.username
-    if (this.$store.state.me !== undefined &&
-      this.$store.state.me.login === username) {
-      this.$store.dispatch('gists/getMyGists')
-    } else {
-      this.$store.dispatch('gists/getGists', username)
+  methods: {
+    getData () {
+      this.$store.dispatch('users/getUser', this.$route.params.username)
+      let username = this.$route.params.username
+      if (this.$store.state.me !== undefined &&
+        this.$store.state.me.login === username) {
+        this.$store.dispatch('gists/getMyGists')
+      } else {
+        this.$store.dispatch('gists/getGists', username)
+      }
     }
+  },
+  created () {
+    this.getData()
   },
   components: {
     'loading': Loading,
     'card': Card,
     'gists': Gists
+  },
+  watch: {
+    '$route' (to, from) {
+      this.$store.dispatch('users/getUser', this.$route.params.username)
+      let username = this.$route.params.username
+      if (this.$store.state.me !== undefined &&
+        this.$store.state.me.login === username) {
+        this.$store.dispatch('gists/getMyGists')
+      } else {
+        this.$store.dispatch('gists/getGists', username)
+      }
+    }
   }
 }
 

@@ -69,6 +69,11 @@ export default {
   components: {
     'search-box': SearchBox,
     'search-result': SearchResultBox
+  },
+  watch: {
+    '$route' (to, from) {
+      this.searchState = false
+    }
   }
 }
 
