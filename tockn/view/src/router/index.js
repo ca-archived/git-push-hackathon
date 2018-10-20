@@ -21,7 +21,7 @@ export default new Router({
       component: Callback
     },
     {
-      path: '/user/:username',
+      path: '/users/:username',
       name: 'User',
       component: User
     },
