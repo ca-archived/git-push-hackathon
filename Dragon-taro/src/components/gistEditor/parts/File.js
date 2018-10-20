@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Textarea from "react-textarea-autosize";
+import { If } from "../../parts/If";
 
 class File extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class File extends Component {
   }
 
   render() {
-    const { filename, content } = this.props;
+    const { filename, content, deleteFile, isDeletable } = this.props;
     return (
       <div className="file">
         <input
@@ -22,6 +23,11 @@ class File extends Component {
           value={filename}
           onChange={e => this.handleChange(e)}
         />
+        <If condition={isDeletable}>
+          <button className="p-button red" onClick={() => deleteFile()}>
+            Delete
+          </button>
+        </If>
         <Textarea
           minRows={10}
           name="content"

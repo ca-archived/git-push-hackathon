@@ -1,5 +1,7 @@
 .p-button {
   border: none;
+  cursor: pointer;
+  transition-duration: 0.2s;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4cb6ff+0,34a1ff+100 */
   background: #4cb6ff; /* Old browsers */
   background: -moz-linear-gradient(
@@ -26,5 +28,28 @@
   color: #fff;
   a {
     color: #fff;
+  }
+  &.red {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e85f68+0,ea3c48+100 */
+    background: #e85f68; /* Old browsers */
+    background: -moz-linear-gradient(
+      top,
+      #e85f68 0%,
+      #ea3c48 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      top,
+      #e85f68 0%,
+      #ea3c48 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #e85f68 0%,
+      #ea3c48 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e85f68', endColorstr='#ea3c48',GradientType=0 ); /* IE6-9 */
+  }
+  &:hover {
+    opacity: 0.8;
   }
 }

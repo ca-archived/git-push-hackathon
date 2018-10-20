@@ -52,6 +52,14 @@ class Editor extends Component {
     this.handleChange({ files: newFiles });
   }
 
+  deleteFile(index) {
+    const {
+      editor: { files }
+    } = this.props;
+    const newFiles = files.filter(f => f.index != index);
+    this.handleChange({ files: newFiles });
+  }
+
   handleSubmit() {
     const {
       actions: { submitGist }
@@ -65,12 +73,15 @@ class Editor extends Component {
     const {
       editor: { files }
     } = this.props;
+    const isDeletable = files.length > 1;
     const fileEditorList = files.map(f => {
       return (
         <li key={f.index}>
           <File
             {...f}
+            isDeletable={isDeletable}
             onChange={keyValue => this.handleFileChange(keyValue, f.index)}
+            deleteFile={() => this.deleteFile(f.index)}
           />
         </li>
       );
