@@ -1,12 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-
-import {Observable, throwError} from 'rxjs';
-import {catchError, last, map, tap} from 'rxjs/operators';
-import {
-    HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
-} from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable({
@@ -14,13 +9,15 @@ import {
 })
 export class ApiService {
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private http: HttpClient,
+        private cookieService: CookieService
+    ) {    }
 
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
 
-    access_token: string = "";
+    access_token: string = ""; //
     APP_CLIENT_ID: string = "tachimoka01"; //used to identfy in OAuth server of this app
     OAuthServerOrigin: string = "http://localhost:4201";
 
@@ -46,6 +43,9 @@ export class ApiService {
     }
 
     GetTest() {
+        /*
+         * get test by using public api
+         */
         let TEST_URL = "http://httpbin.org/ip";
         //TEST_URL のhttp request用のオブジェクトを作成
         var httpObj = this.http.get(TEST_URL);
@@ -55,6 +55,9 @@ export class ApiService {
     }
 
     PostTest() {
+        /*
+         * post test by using public api
+         */
         let TEST_URL = "http://httpbin.org/post";
         var reqBody = {test: "test_text"};
         console.log(reqBody);
@@ -64,6 +67,11 @@ export class ApiService {
     }
 
     OAuth2() {
+        /*
+         * OAuth Step2 : Request POST request to my OAuth server
+         * and getting access_token
+         * if getting access_token is succeded , save this access_token in cookie
+         */
         console.log("OAuth2");
         var httpObj = this.http.get(
             this.OAuthServerOrigin + "/oauth2-post"
@@ -78,6 +86,7 @@ export class ApiService {
                 console.log(res);
                 if (res.hasOwnProperty("access_token")) {
                     this.access_token = res["access_token"];
+                    this.cookieService.set("access_token", this.access_token); //memory in cookie
                     console.log("access_token is : " + this.access_token);
                 }
                 if (res.hasOwnProperty("error")) {
@@ -94,6 +103,9 @@ export class ApiService {
     }
 
     GetAcquiredAccessToken() {
+        /*
+         * サーバーからaccess_tokenを取得
+         */
         console.log("GetAcquiredAccessToken");
         var httpObj = this.http.get(
             this.OAuthServerOrigin + "/get-token"
@@ -119,7 +131,21 @@ export class ApiService {
         );
     }
 
+
+    GetAcquiredAccessToken_byCookie(){
+        /*
+         * cookieからaccess_tokenを取得
+         */
+        console.log("GetAcquiredAccessToken_byCookie");
+        console.log("access_token in cookie : ");
+        console.log(this.cookieService.get("access_token"));
+        this.access_token = this.cookieService.get("access_token");
+    }
+
     private GetAccessTokenNext(res) {
+        /*
+         * a next function of a subscribe
+         */
         console.log("res");
         console.log(res);
         if (res.hasOwnProperty("access_token")) {
@@ -134,11 +160,17 @@ export class ApiService {
     }
 
     private BetweenMyOAuthServerErr(err) {
+        /*
+         * a error function of a subscribe
+         */
         console.log("error between client and my OAuth server");
         console.log(err);
     }
 
     GithubApiTest() {
+        /*
+         * Github API test by using my username
+         */
         console.log("GithubApiTest");
         var httpObj = this.http.get(
             "https://api.github.com/users/Kusunoki-19",
@@ -147,6 +179,9 @@ export class ApiService {
     }
 
     GithubApiOAuthTest() {
+        /*
+         * Github API test by using present access_token
+         */
         console.log("GithubApiOAuthTest");
         var httpObj = this.http.get(
             "https://api.github.com/"
@@ -156,6 +191,9 @@ export class ApiService {
     }
 
     GetAllGistDataReq() {
+        /*
+         * return observable object to use to get gist request
+         */
         console.log("GetAllGistDataReq");
         var httpObj = this.http.get(
             "https://api.github.com"
@@ -166,6 +204,9 @@ export class ApiService {
     }
 
     GetAllGistDataReq_byUser(userName: string) {
+        /*
+         * return observable object to use to get gist request ordered by username
+         */
         console.log("GetAllGistDataReq_byUser");
         if (userName == "" || null) {
             userName = "Kusunoki-19";
@@ -181,6 +222,9 @@ export class ApiService {
     }
 
     GetPostGistReq(description, release, fileName, content) {
+        /*
+         * return observable object to use to post gist
+         */
         console.log("GetPostGistReq");
         console.log("now access_token is : " + this.access_token);
         var httpObj = this.http.post(
@@ -206,11 +250,17 @@ export class ApiService {
     }
 
     private RequestNext(res) {
+        /*
+         * a next function of any subscribe method
+         */
         console.log("Response");
         console.log(res);
     }
 
     private RequestError(error) {
+        /*
+         * a error function of any subscribe method
+         */
         console.log("Error");
         console.log(error);
     }

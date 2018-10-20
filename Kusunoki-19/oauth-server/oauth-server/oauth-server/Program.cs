@@ -227,6 +227,7 @@ namespace oauth_server
             responseToClient(res, resJsonText);
         }
 
+        /* アクセストークンの保存機能はブラウザのクッキーに代替した
         static void getToken(HttpListenerRequest req,
             HttpListenerResponse res, Dictionary<string, string> reqParams)
         {
@@ -239,6 +240,7 @@ namespace oauth_server
             res.AddHeader("Access-Control-Allow-Origin", "*");
             responseToClient(res, resJsonText);
         }
+         */
 
         static Dictionary<string, string> getParamsFromRawUrl(string rawUrl)
         {
@@ -337,10 +339,16 @@ namespace oauth_server
                             case "oauth2-post":
                                 OAuth2Post(req, res, reqParams);
                                 break;
-
+                            /* アクセストークンの保存機能はブラウザのクッキーに代替した
                             case "get-token":
                                 getToken(req, res, reqParams);
                                 break;
+                             */
+
+                            default:
+                                notFoundAccess(req, res);
+                                break;
+
                         }
                         break;
 

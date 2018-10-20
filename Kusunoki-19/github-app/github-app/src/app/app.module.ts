@@ -1,6 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
+import { CookieService } from 'ngx-cookie-service';
+
 
 import { FormsModule }      from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -48,12 +50,15 @@ import { GistModule } from '@sgbj/angular-gist';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        GistModule
+        GistModule,
     ],
     entryComponents: [
         GistHtmlComponent,
     ],
-    providers: [GistService],
+    providers: [
+        GistService,
+        CookieService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

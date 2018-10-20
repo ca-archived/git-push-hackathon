@@ -24,7 +24,8 @@
     "core-js": "^2.5.4",
     "postscribe": "^2.0.8",
     "rxjs": "^6.0.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "ngx-cookie-service":"^1.0.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
