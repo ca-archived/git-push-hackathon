@@ -5,14 +5,14 @@
       <div v-show="result === undefined">
         not exist.
       </div>
-      <div v-show="result !== undefined">
+      <router-link :to="link" v-show="result !== undefined" class="link">
         <div class="avatar">
           <img class="avatar" v-bind:src="avatarURL" alt="">
         </div>
         <div class="username">
           {{ username }}
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -33,6 +33,9 @@ export default {
     avatarURL () {
       if (this.result === undefined) return
       return this.result.avatar_url
+    },
+    link () {
+      return `/users/${this.username}`
     }
   },
   components: {
@@ -43,6 +46,10 @@ export default {
 </script>
 
 <style scoped>
+
+.link {
+  color: black
+}
 
 .avatar {
   width: 24px;
