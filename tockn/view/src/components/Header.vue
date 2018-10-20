@@ -9,7 +9,7 @@
       </div>
       <div v-if="login" class="icon">
         <router-link :to="'/'">
-          <img class="icon_img" src="../assets/logo.png" width="50" height="50">
+          <img class="icon_img" v-bind:src="avatarURL" width="50" height="50">
         </router-link>
       </div>
       <div v-show="login" class="hid_login"></div>
@@ -24,11 +24,14 @@ const endpoint = process.env.OAUTH_ENDPOINT
 export default {
   computed: {
     login () {
-      return this.$store.state.gists.at || false
+      return this.$store.state.auth.me || false
     },
     loginURL () {
       let path = this.$route.fullPath
       return `${endpoint}/auth/github?path=${path}`
+    },
+    avatarURL () {
+      return this.$store.state.auth.me.avatar_url
     }
   }
 }
@@ -58,6 +61,7 @@ a {
 .icon_img {
   width: 50px;
   height: 50px;
+  border-radius: 8px;
 }
 .search {
   float: left;
