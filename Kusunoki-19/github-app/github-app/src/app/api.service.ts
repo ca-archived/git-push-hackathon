@@ -17,8 +17,7 @@ export class ApiService {
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
 
-    access_token: string = ""; //
-    APP_CLIENT_ID: string = "tachimoka01"; //used to identfy in OAuth server of this app
+    access_token: string = ""; //set from cookie always
     OAuthServerOrigin: string = "http://localhost:4201";
 
     clientId: string = "0bc6d4e0794201162940";
