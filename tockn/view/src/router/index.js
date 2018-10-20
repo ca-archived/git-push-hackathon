@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/pages/Home'
-import Callback from '@/components/pages/Callback'
-import User from '@/components/pages/User'
-import Gist from '@/components/pages/Gist'
+import Home from '@/pages/Home'
+import Callback from '@/pages/Callback'
+import User from '@/pages/User'
+import Gist from '@/pages/Gist'
 
 Vue.use(Router)
 
