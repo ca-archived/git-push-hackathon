@@ -4,7 +4,7 @@
 
 <style scoped>
 #loading {
-  position: absolute;
+  margin: auto;
   width: 32px;
   height: 32px;
   border-radius: 50%;
