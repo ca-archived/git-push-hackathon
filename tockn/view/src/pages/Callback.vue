@@ -7,7 +7,11 @@
 export default {
   created () {
     this.$store.commit('gists/setAccessToken', this.$route.query.access_token)
-    this.$router.push('/')
+    let path = this.$route.query.path
+    if (path === '') {
+      path = `/${path}`
+    }
+    this.$router.push(path)
   }
 }
 

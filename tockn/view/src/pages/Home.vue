@@ -2,7 +2,7 @@
   <div>
     <button @click="login">ログイン</button>
     <input v-model="username">
-    <router-link :to="`/user/${username}`">User</router-link>
+    <router-link :to="`/users/${username}`">User</router-link>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     login () {
-      location.href = `${endpoint}/auth/github?redirect_url=${location.href}auth/callback`
+      location.href = `${endpoint}/auth/github`
     }
   },
   created () {
