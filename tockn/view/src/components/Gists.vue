@@ -1,14 +1,16 @@
 <template>
   <div>
     <div v-if="gists">
-      <div class="card" v-for="(gist, index) in gists" :key="index" >
-        <div class="title">
-          {{ cutDesc(gist.description) }}
+      <router-link class="a" v-bind:to="`/gists/${gist.id}`" v-for="(gist, index) in gists" :key="index" >
+        <div class="card">
+          <div class="title">
+            <p>{{ cutDesc(gist.description) }}</p>
+          </div>
+          <div class="content">
+            <p v-for="(name, index) in fileNames(gist.files)" :key="index">{{ name }}</p>
+          </div>
         </div>
-        <div class="content">
-          <p v-for="(name, index) in fileNames(gist.files)" :key="index">{{ name }}</p>
-        </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -44,3 +46,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.a {
+  text-decoration: none;
+  color: black;
+}
+</style>
