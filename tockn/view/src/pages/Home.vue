@@ -19,9 +19,6 @@ export default {
     login () {
       location.href = `${endpoint}/auth/github`
     }
-  },
-  created () {
-    this.$store.dispatch('auth/getMyData')
   }
 }
 
