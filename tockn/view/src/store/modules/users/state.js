@@ -1,3 +1,5 @@
 export default {
-  user: undefined
+  user: undefined,
+  searchResult: undefined,
+  searching: false
 }
