@@ -20,7 +20,7 @@ import Card from './GistCard'
 
 export default {
   props: {
-    gists: Object
+    gists: Array
   },
   methods: {
     cutDesc (text) {
