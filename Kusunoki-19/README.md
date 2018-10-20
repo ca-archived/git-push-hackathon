@@ -1,3 +1,16 @@
+# アプリケーションのclient_idとclient_secretの記入場所
+
+client_idは Kusunoki-19/github-app/github-app/src/app/api.service.ts にある ApiServiceクラスの clientIdメンバ　の内容を編集してください。
+```
+clientId: string = "YOUR_CLIENT_ID"; // ここにclient_idを入れます
+```
+
+
+client_secretは Kusunoki-19/oauth-server/oauth-server/oauth-server.sln を開きProgram.csにある GlobalValsクラスのなかの CLIENT_SECRETの内容を編集してください。
+```
+public const string CLIENT_SECRET = "YOUR_CLIENT_SECRET"; // ここにclient_secretを入れます
+```
+
 # github-appの実行(アプリケーションのクライアントサイド)
 
 github-appはAngular CLI(version 6以降)を使用して作成されています。
