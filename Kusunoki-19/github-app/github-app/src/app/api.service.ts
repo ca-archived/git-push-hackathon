@@ -177,16 +177,18 @@ export class ApiService {
         httpObj.subscribe(this.RequestNext, this.RequestError);
     }
 
-    GithubApiOAuthTest() {
+    GetTokenCheckReq() {
         /*
          * Github API test by using present access_token
          */
         console.log("GithubApiOAuthTest");
-        var httpObj = this.http.get(
-            "https://api.github.com/"
+        var theObservable = this.http.get(
+            "https://api.github.com"
+            + "/gists"
             + "?access_token=" + this.access_token
         );
-        httpObj.subscribe(this.RequestNext, this.RequestError);
+        return theObservable;
+
     }
 
     GetAllGistDataReq() {

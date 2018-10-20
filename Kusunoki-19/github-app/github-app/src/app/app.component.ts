@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Title}     from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'GithubApp';
-  sub_title = 'AOuth and any operate of some gist';
+
+    constructor(private titleService: Title) {
+        this.titleService.setTitle('MyWebHub');
+    }
+
+    title = 'MyWebHub';
+    sub_title = 'AOuth and any operate of some gist';
 }
