@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     cutDesc (text) {
-      if (text === '') {
+      if (text === '' || text === null) {
         return '-No Description-'
       }
       if (text.length > 100) {
