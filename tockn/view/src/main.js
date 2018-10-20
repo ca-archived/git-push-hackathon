@@ -4,8 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import '../static/prism'
-import '../static/prism.css'
 // import VueOnsen from 'vue-onsenui'
 
 // import 'onsenui/css/onsenui.css'
