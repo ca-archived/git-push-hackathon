@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div v-if="gist" v-for="(file, index) in gist.files" :key="index">
-      <div class="card">
-        <b>{{ file.filename }}</b>
-      </div>
-      <div class="card no-padding">
-      <prism v-if="langExist(file.language)" v-bind:language="file.language.toLowerCase()">{{ file.content }}</prism>
-      <pre v-else>{{ file.content }}</pre>
+    <div v-if="gist">
+      <div v-for="(file, index) in gist.files" :key="index">
+        <div class="card">
+          <b>{{ file.filename }}</b>
+        </div>
+        <div class="card no-padding">
+          <prism v-if="langExist(file.language)" v-bind:language="file.language.toLowerCase()">{{ file.content }}</prism>
+          <pre v-else>{{ file.content }}</pre>
+        </div>
       </div>
     </div>
     <loading v-else :withCard="true" />
