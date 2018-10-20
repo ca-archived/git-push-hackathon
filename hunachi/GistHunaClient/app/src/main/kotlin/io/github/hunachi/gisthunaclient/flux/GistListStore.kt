@@ -15,11 +15,11 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 
-class GistListStore(private val dispatcher: Dispatcher) : Store() {
+class GistListStore(dispatcher: Dispatcher) : Store() {
 
     private val _gistResultState = MutableLiveData<GistResult>()
 
-    private val oauthSubscriber = dispatcher.asChannel<GistListAction>()
+    private val gistListSubscriber = dispatcher.asChannel<GistListAction>()
     private var job: Job? = null
 
     val isLoadingState: LiveData<Boolean> = Transformations.switchMap(_gistResultState) {
@@ -36,7 +36,7 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
 
     fun onCreate() {
         job = CoroutineScope(Dispatchers.Main).launch {
-            oauthSubscriber.consumeEach {
+            gistListSubscriber.consumeEach {
                 when (it) {
                     is GistListAction.UpdateGist -> {
                         _gistResultState.value = it.gistResult
@@ -47,7 +47,7 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
     }
 
     override fun onCleared() {
-        oauthSubscriber.cancel()
+        gistListSubscriber.cancel()
         job?.cancel()
         super.onCleared()
     }

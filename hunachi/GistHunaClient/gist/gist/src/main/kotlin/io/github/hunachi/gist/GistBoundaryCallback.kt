@@ -10,6 +10,7 @@ import io.github.hunachi.shared.network.NetWorkError
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.launch
+import kotlin.Exception
 
 internal class GistBoundaryCallback(
         private val userName: String,
@@ -25,12 +26,15 @@ internal class GistBoundaryCallback(
     private val _networkErrorState = MutableLiveData<NetWorkError>()
     val networkErrorState: LiveData<NetWorkError> = _networkErrorState
 
-    private val _isLoadingState = MutableLiveData<Boolean>()
-    val isLoadingState: LiveData<Boolean> = _isLoadingState
+    private val _isFirstLoadingState = MutableLiveData<Boolean>()
+    val isFirstLoadingState: LiveData<Boolean> = _isFirstLoadingState
+
+    private var isLoading = false
 
     private var lastPage = 1
 
     override fun onZeroItemsLoaded() {
+        _isFirstLoadingState.value = true
         requestAndSaveData(token, userName)
     }
 
@@ -39,36 +43,52 @@ internal class GistBoundaryCallback(
     }
 
     fun requestAndSaveData(token: String, userName: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            if (isLoadingState.value != true) {
-                _isLoadingState.postValue(true)
-                try {
-                    val gists = client.gists(userName, lastPage, PER_PAGE_COUNT, token).await()
-                    localRepository.insertGists(gists = gists.map { gistJson ->
+        if (isLoading != false) {
+            try {
+                val job = CoroutineScope(Dispatchers.IO).launch {
+                    isLoading = true
+                    var gistSize = 0
+
+                    launch {
+                        val gists = client.gists(userName, lastPage, PER_PAGE_COUNT, token)
+                                .await()
+
+                        gistSize = gists.size
+
+                        localRepository.insertGists(gists = gists.map { gistJson ->
+
                             localRepository.insertFiles(gistJson.files?.map {
                                 File(
-                                    filename = it.key,
-                                    gistId = gistJson.id,
-                                    language = it.value.language,
-                                    content = it.value.content ?: ""
-                            ) }?: listOf(),{})
-                        Gist(
-                                id = gistJson.id,
-                                html_url = gistJson.html_url,
-                                public = gistJson.public,
-                                createdAt = gistJson.created_at,
-                                updatedAt = gistJson.updated_at,
-                                description = gistJson.description ?: "",
-                                ownerName = gistJson.owner.login
-                        )
-                    }) {
+                                        filename = it.key,
+                                        gistId = gistJson.id,
+                                        language = it.value.language,
+                                        content = it.value.content ?: ""
+                                )
+                            } ?: listOf())
+
+                            Gist(
+                                    id = gistJson.id,
+                                    html_url = gistJson.html_url,
+                                    public = gistJson.public,
+                                    createdAt = gistJson.created_at,
+                                    updatedAt = gistJson.updated_at,
+                                    description = gistJson.description ?: "",
+                                    ownerName = gistJson.owner.login
+                            )
+
+                        })
+                    }.join()
+
+                    if (gistSize >= PER_PAGE_COUNT) {
                         lastPage++
-                        _isLoadingState.postValue(false)
+                        isLoading = false
+                        if (isFirstLoadingState.value == true) _isFirstLoadingState.value = false
                     }
-                } catch (e: Exception) {
-                    _networkErrorState.postValue(NetWorkError.NORMAL)
-                    _isLoadingState.postValue(false)
                 }
+            } catch (e: Exception) {
+                isLoading = false
+                _networkErrorState.value = NetWorkError.NORMAL
+                _isFirstLoadingState.value = false
             }
         }
     }

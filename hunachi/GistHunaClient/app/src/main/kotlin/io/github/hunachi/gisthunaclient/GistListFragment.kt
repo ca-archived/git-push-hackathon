@@ -3,6 +3,7 @@ package io.github.hunachi.gisthunaclient
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import io.github.hunachi.gisthunaclient.databinding.FragmentGistListBinding
 import io.github.hunachi.gisthunaclient.flux.GistListActionCreator
 import io.github.hunachi.gisthunaclient.flux.GistListStore
 import io.github.hunachi.shared.nonNullObserve
+import io.github.hunachi.shared.observe
 import io.github.hunachi.shared.savedToken
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,13 +44,15 @@ class GistListFragment : Fragment() {
                 listAdapter.submitList(it)
             }
 
-            isLoadingState.nonNullObserve(this@GistListFragment) {
-                // todo
+            isLoadingState.observe(this@GistListFragment) {
+
             }
 
-            errorState.nonNullObserve(this@GistListFragment) {
-                activity?.let { Toast.makeText(it, "ネット氏〜！", Toast.LENGTH_SHORT).show() }
+            errorState.observe(this@GistListFragment) {
+                activity?.let { Toast.makeText(it, "にゃーん", Toast.LENGTH_SHORT).show() }
             }
+        }.run {
+            onCreate()
         }
     }
 

@@ -52,7 +52,7 @@ internal class OAuthStore(
     }
 
     override fun onCleared() {
-        oauthSubscriber.cancel()
+        //oauthSubscriber.cancel()
         job?.cancel()
         super.onCleared()
     }

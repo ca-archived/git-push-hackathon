@@ -9,14 +9,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 inline fun <reified T> createClient(
-        baseUrl: String = "https://github.com/login/oauth/",
+        baseUrl: String = "https://api.github.com/",
         adapter: CustomNetworkAdapter? = null,
         isLenientMode: Boolean = false
 ): T {
 
     val moshi by lazy {
         Moshi.Builder()
-                .apply { if(adapter != null) add(adapter) }
+                .apply { if (adapter != null) add(adapter) }
                 .add(KotlinJsonAdapterFactory())
                 .build()
     }
@@ -34,7 +34,9 @@ inline fun <reified T> createClient(
     val retrofit by lazy {
         Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
+                .addConverterFactory(MoshiConverterFactory.create(moshi).apply {
+                    if (isLenientMode) asLenient()
+                })
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(httpClient.build())
                 .build()

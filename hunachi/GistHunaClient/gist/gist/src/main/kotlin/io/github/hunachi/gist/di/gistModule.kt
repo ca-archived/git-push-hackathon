@@ -8,12 +8,13 @@ import org.koin.dsl.module.module
 import java.util.concurrent.Executors
 
 val gistModule = module {
+    val GIST_CLIENT = "gistClient"
 
-    single { GistRepository(get(), get()) }
+    single { GistRepository(get(GIST_CLIENT), get()) }
 
-    factory { GistLocalRepository(get(), Executors.newSingleThreadExecutor()) }
+    factory { GistLocalRepository(get()) }
 
-    single { GistClientFactory.gistClientInstance() }
+    single(GIST_CLIENT) { GistClientFactory.gistClientInstance() }
 
     single { GistDatabase.getInstance(get()) }
 }

@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class File(
-        @PrimaryKey(autoGenerate = false)
+        @PrimaryKey(autoGenerate = true)
+        val id: Int = 0,
         val filename: String,
         val gistId: String,
         val language: String? = null,

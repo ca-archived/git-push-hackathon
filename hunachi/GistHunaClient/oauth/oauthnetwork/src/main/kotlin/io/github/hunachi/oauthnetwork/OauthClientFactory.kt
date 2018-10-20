@@ -2,7 +2,7 @@ package io.github.hunachi.oauthnetwork
 
 import io.github.hunachi.shared.network.createClient
 
-object OauthClientFactory{
+object OauthClientFactory {
 
     private const val scopes = "repo,gist"
     private const val baseUrl = "https://github.com/login/oauth/authorize"
@@ -12,5 +12,7 @@ object OauthClientFactory{
             "client_id=" + clientId +
             "&scope=" + scopes
 
-    fun oauthClientInstance(): OauthClient = createClient(isLenientMode = true)
+    fun oauthClientInstance(): OauthClient = createClient(
+            isLenientMode = true,
+            baseUrl = "https://github.com/login/oauth/")
 }

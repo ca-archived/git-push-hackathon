@@ -13,6 +13,6 @@ class GistRepository(
         val data = LivePagedListBuilder(dataFactory, GistBoundaryCallback.PER_PAGE_COUNT)
                 .setBoundaryCallback(boundaryCallback).build()
 
-        return GistResult(data, boundaryCallback.isLoadingState, boundaryCallback.networkErrorState)
+        return GistResult(data, boundaryCallback.isFirstLoadingState, boundaryCallback.networkErrorState)
     }
 }
