@@ -1,19 +1,21 @@
-
 ul {
+    font-weight: bold;
     display: block;
     width : 100%;
-    padding : 0;
+    padding-left : 0px;
     list-style-type: none;
+}
+ul a{
+    text-decoration: none;
+    boder-left : 3px #000 solid;
 }
 .menu_item {
     display: block;
-    width : 100%;
-    padding : 5px;
-    padding-left : 10px;
+    padding-top : 5px;
+    padding-left : px;
 }
 .menu_sub_item {
     display: block;
-    width : 100%;
-    padding : 5px;
+    padding-top : 5px;
     padding-left : 10px;
 }

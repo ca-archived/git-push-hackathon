@@ -1,23 +1,22 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <header>
-    <div id="titile_container">
-        <h1 id="title">
+    <div id="header_container" class="grid_4 center_block">
+        <h1 id="title" class="grid_1">
             <a href="/">{{ title }}</a>
         </h1>
-        <h2 id="sub_title">
+        <h3 id="sub_title"class="grid_2">
             {{sub_title}}
-        </h2>
-        <app-token-checker></app-token-checker>
+        </h3>
+        <app-token-checker class="grid_1"></app-token-checker>
     </div>
 </header>
-<hr>
-
-<div id="main">
-    <app-menu></app-menu>
-    <div id="router_outlet">
+<div class="hr_block grid_full"></div>
+<div id="main" class="grid_4 center_block">
+    <app-menu class="grid_1"></app-menu>
+    <div id="router_outlet" class="grid_3">
         <router-outlet></router-outlet>
     </div>
 </div>
 
-<hr>
+<div class="hr_block grid_full"></div>
 <footer></footer>

@@ -1,44 +1,164 @@
-#titile_container{
-    display: block;
-    height : 75px;
-    width : 100%;
+@media screen {
+    .grid_4 {
+        width: 99%;
+        margin-left: 1%
+    }
 
+    .grid_3 {
+        width: 74%;
+        margin-left: 1%
+    }
+
+    .grid_2 {
+        width: 49%;
+        margin-left: 1%
+    }
+
+    .grid_1 {
+        width: 24%;
+        margin-left: 1%
+    }
+}
+/*
+@media screen and (max-width: 1024px) {
+    .grid_4 {
+        width: 630px;
+        margin-left : 10px;
+    }
+
+    .grid_3 {
+        width: 470px;
+        margin-left : 10px;
+    }
+
+    .grid_2 {
+        width: 310px;
+        margin-left : 10px;
+    }
+
+    .grid_1 {
+        width: 150px;
+        margin-left : 10px;
+    }
+}
+@media screen and (max-width: 640px) {
+    .grid_4 {
+        width: 372px;
+        margin-left : 3px;
+    }
+
+    .grid_3 {
+        width: 278.25px;
+        margin-left : 3px;
+    }
+
+    .grid_2 {
+        width: 184.5px;
+        margin-left : 3px;
+    }
+
+    .grid_1 {
+        width: 90.75px;
+        margin-left : 3px;
+    }
 }
 
-#title , #sub_title , app-token-checker{
-    display: inline-block;
-    height : 50%;
-    margin-top : 10px;
-    margin-left : 50px;
+*/
+
+.grid_full {
+    width: 100%;
+}
+
+@media screen {
+    * {
+        font-size : inherit;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    * {
+        font-size : inherit;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    * {
+        font-size : inherit;
+    }
+}
+
+.center_block {
+    margin: 0 auto;
+    display : block;
+}
+a {
+    text-decoration: none;
+}
+
+header {
+    background-color: #FFFFF8;
+}
+
+#title a {
+    color: #0F1E32
 }
 
 #sub_title {
-
+    color: #0F1E32
 }
-hr {
-    margin : 0;
+
+.hr_block {
+    background-color: #0F1E32
+}
+
+app-menu {
+    background-color: #FFFFF8;
+}
+
+#main {
+    background-color: #FFFFF8;
+}
+
+.hr_block {
+    display: block;
+    height: 1px;
+    margin: 0;
     padding: 0;
 }
+
+#titile_container {
+    display: block;
+    height: 75px;
+}
+
+#title, #sub_title, app-token-checker {
+    display: inline-block;
+}
+app-token-checker {
+}
+
+hr {
+    margin: 0;
+    padding: 0;
+}
+
+app-menu {
+    top: 0;
+    left: 0;
+    display: block;
+    float: left;
+}
+
 #main {
     display: block;
     overflow: hidden;
 }
-app-menu {
-    top : 0;
-    left : 0;
-    width : 20%;
-    display: block;
-    float: left;
-}
-app-token-checker{
 
-}
 #router_outlet {
-    top : 0;
-    right : 0;
-    width : 80%;
+    top: 0;
+    right: 0;
     min-height: 200px;
     display: block;
-    margin : 0;
+    margin: 0;
     float: left;
 }
