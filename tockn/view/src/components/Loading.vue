@@ -24,10 +24,10 @@ export default {
 <style scoped>
 #loading {
   margin: auto;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  border: 8px solid black;
+  border: 6px solid brown;
   border-right-color: transparent;
   animation: spin 1s linear infinite;
 }
