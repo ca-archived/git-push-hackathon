@@ -1,69 +1,23 @@
-@media screen {
-    .grid_4 {
-        width: 99%;
-        margin-left: 1%
-    }
 
-    .grid_3 {
-        width: 74%;
-        margin-left: 1%
-    }
-
-    .grid_2 {
-        width: 49%;
-        margin-left: 1%
-    }
-
-    .grid_1 {
-        width: 24%;
-        margin-left: 1%
-    }
-}
-/*
-@media screen and (max-width: 1024px) {
-    .grid_4 {
-        width: 630px;
-        margin-left : 10px;
-    }
-
-    .grid_3 {
-        width: 470px;
-        margin-left : 10px;
-    }
-
-    .grid_2 {
-        width: 310px;
-        margin-left : 10px;
-    }
-
-    .grid_1 {
-        width: 150px;
-        margin-left : 10px;
-    }
-}
-@media screen and (max-width: 640px) {
-    .grid_4 {
-        width: 372px;
-        margin-left : 3px;
-    }
-
-    .grid_3 {
-        width: 278.25px;
-        margin-left : 3px;
-    }
-
-    .grid_2 {
-        width: 184.5px;
-        margin-left : 3px;
-    }
-
-    .grid_1 {
-        width: 90.75px;
-        margin-left : 3px;
-    }
+.grid_4 {
+    width: 99%;
+    margin-left: 1%
 }
 
-*/
+.grid_3 {
+    width: 74%;
+    margin-left: 1%
+}
+
+.grid_2 {
+    width: 49%;
+    margin-left: 1%
+}
+
+.grid_1 {
+    width: 24%;
+    margin-left: 1%
+}
 
 .grid_full {
     width: 100%;
@@ -71,26 +25,27 @@
 
 @media screen {
     * {
-        font-size : inherit;
+        font-size: inherit;
     }
 }
 
 @media screen and (max-width: 1024px) {
     * {
-        font-size : inherit;
+        font-size: inherit;
     }
 }
 
 @media screen and (max-width: 640px) {
     * {
-        font-size : inherit;
+        font-size: inherit;
     }
 }
 
 .center_block {
     margin: 0 auto;
-    display : block;
+    display: block;
 }
+
 a {
     text-decoration: none;
 }
@@ -134,6 +89,7 @@ app-menu {
 #title, #sub_title, app-token-checker {
     display: inline-block;
 }
+
 app-token-checker {
 }
 
