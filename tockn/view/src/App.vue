@@ -57,6 +57,7 @@ input {
   margin-top: 15px;
   margin-bottom: 15px;
   padding: 10px 28px;
+  overflow: scroll;
 }
 
 .card .title {
