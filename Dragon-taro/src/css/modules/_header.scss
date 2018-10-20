@@ -14,11 +14,41 @@
         font-weight: bold;
       }
     }
-    img {
-      width: 40px;
-      border-radius: 50%;
-      vertical-align: middle;
-      margin-left: 20px;
+    .right-content {
+      display: flex;
+      .button-wrapper {
+        display: inline-flex;
+        justify-content: center;
+      }
+      .menu {
+        margin-left: 20px;
+        ul {
+          display: none;
+          position: absolute;
+          padding: 10px;
+          background-color: #fff;
+          border: 1px solid #aaa;
+          font-size: 14px;
+          border-radius: 3px;
+          li {
+            cursor: pointer;
+            &:hover {
+              opacity: 0.8;
+              text-decoration: underline;
+            }
+          }
+        }
+        &:hover {
+          ul {
+            display: block;
+          }
+        }
+      }
+      img {
+        width: 40px;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
     }
   }
 }
