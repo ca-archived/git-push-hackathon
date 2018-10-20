@@ -8,7 +8,7 @@
         </a>
       </div>
       <div v-if="login" class="icon">
-        <router-link :to="'/'">
+        <router-link :to="'/users/'+login.login">
           <img class="icon-img" v-bind:src="avatarURL" width="50" height="50">
         </router-link>
       </div>
