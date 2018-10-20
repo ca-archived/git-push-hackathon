@@ -1,9 +1,14 @@
 <template>
-  <div v-if="user">
-    <card :username="user.login" :avatarURL="user.avatar_url" />
-    <gists :gists="gists" />
+  <div>
+    <div v-if="user">
+      <card :username="user.login" :avatarURL="user.avatar_url" />
+    </div>
+    <loading v-else :withCard="true" />
+    <div v-if="gists">
+      <gists :gists="gists" />
+    </div>
+    <loading v-else :withCard="true" />
   </div>
-  <loading v-else />
 </template>
 
 <script>
