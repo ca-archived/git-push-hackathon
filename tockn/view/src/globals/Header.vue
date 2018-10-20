@@ -87,7 +87,7 @@ a {
 
 .header {
   overflow: hidden;
-  background-color: #20b2aa;
+  background-color: #a52a2a;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
   padding: 5px 10px;
   margin-bottom: 15px;
