@@ -14,11 +14,12 @@ import (
 )
 
 func main() {
-	goth.UseProviders(
-		github.New(os.Getenv("CLIENT_ID"), os.Getenv("CLIENT_SECRET"), "http://localhost:3000/auth/github/callback"),
-	)
-
+	apiEndPoint := os.Getenv("API_ENDPOINT")
 	redirectURL := os.Getenv("REDIRECT_URL")
+
+	goth.UseProviders(
+		github.New(os.Getenv("CLIENT_ID"), os.Getenv("CLIENT_SECRET"), apiEndPoint+"/auth/github/callback"),
+	)
 
 	p := pat.New()
 	p.Get("/auth/{provider}/callback", func(w http.ResponseWriter, r *http.Request) {
