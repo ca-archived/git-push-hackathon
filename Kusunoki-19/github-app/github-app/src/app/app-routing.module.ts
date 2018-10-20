@@ -11,7 +11,6 @@ import {OauthRedirectComponent} from "./oauth-redirect/oauth-redirect.component"
 
 const routes: Routes = [
     { path: '', component: DashboardComponent },
-    { path: 'command-panel', component: CommandPanelComponent },
     { path: 'oauth', component: OauthComponent },
     { path: 'oauth-redirect', component: OauthRedirectComponent },
     { path: 'all-gist', component: AllGistComponent },
