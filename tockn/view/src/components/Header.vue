@@ -9,11 +9,17 @@
       </div>
       <div v-if="login" class="icon">
         <router-link :to="'/'">
-          <img class="icon_img" v-bind:src="avatarURL" width="50" height="50">
+          <img class="icon-img" v-bind:src="avatarURL" width="50" height="50">
         </router-link>
       </div>
       <div v-show="login" class="hid_login"></div>
       <div class="hid_search"></div>
+      <div class="search">
+        <img @click="changeSearch" class="search-icon" src="../assets/search.png" alt="search_logo.png">
+      </div>
+    </div>
+    <div v-show="searching" class="card search-box">
+      <input class="search-input" placeholder="ユーザーを検索">
     </div>
   </div>
 </template>
@@ -22,6 +28,11 @@
 const endpoint = process.env.OAUTH_ENDPOINT
 
 export default {
+  data () {
+    return {
+      searching: false
+    }
+  },
   computed: {
     login () {
       return this.$store.state.auth.me || false
@@ -32,6 +43,16 @@ export default {
     },
     avatarURL () {
       return this.$store.state.auth.me.avatar_url
+    }
+  },
+  methods: {
+    changeSearch () {
+      this.searching = !this.searching
+    }
+  },
+  created () {
+    if (this.$store.state.auth.at !== '') {
+      this.$store.dispatch('auth/getMyData')
     }
   }
 }
@@ -58,7 +79,7 @@ a {
   height: 50px;
   font-size: 20px;
 }
-.icon_img {
+.icon-img {
   width: 50px;
   height: 50px;
   border-radius: 8px;
@@ -69,8 +90,15 @@ a {
   height: 45px;
   padding-top: 5px;
 }
-.search_icon {
+.search-icon {
   width: 40px;
   height: 40px;
+}
+.search-box {
+  text-align: center;
+  margin: auto;
+}
+.search-input {
+  width: 80%;
 }
 </style>
