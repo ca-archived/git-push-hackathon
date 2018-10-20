@@ -14,14 +14,11 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import Card from './components/GistCard'
+import Card from './GistCard'
 
 export default {
-  computed: {
-    ...mapGetters('gists', {
-      gists: 'gists'
-    })
+  props: {
+    gists: Object
   },
   methods: {
     cutDesc (text) {
@@ -40,15 +37,6 @@ export default {
         names.push('...and more!')
       }
       return names
-    }
-  },
-  created () {
-    let username = this.$route.params.username
-    if (this.$store.state.me !== undefined &&
-      this.$store.state.me.login === username) {
-      this.$store.dispatch('gists/getMyGists')
-    } else {
-      this.$store.dispatch('gists/getGists', username)
     }
   },
   components: {
