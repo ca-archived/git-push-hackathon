@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="gist">
+      <description :username="owner.login" :title="title" :avatarURL="owner.avatar_url" :star="gist.star" :comments="gist.comments"/>
       <div v-for="(file, index) in gist.files" :key="index">
         <div class="card">
           <b>{{ file.filename }}</b>
@@ -19,6 +20,7 @@
 import PrismVue from 'vue-prism-component'
 import Prism from '../../static/prism'
 import Loading from '../components/Loading'
+import Desc from '../components/GistDescription'
 import '../../static/prism.css'
 import {mapGetters} from 'vuex'
 
@@ -26,7 +28,15 @@ export default {
   computed: {
     ...mapGetters('gists', {
       gist: 'gist'
-    })
+    }),
+    owner () {
+      if (!this.gist) return ''
+      return this.gist.owner
+    },
+    title () {
+      if (!this.gist) return ''
+      return Object.keys(this.gist.files)[0]
+    }
   },
   created () {
     this.$store.dispatch('gists/getGist', this.$route.params.id)
@@ -39,7 +49,8 @@ export default {
   },
   components: {
     'prism': PrismVue,
-    'loading': Loading
+    'loading': Loading,
+    'description': Desc
   }
 }
 
