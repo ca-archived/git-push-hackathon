@@ -4,8 +4,9 @@
       <img class="avatar" v-bind:src="avatarURL" />
     </div>
     <div class="username">
-      <h2>{{ username }}'s Gists</h2>
+      <h2>{{ username }}/{{ title }}</h2>
     </div>
+    <p>Comments: {{ comments }}</p>
   </div>
 </template>
 
@@ -14,6 +15,10 @@
 export default {
   props: {
     username: String,
+    title: String,
+    star: Number,
+    fork: Number,
+    comments: Number,
     avatarURL: String
   }
 }
