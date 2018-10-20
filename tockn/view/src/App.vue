@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
+    <header- />
+    <router-view class="body"/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    'header-': Header
+  }
 }
 </script>
 
 <style>
 body {
+  margin: 0 0 0 0;
   background-color: #f5f5f5;
 }
 
@@ -19,7 +25,13 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 60px;
+}
+
+@media screen and (min-width: 0px) {
+  .body {
+    width: 98%;
+    margin: auto;
+  }
 }
 
 .card {
