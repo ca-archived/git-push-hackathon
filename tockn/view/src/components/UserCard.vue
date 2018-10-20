@@ -27,6 +27,7 @@ export default {
   height: 72px;
   display: inline-block;
   vertical-align: middle;
+  border-radius: 8px;
 }
 
 .username {
