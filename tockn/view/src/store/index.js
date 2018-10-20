@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import gists from './modules/gists/index'
 import users from './modules/users/index'
@@ -12,5 +13,6 @@ export default new Vuex.Store({
     gists,
     users,
     auth
-  }
+  },
+  plugins: [createPersistedState({key: 'git-push-hackathon'})]
 })
