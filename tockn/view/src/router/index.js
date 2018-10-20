@@ -30,5 +30,8 @@ export default new Router({
       name: 'Gist',
       component: Gist
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return {x: 0, y: 0}
+  }
 })
