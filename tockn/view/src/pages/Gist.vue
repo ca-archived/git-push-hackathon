@@ -9,12 +9,14 @@
       <pre v-else>{{ file.content }}</pre>
       </div>
     </div>
+    <loading v-else :withCard="true" />
   </div>
 </template>
 
 <script>
 import PrismVue from 'vue-prism-component'
 import Prism from '../../static/prism'
+import Loading from '../components/Loading'
 import '../../static/prism.css'
 import {mapGetters} from 'vuex'
 
@@ -34,7 +36,8 @@ export default {
     }
   },
   components: {
-    'prism': PrismVue
+    'prism': PrismVue,
+    'loading': Loading
   }
 }
 
