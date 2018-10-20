@@ -18,22 +18,30 @@
         <img @click="changeSearch" class="search-icon" src="../assets/search.png" alt="search_logo.png">
       </div>
     </div>
-    <div v-show="searching" class="card search-box">
-      <input class="search-input" placeholder="ユーザーを検索">
+    <div v-show="searchState" class="card search-box">
+      <search-box @search="search" />
+      <search-result :result="result" :searching="searching" />
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import SearchBox from '../components/SearchBox'
+import SearchResultBox from '../components/SearchResultBox'
 const endpoint = process.env.OAUTH_ENDPOINT
 
 export default {
   data () {
     return {
-      searching: false
+      searchState: false
     }
   },
   computed: {
+    ...mapState({
+      result: state => state.users.searchResult,
+      searching: state => state.users.searching
+    }),
     login () {
       return this.$store.state.auth.me || false
     },
@@ -47,22 +55,31 @@ export default {
   },
   methods: {
     changeSearch () {
-      this.searching = !this.searching
+      this.searchState = !this.searchState
+    },
+    search (text) {
+      this.$store.dispatch('users/searchUser', text)
     }
   },
   created () {
     if (this.$store.state.auth.at !== '') {
       this.$store.dispatch('auth/getMyData')
     }
+  },
+  components: {
+    'search-box': SearchBox,
+    'search-result': SearchResultBox
   }
 }
 
 </script>
 
 <style>
+
 a {
-  color: black;
+  color: white;
 }
+
 .header {
   overflow: hidden;
   background-color: #20b2aa;
@@ -97,8 +114,5 @@ a {
 .search-box {
   text-align: center;
   margin: auto;
-}
-.search-input {
-  width: 80%;
 }
 </style>
