@@ -5,7 +5,7 @@
 
 }
 
-#title , #sub_title {
+#title , #sub_title , app-token-checker{
     display: inline-block;
     height : 50%;
     margin-top : 10px;
@@ -15,10 +15,6 @@
 #sub_title {
 
 }
-#sub_title {
-
-}
-
 hr {
     margin : 0;
     padding: 0;
@@ -33,6 +29,9 @@ app-menu {
     width : 20%;
     display: block;
     float: left;
+}
+app-token-checker{
+
 }
 #router_outlet {
     top : 0;

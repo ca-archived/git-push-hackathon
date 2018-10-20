@@ -9,6 +9,11 @@ import {FormControl, FormGroup} from '@angular/forms'
 })
 export class PostGistComponent implements OnInit {
 
+    //0 --> not post yet
+    //1 --> post is success
+    //-1 -> post is failure
+    postingGistSucceded : number = 0;
+
     postGistForm = new FormGroup({
         description: new FormControl(''),
         release: new FormControl(''),
@@ -17,7 +22,8 @@ export class PostGistComponent implements OnInit {
     });
 
     constructor(private apiService: ApiService) {
-        this.apiService.GetAcquiredAccessToken();
+        //this.apiService.GetAcquiredAccessToken();
+        this.apiService.GetAcquiredAccessToken_byCookie();
     }
 
 
@@ -34,16 +40,19 @@ export class PostGistComponent implements OnInit {
         postGistObsbles.subscribe(
             res => {
                 try {
+                    console.log("Posting the Gist is succeded");
                     console.log(res);
+                    this.postingGistSucceded = 1;
                 } catch (error) {
                     console.log("response data handling error");
                     console.log(error);
+                    this.postingGistSucceded = -1;
                 }
             },
             error=> {
-                error.y
                 console.log("http request error (here is subscribe callback)");
                 console.log(error);
+                this.postingGistSucceded = -1;
             }
         );
 

@@ -1,16 +1,16 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {AppRoutingModule} from './app-routing.module';
+import { BrowserModule, Title} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { CookieService } from 'ngx-cookie-service';
 
 import { FormsModule }      from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
 
-import {AppComponent} from './app.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {MenuComponent} from './menu/menu.component';
-import {CommandPanelComponent} from './command-panel/command-panel.component';
+import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MenuComponent } from './menu/menu.component';
 import { AllGistComponent } from './all-gist/all-gist.component';
 import { AllGistUserComponent } from './all-gist-user/all-gist-user.component';
 import { PostGistComponent } from './post-gist/post-gist.component';
@@ -23,6 +23,8 @@ import { GistDirective } from './gist-single/gist.directive';
 import { GistService } from './gist-single/gist.service';
 
 import { GistModule } from '@sgbj/angular-gist';
+import { TokenCheckerComponent } from './token-checker/token-checker.component';
+
 
 
 @NgModule({
@@ -30,7 +32,6 @@ import { GistModule } from '@sgbj/angular-gist';
         AppComponent,
         DashboardComponent,
         MenuComponent,
-        CommandPanelComponent,
         AllGistComponent,
         AllGistUserComponent,
         PostGistComponent,
@@ -41,6 +42,7 @@ import { GistModule } from '@sgbj/angular-gist';
         GistHtmlComponent,
         GistDirective,
         AllGistUserComponent,
+        TokenCheckerComponent,
     ],
     imports: [
         BrowserModule,
@@ -48,12 +50,16 @@ import { GistModule } from '@sgbj/angular-gist';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        GistModule
+        GistModule,
     ],
     entryComponents: [
         GistHtmlComponent,
     ],
-    providers: [GistService],
+    providers: [
+        GistService,
+        CookieService,
+        Title
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

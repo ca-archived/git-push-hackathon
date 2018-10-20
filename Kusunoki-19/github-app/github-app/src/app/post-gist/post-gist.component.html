@@ -39,3 +39,13 @@
         </tr>
     </table>
 </form>
+
+<div *ngIf="postingGistSucceded == 0">
+    If you wanna post, push "Post Gist !!" (・ω・)
+</div>
+<div *ngIf="postingGistSucceded == 1">
+    Posting Gist is Succeded  (｀・ω・´)
+</div>
+<div *ngIf="postingGistSucceded ==-1">
+    Posting Gist is Failure  (´・ω・｀)
+</div>
