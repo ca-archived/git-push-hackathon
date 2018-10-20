@@ -20,7 +20,7 @@ export class ApiService {
     access_token: string = ""; //set from cookie always
     OAuthServerOrigin: string = "http://localhost:4201";
 
-    clientId: string = "0bc6d4e0794201162940";
+    clientId: string = "YOUR_CLIENT_ID";//アプリケーションのclient_idを入れてください
     redirectUrl: string = "";
     state: string = "koukakukidoutai1234tachikomaiscute";//random string
     scope: string = "gist";

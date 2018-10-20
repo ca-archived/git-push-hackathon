@@ -23,7 +23,7 @@ namespace oauth_server
             public const string SERVER_ORIGIN = "http://localhost:4201/";
             public const string CLIENT_ORIGIN = "http://localhost:4200/";
 
-            public const string CLIENT_SECRET = "473798ee1cdead1152b7a66e164e7bb1b873f049";
+            public const string CLIENT_SECRET = "YOUR_CLIENT_SECRET";//アプリケーションのclient_secretを入れてください
             public const string OAUTH_URL2 = "https://github.com/login/oauth/access_token";
         }
 
