@@ -10,5 +10,12 @@ export default {
   },
   initGist (state) {
     state.gist = undefined
+  },
+  checkStarred (state, response) {
+    if (response.status === 204) {
+      state.starred = true
+    } else {
+      state.starred = false
+    }
   }
 }

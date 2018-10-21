@@ -2,7 +2,7 @@ import axios from 'axios'
 const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
-  getGists ({ commit, state, rootState }, username) {
+  getGists ({ commit, rootState }, username) {
     commit('initGists')
     let req = request('GET', `${API_ENDPOINT}/users/${username}/gists`, rootState.auth.at)
     axios(req)
@@ -10,7 +10,7 @@ export default {
         commit('getGists', response)
       })
   },
-  getMyGists ({ commit, state, rootState }) {
+  getMyGists ({ commit, rootState }) {
     commit('initGists')
     axios({
       method: 'GET',
@@ -21,12 +21,20 @@ export default {
         commit('getGists', response)
       })
   },
-  getGist ({ commit, state, rootState }, id) {
+  getGist ({ commit, rootState }, id) {
     commit('initGist')
     let req = request('GET', `${API_ENDPOINT}/gists/${id}`, rootState.auth.at)
     axios(req)
       .then(response => {
         commit('getGist', response)
+      })
+  },
+  checkStarred ({ commit, rootState }, id) {
+    let req = request('GET', `${API_ENDPOINT}/gists/${id}/star`, rootState.auth.at)
+    req.validateStatus = status => { return status === 204 || status === 404 }
+    axios(req)
+      .then(response => {
+        commit('checkStarred', response)
       })
   }
 }
