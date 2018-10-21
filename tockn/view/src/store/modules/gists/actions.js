@@ -37,5 +37,12 @@ export default {
       .then(response => {
         commit('checkStarred', response)
       })
+  },
+  putStar ({ commit, rootState }, id) {
+    let req = request('PUT', `${API_ENDPOINT}/gists/${id}/star`, rootState.auth.at)
+    axios(req)
+      .then(response => {
+        commit('putStar', response)
+      })
   }
 }

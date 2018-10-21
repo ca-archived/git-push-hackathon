@@ -17,5 +17,10 @@ export default {
     } else {
       state.starred = false
     }
+  },
+  putStar (state, response) {
+    if (response.status === 200) {
+      state.starred = true
+    }
   }
 }
