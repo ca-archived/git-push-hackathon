@@ -1,14 +1,18 @@
-include ':app', ':shared', ':model'
+include ':app'
+
+def commonModule = new File('common')
+include ':shared', ':model', ':database'
+project(':shared').projectDir = new File(commonModule, 'shared')
+project(':model').projectDir = new File(commonModule, 'model')
+project(':database').projectDir = new File(commonModule, 'database')
 
 def gistModule = new File('gist')
-include ':gistlocal', ':gistnetwork', ':gist'
-project(':gistlocal').projectDir = new File(gistModule, 'gistlocal')
+include ':gistnetwork', ':gist'
 project(':gistnetwork').projectDir = new File(gistModule, 'gistnetwork')
 project(':gist').projectDir = new File(gistModule, 'gist')
 
 def userModule = new File('user')
-include ':user', ':usernetwork', ':userlocal'
-project(':userlocal').projectDir = new File(userModule, 'userlocal')
+include ':user', ':usernetwork'
 project(':usernetwork').projectDir = new File(userModule, 'usernetwork')
 project(':user').projectDir = new File(userModule, 'user')
 

@@ -12,7 +12,7 @@ class GistJsonAdapter: CustomNetworkAdapter {
     fun toGistCreateJson(draftGist: DraftGist) = GistCreateJson(
             description = draftGist.description,
             public = draftGist.public,
-            files = draftGist.files.map { it.filename to GistContentJson(it.content) }.toMap()
+            files = draftGist.files.map { it.first to GistContentJson(it.second)}.toMap()
     )
 
    /* @FromJson

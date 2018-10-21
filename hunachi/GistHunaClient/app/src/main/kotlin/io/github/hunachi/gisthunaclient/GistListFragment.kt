@@ -26,6 +26,7 @@ class GistListFragment : Fragment() {
     private val gistListActionCreator: GistListActionCreator by inject()
     private val preference: SharedPreferences by inject()
     private val gistListStore: GistListStore by viewModel()
+    private lateinit var binding: FragmentGistListBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -34,6 +35,7 @@ class GistListFragment : Fragment() {
                 adapter = listAdapter
                 layoutManager = LinearLayoutManager(context)
             }
+            binding = this
         }.root
     }
 
@@ -45,7 +47,7 @@ class GistListFragment : Fragment() {
             }
 
             isLoadingState.observe(this@GistListFragment) {
-
+                binding.swipeRefresh.isRefreshing = it
             }
 
             errorState.observe(this@GistListFragment) {
@@ -60,7 +62,7 @@ class GistListFragment : Fragment() {
         super.onAttach(context)
         preference.savedToken()?.let {
             gistListActionCreator.updateList("Hunachi", it)
-        }?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
+        } ?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
     }
 
     companion object {
