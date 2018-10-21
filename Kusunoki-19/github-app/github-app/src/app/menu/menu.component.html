@@ -1,16 +1,17 @@
-
-<ul>
-    <li *ngFor="let item of menuItems">
-        <a *ngIf="item.parent == '' && item.url != '' " class="menu_item" href="{{item.url}}">
+<ul class="menu_ul">
+    <li *ngFor="let item of menuItems" class="menu_item">
+        <a *ngIf="item.parent == '' && item.url != ''"
+           href="{{item.url}}">
             {{item.name}}
         </a>
-        <span *ngIf="item.parent == '' && item.url == '' " class="menu_item">
+
+        <ul *ngIf="item.parent == '' && item.url == ''" class="sub_menu_ul">
             {{item.name}}
-            <ul *ngFor="let sub_item of menuItems">
-                <a *ngIf="sub_item.parent == item.name" class="menu_sub_item" href="{{sub_item.url}}">
+            <li *ngFor="let sub_item of menuItems">
+                <a *ngIf="sub_item.parent == item.name" href="{{sub_item.url}}">
                     {{sub_item.name}}
                 </a>
-            </ul>
-        </span>
+            </li>
+        </ul>
     </li>
 </ul>
