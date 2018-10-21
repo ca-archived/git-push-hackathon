@@ -13,5 +13,5 @@ export class AppComponent {
     }
 
     title = 'MyWebHub';
-    sub_title = 'AOuth and any operate of some gist';
+    sub_title = 'Github OAuth Application';
 }

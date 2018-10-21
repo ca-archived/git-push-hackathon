@@ -17,7 +17,7 @@ export class ApiService {
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
 
-    access_token: string = ""; //set from cookie always
+    access_token: string = "initial"; //set from cookie always
     OAuthServerOrigin: string = "http://localhost:4201";
 
     clientId: string = "YOUR_CLIENT_ID";//アプリケーションのclient_idを入れてください
@@ -26,10 +26,7 @@ export class ApiService {
     scope: string = "gist";
 
     redirect_code: string = "";
-    redirect_state: string = "";
-
-    gist_id: string = "";
-    gist_owner_name: string = "";
+    redirect_state: string = ""
 
     httpOptions = {
         header: new HttpHeaders({
@@ -136,9 +133,19 @@ export class ApiService {
          * cookieからaccess_tokenを取得
          */
         console.log("GetAcquiredAccessToken_byCookie");
-        console.log("access_token in cookie : ");
-        console.log(this.cookieService.get("access_token"));
+        console.log("access_token is : " + this.access_token);
         this.access_token = this.cookieService.get("access_token");
+    }
+
+    DelAcquiredAccessToken_inCookie(){
+        /*
+         * cookieからaccess_tokenを削除
+         */
+        console.log("DelAcquiredAccessToken_inCookie");
+        this.cookieService.set("access_token", "initial"); //delete access token
+        //this.cookieService.deleteAll();
+        this.access_token = "initial";
+        console.log("access_token in cookie : "+this.cookieService.get("access_token"));
     }
 
     private GetAccessTokenNext(res) {

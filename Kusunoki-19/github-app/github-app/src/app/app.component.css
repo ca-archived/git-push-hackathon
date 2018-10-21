@@ -29,7 +29,7 @@ header {
 }
 
 .hr_block {
-    background-color: #FFFFFF;
+    background-color: #2534ac;
 }
 
 app-menu {
@@ -43,7 +43,6 @@ app-menu {
 #router-outlet_container {
     background-color: #FFFFFF;
 }
-
 
 /*----------
 font setting
@@ -59,8 +58,116 @@ font setting
 
 a {
     text-decoration: none;
+    color: #da4356;
 }
 
+/*----------
+header area setting
+----------*/
+
+#header_container h1,
+#header_container h2,
+#header_container h3 {
+    margin: auto;
+    /*line-height : 70px;*/
+}
+
+/*block height*/
+#header_container {
+    height: 75px;
+}
+#title_container,
+#sub_title_container {
+    height: inherit;
+}
+
+#token-checker_container {
+    height: inherit;
+}
+
+/*blcok width*/
+#title_container {
+    width: 25%;
+}
+#sub_title_container {
+    width: 50%;
+}
+#token-checker_container {
+    width: 260px;
+}
+
+@media screen and (max-width: 1024px) {
+    #title_container {
+        width: 260px;
+    }
+
+    #sub_title_container {
+        width: 468px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    #title_container {
+        width: 260px;
+    }
+
+    #sub_title_container {
+        width: 100%;
+    }
+    #header_container {
+        height: 50px;
+    }
+}
+/*block setting*/
+#title_container,
+#sub_title_container ,
+#token-checker_container {
+    /* make outer center */
+    display: flex;
+    align-items: center;
+}
+
+#title_container{
+    float: left;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+#sub_title_container {
+    float: left;
+    justify-content: center;
+}
+
+#token-checker_container {
+    float: right;
+    overflow: hidden;
+    position: relative;
+}
+
+
+#title_outer {
+
+}
+
+#sub_title_outer {
+    margin: auto 2%;
+    width: 96%;
+    overflow: hidden;
+}
+
+#token-checker_outer {
+    margin: auto 2%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#title_outer a {
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+}
 /*----------
 main area setting
 ----------*/
@@ -83,6 +190,7 @@ app-menu {
     float: left;
     overflow: hidden;
 }
+
 #app-menu_outer {
     margin: 2%;
     width: 96%;
@@ -97,9 +205,11 @@ app-menu {
     float: left;
     overflow: hidden;
 }
+
 #router-outlet_outer {
     margin: 2%;
     width: 96%;
+    min-height: 200px;
     overflow: hidden;
 }
 
@@ -113,21 +223,10 @@ block setting
 
 .hr_block {
     display: block;
+    clear: both;
     height: 1px;
     margin: 0;
     padding: 0;
-}
-
-/*----------
-header area setting
-----------*/
-#titile_container {
-    display: block;
-    height: 75px;
-}
-
-#title, #sub_title, app-token-checker {
-    display: inline-block;
 }
 
 /*----------

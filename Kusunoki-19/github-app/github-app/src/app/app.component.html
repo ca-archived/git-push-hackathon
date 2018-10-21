@@ -2,13 +2,25 @@
 <header class="grid_full">
     <div id="header_container" class="grid_4 center_block">
 
-        <h1 id="title" class="grid_1">
-            <a href="/">{{ title }}</a>
-        </h1>
-        <h3 id="sub_title" class="grid_2">
-            {{sub_title}}
-        </h3>
-        <app-token-checker id="app-token-checker" class="grid_1"></app-token-checker>
+        <div id="title_container" class="grid_1">
+            <div id="title_outer">
+                <h1 id="title">
+                    <a href="/">{{ title }}</a>
+                </h1>
+            </div>
+        </div>
+        <div id="sub_title_container" class="grid_2">
+            <div id="sub_title_outer">
+                <h3 id="sub_title">
+                    {{sub_title}}
+                </h3>
+            </div>
+        </div>
+        <div id="token-checker_container">
+            <div id="token-checker_outer">
+                <app-token-checker id="app-token-checker"></app-token-checker>
+            </div>
+        </div>
 
     </div>
 </header>

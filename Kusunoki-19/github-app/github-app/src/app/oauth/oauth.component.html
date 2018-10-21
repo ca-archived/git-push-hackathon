@@ -3,7 +3,7 @@
     OAuth認証を行います。
 </p>
 <p>
-    OAuth認証とは「ユーザー名+パスワード」でGithubの権限をつかうのではなく、
+    OAuth認証とは「ユーザー名+パスワード」でGithubの権限をつかうのではなく、<br>
     Githubからこのアプリケーションに渡されたアクセスキーを使うという方式です。
 </p>
 <a id="oauth_submit_link" href="https://github.com/login/oauth/authorize?
@@ -12,3 +12,12 @@ redirect_url={{apiService.redirectUrl}}&
 scope={{apiService.scope}}&
 state={{apiService.state}}&
 allow_singup=ture">OAuth認証を行う</a>
+
+<h3>アクセストークンを削除</h3>
+<p>
+    OAuth認証で取得したアクセストークンは、ブラウザのcookieに保存されています。<br>
+    「アクセストークンの削除」をクッキーに保存されていたアクセストークンがなくなります。
+</p>
+<button (click) ="this.apiService.DelAcquiredAccessToken_inCookie()">
+    アクセストークンの削除
+</button>
