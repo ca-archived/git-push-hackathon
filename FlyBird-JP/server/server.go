@@ -1,10 +1,10 @@
 package main
 
 import(
+	"os"
+	"strings"
 	"strconv"
-	"net"
 	"net/http"
-	"net/http/fcgi"
 	"path/filepath"
 	"encoding/json"
 	"io/ioutil"
@@ -16,6 +16,9 @@ import(
 const(
 	clientSecretPath = "../environment/client_secret.txt"
 	clientIdPath = "../environment/client_id.txt"
+	certPath =  "../environment/cert.pem"
+	keyPath =  "../environment/key.pem"
+	rootPath = "../client"
 	port = 49651
 )
 
@@ -28,14 +31,14 @@ func main(){
 	if err != nil{
 		panic(err.Error())
 	}
-	clientSecret := string(bytes)
+	clientSecret := strings.TrimRight(string(bytes), "\n")
 
 	path,_ = filepath.Abs(clientIdPath)
 	bytes, err = ioutil.ReadFile(path)
 	if err != nil{
 		panic(err.Error())
 	}
-	clientId := string(bytes)
+	clientId := strings.TrimRight(string(bytes), "\n")
 
 	github = &oauth2.Config{
 		ClientID : clientId,
@@ -45,19 +48,33 @@ func main(){
 			TokenURL: "https://github.com/login/oauth/access_token",
 		},
 		Scopes: []string{"gist", "read:user"},
-	  }
+	}
 
 	router := mux.NewRouter().StrictSlash(false)
 	router.HandleFunc("/auth/{service}", auth).Methods("GET")
 	router.HandleFunc("/token/{service}", token).Methods("POST")
-	
-	listener, err := net.Listen("tcp", "127.0.0.1:" + strconv.Itoa(port))
-	if err != nil {
-		panic(err.Error())
-	}
-	defer listener.Close()
+	router.NotFoundHandler = http.HandlerFunc(handler)
 
-	fcgi.Serve(listener, router)
+	http.ListenAndServeTLS(":" + strconv.Itoa(port), certPath, keyPath, router)
+}
+
+var fileServer http.Handler = http.FileServer(http.Dir(rootPath))
+
+func getClientId(req *http.Request) (string){
+	return strings.Split(req.RemoteAddr, ":")[0] + "_git-push-hackathon_" + req.Header.Get("User-Agent")
+}
+
+func Exists(path string) bool {
+    _, err := os.Stat(path)
+    return err == nil
+}
+
+func handler(res http.ResponseWriter, req *http.Request) {
+	if Exists(rootPath + req.URL.Path) {
+		fileServer.ServeHTTP(res, req)
+	} else {
+		http.ServeFile(res, req, rootPath + "/index.html")
+	}
 }
 
 func auth(res http.ResponseWriter, req *http.Request) {
@@ -65,7 +82,7 @@ func auth(res http.ResponseWriter, req *http.Request) {
 	service := vars["service"]
 
 	state := uuid.New().String()
-	cliendId := req.RemoteAddr + "_git-push-hackathon_" + req.Header.Get("User-Agent")
+	cliendId := getClientId(req)
 	stateMap[cliendId] = state
 
 	var authUrl string
@@ -90,7 +107,7 @@ func token(res http.ResponseWriter, req *http.Request) {
 	err = json.Unmarshal(bytes, &reqJson)
 	code := reqJson.(map[string]interface{})["code"]
 	state := reqJson.(map[string]interface{})["state"]
-	cliendId := req.RemoteAddr + "_git-push-hackathon_" + req.Header.Get("User-Agent")
+	cliendId := getClientId(req)
 
 	if code != nil && stateMap[cliendId] == state {
 		var token *oauth2.Token
