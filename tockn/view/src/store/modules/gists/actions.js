@@ -51,5 +51,14 @@ export default {
       .then(response => {
         commit('deleteStar', response)
       })
+  },
+  createGist ({ commit, rootState }, body) {
+    commit('initGist')
+    let req = request('POST', `${API_ENDPOINT}/gists`, rootState.auth.at)
+    req.data = body
+    axios(req)
+      .then(response => {
+        commit('createGist', response)
+      })
   }
 }

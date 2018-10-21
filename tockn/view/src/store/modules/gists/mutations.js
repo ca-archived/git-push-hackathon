@@ -32,5 +32,8 @@ export default {
     if (response.status === 204) {
       state.starred = false
     }
+  },
+  createGist (state, response) {
+    state.gist = response.data
   }
 }
