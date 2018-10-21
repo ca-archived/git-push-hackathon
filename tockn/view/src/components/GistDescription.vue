@@ -6,12 +6,16 @@
     <div class="username">
       <h2>{{ owner.login }}/{{ title }}</h2>
     </div>
-    <comments class="comments" :num="comments"/>
+    <div class="info">
+      <comments class="comments" :num="comments"/>
+      <star class="star" />
+    </div>
   </div>
 </template>
 
 <script>
 import Comments from './Comments'
+import Star from './Star'
 
 export default {
   props: {
@@ -32,7 +36,8 @@ export default {
     }
   },
   components: {
-    'comments': Comments
+    'comments': Comments,
+    'star': Star
   }
 }
 
@@ -54,8 +59,19 @@ export default {
   vertical-align: middle;
 }
 
-.comments {
+.info {
+  display: inline-block;
   float: right;
+}
+
+.comments {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.star {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 </style>

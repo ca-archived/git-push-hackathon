@@ -1,7 +1,7 @@
 <template>
   <div>
-    <img class="comments-icon" src="../assets/comments.png" alt="">
-    <p class="comments-num">{{ num }}</p>
+    <img class="icon" src="../assets/comments.png" alt="">
+    <p class="num">{{ num }}</p>
   </div>
 </template>
 
@@ -17,16 +17,12 @@ export default {
 
 <style scoped>
 
-.comments {
-  float: right;
-}
-
-.comments-icon {
+.icon {
   width: 16px;
   height: 16px;
 }
 
-.comments-num {
+.num {
   display: inline-block;
 }
 
