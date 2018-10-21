@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
     <input class="description" v-model="description" placeholder="Gist description...">
+
     <editor
       v-for="(file, index) in files"
       :key="index"
@@ -8,10 +9,15 @@
       :files="files"
       @setFilename="setFilename"
       @setContent="setContent" />
-    <div class="card">
-      <button class="add-btn" @click="addFile">Add file</button>
-      <button class="public-btn" @click="createGist(true)">Create public gist</button>
-      <button class="secret-btn" @click="createGist(false)">Create secret gist</button>
+
+    <div class="card table">
+      <div class="add">
+        <button class="add-btn" @click="addFile">Add file</button>
+      </div>
+      <div class="public">
+        <button class="public-btn" @click="createGist(true)">Create public gist</button>
+        <button class="secret-btn" @click="createGist(false)">Create secret gist</button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,18 +85,52 @@ button {
   border-radius: 8px;
 }
 
-.add-btn {
-  float: left;
+@media screen and (min-width: 0px) {
+  .add {
+    margin: 0 0 32px 0;
+  }
+  .add-btn {
+    background-color: #fff;
+  }
+  .secret {
+    margin: 8px 0 8px 0;
+  }
+  .secret-btn {
+    background-color: #fffacd;
+    margin: 0 16px 0 16px;
+  }
+  .public-btn {
+    background-color: #fff;
+  }
 }
-
-.secret-btn {
-  float: right;
-  background-color: #fffacd;
-  margin: 0 16px 0 16px;
-}
-
-.public-btn {
-  float: right;
+@media screen and (min-width: 1200px) {
+  .table {
+    display: table;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .add {
+    display: table-cell;
+  }
+  .add-btn {
+    background-color: #fff;
+  }
+  .secret {
+    display: table-cell;
+    text-align: right;
+  }
+  .secret-btn {
+    background-color: #fffacd;
+    margin: 0 16px 0 16px;
+  }
+  .public {
+    display: table-cell;
+    text-align: right;
+  }
+  .public-btn {
+    background-color: #fff;
+  }
 }
 
 .wrap {
@@ -99,7 +139,9 @@ button {
 
 .description {
   margin: auto;
-  width: 98%;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .nopad {
