@@ -43,7 +43,7 @@ extension OAuth {
         var value: String {
             switch self {
             case .webViewURL:
-                return "\(API.host)/login/oauth/authorize?\(OAuth.Authorize.clientID.key)=\(OAuth.Authorize.clientID.value)&\(OAuth.Authorize.redirectURI.key)=\(OAuth.Authorize.redirectURI.value)&\(OAuth.Authorize.scope.key)=\(OAuth.Authorize.scope.value)"
+                return "\(API.scheme + API.domain)/login/oauth/authorize?\(OAuth.Authorize.clientID.key)=\(OAuth.Authorize.clientID.value)&\(OAuth.Authorize.redirectURI.key)=\(OAuth.Authorize.redirectURI.value)&\(OAuth.Authorize.scope.key)=\(OAuth.Authorize.scope.value)"
             default:
                 guard let filePath = Bundle.main.path(forResource: "Client", ofType:"plist" ) else {
                     fatalError("cant find path of config file")

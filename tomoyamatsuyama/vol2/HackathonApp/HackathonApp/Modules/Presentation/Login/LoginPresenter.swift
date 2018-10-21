@@ -6,35 +6,25 @@ import UIKit
 final class LoginPresenter: LoginPresenterProtocol {
     private let disposeBag = DisposeBag()
     
-    var webViewURL: Observable<String> {
-        return _webViewURL.asObservable()
-    }
-    private let _webViewURL = PublishRelay<String>()
-    
-    var status: Observable<LoginPresenter.Status> {
-        return _status.asObservable()
-    }
-    private let _status = PublishRelay<LoginPresenter.Status>()
-    
     private weak var view: LoginViewProtocol!
     private let interactor: LoginInteractorProtocol
     private let router: LoginRouterProtocol
     
+    let webViewURL: Observable<String>
+    private let _webViewURL = PublishRelay<String>()
+    
+    var status: Observable<LoginPresenter.Status>
+    private let _status = PublishRelay<LoginPresenter.Status>()
+    
     private func convertToCode(from request: URLRequest) -> String {
-        guard let url = request.url else {
-            fatalError("TODO")
-        }
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            fatalError("TODO")
-        }
-        guard let items = components.queryItems else {
-            fatalError("TODO")
-        }
+        guard let url = request.url else { fatalError("TODO") }
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { fatalError("TODO") }
+        guard let items = components.queryItems else { fatalError("TODO") }
         
         let code = items
             .filter { $0.name == "code" }
             .compactMap { $0.value }
-            .first!
+            .first ?? ""
         
         return code
     }
@@ -45,19 +35,20 @@ final class LoginPresenter: LoginPresenterProtocol {
         self.interactor = interactor
         self.router = router
         
+        self.webViewURL = _webViewURL.asObservable()
+        self.status = _status.asObservable()
+        
         view.redirectTrigger
             .emit(onNext: { [weak self] request in
                 guard let `self` = self else { return }
                 self._status.accept(.loading)
-                
-                // RedirectのURLからcodeの作成
                 
                 let code = self.convertToCode(from: request)
                 
                 interactor.fetchAccessToken(with: code)
                     .flatMap { authorization -> Observable<LoginPresenter.Status> in
                         
-                        UserDefaults.standard.set(OAuth.accessToken.key, forKey: authorization.accessToken)
+                        UserDefaults.standard.set(authorization.accessToken, forKey: OAuth.accessToken.key)
                         
                         return .just(.completed)
                     }

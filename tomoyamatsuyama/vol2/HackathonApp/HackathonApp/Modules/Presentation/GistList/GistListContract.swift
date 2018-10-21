@@ -10,15 +10,24 @@ protocol GistListViewProtocol: class {
 
 protocol GistListPresenterProtocol: class {
     var isLoading: Observable<Bool> { get }
-    //    var isConnectNetWork: Observable<Bool> { get }
-    var hasAccessToken: Observable<Bool> { get }
+    var viewModel: Observable<GistListViewModel> { get }
 }
 
 protocol GistListInteractorProtocol: class {
-    func hasAccessToken() -> Observable<Bool>
+    func fetchAllGists() -> Observable<GistList>
 }
 
 protocol GistListRouterProtocol {
     func transition(route: GistListRouter.Route)
 }
 
+struct GistListViewModel {
+    let gists: [Gist]
+    
+    struct Gist {
+        let title: String
+        let createdAt: String
+        let description: String
+        let userIcon: URL
+    }
+}

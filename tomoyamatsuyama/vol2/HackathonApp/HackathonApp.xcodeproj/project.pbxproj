@@ -46,6 +46,13 @@
 		64CE9AFE217C4EFE00E632C4 /* GistListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AFD217C4EFE00E632C4 /* GistListRouter.swift */; };
 		64CE9B00217C4F0900E632C4 /* GistListViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AFF217C4F0900E632C4 /* GistListViewBuilder.swift */; };
 		64CE9B02217C4F1400E632C4 /* GistList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64CE9B01217C4F1400E632C4 /* GistList.storyboard */; };
+		64CE9B04217C4FE000E632C4 /* GistListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B03217C4FE000E632C4 /* GistListUseCase.swift */; };
+		64CE9B06217C4FF900E632C4 /* GistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B05217C4FF900E632C4 /* GistRepository.swift */; };
+		64CE9B08217C500A00E632C4 /* GistRemoteDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B07217C500A00E632C4 /* GistRemoteDataStore.swift */; };
+		64CE9B0A217C5DFD00E632C4 /* GistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B09217C5DFD00E632C4 /* GistList.swift */; };
+		64CE9B0C217C5E7500E632C4 /* GistLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B0B217C5E7500E632C4 /* GistLocalDataStore.swift */; };
+		64CE9B0E217C759100E632C4 /* API+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B0D217C759100E632C4 /* API+Rx.swift */; };
+		64CE9B10217C75C400E632C4 /* API+OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B0F217C75C300E632C4 /* API+OAuth.swift */; };
 		64E034BD21781FE700605B58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E034BC21781FE700605B58 /* AppDelegate.swift */; };
 		64E034C421781FE800605B58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E034C321781FE800605B58 /* Assets.xcassets */; };
 		64E034C721781FE800605B58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64E034C521781FE800605B58 /* LaunchScreen.storyboard */; };
@@ -115,6 +122,13 @@
 		64CE9AFD217C4EFE00E632C4 /* GistListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListRouter.swift; sourceTree = "<group>"; };
 		64CE9AFF217C4F0900E632C4 /* GistListViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListViewBuilder.swift; sourceTree = "<group>"; };
 		64CE9B01217C4F1400E632C4 /* GistList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GistList.storyboard; sourceTree = "<group>"; };
+		64CE9B03217C4FE000E632C4 /* GistListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListUseCase.swift; sourceTree = "<group>"; };
+		64CE9B05217C4FF900E632C4 /* GistRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistRepository.swift; sourceTree = "<group>"; };
+		64CE9B07217C500A00E632C4 /* GistRemoteDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistRemoteDataStore.swift; sourceTree = "<group>"; };
+		64CE9B09217C5DFD00E632C4 /* GistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistList.swift; sourceTree = "<group>"; };
+		64CE9B0B217C5E7500E632C4 /* GistLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistLocalDataStore.swift; sourceTree = "<group>"; };
+		64CE9B0D217C759100E632C4 /* API+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Rx.swift"; sourceTree = "<group>"; };
+		64CE9B0F217C75C300E632C4 /* API+OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+OAuth.swift"; sourceTree = "<group>"; };
 		64E034B921781FE700605B58 /* HackathonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackathonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E034BC21781FE700605B58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64E034C321781FE800605B58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -307,6 +321,8 @@
 			children = (
 				645849E2217B394E00BB9A19 /* OAuthLocalDataStore.swift */,
 				645849E4217B395D00BB9A19 /* OAuthRemoteDataStore.swift */,
+				64CE9B0B217C5E7500E632C4 /* GistLocalDataStore.swift */,
+				64CE9B07217C500A00E632C4 /* GistRemoteDataStore.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -315,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				645849E6217B3B7A00BB9A19 /* Authorization.swift */,
+				64CE9B09217C5DFD00E632C4 /* GistList.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -324,6 +341,7 @@
 			children = (
 				645849BA217B057B00BB9A19 /* SplashUseCase.swift */,
 				645849D5217B231100BB9A19 /* LoginUseCase.swift */,
+				64CE9B03217C4FE000E632C4 /* GistListUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -332,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				645849E0217B382D00BB9A19 /* OAuthRepository.swift */,
+				64CE9B05217C4FF900E632C4 /* GistRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -348,6 +367,8 @@
 			isa = PBXGroup;
 			children = (
 				645849DE217B2A5E00BB9A19 /* API.swift */,
+				64CE9B0F217C75C300E632C4 /* API+OAuth.swift */,
+				64CE9B0D217C759100E632C4 /* API+Rx.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -654,6 +675,7 @@
 				645849E1217B382D00BB9A19 /* OAuthRepository.swift in Sources */,
 				645849B7217AF97E00BB9A19 /* OAuth.swift in Sources */,
 				645849BB217B057B00BB9A19 /* SplashUseCase.swift in Sources */,
+				64CE9B0C217C5E7500E632C4 /* GistLocalDataStore.swift in Sources */,
 				645849E3217B394E00BB9A19 /* OAuthLocalDataStore.swift in Sources */,
 				645849A6217AF32F00BB9A19 /* SplashPresenter.swift in Sources */,
 				645849CE217B22E600BB9A19 /* LoginPresenter.swift in Sources */,
@@ -662,8 +684,10 @@
 				64584994217AE8FF00BB9A19 /* StoryboardInstantiatable.swift in Sources */,
 				64CE9AF8217C4EE000E632C4 /* GistListContract.swift in Sources */,
 				645849E7217B3B7A00BB9A19 /* Authorization.swift in Sources */,
+				64CE9B0E217C759100E632C4 /* API+Rx.swift in Sources */,
 				64584996217AE9F300BB9A19 /* RootViewBuilder.swift in Sources */,
 				6458497F217ADFE100BB9A19 /* RootViewController.swift in Sources */,
+				64CE9B10217C75C400E632C4 /* API+OAuth.swift in Sources */,
 				645849CA217B22CC00BB9A19 /* LoginViewController.swift in Sources */,
 				645849D6217B231100BB9A19 /* LoginUseCase.swift in Sources */,
 				64584992217AE86400BB9A19 /* UIViewController+ClassName.swift in Sources */,
@@ -671,6 +695,7 @@
 				64CE9AF6217C4EBB00E632C4 /* GistListViewController.swift in Sources */,
 				6458499E217AF00800BB9A19 /* SplashViewController.swift in Sources */,
 				645849D4217B230700BB9A19 /* LoginViewBuilder.swift in Sources */,
+				64CE9B06217C4FF900E632C4 /* GistRepository.swift in Sources */,
 				645849BD217B084D00BB9A19 /* Error.swift in Sources */,
 				645849D2217B22FB00BB9A19 /* LoginRouter.swift in Sources */,
 				645849AA217AF3BB00BB9A19 /* SplashInteractor.swift in Sources */,
@@ -678,6 +703,9 @@
 				64584999217AEC8300BB9A19 /* Color.swift in Sources */,
 				64CE9AFC217C4EF500E632C4 /* GistListInteractor.swift in Sources */,
 				645849A4217AF30900BB9A19 /* SplashRouter.swift in Sources */,
+				64CE9B04217C4FE000E632C4 /* GistListUseCase.swift in Sources */,
+				64CE9B08217C500A00E632C4 /* GistRemoteDataStore.swift in Sources */,
+				64CE9B0A217C5DFD00E632C4 /* GistList.swift in Sources */,
 				64CE9B00217C4F0900E632C4 /* GistListViewBuilder.swift in Sources */,
 				645849E5217B395D00BB9A19 /* OAuthRemoteDataStore.swift in Sources */,
 				64CE9AFE217C4EFE00E632C4 /* GistListRouter.swift in Sources */,

@@ -10,7 +10,7 @@ protocol OAuthRemoteDataStoreProtocol {
 
 final class OAuthRemoteDataStore: OAuthRemoteDataStoreProtocol {
     func fetchAccessToken(with code: String) -> Observable<Authorization> {
-        let request = OAuthAPIRequest(method: .post, path: "/login/oauth/access_token", parameters: [
+        let request = OAuthAPIRequest(method: .post, host: .none, path: "/login/oauth/access_token", parameters: [
             OAuth.Authorize.clientID.key: OAuth.Authorize.clientID.value,
             OAuth.Authorize.clientSecret.key: OAuth.Authorize.clientSecret.value,
             "code": code
@@ -22,6 +22,7 @@ final class OAuthRemoteDataStore: OAuthRemoteDataStoreProtocol {
 struct OAuthAPIRequest: APIRequestable {
     typealias Response = Authorization
     var method: HTTPMethod
+    var host: Host
     var path: String
     var parameters: [String : Any]
 }

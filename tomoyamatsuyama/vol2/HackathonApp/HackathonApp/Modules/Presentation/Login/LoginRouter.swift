@@ -12,7 +12,11 @@ final class LoginRouter: LoginRouterProtocol {
     }
     
     func transition(route: LoginRouter.Route) {
-        print(route)
+        switch route {
+        case .gistList:
+            let gistListViewController = GistListViewBuilder.build()
+            view.navigationController?.pushViewController(gistListViewController, animated: true)
+        }
     }
 }
 

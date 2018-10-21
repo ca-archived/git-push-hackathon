@@ -10,19 +10,10 @@ final class SplashPresenter: SplashPresenterProtocol {
     
     private let disposeBag = DisposeBag()
     
-    var isLoading: Observable<Bool> {
-        return _isLoading.asObservable()
-    }
+    let isLoading: Observable<Bool>
     private let _isLoading = PublishRelay<Bool>()
     
-//    var isConnectNetWork: Observable<Bool> {
-//        return _isConnectNetWork.asObservable()
-//    }
-//    private let _isConnectNetWork = PublishRelay<Bool>()
-    
-    var hasAccessToken: Observable<Bool> {
-        return _hasAccessToken.asObservable()
-    }
+    let hasAccessToken: Observable<Bool>
     private let _hasAccessToken = PublishRelay<Bool>()
     
     init (view: SplashViewProtocol, interactor: SplashInteractorProtocol, router: SplashRouterProtocol) {
@@ -30,6 +21,9 @@ final class SplashPresenter: SplashPresenterProtocol {
         self.view = view
         self.interactor = interactor
         self.router = router
+        
+        self.isLoading = _isLoading.asObservable()
+        self.hasAccessToken = _hasAccessToken.asObservable()
         
         view.refreshTrigger
             .emit(onNext: { [weak self] _ in

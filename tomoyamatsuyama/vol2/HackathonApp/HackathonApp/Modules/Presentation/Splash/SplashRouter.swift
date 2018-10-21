@@ -7,9 +7,11 @@ final class SplashRouter: SplashRouterProtocol {
         switch route {
         case .login:
             let loginViewController = LoginViewBuilder.build()
-            view.present(loginViewController, animated: false, completion: nil)
+            view.navigationController?.pushViewController(loginViewController, animated: false)
+            
         case .gistList:
-            print("gistList")
+            let gistListViewController = GistListViewBuilder.build()
+            view.navigationController?.pushViewController(gistListViewController, animated: true)
         }
     }
     
