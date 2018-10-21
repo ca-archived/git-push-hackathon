@@ -10,13 +10,14 @@
       @setContent="setContent" />
     <div class="card">
       <button class="add-btn" @click="addFile">Add file</button>
-      <button class="public-btn">Create public gist</button>
-      <button class="secret-btn">Create secret gist</button>
+      <button class="public-btn" @click="createGist(true)">Create public gist</button>
+      <button class="secret-btn" @click="createGist(false)">Create secret gist</button>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import Editor from '../components/Editor'
 
 export default {
@@ -25,6 +26,11 @@ export default {
       description: '',
       files: [{}]
     }
+  },
+  computed: {
+    ...mapState({
+      gist: state => state.gists.gist
+    })
   },
   methods: {
     setFilename (index, filename) {
@@ -35,6 +41,27 @@ export default {
     },
     addFile () {
       this.files.push({})
+    },
+    createGist (public_) {
+      let body = {}
+      let files = {}
+      this.files.forEach(file => {
+        files[file.filename] = {content: file.content}
+      })
+      body.files = files
+      body.public = public_
+      body.description = this.description
+      this.$store.dispatch('gists/createGist', body)
+    }
+  },
+  created () {
+    this.$store.commit('gists/initGist')
+  },
+  watch: {
+    'gist' (value) {
+      if (value !== undefined) {
+        this.$router.push(`/gists/${this.gist.id}`)
+      }
     }
   },
   components: {
