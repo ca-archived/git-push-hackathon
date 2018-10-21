@@ -8,13 +8,17 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
   props: {
     id: String
   },
   computed: {
+    ...mapState({
+      starred: state => state.gists.starred
+    }),
     state () {
-      if (this.$store.state.gists.starred) {
+      if (this.starred) {
         return 'Unstar'
       } else {
         return 'Star'
@@ -22,19 +26,27 @@ export default {
     }
   },
   methods: {
+    ...mapActions('gists', {
+      putStar: 'putStar',
+      deleteStar: 'deleteStar',
+      checkStarred: 'checkStarred'
+    }),
     star () {
-      if (this.id === undefined) return
-      this.$store.dispatch('gists/putStar', this.id)
+      if (this.starred) {
+        this.deleteStar(this.id)
+      } else {
+        this.putStar(this.id)
+      }
     }
   },
   created () {
     if (this.id !== undefined) {
-      this.$store.dispatch('gists/checkStarred', this.id)
+      this.checkStarred(this.id)
     }
   },
   watch: {
     id (value) {
-      this.$store.dispatch('gists/checkStarred', value)
+      this.checkStarred(value)
     }
   }
 }
