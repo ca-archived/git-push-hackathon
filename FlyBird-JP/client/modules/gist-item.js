@@ -45,7 +45,9 @@ export default {
                             <button v-if='!editable && !forked' class='forks' v-on:click='fork()'>Fork : {{ gist.forks.length }}</button>
                             <button v-if='!editable && forked' class='forks'>しばらくお待ちください...</button>
                         </div>
-                        <div class='gist' v-if='detail != null'></div>
+                        <div class='gist' v-if='detail != null'>
+                            <div class='spinner center' v-if='!iframeLoaded'></div>
+                        </div>
                     </div>
                 </div>`,
     data: function () {
@@ -57,6 +59,7 @@ export default {
             'starred': false,
             'forked': false,
             'confirmFlag': false,
+            'iframeLoaded': 0
         }
     },
     created: function () {
@@ -66,6 +69,9 @@ export default {
             .then((json) => {
                 this.setGist(json)
                 if (this.url != null && this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
+            })
+            .catch((err) => {
+                this.$router.go(-1)
             })
     },
     methods: {
@@ -80,7 +86,7 @@ export default {
                     'headers': headers
                 })
                 if(response.ok) return await response.json()
-                else this.$router.go(-1)
+                else throw new Error(response.status)
             }
         },
         setGist: function (json) {
@@ -96,6 +102,13 @@ export default {
             if (this.detail != null) {
                 this.$nextTick().then(() => {
                     const iframe = document.createElement('iframe')
+                    this.$el.getElementsByClassName('gist')[0].appendChild(iframe)
+                    const iframeDoc = iframe.contentWindow.document
+                    const html = `<body style='margin:0;overflow-y:hidden;'>
+                                    <script src="https://gist.github.com/${this.gist.owner.login}/${this.gist.id}.js"></script>
+                                </body>`
+                    iframeDoc.open()
+                    iframeDoc.write(html)
                     iframe.addEventListener('load', (event) => {
                         const doc = iframe.contentWindow.document
                         if (doc.getElementsByClassName('gist').length > 0) {
@@ -107,15 +120,8 @@ export default {
                                 event.preventDefault()
                             }
                         })
+                        this.iframeLoaded = true
                     })
-
-                    this.$el.getElementsByClassName('gist')[0].appendChild(iframe)
-                    const iframeDoc = iframe.contentWindow.document
-                    const html = `<body style='margin:0;overflow-y:hidden;'>
-                                    <script src="https://gist.github.com/${this.gist.owner.login}/${this.gist.id}.js"></script>
-                                </body>`
-                    iframeDoc.open()
-                    iframeDoc.write(html)
                     iframeDoc.close()
                 })
 

@@ -14,11 +14,21 @@
         transform: translateX(0);
     }
 }
-
+@keyframes fadein {
+    0% {
+        opacity: 0;
+        background: #fff;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 html {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 html * {
     box-sizing: inherit;
@@ -30,14 +40,13 @@ body {
     padding: 0;
     font-size: 16px;
     background: #fff;
-    color: #111;
-    font-weight: 100;
+    color: #333;
+    font-weight: 500;
     padding: 0;
     overflow-x: hidden;
 }
 body, input, button {
     font-family: "游ゴシック", "YuGothic", "Yu Gothic", 'ヒラギノ角ゴ ProN W3', "Hiragino Kaku Gothic ProN", "Meiryo", Helvetica, Arial, sans-serif;
-    font-weight: 100;
 }
 a {
     color: #2196f3;
@@ -53,6 +62,7 @@ input, button {
 #root{
     width: 100%;
     height: calc(100% - 60px);
+    animation: fadein 0.5s ease-in-out;
 }
 header {
     width: 100%;
@@ -114,7 +124,7 @@ main > .tab_area > .content > h2 {
     margin: 0;
     line-height: 60px;
     padding-left: 1rem;
-    font-weight: 500;
+    font-weight: 700;
 }
 main > .tab_area > .tabs{
     display: flex;
@@ -175,7 +185,7 @@ main > .content.without_padding {
 
 main > .content > h2 {
     line-height: 4rem;
-    font-weight: 500;
+    font-weight: 700;
     margin: 0;
     border-bottom: solid 0.5px #ddd;
 }
@@ -262,7 +272,7 @@ main > .content > h2 {
    transform: translateX(450px);
    transition: transform ease-in-out 0.3s;
    background: #fff;
-   top: 60px; 
+   bottom: 0; 
    right: 0;
    z-index: 500;
    color: #000;
@@ -297,8 +307,9 @@ main > .content > h2 {
    line-height: 60px;
    cursor: pointer;
    transition: border-color ease-in-out 0.3s;
-   font-weight: 500;
+   font-weight: 700;
    border: solid 0.5px #ccc;
+   user-select: none;
 }
 .login-github > .dashboard > .buttons > .button:hover {
     border-color: #999;
@@ -309,10 +320,20 @@ main > .content > h2 {
 .login-github > .dashboard > .buttons > .negative.button:hover {
     border-color: #f00;
 }
+.login-github > .backdrop {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+}
 
 /* github-event */
 .github-event {
     width: 100%;
+    height: 7rem;
 }
 .github-event > div {
     width: 100%;
@@ -322,7 +343,7 @@ main > .content > h2 {
     box-sizing: border-box;
     padding: 1rem;
     border-top: solid 0.5px #ccc;
-    animation: slide 0.5s ease-in-out;
+    animation: slide 0.3s ease-in-out;
 }
 .github-event > div > a {
     grid-row: 1 / -1;
@@ -344,7 +365,7 @@ main > .content > h2 {
 .github-event > div > .name {
     grid-column: 3;
     grid-row: 1;
-    font-weight: 500;
+    font-weight: 700;
 }
 .github-event > div > .date {
     text-align: right;
@@ -413,7 +434,7 @@ main > .content > h2 {
     z-index: 5000;
     transition: transform 0.3s ease-in-out;
     font-size:medium;
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.4);
     display: none;
 }
 .my-dialog.visible {
@@ -429,35 +450,42 @@ main > .content > h2 {
     border: none;
     box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 13px 19px 2px rgba(0,0,0,.14), 0 5px 24px 4px rgba(0,0,0,.12);;
     background: #fff;
-    border-radius: 4px;
-    width: 450px;
-    height: 200px;
-    max-width: 90%;
+    border-radius: 5px;
+    height: -moz-fit-content;
+    height: -webkit-fit-content;
+    height: fit-content;
+    width: 95%;
+    max-width: calc(450px - 2rem);
+    min-width: 280px;
+    max-height: 12.5rem;
+    line-height: 1.5rem;
     margin: auto;
     padding: 1rem;
 }
 .my-dialog > .dialog > h2 {
     margin: 0;
     font-size: larger;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 3rem;
 }
 .my-dialog > .dialog > p {
-    height: calc(100% - 5rem);
+    width: 100%;
+    height: 3.5rem;
     margin: 0;
     padding: 0;
 }
 .my-dialog > .dialog > p.min {
-    height: 2rem;
+    height: 1.5rem;
 }
 .my-dialog > .dialog > input {
     width: 100%;
-    line-height: 2rem;
-    margin-bottom: 1rem;
     border: none;
     border-bottom: solid 1px #ddd;
+    line-height: 2rem;
     transition: border-color ease-in-out 0.3s;
     font-size: medium;
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 .my-dialog > .dialog > input:focus{
     border-color: #1E90FF;
@@ -465,30 +493,30 @@ main > .content > h2 {
 .my-dialog > .dialog > .buttons {
     display: flex;
     justify-content: flex-end;
+    margin-top: 1rem;
 }
 .my-dialog > .dialog > .buttons > .button {
-    width: 100px;
+    padding: 0 0.5rem;
     text-align: center;
-    border: solid 1px #999;
     border-radius: 3px;
     margin-left: 1rem;
     line-height: 2rem;
     cursor: pointer;
-    font-weight: 500;
-    transition: background ease-in-out 0.1s;
-}
-.my-dialog > .dialog > .buttons > .button.positive {
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
+    color: #2979FF;
+    user-select: none;
+    background: none;
     border: none;
-    background: #2196f3;
-    color: #fff;
 }
-.my-dialog > .dialog > .buttons > .button.positive:hover {
-    background: #63b5f6;
+.my-dialog > .dialog > .buttons > .button:hover {
+    background: #E3F2FD;
 }
 
 /* gist-item */
 .gist-item {
     width: 100%;
+    height: 7rem;
 }
 .gist-item > .root {
     width: 100%;
@@ -496,9 +524,9 @@ main > .content > h2 {
     padding: 1rem;
     display: grid;
     grid-template-columns: 4.5rem 1rem 1fr 6rem;
+    grid-template-rows: max-content max-content max-content max-content 1fr;
     line-height: 1.5rem;
-    grid-auto-rows: minmax(min-content, max-content);
-    animation: popup 0.5s ease-in-out;
+    animation: popup 0.3s ease-in-out;
 }
 .gist-item > .root > span, .gist-item > .root > div {
     text-overflow: ellipsis;
@@ -520,7 +548,7 @@ main > .content > h2 {
 .gist-item > .root > div {
     grid-column: 3;
     grid-row: 1;
-    font-weight: 500;
+    font-weight: 700;
 }
 .gist-item > .root > .secret::before {
     content: 'lock ';
@@ -547,6 +575,7 @@ main > .content > h2 {
 }
 .gist-item.detail > .root {
     width: 100%;
+    height: 100%;
     border-bottom: none;
 }
 .gist-item.detail > .root > .comments {
@@ -554,14 +583,13 @@ main > .content > h2 {
     grid-row: 3;
 }
 .gist-item.detail > .root > .gist {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-top: 1rem;
     grid-column: 1 / -1;
     grid-row: 5;
+    position: relative;
 }
 .gist-item.detail > .root > .gist > iframe {
     width: 100%;
+    margin-top: 1rem;
     border: none;
 }
 .gist-item.detail > .root > div, .gist-item.detail > .root > span {
@@ -614,7 +642,7 @@ main > .content > h2 {
 }
 .gist-item > .root > .buttons > .delete:hover {
     color: #fff;
-    font-weight: 500;
+    font-weight: 700;
     background: #f00;
     border-color:  #f00;
 }
@@ -628,7 +656,7 @@ main > .content > h2 {
 }
 .gist-item > .root > .buttons > .delete.confirm {
     color: #fff;
-    font-weight: 500;
+    font-weight: 700;
     background: #f00;
     border-color:  #f00;
 }
@@ -653,7 +681,6 @@ main > .content > h2 {
     border-radius: 3px;
     border: solid 0.5px #ccc;
     margin: 1rem 0 0 0;
-    font-weight: 500;
     padding-left: 1rem;
 }
 .gist-editor > .editor >.desc, .gist-editor > .editor > .file > .filename {
@@ -687,7 +714,6 @@ main > .content > h2 {
     border-radius: 5px 5px 0 0;
     border: solid 0.5px #ccc;
     margin-top: 1rem;
-    font-weight: 500;
     padding-left: 1rem;
 }
 .gist-editor > .editor > .buttons {

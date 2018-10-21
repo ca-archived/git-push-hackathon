@@ -1,3 +1,10 @@
+const urls = {
+    'mine': 'https://api.github.com/gists',
+    'user': 'https://api.github.com/users',
+    'public': 'https://api.github.com/gists/public',
+    'starred': 'https://api.github.com/gists/starred',
+}
+
 export default {
     props: {
         'user': {
@@ -6,6 +13,10 @@ export default {
         },
         'name': {
             type: String
+        },
+        'limit': {
+            type: Number,
+            default: 20
         }
     },
     watch: {
@@ -63,13 +74,6 @@ export default {
     },
     methods: {
         setUrl: function () {
-            const urls = {
-                'mine': 'https://api.github.com/gists',
-                'user': 'https://api.github.com/users',
-                'public': 'https://api.github.com/gists/public',
-                'starred': 'https://api.github.com/gists/starred',
-            }
-
             this.isAuth = 'accessToken' in localStorage
             if (!(this.user in urls)) this.url = urls['public']
             else if (this.name != null) {
@@ -80,7 +84,7 @@ export default {
             }
             else this.url = urls['public']
 
-            this.url += '?per_page=20'
+            this.url += `?per_page=${this.limit}`
         },
         load: function () {
             if (!this.isLast) {
@@ -93,20 +97,25 @@ export default {
                     'cache': 'no-cache'
                 })
                     .then(async (response) => {
-                        if (response.headers.has('Link')) {
-                            const links = response.headers.get('Link')
-                            const linkPattern = /<(http(?:s)?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-.\/?%&=]*)?)>; rel="(.+?)"/g
-                            let match
-                            while ((match = linkPattern.exec(links)) != null) {
-                                if (match[2] == 'next') {
-                                    this.url = match[1]
-                                    break;
+                        if (response.ok) {
+                            if (response.headers.has('Link')) {
+                                const links = response.headers.get('Link')
+                                const linkPattern = /<(http(?:s)?:\/\/(?:[\w-]+\.)+[\w-]+(?:\/[\w-.\/?%&=]*)?)>; rel="(.+?)"/g
+                                let match
+                                while ((match = linkPattern.exec(links)) != null) {
+                                    if (match[2] == 'next') {
+                                        this.url = match[1]
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        else this.isLast = true
+                            else this.isLast = true
 
-                        this.addGist(await response.json())
+                            this.addGist(await response.json())
+                        }
+                        else throw new Error(response.status)
+                    }).catch((err) => {
+                        console.log(err)
                     })
             }
         },

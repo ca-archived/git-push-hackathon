@@ -23,6 +23,7 @@ export default {
                             <div class='button negative' v-on:click='logout()'>ログアウトする</div>
                         </div>
                     </div>
+                    <div v-if='isActive' class='backdrop'></div>
                 </div>`,
     data: function () {
         return {
@@ -37,9 +38,9 @@ export default {
                 this.user = user
                 localStorage.setItem('username', this.user.login)
                 this.popup(`ようこそ！${this.user.login}さん`, {
-                    "body": "Githubにログインしています。",
-                    "icon": this.user.avatar_url,
-                    "tag": "login"
+                    'body': "Githubにログインしています。",
+                    'icon': this.user.avatar_url,
+                    'tag': `login?date=${new Date().toLocaleDateString()}` 
                 })
             })
         }
@@ -104,7 +105,7 @@ export default {
             }
         },
         jump: function () {
-            location.href = this.user.url
+            location.href = this.user.html_url
         }
     }
 }
