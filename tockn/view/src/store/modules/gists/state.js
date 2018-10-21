@@ -1,4 +1,5 @@
 export default {
   gist: undefined,
-  gists: undefined
+  gists: undefined,
+  starred: false
 }

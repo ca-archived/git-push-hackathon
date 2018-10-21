@@ -19,8 +19,13 @@ export default {
     }
   },
   putStar (state, response) {
-    if (response.status === 200) {
+    if (response.status === 204) {
       state.starred = true
+    }
+  },
+  deleteStar (state, response) {
+    if (response.status === 204) {
+      state.starred = false
     }
   }
 }

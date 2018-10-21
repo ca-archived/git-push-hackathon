@@ -44,5 +44,12 @@ export default {
       .then(response => {
         commit('putStar', response)
       })
+  },
+  deleteStar ({ commit, rootState }, id) {
+    let req = request('DELETE', `${API_ENDPOINT}/gists/${id}/star`, rootState.auth.at)
+    axios(req)
+      .then(response => {
+        commit('deleteStar', response)
+      })
   }
 }
