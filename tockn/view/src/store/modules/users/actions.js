@@ -13,6 +13,7 @@ export default {
   searchUser ({ commit, rootState }, username) {
     commit('setSearching', true)
     let req = request('GET', `${API_ENDPOINT}/users/${username}`, rootState.auth.at)
+    req.validateStatus = status => { return status < 500 }
     axios(req)
       .then(response => {
         commit('searchUser', response)
@@ -24,10 +25,7 @@ export default {
 var request = function (method, url, accessToken) {
   let reqObj = {
     method: method,
-    url: url,
-    validateStatus: states => {
-      return status < 500
-    }
+    url: url
   }
   if (accessToken !== '') {
     reqObj.headers = {'Authorization': `bearer ${accessToken}`}
