@@ -48,17 +48,13 @@ export default {
   computed: {
     ...mapState({
       result: state => state.users.searchResult,
-      searching: state => state.users.searching
+      searching: state => state.users.searching,
+      avatarURL: state => state.auth.me.avatar_url,
+      login: state => state.auth.me || false
     }),
-    login () {
-      return this.$store.state.auth.me || false
-    },
     loginURL () {
       let path = this.$route.fullPath
       return `${endpoint}/auth/github?path=${path}`
-    },
-    avatarURL () {
-      return this.$store.state.auth.me.avatar_url
     }
   },
   methods: {
