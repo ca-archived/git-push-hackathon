@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrap">
     <img class="icon" src="../assets/comments.png" alt="">
     <p class="num">{{ num }}</p>
   </div>
@@ -16,6 +16,10 @@ export default {
 </script>
 
 <style scoped>
+
+.wrap {
+  margin: 0 8px 0 8px;
+}
 
 .icon {
   width: 16px;
