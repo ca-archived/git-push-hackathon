@@ -1,27 +1,33 @@
 <template>
   <div class="header">
+
     <div class="wrap">
-      <div v-if="!login">
-        <div class="hid"></div>
+
+      <div v-if="login">
+        <div class="icon">
+          <img class="icon-img" v-bind:src="avatarURL" width="50" height="50" @click="changeMenu">
+        </div>
+      </div>
+
+      <div v-else >
         <a class="icon" v-bind:href="loginURL">
           <p>Login</p>
         </a>
       </div>
-      <div v-if="login" class="icon">
-        <router-link :to="'/users/'+login.login">
-          <img class="icon-img" v-bind:src="avatarURL" width="50" height="50">
-        </router-link>
-      </div>
-      <div v-show="login" class="hid_login"></div>
-      <div class="hid_search"></div>
+
       <div class="search">
         <img @click="changeSearch" class="search-icon" src="../assets/search.png" alt="search_logo.png">
       </div>
+
     </div>
+
     <div v-show="searchState" class="card search-box">
       <search-box @search="search" />
-      <search-result :result="result" :searching="searching" />
+        <search-result :result="result" :searching="searching" />
     </div>
+
+    <user-menu v-show="menuState" :username="login.login" />
+
   </div>
 </template>
 
@@ -29,12 +35,14 @@
 import {mapState} from 'vuex'
 import SearchBox from '../components/SearchBox'
 import SearchResultBox from '../components/SearchResultBox'
+import Menu from '../components/Menu'
 const endpoint = process.env.OAUTH_ENDPOINT
 
 export default {
   data () {
     return {
-      searchState: false
+      searchState: false,
+      menuState: false
     }
   },
   computed: {
@@ -55,10 +63,15 @@ export default {
   },
   methods: {
     changeSearch () {
+      if (this.menuState) this.menuState = false
       this.searchState = !this.searchState
     },
     search (text) {
       this.$store.dispatch('users/searchUser', text)
+    },
+    changeMenu () {
+      if (this.searchState) this.searchState = false
+      this.menuState = !this.menuState
     }
   },
   created () {
@@ -68,11 +81,13 @@ export default {
   },
   components: {
     'search-box': SearchBox,
-    'search-result': SearchResultBox
+    'search-result': SearchResultBox,
+    'user-menu': Menu
   },
   watch: {
     '$route' (to, from) {
       this.searchState = false
+      this.menuState = false
     }
   }
 }
@@ -80,10 +95,6 @@ export default {
 </script>
 
 <style scoped>
-
-a {
-  color: white;
-}
 
 .header {
   overflow: hidden;
@@ -100,6 +111,7 @@ a {
   width: 50px;
   height: 50px;
   font-size: 20px;
+  color: white;
 }
 .icon-img {
   width: 50px;
