@@ -18,7 +18,7 @@ func main() {
 	redirectURL := os.Getenv("REDIRECT_URL")
 
 	goth.UseProviders(
-		github.New(os.Getenv("CLIENT_ID"), os.Getenv("CLIENT_SECRET"), apiEndPoint+"/auth/github/callback"),
+		github.New(os.Getenv("CLIENT_ID"), os.Getenv("CLIENT_SECRET"), apiEndPoint+"/auth/github/callback", "gist"),
 	)
 
 	p := pat.New()
