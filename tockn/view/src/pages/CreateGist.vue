@@ -85,6 +85,17 @@ button {
   border-radius: 8px;
 }
 
+.wrap {
+  text-align: center;
+}
+
+.description {
+  margin: auto;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 @media screen and (min-width: 0px) {
   .add {
     margin: 0 0 32px 0;
@@ -131,31 +142,6 @@ button {
   .public-btn {
     background-color: #fff;
   }
-}
-
-.wrap {
-  text-align: center;
-}
-
-.description {
-  margin: auto;
-  width: 100%;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.nopad {
-  text-align: left;
-  padding: 0 0 0 0;
-}
-
-.filename {
-  background-color: #efefefef;
-  margin: auto;
-}
-
-.filename .input {
-  width: 40%;
 }
 
 </style>

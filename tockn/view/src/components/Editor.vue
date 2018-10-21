@@ -61,6 +61,17 @@ export default {
 
 <style scoped>
 
+@media screen and (min-width: 0px) {
+  .filename .input {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .filename .input {
+    width: 560px;
+  }
+
+}
 .nopad {
   text-align: left;
   padding: 0 0 0 0;
@@ -69,10 +80,6 @@ export default {
 .filename {
   background-color: #efefefef;
   margin: auto;
-}
-
-.filename .input {
-  width: 40%;
 }
 
 </style>
