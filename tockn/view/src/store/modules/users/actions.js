@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {request} from '../../utils'
 const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
@@ -20,15 +21,4 @@ export default {
         commit('setSearching', false)
       })
   }
-}
-
-var request = function (method, url, accessToken) {
-  let reqObj = {
-    method: method,
-    url: url
-  }
-  if (accessToken !== '') {
-    reqObj.headers = {'Authorization': `bearer ${accessToken}`}
-  }
-  return reqObj
 }
