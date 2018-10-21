@@ -51,7 +51,7 @@ input {
 }
 
 .card {
-  box-shadow:0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow:0px 3px 3px 0px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   background-color: #ffffff;
   margin-top: 15px;
