@@ -11,13 +11,12 @@ import {GistItem} from'../gist-single/gist-item';
 })
 export class AllGistComponent implements OnInit {
 
-    gists : GistItem[];
-    readLimit : number = 3;
+    gists: GistItem[];
+    readLimit: number = 3;
 
-    constructor(
-        private apiService: ApiService,
-        private gistService : GistService,
-    ) {}
+    constructor(private apiService: ApiService,
+                private gistService: GistService,) {
+    }
 
     ngOnInit() {
         this.gistService.getGistItems(this.readLimit);

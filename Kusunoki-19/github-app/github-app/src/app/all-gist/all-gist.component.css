@@ -1,16 +1,21 @@
-.gist_container {
-    max-height : 350px;
-    display: block;
+#input_container{
+    width: 100%;
+    margin: 2px auto;
     overflow: hidden;
-    border:1px solid #000000;
-    border-radius: 5px;
-    margin : 5px;
-    padding: 1px;
 }
-.gist_container div {
-    max-height : 400px;
-    overflow: auto;
-    margin: 0;
-    padding: 0;
+.input_outer{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.input_outer,
+.input_outer label,
+.input_outer input{
+    width : 150px;
+}
 
+
+.input_outer label,
+.input_outer button{
+    height: 50px;
 }
