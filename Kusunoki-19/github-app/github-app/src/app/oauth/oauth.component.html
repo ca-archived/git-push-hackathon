@@ -16,8 +16,10 @@ allow_singup=ture">OAuth認証を行う</a>
 <h3>アクセストークンを削除</h3>
 <p>
     OAuth認証で取得したアクセストークンは、ブラウザのcookieに保存されています。<br>
-    「アクセストークンの削除」をクッキーに保存されていたアクセストークンがなくなります。
+    「アクセストークンの削除」をクッキーに保存されていたアクセストークンがなくなります。<br>
+    右上のAccessTokenCheckはページを更新することで、現在の状態を反映します。
 </p>
 <button (click) ="this.apiService.DelAcquiredAccessToken_inCookie()">
     アクセストークンの削除
 </button>
+<div *ngIf="this.apiService.isDelToken">アクセストークンを削除しました。</div>

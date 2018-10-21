@@ -74,7 +74,7 @@ header area setting
 
 /*block height*/
 #header_container {
-    height: 75px;
+    height: 65px;
 }
 #title_container,
 #sub_title_container {
@@ -82,7 +82,7 @@ header area setting
 }
 
 #token-checker_container {
-    height: inherit;
+    height: 40px;
 }
 
 /*blcok width*/
@@ -90,10 +90,10 @@ header area setting
     width: 25%;
 }
 #sub_title_container {
-    width: 50%;
+    width: 300px
 }
 #token-checker_container {
-    width: 260px;
+    width: 200px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -102,7 +102,7 @@ header area setting
     }
 
     #sub_title_container {
-        width: 468px;
+        width: 350px
     }
 }
 
@@ -112,8 +112,8 @@ header area setting
     }
 
     #sub_title_container {
-        width: 100%;
     }
+
     #header_container {
         height: 50px;
     }

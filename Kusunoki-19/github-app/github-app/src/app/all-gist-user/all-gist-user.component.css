@@ -1,0 +1,22 @@
+#input_container{
+    width: 100%;
+    margin: 2px auto;
+    overflow: hidden;
+}
+.input_outer{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.input_outer,
+.input_outer label,
+.input_outer input{
+    width : 150px;
+}
+
+
+.input_outer label,
+.input_outer button{
+    height: 50px;
+
+}

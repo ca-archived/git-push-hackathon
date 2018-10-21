@@ -1,9 +1,17 @@
 <div id="gist_area">
     <h3>All Gists</h3>
-    <label>読み込みGist数:
-        <input [(ngModel)]="readLimit">
-    </label>
-    <button (click)="reloadGists()">reload Gists</button>
+    <table>
+        <tr>
+            <td>
+                <label>読み込みGist数:
+                    <input [(ngModel)]="readLimit">
+                </label>
+            </td>
+            <td>
+                <button (click)="reloadGists()">reload Gists</button>
+            </td>
+        </tr>
+    </table>
 
     <div *ngFor="let gist of gists" class="gist_container">
         <div>

@@ -12,7 +12,9 @@ export class ApiService {
     constructor(
         private http: HttpClient,
         private cookieService: CookieService
-    ) {    }
+    ) {
+        this.GetAcquiredAccessToken_inCookie();
+    }
 
     OAuthURL1: string = "https://github.com/login/oauth/authorize"; //GET user redirected here
     OAuthURL2: string = "https://github.com/login/oauth/access_token"; //POST
@@ -20,7 +22,7 @@ export class ApiService {
     access_token: string = "initial"; //set from cookie always
     OAuthServerOrigin: string = "http://localhost:4201";
 
-    clientId: string = "YOUR_CLIENT_ID";//アプリケーションのclient_idを入れてください
+    clientId: string = "YOUT_CLIENT_ID";//アプリケーションのclient_idを入れてください
     redirectUrl: string = "";
     state: string = "koukakukidoutai1234tachikomaiscute";//random string
     scope: string = "gist";
@@ -28,12 +30,7 @@ export class ApiService {
     redirect_code: string = "";
     redirect_state: string = ""
 
-    httpOptions = {
-        header: new HttpHeaders({
-            'Content-Type': 'application/json',
-        })
-    };
-
+    isDelToken : boolean = false;
 
     OnInit() {
     }
@@ -128,13 +125,13 @@ export class ApiService {
     }
 
 
-    GetAcquiredAccessToken_byCookie(){
+    GetAcquiredAccessToken_inCookie(){
         /*
          * cookieからaccess_tokenを取得
          */
         console.log("GetAcquiredAccessToken_byCookie");
-        console.log("access_token is : " + this.access_token);
         this.access_token = this.cookieService.get("access_token");
+        console.log("access_token is : " + this.access_token);
     }
 
     DelAcquiredAccessToken_inCookie(){
@@ -146,6 +143,7 @@ export class ApiService {
         //this.cookieService.deleteAll();
         this.access_token = "initial";
         console.log("access_token in cookie : "+this.cookieService.get("access_token"));
+        this.isDelToken = true;
     }
 
     private GetAccessTokenNext(res) {
