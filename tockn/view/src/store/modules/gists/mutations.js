@@ -1,4 +1,9 @@
 export default {
+  init (state) {
+    state.gist = undefined
+    state.gists = undefined
+    state.starred = false
+  },
   getGists (state, response) {
     state.gists = response.data
   },
