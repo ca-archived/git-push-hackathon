@@ -53,6 +53,8 @@
 		64CE9B0C217C5E7500E632C4 /* GistLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B0B217C5E7500E632C4 /* GistLocalDataStore.swift */; };
 		64CE9B0E217C759100E632C4 /* API+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B0D217C759100E632C4 /* API+Rx.swift */; };
 		64CE9B10217C75C400E632C4 /* API+OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B0F217C75C300E632C4 /* API+OAuth.swift */; };
+		64CE9B17217C864700E632C4 /* GistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9B15217C864700E632C4 /* GistCell.swift */; };
+		64CE9B18217C864700E632C4 /* GistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64CE9B16217C864700E632C4 /* GistCell.xib */; };
 		64E034BD21781FE700605B58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E034BC21781FE700605B58 /* AppDelegate.swift */; };
 		64E034C421781FE800605B58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E034C321781FE800605B58 /* Assets.xcassets */; };
 		64E034C721781FE800605B58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64E034C521781FE800605B58 /* LaunchScreen.storyboard */; };
@@ -129,6 +131,8 @@
 		64CE9B0B217C5E7500E632C4 /* GistLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistLocalDataStore.swift; sourceTree = "<group>"; };
 		64CE9B0D217C759100E632C4 /* API+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Rx.swift"; sourceTree = "<group>"; };
 		64CE9B0F217C75C300E632C4 /* API+OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+OAuth.swift"; sourceTree = "<group>"; };
+		64CE9B15217C864700E632C4 /* GistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCell.swift; sourceTree = "<group>"; };
+		64CE9B16217C864700E632C4 /* GistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GistCell.xib; sourceTree = "<group>"; };
 		64E034B921781FE700605B58 /* HackathonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackathonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E034BC21781FE700605B58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64E034C321781FE800605B58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 		6458499C217AEFC900BB9A19 /* GistList */ = {
 			isa = PBXGroup;
 			children = (
+				64CE9B12217C860800E632C4 /* View */,
 				64CE9B01217C4F1400E632C4 /* GistList.storyboard */,
 				64CE9AF7217C4EE000E632C4 /* GistListContract.swift */,
 				64CE9AF5217C4EBB00E632C4 /* GistListViewController.swift */,
@@ -371,6 +376,15 @@
 				64CE9B0D217C759100E632C4 /* API+Rx.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		64CE9B12217C860800E632C4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				64CE9B15217C864700E632C4 /* GistCell.swift */,
+				64CE9B16217C864700E632C4 /* GistCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		64E034B021781FE700605B58 = {
@@ -561,6 +575,7 @@
 				64E034C721781FE800605B58 /* LaunchScreen.storyboard in Resources */,
 				6458497D217ADF2B00BB9A19 /* Client.plist in Resources */,
 				645849DC217B23F800BB9A19 /* Login.storyboard in Resources */,
+				64CE9B18217C864700E632C4 /* GistCell.xib in Resources */,
 				64E034C421781FE800605B58 /* Assets.xcassets in Resources */,
 				645849A0217AF02A00BB9A19 /* Splash.storyboard in Resources */,
 				64584981217ADFEB00BB9A19 /* Root.storyboard in Resources */,
@@ -701,6 +716,7 @@
 				645849AA217AF3BB00BB9A19 /* SplashInteractor.swift in Sources */,
 				645849CC217B22DF00BB9A19 /* LoginContract.swift in Sources */,
 				64584999217AEC8300BB9A19 /* Color.swift in Sources */,
+				64CE9B17217C864700E632C4 /* GistCell.swift in Sources */,
 				64CE9AFC217C4EF500E632C4 /* GistListInteractor.swift in Sources */,
 				645849A4217AF30900BB9A19 /* SplashRouter.swift in Sources */,
 				64CE9B04217C4FE000E632C4 /* GistListUseCase.swift in Sources */,
