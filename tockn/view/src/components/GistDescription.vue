@@ -8,19 +8,22 @@
     </div>
     <div class="info">
       <comments class="comments" :num="comments"/>
-      <star class="star" :src="require('../assets/star.png')" :text="starState" @click="$emit('star')" />
+      <icon-btn class="star" :src="require('../assets/star.png')" :text="starState" @click="$emit('star')" />
+      <icon-btn v-if="isMyGist" :src="require('../assets/pen.png')" text="edit" />
+      <icon-btn v-if="isMyGist" :src="require('../assets/stash.png')" text="delete" />
     </div>
   </div>
 </template>
 
 <script>
 import Comments from './Comments'
-import Star from './Star'
+import IconButton from './IconButton'
 
 export default {
   props: {
     gist: Object,
-    starred: Boolean
+    starred: Boolean,
+    myname: String
   },
   computed: {
     starState () {
@@ -41,11 +44,14 @@ export default {
     comments () {
       if (!this.gist) return 0
       return this.gist.comments
+    },
+    isMyGist () {
+      return this.owner.login === this.myname
     }
   },
   components: {
     'comments': Comments,
-    'star': Star
+    'icon-btn': IconButton
   }
 }
 

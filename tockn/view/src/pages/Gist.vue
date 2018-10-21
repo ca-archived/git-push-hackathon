@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="gist">
-      <description :gist="gist" :starred="starred" @star="star" />
+      <description :gist="gist" :starred="starred" @star="star" :myname="me.login" />
       <div v-for="(file, index) in gist.files" :key="index">
         <div class="card">
           <b>{{ file.filename }}</b>
@@ -27,7 +27,8 @@ import {mapGetters, mapState, mapActions} from 'vuex'
 export default {
   computed: {
     ...mapState({
-      starred: state => state.gists.starred
+      starred: state => state.gists.starred,
+      me: state => state.auth.me || {}
     }),
     ...mapGetters('gists', {
       gist: 'gist'
