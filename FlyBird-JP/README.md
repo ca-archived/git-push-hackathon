@@ -4,7 +4,7 @@ https://flybird.jp:49651/
 
 #### 必要な環境
 - Go  
-GOPATH等の設定が終わった状態から手順を書かせていただきます。
+GOPATH等の設定が終わった状態から手順は書かせていただきます。
 
 #### 手順
 1. 必要なライブラリを導入します。  
@@ -16,8 +16,7 @@ GOPATH等の設定が終わった状態から手順を書かせていただき�
 Client IDを入力します。
 - client_secret.txt (UTF-8 BOMは未対応)  
 Client Secretを入力します。
-- cert.pem  
-- key.pem  
+- cert.pem と key.pem  
 サーバー証明書を上記のファイル名で置きます。  
 (参考)　オレオレ証明書で良ければ以下のコマンドをenvironmentフォルダで実行してください。  
 `go run /usr/local/go/src/crypto/tls/generate_cert.go --host {ホスト名}`
