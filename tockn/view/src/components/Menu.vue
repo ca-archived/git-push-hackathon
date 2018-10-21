@@ -1,7 +1,7 @@
 <template>
   <div class="menu-bar">
 
-    <router-link :to="'/users/'+username">
+    <router-link to="/logout">
       <div class="card menu">
         <label>Logout</label>
       </div>

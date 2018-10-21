@@ -4,6 +4,7 @@ import Home from '@/pages/Home'
 import Callback from '@/pages/Callback'
 import User from '@/pages/User'
 import Gist from '@/pages/Gist'
+import Logout from '@/pages/Logout'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/gists/:id',
       name: 'Gist',
       component: Gist
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     }
   ],
   scrollBehavior (to, from, savedPosition) {
