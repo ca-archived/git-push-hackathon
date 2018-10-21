@@ -1,16 +1,16 @@
 <template>
   <div class="menu-bar">
 
-    <router-link to="/logout">
-      <div class="card menu">
+    <router-link class="card menu" to="/logout">
         <label>Logout</label>
-      </div>
     </router-link>
 
-    <router-link :to="'/users/'+username">
-      <div class="card menu">
+    <router-link class="card menu" :to="'/users/'+username">
         <label>Your Gists</label>
-      </div>
+    </router-link>
+
+    <router-link class="card menu" to="/create">
+        <label>New Gist</label>
     </router-link>
 
   </div>
@@ -29,12 +29,14 @@ export default {
 <style scoped>
 .menu-bar {
   text-align: center;
+  display: table;
+  border-spacing: 8px;
+  margin: auto;
 }
 .menu {
   text-align: center;
-  width: 30%;
-  margin: 16px auto auto auto;
+  vertical-align: middle;
   color: black;
-  display: inline-block;
+  display: table-cell;
 }
 </style>
