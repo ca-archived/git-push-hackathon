@@ -8,7 +8,7 @@
     </div>
     <div class="info">
       <comments class="comments" :num="comments"/>
-      <star class="star" />
+      <star class="star" :id="gist.id" />
     </div>
   </div>
 </template>

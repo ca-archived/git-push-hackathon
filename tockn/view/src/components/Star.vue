@@ -2,7 +2,7 @@
   <button class="btn">
     <div class="wrap">
       <img class="icon" src="../assets/star.png" alt="">
-      <label>Unstar</label>
+      <label>{{ state }}</label>
     </div>
   </button>
 </template>
@@ -12,6 +12,25 @@
 export default {
   props: {
     id: String
+  },
+  computed: {
+    state () {
+      if (this.$store.state.gists.starred) {
+        return 'Unstar'
+      } else {
+        return 'Star'
+      }
+    }
+  },
+  created () {
+    if (this.id !== undefined) {
+      this.$store.dispatch('gists/checkStarred', this.id)
+    }
+  },
+  watch: {
+    id (value) {
+      this.$store.dispatch('gists/checkStarred', value)
+    }
   }
 }
 
