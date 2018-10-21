@@ -29,7 +29,9 @@ class Editor extends Component {
     const {
       editor: { files }
     } = this.props;
-    return files.every(e => e.filename.indexOf("/") == -1);
+    return files.every(
+      e => e.filename && e.content && e.filename.indexOf("/") == -1
+    );
   }
 
   handleChange(keyValue) {

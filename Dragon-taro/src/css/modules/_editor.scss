@@ -26,15 +26,15 @@
         monospace;
       line-height: 1.4;
       font-size: 14px;
+      &.invalid {
+        border: 1px solid #ff3333;
+        outline: 1px solid #ff3333;
+      }
     }
     input {
       width: 100%;
       max-width: 300px;
       margin-bottom: 10px;
-      &.invalid {
-        border: 1px solid #ff3333;
-        outline: 1px solid #ff3333;
-      }
     }
     textarea {
       width: 100%;
