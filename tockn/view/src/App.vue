@@ -49,6 +49,12 @@ input {
     margin: auto;
   }
 }
+@media screen and (min-width: 1200px) {
+  .body {
+    width: 1200px;
+    margin: auto;
+  }
+}
 
 .card {
   box-shadow:0px 3px 3px 0px rgba(0, 0, 0, 0.4);
