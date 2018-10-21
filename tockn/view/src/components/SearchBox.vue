@@ -13,7 +13,7 @@ export default {
   methods: {
     changeText () {
       clearTimeout(this.timer)
-      this.timer = setTimeout(this.search.bind(this), 600)
+      this.timer = setTimeout(this.search.bind(this), 500)
     },
     search () {
       this.$emit('search', this.text)
