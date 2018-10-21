@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="gist">
-      <description :username="owner.login" :title="title" :avatarURL="owner.avatar_url" :star="gist.star" :comments="gist.comments"/>
+      <description :gist="gist"/>
       <div v-for="(file, index) in gist.files" :key="index">
         <div class="card">
           <b>{{ file.filename }}</b>
@@ -28,15 +28,7 @@ export default {
   computed: {
     ...mapGetters('gists', {
       gist: 'gist'
-    }),
-    owner () {
-      if (!this.gist) return ''
-      return this.gist.owner
-    },
-    title () {
-      if (!this.gist) return ''
-      return Object.keys(this.gist.files)[0]
-    }
+    })
   },
   created () {
     this.$store.dispatch('gists/getGist', this.$route.params.id)
