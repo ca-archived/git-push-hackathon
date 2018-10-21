@@ -25,6 +25,13 @@ class Editor extends Component {
     return this.props.type == "edit";
   }
 
+  isValid() {
+    const {
+      editor: { files }
+    } = this.props;
+    return files.every(e => e.filename.indexOf("/") == -1);
+  }
+
   handleChange(keyValue) {
     const {
       actions: { handleEditorChange }
@@ -65,8 +72,7 @@ class Editor extends Component {
       actions: { submitGist }
     } = this.props;
     const method = this.isEdit() ? "PATCH" : "POST";
-    submitGist({ data: this.state, method: method });
-    this.setState({ isSubmit: true });
+    if (this.isvalid) submitGist({ data: this.state, method: method });
   }
 
   fileEditors() {
@@ -118,7 +124,10 @@ class Editor extends Component {
               <button className="p-button" onClick={() => this.addFile()}>
                 Add File
               </button>
-              <button className="p-button" onClick={() => this.handleSubmit()}>
+              <button
+                className={this.isValid() ? "p-button" : "p-button invalid"}
+                onClick={() => this.handleSubmit()}
+              >
                 {buttonMessage}
               </button>
             </div>

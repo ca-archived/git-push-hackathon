@@ -14,12 +14,18 @@ class File extends Component {
 
   render() {
     const { filename, content, deleteFile, isDeletable } = this.props;
+    const isValid = filename.indexOf("/") == -1;
+
     return (
       <div className="file">
+        <If condition={!isValid}>
+          <div className="invalid-message">Cannot include "/" in filename</div>
+        </If>
         <input
           type="text"
           name="filename"
           placeholder="Filename"
+          className={isValid ? "" : "invalid"}
           value={filename}
           onChange={e => this.handleChange(e)}
         />

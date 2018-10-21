@@ -15,6 +15,11 @@
   }
   .file {
     margin: 30px 0;
+    .invalid-message {
+      color: #ff3333;
+      margin: 10px 0;
+      font-size: 12px;
+    }
     textarea,
     input {
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
@@ -26,6 +31,10 @@
       width: 100%;
       max-width: 300px;
       margin-bottom: 10px;
+      &.invalid {
+        border: 1px solid #ff3333;
+        outline: 1px solid #ff3333;
+      }
     }
     textarea {
       width: 100%;

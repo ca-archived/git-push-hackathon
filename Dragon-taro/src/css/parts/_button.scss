@@ -52,4 +52,8 @@
   &:hover {
     opacity: 0.8;
   }
+  &.invalid {
+    opacity: 0.5;
+    cursor: default;
+  }
 }
