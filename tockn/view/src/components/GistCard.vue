@@ -7,11 +7,15 @@
       <div class="content">
         <p v-for="(name, index) in fileNames(gist.files)" :key="index">{{ name }}</p>
       </div>
+      <div class="comments">
+        <comments :num="gist.comments" />
+      </div>
     </div>
   </router-link>
 </template>
 
 <script>
+import Comments from './Comments'
 
 export default {
   props: {
@@ -35,6 +39,9 @@ export default {
       }
       return names
     }
+  },
+  components: {
+    'comments': Comments
   }
 }
 
@@ -44,5 +51,9 @@ export default {
 .a {
   text-decoration: none;
   color: black;
+}
+
+.comments {
+  float: right;
 }
 </style>
