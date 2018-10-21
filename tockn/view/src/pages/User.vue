@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="user">
-      <card :username="user.login" :avatarURL="user.avatar_url" />
+      <user-card :username="user.login" :avatarURL="user.avatar_url" />
     </div>
     <loading v-else :withCard="true" />
     <div v-if="gists">
-      <gists :gists="gists" />
+      <gist-card v-for="(gist, index) in gists" :key="index" :gist="gist"/>
     </div>
     <loading v-else />
   </div>
@@ -14,8 +14,8 @@
 <script>
 import {mapGetters} from 'vuex'
 import Loading from '../components/Loading'
-import Card from '../components/UserCard'
-import Gists from '../components/Gists'
+import UserCard from '../components/UserCard'
+import GistCard from '../components/GistCard'
 
 export default {
   computed: {
@@ -43,8 +43,8 @@ export default {
   },
   components: {
     'loading': Loading,
-    'card': Card,
-    'gists': Gists
+    'user-card': UserCard,
+    'gist-card': GistCard
   },
   watch: {
     '$route' (to, from) {
