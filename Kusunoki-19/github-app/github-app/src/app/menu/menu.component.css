@@ -11,35 +11,21 @@ ul a{
     color : #FFFFFF;
     text-decoration: none;
 }
-
+ul div{
+    padding: 5px;
+    height: 30px;
+}
 .menu_ul{
     padding : 0;
 }
 
-.menu_ul li{
-    display: block;
-    padding-top : 5px;
-    padding-left : 5px;
+.sub_menu_ul li div{
+    padding-left: 15px;
 }
 
-.sub_menu_ul {
-
-}
-.sub_menu_ul li{
-    padding-top : 0;
-    padding-left : 0;
-}
-.sub_menu_ul li a{
-    display: block;
-    padding-top : 5px;
-    padding-left : 10px;
-}
-.sub_menu_ul a{
-}
-
-@media screen and (max-width: 640px) {
-    .manu_ul {
-        width : 50%;
-        float: left;
+@media screen and (max-width: 1024px) {
+    ul div{
+        padding: 5px;
+        height: 45px;
     }
 }

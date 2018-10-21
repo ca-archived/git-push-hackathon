@@ -1,15 +1,17 @@
+
 <ul class="menu_ul">
+    <li class="menu_item"><div>Conent Links</div></li>
     <li *ngFor="let item of menuItems" class="menu_item">
-        <a *ngIf="item.parent == '' && item.url != ''"
-           href="{{item.url}}">
-            {{item.name}}
+        <a *ngIf="item.url != '' && item.parent == ''"
+        href="{{item.url}}">
+            <div>{{item.name}}</div>
         </a>
 
-        <ul *ngIf="item.parent == '' && item.url == ''" class="sub_menu_ul">
-            {{item.name}}
+        <ul *ngIf="item.url == '' && item.parent == ''" class="sub_menu_ul">
+            <div>{{item.name}}</div>
             <li *ngFor="let sub_item of menuItems">
                 <a *ngIf="sub_item.parent == item.name" href="{{sub_item.url}}">
-                    {{sub_item.name}}
+                    <div>{{sub_item.name}}</div>
                 </a>
             </li>
         </ul>
