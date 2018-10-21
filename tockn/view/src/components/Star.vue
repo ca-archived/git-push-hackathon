@@ -1,53 +1,17 @@
 <template>
-  <button class="btn" @click="star">
+  <button class="btn" @click="$emit('click')">
     <div class="wrap">
-      <img class="icon" src="../assets/star.png" alt="">
-      <label>{{ state }}</label>
+      <img class="icon" :src="src" alt="">
+      <label>{{ text }}</label>
     </div>
   </button>
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
 export default {
   props: {
-    id: String
-  },
-  computed: {
-    ...mapState({
-      starred: state => state.gists.starred
-    }),
-    state () {
-      if (this.starred) {
-        return 'Unstar'
-      } else {
-        return 'Star'
-      }
-    }
-  },
-  methods: {
-    ...mapActions('gists', {
-      putStar: 'putStar',
-      deleteStar: 'deleteStar',
-      checkStarred: 'checkStarred'
-    }),
-    star () {
-      if (this.starred) {
-        this.deleteStar(this.id)
-      } else {
-        this.putStar(this.id)
-      }
-    }
-  },
-  created () {
-    if (this.id !== undefined) {
-      this.checkStarred(this.id)
-    }
-  },
-  watch: {
-    id (value) {
-      this.checkStarred(value)
-    }
+    src: String,
+    text: String
   }
 }
 

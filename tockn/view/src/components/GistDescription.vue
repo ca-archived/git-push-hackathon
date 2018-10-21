@@ -8,7 +8,7 @@
     </div>
     <div class="info">
       <comments class="comments" :num="comments"/>
-      <star class="star" :id="gist.id" />
+      <star class="star" :src="require('../assets/star.png')" :text="starState" @click="$emit('star')" />
     </div>
   </div>
 </template>
@@ -19,9 +19,17 @@ import Star from './Star'
 
 export default {
   props: {
-    gist: Object
+    gist: Object,
+    starred: Boolean
   },
   computed: {
+    starState () {
+      if (this.starred) {
+        return 'Unstar'
+      } else {
+        return 'Star'
+      }
+    },
     owner () {
       if (!this.gist) return ''
       return this.gist.owner
