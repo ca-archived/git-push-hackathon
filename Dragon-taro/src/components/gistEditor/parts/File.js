@@ -68,7 +68,7 @@ class File extends Component {
         />
         <If condition={isDeletable}>
           <button className="p-button red" onClick={() => deleteFile()}>
-            Delete
+            <span>Delete</span>
           </button>
         </If>
         <Textarea

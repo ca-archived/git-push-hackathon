@@ -124,13 +124,13 @@ class Editor extends Component {
             <ul>{this.fileEditors()}</ul>
             <div className="button-zone">
               <button className="p-button" onClick={() => this.addFile()}>
-                Add File
+                <span>Add File</span>
               </button>
               <button
                 className={this.isValid() ? "p-button" : "p-button invalid"}
                 onClick={() => this.handleSubmit()}
               >
-                {buttonMessage}
+                <span>{buttonMessage}</span>
               </button>
             </div>
           </div>

@@ -22,12 +22,14 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4cb6ff', endColorstr='#34a1ff',GradientType=0 ); /* IE6-9 */
   border-radius: 3px;
   display: inline-block;
-  padding: 5px 10px;
   font-size: 14px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   color: #fff;
-  a {
+  a,
+  span {
     color: #fff;
+    padding: 5px 10px;
+    display: inline-block;
   }
   &.red {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e85f68+0,ea3c48+100 */
