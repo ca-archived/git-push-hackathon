@@ -34,7 +34,7 @@ internal class GistBoundaryCallback(
     private var lastPage = 1
 
     override fun onZeroItemsLoaded() {
-        _isFirstLoadingState.value = true
+        _isFirstLoadingState.postValue(true)
         requestAndSaveData(token, userName)
     }
 
@@ -82,13 +82,13 @@ internal class GistBoundaryCallback(
                     if (gistSize >= PER_PAGE_COUNT) {
                         lastPage++
                         isLoading = false
-                        if (isFirstLoadingState.value == true) _isFirstLoadingState.value = false
+                        if (isFirstLoadingState.value == true) _isFirstLoadingState.postValue(false)
                     }
                 }
             } catch (e: Exception) {
                 isLoading = false
-                _networkErrorState.value = NetWorkError.NORMAL
-                _isFirstLoadingState.value = false
+                _networkErrorState.postValue(NetWorkError.NORMAL)
+                _isFirstLoadingState.postValue(false)
             }
         }
     }

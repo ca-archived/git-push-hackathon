@@ -3,7 +3,6 @@ package io.github.hunachi.gisthunaclient
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -35,6 +34,7 @@ class GistListFragment : Fragment() {
                 adapter = listAdapter
                 layoutManager = LinearLayoutManager(context)
             }
+            swipeRefresh.setOnRefreshListener { refreshList() }
             binding = this
         }.root
     }
@@ -44,6 +44,7 @@ class GistListFragment : Fragment() {
         gistListStore.apply {
             gistsState.nonNullObserve(this@GistListFragment) {
                 listAdapter.submitList(it)
+                binding.swipeRefresh.isRefreshing = false
             }
 
             isLoadingState.observe(this@GistListFragment) {
@@ -51,7 +52,7 @@ class GistListFragment : Fragment() {
             }
 
             errorState.observe(this@GistListFragment) {
-                activity?.let { Toast.makeText(it, "にゃーん", Toast.LENGTH_SHORT).show() }
+                activity?.let { Toast.makeText(it, "えらーにゃーん", Toast.LENGTH_SHORT).show() }
             }
         }.run {
             onCreate()
@@ -60,6 +61,10 @@ class GistListFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        refreshList()
+    }
+
+    private fun refreshList() {
         preference.savedToken()?.let {
             gistListActionCreator.updateList("Hunachi", it)
         } ?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
