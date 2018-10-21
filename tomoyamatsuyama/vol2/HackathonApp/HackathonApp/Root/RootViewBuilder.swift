@@ -2,11 +2,10 @@ import UIKit
 
 struct RootViewBuilder {
     static func build() -> UINavigationController {
-        let viewController: RootViewController = .instantiate()
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let viewController = RootViewController.instantiateNavigationController()
         
-        navigationController.navigationBar.titleTextAttributes = [.foregroundColor : Color.Font.white]
-        navigationController.navigationBar.barTintColor = Color.Background.black
-        return navigationController
+        guard let firstViewController = viewController.viewControllers.first as? RootViewController else { fatalError("todo") }
+        
+        return viewController
     }
 }

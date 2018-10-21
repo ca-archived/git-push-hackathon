@@ -5,17 +5,17 @@ import UIKit
 
 protocol SplashViewProtocol: class {
     var refreshTrigger: Signal<Void> { get }
-    var presentTrigger: Signal<SplashRouter.Route> { get }
+    var present: Signal<SplashRouter.Route> { get }
 }
 
 protocol SplashPresenterProtocol: class {
     var isLoading: Observable<Bool> { get }
 //    var isConnectNetWork: Observable<Bool> { get }
-    var isAccessToken: Observable<Bool> { get }
+    var hasAccessToken: Observable<Bool> { get }
 }
 
 protocol SplashInteractorProtocol: class {
-    func fetchAccessToken() -> Observable<String?>
+    func hasAccessToken() -> Observable<Bool>
 }
 
 protocol SplashRouterProtocol {

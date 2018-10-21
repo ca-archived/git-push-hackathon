@@ -20,10 +20,10 @@ final class SplashPresenter: SplashPresenterProtocol {
 //    }
 //    private let _isConnectNetWork = PublishRelay<Bool>()
     
-    var isAccessToken: Observable<Bool> {
-        return _isAccessToken.asObservable()
+    var hasAccessToken: Observable<Bool> {
+        return _hasAccessToken.asObservable()
     }
-    private let _isAccessToken = PublishRelay<Bool>()
+    private let _hasAccessToken = PublishRelay<Bool>()
     
     init (view: SplashViewProtocol, interactor: SplashInteractorProtocol, router: SplashRouterProtocol) {
         
@@ -37,13 +37,9 @@ final class SplashPresenter: SplashPresenterProtocol {
                 
                 self._isLoading.accept(true)
                 
-                interactor.fetchAccessToken()
-                    .subscribe(onNext: { accessToken in
-                        if accessToken != nil {
-                            self._isAccessToken.accept(true)
-                        } else {
-                            self._isAccessToken.accept(false)
-                        }
+                interactor.hasAccessToken()
+                    .subscribe(onNext: { hasAccessToken in
+                        self._hasAccessToken.accept(hasAccessToken)
                     }, onCompleted: {
                         self._isLoading.accept(false)
                     })
@@ -52,7 +48,7 @@ final class SplashPresenter: SplashPresenterProtocol {
             })
             .disposed(by: disposeBag)
         
-        view.presentTrigger
+        view.present
             .emit(onNext: { route in
                 router.transition(route: route)
             })

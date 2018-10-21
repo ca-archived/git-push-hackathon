@@ -21,13 +21,31 @@
 		645849A6217AF32F00BB9A19 /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849A5217AF32F00BB9A19 /* SplashPresenter.swift */; };
 		645849A8217AF35C00BB9A19 /* SplashContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849A7217AF35C00BB9A19 /* SplashContract.swift */; };
 		645849AA217AF3BB00BB9A19 /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849A9217AF3BB00BB9A19 /* SplashInteractor.swift */; };
-		645849B5217AF6F800BB9A19 /* SplashDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849B4217AF6F800BB9A19 /* SplashDataStore.swift */; };
 		645849B7217AF97E00BB9A19 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849B6217AF97E00BB9A19 /* OAuth.swift */; };
-		645849B9217B045400BB9A19 /* SplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849B8217B045400BB9A19 /* SplashRepository.swift */; };
 		645849BB217B057B00BB9A19 /* SplashUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849BA217B057B00BB9A19 /* SplashUseCase.swift */; };
 		645849BD217B084D00BB9A19 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849BC217B084D00BB9A19 /* Error.swift */; };
 		645849C0217B0B4800BB9A19 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849BF217B0B4800BB9A19 /* LoadingView.swift */; };
 		645849C8217B1FBF00BB9A19 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849C7217B1FBF00BB9A19 /* RootViewModel.swift */; };
+		645849CA217B22CC00BB9A19 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849C9217B22CC00BB9A19 /* LoginViewController.swift */; };
+		645849CC217B22DF00BB9A19 /* LoginContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849CB217B22DF00BB9A19 /* LoginContract.swift */; };
+		645849CE217B22E600BB9A19 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849CD217B22E600BB9A19 /* LoginPresenter.swift */; };
+		645849D0217B22F400BB9A19 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849CF217B22F400BB9A19 /* LoginInteractor.swift */; };
+		645849D2217B22FB00BB9A19 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849D1217B22FB00BB9A19 /* LoginRouter.swift */; };
+		645849D4217B230700BB9A19 /* LoginViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849D3217B230700BB9A19 /* LoginViewBuilder.swift */; };
+		645849D6217B231100BB9A19 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849D5217B231100BB9A19 /* LoginUseCase.swift */; };
+		645849DC217B23F800BB9A19 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645849DB217B23F800BB9A19 /* Login.storyboard */; };
+		645849DF217B2A5E00BB9A19 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849DE217B2A5E00BB9A19 /* API.swift */; };
+		645849E1217B382D00BB9A19 /* OAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849E0217B382D00BB9A19 /* OAuthRepository.swift */; };
+		645849E3217B394E00BB9A19 /* OAuthLocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849E2217B394E00BB9A19 /* OAuthLocalDataStore.swift */; };
+		645849E5217B395D00BB9A19 /* OAuthRemoteDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849E4217B395D00BB9A19 /* OAuthRemoteDataStore.swift */; };
+		645849E7217B3B7A00BB9A19 /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645849E6217B3B7A00BB9A19 /* Authorization.swift */; };
+		64CE9AF6217C4EBB00E632C4 /* GistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AF5217C4EBB00E632C4 /* GistListViewController.swift */; };
+		64CE9AF8217C4EE000E632C4 /* GistListContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AF7217C4EE000E632C4 /* GistListContract.swift */; };
+		64CE9AFA217C4EE900E632C4 /* GistListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AF9217C4EE900E632C4 /* GistListPresenter.swift */; };
+		64CE9AFC217C4EF500E632C4 /* GistListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AFB217C4EF500E632C4 /* GistListInteractor.swift */; };
+		64CE9AFE217C4EFE00E632C4 /* GistListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AFD217C4EFE00E632C4 /* GistListRouter.swift */; };
+		64CE9B00217C4F0900E632C4 /* GistListViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE9AFF217C4F0900E632C4 /* GistListViewBuilder.swift */; };
+		64CE9B02217C4F1400E632C4 /* GistList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64CE9B01217C4F1400E632C4 /* GistList.storyboard */; };
 		64E034BD21781FE700605B58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E034BC21781FE700605B58 /* AppDelegate.swift */; };
 		64E034C421781FE800605B58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E034C321781FE800605B58 /* Assets.xcassets */; };
 		64E034C721781FE800605B58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64E034C521781FE800605B58 /* LaunchScreen.storyboard */; };
@@ -72,13 +90,31 @@
 		645849A5217AF32F00BB9A19 /* SplashPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenter.swift; sourceTree = "<group>"; };
 		645849A7217AF35C00BB9A19 /* SplashContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashContract.swift; sourceTree = "<group>"; };
 		645849A9217AF3BB00BB9A19 /* SplashInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractor.swift; sourceTree = "<group>"; };
-		645849B4217AF6F800BB9A19 /* SplashDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashDataStore.swift; sourceTree = "<group>"; };
 		645849B6217AF97E00BB9A19 /* OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
-		645849B8217B045400BB9A19 /* SplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRepository.swift; sourceTree = "<group>"; };
 		645849BA217B057B00BB9A19 /* SplashUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUseCase.swift; sourceTree = "<group>"; };
 		645849BC217B084D00BB9A19 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		645849BF217B0B4800BB9A19 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		645849C7217B1FBF00BB9A19 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
+		645849C9217B22CC00BB9A19 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		645849CB217B22DF00BB9A19 /* LoginContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContract.swift; sourceTree = "<group>"; };
+		645849CD217B22E600BB9A19 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		645849CF217B22F400BB9A19 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		645849D1217B22FB00BB9A19 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		645849D3217B230700BB9A19 /* LoginViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewBuilder.swift; sourceTree = "<group>"; };
+		645849D5217B231100BB9A19 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		645849DB217B23F800BB9A19 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		645849DE217B2A5E00BB9A19 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		645849E0217B382D00BB9A19 /* OAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthRepository.swift; sourceTree = "<group>"; };
+		645849E2217B394E00BB9A19 /* OAuthLocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLocalDataStore.swift; sourceTree = "<group>"; };
+		645849E4217B395D00BB9A19 /* OAuthRemoteDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthRemoteDataStore.swift; sourceTree = "<group>"; };
+		645849E6217B3B7A00BB9A19 /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
+		64CE9AF5217C4EBB00E632C4 /* GistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListViewController.swift; sourceTree = "<group>"; };
+		64CE9AF7217C4EE000E632C4 /* GistListContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListContract.swift; sourceTree = "<group>"; };
+		64CE9AF9217C4EE900E632C4 /* GistListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListPresenter.swift; sourceTree = "<group>"; };
+		64CE9AFB217C4EF500E632C4 /* GistListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListInteractor.swift; sourceTree = "<group>"; };
+		64CE9AFD217C4EFE00E632C4 /* GistListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListRouter.swift; sourceTree = "<group>"; };
+		64CE9AFF217C4F0900E632C4 /* GistListViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListViewBuilder.swift; sourceTree = "<group>"; };
+		64CE9B01217C4F1400E632C4 /* GistList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GistList.storyboard; sourceTree = "<group>"; };
 		64E034B921781FE700605B58 /* HackathonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackathonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E034BC21781FE700605B58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64E034C321781FE800605B58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -213,6 +249,13 @@
 		6458499B217AEF9400BB9A19 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				645849DB217B23F800BB9A19 /* Login.storyboard */,
+				645849CB217B22DF00BB9A19 /* LoginContract.swift */,
+				645849C9217B22CC00BB9A19 /* LoginViewController.swift */,
+				645849CD217B22E600BB9A19 /* LoginPresenter.swift */,
+				645849CF217B22F400BB9A19 /* LoginInteractor.swift */,
+				645849D1217B22FB00BB9A19 /* LoginRouter.swift */,
+				645849D3217B230700BB9A19 /* LoginViewBuilder.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -220,6 +263,13 @@
 		6458499C217AEFC900BB9A19 /* GistList */ = {
 			isa = PBXGroup;
 			children = (
+				64CE9B01217C4F1400E632C4 /* GistList.storyboard */,
+				64CE9AF7217C4EE000E632C4 /* GistListContract.swift */,
+				64CE9AF5217C4EBB00E632C4 /* GistListViewController.swift */,
+				64CE9AF9217C4EE900E632C4 /* GistListPresenter.swift */,
+				64CE9AFB217C4EF500E632C4 /* GistListInteractor.swift */,
+				64CE9AFD217C4EFE00E632C4 /* GistListRouter.swift */,
+				64CE9AFF217C4F0900E632C4 /* GistListViewBuilder.swift */,
 			);
 			path = GistList;
 			sourceTree = "<group>";
@@ -255,7 +305,8 @@
 		645849AE217AF49C00BB9A19 /* DataStore */ = {
 			isa = PBXGroup;
 			children = (
-				645849B4217AF6F800BB9A19 /* SplashDataStore.swift */,
+				645849E2217B394E00BB9A19 /* OAuthLocalDataStore.swift */,
+				645849E4217B395D00BB9A19 /* OAuthRemoteDataStore.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -263,6 +314,7 @@
 		645849AF217AF4A100BB9A19 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				645849E6217B3B7A00BB9A19 /* Authorization.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -271,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				645849BA217B057B00BB9A19 /* SplashUseCase.swift */,
+				645849D5217B231100BB9A19 /* LoginUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -278,7 +331,7 @@
 		645849B3217AF4BF00BB9A19 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				645849B8217B045400BB9A19 /* SplashRepository.swift */,
+				645849E0217B382D00BB9A19 /* OAuthRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -289,6 +342,14 @@
 				645849BF217B0B4800BB9A19 /* LoadingView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		645849DD217B2A2D00BB9A19 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				645849DE217B2A5E00BB9A19 /* API.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		64E034B021781FE700605B58 = {
@@ -319,6 +380,7 @@
 				64584982217AE20A00BB9A19 /* Root */,
 				6458498F217AE82900BB9A19 /* Modules */,
 				64584990217AE83000BB9A19 /* Models */,
+				645849DD217B2A2D00BB9A19 /* API */,
 				6458498E217AE81000BB9A19 /* Utilties */,
 				645849BE217B0B3700BB9A19 /* Components */,
 				6458498D217AE80600BB9A19 /* Protocols */,
@@ -474,8 +536,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64CE9B02217C4F1400E632C4 /* GistList.storyboard in Resources */,
 				64E034C721781FE800605B58 /* LaunchScreen.storyboard in Resources */,
 				6458497D217ADF2B00BB9A19 /* Client.plist in Resources */,
+				645849DC217B23F800BB9A19 /* Login.storyboard in Resources */,
 				64E034C421781FE800605B58 /* Assets.xcassets in Resources */,
 				645849A0217AF02A00BB9A19 /* Splash.storyboard in Resources */,
 				64584981217ADFEB00BB9A19 /* Root.storyboard in Resources */,
@@ -587,22 +651,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				64E034BD21781FE700605B58 /* AppDelegate.swift in Sources */,
+				645849E1217B382D00BB9A19 /* OAuthRepository.swift in Sources */,
 				645849B7217AF97E00BB9A19 /* OAuth.swift in Sources */,
 				645849BB217B057B00BB9A19 /* SplashUseCase.swift in Sources */,
+				645849E3217B394E00BB9A19 /* OAuthLocalDataStore.swift in Sources */,
 				645849A6217AF32F00BB9A19 /* SplashPresenter.swift in Sources */,
+				645849CE217B22E600BB9A19 /* LoginPresenter.swift in Sources */,
+				645849D0217B22F400BB9A19 /* LoginInteractor.swift in Sources */,
 				645849C8217B1FBF00BB9A19 /* RootViewModel.swift in Sources */,
 				64584994217AE8FF00BB9A19 /* StoryboardInstantiatable.swift in Sources */,
+				64CE9AF8217C4EE000E632C4 /* GistListContract.swift in Sources */,
+				645849E7217B3B7A00BB9A19 /* Authorization.swift in Sources */,
 				64584996217AE9F300BB9A19 /* RootViewBuilder.swift in Sources */,
 				6458497F217ADFE100BB9A19 /* RootViewController.swift in Sources */,
+				645849CA217B22CC00BB9A19 /* LoginViewController.swift in Sources */,
+				645849D6217B231100BB9A19 /* LoginUseCase.swift in Sources */,
 				64584992217AE86400BB9A19 /* UIViewController+ClassName.swift in Sources */,
+				645849DF217B2A5E00BB9A19 /* API.swift in Sources */,
+				64CE9AF6217C4EBB00E632C4 /* GistListViewController.swift in Sources */,
 				6458499E217AF00800BB9A19 /* SplashViewController.swift in Sources */,
+				645849D4217B230700BB9A19 /* LoginViewBuilder.swift in Sources */,
 				645849BD217B084D00BB9A19 /* Error.swift in Sources */,
+				645849D2217B22FB00BB9A19 /* LoginRouter.swift in Sources */,
 				645849AA217AF3BB00BB9A19 /* SplashInteractor.swift in Sources */,
+				645849CC217B22DF00BB9A19 /* LoginContract.swift in Sources */,
 				64584999217AEC8300BB9A19 /* Color.swift in Sources */,
-				645849B9217B045400BB9A19 /* SplashRepository.swift in Sources */,
+				64CE9AFC217C4EF500E632C4 /* GistListInteractor.swift in Sources */,
 				645849A4217AF30900BB9A19 /* SplashRouter.swift in Sources */,
+				64CE9B00217C4F0900E632C4 /* GistListViewBuilder.swift in Sources */,
+				645849E5217B395D00BB9A19 /* OAuthRemoteDataStore.swift in Sources */,
+				64CE9AFE217C4EFE00E632C4 /* GistListRouter.swift in Sources */,
 				645849A2217AF24400BB9A19 /* SplashViewBuilder.swift in Sources */,
-				645849B5217AF6F800BB9A19 /* SplashDataStore.swift in Sources */,
+				64CE9AFA217C4EE900E632C4 /* GistListPresenter.swift in Sources */,
 				645849A8217AF35C00BB9A19 /* SplashContract.swift in Sources */,
 				645849C0217B0B4800BB9A19 /* LoadingView.swift in Sources */,
 			);

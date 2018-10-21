@@ -14,7 +14,9 @@ final class RootViewController: UIViewController, StoryboardInstantiatable {
     
     private func showSplash() {
         let splashViewController = SplashViewBuilder.build()
-        navigationController?.present(splashViewController, animated: false, completion: nil)
+        
+        UserDefaults.standard.removeObject(forKey: OAuth.accessToken.key)
+        navigationController?.pushViewController(splashViewController, animated: false)
     }
 }
 

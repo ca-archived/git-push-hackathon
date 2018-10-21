@@ -5,11 +5,11 @@ struct SplashViewBuilder {
         let viewController: SplashViewController = .instantiate()
         
         // Data
-        let localDataStore = SplashLocalDataStore()
-        let remoteDataStore = SplashRemoteDataStore()
+        let localDataStore = OAuthLocalDataStore()
+        let remoteDataStore = OAuthRemoteDataStore()
         
         // Domain
-        let repository = SplashRepository(local: localDataStore, remote: remoteDataStore)
+        let repository = OAuthRepository(local: localDataStore, remote: remoteDataStore)
         let useCase = SplashUseCase(repository: repository)
         
         // Presentation: VIPER

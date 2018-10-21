@@ -11,4 +11,11 @@ extension StoryboardInstantiatable where Self: UIViewController {
         let viewController = storyboard.instantiateInitialViewController()
         return viewController as! Self
     }
+    
+    static func instantiateNavigationController() -> UINavigationController {
+        let bundle = Bundle(for: Self.self)
+        let storyboard = UIStoryboard(name: storyboardName, bundle: bundle)
+        let initialViewController = storyboard.instantiateInitialViewController()
+        return initialViewController as! UINavigationController
+    }
 }

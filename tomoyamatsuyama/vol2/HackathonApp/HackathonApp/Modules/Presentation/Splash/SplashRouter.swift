@@ -3,17 +3,18 @@ import UIKit
 final class SplashRouter: SplashRouterProtocol {
     private weak var view: SplashViewController!
     
-    init(view: SplashViewController) {
-        self.view = view
-    }
-    
     func transition(route: SplashRouter.Route) {
         switch route {
         case .login:
-            print("loginView")
+            let loginViewController = LoginViewBuilder.build()
+            view.present(loginViewController, animated: false, completion: nil)
         case .gistList:
             print("gistList")
         }
+    }
+    
+    init(view: SplashViewController) {
+        self.view = view
     }
 }
 

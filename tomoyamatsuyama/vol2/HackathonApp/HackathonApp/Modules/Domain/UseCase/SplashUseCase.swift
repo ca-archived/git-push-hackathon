@@ -3,18 +3,18 @@ import RxSwift
 import UIKit
 
 protocol SplashUseCaseProtocol {
-    func fetchAccessToken() -> Observable<String?>
+    func hasAccessToken() -> Observable<Bool>
 }
 
 final class SplashUseCase: SplashUseCaseProtocol {
     
-    private var repository: SplashRepositoryProtocol
+    private var repository: OAuthRepositoryProtocol
     
-    init (repository: SplashRepositoryProtocol) {
+    init (repository: OAuthRepositoryProtocol) {
         self.repository = repository
     }
     
-    func fetchAccessToken() -> Observable<String?> {
-        return repository.fetchAccessToken()
+    func hasAccessToken() -> Observable<Bool> {
+        return repository.hasAccessToken()
     }
 }

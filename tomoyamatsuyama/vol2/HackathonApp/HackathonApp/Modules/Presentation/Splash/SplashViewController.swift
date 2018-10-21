@@ -18,7 +18,7 @@ final class SplashViewController: UIViewController, SplashViewProtocol, Storyboa
     
     private let refreshRelay = PublishRelay<Void>()
     
-    var presentTrigger: Signal<SplashRouter.Route> {
+    var present: Signal<SplashRouter.Route> {
         return presentRelay.asSignal()
     }
     
@@ -59,7 +59,7 @@ final class SplashViewController: UIViewController, SplashViewProtocol, Storyboa
             .bind(to: loadingView.rx.isHidden)
             .disposed(by: disposeBag)
         
-        presenter.isAccessToken
+        presenter.hasAccessToken
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak presentRelay] isAccessToken in
                 guard let presentRelay = presentRelay else { return }

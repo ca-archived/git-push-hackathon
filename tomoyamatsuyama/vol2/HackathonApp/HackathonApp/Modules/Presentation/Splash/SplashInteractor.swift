@@ -8,7 +8,7 @@ final class SplashInteractor: SplashInteractorProtocol {
         self.useCase = useCase
     }
     
-    func fetchAccessToken() -> Observable<String?> {
-        return useCase.fetchAccessToken()
+    func hasAccessToken() -> Observable<Bool> {
+        return useCase.hasAccessToken()
     }
 }
