@@ -13,6 +13,7 @@ import {
   loading,
   loaded
 } from "../actions/actions";
+import toastr from "toastr";
 
 const selectGist = state => state.gist;
 const selectEditor = state => state.editor;
@@ -47,6 +48,8 @@ function* handleGetGists() {
     const { resp, error } = yield call(Get, "gists", payload);
     if (!error) {
       yield put(setGists(resp));
+    } else {
+      toastr.error(error);
     }
     yield put(loaded());
   }
@@ -61,6 +64,8 @@ function* handleGetOneGist() {
     const { resp, error } = yield call(Get, `gists/${id}`);
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
+    } else {
+      toastr.error(error);
     }
     yield put(loaded());
   }
@@ -76,9 +81,12 @@ function* handleSubmitGist(history) {
     const editor = yield select(selectEditor);
     const path = method == "POST" ? "gists" : `gists/${editor.id}`;
     const { resp, error } = yield call(Send, path, createBody(editor), method);
+
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
       yield call(history.push, `/gists/${resp.id}`);
+    } else {
+      toastr.error(error);
     }
     yield put(loaded());
   }

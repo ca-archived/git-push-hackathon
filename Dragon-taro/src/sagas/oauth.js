@@ -9,23 +9,25 @@ import {
   getUser,
   setUser,
   noUser,
-  getGists,
   loading,
   loaded
 } from "../actions/actions";
+import toastr from "toastr";
 
 const token = sessionStorage.getItem("access_token");
 
 function signIn() {
   OAuth.initialize(ACCESS_TOKEN);
 
-  return OAuth.popup("github", { scopes: ["gist"] })
-    .done(function(result) {
+  return OAuth.popup("github")
+    .done(result => {
       const json = result.toJson();
       return { access_token: json.access_token };
     })
-    .fail(function(err) {
-      return { err: err };
+    .fail(error => {
+      sessionStorage.setItem("toastr", "Login failuer");
+      // ログイン中にポップアップを閉じられた場合にreturn {error}が実行されないので、他のerrorが発火する前に強制リロードをかけています。
+      location.reload();
     });
 }
 
@@ -34,14 +36,14 @@ function* handleRequestOAuth() {
     yield take(REQUEST_OAUTH);
 
     yield put(loading());
-    const { access_token, err } = yield call(signIn);
-    if (!err) {
+    const { access_token, error } = yield call(signIn);
+    if (!error) {
       sessionStorage.setItem("access_token", access_token);
-      location.reload();
     } else {
-      yield put(failureLogin({ err: err }));
+      yield put(failureLogin({ error }));
       yield put(loaded());
     }
+    location.reload();
   }
 }
 
@@ -66,6 +68,12 @@ function* initialize(history) {
   } else {
     yield call(history.push, "/");
     yield put(loaded());
+  }
+
+  const message = sessionStorage.getItem("toastr");
+  if (message) {
+    toastr.error(message);
+    sessionStorage.removeItem("toastr");
   }
 }
 
