@@ -22,8 +22,6 @@ export class PostGistComponent implements OnInit {
     });
 
     constructor(private apiService: ApiService) {
-        //this.apiService.GetAcquiredAccessToken();
-        this.apiService.GetAcquiredAccessToken_byCookie();
     }
 
 

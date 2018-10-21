@@ -1,9 +1,11 @@
-<div *ngIf="this.apiService.access_token =='' ">
-  アクセストークンを取得中です
+<div *ngIf="this.apiService.access_token =='initial' ">
+    アクセストークンを取得中です。
 </div>
-<div *ngIf="this.apiService.access_token !='' ">
-  現在のアクセストークンは「{{this.apiService.access_token}}」です
+<div *ngIf="this.apiService.access_token !='initial'
+&& this.apiService.access_token !='error'">
+    アクセストークンを取得しました。<br>
+    右上の「AccessTokenCheck」はページを更新すると、現在のアクセストークンを反映します。
 </div>
 <div *ngIf="this.apiService.access_token =='error' ">
-  アクセストークンの取得に失敗しました
+    アクセストークンの取得に失敗しました。
 </div>

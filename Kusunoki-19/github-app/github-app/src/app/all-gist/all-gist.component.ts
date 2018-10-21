@@ -12,7 +12,7 @@ import {GistItem} from'../gist-single/gist-item';
 export class AllGistComponent implements OnInit {
 
     gists : GistItem[];
-    readLimit : number = 10;
+    readLimit : number = 3;
 
     constructor(
         private apiService: ApiService,

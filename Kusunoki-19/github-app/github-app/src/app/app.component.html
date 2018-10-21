@@ -1,23 +1,45 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<header>
-    <div id="titile_container">
-        <h1 id="title">
-            <a href="/">{{ title }}</a>
-        </h1>
-        <h2 id="sub_title">
-            {{sub_title}}
-        </h2>
-        <app-token-checker></app-token-checker>
+<header class="grid_full">
+    <div id="header_container" class="grid_4 center_block">
+
+        <div id="title_container">
+            <div id="title_outer">
+                <h1 id="title">
+                    <a href="/">{{ title }}</a>
+                </h1>
+            </div>
+        </div>
+        <div id="sub_title_container">
+            <div id="sub_title_outer">
+                <h3 id="sub_title">
+                    {{sub_title}}
+                </h3>
+            </div>
+        </div>
+        <div id="token-checker_container">
+            <div id="token-checker_outer">
+                <app-token-checker id="app-token-checker"></app-token-checker>
+            </div>
+        </div>
+
     </div>
 </header>
-<hr>
 
-<div id="main">
-    <app-menu></app-menu>
-    <div id="router_outlet">
-        <router-outlet></router-outlet>
+<div class="hr_block grid_full"></div>
+<div id="main" class="center_block grid_4">
+
+    <div id="app-menu_container" class="grid_1">
+        <div id="app-menu_outer">
+            <app-menu></app-menu>
+        </div>
     </div>
-</div>
+    <div id="router-outlet_container" class="grid_3">
+        <div id="router-outlet_outer">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 
-<hr>
+</div>
+<div class="hr_block grid_full"></div>
+
 <footer></footer>
