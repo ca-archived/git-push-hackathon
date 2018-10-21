@@ -4,6 +4,13 @@ import RxSwift
 import UIKit
 
 class GistListViewController: UIViewController, GistListViewProtocol, StoryboardInstantiatable {
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            tableView.register(UINib(nibName: String(describing: GistCell.self), bundle: nil), forCellReuseIdentifier: "cell")
+            tableView.delegate = self
+            tableView.tableFooterView = UIView()
+        }
+    }
     private var presenter: GistListPresenterProtocol!
     
     private let disposeBag = DisposeBag()
@@ -27,10 +34,10 @@ class GistListViewController: UIViewController, GistListViewProtocol, Storyboard
         
         presenter.viewModel
             .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] viewModel in
-                guard let `self` = self else { return }
-                print(viewModel)
-            })
+            .map { $0.gists }
+            .bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: GistCell.self)) { _, gist, cell in
+                cell.configure(gist)
+            }
             .disposed(by: disposeBag)
 
         rx.sentMessage(#selector(viewWillAppear(_:)))
@@ -38,5 +45,11 @@ class GistListViewController: UIViewController, GistListViewProtocol, Storyboard
             .map { _ in }
             .bind(to: refreshRelay)
             .disposed(by: disposeBag)
+    }
+}
+
+extension GistListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75.0
     }
 }

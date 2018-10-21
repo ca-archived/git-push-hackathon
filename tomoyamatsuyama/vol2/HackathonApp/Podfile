@@ -10,6 +10,7 @@ target 'HackathonApp' do
   pod 'SwiftGen'
   pod 'ReSwift'
   pod 'Cartography', '3.0.2'
+  pod 'Kingfisher'
   # Pods for HackathonApp
 
   target 'HackathonAppTests' do

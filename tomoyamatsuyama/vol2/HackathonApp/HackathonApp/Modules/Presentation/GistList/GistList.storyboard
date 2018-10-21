@@ -17,9 +17,24 @@
                     <view key="view" contentMode="scaleToFill" id="tEF-Xx-5y9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gGR-wP-8MF">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gGR-wP-8MF" firstAttribute="top" secondItem="LWl-Ny-isR" secondAttribute="top" id="7Od-q6-5UH"/>
+                            <constraint firstItem="gGR-wP-8MF" firstAttribute="leading" secondItem="LWl-Ny-isR" secondAttribute="leading" id="MMB-2p-UXO"/>
+                            <constraint firstItem="LWl-Ny-isR" firstAttribute="bottom" secondItem="gGR-wP-8MF" secondAttribute="bottom" id="eOI-pD-lOf"/>
+                            <constraint firstItem="LWl-Ny-isR" firstAttribute="trailing" secondItem="gGR-wP-8MF" secondAttribute="trailing" id="hQV-Ec-nim"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="LWl-Ny-isR"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="gGR-wP-8MF" id="2GF-PL-per"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dfj-EX-kgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
