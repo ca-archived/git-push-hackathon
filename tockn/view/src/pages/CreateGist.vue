@@ -9,7 +9,7 @@
       @setFilename="setFilename"
       @setContent="setContent" />
     <div class="card">
-      <button class="add-btn">Add file</button>
+      <button class="add-btn" @click="addFile">Add file</button>
       <button class="public-btn">Create public gist</button>
       <button class="secret-btn">Create secret gist</button>
     </div>
@@ -32,6 +32,9 @@ export default {
     },
     setContent (index, content) {
       this.files[index].content = content
+    },
+    addFile () {
+      this.files.push({})
     }
   },
   components: {
