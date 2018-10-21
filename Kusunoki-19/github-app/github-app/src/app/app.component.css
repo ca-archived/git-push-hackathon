@@ -2,70 +2,65 @@
 grid setting
 ----------*/
 .grid_4 {
-    width: 99%;
-    margin-left: 1%
+    width: 100%;
 }
 
 .grid_3 {
-    width: 74%;
-    margin-left: 1%
+    width: 75%;
 }
 
 .grid_2 {
-    width: 49%;
-    margin-left: 1%
+    width: 50%;
 }
 
 .grid_1 {
-    width: 24%;
-    margin-left: 1%
+    width: 25%;
 }
 
 .grid_full {
     width: 100%;
 }
+
 /*----------
 color setting
 ----------*/
 header {
-    background-color: #FFFFF8;
+    background-color: #FFFFFF;
 }
 
 .hr_block {
-    background-color: #0F1E32
+    background-color: #FFFFFF;
 }
 
 app-menu {
-    background-color: #FFFFF8;
+    background-color: transparent;
 }
 
 #main {
-    background-color: #FFFFF8;
+    background-color: #303233;
 }
+
+#router-outlet_container {
+    background-color: #FFFFFF;
+}
+
+
 /*----------
 font setting
 ----------*/
 @media screen {
-    * {
-        font-size: inherit;
-    }
 }
 
 @media screen and (max-width: 1024px) {
-    * {
-        font-size: inherit;
-    }
 }
 
 @media screen and (max-width: 640px) {
-    * {
-        font-size: inherit;
-    }
 }
 
 a {
     text-decoration: none;
 }
+
 /*----------
 main area setting
 ----------*/
@@ -73,6 +68,7 @@ main area setting
     display: block;
     overflow: hidden;
 }
+
 app-menu {
     top: 0;
     left: 0;
@@ -80,14 +76,33 @@ app-menu {
     float: left;
 }
 
-#router-outlet {
+#app-menu_container {
     top: 0;
-    right: 0;
+    display: block;
+    margin: 0;
+    float: left;
+    overflow: hidden;
+}
+#app-menu_outer {
+    margin: 2%;
+    width: 96%;
+    overflow: hidden;
+}
+
+#router-outlet_container {
+    top: 0;
     min-height: 200px;
     display: block;
     margin: 0;
     float: left;
+    overflow: hidden;
 }
+#router-outlet_outer {
+    margin: 2%;
+    width: 96%;
+    overflow: hidden;
+}
+
 /*----------
 block setting
 ----------*/
@@ -102,6 +117,7 @@ block setting
     margin: 0;
     padding: 0;
 }
+
 /*----------
 header area setting
 ----------*/
@@ -113,6 +129,7 @@ header area setting
 #title, #sub_title, app-token-checker {
     display: inline-block;
 }
+
 /*----------
 responsive block setting
 ----------*/
@@ -120,15 +137,16 @@ responsive block setting
     #titile_container {
         height: auto;
     }
+
     #title, #sub_title, #app-token-checker {
         display: block;
-        width : 100%;
+        width: 100%;
     }
 }
 
 @media screen and (max-width: 640px) {
-    #app-menu, #router-outlet{
+    #app-menu, #router-outlet {
         display: block;
-        width : 100%;
+        width: 100%;
     }
 }

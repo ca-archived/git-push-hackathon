@@ -1,20 +1,17 @@
-<p>
-    post-gist works!
-</p>
-<form [formGroup]="postGistForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="postGistForm" (ngSubmit)="onSubmit()" id="post_gist_form">
     <table>
         <tr>
-            <td> Description</td>
-            <td>
+            <td class="itemname_td"> Description</td>
+            <td class="input_td">
                 <input type="text" formControlName="description"
                        name="description" placeholder="test code from my github app" value="">
             </td>
         </tr>
         <tr>
-            <td>Release</td>
-            <td>
+            <td class="itemname_td">Release</td>
+            <td class="input_td">
                 <label>public
-                    <input type="radio" formControlName="release" name="release" value="true" checked="checked">
+                    <input type="radio" formControlName="release" name="release" value="true" [checked]="true">
                 </label>
                 <label>private
                     <input type="radio" formControlName="release" name="release" value="false" >
@@ -22,27 +19,26 @@
             </td>
         </tr>
         <tr>
-            <td>File name</td>
-            <td><input type="text" formControlName="fileName"
+            <td class="itemname_td">File name</td>
+            <td class="input_td">
+                <input type="text" formControlName="fileName"
                        name="fileName" placeholder="from_my_github_app.txt"value="">
             </td>
         </tr>
         <tr>
-            <td id="gist_editor_label">content</td>
-            <td><input id="gist_editor" type="text" formControlName="content"
-                       name="content" placeholder="test code text" value="">
+            <td class="itemname_td" id="gist_editor_label">content</td>
+            <td class="input_td">
+                <textarea id="gist_editor" formControlName="content"
+                       name="content" ></textarea>
             </td>
         </tr>
         <tr>
-            <td></td>
-            <td><button id="post_button" type="submit">Post Gist !!</button></td>
+            <td class="itemname_td"></td>
+            <td class="input_td"><button id="post_button" type="submit">Post Gist !!</button></td>
         </tr>
     </table>
 </form>
 
-<div *ngIf="postingGistSucceded == 0">
-    If you wanna post, push "Post Gist !!" (・ω・)
-</div>
 <div *ngIf="postingGistSucceded == 1">
     Posting Gist is Succeded  (｀・ω・´)
 </div>

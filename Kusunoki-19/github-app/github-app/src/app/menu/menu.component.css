@@ -1,11 +1,14 @@
 ul {
-    font-weight: bold;
     display: block;
     list-style-type: none;
     padding : 0;
 }
+ul {
+    color : #FFFFFF;
+}
 
 ul a{
+    color : #FFFFFF;
     text-decoration: none;
 }
 

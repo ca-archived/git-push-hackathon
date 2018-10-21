@@ -14,11 +14,17 @@
 </header>
 
 <div class="hr_block grid_full"></div>
-<div id="main" class="grid_4 center_block">
+<div id="main" class="center_block grid_4">
 
-    <app-menu id="app-menu" class="grid_1"></app-menu>
-    <div id="router-outlet" class="grid_3">
-        <router-outlet></router-outlet>
+    <div id="app-menu_container" class="grid_1">
+        <div id="app-menu_outer">
+            <app-menu></app-menu>
+        </div>
+    </div>
+    <div id="router-outlet_container" class="grid_3">
+        <div id="router-outlet_outer">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 
 </div>
