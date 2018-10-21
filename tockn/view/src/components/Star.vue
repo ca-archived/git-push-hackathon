@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">
+  <button class="btn" @click="star">
     <div class="wrap">
       <img class="icon" src="../assets/star.png" alt="">
       <label>{{ state }}</label>
@@ -8,7 +8,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     id: String
@@ -20,6 +19,12 @@ export default {
       } else {
         return 'Star'
       }
+    }
+  },
+  methods: {
+    star () {
+      if (this.id === undefined) return
+      this.$store.dispatch('gists/putStar', this.id)
     }
   },
   created () {
