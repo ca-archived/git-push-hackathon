@@ -14,10 +14,10 @@ import(
 )
 
 const(
-	clientSecretPath = "../environment/client_secret.txt"
-	clientIdPath = "../environment/client_id.txt"
-	certPath =  "../environment/cert.pem"
-	keyPath =  "../environment/key.pem"
+	clientSecretPath = "../env/client_secret.txt"
+	clientIdPath = "../env/client_id.txt"
+	certPath =  "../env/cert.pem"
+	keyPath =  "../env/key.pem"
 	rootPath = "../client"
 	port = 49651
 )
