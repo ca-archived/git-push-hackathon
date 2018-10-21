@@ -14,10 +14,12 @@
       <div class="add">
         <button class="add-btn" @click="addFile">Add file</button>
       </div>
-      <div class="public">
-        <button class="public-btn" @click="createGist(true)">Create public gist</button>
+      <loading v-show="loading"/>
+      <div class="public" v-show="!loading">
+        <button class="public-btn" @click="createGist(true)" >Create public gist</button>
         <button class="secret-btn" @click="createGist(false)">Create secret gist</button>
       </div>
+      <p class="error">{{ message }}</p>
     </div>
   </div>
 </template>
@@ -25,12 +27,15 @@
 <script>
 import {mapState} from 'vuex'
 import Editor from '../components/Editor'
+import Loading from '../components/Loading'
 
 export default {
   data () {
     return {
       description: '',
-      files: [{}]
+      files: [{}],
+      message: '',
+      loading: false
     }
   },
   computed: {
@@ -48,11 +53,32 @@ export default {
     addFile () {
       this.files.push({})
     },
+    validation () {
+      for (let i = 0; i < this.files.length; i++) {
+        let c = this.files[i].content
+        if (c !== '' && c !== undefined) {
+          this.message = ''
+          return true
+        }
+      }
+      this.message = 'Contents can\'t be empty'
+      return false
+    },
     createGist (public_) {
+      if (!this.validation()) return
+      this.loading = true
       let body = {}
       let files = {}
+      let count = 1
       this.files.forEach(file => {
-        files[file.filename] = {content: file.content}
+        let c = file.content
+        if (c === '' || c === undefined) return
+        if (file.filename !== undefined) {
+          files[file.filename] = {content: c}
+        } else {
+          files[`gistfile${count}.txt`] = {content: c}
+          count++
+        }
       })
       body.files = files
       body.public = public_
@@ -71,7 +97,8 @@ export default {
     }
   },
   components: {
-    'editor': Editor
+    'editor': Editor,
+    'loading': Loading
   }
 }
 
@@ -142,6 +169,10 @@ button {
   .public-btn {
     background-color: #fff;
   }
+}
+
+.error {
+  color: red;
 }
 
 </style>
