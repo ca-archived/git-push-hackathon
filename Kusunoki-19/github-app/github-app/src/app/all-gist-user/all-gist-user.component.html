@@ -1,6 +1,17 @@
 <div id="gist_area">
     <h3>All Gists</h3>
-    <div id="input_container">Gist
+    <p>Gistより多い表示を指定したときは、表示されません</p>
+    <div id="input_container">
+        <div class="input_outer">
+            <label>ページ
+                <input type="number" [(ngModel)]="page">
+            </label>
+        </div>
+        <div class="input_outer">
+            <label>1ページのGist
+                <input type="number" [(ngModel)]="readLimit">
+            </label>
+        </div>
         <div class="input_outer">
             <label>参照 User Name
                 <input type="text" [(ngModel)]="userName">
@@ -11,7 +22,7 @@
         </div>
         <div class="input_outer">
             <label>
-                表示中「gist{{readLimit*(page -1 ) + 1}}」～「gist{{readLimit*(page) + 1}}」
+                表示:gist{{readLimit*(page -1 ) + 1}}～{{readLimit*(page)}}
             </label>
         </div>
     </div>
