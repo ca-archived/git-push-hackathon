@@ -34,15 +34,12 @@ export default {
       }
     },
     owner () {
-      if (!this.gist) return ''
       return this.gist.owner
     },
     title () {
-      if (!this.gist) return ''
       return Object.keys(this.gist.files)[0]
     },
     comments () {
-      if (!this.gist) return 0
       return this.gist.comments
     },
     isMyGist () {
