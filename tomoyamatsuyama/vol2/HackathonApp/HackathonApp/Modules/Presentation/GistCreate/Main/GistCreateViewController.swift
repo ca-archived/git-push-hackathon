@@ -80,8 +80,13 @@ class GistCreateViewController: UIViewController, GistCreateViewProtocol, Storyb
                 self.tableView.reloadData()
             })
             .disposed(by: disposeBag)
+    }
+}
 
-//        presenter.viewModel
+
+/// 時間があればリファクタ
+// RxDataSourses使いたい。
+// presenter.viewModel
 //            .subscribeOn(MainScheduler.instance)
 //            .map { $0.sections }
 //            .bind(to: tableView.rx.items) { (tableView, row, section) in
@@ -101,8 +106,6 @@ class GistCreateViewController: UIViewController, GistCreateViewProtocol, Storyb
 //                }
 //            }
 //            .disposed(by: disposeBag)
-    }
-}
 
 extension GistCreateViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
