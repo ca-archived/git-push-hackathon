@@ -1,9 +1,9 @@
-## Git Push Hackathon
+# Git Push Hackathon
 tockn (佐藤琢斗)のプロジェクト
 
-## 概要
+# 概要
 
-### 機能
+## 機能
 - GitHubのOAuthを用いたログイン
 - /gists APIを用いた機能がある
   - gistの一覧表示
@@ -15,12 +15,14 @@ tockn (佐藤琢斗)のプロジェクト
 - ログアウト  
 ~~gistの編集削除（未完成）~~
 
-### 特徴
+## 特徴
 - Descriptionをメインにした一覧表示
 - スマートフォンでも閲覧、投稿がしやすいデザイン
-- イベント発火型のユーザー検索機能
+- キーボードの入力イベント発火型のユーザー検索機能（インクリメンタルサーチっぽく）
 
-## 環境構築
+# 環境構築
+
+## フロント
 
 フロントエンドのビルドにはvue-cli2の環境が必要です。  
 また、各パッケージをインストールするために`view/`内で`npm install`してください。  
@@ -28,6 +30,8 @@ tockn (佐藤琢斗)のプロジェクト
 例：
 `API_ENDPOINT: '"http://localhost:3000'"`
   
+## OAuth認証サーバー
+
 OAuth認証のために、Go製のサーバーを立てる必要があります。Go 1.10以上を推奨します。  
 環境変数の設定をします。  
 認証サーバーのエンドポイントを`$API_ENDPOINT`へ書きます。  
@@ -40,17 +44,21 @@ OAuth認証のために、Go製のサーバーを立てる必要があります�
 GitHub ApplicationのCLIENT IDを`$CLIENT_ID`へ、CLIENT SECRETを`$CLIENT_SECRET`へ設定してください。  
 SESSION SECRETを設定する必要があるので、任意の文字を`$SESSION_SECRET`へ設定してください。
   
-次に、Goのpackageの依存関係を解決するために、`tockn/`で`make deps`してください。depを入れた後、`dep ensure`で依存解決をします。
+次に、Goのpackageの依存関係を解決するために、`tockn/`で`make deps`してください。(depを入れた後、`dep ensure`で依存解決をします。)
+
+## さいご
+
 以上が完了したら、`tockn/`で`make dev`してください。または`go run main.go`と`npm run dev --prefix view`してください。
 
-## 設計
 
-### アーキテクチャ
+# 設計
+
+## アーキテクチャ
 Vue.js + Vuexを用い、MVVMのアーキテクチャを採用しています。
 
-![Architecture](https://i.imgur.com/53usCll.png)
+![Imgur](https://i.imgur.com/91newVM.png)
 
-### ディレクトリ構成
+## ディレクトリ構成
 
 ```
 view/
@@ -70,30 +78,30 @@ view/
     ├ assets/
 ```
 
-### components (View層 + ViewModel層)
+## components (View層 + ViewModel層)
 
 ここにはVueコンポーネントが入ります。
 
-#### globals
+### globals
 
 ルートコンポーネント(App.vue)から直接呼び出され、常に描画されるコンポーネント群。
 今回はヘッダーがここにあたる。Vuexを介してデータのやり取りを行う。
 
-#### pages
+### pages
 
 routerによって呼び出されるコンポーネント群。`globals`同様Vuexでデータのやり取りを行う。
 
-#### parts
+### parts
 
 `globals` `pages`から呼び出される子コンポーネント群。Vuexと直接やり取りせず、親コンポーネントとのデータのやり取りのみを行う。
 
-### store (Model層)
+## store (Model層)
 
-Vuex関連。modulesで切り分けたり。また、`vuex-persistedstate`を使用してstateであるアクセストークン永続化しています。ページを再読み込みする度にログインする必要がありません。
+Vuex関連。modulesで切り分けもした。GitHub APIとの通信はこの層の責務。components側でstateをcomputedで監視することによってMVVMを実装しています。また、`vuex-persistedstate`を使用してstateであるアクセストークンを永続化しています。これによってページをリロードしても再認可する必要がありません。
 
-## 画面
+# 画面
 
 ![Imgur](https://i.imgur.com/C3k9BmT.png)
   
-### Search  
+## Search  
 ![Imgur](https://i.imgur.com/EarKYt3.gif)
