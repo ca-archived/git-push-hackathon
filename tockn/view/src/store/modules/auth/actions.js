@@ -12,5 +12,8 @@ export default {
       .then(response => {
         commit('getMyData', response)
       })
+  },
+  setAccessToken ({ commit }, at) {
+    commit('setAccessToken', at)
   }
 }
