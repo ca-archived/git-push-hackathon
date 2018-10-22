@@ -14,3 +14,27 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function(){
+    return view('home');
+});
+
+// register
+Route::get('auth/register', 'Auth\RegisterController@showRegistrationForm');
+Route::post('auth/register', 'Auth\RegisterController@register');
+
+// login, logout
+Route::get('auth/login', 'Auth\LoginController@showLoginForm');
+Route::post('auth/login', 'Auth\LoginController@login');
+Route::get('auth/logout', 'Auth\LoginController@logout');
+
+// github
+Route::get('auth/login/github', 'Auth\SocialController@getGithubAuth');
+Route::get('auth/login/github/callback', 'Auth\SocialController@getGithubAuthCallback');
+
+// gists
+Route::get('gists', 'GistsController@showPublicList');
+Route::get('gists/my-gists', 'GistsController@showMyGistsList');
+Route::get('gists/send', function (){
+    return view('gists/gists_post');
+});
+Route::post('gists', 'GistsController@postGists');
