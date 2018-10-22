@@ -1,0 +1,11 @@
+<div id="check_result_area">
+    <div *ngIf="this.tokenIsOK==0">
+        Checking AccessToken...
+    </div>
+    <div *ngIf="this.tokenIsOK==1">
+        AccessTokenCheck <img class ="token_status_img" src="assets/ok_icon.png">
+    </div>
+    <div *ngIf="this.tokenIsOK==-1">
+        AccessTokenCheck <img class ="token_status_img" src="assets/bad_icon.png">
+    </div>
+</div>
