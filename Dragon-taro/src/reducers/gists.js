@@ -2,7 +2,8 @@ import {
   SET_GISTS,
   SET_ONE_GIST,
   SET_EDITOR_STATE,
-  HANDLE_CHANGE_EDITOR
+  HANDLE_CHANGE_EDITOR,
+  FAILURE_LOGIN
 } from "../actions/constants";
 
 const initial = {
@@ -19,6 +20,8 @@ export function gists(state = initial.gists, { type, payload }) {
   switch (type) {
     case SET_GISTS:
       return { gists: payload };
+    case FAILURE_LOGIN:
+      return initial.gists;
   }
 
   return state;
@@ -28,6 +31,8 @@ export function gist(state = initial.gist, { type, payload }) {
   switch (type) {
     case SET_ONE_GIST:
       return { ...state, [payload.id]: payload };
+    case FAILURE_LOGIN:
+      return initial.gist;
   }
 
   return state;

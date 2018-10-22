@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import Loader from "./parts/Loader";
+import { If } from "./parts/If";
 
 class Home extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    if (this.props.oauth.isAuthorized) this.props.actions.getGists();
+    this.props.actions.initialize();
   }
 
   getGist(id) {
@@ -57,12 +58,20 @@ class Home extends Component {
   }
 
   render() {
-    const isDisableLaod = this.props.gists.gists.length != 0;
+    const {
+      oauth: { isAuthorized },
+      load: { isLoading },
+      gists: { gists }
+    } = this.props;
+    const isDisableLaod = gists.length != 0;
 
     return (
       <div className="m-home">
         <Loader isDisableLaod={isDisableLaod} />
-        <ul className="gist-list">{this.gistsList()}</ul>
+        <If condition={isAuthorized}>
+          <ul className="gist-list">{this.gistsList()}</ul>
+        </If>
+        <If condition={!isAuthorized && !isLoading}>ログインして下さい</If>
       </div>
     );
   }

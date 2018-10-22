@@ -7,7 +7,8 @@ function mapStateToProps(state) {
     gists: state.gists,
     gist: state.gist,
     oauth: state.oauth,
-    load: state.load
+    load: state.load,
+    user: state.user
   };
 }
 

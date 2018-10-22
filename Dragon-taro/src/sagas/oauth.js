@@ -1,5 +1,10 @@
 import { fork, call, put, take } from "redux-saga/effects";
-import { REQUEST_OAUTH, GET_USER, LOGOUT } from "../actions/constants";
+import {
+  REQUEST_OAUTH,
+  GET_USER,
+  LOGOUT,
+  INITIALIZE
+} from "../actions/constants";
 import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
 import { Get } from "./api";
@@ -9,12 +14,11 @@ import {
   getUser,
   setUser,
   noUser,
+  getGists,
   loading,
   loaded
 } from "../actions/actions";
 import toastr from "toastr";
-
-const token = sessionStorage.getItem("access_token");
 
 function signIn() {
   OAuth.initialize(ACCESS_TOKEN);
@@ -24,7 +28,7 @@ function signIn() {
       const { access_token } = result.toJson();
       return { access_token };
     })
-    .fail(error => {
+    .fail(() => {
       sessionStorage.setItem("toastr", "Login failuer");
       // ログイン中にポップアップを閉じられた場合にreturn {error}が実行されないので、他のerrorが発火する前に強制リロードをかけています。
       location.reload();
@@ -61,20 +65,27 @@ function* getUserInfo() {
 }
 
 // 初期化したときにすでにログイン済みだったらUser情報を取得
-function* initialize(history) {
-  // ここでpingしたほうがいいかも
-  if (token) {
-    yield put(successLogin());
-    yield put(getUser());
-  } else {
-    yield call(history.push, "/");
-    yield put(loaded());
-  }
+function* handleInitialize(history) {
+  while (true) {
+    yield take(INITIALIZE);
+    yield put(loading());
+    const { resp, error } = yield call(Get, "");
 
-  const message = sessionStorage.getItem("toastr");
-  if (message) {
-    toastr.error(message);
-    sessionStorage.removeItem("toastr");
+    if (!error) {
+      yield put(successLogin());
+      yield put(getUser());
+      yield put(getGists());
+    } else {
+      yield call(history.push, "/");
+      yield put(failureLogin({ error }));
+      yield put(loaded());
+    }
+
+    const message = sessionStorage.getItem("toastr");
+    if (message) {
+      toastr.error(message);
+      sessionStorage.removeItem("toastr");
+    }
   }
 }
 
@@ -89,6 +100,6 @@ function* handleLogout() {
 export default function* rootSaga(history) {
   yield fork(handleRequestOAuth);
   yield fork(getUserInfo);
-  yield fork(initialize, history);
+  yield fork(handleInitialize, history);
   yield fork(handleLogout);
 }

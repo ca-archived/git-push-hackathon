@@ -22,7 +22,7 @@ export function oauth(state = initial.ouath, { type, payload }) {
     case SUCCESS_LOGIN:
       return { ...state, isAuthorized: true, err: null };
     case FAILURE_LOGIN:
-      return { ...state, isAuthorized: true, err: payload.err };
+      return { ...state, isAuthorized: false, err: payload.err };
   }
 
   return state;
@@ -33,7 +33,7 @@ export function user(state = initial.user, { type, payload }) {
     case SET_USER:
       return { ...payload, err: null };
     case NO_USER:
-      return { err: payload };
+      return { ...state, err: payload };
   }
 
   return state;

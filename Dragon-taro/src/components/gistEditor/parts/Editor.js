@@ -19,6 +19,7 @@ class Editor extends Component {
       }
     } = this.props;
     initEditor({ type: type, id: id });
+    this.props.actions.initialize();
   }
 
   isEdit() {

@@ -6,6 +6,7 @@ const initial = {
 
 // get~系のときにtrueにset~系のときにfalseに戻すようにしたらいいのかも
 export function load(state = initial, { type }) {
+  console.log(type);
   switch (type) {
     case LOADING:
       return { isLoading: true };
