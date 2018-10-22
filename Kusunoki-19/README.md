@@ -25,7 +25,7 @@ github-appはAngular CLI(version 6以降)を使用して作成されています
 またこのモジュールは標準でインストールされないはずなので、angularのプロジェクトディレクトリ(Kusunoki-19/github-app/github-app)でnpm installコマンドを使って上記のモジュールをインストールしてください。
 
 それが整った状態で、angularのプロジェクトディレクトリでng serve　--openコマンドを実行することで、angular開発のサーバーが起動し、ブラウザが自動で立ち上がります。
-何もプログラムを編集していない状態であれば、angularの標準である http://localhost:4200/ で再発サーバーが実行されます。
+何もプログラムを編集していない状態であれば、angularの標準である http://localhost:4200/ で開発サーバーが実行されます。
 
 またOAuth認証を行うときは、あらかじめoauth-serverを実行しておいてください。
 
