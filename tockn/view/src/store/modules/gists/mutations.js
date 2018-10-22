@@ -10,7 +10,7 @@ export default {
     if (state.gistsPage === 0) {
       state.gists = response.data
     } else {
-      Object.assign(state.gists, response.data)
+      state.gists = state.gists.concat(response.data)
     }
     state.gistsPage++
   },
