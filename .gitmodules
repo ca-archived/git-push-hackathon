@@ -1,0 +1,3 @@
+[submodule "shooontan/portalgist"]
+	path = shooontan/portalgist
+	url = git@github.com:shooontan/portalgist.git
