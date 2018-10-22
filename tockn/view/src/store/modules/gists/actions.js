@@ -3,21 +3,10 @@ import {request} from '../../utils'
 const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
-  getGists ({ commit, rootState }, username) {
+  getUserGists ({ commit, rootState }, username) {
     commit('initGists')
     let req = request('GET', `${API_ENDPOINT}/users/${username}/gists`, rootState.auth.at)
     axios(req)
-      .then(response => {
-        commit('getGists', response)
-      })
-  },
-  getMyGists ({ commit, rootState }) {
-    commit('initGists')
-    axios({
-      method: 'GET',
-      url: `${API_ENDPOINT}/gists`,
-      headers: {'Authorization': `bearer ${rootState.auth.at}`}
-    })
       .then(response => {
         commit('getGists', response)
       })

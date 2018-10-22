@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import Loading from '../parts/Loading'
 import UserCard from '../parts/UserCard'
 import GistCard from '../parts/GistCard'
@@ -24,18 +24,21 @@ export default {
     }),
     ...mapGetters('gists', {
       gists: 'gists'
-    })
+    }),
+    username () {
+      return this.$route.params.username
+    }
   },
   methods: {
+    ...mapActions('gists', [
+      'getUserGists'
+    ]),
+    ...mapActions('users', [
+      'getUser'
+    ]),
     getData () {
-      this.$store.dispatch('users/getUser', this.$route.params.username)
-      let username = this.$route.params.username
-      if (this.$store.state.me !== undefined &&
-        this.$store.state.me.login === username) {
-        this.$store.dispatch('gists/getMyGists')
-      } else {
-        this.$store.dispatch('gists/getGists', username)
-      }
+      this.getUser(this.username)
+      this.getUserGists(this.username)
     }
   },
   created () {
@@ -48,14 +51,8 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.$store.dispatch('users/getUser', this.$route.params.username)
-      let username = this.$route.params.username
-      if (this.$store.state.me !== undefined &&
-        this.$store.state.me.login === username) {
-        this.$store.dispatch('gists/getMyGists')
-      } else {
-        this.$store.dispatch('gists/getGists', username)
-      }
+      this.getUser(this.username)
+      this.getUserGists(this.username)
     }
   }
 }
