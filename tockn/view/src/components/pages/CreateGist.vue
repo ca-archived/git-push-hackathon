@@ -86,9 +86,6 @@ export default {
       this.$store.dispatch('gists/createGist', body)
     }
   },
-  created () {
-    this.$store.commit('gists/initGist')
-  },
   watch: {
     'gist' (value) {
       if (value !== undefined) {
