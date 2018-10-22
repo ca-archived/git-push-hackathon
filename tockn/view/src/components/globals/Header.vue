@@ -15,7 +15,9 @@
         </a>
       </div>
 
-      <div class="search">
+      <img src="../../assets/gistman.png" class="logo" @click="$router.push('/')">
+
+      <div v-if="login" class="search">
         <img @click="changeSearch" class="search-icon" src="../../assets/search.png" alt="search_logo.png">
       </div>
 
@@ -126,6 +128,15 @@ export default {
 }
 .search-box {
   text-align: center;
+  margin: auto;
+}
+.logo {
+  width: 120px;
+  height: 45px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
   margin: auto;
 }
 </style>
