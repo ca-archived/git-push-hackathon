@@ -4,10 +4,10 @@
       <user-card :username="user.login" :avatarURL="user.avatar_url" />
     </div>
     <loading v-else :withCard="true" />
-    <div v-if="gists && !loading">
+    <div v-if="gists">
       <gist-card v-for="(gist, index) in gists" :key="index" :gist="gist"/>
     </div>
-    <loading v-else />
+    <loading v-show="loading" />
   </div>
 </template>
 

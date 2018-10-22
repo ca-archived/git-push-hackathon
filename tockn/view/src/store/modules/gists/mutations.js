@@ -7,13 +7,11 @@ export default {
     state.loading = false
   },
   getGists (state, response) {
-    if (state.gistsPage === 1) {
+    if (state.gistsPage === 0) {
       state.gists = response.data
     } else {
       Object.assign(state.gists, response.data)
     }
-  },
-  pageIncrement (state) {
     state.gistsPage++
   },
   initPage (state) {

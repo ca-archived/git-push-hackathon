@@ -5,8 +5,7 @@ const API_ENDPOINT = process.env.API_ENDPOINT
 export default {
   getUserGists ({ commit, state, rootState }, username) {
     commit('setLoading', true)
-    commit('pageIncrement')
-    let req = request('GET', `${API_ENDPOINT}/users/${username}/gists?page=${state.gistsPage}`, rootState.auth.at)
+    let req = request('GET', `${API_ENDPOINT}/users/${username}/gists?page=${state.gistsPage + 1}`, rootState.auth.at)
     axios(req)
       .then(response => {
         commit('getGists', response)
