@@ -23,7 +23,7 @@ function createBody(data) {
   data.files.map(f => {
     files[f.filename] = { content: f.content };
   });
-  return { description: data.description, public: data.public, files: files };
+  return { description: data.description, public: data.public, files };
 }
 
 function reshapeGist(gist) {
@@ -42,10 +42,10 @@ function reshapeGist(gist) {
 
 function* handleGetGists() {
   while (true) {
-    const { payload } = yield take(GET_GISTS);
+    yield take(GET_GISTS);
 
     yield put(loading());
-    const { resp, error } = yield call(Get, "gists", payload);
+    const { resp, error } = yield call(Get, "gists");
     if (!error) {
       yield put(setGists(resp));
     } else {
@@ -95,7 +95,7 @@ function* handleSubmitGist(history) {
 function* handleInitEditor() {
   while (true) {
     const {
-      payload: { type, id } // type = "new" or "edit"
+      payload: { type, id }
     } = yield take(INIT_EDITOR);
 
     if (type == "edit") {

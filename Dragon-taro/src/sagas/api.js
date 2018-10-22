@@ -23,7 +23,6 @@ export function Send(path, data, method) {
     body: JSON.stringify(data)
   })
     .then(res => {
-      console.log(res);
       if (!res.ok) throw new Error(res.statusText);
 
       return res.json();

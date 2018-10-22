@@ -21,8 +21,8 @@ function signIn() {
 
   return OAuth.popup("github")
     .done(result => {
-      const json = result.toJson();
-      return { access_token: json.access_token };
+      const { access_token } = result.toJson();
+      return { access_token };
     })
     .fail(error => {
       sessionStorage.setItem("toastr", "Login failuer");
@@ -49,9 +49,9 @@ function* handleRequestOAuth() {
 
 function* getUserInfo() {
   while (true) {
-    const { payload } = yield take(GET_USER);
+    yield take(GET_USER);
 
-    const { resp, error } = yield call(Get, "user", payload);
+    const { resp, error } = yield call(Get, "user");
     if (!error) {
       yield put(setUser(resp));
     } else {
@@ -62,6 +62,7 @@ function* getUserInfo() {
 
 // 初期化したときにすでにログイン済みだったらUser情報を取得
 function* initialize(history) {
+  // ここでpingしたほうがいいかも
   if (token) {
     yield put(successLogin());
     yield put(getUser());
