@@ -222,10 +222,12 @@ export class ApiService {
             "https://api.github.com"
             + "/users/" + userName
             + "/gists"
-            + "?access_token=" + this.access_token
         );
         return httpObj;
+
+
     }
+
 
     GetPostGistReq(description, release, fileName, content) {
         /*
