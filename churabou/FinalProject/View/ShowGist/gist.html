@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <style media="screen">
+                iframe {
+                    width: 100%;
+                }
+            </style>
+    </head>
+    <body>
+        <iframe id="iframe" frameborder="0"></iframe>
+        <script type="text/javascript">
+            
+            function loadGist(user, id) {
+                const src = `https://gist.github.com/${user}/${id}.js`;
+                const embed = `<script src="${src}"><\/script>`;
+                const iframe = document.getElementById('iframe');
+                const docment = iframe.contentWindow.document;
+                const embedHtml = `<html><body onload="parent.adjustIframeHeight(document.body.scrollHeight)">${embed}</body></html>`;
+                docment.open();
+                docment.write(embedHtml);
+                docment.close();
+            }
+        
+        function adjustIframeHeight(newHeight) {
+            const iframe = document.getElementById('iframe');
+            iframe.style.height = parseInt(newHeight) + 'px';
+        }
+        </script>
+    </body>
+</html>
