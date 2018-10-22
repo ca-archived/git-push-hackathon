@@ -18,10 +18,10 @@
 
 <script>
 import PrismVue from 'vue-prism-component'
-import Prism from '../../static/prism'
-import Loading from '../components/Loading'
-import Desc from '../components/GistDescription'
-import '../../static/prism.css'
+import Prism from '../../../static/prism'
+import Loading from '../parts/Loading'
+import Desc from '../parts/GistDescription'
+import '../../../static/prism.css'
 import {mapGetters, mapState, mapActions} from 'vuex'
 
 export default {

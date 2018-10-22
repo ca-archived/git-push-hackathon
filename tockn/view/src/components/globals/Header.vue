@@ -16,7 +16,7 @@
       </div>
 
       <div class="search">
-        <img @click="changeSearch" class="search-icon" src="../assets/search.png" alt="search_logo.png">
+        <img @click="changeSearch" class="search-icon" src="../../assets/search.png" alt="search_logo.png">
       </div>
 
     </div>
@@ -33,9 +33,9 @@
 
 <script>
 import {mapState} from 'vuex'
-import SearchBox from '../components/SearchBox'
-import SearchResultBox from '../components/SearchResultBox'
-import Menu from '../components/Menu'
+import SearchBox from '../parts/SearchBox'
+import SearchResultBox from '../parts/SearchResultBox'
+import Menu from '../parts/Menu'
 const endpoint = process.env.OAUTH_ENDPOINT
 
 export default {

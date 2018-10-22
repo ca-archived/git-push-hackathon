@@ -26,8 +26,8 @@
 
 <script>
 import {mapState} from 'vuex'
-import Editor from '../components/Editor'
-import Loading from '../components/Loading'
+import Editor from '../parts/Editor'
+import Loading from '../parts/Loading'
 
 export default {
   data () {

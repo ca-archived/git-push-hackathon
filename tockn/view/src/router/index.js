@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/Home'
-import Callback from '@/pages/Callback'
-import User from '@/pages/User'
-import Gist from '@/pages/Gist'
-import Logout from '@/pages/Logout'
-import Create from '@/pages/CreateGist'
+import Home from '@/components/pages/Home'
+import Callback from '@/components/pages/Callback'
+import User from '@/components/pages/User'
+import Gist from '@/components/pages/Gist'
+import Logout from '@/components/pages/Logout'
+import Create from '@/components/pages/CreateGist'
+import Edit from '@/components/pages/EditGist'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/create',
       name: 'Create',
       component: Create
+    },
+    {
+      path: '/gists/:id/edit',
+      name: 'Edit',
+      component: Edit
     }
   ],
   scrollBehavior (to, from, savedPosition) {

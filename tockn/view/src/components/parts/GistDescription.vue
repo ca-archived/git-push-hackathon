@@ -8,9 +8,9 @@
     </div>
     <div class="info">
       <comments class="comments" :num="comments"/>
-      <icon-btn class="star" :src="require('../assets/star.png')" :text="starState" @click="$emit('star')" />
-      <icon-btn v-if="isMyGist" :src="require('../assets/pen.png')" text="edit" />
-      <icon-btn v-if="isMyGist" :src="require('../assets/stash.png')" text="delete" />
+      <icon-btn class="star" :src="require('../../assets/star.png')" :text="starState" @click="$emit('star')" />
+      <icon-btn v-if="isMyGist" :src="require('../../assets/pen.png')" text="edit" />
+      <icon-btn v-if="isMyGist" :src="require('../../assets/stash.png')" text="delete" />
     </div>
   </div>
 </template>

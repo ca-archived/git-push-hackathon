@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <img class="icon" src="../assets/comments.png" alt="">
+    <img class="icon" src="../../assets/comments.png" alt="">
     <p class="num">{{ num }}</p>
   </div>
 </template>

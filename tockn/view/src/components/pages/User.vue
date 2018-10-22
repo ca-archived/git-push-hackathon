@@ -13,9 +13,9 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import Loading from '../components/Loading'
-import UserCard from '../components/UserCard'
-import GistCard from '../components/GistCard'
+import Loading from '../parts/Loading'
+import UserCard from '../parts/UserCard'
+import GistCard from '../parts/GistCard'
 
 export default {
   computed: {
