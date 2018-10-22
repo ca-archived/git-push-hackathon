@@ -1,5 +1,6 @@
 package io.github.hunachi.shared
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.*
 import java.util.concurrent.atomic.AtomicBoolean
+import android.net.NetworkInfo
+import android.content.Context.CONNECTIVITY_SERVICE
+import androidx.core.content.ContextCompat.getSystemService
+import android.net.ConnectivityManager
+import android.widget.Toast
+
 
 // lazy of none safety but fast thread mode
 fun <T> lazyFast(operation: () -> T) = lazy(LazyThreadSafetyMode.NONE) {
@@ -66,7 +73,7 @@ fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) {
 }
 
 fun <T> MutableLiveData<T>.call() {
-    this.value = null
+    this.postValue(null)
 }
 
 fun <T> singleLiveData(): MutableLiveData<T> {
@@ -79,4 +86,14 @@ fun <T> LiveData<T>.singleLiveData(owner: LifecycleOwner, observer: (T?) -> Unit
         if (atomicBoolean.getAndSet(false)) return@Observer
         observer(it)
     })
+}
+
+fun Context.netWorkCheck(): Boolean {
+    val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val info = cm.activeNetworkInfo
+    return info?.isConnected ?: false
+}
+
+fun Context.toast(message: String){
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

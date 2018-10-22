@@ -1,6 +1,5 @@
 package io.github.hunachi.gist.di
 
-import io.github.hunachi.database.MyDatabase
 import io.github.hunachi.gist.GistLocalRepository
 import io.github.hunachi.gist.GistRepository
 import io.github.hunachi.gistnetwork.GistClientFactory
@@ -14,6 +13,4 @@ val gistModule = module {
     factory { GistLocalRepository(get()) }
 
     single(GIST_CLIENT) { GistClientFactory.gistClientInstance() }
-
-    single { MyDatabase.getInstance(get()) }
 }

@@ -11,7 +11,7 @@ class GistListActionCreator(
 ) {
     private var job: Job? = null
 
-    fun updateList(userName: String, token: String) {
+    fun updateList(userName: String?, token: String) {
         stopLoading()
         dispatcher.send(GistListAction.UpdateGist(repository.update(userName, token)))
     }

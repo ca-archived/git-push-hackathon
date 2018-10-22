@@ -1,6 +1,7 @@
 package io.github.hunachi.oauth
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,17 +9,19 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import io.github.hunachi.oauth.databinding.ActivityOauthBinding
-import io.github.hunachi.shared.lazyFast
-import io.github.hunachi.shared.nonNullObserve
-import io.github.hunachi.shared.observe
+import io.github.hunachi.oauth.di.oauthModule
+import io.github.hunachi.shared.*
+import io.github.hunachi.user.di.userModule
 
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.standalone.StandAloneContext.loadKoinModules
 
 class OAuthActivity : AppCompatActivity() {
 
     private val oauthActionCreator: OAuthActionCreator by inject()
     private val oauthStore: OAuthStore by viewModel()
+    private val preference: SharedPreferences by inject()
 
     val binding by lazyFast {
         DataBindingUtil.setContentView<ActivityOauthBinding>(this, R.layout.activity_oauth)
@@ -27,8 +30,11 @@ class OAuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        loadKoinModules(listOf(oauthModule, userModule))
+
         binding.button.setOnClickListener {
-            oauthActionCreator.igniteOauth()
+            if (netWorkCheck()) oauthActionCreator.igniteOauth()
+            else toast("ネット環境を確認してにゃ！")
         }
 
         oauthStore.apply {
@@ -45,8 +51,12 @@ class OAuthActivity : AppCompatActivity() {
             }
 
             isSuccessState.observe(this@OAuthActivity) {
-                Toast.makeText(this@OAuthActivity, "uriが届いた", Toast.LENGTH_SHORT).show()
-                finish()
+                preference.token()?.let { oauthActionCreator.loadUser(it) }
+            }
+
+            userState.nonNullObserve(this@OAuthActivity) {
+                preference.ownerName(it.login)
+                Toast.makeText(this@OAuthActivity, "こんにちは！${it.login}さん．", Toast.LENGTH_SHORT).show()
             }
         }.run {
             onCreate()

@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                tools:context=".GistListFragment"
+                tools:context=".view.GistListFragment"
                 tools:listitem="@layout/fragment_gist" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

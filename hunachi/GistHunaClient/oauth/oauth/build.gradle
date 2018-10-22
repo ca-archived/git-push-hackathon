@@ -47,6 +47,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':shared')
     implementation project(':oauthnetwork')
+    implementation project(':user')
+    implementation project(':model')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'
@@ -74,9 +76,12 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
-    // koin
-    implementation 'org.koin:koin-android:1.0.1'
-    implementation 'org.koin:koin-androidx-viewmodel:1.0.1'
+    def koin_version = "1.0.1"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-core-ext:$koin_version"
 
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2'

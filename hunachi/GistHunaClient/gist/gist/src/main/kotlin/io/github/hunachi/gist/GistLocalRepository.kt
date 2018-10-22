@@ -6,9 +6,11 @@ import io.github.hunachi.model.File
 import io.github.hunachi.model.Gist
 import kotlinx.coroutines.experimental.*
 
-class GistLocalRepository(private val database: MyDatabase) {
+internal class GistLocalRepository(private val database: MyDatabase) {
 
     fun gists(): DataSource.Factory<Int, Gist> = database.getGistDao().findGists()
+
+    fun userGists(name: String): DataSource.Factory<Int, Gist> = database.getGistDao().findUserGists(name)
 
     suspend fun insertGists(gists: List<Gist>) = coroutineScope {
         launch {
@@ -16,9 +18,15 @@ class GistLocalRepository(private val database: MyDatabase) {
         }.join()
     }
 
-    suspend fun insertFiles(files: List<File>)  = coroutineScope {
+    suspend fun insertFiles(files: List<File>) = coroutineScope {
         launch {
             database.getFileDao().insertFiles(files)
+        }.join()
+    }
+
+    suspend fun deleteGists() = coroutineScope {
+        launch {
+            database.getGistDao().deleteAllGists()
         }.join()
     }
 }
