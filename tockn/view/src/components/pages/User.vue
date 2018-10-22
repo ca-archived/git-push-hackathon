@@ -8,6 +8,7 @@
       <gist-card v-for="(gist, index) in gists" :key="index" :gist="gist"/>
     </div>
     <loading v-show="loading" />
+    <page-btn v-show="!loading" @click="getUserGists(username)"/>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 import Loading from '../parts/Loading'
 import UserCard from '../parts/UserCard'
 import GistCard from '../parts/GistCard'
+import PageButton from '../parts/PageButton'
 
 export default {
   computed: {
@@ -51,7 +53,8 @@ export default {
   components: {
     'loading': Loading,
     'user-card': UserCard,
-    'gist-card': GistCard
+    'gist-card': GistCard,
+    'page-btn': PageButton
   },
   watch: {
     '$route' (to, from) {
