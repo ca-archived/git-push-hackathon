@@ -1,5 +1,5 @@
 ## Git Push Hackathon
-tockn (佐藤琢斗)
+tockn (佐藤琢斗)のプロジェクト
 
 ## 概要
 
@@ -10,10 +10,15 @@ tockn (佐藤琢斗)
      - Public Gist一覧
      - 任意のUserのGist一覧
   - gistを投稿できる
-  - gistの編集削除（未完成）
   - gistのstar, unstarができる
 - userの検索ができる
-- ログアウト
+- ログアウト  
+~~gistの編集削除（未完成）~~
+
+### 特徴
+- Descriptionをメインにした一覧表示
+- スマートフォンでも閲覧、投稿がしやすいデザイン
+- イベント発火型のユーザー検索機能
 
 ## 環境構築
 
@@ -27,7 +32,7 @@ OAuth認証のために、Go製のサーバーを立てる必要があります�
 環境変数の設定をします。  
 認証サーバーのエンドポイントを`$API_ENDPOINT`へ書きます。  
 認証サーバーは3000番ポートでサーブします。  
-`npm run dev`でサーブするURLも`$REDIRECT_URL`へ設定してください。デフォルトは8080番です。  
+`npm run dev`でサーブする時のURLも`$REDIRECT_URL`へ設定してください。デフォルトは8080番です。  
 例：  
 `export API_ENDPOINT=http://localhost:3000`  
 `export REDIRECT_URL=http://localhost:8080`  
@@ -35,9 +40,8 @@ OAuth認証のために、Go製のサーバーを立てる必要があります�
 GitHub ApplicationのCLIENT IDを`$CLIENT_ID`へ、CLIENT SECRETを`$CLIENT_SECRET`へ設定してください。  
 SESSION SECRETを設定する必要があるので、任意の文字を`$SESSION_SECRET`へ設定してください。
   
+次に、Goのpackageの依存関係を解決するために、`tockn/`で`make deps`してください。depを入れた後、`dep ensure`で依存解決をします。
 以上が完了したら、`tockn/`で`make dev`してください。または`go run main.go`と`npm run dev --prefix view`してください。
-
-
 
 ## 設計
 
@@ -85,7 +89,7 @@ routerによって呼び出されるコンポーネント群。`globals`同様Vu
 
 ### store (Model層)
 
-Vuex関連。modulesで切り分けたり。また、`vuex-persistedstate`を使用してstateの永続化しています。（ページを読み込むたびにアクセストークンを取得する必要がなくなったり）
+Vuex関連。modulesで切り分けたり。また、`vuex-persistedstate`を使用してstateであるアクセストークン永続化しています。ページを再読み込みする度にログインする必要がありません。
 
 ## 画面
 
