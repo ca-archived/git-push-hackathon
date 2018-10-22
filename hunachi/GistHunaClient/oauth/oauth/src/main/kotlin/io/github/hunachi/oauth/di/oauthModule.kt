@@ -1,12 +1,9 @@
 package io.github.hunachi.oauth.di
 
-import io.github.hunachi.oauth.OAuthActionCreator
+import io.github.hunachi.oauth.OauthActionCreator
 import io.github.hunachi.oauth.OAuthStore
-import io.github.hunachi.oauthnetwork.OAuthAdapter
-import io.github.hunachi.oauthnetwork.OauthClient
 import io.github.hunachi.oauthnetwork.OauthClientFactory
-import io.github.hunachi.oauthnetwork.OauthRepository
-import io.github.hunachi.user.di.userModule
+import io.github.hunachi.oauth.OauthRepository
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
@@ -20,7 +17,7 @@ val oauthModule = module {
 
     factory(name = OAUTH_URL) { OauthClientFactory.url }
 
-    viewModel { OAuthStore(get(), get()) }
+    viewModel { OAuthStore(get()) }
 
-    factory { OAuthActionCreator(get(), get(), get()) }
+    factory { OauthActionCreator(get(), get(), get()) }
 }

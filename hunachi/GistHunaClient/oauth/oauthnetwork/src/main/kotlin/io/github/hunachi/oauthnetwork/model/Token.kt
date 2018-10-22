@@ -1,4 +1,4 @@
-package io.github.hunachi.oauthnetwork
+package io.github.hunachi.oauthnetwork.model
 
 import com.squareup.moshi.Json
 

@@ -5,21 +5,22 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import io.github.hunachi.oauth.databinding.ActivityOauthBinding
 import io.github.hunachi.oauth.di.oauthModule
 import io.github.hunachi.shared.*
+import io.github.hunachi.shared.network.NetWorkError
 import io.github.hunachi.user.di.userModule
 
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.standalone.StandAloneContext.loadKoinModules
 
-class OAuthActivity : AppCompatActivity() {
+class OauthActivity : AppCompatActivity() {
 
-    private val oauthActionCreator: OAuthActionCreator by inject()
+    private val oauthActionCreator: OauthActionCreator by inject()
     private val oauthStore: OAuthStore by viewModel()
     private val preference: SharedPreferences by inject()
 
@@ -32,31 +33,36 @@ class OAuthActivity : AppCompatActivity() {
 
         loadKoinModules(listOf(oauthModule, userModule))
 
-        binding.button.setOnClickListener {
+        binding.authButton.setOnClickListener {
             if (netWorkCheck()) oauthActionCreator.igniteOauth()
-            else toast("ネット環境を確認してにゃ！")
+            else toastNetworkError(NetWorkError.NORMAL)
         }
 
+        binding.loadingDialog.isVisible = false
+
         oauthStore.apply {
-            isLoadingState.nonNullObserve(this@OAuthActivity) {
-                binding.button.isClickable = !it
+            isLoadingState.nonNullObserve(this@OauthActivity) {
+                binding.authButton.isClickable = !it
+                binding.loadingDialog.apply { isVisible = it }.run { if (it) start() else stop() }
             }
 
-            isErrorState.observe(this@OAuthActivity) {
-                Log.d("tag", "isErrorState is working.")
+            errorState.observe(this@OauthActivity) {
+                toastNetworkError(it)
             }
 
-            oauthUrlState.nonNullObserve(this@OAuthActivity) {
+            oauthUrlState.nonNullObserve(this@OauthActivity) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
             }
 
-            isSuccessState.observe(this@OAuthActivity) {
+            tokenState.nonNullObserve(this@OauthActivity) {
+                preference.token(it.token)
                 preference.token()?.let { oauthActionCreator.loadUser(it) }
             }
 
-            userState.nonNullObserve(this@OAuthActivity) {
+            userState.nonNullObserve(this@OauthActivity) {
                 preference.ownerName(it.login)
-                Toast.makeText(this@OAuthActivity, "こんにちは！${it.login}さん．", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@OauthActivity, "こんにちは！${it.login}さん．", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }.run {
             onCreate()
@@ -76,6 +82,6 @@ class OAuthActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newInstance() = OAuthActivity()
+        fun newInstance() = OauthActivity()
     }
 }

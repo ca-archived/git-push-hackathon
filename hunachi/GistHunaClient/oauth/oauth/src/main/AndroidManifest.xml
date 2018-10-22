@@ -7,7 +7,7 @@
     <application
         android:allowBackup="true">
         <activity
-            android:name=".OAuthActivity"
+            android:name=".OauthActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -21,7 +21,7 @@ internal class GistBoundaryCallback(
 ) : PagedList.BoundaryCallback<Gist>() {
 
     companion object {
-        const val PER_PAGE_COUNT = 20
+        const val PER_PAGE_COUNT = 30
     }
 
     private val _networkErrorState = MutableLiveData<NetWorkError>()

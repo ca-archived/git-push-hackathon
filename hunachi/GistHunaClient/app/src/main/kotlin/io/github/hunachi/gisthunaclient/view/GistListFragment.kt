@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import io.github.hunachi.gisthunaclient.databinding.FragmentGistListBinding
 import io.github.hunachi.gisthunaclient.flux.GistListActionCreator
 import io.github.hunachi.gisthunaclient.flux.GistListStore
 import io.github.hunachi.shared.*
-import io.github.hunachi.shared.network.NetWorkError
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,9 +31,7 @@ class GistListFragment : Fragment() {
                 adapter = listAdapter
                 layoutManager = LinearLayoutManager(context)
             }
-            swipeRefresh.setOnRefreshListener {
-                refreshList()
-            }
+            swipeRefresh.setOnRefreshListener { refreshList() }
             binding = this
         }.root
     }
@@ -58,15 +54,7 @@ class GistListFragment : Fragment() {
             }
 
             errorState.observe(this@GistListFragment) {
-                activity?.let { activity ->
-                    activity.toast(
-                            when {
-                                !activity.netWorkCheck() -> "ネット環境の確認をお願いにゃ！"
-                                it == NetWorkError.FIN -> "読み込めるものがもうないにゃ！"
-                                else -> "えらーにゃーん"
-                            })
-
-                }
+                activity?.let { activity -> activity.toastNetworkError(it) }
             }
         }.run {
             onCreate()

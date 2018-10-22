@@ -11,11 +11,13 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common/database" />
             <option value="$PROJECT_DIR$/common/model" />
+            <option value="$PROJECT_DIR$/common/resource" />
             <option value="$PROJECT_DIR$/common/shared" />
             <option value="$PROJECT_DIR$/gist/gist" />
             <option value="$PROJECT_DIR$/gist/gistnetwork" />
             <option value="$PROJECT_DIR$/oauth/oauth" />
             <option value="$PROJECT_DIR$/oauth/oauthnetwork" />
+            <option value="$PROJECT_DIR$/oauthui" />
             <option value="$PROJECT_DIR$/user/user" />
             <option value="$PROJECT_DIR$/user/usernetwork" />
           </set>

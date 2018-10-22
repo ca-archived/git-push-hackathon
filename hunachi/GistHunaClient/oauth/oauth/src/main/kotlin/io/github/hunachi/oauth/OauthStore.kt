@@ -1,11 +1,11 @@
 package io.github.hunachi.oauth
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.hunachi.model.User
+import io.github.hunachi.oauthnetwork.model.Token
 import io.github.hunachi.shared.*
 import io.github.hunachi.shared.flux.Dispatcher
 import io.github.hunachi.shared.flux.Store
@@ -17,27 +17,26 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 
-internal class OAuthStore(
-        private val dispatcher: Dispatcher,
-        private val preference: SharedPreferences
-) : Store() {
+internal class OAuthStore(dispatcher: Dispatcher) : Store() {
 
-    private val oauthSubscriber = dispatcher.asChannel<OAuthAction>()
+    private val oauthSubscriber = dispatcher.asChannel<OauthAction>()
     private var job: Job? = null
 
     val _oathUrlState = MutableLiveData<String>()
     val oauthUrlState: LiveData<String> = _oathUrlState
 
-    private val _isLoadingState = MutableLiveData<Boolean>()
-    val isLoadingState: LiveData<Boolean> = _isLoadingState
+    private val _oauthResultState = MutableLiveData<OauthResult>()
 
-    private val _isErrorState = MutableLiveData<NetWorkError>()/*MediatorLiveData<NetWorkError>().apply {
-        addSource(userStateError) { if (it != null) call() }
-    }*/
-    val isErrorState: LiveData<NetWorkError> = _isErrorState
+    val isLoadingState: LiveData<Boolean> = Transformations.switchMap(_oauthResultState) {
+        it.loadingState
+    }
 
-    private val _isSuccessState = MutableLiveData<Nothing>()
-    val isSuccessState = _isSuccessState
+    val tokenState: LiveData<Token> = Transformations.switchMap(_oauthResultState) {
+        it.tokenState
+    }
+
+    private val _errorState = MediatorLiveData<NetWorkError>()
+    val errorState: LiveData<NetWorkError> = _errorState
 
     private val _userResultState = MutableLiveData<UserResult>()
 
@@ -45,26 +44,21 @@ internal class OAuthStore(
         it.userState
     }
 
-    private val userStateError: LiveData<NetWorkError> = Transformations.switchMap(_userResultState) {
-        it.errorState
-    }
-
     fun onCreate() {
         job = CoroutineScope(Dispatchers.Main).launch {
             oauthSubscriber.consumeEach {
                 when (it) {
-                    is OAuthAction.IgniteOauth -> _oathUrlState.value = it.url
+                    is OauthAction.IgniteOauth -> _oathUrlState.value = it.url
 
-                    is OAuthAction.SaveToken -> {
-                        preference.token(it.token)
-                        _isSuccessState.call()
+                    is OauthAction.ReceiveOauthResult -> {
+                        _oauthResultState.postValue(it.oauthResult)
+                        addErrorState(it.oauthResult.errorState)
                     }
 
-                    is OAuthAction.IsLoading -> _isLoadingState.value = it.isLoading
-
-                    is OAuthAction.IsError -> _isErrorState.value = NetWorkError.NORMAL
-
-                    is OAuthAction.UpdateUser -> _userResultState.value = it.userResult
+                    is OauthAction.UpdateUser -> {
+                        _userResultState.value = it.userResult
+                        addErrorState(it.userResult.errorState)
+                    }
                 }.checkAllMatched
             }
         }
@@ -74,5 +68,9 @@ internal class OAuthStore(
         oauthSubscriber.cancel()
         job?.cancel()
         super.onCleared()
+    }
+
+    private fun addErrorState(errorState: LiveData<NetWorkError>) {
+        _errorState.addSource(errorState) { if (it != null) _errorState.value = it }
     }
 }

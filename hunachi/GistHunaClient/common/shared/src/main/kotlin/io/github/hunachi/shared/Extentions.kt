@@ -21,6 +21,7 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import androidx.core.content.ContextCompat.getSystemService
 import android.net.ConnectivityManager
 import android.widget.Toast
+import io.github.hunachi.shared.network.NetWorkError
 
 
 // lazy of none safety but fast thread mode
@@ -94,6 +95,14 @@ fun Context.netWorkCheck(): Boolean {
     return info?.isConnected ?: false
 }
 
-fun Context.toast(message: String){
+fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.toastNetworkError(error: NetWorkError) {
+    toast(when {
+        !netWorkCheck() -> "ネット環境の確認をお願いにゃ！"
+        error == NetWorkError.FIN -> "読み込めるものがもうないにゃ！"
+        else -> "えらーにゃーん"
+    })
 }

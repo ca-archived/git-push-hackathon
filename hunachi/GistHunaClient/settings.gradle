@@ -1,10 +1,11 @@
-include ':app'
+include ':app', ':oauthui'
 
 def commonModule = new File('common')
-include ':shared', ':model', ':database'
+include ':shared', ':model', ':database', ':resource'
 project(':shared').projectDir = new File(commonModule, 'shared')
 project(':model').projectDir = new File(commonModule, 'model')
 project(':database').projectDir = new File(commonModule, 'database')
+project(':resource').projectDir = new File(commonModule, 'resource')
 
 def gistModule = new File('gist')
 include ':gistnetwork', ':gist'

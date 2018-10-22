@@ -1,5 +1,6 @@
 package io.github.hunachi.oauthnetwork
 
+import io.github.hunachi.oauthnetwork.model.Token
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

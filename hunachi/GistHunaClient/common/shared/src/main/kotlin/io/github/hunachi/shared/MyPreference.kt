@@ -23,4 +23,4 @@ fun SharedPreferences.firstCheckIn() = edit { putBoolean(NAME_FIRST_USER, false)
 
 fun SharedPreferences.ownerName() = getString(NAME_OWNER, null)
 
-fun SharedPreferences.ownerName(name: String) = edit { putString(NAME_OWNER, null) }
+fun SharedPreferences.ownerName(name: String) = edit { putString(NAME_OWNER, name) }
