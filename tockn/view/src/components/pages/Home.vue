@@ -35,14 +35,24 @@ export default {
   },
   methods: {
     ...mapActions('gists', [
-      'getPublicGists'
+      'getPublicGists',
+      'initPage'
     ]),
     login () {
       location.href = `${endpoint}/auth/github`
     }
   },
   created () {
-    this.getPublicGists()
+    this.initPage().then(() => {
+      this.getPublicGists()
+    })
+  },
+  watch: {
+    '$route' (to, from) {
+      this.initPage().then(() => {
+        this.getPublicGists()
+      })
+    }
   },
   components: {
     'page-btn': PageButton,
