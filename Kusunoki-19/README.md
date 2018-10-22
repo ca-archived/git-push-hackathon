@@ -54,7 +54,7 @@ oauth-serverはgithubb-app(アプリケーションのクライアントサイ�
 
 ## OAuthServreで使用しているポート番号が他のアプリケーションで占有されている
 
-プログラムを触っていなければOAuthServerはhttp://localhost:4201/で実行されます。
+プログラムを触っていなければOAuthServerは http://localhost:4201/ で実行されます。
 そのため、port 4201でほかのアプリケーションが実行されている場合は、サーバーを実行することができません。
 
 その場合は、OAuthServerのProgram.csにあるGlobalValsクラスのSERVER_ORIGIN変数の中身を編集し、使用していないポート番号に変更します。
