@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="card">
+      <h2>Public Gists</h2>
+    </div>
     <div v-if="gists">
       <gist-card v-for="(gist, index) in gists" :key="index" :gist="gist"/>
     </div>

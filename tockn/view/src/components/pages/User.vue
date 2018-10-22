@@ -49,6 +49,10 @@ export default {
   },
   created () {
     this.getData()
+    this.initPage().then(() => {
+      this.getUser(this.username)
+      this.getUserGists(this.username)
+    })
   },
   components: {
     'loading': Loading,
