@@ -1,17 +1,17 @@
 <template>
   <div class="menu-bar">
 
-    <router-link class="card menu" to="/logout">
+    <div class="card menu" @click="$router.push('/logout')">
         <label>Logout</label>
-    </router-link>
+    </div>
 
-    <router-link class="card menu" :to="'/users/'+username">
+    <div class="card menu" @click="$router.push('/users/'+username)">
         <label>Your Gists</label>
-    </router-link>
+    </div>
 
-    <router-link class="card menu" to="/create">
+    <div class="card menu" @click="$router.push('/create')">
         <label>New Gist</label>
-    </router-link>
+    </div>
 
   </div>
 </template>
@@ -38,5 +38,6 @@ export default {
   vertical-align: middle;
   color: black;
   display: table-cell;
+  padding: 10px 28px 10px 28px;
 }
 </style>
