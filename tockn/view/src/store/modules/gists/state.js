@@ -1,5 +1,7 @@
 export default {
   gist: undefined,
   gists: undefined,
-  starred: false
+  gistsPage: 0,
+  starred: false,
+  loading: false
 }

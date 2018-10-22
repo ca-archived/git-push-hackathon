@@ -3,18 +3,27 @@ export default {
     state.gist = undefined
     state.gists = undefined
     state.starred = false
+    state.gistsPage = 0
+    state.loading = false
   },
   getGists (state, response) {
-    state.gists = response.data
+    if (state.gistsPage === 1) {
+      state.gists = response.data
+    } else {
+      Object.assign(state.gists, response.data)
+    }
+  },
+  pageIncrement (state) {
+    state.gistsPage++
+  },
+  initPage (state) {
+    state.gistsPage = 0
   },
   getGist (state, response) {
     state.gist = response.data
   },
-  initGists (state) {
-    state.gists = undefined
-  },
-  initGist (state) {
-    state.gist = undefined
+  setLoading (state, status) {
+    state.loading = status
   },
   checkStarred (state, response) {
     if (response.status === 204) {

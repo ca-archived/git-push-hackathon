@@ -3,20 +3,26 @@ import {request} from '../../utils'
 const API_ENDPOINT = process.env.API_ENDPOINT
 
 export default {
-  getUserGists ({ commit, rootState }, username) {
-    commit('initGists')
-    let req = request('GET', `${API_ENDPOINT}/users/${username}/gists`, rootState.auth.at)
+  getUserGists ({ commit, state, rootState }, username) {
+    commit('setLoading', true)
+    commit('pageIncrement')
+    let req = request('GET', `${API_ENDPOINT}/users/${username}/gists?page=${state.gistsPage}`, rootState.auth.at)
     axios(req)
       .then(response => {
         commit('getGists', response)
+        commit('setLoading', false)
       })
   },
+  initPage ({ commit }) {
+    commit('initPage')
+  },
   getGist ({ commit, rootState }, id) {
-    commit('initGist')
+    commit('setLoading', true)
     let req = request('GET', `${API_ENDPOINT}/gists/${id}`, rootState.auth.at)
     axios(req)
       .then(response => {
         commit('getGist', response)
+        commit('setLoading', false)
       })
   },
   checkStarred ({ commit, rootState }, id) {
@@ -42,12 +48,13 @@ export default {
       })
   },
   createGist ({ commit, rootState }, body) {
-    commit('initGist')
+    commit('setLoading', true)
     let req = request('POST', `${API_ENDPOINT}/gists`, rootState.auth.at)
     req.data = body
     axios(req)
       .then(response => {
         commit('createGist', response)
+        commit('setLoading', false)
       })
   }
 }
