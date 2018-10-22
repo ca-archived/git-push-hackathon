@@ -60,9 +60,9 @@ input {
   box-shadow:0px 3px 3px 0px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   background-color: #ffffff;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  padding: 10px 28px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 4px 24px;
   overflow: scroll;
 }
 
