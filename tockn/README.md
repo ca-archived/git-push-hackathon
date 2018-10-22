@@ -56,7 +56,7 @@ SESSION SECRETを設定する必要があるので、任意の文字を`$SESSION
 ## アーキテクチャ
 Vue.js + Vuexを用い、MVVMのアーキテクチャを採用しています。
 
-![Imgur](https://i.imgur.com/91newVM.png)
+![Imgur](https://i.imgur.com/thZYCS5.png)
 
 ## ディレクトリ構成
 
