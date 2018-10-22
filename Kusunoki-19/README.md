@@ -10,6 +10,12 @@ client_secretは Kusunoki-19/oauth-server/oauth-server/oauth-server.sln を開�
 ```
 public const string CLIENT_SECRET = "YOUR_CLIENT_SECRET"; // ここにclient_secretを入れます
 ```
+Github（　https://github.com/settings/applications/　）のほうで設定する、
+Authorization callback URL　は
+```
+http://localhost:4200/oauth-redirect
+```
+に設定してください。
 
 # github-appの実行(アプリケーションのクライアントサイド)
 
