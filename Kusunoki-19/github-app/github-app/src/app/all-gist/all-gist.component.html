@@ -16,13 +16,13 @@
         </div>
         <div class="input_outer">
             <label>
-                表示中「gist{{readLimit*(page -1 ) + 1}}」～「{{readLimit*(page) + 1}}」
+                表示:gist{{readLimit*(page -1 ) + 1}}～{{readLimit*(page) }}
             </label>
         </div>
     </div>
 
     <div *ngIf="gists" class="gist_container">
-        <div *ngFor="let gist of gists" >
+        <div *ngFor="let gist of gists">
             <app-gist-single [gist]="gist"></app-gist-single>
         </div>
     </div>
