@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="gist">
+    <div v-if="gist && !loading">
       <description :gist="gist" :starred="starred" @star="star" :myname="me.login" />
       <div v-for="(file, index) in gist.files" :key="index">
         <div class="card">
@@ -28,6 +28,7 @@ export default {
   computed: {
     ...mapState({
       starred: state => state.gists.starred,
+      loading: state => state.gists.loading,
       me: state => state.auth.me || {}
     }),
     ...mapGetters('gists', {
