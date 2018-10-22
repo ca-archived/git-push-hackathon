@@ -8,6 +8,9 @@ const Header = ({ oauth, user, actions: { requestOAuth, logout } }) => {
       <div className="inner-wrapper">
         <div className="title">
           <Link to="/">Fast Gist</Link>
+          <button className="p-button">
+            <Link to="/gists/new">New Gist</Link>
+          </button>
         </div>
         <If condition={!oauth.isAuthorized}>
           <button className="p-button" onClick={() => requestOAuth()}>

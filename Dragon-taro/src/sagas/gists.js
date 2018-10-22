@@ -118,8 +118,12 @@ function* handleInitEditor() {
         public: true,
         files: [{ index: 0, filename: "", content: "" }]
       };
+      const { description, files } = yield select(selectEditor);
 
-      yield put(setEditorState(initState));
+      const hasDraft = description || files[0].filename || files[0].filename;
+      const useDraft = hasDraft ? confirm("Use your gist draft?") : false;
+
+      if (!useDraft) yield put(setEditorState(initState));
     }
     yield put(loaded());
   }

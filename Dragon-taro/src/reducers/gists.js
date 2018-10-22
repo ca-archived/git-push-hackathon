@@ -9,7 +9,7 @@ const initial = {
   gists: { gists: [] },
   gist: {},
   editor: {
-    files: [],
+    files: [{ filename: "", content: "", index: 0 }],
     description: "",
     public: true
   }
