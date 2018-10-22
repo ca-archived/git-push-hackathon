@@ -2,17 +2,27 @@
     <h3>All Gists</h3>
     <div id="input_container">
         <div class="input_outer">
-            <label>読み込みGist数:
+            <label>ページ
+                <input type="number" [(ngModel)]="page">
+            </label>
+        </div>
+        <div class="input_outer">
+            <label>1ページのGist
                 <input type="number" [(ngModel)]="readLimit">
             </label>
         </div>
         <div class="input_outer">
             <button (click)="reloadGists()">reload Gists</button>
         </div>
+        <div class="input_outer">
+            <label>
+                表示中「gist{{readLimit*(page -1 ) + 1}}」～「{{readLimit*(page) + 1}}」
+            </label>
+        </div>
     </div>
 
-    <div *ngFor="let gist of gists" class="gist_container">
-        <div>
+    <div *ngIf="gists" class="gist_container">
+        <div *ngFor="let gist of gists" >
             <app-gist-single [gist]="gist"></app-gist-single>
         </div>
     </div>

@@ -12,19 +12,20 @@ import {GistItem} from'../gist-single/gist-item';
 export class AllGistComponent implements OnInit {
 
     gists: GistItem[];
-    readLimit: number = 3;
+    page: number = 1;
+    readLimit : number = 5;
 
     constructor(private apiService: ApiService,
                 private gistService: GistService,) {
     }
 
     ngOnInit() {
-        this.gistService.getGistItems(this.readLimit);
+        this.gistService.getGistItems(this.page, this.readLimit);
         this.gists = this.gistService.getGists(); //connect gistService.gistItem -- this.gists
     }
 
     reloadGists() {
-        this.gistService.getGistItems(this.readLimit);
+        this.gistService.getGistItems(this.page, this.readLimit);
         this.gists = this.gistService.getGists(); //connect gistService.gistItem -- this.gists
     }
 

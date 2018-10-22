@@ -1,11 +1,6 @@
 <div id="gist_area">
     <h3>All Gists</h3>
-    <div id="input_container">
-        <div class="input_outer">
-            <label>読み込みGist数
-                <input type="number" [(ngModel)]="readLimit">
-            </label>
-        </div>
+    <div id="input_container">Gist
         <div class="input_outer">
             <label>参照 User Name
                 <input type="text" [(ngModel)]="userName">
@@ -13,6 +8,11 @@
         </div>
         <div class="input_outer">
             <button (click)="reloadGists()">reload Gists</button>
+        </div>
+        <div class="input_outer">
+            <label>
+                表示中「gist{{readLimit*(page -1 ) + 1}}」～「gist{{readLimit*(page) + 1}}」
+            </label>
         </div>
     </div>
 
