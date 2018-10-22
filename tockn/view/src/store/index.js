@@ -14,5 +14,8 @@ export default new Vuex.Store({
     users,
     auth
   },
-  plugins: [createPersistedState({key: 'git-push-hackathon'})]
+  plugins: [createPersistedState({
+    key: 'git-push-hackathon',
+    paths: ['auth.at']
+  })]
 })
