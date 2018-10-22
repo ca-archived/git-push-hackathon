@@ -1,5 +1,5 @@
 # Git Push Hackathon
-tockn (佐藤琢斗)のプロジェクト
+tocknのプロジェクト
 
 # 概要
 
