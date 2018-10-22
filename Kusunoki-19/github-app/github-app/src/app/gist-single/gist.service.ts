@@ -12,7 +12,7 @@ export class GistService {
     constructor(private apiService: ApiService,) {
     }
 
-    getGistItems(readLimit : number = 10 ){
+    getGistItems(readLimit: number = 10) {
         this.gistItems = [];
         var getGistObsbles = this.apiService.GetAllGistDataReq();
         getGistObsbles.subscribe(
@@ -21,24 +21,26 @@ export class GistService {
                     // Data handling start ///////////////////////////////////////////////
                     console.log("GistService Response");
                     console.log(res);
-                    let fileName : string = "";
+                    let fileName: string = "";
+                    let count_int: number = 0;
                     for (let count in res) {
-                        if(count >= readLimit) break;
+                        if (count_int >= readLimit) break;
                         //this response has length propaerty if succeded
 
-                        if(res[count].hasOwnProperty("files")) {
-                            for(let key in res[count]["files"]) fileName = key;
-                        } else{
-                            fileName ="";
+                        if (res[count].hasOwnProperty("files")) {
+                            for (let key in res[count]["files"]) fileName = key;
+                        } else {
+                            fileName = "";
                         }
                         console.log("file name :" + fileName);
 
-                        this.gistItems[count] = new GistItem( GistHtmlComponent ,
+                        this.gistItems[count] = new GistItem(GistHtmlComponent,
                             {
                                 id: res[count]["id"],
                                 owner_name: res[count]["owner"]["login"],
-                                file_name : fileName
+                                file_name: fileName
                             });
+                        count_int ++;
                     }
                     // Data handling end///////////////////////////////////////////////
                 } catch (error) {
@@ -52,7 +54,7 @@ export class GistService {
             });
     }
 
-    getGistItems_byUser(readLimit : number = 10 , userName : string = "Kusunoki-19"){
+    getGistItems_byUser(readLimit: number = 10, userName: string = "Kusunoki-19") {
         this.gistItems = [];
         var getGistObsbles = this.apiService.GetAllGistDataReq_byUser(userName);
         getGistObsbles.subscribe(
@@ -61,21 +63,21 @@ export class GistService {
                     // Data handling start ///////////////////////////////////////////////
                     console.log("GistService Response");
                     console.log(res);
-                    let fileName : string = "";
-                    let count_int : number = 0;
+                    let fileName: string = "";
+                    let count_int: number = 0;
                     for (let count in res) {
-                        if(count_int >= readLimit) break;
+                        if (count_int >= readLimit) break;
 
-                        if(res[count].hasOwnProperty("files")) {
-                            for(let key in res[count]["files"]) fileName = key;
-                        } else{
-                            fileName ="";
+                        if (res[count].hasOwnProperty("files")) {
+                            for (let key in res[count]["files"]) fileName = key;
+                        } else {
+                            fileName = "";
                         }
-                        this.gistItems[count] = new GistItem( GistHtmlComponent ,
+                        this.gistItems[count] = new GistItem(GistHtmlComponent,
                             {
                                 id: res[count]["id"],
                                 owner_name: res[count]["owner"]["login"],
-                                file_name : fileName
+                                file_name: fileName
                             });
                         count_int++;
                     }
