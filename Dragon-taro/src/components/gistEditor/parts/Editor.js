@@ -36,9 +36,10 @@ class Editor extends Component {
 
   handleChange(keyValue) {
     const {
-      actions: { handleEditorChange }
+      actions: { handleEditorChange },
+      type
     } = this.props;
-    handleEditorChange(keyValue);
+    handleEditorChange({ keyValue, type });
   }
 
   handleFileChange(keyValue, index) {

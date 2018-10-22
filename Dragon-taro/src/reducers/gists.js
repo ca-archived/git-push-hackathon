@@ -38,7 +38,7 @@ export function editor(state = initial.editor, { type, payload }) {
     case SET_EDITOR_STATE:
       return { ...payload };
     case HANDLE_CHANGE_EDITOR:
-      return { ...state, ...payload };
+      return { ...state, ...payload.keyValue };
   }
 
   return state;

@@ -3,7 +3,8 @@ import {
   GET_GISTS,
   GET_ONE_GIST,
   SUBMIT_GIST,
-  INIT_EDITOR
+  INIT_EDITOR,
+  HANDLE_CHANGE_EDITOR
 } from "../actions/constants";
 import { Get, Send } from "./api";
 import {
@@ -118,14 +119,35 @@ function* handleInitEditor() {
         public: true,
         files: [{ index: 0, filename: "", content: "" }]
       };
-      const { description, files } = yield select(selectEditor);
+      const editor = yield JSON.parse(localStorage.getItem("editor")) ||
+        select(selectEditor);
 
-      const hasDraft = description || files[0].filename || files[0].filename;
+      const hasDraft =
+        editor.description ||
+        editor.files[0].filename ||
+        editor.files[0].filename;
       const useDraft = hasDraft ? confirm("Use your gist draft?") : false;
 
-      if (!useDraft) yield put(setEditorState(initState));
+      if (!useDraft) {
+        yield put(setEditorState(initState));
+      } else {
+        yield put(setEditorState(editor));
+      }
     }
     yield put(loaded());
+  }
+}
+
+function* createBackUp() {
+  while (true) {
+    const {
+      payload: { type }
+    } = yield take(HANDLE_CHANGE_EDITOR);
+
+    if (type == "create") {
+      const editor = yield select(selectEditor);
+      localStorage.setItem("editor", JSON.stringify(editor));
+    }
   }
 }
 
@@ -134,4 +156,5 @@ export default function* rootSaga(history) {
   yield fork(handleGetOneGist, history);
   yield fork(handleSubmitGist, history);
   yield fork(handleInitEditor, history);
+  yield fork(createBackUp, history);
 }
