@@ -12,6 +12,15 @@ export default {
         commit('setLoading', false)
       })
   },
+  getPublicGists ({ commit, state, rootState }, username) {
+    commit('setLoading', true)
+    let req = request('GET', `${API_ENDPOINT}/gists/public?page=${state.gistsPage + 1}`, rootState.auth.at)
+    axios(req)
+      .then(response => {
+        commit('getGists', response)
+        commit('setLoading', false)
+      })
+  },
   initPage ({ commit }) {
     commit('initPage')
   },
