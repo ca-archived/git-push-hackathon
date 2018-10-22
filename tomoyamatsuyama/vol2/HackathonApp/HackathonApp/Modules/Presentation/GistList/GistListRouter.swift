@@ -11,8 +11,9 @@ final class GistListRouter: GistListRouterProtocol {
         self.view = view
     }
     
-    func transition(route: GistListRouter.Route) {
-        print(route)
+    func transition(_ route: Route) {
+        let targetViewController = GistCreateViewBuilder.build()
+        view.navigationController?.present(targetViewController, animated: true, completion: nil)
     }
 }
 

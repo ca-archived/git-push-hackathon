@@ -59,7 +59,7 @@ final class LoginPresenter: LoginPresenterProtocol {
         
         view.transition
             .emit(onNext: { route in
-                router.transition(route: route)
+                router.transition(route)
             })
             .disposed(by: disposeBag)
     }

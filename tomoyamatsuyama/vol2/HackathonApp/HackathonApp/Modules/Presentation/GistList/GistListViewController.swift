@@ -3,7 +3,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class GistListViewController: UIViewController, GistListViewProtocol, StoryboardInstantiatable {
+final class GistListViewController: UIViewController, GistListViewProtocol, StoryboardInstantiatable {
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(UINib(nibName: String(describing: GistCell.self), bundle: nil), forCellReuseIdentifier: "cell")
@@ -11,6 +11,8 @@ class GistListViewController: UIViewController, GistListViewProtocol, Storyboard
             tableView.tableFooterView = UIView()
         }
     }
+    
+    @IBOutlet private weak var createButton: UIBarButtonItem!
     private var presenter: GistListPresenterProtocol!
     
     private let disposeBag = DisposeBag()
@@ -35,9 +37,18 @@ class GistListViewController: UIViewController, GistListViewProtocol, Storyboard
         presenter.viewModel
             .subscribeOn(MainScheduler.instance)
             .map { $0.gists }
+            // TODO: should create extension of nib
             .bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: GistCell.self)) { _, gist, cell in
                 cell.configure(gist)
             }
+            .disposed(by: disposeBag)
+        
+        createButton.rx.tap
+            .asObservable()
+            .flatMap { _ -> Observable<GistListRouter.Route> in
+                return .just(.createGist)
+            }
+            .bind(to: presentRelay)
             .disposed(by: disposeBag)
 
         rx.sentMessage(#selector(viewWillAppear(_:)))

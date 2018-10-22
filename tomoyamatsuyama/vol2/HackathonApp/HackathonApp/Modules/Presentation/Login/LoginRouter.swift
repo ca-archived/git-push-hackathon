@@ -11,7 +11,7 @@ final class LoginRouter: LoginRouterProtocol {
         self.view = view
     }
     
-    func transition(route: LoginRouter.Route) {
+    func transition(_ route: Route) {
         switch route {
         case .gistList:
             let gistListViewController = GistListViewBuilder.build()

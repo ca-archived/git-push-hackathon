@@ -17,5 +17,5 @@ protocol LoginInteractorProtocol: class {
 }
 
 protocol LoginRouterProtocol {
-    func transition(route: LoginRouter.Route)
+    func transition(_ route: LoginRouter.Route)
 }

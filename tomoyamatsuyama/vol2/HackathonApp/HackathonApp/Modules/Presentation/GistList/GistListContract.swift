@@ -18,7 +18,7 @@ protocol GistListInteractorProtocol: class {
 }
 
 protocol GistListRouterProtocol {
-    func transition(route: GistListRouter.Route)
+    func transition(_ route: GistListRouter.Route)
 }
 
 struct GistListViewModel {

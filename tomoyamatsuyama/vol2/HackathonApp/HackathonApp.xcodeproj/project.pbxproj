@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6427A86A217C99E4006E4C77 /* GistCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A869217C99E4006E4C77 /* GistCreateViewController.swift */; };
+		6427A86C217C99F1006E4C77 /* GistCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6427A86B217C99F1006E4C77 /* GistCreate.storyboard */; };
+		6427A86E217C9A07006E4C77 /* GistCreateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A86D217C9A07006E4C77 /* GistCreateContract.swift */; };
+		6427A870217C9A0F006E4C77 /* GistCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A86F217C9A0F006E4C77 /* GistCreatePresenter.swift */; };
+		6427A872217C9A1A006E4C77 /* GistCreateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A871217C9A1A006E4C77 /* GistCreateInteractor.swift */; };
+		6427A874217C9A22006E4C77 /* GistCreateRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A873217C9A22006E4C77 /* GistCreateRouter.swift */; };
+		6427A876217C9A2A006E4C77 /* GistCreateViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A875217C9A2A006E4C77 /* GistCreateViewBuilder.swift */; };
+		6427A878217C9A3E006E4C77 /* GistCreateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A877217C9A3E006E4C77 /* GistCreateUseCase.swift */; };
+		6427A88B217DD842006E4C77 /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A889217DD842006E4C77 /* DescriptionCell.swift */; };
+		6427A88C217DD842006E4C77 /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6427A88A217DD842006E4C77 /* DescriptionCell.xib */; };
+		6427A88F217DD855006E4C77 /* ScopeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A88D217DD855006E4C77 /* ScopeCell.swift */; };
+		6427A890217DD855006E4C77 /* ScopeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6427A88E217DD855006E4C77 /* ScopeCell.xib */; };
+		6427A893217DD86D006E4C77 /* AddNewFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A891217DD86D006E4C77 /* AddNewFile.swift */; };
+		6427A894217DD86D006E4C77 /* AddNewFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6427A892217DD86D006E4C77 /* AddNewFile.xib */; };
+		6427A896217DEBD0006E4C77 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427A895217DEBD0006E4C77 /* UITableView+Extension.swift */; };
 		6458497D217ADF2B00BB9A19 /* Client.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6458497C217ADF2B00BB9A19 /* Client.plist */; };
 		6458497F217ADFE100BB9A19 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458497E217ADFE100BB9A19 /* RootViewController.swift */; };
 		64584981217ADFEB00BB9A19 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64584980217ADFEB00BB9A19 /* Root.storyboard */; };
@@ -85,6 +100,21 @@
 /* Begin PBXFileReference section */
 		168656B4DB6FF8C0CBCB6FD1 /* Pods-HackathonAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackathonAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackathonAppUITests/Pods-HackathonAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		34582CE761C67080E6581EC3 /* Pods-HackathonAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackathonAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackathonAppTests/Pods-HackathonAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6427A869217C99E4006E4C77 /* GistCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreateViewController.swift; sourceTree = "<group>"; };
+		6427A86B217C99F1006E4C77 /* GistCreate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GistCreate.storyboard; sourceTree = "<group>"; };
+		6427A86D217C9A07006E4C77 /* GistCreateContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreateContract.swift; sourceTree = "<group>"; };
+		6427A86F217C9A0F006E4C77 /* GistCreatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreatePresenter.swift; sourceTree = "<group>"; };
+		6427A871217C9A1A006E4C77 /* GistCreateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreateInteractor.swift; sourceTree = "<group>"; };
+		6427A873217C9A22006E4C77 /* GistCreateRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreateRouter.swift; sourceTree = "<group>"; };
+		6427A875217C9A2A006E4C77 /* GistCreateViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreateViewBuilder.swift; sourceTree = "<group>"; };
+		6427A877217C9A3E006E4C77 /* GistCreateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistCreateUseCase.swift; sourceTree = "<group>"; };
+		6427A889217DD842006E4C77 /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
+		6427A88A217DD842006E4C77 /* DescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
+		6427A88D217DD855006E4C77 /* ScopeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeCell.swift; sourceTree = "<group>"; };
+		6427A88E217DD855006E4C77 /* ScopeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScopeCell.xib; sourceTree = "<group>"; };
+		6427A891217DD86D006E4C77 /* AddNewFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFile.swift; sourceTree = "<group>"; };
+		6427A892217DD86D006E4C77 /* AddNewFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNewFile.xib; sourceTree = "<group>"; };
+		6427A895217DEBD0006E4C77 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		6458497C217ADF2B00BB9A19 /* Client.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Client.plist; sourceTree = "<group>"; };
 		6458497E217ADFE100BB9A19 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		64584980217ADFEB00BB9A19 /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
@@ -191,6 +221,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6427A868217C99B4006E4C77 /* GistCreate */ = {
+			isa = PBXGroup;
+			children = (
+				6427A888217DD826006E4C77 /* View */,
+				6427A86B217C99F1006E4C77 /* GistCreate.storyboard */,
+				6427A86D217C9A07006E4C77 /* GistCreateContract.swift */,
+				6427A869217C99E4006E4C77 /* GistCreateViewController.swift */,
+				6427A86F217C9A0F006E4C77 /* GistCreatePresenter.swift */,
+				6427A871217C9A1A006E4C77 /* GistCreateInteractor.swift */,
+				6427A873217C9A22006E4C77 /* GistCreateRouter.swift */,
+				6427A875217C9A2A006E4C77 /* GistCreateViewBuilder.swift */,
+			);
+			path = GistCreate;
+			sourceTree = "<group>";
+		};
+		6427A888217DD826006E4C77 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6427A889217DD842006E4C77 /* DescriptionCell.swift */,
+				6427A88A217DD842006E4C77 /* DescriptionCell.xib */,
+				6427A88D217DD855006E4C77 /* ScopeCell.swift */,
+				6427A88E217DD855006E4C77 /* ScopeCell.xib */,
+				6427A891217DD86D006E4C77 /* AddNewFile.swift */,
+				6427A892217DD86D006E4C77 /* AddNewFile.xib */,
+			);
+			name = View;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		64584982217AE20A00BB9A19 /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				64584991217AE86400BB9A19 /* UIViewController+ClassName.swift */,
+				6427A895217DEBD0006E4C77 /* UITableView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -299,6 +359,7 @@
 				6458499A217AEF8700BB9A19 /* Splash */,
 				6458499B217AEF9400BB9A19 /* Login */,
 				6458499C217AEFC900BB9A19 /* GistList */,
+				6427A868217C99B4006E4C77 /* GistCreate */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -347,6 +408,7 @@
 				645849BA217B057B00BB9A19 /* SplashUseCase.swift */,
 				645849D5217B231100BB9A19 /* LoginUseCase.swift */,
 				64CE9B03217C4FE000E632C4 /* GistListUseCase.swift */,
+				6427A877217C9A3E006E4C77 /* GistCreateUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -574,8 +636,12 @@
 				64CE9B02217C4F1400E632C4 /* GistList.storyboard in Resources */,
 				64E034C721781FE800605B58 /* LaunchScreen.storyboard in Resources */,
 				6458497D217ADF2B00BB9A19 /* Client.plist in Resources */,
+				6427A86C217C99F1006E4C77 /* GistCreate.storyboard in Resources */,
 				645849DC217B23F800BB9A19 /* Login.storyboard in Resources */,
 				64CE9B18217C864700E632C4 /* GistCell.xib in Resources */,
+				6427A894217DD86D006E4C77 /* AddNewFile.xib in Resources */,
+				6427A890217DD855006E4C77 /* ScopeCell.xib in Resources */,
+				6427A88C217DD842006E4C77 /* DescriptionCell.xib in Resources */,
 				64E034C421781FE800605B58 /* Assets.xcassets in Resources */,
 				645849A0217AF02A00BB9A19 /* Splash.storyboard in Resources */,
 				64584981217ADFEB00BB9A19 /* Root.storyboard in Resources */,
@@ -688,16 +754,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6427A86E217C9A07006E4C77 /* GistCreateContract.swift in Sources */,
 				64E034BD21781FE700605B58 /* AppDelegate.swift in Sources */,
+				6427A88B217DD842006E4C77 /* DescriptionCell.swift in Sources */,
 				645849E1217B382D00BB9A19 /* OAuthRepository.swift in Sources */,
 				645849B7217AF97E00BB9A19 /* OAuth.swift in Sources */,
 				645849BB217B057B00BB9A19 /* SplashUseCase.swift in Sources */,
 				64CE9B0C217C5E7500E632C4 /* GistLocalDataStore.swift in Sources */,
 				645849E3217B394E00BB9A19 /* OAuthLocalDataStore.swift in Sources */,
+				6427A870217C9A0F006E4C77 /* GistCreatePresenter.swift in Sources */,
 				645849A6217AF32F00BB9A19 /* SplashPresenter.swift in Sources */,
+				6427A86A217C99E4006E4C77 /* GistCreateViewController.swift in Sources */,
+				6427A896217DEBD0006E4C77 /* UITableView+Extension.swift in Sources */,
 				645849CE217B22E600BB9A19 /* LoginPresenter.swift in Sources */,
 				645849D0217B22F400BB9A19 /* LoginInteractor.swift in Sources */,
 				645849C8217B1FBF00BB9A19 /* RootViewModel.swift in Sources */,
+				6427A874217C9A22006E4C77 /* GistCreateRouter.swift in Sources */,
 				64584994217AE8FF00BB9A19 /* StoryboardInstantiatable.swift in Sources */,
 				64CE9AF8217C4EE000E632C4 /* GistListContract.swift in Sources */,
 				645849E7217B3B7A00BB9A19 /* Authorization.swift in Sources */,
@@ -706,12 +778,15 @@
 				6458497F217ADFE100BB9A19 /* RootViewController.swift in Sources */,
 				64CE9B10217C75C400E632C4 /* API+OAuth.swift in Sources */,
 				645849CA217B22CC00BB9A19 /* LoginViewController.swift in Sources */,
+				6427A893217DD86D006E4C77 /* AddNewFile.swift in Sources */,
 				645849D6217B231100BB9A19 /* LoginUseCase.swift in Sources */,
 				64584992217AE86400BB9A19 /* UIViewController+ClassName.swift in Sources */,
+				6427A878217C9A3E006E4C77 /* GistCreateUseCase.swift in Sources */,
 				645849DF217B2A5E00BB9A19 /* API.swift in Sources */,
 				64CE9AF6217C4EBB00E632C4 /* GistListViewController.swift in Sources */,
 				6458499E217AF00800BB9A19 /* SplashViewController.swift in Sources */,
 				645849D4217B230700BB9A19 /* LoginViewBuilder.swift in Sources */,
+				6427A872217C9A1A006E4C77 /* GistCreateInteractor.swift in Sources */,
 				64CE9B06217C4FF900E632C4 /* GistRepository.swift in Sources */,
 				645849BD217B084D00BB9A19 /* Error.swift in Sources */,
 				645849D2217B22FB00BB9A19 /* LoginRouter.swift in Sources */,
@@ -721,10 +796,12 @@
 				64CE9B17217C864700E632C4 /* GistCell.swift in Sources */,
 				64CE9AFC217C4EF500E632C4 /* GistListInteractor.swift in Sources */,
 				645849A4217AF30900BB9A19 /* SplashRouter.swift in Sources */,
+				6427A88F217DD855006E4C77 /* ScopeCell.swift in Sources */,
 				64CE9B04217C4FE000E632C4 /* GistListUseCase.swift in Sources */,
 				64CE9B08217C500A00E632C4 /* GistRemoteDataStore.swift in Sources */,
 				64CE9B0A217C5DFD00E632C4 /* GistList.swift in Sources */,
 				64CE9B00217C4F0900E632C4 /* GistListViewBuilder.swift in Sources */,
+				6427A876217C9A2A006E4C77 /* GistCreateViewBuilder.swift in Sources */,
 				645849E5217B395D00BB9A19 /* OAuthRemoteDataStore.swift in Sources */,
 				64CE9AFE217C4EFE00E632C4 /* GistListRouter.swift in Sources */,
 				645849A2217AF24400BB9A19 /* SplashViewBuilder.swift in Sources */,

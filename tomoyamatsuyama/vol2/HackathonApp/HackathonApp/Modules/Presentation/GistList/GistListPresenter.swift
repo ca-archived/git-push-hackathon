@@ -40,7 +40,7 @@ final class GistListPresenter: GistListPresenterProtocol {
         
         view.present
             .emit(onNext: { route in
-                router.transition(route: route)
+                router.transition(route)
             })
             .disposed(by: disposeBag)
     }
