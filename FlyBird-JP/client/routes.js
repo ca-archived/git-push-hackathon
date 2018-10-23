@@ -95,8 +95,8 @@ export default [
                         </div>
                     </div>
                     <div class='content with_tab'>
-                    <gist-list user='user' v-bind:name='$route.params.username'></gist-list>
-                </div>
+                        <gist-list user='user' v-bind:name='$route.params.username'></gist-list>
+                    </div>
             </main>
                 </div>`
         }
@@ -145,12 +145,32 @@ export default [
                             location.href = '/'
                         })
                         .catch((err) => {
-                            document.getElementById('dialog').__vue__.alert('エラーが発生しました。', '操作をやり直してください。', () =>{
+                            document.getElementById('dialog').__vue__.alert('エラーが発生しました。', '操作をやり直してください。', () => {
                                 location.href = '/'
                             })
                         })
                 } else location.href = '/'
             }
+        }
+    },
+    {
+        'path': '/users',
+        'component': {
+            'template': `
+                <div id='root'>
+                    <main>
+                    <div class='tab_area'>
+                        <div class='tabs'>
+                            <h2 class='tab'><router-link to='/'>Yours</router-link></h2>
+                            <h2 class='tab'><router-link to='/gists/starred'>Starred</router-link></h2>
+                            <h2 class='tab'><router-link to='/gists/public'>Public</router-link></h2>
+                            <h2 class='tab active'><router-link to='/users'>ユーザー</router-link></h2>
+                        </div>
+                    </div>
+                    <div class='content with_tab'>
+                        <user-list type='following'></user-list>
+                    </div>
+                </div>`
         }
     },
     {

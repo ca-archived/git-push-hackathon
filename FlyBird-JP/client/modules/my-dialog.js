@@ -2,7 +2,7 @@ export default {
     template: `<div class='my-dialog' v-bind:class='{visible:mode != "close"}'>
                     <div class='dialog'>
                         <h2>{{ title }}</h2>
-                        <p v-bind:class='{"min":mode == "prompt"}'>{{ messeage }}</p>
+                        <p v-bind:class='{"min":mode == "prompt"}'>{{ message }}</p>
                         <input v-if='["prompt"].includes(mode)' type='text' v-model='input' v-on:keyup.enter='enter()'></input>
                         <div class='buttons'>
                             <button class='button negative' v-on:click='negative()' v-if='mode != "alert"'>キャンセル</button>
@@ -14,26 +14,26 @@ export default {
         return {
             'title': 'タイトル',
             'input': '',
-            'messeage': 'メッセージ',
+            'message': 'メッセージ',
             'mode': 'close'
         }
     },
     methods: {
-        alert: function (title, messeage, callback) {
+        alert: function (title, message, callback) {
             this.title = title
-            this.messeage = messeage
+            this.message = message
             this.callback = callback
             this.mode = 'alert'
         },
-        confirm: function (title, messeage, callback) {
+        confirm: function (title, message, callback) {
             this.title = title
-            this.messeage = messeage
+            this.message = message
             this.callback = callback
             this.mode = 'confirm'
         },
-        prompt: function (title, messeage, callback) {
+        prompt: function (title, message, callback) {
             this.title = title
-            this.messeage = messeage
+            this.message = message
             this.callback = callback
             this.mode = 'prompt'
         },
@@ -72,7 +72,7 @@ export default {
         },
         reset: function () {
             this.title = 'タイトル'
-            this.messeage = 'メッセージ'
+            this.message = 'メッセージ'
             this.input = ''
             this.positiveButton = ''
             this.negativeButton = ''

@@ -1,22 +1,19 @@
-"use strict";
+'use strict';
 
 import LoginGithub from '/modules/login-github.js'
 Vue.component('login-github', LoginGithub)
 
-import GithubEvent from '/modules/github-event.js'
-Vue.component('git-event', GithubEvent)
-
 import GistList from '/modules/gist-list.js'
 Vue.component('gist-list', GistList)
 
-import GistItem from '/modules/gist-item.js'
-Vue.component('gist-item', GistItem)
-
 import MyDialog from '/modules/my-dialog.js'
-Vue.component("my-dialog", MyDialog)
+Vue.component('my-dialog', MyDialog)
 
 import GistEditor from '/modules/gist-editor.js'
-Vue.component("gist-editor", GistEditor)
+Vue.component('gist-editor', GistEditor)
+
+import GistItem from '/modules/gist-item.js'
+Vue.component('gist-item', GistItem)
 
 Vue.filter('dateFormat', (date) => {
     let differ = (new Date() - new Date(date)) / 1000

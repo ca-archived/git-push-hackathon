@@ -276,25 +276,29 @@ main > .content > h2 {
    right: 0;
    z-index: 500;
    color: #000;
-   overflow: hidden;
    border: solid 0.5px #ccc;
 }
 .login-github > .dashboard.visible{
    transform: translateX(0);
 }
-.login-github > .dashboard > .events {
+.login-github > .dashboard > .list{
     height: calc(100% - 60px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
- }
- .login-github > .dashboard > .events > .messeage {
-    width: 100%;
-    height: 2rem;
-    line-height: 2rem;
-    text-align: center;
-    bottom: 4rem;
- }
+    overflow: hidden;
+}
+.login-github > .dashboard > .list > h2 {
+    margin: 0;
+    border-bottom: solid 0.5px #ccc;
+    line-height: 60px;
+    font-weight: 500;
+    padding-left: 1rem;
+    cursor: pointer;
+}
+.login-github > .dashboard > .list > .event-list {
+    height: calc(100% - 61px);
+}
+.login-github > .dashboard > .list > .user-list {
+    height: calc(100% - 61px);
+}
  .login-github > .dashboard > .buttons {
    width: 100%;
    display: flex;
@@ -330,6 +334,41 @@ main > .content > h2 {
     z-index: 100;
 }
 
+.event-list {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    border-top: solid 0.5px #ccc;
+    -webkit-overflow-scrolling: touch;
+ }
+.event-list > .message {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+.event-list > .root > .load {
+    width: calc(100% - 2rem);
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    box-sizing: border-box;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    text-align: center;
+    background: #fff;
+    margin: 1rem auto;
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
+    cursor: pointer;
+}
+.event-list > .root > .load:hover {
+    background: #fafafa;
+    border-color: #999;
+}
+
 /* github-event */
 .github-event {
     width: 100%;
@@ -342,7 +381,7 @@ main > .content > h2 {
     grid-template-rows: 1.5rem 1.5rem 1.5rem;
     box-sizing: border-box;
     padding: 1rem;
-    border-top: solid 0.5px #ccc;
+    border-bottom: solid 0.5px #ccc;
     animation: slide 0.3s ease-in-out;
 }
 .github-event > div > a {
@@ -396,13 +435,13 @@ main > .content > h2 {
 .gist-list > a > .gist-item {
     border-bottom: solid 0.5px #ccc;
 }
-.gist-list > .messeage {
+.gist-list > .message {
     width: 100%;
     height: 2rem;
     line-height: 2rem;
     text-align: center;
 }
-.gist-list > .load {
+.gist-list > .root > .load {
     width: calc(100% - 2rem);
     height: 60px;
     line-height: 60px;
@@ -417,106 +456,16 @@ main > .content > h2 {
     transition: background ease-in-out 0.3s;
     cursor: pointer;
 }
-.gist-list > .load:hover {
+.gist-list > .root > .load:hover {
     background: #fafafa;
     border-color: #999;
-}
-
-/* my-dialog */
-.my-dialog {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5000;
-    transition: transform 0.3s ease-in-out;
-    font-size:medium;
-    background:rgba(0,0,0,0.4);
-    display: none;
-}
-.my-dialog.visible {
-    display: block;
-}
-.my-dialog > .dialog {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 5000;
-    border: none;
-    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 13px 19px 2px rgba(0,0,0,.14), 0 5px 24px 4px rgba(0,0,0,.12);;
-    background: #fff;
-    border-radius: 5px;
-    height: -moz-fit-content;
-    height: -webkit-fit-content;
-    height: fit-content;
-    width: 95%;
-    max-width: calc(450px - 2rem);
-    min-width: 280px;
-    max-height: 12.5rem;
-    line-height: 1.5rem;
-    margin: auto;
-    padding: 1rem;
-}
-.my-dialog > .dialog > h2 {
-    margin: 0;
-    font-size: larger;
-    font-weight: 700;
-    line-height: 3rem;
-}
-.my-dialog > .dialog > p {
-    width: 100%;
-    height: 3.5rem;
-    margin: 0;
-    padding: 0;
-}
-.my-dialog > .dialog > p.min {
-    height: 1.5rem;
-}
-.my-dialog > .dialog > input {
-    width: 100%;
-    border: none;
-    border-bottom: solid 1px #ddd;
-    line-height: 2rem;
-    transition: border-color ease-in-out 0.3s;
-    font-size: medium;
-    -webkit-appearance: none;
-    border-radius: 0;
-}
-.my-dialog > .dialog > input:focus{
-    border-color: #1E90FF;
-}
-.my-dialog > .dialog > .buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-}
-.my-dialog > .dialog > .buttons > .button {
-    padding: 0 0.5rem;
-    text-align: center;
-    border-radius: 3px;
-    margin-left: 1rem;
-    line-height: 2rem;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background ease-in-out 0.3s;
-    color: #2979FF;
-    user-select: none;
-    background: none;
-    border: none;
-}
-.my-dialog > .dialog > .buttons > .button:hover {
-    background: #E3F2FD;
 }
 
 /* gist-item */
 .gist-item {
     width: 100%;
     height: 7rem;
+    position: relative;
 }
 .gist-item > .root {
     width: 100%;
@@ -663,6 +612,12 @@ main > .content > h2 {
 .gist-item > .root > .buttons > .delete.confirm::before{
     content: none;
 }
+.gist-item > .message {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
 
 /* gist-editor */
 .gist-editor {
@@ -742,7 +697,7 @@ main > .content > h2 {
 .gist-editor > .editor > .buttons .button:hover {
     border-color: #999;
 }
-.gist-editor > .messeage {
+.gist-editor > .message {
     width: 100%;
     height: 2rem;
     line-height: 2rem;
@@ -760,4 +715,174 @@ main > .content > h2 {
 .CodeMirror-gutters {
     background: #fff!important;
     border-right: none!important;
+}
+
+/* my-dialog */
+.my-dialog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    transition: transform 0.3s ease-in-out;
+    font-size:medium;
+    background:rgba(0,0,0,0.4);
+    display: none!important;
+}
+.my-dialog.visible {
+    display: block!important;
+}
+.my-dialog > .dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5000;
+    border: none;
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 13px 19px 2px rgba(0,0,0,.14), 0 5px 24px 4px rgba(0,0,0,.12);;
+    background: #fff;
+    border-radius: 5px;
+    height: -moz-fit-content;
+    height: -webkit-fit-content;
+    height: fit-content;
+    width: 95%;
+    max-width: calc(450px - 2rem);
+    min-width: 280px;
+    max-height: 12.5rem;
+    line-height: 1.5rem;
+    margin: auto;
+    padding: 1rem;
+    color: #333;
+}
+.my-dialog > .dialog > h2 {
+    margin: 0;
+    font-size: larger;
+    font-weight: 700;
+    line-height: 3rem;
+}
+.my-dialog > .dialog > p {
+    width: 100%;
+    height: 3.5rem;
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+}
+.my-dialog > .dialog > p.min {
+    height: 1.5rem;
+}
+.my-dialog > .dialog > input {
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px #ddd;
+    line-height: 2rem;
+    transition: border-color ease-in-out 0.3s;
+    font-size: medium;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+.my-dialog > .dialog > input:focus{
+    border-color: #1E90FF;
+}
+.my-dialog > .dialog > .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+.my-dialog > .dialog > .buttons > .button {
+    padding: 0 0.5rem;
+    text-align: center;
+    border-radius: 3px;
+    margin-left: 1rem;
+    line-height: 2rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
+    color: #2979FF;
+    user-select: none;
+    background: none;
+    border: none;
+}
+.my-dialog > .dialog > .buttons > .button:hover {
+    background: #E3F2FD;
+}
+
+/* user-list */
+.user-list {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    border-bottom: solid 0.5px #ccc;
+    -webkit-overflow-scrolling: touch;
+}
+.user-list > .message {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+.user-list > .root > .load {
+    width: calc(100% - 2rem);
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    box-sizing: border-box;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    text-align: center;
+    background: #fff;
+    margin: 1rem auto;
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
+    cursor: pointer;
+}
+.user-list > .root > .load:hover {
+    background: #fafafa;
+    border-color: #999;
+}
+
+/* user-item */
+.user-item {
+    width: 100%;
+    height: 6rem;
+    position: relative;
+}
+.user-item > .root {
+    width: 100%;
+    border-bottom: solid 0.5px #ddd;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 4rem 1rem 1fr;
+    grid-template-rows: 2rem 2rem;
+    line-height: 1.5rem;
+    animation: slide 0.3s ease-in-out;
+    line-height: 3rem;
+}
+.user-item > .root > a.icon {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    border-radius: 50%;
+}
+.user-item > .root > a > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+}
+.user-item > .root > .name {
+    grid-column: 3;
+    grid-row: 1;
+    font-weight: 700;
+}
+.user-item > .root > .open {
+    grid-column: 3;
+    grid-row: 2;
+    font-weight: 700;
+    text-align: center;
 }

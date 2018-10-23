@@ -1,4 +1,6 @@
-const codeMirrorPath = '/codemirror'
+import MyDialog from '/modules/my-dialog.js'
+
+const codeMirrorPath = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2'
 const extentions = {
     'js': {
         'mode': 'javascript',
@@ -32,10 +34,10 @@ const extentions = {
 
 const link = document.createElement('link')
 link.rel = 'stylesheet'
-link.href = `${codeMirrorPath}/lib/codemirror.css`
+link.href = `${codeMirrorPath}/codemirror.min.css`
 document.body.appendChild(link)
 const script = document.createElement('script')
-script.src = `${codeMirrorPath}/lib/codemirror.js`
+script.src = `${codeMirrorPath}/codemirror.min.js`
 document.body.appendChild(script)
 
 export default {
@@ -58,7 +60,11 @@ export default {
                         </div>
                     </div>
                     <div class='spinner center' v-if='isSended'></div>
+                    <my-dialog></my-dialog>
                 </div>`,
+    components: {
+        'my-dialog': MyDialog
+    },
     data: function () {
         return {
             'description': '',
@@ -145,12 +151,19 @@ export default {
                     if (response.status == 201) {
                         response.json()
                             .then((json) => {
-                                this.$router.push(`/gists/${json.id}`)
+                                this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('作成しました。', '作成したGistを表示します。', () => {
+                                    this.$router.push(`/gists/${json.id}`)
+                                })
                             })
-                    } else this.$router.push('/')
+                    } else throw new Error(`${response.status} ${response.statusText}`)
                 })
+                    .catch((err) => {
+                        this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString(), () => {
+                            this.$router.push('/')
+                        })
+                    })
             } else {
-                document.getElementById('dialog').__vue__.alert('入力内容がありません。', '')
+                this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('入力内容がありません。', '')
             }
         }
     }

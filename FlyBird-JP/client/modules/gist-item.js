@@ -1,3 +1,5 @@
+import MyDialog from '/modules/my-dialog.js'
+
 let imageObserver
 if ('IntersectionObserver' in window) {
     imageObserver = new IntersectionObserver((entries) => {
@@ -16,15 +18,15 @@ export default {
     watch: {
         'id': function (newVal, oldVal) {
             this.reset()
-            this.getGist()
-                .then((json) => {
-                    this.setGist(json)
-                    if (this.url != null && this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
-                })
+            this.print()
+        },
+        'url': function (newVal, oldVal) {
+            this.reset()
+            this.print()
         }
     },
     template: `<div class='gist-item' v-bind:class='{"detail":detail != null}'>
-                    <div class='root' v-if='(url != null || id != null) && gist != null'>
+                    <div class='root' v-if='(url != null || id != null) && gist != null && log.length == 0'>
                         <a v-bind:href='gist.owner.html_url' class='icon'>
                             <img v-bind:data-url='gist.owner.avatar_url' v-if='lazyLoad' />
                             <img v-bind:src='gist.owner.avatar_url' v-if='!lazyLoad' />
@@ -49,7 +51,12 @@ export default {
                             <div class='spinner center' v-if='!iframeLoaded'></div>
                         </div>
                     </div>
+                    <div class='message center' v-if='log.length > 0'>{{ log }}</div>
+                    <my-dialog></my-dialog>
                 </div>`,
+    components: {
+        'my-dialog': MyDialog
+    },
     data: function () {
         return {
             'gist': null,
@@ -59,40 +66,45 @@ export default {
             'starred': false,
             'forked': false,
             'confirmFlag': false,
-            'iframeLoaded': 0
+            'iframeLoaded': 0,
+            'log': ''
         }
     },
     created: function () {
         this.lazyLoad = imageObserver != null
         this.isAuth = 'accessToken' in localStorage
-        this.getGist()
-            .then((json) => {
-                this.setGist(json)
-                if (this.url != null && this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
-            })
-            .catch((err) => {
-                this.$router.go(-1)
-            })
+        this.print()
     },
     methods: {
+        print: function () {
+            this.getGist()
+                .then(this.setGist)
+                .catch((err) => {
+                    this.log = err.toString()
+                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                })
+        },
         getGist: async function () {
-            const url = this.url || `https://api.github.com/gists/${this.id}`
             if (this.url != null || this.id != null) {
+                const url = this.url || `https://api.github.com/gists/${this.id}`
                 const headers = new Headers()
-                if (this.isAuth) {
+                if (!url.startsWith('blob') && this.isAuth) {
                     headers.append('Authorization', ` token ${localStorage.getItem('accessToken')}`)
                 }
                 const response = await fetch(url, {
                     'headers': headers
                 })
-                if(response.ok) return await response.json()
-                else throw new Error(response.status)
+                if (response.ok) {
+                    if (this.url != null && this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
+                    return await response.json()
+                }
+                else throw new Error(`${response.status} ${response.statusText}`)
             }
+            else throw new Error('属性が不正です。')
         },
         setGist: function (json) {
             this.gist = json
             this.editable = this.gist.owner.login == localStorage.getItem('username')
-
             if (this.lazyLoad) {
                 this.$nextTick().then(() => {
                     imageObserver.observe(this.$el.getElementsByTagName('img')[0])
@@ -101,34 +113,16 @@ export default {
 
             if (this.detail != null) {
                 this.$nextTick().then(() => {
-                    const iframe = document.createElement('iframe')
-                    this.$el.getElementsByClassName('gist')[0].appendChild(iframe)
-                    const iframeDoc = iframe.contentWindow.document
-                    const html = `<body style='margin:0;overflow-y:hidden;'>
-                                    <script src="https://gist.github.com/${this.gist.owner.login}/${this.gist.id}.js"></script>
-                                </body>`
-                    iframeDoc.open()
-                    iframeDoc.write(html)
-                    iframe.addEventListener('load', (event) => {
-                        const doc = iframe.contentWindow.document
-                        if (doc.getElementsByClassName('gist').length > 0) {
-                            iframe.style.height = `${doc.documentElement.scrollHeight}px`
-                        }
-                        iframe.contentWindow.addEventListener('click', (event) => {
-                            if (event.srcElement.tagName.toLowerCase() == 'a') {
-                                location.href = event.srcElement.href
-                                event.preventDefault()
-                            }
-                        })
-                        this.iframeLoaded = true
-                    })
-                    iframeDoc.close()
+                    this.showContnet()
                 })
 
                 if (this.isAuth) {
                     this.isStarred(this.gist.id)
                         .then((starred) => {
                             this.starred = starred
+                        })
+                        .catch((err) => {
+                            this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
                         })
                 }
             }
@@ -137,13 +131,14 @@ export default {
             const response = await fetch(`https://api.github.com/gists/${this.gist.id}/star`, {
                 'headers': new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` })
             })
-            if (response.status == 204) {
-                return true
+            switch (response.status) {
+                case 204:
+                    return true
+                case 404:
+                    return false
+                default:
+                    throw new Error(`${response.status} ${response.statusText}`)
             }
-            else if (response.status == 404) {
-                return false
-            }
-            else return null
         },
         star: function () {
             let method
@@ -159,6 +154,9 @@ export default {
             })
                 .then((response) => {
                     if (response.status == 204) this.starred = !this.starred
+                    else throw new Error(`${response.status} ${response.statusText}`)
+                }).catch((err) => {
+                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
                 })
         },
         fork: function () {
@@ -167,9 +165,15 @@ export default {
                 'method': 'POST',
                 'headers': new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` })
             })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (response.status == 201) return response.json()
+                    else throw new Error(`${response.status} ${response.statusText}`)
+                })
                 .then((json) => {
                     this.$router.push(`/gists/${json.id}`)
+                })
+                .catch((err) => {
+                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
                 })
         },
         del: function () {
@@ -178,7 +182,15 @@ export default {
                 'headers': new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` })
             })
                 .then((response) => {
-                    if (response.status == 204) this.$router.push('/')
+                    if (response.status == 204) {
+                        this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('削除しました。', 'トップページへ戻ります。', () => {
+                            this.$router.push('/')
+                        })
+                    }
+                    else throw new Error(`${response.status} ${response.statusText}`)
+                })
+                .catch((err) => {
+                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
                 })
         },
         confirm: function () {
@@ -190,6 +202,30 @@ export default {
         reset: function () {
             this.gist = null
             this.editable = this.starred = this.forked = false
+        },
+        showContnet: function () {
+            const iframe = document.createElement('iframe')
+            this.$el.getElementsByClassName('gist')[0].appendChild(iframe)
+            const iframeDoc = iframe.contentWindow.document
+            const html = `<body style='margin:0;overflow-y:hidden;'>
+                                    <script src="https://gist.github.com/${this.gist.owner.login}/${this.gist.id}.js"></script>
+                                </body>`
+            iframeDoc.open()
+            iframeDoc.write(html)
+            iframe.addEventListener('load', (event) => {
+                const doc = iframe.contentWindow.document
+                if (doc.getElementsByClassName('gist').length > 0) {
+                    iframe.style.height = `${doc.documentElement.scrollHeight}px`
+                }
+                iframe.contentWindow.addEventListener('click', (event) => {
+                    if (event.srcElement.tagName.toLowerCase() == 'a') {
+                        location.href = event.srcElement.href
+                        event.preventDefault()
+                    }
+                })
+                this.iframeLoaded = true
+            })
+            iframeDoc.close()
         }
     }
 }

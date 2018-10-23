@@ -14,7 +14,7 @@ if ('IntersectionObserver' in window) {
 export default {
     props: ['url'],
     template: `<div class='github-event'>
-                    <div v-if='url != null && user != null'>
+                    <div class='root' v-if='url != null && user != null'>
                         <a v-bind:href='user.page'>
                             <img v-bind:data-url='user.img' v-if='lazyLoad' />
                             <img v-bind:src='user.img' v-if='!lazyLoad' />
@@ -38,11 +38,11 @@ export default {
         this.lazyLoad = imageObserver != null
         if (this.url != null) {
             fetch(this.url)
-                .then((response) => response.json())
-                .then((json) => {
-                    this.setEvent(json)
+                .then((response) => {
                     if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
+                    return response.json()
                 })
+                .then(this.setEvent)
         }
     },
     methods: {

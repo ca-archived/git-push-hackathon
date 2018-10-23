@@ -19,7 +19,7 @@ const(
 	certPath =  "../env/cert.pem"
 	keyPath =  "../env/key.pem"
 	rootPath = "../client"
-	port = 49651
+	port = 49650
 )
 
 var github *oauth2.Config
@@ -28,14 +28,14 @@ var stateMap map[string]string = map[string]string{}
 func main(){
 	path,_ := filepath.Abs(clientSecretPath)
 	bytes, err := ioutil.ReadFile(path)
-	if err != nil{
+	if err != nil {
 		panic(err.Error())
 	}
 	clientSecret := strings.TrimRight(string(bytes), "\n")
 
 	path,_ = filepath.Abs(clientIdPath)
 	bytes, err = ioutil.ReadFile(path)
-	if err != nil{
+	if err != nil {
 		panic(err.Error())
 	}
 	clientId := strings.TrimRight(string(bytes), "\n")

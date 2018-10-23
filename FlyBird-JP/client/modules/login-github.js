@@ -1,22 +1,24 @@
+import MyDialog from '/modules/my-dialog.js'
+import EventList from '/modules/event-list.js'
+import UserList from '/modules/user-list.js'
+
 export default {
     template: `<div class='login-github'>
                     <div class='button' v-on:click='login()' v-if='user == null'>
-                        <img class='icon' src='/images/GitHub-Mark-120px-plus.png' />
+                        <img class='icon' src='https://flybird.jp:49650/images/GitHub-Mark-120px-plus.png' />
                         <div class='label'>Github</div>
                         <div class='desc'>Githubにログインする</div>
                     </div>
-                    <div class='button' v-on:click='showEvents();isActive = !isActive;' v-if='user != null'>
+                    <div class='button' v-on:click='isActive = !isActive' v-if='user != null'>
                         <img class='icon' id='usericon' v-bind:src='user.avatar_url' />
                         <div class='label' id='username'>{{ user.login }}</div>
                         <div class='desc'>Github</div>
                     </div>
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
-                        <div class='events'>
-                            <git-event
-                                v-for='event in events'
-                                v-bind:url='event'
-                            ></git-event>
-                            <div class='messeage center' v-if='events != null && events.length == 0'>表示できるイベントがまだありません。</div>
+                        <div class='list' v-if='user != null'>
+                            <h2 v-on:click='isShowFollowing = !isShowFollowing'>フォロー中<span v-show='!isShowFollowing'>を見る</span><span v-show='isShowFollowing'>を閉じる</span></h2>
+                            <user-list v-bind:username='user.login' v-show='isShowFollowing'></user-list>
+                            <event-list v-bind:url='user.received_events_url'></event-list>
                         </div>
                         <div class='buttons'>
                             <div class='button' v-on:click='jump()'>Github.comで見る</div>
@@ -24,25 +26,38 @@ export default {
                         </div>
                     </div>
                     <div v-if='isActive' class='backdrop'></div>
+                    <my-dialog></my-dialog>
                 </div>`,
+    components: {
+        'my-dialog': MyDialog,
+        'event-list': EventList,
+        'user-list': UserList
+    },
     data: function () {
         return {
             'isActive': false,
             'user': null,
-            'events': null
+            'events': null,
+            'isShowFollowing' :false
         }
     },
     created: function () {
         if ('accessToken' in localStorage) {
-            this.getUser().then((user) => {
-                this.user = user
-                localStorage.setItem('username', this.user.login)
-                this.popup(`ようこそ！${this.user.login}さん`, {
-                    'body': "Githubにログインしています。",
-                    'icon': this.user.avatar_url,
-                    'tag': `login?date=${new Date().toLocaleDateString()}` 
+            this.getUser()
+                .then((user) => {
+                    this.user = user
+                    localStorage.setItem('username', this.user.login)
+                    this.popup(`ようこそ！${this.user.login}さん`, {
+                        'body': "Githubにログインしています。",
+                        'icon': this.user.avatar_url,
+                        'tag': `login?date=${new Date().toLocaleDateString()}`
+                    })
                 })
-            })
+                .catch((err) => {
+                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', `${err.toString()}\nログアウトします。`, () => {
+                        this.logout()
+                    })
+                })
         }
     },
     methods: {
@@ -50,9 +65,7 @@ export default {
             location.href = `/auth/github`
         },
         logout: function () {
-            localStorage.clear(`accessToken`)
-            localStorage.clear(`username`)
-            location.href = '/'
+            this.$router.push('/logout')
         },
         popup: function (title, msg) {
             if ('Notification' in window) {
@@ -81,27 +94,14 @@ export default {
             }
         },
         getUser: async function () {
-            const response = await fetch('https://api.github.com/user', { 'headers': { 'Authorization': ` token ${localStorage.getItem('accessToken')}` } })
-            if (response.status == 401) this.logout()
+            const response = await fetch('https://api.github.com/user', { 'headers': new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` }) })
+            if (response.status == 401) {
+                const json = await response.json()
+                throw new Error(`${response.status} ${response.statusText} with ${json.message}`)
+            }
             else {
                 this.isAuth = true
-                return response.json()
-            }
-        },
-        showEvents: function () {
-            if (this.events == null) {
-                fetch(this.user.received_events_url, {
-                    headers: new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` })
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-                        const events = []
-                        for (let event of json) {
-                            const blob = new Blob([JSON.stringify(event)], { type: 'application/json' })
-                            events.push(URL.createObjectURL(blob))
-                        }
-                        this.events = events
-                    })
+                return await response.json()
             }
         },
         jump: function () {

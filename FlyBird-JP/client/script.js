@@ -41,6 +41,11 @@ router.beforeEach((to, from, next) => {
                     else next(false)
                 })
                 break;
+            case '/logout':
+                localStorage.clear(`accessToken`)
+                localStorage.clear(`username`)
+                location.href = '/'
+                break;
             default: next()
                 break;
         }
