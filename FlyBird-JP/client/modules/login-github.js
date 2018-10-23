@@ -16,7 +16,7 @@ export default {
                     </div>
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
                         <div class='list' v-if='user != null'>
-                            <h2 v-on:click='isShowFollowing = !isShowFollowing'>フォロー中<span v-show='!isShowFollowing'>を見る</span><span v-show='isShowFollowing'>を閉じる</span></h2>
+                            <h2 v-on:click='isShowFollowing = !isShowFollowing'>フォロー中ユーザー<span v-show='!isShowFollowing'>を見る</span><span v-show='isShowFollowing'>を閉じる</span></h2>
                             <user-list v-bind:username='user.login' v-show='isShowFollowing'></user-list>
                             <event-list v-bind:url='user.received_events_url'></event-list>
                         </div>
