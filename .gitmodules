@@ -1,0 +1,3 @@
+[submodule "GistViewerForAndroid"]
+	path = GistViewerForAndroid
+	url = git@github.com:fumiya-kume/GistViewerForAndroid.git
