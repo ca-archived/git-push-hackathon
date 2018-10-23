@@ -46,6 +46,10 @@ fun <T> LiveData<T>.nonNullObserve(owner: LifecycleOwner, observer: (T) -> Unit)
     this.observe(owner, Observer { it?.let(observer) })
 }
 
+fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
+    this.observe(owner, Observer(observer))
+}
+
 fun Context.netWorkCheck(): Boolean {
     val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val info = cm.activeNetworkInfo

@@ -17,7 +17,7 @@ import kotlinx.coroutines.experimental.runBlocking
 
 internal class GistBoundaryCallback(
         private val userName: String?,
-        private val token: String,
+        private val token: String?,
         private val client: GistClient,
         private val localClient: GistLocalClient
 ) : PagedList.BoundaryCallback<Gist>() {
@@ -45,7 +45,7 @@ internal class GistBoundaryCallback(
         requestAndSaveData(token, userName)
     }
 
-    fun requestAndSaveData(token: String, userName: String?) {
+    fun requestAndSaveData(token: String?, userName: String?) {
         if (!isLoading) {
             CoroutineScope(Dispatchers.IO).launch {
                 isLoading = true
@@ -53,7 +53,7 @@ internal class GistBoundaryCallback(
 
                 try {
                     val gists: List<GistJson> = runBlocking {
-                        if (userName != null) {
+                        if (userName != null && token != null) {
                             client.gists(userName, lastPage, PER_PAGE_COUNT, token).await()
                         } else {
                             client.publicGists(lastPage, PER_PAGE_COUNT).await()

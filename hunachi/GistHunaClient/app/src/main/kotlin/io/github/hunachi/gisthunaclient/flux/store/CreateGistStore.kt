@@ -33,6 +33,9 @@ class CreateGistStore(dispatcher: Dispatcher) : Store() {
     private val _requestSaveState = SingleLiveEvent<Nothing>()
     val requestSaveState: LiveData<Nothing> = _requestSaveState
 
+    private val _finishState = SingleLiveEvent<Nothing>()
+    val finishState: LiveData<Nothing> = _finishState
+
     override fun onCreate() {
         job.add(CoroutineScope(Dispatchers.Main).launch {
             createGistSubscriber.consumeEach {
@@ -45,6 +48,8 @@ class CreateGistStore(dispatcher: Dispatcher) : Store() {
             mainSubscriber.consumeEach {
                 when (it) {
                     is MainAction.ClickedFAB -> if (loadingState.value != true) _requestSaveState.call()
+
+                    is MainAction.ClickedBack -> _finishState.call()
                 }
             }
         })

@@ -10,4 +10,6 @@
     <string name="gopher_image">gopher_image</string>
     <string name="auth_text">認証</string>
     <string name="success_post_gist">Gitsの投稿に成功しました！</string>
+    <string name="invite_oauth_text">Oauth認証をする！</string>
+    <string name="have_to_login_alart_text">Oauth認証する必要があります！</string>
 </resources>

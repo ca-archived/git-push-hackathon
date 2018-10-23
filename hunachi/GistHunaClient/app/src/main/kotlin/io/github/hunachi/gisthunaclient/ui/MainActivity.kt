@@ -1,14 +1,12 @@
 package io.github.hunachi.gisthunaclient.ui
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
-import androidx.annotation.IdRes
-import androidx.annotation.RawRes
 import androidx.databinding.DataBindingUtil
 import io.github.hunachi.gisthunaclient.R
 import io.github.hunachi.gisthunaclient.databinding.ActivityMainBinding
@@ -18,7 +16,6 @@ import io.github.hunachi.gisthunaclient.ui.gistCreate.CreateGistFragment
 import io.github.hunachi.gisthunaclient.ui.gistList.GistListFragment
 import io.github.hunachi.oauth.OauthActivity
 import io.github.hunachi.shared.*
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -33,16 +30,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.fab.setOnClickListener {
-            mainActionCreator.clickedFav()
-        }
+        if (preference.token() != null) preference.login(true)
 
-        // todo あとで認証できるようにする．
-        if (preference.isFirstUser()) {
-            startActivity(OauthActivity.newInstance())
-            preference.firstCheckIn()
-        } else if (preference.token() == null) {
-            preference.token() ?: tokenIsDuplicatedOrFailed()
+        binding.fab.setOnClickListener {
+            if (!preference.login()) toast(getString(R.string.have_to_login_alart_text))
+            else mainActionCreator.clickedFav()
         }
     }
 
@@ -52,8 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // GistListにおるときは，アプリを閉じる．
-        replaceFragment(FragmentState.GIST_LIST)
+        mainActionCreator.clickedBack()
     }
 
     fun replaceFragment(fragmentState: FragmentState) {
@@ -71,6 +62,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }.checkAllMatched)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (!preference.login()) menuInflater.inflate(R.menu.oauth_setting_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.invite_oauth -> {
+                preference.login(true)
+                startActivity(OauthActivity.newInstance())
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun tokenIsDuplicatedOrFailed() {

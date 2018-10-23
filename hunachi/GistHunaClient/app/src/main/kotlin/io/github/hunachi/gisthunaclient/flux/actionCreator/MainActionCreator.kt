@@ -10,12 +10,11 @@ class MainActionCreator(
         private val repository: GistRepository
 ) {
 
-    fun changeFragment(nextFragmentState: FragmentState?) {
-        dispatcher.send(MainAction.ChangeFragmentState(
-                nextFragmentState ?: FragmentState.GIST_LIST))
-    }
-
     fun clickedFav(){
         dispatcher.send(MainAction.ClickedFAB)
+    }
+
+    fun clickedBack(){
+        dispatcher.send(MainAction.ClickedBack)
     }
 }

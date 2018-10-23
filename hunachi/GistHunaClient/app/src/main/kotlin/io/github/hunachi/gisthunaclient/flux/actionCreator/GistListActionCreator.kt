@@ -10,7 +10,7 @@ class GistListActionCreator(
         private val repository: GistRepository
 ) {
 
-    fun updateList(userName: String?, token: String) {
+    fun updateList(userName: String?, token: String?) {
         dispatcher.send(GistListAction.UpdateGist(repository.update(userName, token)))
     }
 }

@@ -65,15 +65,18 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
             startCreateGistState.observe(this@GistListFragment, Observer {
                 (activity as? MainActivity)?.let { it.replaceFragment(FragmentState.CREATE_GIST) }
             })
+
+            finishState.observe(this@GistListFragment) {
+                (activity as? MainActivity)?.finish()
+            }
         }.run {
             onCreate()
         }
     }
 
     private fun refreshList() {
-        preference.token()?.let {
-            gistListActionCreator.updateList(preference.ownerName(), it)
-        } ?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
+        if(preference.login() && preference.token() == null) (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
+        else gistListActionCreator.updateList(preference.ownerName(), preference.token())
     }
 
     override fun onClickItem(): (String) -> Unit = {

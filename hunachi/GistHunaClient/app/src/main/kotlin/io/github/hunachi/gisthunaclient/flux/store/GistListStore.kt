@@ -39,6 +39,9 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
     private val _startCreateGistState = SingleLiveEvent<Nothing>()
     val startCreateGistState: LiveData<Nothing> = _startCreateGistState
 
+    private val _finishState = SingleLiveEvent<Nothing>()
+    val finishState: LiveData<Nothing> = _finishState
+
     override fun onCreate() {
         mainSubscriber = dispatcher.asChannel()
         gistListSubscriber = dispatcher.asChannel()
@@ -54,6 +57,8 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
             mainSubscriber.consumeEach {
                 when (it) {
                     is MainAction.ClickedFAB -> _startCreateGistState.call()
+
+                    is MainAction.ClickedBack -> _finishState.call()
                 }
             }
         })

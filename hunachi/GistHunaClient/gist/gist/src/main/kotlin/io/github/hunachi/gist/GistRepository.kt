@@ -9,7 +9,7 @@ class GistRepository internal constructor(
         private val client: GistClient,
         private val localClient: GistLocalClient) {
 
-    fun update(userName: String?, token: String): GistResult {
+    fun update(userName: String?, token: String?): GistResult {
         val dataFactory = if (userName == null) localClient.gists() else localClient.userGists(userName)
         val boundaryCallback = GistBoundaryCallback(userName, token, client, localClient)
         val data = LivePagedListBuilder(dataFactory, GistBoundaryCallback.PER_PAGE_COUNT)
