@@ -66,26 +66,23 @@ function* getUserInfo() {
 
 // 初期化したときにすでにログイン済みだったらUser情報を取得
 function* handleInitialize(history) {
-  while (true) {
-    yield take(INITIALIZE);
-    yield put(loading());
-    const { resp, error } = yield call(Get, "");
+  yield put(loading());
+  const { error } = yield call(Get, "");
 
-    if (!error) {
-      yield put(successLogin());
-      yield put(getUser());
-      yield put(getGists());
-    } else {
-      yield call(history.push, "/");
-      yield put(failureLogin({ error }));
-      yield put(loaded());
-    }
+  if (!error) {
+    yield put(successLogin());
+    yield put(getUser());
+    yield put(getGists());
+  } else {
+    yield call(history.push, "/");
+    yield put(failureLogin({ error }));
+    yield put(loaded());
+  }
 
-    const message = sessionStorage.getItem("toastr");
-    if (message) {
-      toastr.error(message);
-      sessionStorage.removeItem("toastr");
-    }
+  const message = sessionStorage.getItem("toastr");
+  if (message) {
+    toastr.error(message);
+    sessionStorage.removeItem("toastr");
   }
 }
 

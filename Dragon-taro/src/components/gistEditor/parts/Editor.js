@@ -19,7 +19,6 @@ class Editor extends Component {
       }
     } = this.props;
     initEditor({ type: type, id: id });
-    this.props.actions.initialize();
   }
 
   isEdit() {
@@ -67,7 +66,9 @@ class Editor extends Component {
     const {
       editor: { files }
     } = this.props;
-    const newFiles = files.filter(f => f.index != index);
+    const newFiles = files
+      .filter(f => f.index != index)
+      .map((f, i) => ({ ...f, index: i }));
     this.handleChange({ files: newFiles });
   }
 
@@ -76,7 +77,7 @@ class Editor extends Component {
       actions: { submitGist }
     } = this.props;
     const method = this.isEdit() ? "PATCH" : "POST";
-    if (this.isvalid) submitGist({ data: this.state, method: method });
+    if (this.isValid()) submitGist({ data: this.state, method: method });
   }
 
   fileEditors() {

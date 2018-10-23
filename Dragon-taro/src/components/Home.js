@@ -5,14 +5,6 @@ import Loader from "./parts/Loader";
 import { If } from "./parts/If";
 
 class Home extends Component {
-  constructor() {
-    super();
-  }
-
-  componentDidMount() {
-    this.props.actions.initialize();
-  }
-
   getGist(id) {
     const gist = this.props.gist[id];
     if (!gist) {
