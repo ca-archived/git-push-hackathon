@@ -1,0 +1,17 @@
+body {
+  padding: 70px 20%;
+  background: #EDEFF2;
+}
+.hover {
+    &:hover {
+      background-color: rgba(0,0,0,.1);
+    }
+}
+.card {
+  .card-text {
+    color: #000;
+  }
+  .card-header {
+    color: #000;
+  }
+}

@@ -13,7 +13,7 @@ use App\SocialAccount;
 class SocialController extends Controller
 {
 
-    protected $redirectTo = '/gists';
+    protected $redirectTo = '/gists/public';
 
     public function getGithubAuth()
     {
