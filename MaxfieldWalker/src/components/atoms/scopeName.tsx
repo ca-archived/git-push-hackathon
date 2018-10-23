@@ -25,8 +25,8 @@ export const ScopeName: React.StatelessComponent<Props> = props => {
   const text = isPrivate ? "SECRET" : "PUBLIC";
 
   return (
-    <Span style={style} isPrivate={isPrivate}>
-      {text}
-    </Span>
+    <div style={style}>
+      <Span isPrivate={isPrivate}>{text}</Span>
+    </div>
   );
 };

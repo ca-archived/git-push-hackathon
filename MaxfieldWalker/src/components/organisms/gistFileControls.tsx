@@ -94,17 +94,22 @@ export class GistFileControls extends React.Component<Props, State> {
     };
 
     return (
-      <EditableText
-        content={description || "No description"}
-        textStyle={textStyle}
-        requestUpdateContent={updateGistDescription}
-      />
+      <div style={{ marginTop: -8 }}>
+        <EditableText
+          content={description || "No description"}
+          textStyle={textStyle}
+          requestUpdateContent={updateGistDescription}
+        />
+      </div>
     );
   }
 
   renderScope() {
     return (
-      <ScopeName isPrivate={this.props.isPrivate} style={{ marginLeft: 12 }} />
+      <ScopeName
+        isPrivate={this.props.isPrivate}
+        style={{ marginLeft: 12, marginBottom: 6 }}
+      />
     );
   }
 

@@ -142,7 +142,7 @@ export class GistFileView extends React.Component<Props, State> {
           style={{
             height: 130,
             borderBottom: "1px solid lightgray",
-            marginTop: 20
+            marginTop: 12
           }}
         />
         <EditorWrapper>
