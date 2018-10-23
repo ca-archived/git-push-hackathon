@@ -9,4 +9,5 @@
     <string name="cant_upload_file_is_empty">ファイルが一つ以上ないとupload出来ないにゃ！</string>
     <string name="gopher_image">gopher_image</string>
     <string name="auth_text">認証</string>
+    <string name="success_post_gist">Gitsの投稿に成功しました！</string>
 </resources>

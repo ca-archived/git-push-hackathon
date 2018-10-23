@@ -37,13 +37,11 @@ class MainActivity : AppCompatActivity() {
             preference.firstCheckIn()
         } else if (preference.token() == null) {
             preference.token() ?: tokenIsDuplicatedOrFailed()
-        } else {
-            replaceFragment(FragmentState.GIST_LIST)
         }
     }
 
-    override fun onRestart() {
-        super.onRestart()
+    override fun onStart() {
+        super.onStart()
         replaceFragment(FragmentState.GIST_LIST)
     }
 
@@ -53,11 +51,10 @@ class MainActivity : AppCompatActivity() {
 
     fun replaceFragment(fragmentState: FragmentState) {
         supportFragmentManager.inTransaction {
-            replace(binding.listContainer.id, when(fragmentState){
+            replace(binding.listContainer.id, when (fragmentState) {
                 FragmentState.GIST_LIST -> GistListFragment.newInstance()
                 FragmentState.CREATE_GIST -> CreateGistFragment.newInstance()
-            }.checkAllMatched
-            )
+            }.checkAllMatched)
         }
     }
 

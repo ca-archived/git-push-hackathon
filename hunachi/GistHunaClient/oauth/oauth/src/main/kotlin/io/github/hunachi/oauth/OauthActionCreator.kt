@@ -11,7 +11,6 @@ internal class OauthActionCreator(
         private val userRepository: UserRepository
 ) {
 
-    private var job: Job? = null
     private val PARAM_CODE = "code"
     private val PARAM_STATE = "state"
 
@@ -24,19 +23,11 @@ internal class OauthActionCreator(
         val code = uri.getQueryParameter(PARAM_CODE)
 
         if (state == OauthRepository.STATE_CODE && code != null) {
-            CoroutineScope(Dispatchers.IO).launch{
-                dispatcher.send(OauthAction.ReceiveOauthResult(oauthRepository.register(code)))
-            }
+            dispatcher.send(OauthAction.ReceiveOauthResult(oauthRepository.register(code)))
         }
     }
 
     fun loadUser(token: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            dispatcher.send(OauthAction.UpdateUser(userRepository.setUp(null, token)))
-        }
-    }
-
-    fun stopLoading() {
-        job?.cancel()
+        dispatcher.send(OauthAction.UpdateUser(userRepository.setUp(null, token)))
     }
 }
