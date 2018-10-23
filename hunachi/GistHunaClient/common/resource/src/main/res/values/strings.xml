@@ -12,4 +12,5 @@
     <string name="success_post_gist">Gitsの投稿に成功しました！</string>
     <string name="invite_oauth_text">Oauth認証をする！</string>
     <string name="have_to_login_alart_text">Oauth認証する必要があります！</string>
+    <string name="already_login_text">もう認証されてます！</string>
 </resources>

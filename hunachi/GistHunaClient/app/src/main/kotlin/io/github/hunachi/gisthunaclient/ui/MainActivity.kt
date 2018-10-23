@@ -72,8 +72,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.invite_oauth -> {
-                preference.login(true)
-                startActivity(OauthActivity.newInstance())
+                if (!preference.login()) {
+                    preference.login(true)
+                    startActivity(OauthActivity.newInstance())
+                } else toast(getString(R.string.already_login_text))
             }
         }
         return super.onOptionsItemSelected(item)
