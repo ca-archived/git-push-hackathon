@@ -202,11 +202,15 @@ export default class GistTreeView extends React.Component<Props, State> {
     return (
       <Scrollbars autoHide autoHideTimeout={500}>
         {gistsLoaded ? (
-          <CustomTreebeard
-            data={data}
-            onToggle={this.onTreeItemClick.bind(this)}
-            onTriangleClick={this.onTriangleClick.bind(this)}
-          />
+          data.length > 0 ? (
+            <CustomTreebeard
+              data={data}
+              onToggle={this.onTreeItemClick.bind(this)}
+              onTriangleClick={this.onTriangleClick.bind(this)}
+            />
+          ) : (
+            <MessageSpan>No gists</MessageSpan>
+          )
         ) : (
           <MessageSpan>Loading...</MessageSpan>
         )}

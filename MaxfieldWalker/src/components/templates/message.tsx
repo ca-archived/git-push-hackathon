@@ -15,7 +15,7 @@ const MessageSpan = styled.span`
   color: gray;
   user-select: none;
   text-align: center;
-  line-height: 140%;
+  line-height: 180%;
 `;
 
 export const Message: React.StatelessComponent = props => {
