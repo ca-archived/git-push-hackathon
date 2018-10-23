@@ -282,22 +282,23 @@ main > .content > h2 {
    transform: translateX(0);
 }
 .login-github > .dashboard > .list{
-    height: calc(100% - 60px);
+    height: calc(100% - 40px);
     overflow: hidden;
 }
 .login-github > .dashboard > .list > h2 {
     margin: 0;
     border-bottom: solid 0.5px #ccc;
-    line-height: 60px;
+    line-height: 40px;
     font-weight: 500;
+    font-size: larger;
     padding-left: 1rem;
     cursor: pointer;
 }
 .login-github > .dashboard > .list > .event-list {
-    height: calc(100% - 61px);
+    height: calc(100% - 40px);
 }
 .login-github > .dashboard > .list > .user-list {
-    height: calc(100% - 61px);
+    height: calc(100% - 40px);
 }
  .login-github > .dashboard > .buttons {
    width: 100%;
