@@ -1,6 +1,6 @@
 package io.github.hunachi.gisthunaclient.flux.action
 
-import io.github.hunachi.gist.GistPostResult
+import io.github.hunachi.gist.model.GistPostResult
 
 sealed class CreateGistAction {
 

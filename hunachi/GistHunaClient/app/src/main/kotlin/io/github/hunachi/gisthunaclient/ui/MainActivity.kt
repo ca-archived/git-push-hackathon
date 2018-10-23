@@ -1,9 +1,14 @@
 package io.github.hunachi.gisthunaclient.ui
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.IdRes
+import androidx.annotation.RawRes
 import androidx.databinding.DataBindingUtil
 import io.github.hunachi.gisthunaclient.R
 import io.github.hunachi.gisthunaclient.databinding.ActivityMainBinding
@@ -13,6 +18,7 @@ import io.github.hunachi.gisthunaclient.ui.gistCreate.CreateGistFragment
 import io.github.hunachi.gisthunaclient.ui.gistList.GistListFragment
 import io.github.hunachi.oauth.OauthActivity
 import io.github.hunachi.shared.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -46,14 +52,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        // GistListにおるときは，アプリを閉じる．
         replaceFragment(FragmentState.GIST_LIST)
     }
 
     fun replaceFragment(fragmentState: FragmentState) {
         supportFragmentManager.inTransaction {
             replace(binding.listContainer.id, when (fragmentState) {
-                FragmentState.GIST_LIST -> GistListFragment.newInstance()
-                FragmentState.CREATE_GIST -> CreateGistFragment.newInstance()
+                FragmentState.GIST_LIST -> {
+                    binding.fab.setImageIcon(Icon.createWithResource(
+                            this@MainActivity, R.drawable.ic_add_white_24dp))
+                    GistListFragment.newInstance()
+                }
+                FragmentState.CREATE_GIST -> {
+                    binding.fab.setImageIcon(Icon.createWithResource(
+                            this@MainActivity, R.drawable.ic_save_white_24dp))
+                    CreateGistFragment.newInstance()
+                }
             }.checkAllMatched)
         }
     }

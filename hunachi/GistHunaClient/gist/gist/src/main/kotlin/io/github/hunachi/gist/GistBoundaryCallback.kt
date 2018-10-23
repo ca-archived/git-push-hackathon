@@ -3,6 +3,7 @@ package io.github.hunachi.gist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
+import io.github.hunachi.gist.local.GistLocalClient
 import io.github.hunachi.gist.util.toFile
 import io.github.hunachi.gist.util.toGist
 import io.github.hunachi.gistnetwork.GistClient
@@ -13,17 +14,16 @@ import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.runBlocking
-import kotlin.Exception
 
 internal class GistBoundaryCallback(
         private val userName: String?,
         private val token: String,
         private val client: GistClient,
-        private val localRepository: GistLocalRepository
+        private val localClient: GistLocalClient
 ) : PagedList.BoundaryCallback<Gist>() {
 
     companion object {
-        const val PER_PAGE_COUNT = 30
+        const val PER_PAGE_COUNT = 20
     }
 
     private val _networkErrorState = MutableLiveData<NetWorkError>()
@@ -62,9 +62,9 @@ internal class GistBoundaryCallback(
 
                     gistsSize = gists.size
 
-                    localRepository.insertGists(gists = gists.map { gistJson ->
+                    localClient.insertGists(gists = gists.map { gistJson ->
 
-                        localRepository.insertFiles(gistJson.files?.map {
+                        localClient.insertFiles(gistJson.files?.map {
                             it.toFile(gistJson.id)
                         } ?: listOf())
                         gistJson.toGist()

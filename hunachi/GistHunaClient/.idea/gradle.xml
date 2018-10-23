@@ -17,7 +17,6 @@
             <option value="$PROJECT_DIR$/gist/gistnetwork" />
             <option value="$PROJECT_DIR$/oauth/oauth" />
             <option value="$PROJECT_DIR$/oauth/oauthnetwork" />
-            <option value="$PROJECT_DIR$/oauthui" />
             <option value="$PROJECT_DIR$/user/user" />
             <option value="$PROJECT_DIR$/user/usernetwork" />
           </set>

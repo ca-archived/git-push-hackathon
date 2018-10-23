@@ -49,6 +49,7 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
     private fun setupStore() {
         gistListStore.apply {
             gistsState.nonNullObserve(this@GistListFragment) {
+                binding.emptyList = if (it.size <= 0) true else false
                 listAdapter.submitList(it)
                 binding.swipeRefresh.isRefreshing = false
             }
@@ -57,7 +58,7 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
                 binding.swipeRefresh.isRefreshing = it
             })
 
-            errorState.observe(this@GistListFragment, Observer{
+            errorState.observe(this@GistListFragment, Observer {
                 activity?.let { activity -> activity.toastNetworkError(it) }
             })
 

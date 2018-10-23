@@ -1,4 +1,4 @@
-package io.github.hunachi.gist
+package io.github.hunachi.gist.model
 
 import androidx.lifecycle.LiveData
 import io.github.hunachi.model.Gist

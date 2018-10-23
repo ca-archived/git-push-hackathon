@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
-import io.github.hunachi.gist.GistResult
+import io.github.hunachi.gist.model.GistResult
 import io.github.hunachi.gisthunaclient.flux.action.GistListAction
 import io.github.hunachi.gisthunaclient.flux.action.MainAction
 import io.github.hunachi.model.Gist

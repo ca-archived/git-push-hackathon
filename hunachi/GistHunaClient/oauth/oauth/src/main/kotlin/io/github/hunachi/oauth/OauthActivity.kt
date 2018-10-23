@@ -44,7 +44,7 @@ class OauthActivity : AppCompatActivity() {
         oauthStore.apply {
             isLoadingState.nonNullObserve(this@OauthActivity) {
                 binding.authButton.isClickable = !it
-                binding.loadingDialog.apply { isVisible = it }.run { if (it) start() else stop() }
+                binding.loadingDialog.apply { isVisible = it }.run { if (it) show() else hide() }
             }
 
             errorState.observe(this@OauthActivity, Observer {

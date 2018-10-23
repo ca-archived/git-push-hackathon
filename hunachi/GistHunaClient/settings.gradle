@@ -1,4 +1,4 @@
-include ':app', ':oauthui'
+include ':app'
 
 def commonModule = new File('common')
 include ':shared', ':model', ':database', ':resource'

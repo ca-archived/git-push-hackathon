@@ -1,6 +1,8 @@
 package io.github.hunachi.gist
 
 import androidx.lifecycle.MutableLiveData
+import io.github.hunachi.gist.local.GistLocalClient
+import io.github.hunachi.gist.model.GistPostResult
 import io.github.hunachi.gistnetwork.GistClient
 import io.github.hunachi.gistnetwork.adapter.toPostGistJson
 import io.github.hunachi.model.DraftGist
@@ -10,7 +12,7 @@ import kotlinx.coroutines.experimental.*
 
 class GistPostRepository internal constructor(
         private val client: GistClient,
-        private val localRepository: GistLocalRepository // draftGistだけをほじしておけるようにするなら
+        private val localClient: GistLocalClient // draftGistだけをほじしておけるようにするなら
 ) {
 
     private val _resultGistState = MutableLiveData<Gist>()

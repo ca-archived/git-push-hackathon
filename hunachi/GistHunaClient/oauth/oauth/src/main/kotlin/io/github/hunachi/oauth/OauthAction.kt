@@ -1,6 +1,6 @@
 package io.github.hunachi.oauth
 
-import io.github.hunachi.user.UserResult
+import io.github.hunachi.user.model.UserResult
 
 internal sealed class OauthAction {
 

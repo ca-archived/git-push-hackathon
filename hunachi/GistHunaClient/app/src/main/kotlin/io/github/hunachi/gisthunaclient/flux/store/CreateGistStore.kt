@@ -3,7 +3,7 @@ package io.github.hunachi.gisthunaclient.flux.store
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import io.github.hunachi.gist.GistPostResult
+import io.github.hunachi.gist.model.GistPostResult
 import io.github.hunachi.gisthunaclient.flux.action.CreateGistAction
 import io.github.hunachi.gisthunaclient.flux.action.MainAction
 import io.github.hunachi.shared.SingleLiveEvent

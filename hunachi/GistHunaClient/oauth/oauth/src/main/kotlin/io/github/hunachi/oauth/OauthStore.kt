@@ -10,7 +10,7 @@ import io.github.hunachi.shared.*
 import io.github.hunachi.shared.flux.Dispatcher
 import io.github.hunachi.shared.flux.Store
 import io.github.hunachi.shared.network.NetWorkError
-import io.github.hunachi.user.UserResult
+import io.github.hunachi.user.model.UserResult
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job

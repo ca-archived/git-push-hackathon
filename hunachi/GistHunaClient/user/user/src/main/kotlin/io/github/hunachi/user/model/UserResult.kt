@@ -1,4 +1,4 @@
-package io.github.hunachi.user
+package io.github.hunachi.user.model
 
 import androidx.lifecycle.LiveData
 import io.github.hunachi.model.User

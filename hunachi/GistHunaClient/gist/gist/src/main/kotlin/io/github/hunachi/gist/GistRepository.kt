@@ -1,21 +1,21 @@
 package io.github.hunachi.gist
 
 import androidx.paging.LivePagedListBuilder
+import io.github.hunachi.gist.local.GistLocalClient
+import io.github.hunachi.gist.model.GistResult
 import io.github.hunachi.gistnetwork.GistClient
-import io.github.hunachi.gistnetwork.adapter.toPostGistJson
-import io.github.hunachi.model.DraftGist
 
 class GistRepository internal constructor(
         private val client: GistClient,
-        private val localRepository: GistLocalRepository) {
+        private val localClient: GistLocalClient) {
 
     fun update(userName: String?, token: String): GistResult {
-        val dataFactory = if (userName == null) localRepository.gists() else localRepository.userGists(userName)
-        val boundaryCallback = GistBoundaryCallback(userName, token, client, localRepository)
+        val dataFactory = if (userName == null) localClient.gists() else localClient.userGists(userName)
+        val boundaryCallback = GistBoundaryCallback(userName, token, client, localClient)
         val data = LivePagedListBuilder(dataFactory, GistBoundaryCallback.PER_PAGE_COUNT)
                 .setBoundaryCallback(boundaryCallback).build()
 
         return GistResult(data, boundaryCallback.isFirstLoadingState, boundaryCallback.networkErrorState)
     }
-    suspend fun deleteAll() = localRepository.deleteGists()
+    suspend fun deleteAll() = localClient.deleteGists()
 }

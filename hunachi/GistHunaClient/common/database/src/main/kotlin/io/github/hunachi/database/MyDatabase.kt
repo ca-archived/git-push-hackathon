@@ -25,7 +25,7 @@ abstract class MyDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        val DATABASE_NAME = "gistHunaClient.db"
+        val DATABASE_NAME = "gisthunach.db"//"gistHunaClient.db"
 
         @Volatile
         private var INSTANCE: MyDatabase? = null

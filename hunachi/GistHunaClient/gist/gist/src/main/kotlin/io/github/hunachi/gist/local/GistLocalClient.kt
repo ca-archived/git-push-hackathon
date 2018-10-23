@@ -1,4 +1,4 @@
-package io.github.hunachi.gist
+package io.github.hunachi.gist.local
 
 import androidx.paging.DataSource
 import io.github.hunachi.database.MyDatabase
@@ -6,7 +6,7 @@ import io.github.hunachi.model.File
 import io.github.hunachi.model.Gist
 import kotlinx.coroutines.experimental.*
 
-internal class GistLocalRepository(private val database: MyDatabase) {
+internal class GistLocalClient(private val database: MyDatabase) {
 
     fun gists(): DataSource.Factory<Int, Gist> = database.getGistDao().findGists()
 
