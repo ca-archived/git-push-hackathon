@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "lib": ["dom", "es2017"],
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["typings", "node_modules/@types"]
+  }
+}
