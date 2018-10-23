@@ -16,6 +16,12 @@ import {
 } from "../actions/actions";
 import toastr from "toastr";
 
+const initEditorState = {
+  description: "",
+  public: true,
+  files: [{ index: 0, filename: "", content: "" }]
+};
+
 const selectGist = state => state.gist;
 const selectEditor = state => state.editor;
 
@@ -86,6 +92,8 @@ function* handleSubmitGist(history) {
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
       yield call(history.push, `/gists/${resp.id}`);
+      localStorage.removeItem("editor");
+      yield put(setEditorState(initEditorState));
     } else {
       toastr.error(error);
     }
@@ -114,11 +122,6 @@ function* handleInitEditor() {
 
       yield put(setEditorState(targetGist));
     } else {
-      const initState = {
-        description: "",
-        public: true,
-        files: [{ index: 0, filename: "", content: "" }]
-      };
       const editor = yield JSON.parse(localStorage.getItem("editor")) ||
         select(selectEditor);
 
@@ -129,7 +132,7 @@ function* handleInitEditor() {
       const useDraft = hasDraft ? confirm("Use your gist draft?") : false;
 
       if (!useDraft) {
-        yield put(setEditorState(initState));
+        yield put(setEditorState(initEditorState));
       } else {
         yield put(setEditorState(editor));
       }
