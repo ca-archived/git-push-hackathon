@@ -105,6 +105,14 @@ Read this in other languages: [English](./README.en-US.md)
 ---
 [![Build Status](https://kuxu.visualstudio.com/GistViewerForAndroid/_apis/build/status/GistViewerForAndroid-Android-CI)](https://kuxu.visualstudio.com/GistViewerForAndroid/_build/latest?definitionId=5)
 
+# 動作環境
+
+# Mobile device
+- Androdi 8.0
+- Huawei P20 lite
+# IDE
+- Android Studio 3.2.1
+
 # 頑張ったところをリストアップしてみる
 
 - マルチモジュールを基本としたアプリ設計
