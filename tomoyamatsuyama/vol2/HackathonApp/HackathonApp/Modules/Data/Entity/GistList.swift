@@ -37,7 +37,8 @@ struct GistListElement: Codable {
 }
 
 struct Files: Codable {
-    let filename, type, language: String
+    let filename, type: String
+    let language: String?
     let rawURL: String
     let size: Int
     

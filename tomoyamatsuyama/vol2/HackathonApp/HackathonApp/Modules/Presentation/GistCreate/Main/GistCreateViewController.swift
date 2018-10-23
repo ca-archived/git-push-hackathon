@@ -49,5 +49,13 @@ final class GistCreateViewController: UIViewController, GistCreateViewProtocol, 
             }
             .bind(to: presentRelay)
             .disposed(by: disposeBag)
+        
+        rx.sentMessage(#selector(viewWillAppear(_:)))
+            .map { _ in }
+            .subscribe(onNext: { [weak descriptionTextView] _ in
+                guard let descriptionTextView = descriptionTextView else { return }
+                descriptionTextView.becomeFirstResponder()
+            })
+            .disposed(by: disposeBag)
     }
 }
