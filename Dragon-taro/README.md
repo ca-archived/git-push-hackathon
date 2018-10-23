@@ -35,7 +35,25 @@ redux を書いたことはあったのですが適切な設計を考えたこ�
 
 state も役割ごとに分けて必要な分だけ参照できるように conteiner で設定しました。
 
+state は gists(gist の一覧), gist(個々の gist の Object← 命名が微妙でした、、), editor(editor での state), user(user の情報), oauth(認証が取れてるかどうか)で管理しています。
+
 基本的には redux でほとんどの state を管理するようにしたので、pure なコンポーネントを増やせました。
+
+#### src 以下のディレクトリ構成
+
+```
+src
+|-actions
+|-components（基本的なviewはここ）
+|  |-parts（共通のもの）
+|  |-gistView（gistの表示関連）
+|  |-gistEditor（gistの編輯関連）
+|
+|-css
+|-containers（reduxとの接続）
+|-sagas（主なロジック）
+|-reducers
+```
 
 ### 速度
 
