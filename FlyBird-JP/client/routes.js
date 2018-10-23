@@ -98,7 +98,10 @@ export default [
                         <gist-list user='user' v-bind:name='$route.params.username'></gist-list>
                     </div>
             </main>
-                </div>`
+                </div>`,
+            'mounted': function () {
+                document.getElementsByClassName('login-github')[0].__vue__.isActive = false
+            }
         }
     },
     {
