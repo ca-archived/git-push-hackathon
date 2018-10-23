@@ -1,6 +1,6 @@
 ## git-push-hackathon-2018
 
-![GitHub Gist Client](https://i.imgur.com/azFldwZ.png)
+![GitHub Gist Client](https://i.imgur.com/TwjS3zR.png)
 
 GitHub API を用いた gist クライアント。
 
