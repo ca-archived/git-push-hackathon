@@ -42,8 +42,12 @@ You may need to generate any variable necessary when devleoping an application(e
 
 ## Deadline
 
-- Application period: **2018/09/07 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**
-- Deadline: **2018/10/09 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**
+- ~Application period: **2018/09/07 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**~
+- Application period: **2018/09/07 12:00:00 +09:00 ~ 2018/10/24 23:59:59 +09:00**
+- ~Deadline: **2018/10/09 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**~
+- Deadline: **2018/10/09 12:00:00 +09:00 ~ 2018/10/24 23:59:59 +09:00**
+
+We decided to extend the deadline: https://blog.github.com/2018-10-21-october21-incident-report/
 
 ## Evaluation
 
