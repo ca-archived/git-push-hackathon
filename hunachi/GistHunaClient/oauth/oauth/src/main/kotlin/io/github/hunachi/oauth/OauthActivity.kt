@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import io.github.hunachi.oauth.databinding.ActivityOauthBinding
 import io.github.hunachi.oauth.di.oauthModule
 import io.github.hunachi.shared.*
@@ -46,9 +47,9 @@ class OauthActivity : AppCompatActivity() {
                 binding.loadingDialog.apply { isVisible = it }.run { if (it) start() else stop() }
             }
 
-            errorState.observe(this@OauthActivity) {
+            errorState.observe(this@OauthActivity, Observer {
                 toastNetworkError(it)
-            }
+            })
 
             oauthUrlState.nonNullObserve(this@OauthActivity) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
@@ -74,11 +75,6 @@ class OauthActivity : AppCompatActivity() {
         intent?.data?.let { uri ->
             oauthActionCreator.sendCode(uri)
         }
-    }
-
-    override fun onDestroy() {
-        oauthActionCreator.stopLoading()
-        super.onDestroy()
     }
 
     companion object {

@@ -5,20 +5,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.*
 import java.util.concurrent.atomic.AtomicBoolean
-import android.net.NetworkInfo
-import android.content.Context.CONNECTIVITY_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
 import android.net.ConnectivityManager
 import android.widget.Toast
 import io.github.hunachi.shared.network.NetWorkError
@@ -67,18 +61,6 @@ val <T> T.checkAllMatched: T
 
 fun <T> LiveData<T>.nonNullObserve(owner: LifecycleOwner, observer: (T) -> Unit) {
     this.observe(owner, Observer { it?.let(observer) })
-}
-
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) {
-    this.observe(owner, Observer(observer))
-}
-
-fun <T> MutableLiveData<T>.call() {
-    this.postValue(null)
-}
-
-fun <T> singleLiveData(): MutableLiveData<T> {
-    return MutableLiveData<T>().also { it.value = null }
 }
 
 fun <T> LiveData<T>.singleLiveData(owner: LifecycleOwner, observer: (T?) -> Unit) {

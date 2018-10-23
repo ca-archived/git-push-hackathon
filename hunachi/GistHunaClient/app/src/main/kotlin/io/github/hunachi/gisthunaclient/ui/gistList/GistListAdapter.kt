@@ -1,4 +1,4 @@
-package io.github.hunachi.gisthunaclient.view
+package io.github.hunachi.gisthunaclient.ui.gistList
 
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,9 @@ import io.github.hunachi.gisthunaclient.databinding.FragmentGistBinding
 import io.github.hunachi.model.Gist
 import io.github.hunachi.shared.inflate
 
-class GistListAdapter : PagedListAdapter<Gist, GistListAdapter.ViewHolder>(DIFF_UTIL) {
+class GistListAdapter(
+        private val lisner: GistListListener
+) : PagedListAdapter<Gist, GistListAdapter.ViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.fragment_gist, false))
@@ -21,7 +23,13 @@ class GistListAdapter : PagedListAdapter<Gist, GistListAdapter.ViewHolder>(DIFF_
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.text.text = getItem(position)?.description ?: "猫だよ"
+        holder.binding.apply {
+            text.text = getItem(position)?.description ?: "猫だよ"
+        }
+    }
+
+    interface GistListListener{
+        fun onClickItem(): (String) -> Unit
     }
 
     companion object {

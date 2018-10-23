@@ -1,5 +1,5 @@
 package io.github.hunachi.shared.network
 
 enum class NetWorkError {
-    TOKEN, NORMAL, FIN
+    TOKEN, NORMAL, FIN, POST
 }

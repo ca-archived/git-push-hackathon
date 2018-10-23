@@ -1,4 +1,4 @@
-package io.github.hunachi.gisthunaclient.flux
+package io.github.hunachi.gisthunaclient.flux.action
 
 import io.github.hunachi.gist.GistResult
 

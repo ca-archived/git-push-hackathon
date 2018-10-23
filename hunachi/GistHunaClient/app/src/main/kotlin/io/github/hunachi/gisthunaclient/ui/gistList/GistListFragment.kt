@@ -1,24 +1,28 @@
-package io.github.hunachi.gisthunaclient.view
+package io.github.hunachi.gisthunaclient.ui.gistList
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import io.github.hunachi.gisthunaclient.databinding.FragmentGistListBinding
-import io.github.hunachi.gisthunaclient.flux.GistListActionCreator
-import io.github.hunachi.gisthunaclient.flux.GistListStore
+import io.github.hunachi.gisthunaclient.flux.FragmentState
+import io.github.hunachi.gisthunaclient.flux.actionCreator.GistListActionCreator
+import io.github.hunachi.gisthunaclient.flux.store.GistListStore
+import io.github.hunachi.gisthunaclient.ui.MainActivity
 import io.github.hunachi.shared.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class GistListFragment : Fragment() {
+class GistListFragment : Fragment(), GistListAdapter.GistListListener {
 
-    private val listAdapter = GistListAdapter()
+    private val listAdapter = GistListAdapter(this)
     private val gistListActionCreator: GistListActionCreator by inject()
     private val preference: SharedPreferences by inject()
     private val gistListStore: GistListStore by viewModel()
@@ -49,13 +53,17 @@ class GistListFragment : Fragment() {
                 binding.swipeRefresh.isRefreshing = false
             }
 
-            isLoadingState.observe(this@GistListFragment) {
+            isLoadingState.observe(this@GistListFragment, Observer {
                 binding.swipeRefresh.isRefreshing = it
-            }
+            })
 
-            errorState.observe(this@GistListFragment) {
+            errorState.observe(this@GistListFragment, Observer{
                 activity?.let { activity -> activity.toastNetworkError(it) }
-            }
+            })
+
+            startCreateGistState.observe(this@GistListFragment, Observer {
+                (activity as? MainActivity)?.let { it.replaceFragment(FragmentState.CREATE_GIST) }
+            })
         }.run {
             onCreate()
         }
@@ -65,6 +73,11 @@ class GistListFragment : Fragment() {
         preference.token()?.let {
             gistListActionCreator.updateList(preference.ownerName(), it)
         } ?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
+    }
+
+    override fun onClickItem(): (String) -> Unit = {
+        // todo
+        Log.d(it, it)
     }
 
     companion object {

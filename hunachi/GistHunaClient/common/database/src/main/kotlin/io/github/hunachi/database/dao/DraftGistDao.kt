@@ -1,4 +1,4 @@
-package io.github.hunachi.gistlocal.dao
+package io.github.hunachi.database.dao
 
 import androidx.paging.PagedList
 import androidx.room.Dao

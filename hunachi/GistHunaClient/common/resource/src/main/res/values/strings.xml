@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">resource</string>
+    <string name="private_text">private</string>
+    <string name="app_name">GistHunaClient</string>
+    <string name="sorry_oauth_toast_text">ごめんなさい，もう一度認証をしてください！</string>
+    <string name="description">description</string>
+    <string name="write_code_or_text_here">write code or text here.</string>
+    <string name="file_name">file name</string>
+    <string name="language">language</string>
+    <string name="cant_upload_file_is_empty">ファイルが一つ以上ないとupload出来ないにゃ！</string>
+    <string name="gopher_image">gopher_image</string>
+    <string name="auth_text">認証</string>
 </resources>

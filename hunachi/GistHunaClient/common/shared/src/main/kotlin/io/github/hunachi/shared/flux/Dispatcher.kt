@@ -4,10 +4,10 @@ import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.channels.*
 
 class Dispatcher {
-    val bus: BroadcastChannel<Any> = ConflatedBroadcastChannel()
+    val bus: BroadcastChannel<Any> = BroadcastChannel(10)
 
     fun send(o: Any) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Unconfined).launch {
             bus.send(o)
             yield()
         }

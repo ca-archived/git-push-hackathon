@@ -1,10 +1,10 @@
 package io.github.hunachi.gistnetwork
 
+import io.github.hunachi.gistnetwork.model.PostGistJson
 import io.github.hunachi.gistnetwork.model.GistJson
+import io.github.hunachi.model.Gist
 import kotlinx.coroutines.experimental.Deferred
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface GistClient {
 
@@ -27,4 +27,10 @@ interface GistClient {
             @Path("gist_id") gistId: String,
             @Query("access_token") token: String
     ): Deferred<GistJson>
+
+    @POST("gists")
+    fun postGist(
+            @Body postGist: PostGistJson,
+            @Query("access_token") token: String
+    ): Deferred<Gist>
 }

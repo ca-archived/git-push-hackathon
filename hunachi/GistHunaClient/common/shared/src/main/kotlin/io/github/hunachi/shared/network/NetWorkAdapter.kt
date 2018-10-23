@@ -16,7 +16,7 @@ inline fun <reified T> createClient(
 
     val moshi by lazy {
         Moshi.Builder()
-                .apply { if (adapter != null) add(adapter) }
+                .apply { if(adapter != null) add (adapter) }
                 .add(KotlinJsonAdapterFactory())
                 .build()
     }

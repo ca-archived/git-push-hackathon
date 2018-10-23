@@ -2,6 +2,8 @@ package io.github.hunachi.gist
 
 import androidx.paging.LivePagedListBuilder
 import io.github.hunachi.gistnetwork.GistClient
+import io.github.hunachi.gistnetwork.adapter.toPostGistJson
+import io.github.hunachi.model.DraftGist
 
 class GistRepository internal constructor(
         private val client: GistClient,
@@ -15,6 +17,5 @@ class GistRepository internal constructor(
 
         return GistResult(data, boundaryCallback.isFirstLoadingState, boundaryCallback.networkErrorState)
     }
-
     suspend fun deleteAll() = localRepository.deleteGists()
 }

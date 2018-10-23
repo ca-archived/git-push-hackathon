@@ -2,15 +2,11 @@ package io.github.hunachi.oauth
 
 import io.github.hunachi.user.UserResult
 
-internal sealed class OAuthAction {
+internal sealed class OauthAction {
 
-    class IgniteOauth(val url: String): OAuthAction()
+    class IgniteOauth(val url: String): OauthAction()
 
-    class SaveToken(val token: String): OAuthAction()
+    class ReceiveOauthResult(val oauthResult: OauthResult): OauthAction()
 
-    class IsLoading(val isLoading: Boolean): OAuthAction()
-
-    class UpdateUser(val userResult: UserResult): OAuthAction()
-
-    object IsError: OAuthAction()
+    class UpdateUser(val userResult: UserResult): OauthAction()
 }

@@ -1,6 +1,6 @@
 package io.github.hunachi.gistnetwork.model
 
-data class GistCreateJson(
+data class PostGistJson(
         val description: String,
         val public: Boolean,
         val files: Map<String, GistContentJson>

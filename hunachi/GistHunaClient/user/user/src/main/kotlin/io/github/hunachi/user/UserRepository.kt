@@ -17,9 +17,9 @@ class UserRepository internal constructor(
     private val _errorState: MutableLiveData<NetWorkError> = MutableLiveData()
 
     fun setUp(userName: String?, token: String, isForceUpdate: Boolean = false): UserResult {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
 
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val user = userName?.let { localRepository.owner(it) }.let { user ->
                     if (user != null && !isForceUpdate) user
                     else client.owner(token).await().also {
@@ -27,9 +27,9 @@ class UserRepository internal constructor(
                     }
                 }
                 _userState.postValue(user)
+            } catch (e: Exception) {
+                _errorState.postValue(NetWorkError.NORMAL)
             }
-        } catch (e: Exception) {
-            _errorState.value = NetWorkError.NORMAL
         }
         return UserResult(_userState, _errorState)
     }

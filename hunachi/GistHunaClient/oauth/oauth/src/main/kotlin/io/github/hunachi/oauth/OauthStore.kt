@@ -44,7 +44,7 @@ internal class OAuthStore(dispatcher: Dispatcher) : Store() {
         it.userState
     }
 
-    fun onCreate() {
+    override fun onCreate() {
         job = CoroutineScope(Dispatchers.Main).launch {
             oauthSubscriber.consumeEach {
                 when (it) {

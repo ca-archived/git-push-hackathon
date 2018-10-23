@@ -48,6 +48,7 @@ dependencies {
     implementation project(':model')
     implementation project(':gist')
     implementation project(':database')
+    implementation project(':resource')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
@@ -88,6 +89,10 @@ dependencies {
 
     // ktx
     implementation 'androidx.core:core-ktx:1.0.0'
+
+    //chrome custom tabs
+    implementation 'com.android.support:customtabs:28.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 }
 
 kotlin {
