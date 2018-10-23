@@ -19,7 +19,9 @@ export default {
                             <img v-bind:data-url='user.avatar_url' v-if='lazyLoad' />
                             <img v-bind:src='user.avatar_url' v-if='!lazyLoad' />
                         </a>
-                        <a v-bind:href='user.html_url' class='name'>{{ user.login }}</a>
+                        <div class='name'>
+                            <a v-bind:href='user.html_url'>{{ user.login }}</a>
+                        </div>
                         <div class='open'>
                             <router-link v-bind:to='"/users/" + user.login + "/gists"'>Gistを見る</router-link>
                         </div>
