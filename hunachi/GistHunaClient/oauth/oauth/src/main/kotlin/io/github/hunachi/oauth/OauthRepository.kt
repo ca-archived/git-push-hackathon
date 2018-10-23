@@ -8,6 +8,7 @@ import io.github.hunachi.shared.network.NetWorkError
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 
 class OauthRepository(private val oauthClient: OauthClient, private val url: String) {
 
@@ -22,18 +23,18 @@ class OauthRepository(private val oauthClient: OauthClient, private val url: Str
     fun register(code: String): OauthResult {
         _loadingState.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
-            launch {
-                try {
-                    val token = oauthClient.accessToken(
+            try {
+                val token: Token = runBlocking {
+                    oauthClient.accessToken(
                             BuildConfig.CLIENT_ID,
                             BuildConfig.CLIENT_SECRET,
                             code
                     ).await()
-                    _tokenState.postValue(token)
-                } catch (e: Exception) {
-                    _errorState.postValue(NetWorkError.TOKEN)
                 }
-            }.join()
+                _tokenState.postValue(token)
+            } catch (e: Exception) {
+                _errorState.postValue(NetWorkError.TOKEN)
+            }
             _loadingState.postValue(false)
         }
         return OauthResult(_tokenState, _errorState, _loadingState)

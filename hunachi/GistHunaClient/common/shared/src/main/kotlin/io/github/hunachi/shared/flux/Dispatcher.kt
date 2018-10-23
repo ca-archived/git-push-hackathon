@@ -9,7 +9,6 @@ class Dispatcher {
     fun send(o: Any) {
         CoroutineScope(Dispatchers.Unconfined).launch {
             bus.send(o)
-            yield()
         }
     }
 

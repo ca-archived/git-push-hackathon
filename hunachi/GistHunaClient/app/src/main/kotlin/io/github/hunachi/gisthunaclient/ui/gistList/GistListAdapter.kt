@@ -11,7 +11,7 @@ import io.github.hunachi.model.Gist
 import io.github.hunachi.shared.inflate
 
 class GistListAdapter(
-        private val lisner: GistListListener
+        private val listener: GistListListener
 ) : PagedListAdapter<Gist, GistListAdapter.ViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

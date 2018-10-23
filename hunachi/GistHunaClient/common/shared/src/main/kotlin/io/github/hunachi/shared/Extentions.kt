@@ -39,36 +39,11 @@ fun AppCompatActivity.startActivity(next: AppCompatActivity) {
     startActivity(Intent(this, next.javaClass))
 }
 
-// ViewModelProvider
-inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(
-        provider: ViewModelProvider.Factory
-) = ViewModelProviders.of(this, provider).get(VM::class.java)
-
-inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
-        provider: ViewModelProvider.Factory
-) = ViewModelProviders.of(this, provider).get(VM::class.java)
-
-inline fun <reified VM : ViewModel> Fragment.activityViewModelProvider(
-        provider: ViewModelProvider.Factory
-) = ViewModelProviders.of(requireActivity(), provider).get(VM::class.java)
-
-inline fun <reified VM : ViewModel> Fragment.parentViewModelProvider(
-        provider: ViewModelProvider.Factory
-) = ViewModelProviders.of(parentFragment!!, provider).get(VM::class.java)
-
 val <T> T.checkAllMatched: T
     get() = this
 
 fun <T> LiveData<T>.nonNullObserve(owner: LifecycleOwner, observer: (T) -> Unit) {
     this.observe(owner, Observer { it?.let(observer) })
-}
-
-fun <T> LiveData<T>.singleLiveData(owner: LifecycleOwner, observer: (T?) -> Unit) {
-    val atomicBoolean = AtomicBoolean(true)
-    this.observe(owner, Observer {
-        if (atomicBoolean.getAndSet(false)) return@Observer
-        observer(it)
-    })
 }
 
 fun Context.netWorkCheck(): Boolean {

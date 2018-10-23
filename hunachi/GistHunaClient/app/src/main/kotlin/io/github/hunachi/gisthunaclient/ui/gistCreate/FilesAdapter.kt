@@ -10,14 +10,39 @@ import io.github.hunachi.gisthunaclient.databinding.FragmentFileBinding
 import io.github.hunachi.model.File
 import io.github.hunachi.shared.inflate
 
-class GistCreateAdapter: ListAdapter<File, GistCreateAdapter.ViewHolder>(DIFF_UTIL) {
+class FilesAdapter(
+        private val listener: FilesAdapter.FilesListener
+) : ListAdapter<File, FilesAdapter.ViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.fragment_file, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.apply {}
+        holder.binding.apply {
+            file = getItem(position)
+            addFileButton.setOnClickListener {
+                addFileButton.visibility = View.GONE
+                listener.addFile()
+            }
+        }
+    }
+
+    fun allFiles(): List<File> = mutableListOf<File>().apply {
+        (0 until itemCount).forEach { add(getItem(it)) }
+    }
+
+    fun allNotEmptyFile(): List<File> {
+        val list = mutableListOf<File>()
+        (0 until itemCount).forEach {
+            val file = getItem(it)
+            if (file.content.isNotBlank()) list.add(file)
+        }
+        return list
+    }
+
+    interface FilesListener {
+        fun addFile()
     }
 
     companion object {

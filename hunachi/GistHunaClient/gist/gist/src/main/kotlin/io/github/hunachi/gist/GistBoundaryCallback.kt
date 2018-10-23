@@ -6,11 +6,13 @@ import androidx.paging.PagedList
 import io.github.hunachi.gist.util.toFile
 import io.github.hunachi.gist.util.toGist
 import io.github.hunachi.gistnetwork.GistClient
+import io.github.hunachi.gistnetwork.model.GistJson
 import io.github.hunachi.model.Gist
 import io.github.hunachi.shared.network.NetWorkError
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 import kotlin.Exception
 
 internal class GistBoundaryCallback(
@@ -49,30 +51,29 @@ internal class GistBoundaryCallback(
                 isLoading = true
                 var gistsSize = 0
 
-                launch {
-                    try {
-                        val gists =
-                                if (userName != null) {
-                                    client.gists(userName, lastPage, PER_PAGE_COUNT, token).await()
-                                } else {
-                                    client.publicGists(lastPage, PER_PAGE_COUNT).await()
-                                }
-
-                        gistsSize = gists.size
-
-                        localRepository.insertGists(gists = gists.map { gistJson ->
-
-                            localRepository.insertFiles(gistJson.files?.map {
-                                it.toFile(gistJson.id)
-                            } ?: listOf())
-
-                            gistJson.toGist()
-                        })
-                    } catch (e: java.lang.Exception) {
-                        _networkErrorState.postValue(NetWorkError.NORMAL)
-                        _isFirstLoadingState.postValue(false)
+                try {
+                    val gists: List<GistJson> = runBlocking {
+                        if (userName != null) {
+                            client.gists(userName, lastPage, PER_PAGE_COUNT, token).await()
+                        } else {
+                            client.publicGists(lastPage, PER_PAGE_COUNT).await()
+                        }
                     }
-                }.join()
+
+                    gistsSize = gists.size
+
+                    localRepository.insertGists(gists = gists.map { gistJson ->
+
+                        localRepository.insertFiles(gistJson.files?.map {
+                            it.toFile(gistJson.id)
+                        } ?: listOf())
+                        gistJson.toGist()
+                    })
+
+                } catch (e: java.lang.Exception) {
+                    _networkErrorState.postValue(NetWorkError.NORMAL)
+                    _isFirstLoadingState.postValue(false)
+                }
 
                 if (gistsSize >= PER_PAGE_COUNT) {
                     lastPage++

@@ -25,7 +25,7 @@ abstract class MyDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        val DATABASE_NAME = "Gist3.db"
+        val DATABASE_NAME = "gistHunaClient.db"
 
         @Volatile
         private var INSTANCE: MyDatabase? = null
@@ -35,10 +35,12 @@ abstract class MyDatabase : RoomDatabase() {
         }
 
         private fun gistDatabase(context: Context) =
-            Room.databaseBuilder<MyDatabase>(
-                    context.applicationContext,
-                    MyDatabase::class.java,
-                    DATABASE_NAME
-            ).build()
+                Room.databaseBuilder<MyDatabase>(
+                        context.applicationContext,
+                        MyDatabase::class.java,
+                        DATABASE_NAME
+                )
+                        .fallbackToDestructiveMigration() // 今回は，migrationを書かないつもりのため．
+                        .build()
     }
 }

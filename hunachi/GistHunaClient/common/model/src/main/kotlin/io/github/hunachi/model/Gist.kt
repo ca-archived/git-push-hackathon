@@ -27,11 +27,11 @@ data class Gist(
         val public: Boolean = false,
         val fileSize: Int = 0,
         @ColumnInfo(name = "created_at")
-        val createdAt: String,
+        val createdAt: String?,
         @ColumnInfo(name = "updated_at")
-        val updatedAt: String,
+        val updatedAt: String?,
         val description: String = "",
-        val ownerName: String
+        val ownerName: String?
 )
 
 

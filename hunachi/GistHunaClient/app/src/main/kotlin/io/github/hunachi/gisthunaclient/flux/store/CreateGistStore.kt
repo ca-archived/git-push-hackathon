@@ -1,19 +1,15 @@
 package io.github.hunachi.gisthunaclient.flux.store
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.hunachi.gist.GistPostResult
 import io.github.hunachi.gisthunaclient.flux.action.CreateGistAction
 import io.github.hunachi.gisthunaclient.flux.action.MainAction
-import io.github.hunachi.model.File
-import io.github.hunachi.model.Gist
 import io.github.hunachi.shared.SingleLiveEvent
 import io.github.hunachi.shared.checkAllMatched
 import io.github.hunachi.shared.flux.Dispatcher
 import io.github.hunachi.shared.flux.Store
-import io.github.hunachi.shared.network.NetWorkError
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job
@@ -25,9 +21,6 @@ class CreateGistStore(dispatcher: Dispatcher) : Store() {
     private val mainSubscriber = dispatcher.asChannel<MainAction>()
     private val createGistSubscriber = dispatcher.asChannel<CreateGistAction>()
     private var job: MutableList<Job> = mutableListOf()
-
-    private val _filesState = MutableLiveData<List<File>>()
-    val filesState: LiveData<List<File>> = _filesState
 
     private val _gistPostResultState = MutableLiveData<GistPostResult>()
 

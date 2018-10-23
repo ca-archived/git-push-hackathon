@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 data class File(
         @PrimaryKey(autoGenerate = true)
         val id: Int = 0,
-        val filename: String = "",
+        var filename: String = "",
         val gistId: String = "",
         val language: String? = null,
-        val content: String = ""
+        var content: String = ""
 )

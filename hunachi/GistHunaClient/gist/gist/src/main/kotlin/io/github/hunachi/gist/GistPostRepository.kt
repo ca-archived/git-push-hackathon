@@ -6,9 +6,7 @@ import io.github.hunachi.gistnetwork.adapter.toPostGistJson
 import io.github.hunachi.model.DraftGist
 import io.github.hunachi.model.Gist
 import io.github.hunachi.shared.network.NetWorkError
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 
 class GistPostRepository internal constructor(
         private val client: GistClient,
@@ -24,14 +22,15 @@ class GistPostRepository internal constructor(
     fun postGist(draftGist: DraftGist, token: String): GistPostResult {
         _isLoadingState.value = true
         CoroutineScope(Dispatchers.IO).launch {
-            launch {
-                try {
-                    val gist = client.postGist(draftGist.toPostGistJson(), token).await()
-                    _resultGistState.postValue(gist)
-                } catch (e: Exception) {
-                    _errorState.postValue(NetWorkError.POST)
+            try {
+                val gist: Gist = runBlocking {
+                    client.postGist(draftGist.toPostGistJson(), token).await()
                 }
-            }.join()
+
+                _resultGistState.postValue(gist)
+            } catch (e: Exception) {
+                _errorState.postValue(NetWorkError.POST)
+            }
 
             _isLoadingState.postValue(false)
         }
