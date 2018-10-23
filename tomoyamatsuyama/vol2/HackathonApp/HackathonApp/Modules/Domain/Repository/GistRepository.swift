@@ -4,7 +4,7 @@ import UIKit
 
 protocol GistRepositoryProtocol {
     func fetchAllGists() -> Observable<GistList>
-    func post(_ gist: GitstCreateModel) -> Completable
+    func post(_ gist: GistCreateModel) -> Completable
 }
 
 final class GistRepository: GistRepositoryProtocol {
@@ -21,9 +21,7 @@ final class GistRepository: GistRepositoryProtocol {
         return remoteDataStore.fetchAllGists()
     }
     
-    func post(_ gist: GitstCreateModel) -> Completable {
-        return .empty()
+    func post(_ gist: GistCreateModel) -> Completable {
+        return remoteDataStore.post(gist)
     }
 }
-
-

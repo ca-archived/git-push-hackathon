@@ -11,12 +11,19 @@ final class GistCreateRouter: GistCreateRouterProtocol {
     }
     
     func transition(_ route: Route) {
-        view.dismiss(animated: true, completion: nil)
+        switch route {
+        case .dismiss:
+            view.dismiss(animated: true, completion: nil)
+        case .addFile(let viewModel):
+            let viewController = AddFileViewBuilder.build(with: viewModel)
+            view.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 }
 
 extension GistCreateRouter {
     enum Route {
         case dismiss
+        case addFile(GistCreateModel)
     }
 }

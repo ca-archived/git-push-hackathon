@@ -48,18 +48,6 @@ struct Files: Codable {
     }
 }
 
-//struct File: Codable {
-//    let filename, type, language: String
-//    let rawURL: String
-//    let size: Int
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case filename, type, language
-//        case rawURL = "raw_url"
-//        case size
-//    }
-//}
-
 struct Owner: Codable {
     let login: String
     let id: Int

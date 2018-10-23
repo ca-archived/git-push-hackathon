@@ -7,7 +7,7 @@
 	<key>client_id</key>
 	<string>b5107ed03329a1ff1b6f</string>
 	<key>scope</key>
-	<string>user:follow,repo,notifications,gist,read:org</string>
+	<string>gist</string>
 	<key>redirect_uri</key>
 	<string>hackathon://</string>
 </dict>

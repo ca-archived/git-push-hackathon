@@ -30,15 +30,16 @@ final class API: NSObject {
     static let domain = "github.com"
     
     static func send<R: APIRequestable>(to request: R, handler: @escaping ((Result<R.Response>) -> Void)) {
+        
         let url = API.scheme + request.host.value + API.domain + request.path
+        
         print(url)
         print(request.parameters)
-        Alamofire.request(url, method: request.method ,parameters: request.parameters).responseJSON { result in
+        Alamofire.request(url, method: request.method ,parameters: request.parameters).response { result in
             
             guard let data = result.data else { fatalError("invalid json type") }
             
             print(result)
-            print(result.result)
             
             
             if R.Response.self == Authorization.self {
