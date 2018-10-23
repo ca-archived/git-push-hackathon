@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card border">
       <h2>Public Gists</h2>
     </div>
-    <div v-if="gists">
-      <gist-card v-for="(gist, index) in gists" :key="index" :gist="gist"/>
-    </div>
+    <gist-card v-for="(gist, index) in gists" :key="index" :gist="gist"/>
     <loading v-show="loading" />
     <page-btn v-show="!loading" @click="getPublicGists"/>
   </div>

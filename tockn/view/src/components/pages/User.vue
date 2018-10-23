@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="user">
-      <user-card :username="user.login" :avatarURL="user.avatar_url" />
+      <user-card class="border" :username="user.login" :avatarURL="user.avatar_url" />
     </div>
     <loading v-else :withCard="true" />
     <div v-if="gists">

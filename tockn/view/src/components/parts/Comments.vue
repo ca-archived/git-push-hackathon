@@ -27,6 +27,7 @@ export default {
 }
 
 .num {
+  margin: 0 8px 0 8px;
   display: inline-block;
 }
 

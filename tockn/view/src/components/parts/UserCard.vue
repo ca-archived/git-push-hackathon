@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card border">
     <div class="avatar">
       <img class="avatar" v-bind:src="avatarURL" />
     </div>

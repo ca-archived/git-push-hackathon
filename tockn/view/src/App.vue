@@ -62,16 +62,12 @@ input {
   background-color: #ffffff;
   margin-top: 8px;
   margin-bottom: 8px;
-  padding: 4px 24px;
+  padding: 24px 24px;
   overflow: scroll;
 }
 
-.card .title {
-  font-size: 24px;
-}
-
-.card .content {
-  font-size: 16px;
+.border {
+  border: solid 2px brown;
 }
 
 </style>
