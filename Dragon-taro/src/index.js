@@ -27,30 +27,24 @@ function configureStore(initialState) {
   return store;
 }
 
-class App extends React.Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (
-      <Router history={history}>
-        <Provider store={configureStore()}>
-          <div>
-            <Header />
-            <div className="inner-wrapper">
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/gists/new" component={NewGist} />
-                <Route path="/gists/:id/edit" component={EditGist} />
-                <Route path="/gists/:id" component={Gist} />
-              </Switch>
-            </div>
+const App = () => {
+  return (
+    <Router history={history}>
+      <Provider store={configureStore()}>
+        <div>
+          <Header />
+          <div className="inner-wrapper">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/gists/new" component={NewGist} />
+              <Route path="/gists/:id/edit" component={EditGist} />
+              <Route path="/gists/:id" component={Gist} />
+            </Switch>
           </div>
-        </Provider>
-      </Router>
-    );
-  }
-}
+        </div>
+      </Provider>
+    </Router>
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById("root"));

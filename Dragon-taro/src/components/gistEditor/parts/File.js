@@ -14,11 +14,31 @@ class File extends Component {
     };
   }
 
-  handleChange(e) {
-    const keyValue = { [e.target.name]: e.target.value };
+  handleChange(keyValue, e) {
     this.props.onChange(keyValue);
     const { isEdit } = this.state;
     this.setState({ isEdit: { ...isEdit, [e.target.name]: true } });
+  }
+
+  handleChangeValue(e) {
+    const keyValue = { [e.target.name]: e.target.value };
+    this.handleChange(keyValue, e);
+  }
+
+  handleKeyDown(e) {
+    if (e.key === "Tab" && e.keyCode !== 229) {
+      e.preventDefault();
+      const { selectionStart, selectionEnd, value } = e.target;
+      const newValue =
+        value.substring(0, selectionStart) +
+        "  " +
+        value.substring(selectionEnd, value.length);
+      const keyValue = { [e.target.name]: newValue };
+      this.handleChange(keyValue, e);
+
+      // うまく作動しない→カーソル位置をstate管理してもいいかも
+      e.target.setSelectionRange(selectionStart + 2, selectionStart + 2);
+    }
   }
 
   isValid() {
@@ -64,7 +84,7 @@ class File extends Component {
           placeholder="Filename"
           className={isBlankFilename ? "invalid" : ""}
           value={filename}
-          onChange={e => this.handleChange(e)}
+          onChange={e => this.handleChangeValue(e)}
         />
         <If condition={isDeletable}>
           <button className="p-button red" onClick={() => deleteFile()}>
@@ -76,7 +96,8 @@ class File extends Component {
           name="content"
           value={content}
           className={isBlankContent ? "invalid" : ""}
-          onChange={e => this.handleChange(e)}
+          onChange={e => this.handleChangeValue(e)}
+          onKeyDown={e => this.handleKeyDown(e)}
           placeholder="Content"
         />
       </div>
