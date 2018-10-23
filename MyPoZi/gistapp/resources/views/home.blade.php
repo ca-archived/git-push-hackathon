@@ -10,7 +10,7 @@
     @if(Auth::check())
     @else
         <a href="/auth/login/github/">
-            <button type="button" class="btn"><i class="fab fa-github-square"></i>Sign in using Github</button>
+            <button type="button" class="btn"><i class="fab fa-github-square"></i>Githubアカウントでサインインする</button>
         </a>
     @endif
 @endsection

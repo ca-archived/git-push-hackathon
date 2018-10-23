@@ -1,6 +1,6 @@
 @extends('common.base')
 @section('title')
-    gists post
+    gists送信フォーム
 @endsection
 @section('body')
     <form action="/gists" method="post">
