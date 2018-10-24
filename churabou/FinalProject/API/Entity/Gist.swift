@@ -11,7 +11,6 @@ import Foundation
 struct Gist: Codable {
 
     var id = ""
-//    var htmlUrl = ""
     var user: User
     var files: [File]
     var description: String? = ""
@@ -32,7 +31,6 @@ struct Gist: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case user = "owner"
-//        case htmlUrl = "html_url"
         case files
         case description
         case createdAt = "created_at"

@@ -76,16 +76,4 @@ final class UserHeaderView: BaseView {
             make.height.equalTo(40)
         }
     }
-    
-    func createSubItem(title: String) -> UILabel {
-        let label = UILabel()
-        label.text = title
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 12)
-        label.textColor = .white
-        label.backgroundColor = .gray
-        label.layer.cornerRadius = 20
-        label.clipsToBounds = true // requied
-        return label
-    }
 }

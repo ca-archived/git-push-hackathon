@@ -73,8 +73,6 @@ struct APIClient {
                      completion(.failure(message: "リクエストエラー"))
                         return
                 }
-//                let json = try? JSONSerialization.jsonObject(with: data, options: [])
-//                print(json)
                 print(statusCode)
                 guard let object = request.response(from: data) else {
                     print("マッピングエラー")

@@ -26,25 +26,5 @@ struct FollowerRequest: GitHubRequest {
         return .get
     }
     
-//    var parameters: [String : String] {
-//        return ["page": "\(page)"]
-//    }
-    
     typealias ResponseType = [User]
-    
-    //    func response(from data: Data) -> String? {
-    //
-    //        let s = try? JSONDecoder().decode(AccesToken.self, from: data)
-    //        print(s)
-    //        print(String(data: data, encoding: .utf8))
-    //        if let token = String(data: data, encoding: .utf8)?
-    //            .split(separator: "&").first?
-    //            .split(separator: "=").last
-    //            .map(String.init)
-    //        {
-    //            print(token)
-    //            return token
-    //        }
-    //        return nil
-    //    }
 }

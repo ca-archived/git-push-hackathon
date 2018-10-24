@@ -13,7 +13,7 @@
 		C909140F217ADC5B00311CAC /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909140E217ADC5B00311CAC /* FollowerCell.swift */; };
 		C9091413217AE02000311CAC /* FollowerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9091412217AE02000311CAC /* FollowerRepository.swift */; };
 		C909141D217AF6D700311CAC /* LoginUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909141C217AF6D700311CAC /* LoginUserView.swift */; };
-		C909141F217AF8C500311CAC /* LoginUserReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909141E217AF8C500311CAC /* LoginUserReactor.swift */; };
+		C909141F217AF8C500311CAC /* LoginUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909141E217AF8C500311CAC /* LoginUserSession.swift */; };
 		C9091423217B782A00311CAC /* UserDefaults+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9091422217B782A00311CAC /* UserDefaults+Ex.swift */; };
 		C92665B7216CC2B200522273 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92665B6216CC2B200522273 /* AppDelegate.swift */; };
 		C92665BC216CC2B200522273 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C92665BA216CC2B200522273 /* Main.storyboard */; };
@@ -71,7 +71,6 @@
 		C9DBA98B2178E1F7001280E3 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBA98A2178E1F7001280E3 /* Home.swift */; };
 		C9DBA98D2178E8E5001280E3 /* GistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBA98C2178E8E5001280E3 /* GistListView.swift */; };
 		C9DBA98F21795F83001280E3 /* GistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBA98E21795F83001280E3 /* GistRepository.swift */; };
-		C9DBA99321799F0F001280E3 /* LoginUserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBA99221799F0F001280E3 /* LoginUserRouter.swift */; };
 		C9E492BA2171FCAE007586A7 /* UserGistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E492B92171FCAE007586A7 /* UserGistController.swift */; };
 		C9E492BC2171FEE7007586A7 /* UserGistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E492BB2171FEE7007586A7 /* UserGistView.swift */; };
 		C9FDC1932175D4AA000BCEB3 /* GistListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FDC1922175D4AA000BCEB3 /* GistListCell.swift */; };
@@ -107,7 +106,7 @@
 		C909140E217ADC5B00311CAC /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		C9091412217AE02000311CAC /* FollowerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerRepository.swift; sourceTree = "<group>"; };
 		C909141C217AF6D700311CAC /* LoginUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserView.swift; sourceTree = "<group>"; };
-		C909141E217AF8C500311CAC /* LoginUserReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserReactor.swift; sourceTree = "<group>"; };
+		C909141E217AF8C500311CAC /* LoginUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserSession.swift; sourceTree = "<group>"; };
 		C9091422217B782A00311CAC /* UserDefaults+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ex.swift"; sourceTree = "<group>"; };
 		C92665B3216CC2B200522273 /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92665B6216CC2B200522273 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -171,7 +170,6 @@
 		C9DBA98A2178E1F7001280E3 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		C9DBA98C2178E8E5001280E3 /* GistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListView.swift; sourceTree = "<group>"; };
 		C9DBA98E21795F83001280E3 /* GistRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistRepository.swift; sourceTree = "<group>"; };
-		C9DBA99221799F0F001280E3 /* LoginUserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRouter.swift; sourceTree = "<group>"; };
 		C9E492B92171FCAE007586A7 /* UserGistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGistController.swift; sourceTree = "<group>"; };
 		C9E492BB2171FEE7007586A7 /* UserGistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGistView.swift; sourceTree = "<group>"; };
 		C9FDC1922175D4AA000BCEB3 /* GistListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListCell.swift; sourceTree = "<group>"; };
@@ -266,12 +264,12 @@
 			path = Reactor;
 			sourceTree = "<group>";
 		};
-		C9091416217AE1BF00311CAC /* Session */ = {
+		C9091416217AE1BF00311CAC /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				C9091412217AE02000311CAC /* FollowerRepository.swift */,
 			);
-			path = Session;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		C9091417217AE37100311CAC /* View */ = {
@@ -289,14 +287,6 @@
 				C9FDC198217624E0000BCEB3 /* UserGistViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		C9091419217AE4EF00311CAC /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				C9DBA99221799F0F001280E3 /* LoginUserRouter.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		C909141A217AF69D00311CAC /* View */ = {
@@ -327,7 +317,7 @@
 		C9091421217AFC5C00311CAC /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				C909141E217AF8C500311CAC /* LoginUserReactor.swift */,
+				C909141E217AF8C500311CAC /* LoginUserSession.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -498,7 +488,6 @@
 				C9091417217AE37100311CAC /* View */,
 				C909140A217A198F00311CAC /* Components */,
 				C9091418217AE37900311CAC /* ViewModel */,
-				C9091419217AE4EF00311CAC /* Router */,
 			);
 			path = UserGist;
 			sourceTree = "<group>";
@@ -557,7 +546,7 @@
 				C9091411217ADC8B00311CAC /* View */,
 				C9091410217ADC8200311CAC /* Component */,
 				C9091415217AE1BA00311CAC /* Reactor */,
-				C9091416217AE1BF00311CAC /* Session */,
+				C9091416217AE1BF00311CAC /* Repository */,
 			);
 			path = FollowerList;
 			sourceTree = "<group>";
@@ -866,7 +855,6 @@
 				C9462A3721737B74000F25E2 /* User.swift in Sources */,
 				C9266621216E293900522273 /* GistRequest.swift in Sources */,
 				C9462A3B21737BA8000F25E2 /* Gist.swift in Sources */,
-				C9DBA99321799F0F001280E3 /* LoginUserRouter.swift in Sources */,
 				C9462A2C21731015000F25E2 /* CreateGistCell.swift in Sources */,
 				C9C226F12179D75400ABA085 /* LoginUserViewModel.swift in Sources */,
 				C926660A216D836C00522273 /* APIClient.swift in Sources */,
@@ -880,7 +868,7 @@
 				C9DBA98F21795F83001280E3 /* GistRepository.swift in Sources */,
 				C9266604216CECF600522273 /* TopViewModel.swift in Sources */,
 				C92665FF216CD48900522273 /* OauthViewModel.swift in Sources */,
-				C909141F217AF8C500311CAC /* LoginUserReactor.swift in Sources */,
+				C909141F217AF8C500311CAC /* LoginUserSession.swift in Sources */,
 				C9FDC1932175D4AA000BCEB3 /* GistListCell.swift in Sources */,
 				C92665EC216CCB9B00522273 /* BaseController.swift in Sources */,
 				C9462A1D21724138000F25E2 /* CreateGistView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  LoginUserReactor.swift
+//  LoginUserSession.swift
 //  FinalProject
 //
 //  Created by ちゅーたつ on 2018/10/20.
@@ -9,25 +9,8 @@
 import RxSwift
 import RxCocoa
 
-//final class LoginUserReactor: Reactor {
-//    
-//    enum Action {
-//        case viewWillAppear
-//        case tapStart
-//    }
-//    
-//    struct State {
-//        var user: User?
-//    }
-//    
-//    enum Mutation {
-//        
-//    }
-//}
-
 protocol LoginUserRepository {
     func fetchUser() -> Observable<User>
-//    func saveUser()
 }
 
 
