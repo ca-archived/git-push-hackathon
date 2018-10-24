@@ -49,6 +49,7 @@ dependencies {
     implementation project(':gist_usecase')
     implementation project(':database')
     implementation project(':resource')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
@@ -60,6 +61,7 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
 
     implementation "androidx.paging:paging-runtime:$paging_version"
     testImplementation "androidx.paging:paging-common:$paging_version"
@@ -89,10 +91,6 @@ dependencies {
 
     // ktx
     implementation 'androidx.core:core-ktx:1.0.0'
-
-    //chrome custom tabs
-    implementation 'com.android.support:customtabs:28.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
 
     // dialog
     implementation 'com.wang.avi:library:2.1.3'
