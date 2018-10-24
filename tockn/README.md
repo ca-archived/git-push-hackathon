@@ -80,7 +80,7 @@ view/
 
 ## components (View層 + ViewModel層)
 
-ここにはVueコンポーネントが入ります。
+ここにはVueの単一ファイルコンポーネントが入ります。
 
 ### globals
 
@@ -103,5 +103,5 @@ Vuex関連。modulesで切り分けもした。GitHub APIとの通信はこの�
 
 ![Imgur](https://i.imgur.com/C3k9BmT.png)
   
-## Search  
+## Search
 ![Imgur](https://i.imgur.com/EarKYt3.gif)
