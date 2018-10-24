@@ -117,16 +117,20 @@ function* handleDeleteGist(history) {
       payload: { id }
     } = yield take(DELETE_GIST);
 
-    const { error } = yield call(api, `gists/${id}`, "DELETE");
-    if (!error) {
-      const gist = yield select(selectGist);
-      let newGist = { ...gist };
-      delete newGist[id];
+    if (confirm("Are you ok?")) {
+      yield put(loading());
+      const { error } = yield call(api, `gists/${id}`, "DELETE");
+      if (!error) {
+        const gist = yield select(selectGist);
+        let newGist = { ...gist };
+        delete newGist[id];
 
-      yield put(setOneGist(newGist));
-      yield call(history.push, "/");
-    } else {
-      toastr.error(error);
+        yield put(setOneGist(newGist));
+        yield call(history.push, "/");
+      } else {
+        toastr.error(error);
+      }
+      yield put(loaded());
     }
   }
 }
