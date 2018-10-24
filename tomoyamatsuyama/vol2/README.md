@@ -1,13 +1,13 @@
 ## 開発環境
-Xcode 9.4.1
-Swift 4.1.2
-Pods 1.5.2
+- Xcode 9.4.1
+- Swift 4.1.2
+- Pods 1.5.2
 
 ## 使用ライブラリ
-Alamofire
-Kingfisher
-RxCocoa
-RxSwift
+- Alamofire
+- Kingfisher
+- RxCocoa
+- RxSwift
 
 ## 導入方法
 1. https://github.com/settings/applications/new にアクセスし、Authorization callback URLに`hackathon://`と記入して登録してください。
