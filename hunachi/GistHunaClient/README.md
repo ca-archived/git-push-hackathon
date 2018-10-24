@@ -104,4 +104,4 @@ Github Api -> Client -> Repository -> UseCase -> UI
 
 - gist詳細画面の実装．
 - 一定以上更新されてないgistのcacheを消す処理を入れる．
-- dependences.gradleでversion管理．
+- dependences.gradleで全てのmodule間でのversion管理．
