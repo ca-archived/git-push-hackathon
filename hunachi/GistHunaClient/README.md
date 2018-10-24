@@ -39,7 +39,7 @@ CLIENT_SECRET=hogehoge
 
 ### 設計に関して
 
-##### module分割
+- ##### module分割
 
 moduleの構成は以下の画像の通りです．
 
@@ -55,7 +55,7 @@ moduleの構成は以下の画像の通りです．
 
 oauthと同じような形で，moduleを追加して行けばもっとapp bundleに対応したアプリになると思います．
 
-##### Paging Library ✖ Room (✖ Github Api )
+- ##### Paging Library ✖ Room (✖ Github Api )
 
 Paging Library ✖ Room (✖ Github Api )を使うことで，簡潔な実装のスムーズにスクロールの出来るListを実現しています．
 
@@ -67,13 +67,13 @@ Paging Library ✖ Room (✖ Github Api )を使うことで，簡潔な実装の
 
 image from : https://www.captechconsulting.com/blogs/an-overview-of-android-jetpack
 
-##### Flux
+- ##### Flux
 
-fluxを採用することで読みやすい簡潔なコードを実現しました．
+Presentation Layer では．fluxを採用することで読みやすい簡潔なコードを実現しました．
 
 FragmentやActivity間のActionの通知も，楽に行えます．
 
-##### Infra & UseCase周り
+- ##### Infra & UseCase周り
 
 Layered Architecture（もどき）の実装 & internal（module分割の恩恵）を使うことでカプセル化を行うことができました．
 それにより可読性が高く，安全に扱えるコードが実現できました．
