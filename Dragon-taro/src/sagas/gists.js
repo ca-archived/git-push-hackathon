@@ -5,7 +5,7 @@ import {
   SUBMIT_GIST,
   DELETE_GIST
 } from "../actions/constants";
-import api from "./api";
+import api from "./utils/api";
 import {
   setGists,
   setOneGist,
@@ -23,14 +23,6 @@ const initEditorState = {
 
 const selectGist = state => state.gist;
 const selectEditor = state => state.editor;
-
-function reshapeFiles(files) {
-  let newFiles = {};
-  files.map(f => {
-    newFiles[f.filename] = { content: f.content };
-  });
-  return newFiles;
-}
 
 function createBody(data) {
   return {

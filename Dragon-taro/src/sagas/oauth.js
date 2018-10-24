@@ -1,13 +1,8 @@
 import { fork, call, put, take } from "redux-saga/effects";
-import {
-  REQUEST_OAUTH,
-  GET_USER,
-  LOGOUT,
-  INITIALIZE
-} from "../actions/constants";
+import { REQUEST_OAUTH, GET_USER, LOGOUT } from "../actions/constants";
 import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
-import api from "./api";
+import api from "./utils/api";
 import {
   successLogin,
   failureLogin,
