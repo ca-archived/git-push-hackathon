@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import io.github.hunachi.gisthunaclient.databinding.FragmentGistListBinding
 import io.github.hunachi.gisthunaclient.flux.FragmentState
 import io.github.hunachi.gisthunaclient.flux.actionCreator.GistListActionCreator
@@ -54,17 +53,17 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
                 binding.swipeRefresh.isRefreshing = false
             }
 
-            isLoadingState.observe(this@GistListFragment, Observer {
+            isLoadingState.nonNullObserve(this@GistListFragment) {
                 binding.swipeRefresh.isRefreshing = it
-            })
+            }
 
-            errorState.observe(this@GistListFragment, Observer {
+            errorState.nonNullObserve(this@GistListFragment) {
                 activity?.let { activity -> activity.toastNetworkError(it) }
-            })
+            }
 
-            startCreateGistState.observe(this@GistListFragment, Observer {
+            startCreateGistState.observe(this@GistListFragment) {
                 (activity as? MainActivity)?.let { it.replaceFragment(FragmentState.CREATE_GIST) }
-            })
+            }
 
             finishState.observe(this@GistListFragment) {
                 (activity as? MainActivity)?.finish()

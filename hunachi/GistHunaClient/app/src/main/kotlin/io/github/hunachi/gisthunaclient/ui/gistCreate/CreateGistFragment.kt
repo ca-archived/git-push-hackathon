@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.hunachi.gisthunaclient.R
 import io.github.hunachi.gisthunaclient.databinding.FragmentGistCreateBinding
@@ -51,10 +50,10 @@ class CreateGistFragment : Fragment(), FilesAdapter.FilesListener {
     }
 
     private fun setupStore() = createStore.apply {
-        requestSaveState.observe(this@CreateGistFragment, Observer {
+        requestSaveState.observe(this@CreateGistFragment) {
             if (filesAdapter.allNotEmptyFile().isEmpty()) {
                 activity?.toast(getString(R.string.cant_upload_file_is_empty))
-                return@Observer
+                return@observe
             }
             preference.token()?.let { token ->
                 createActionCreator.uploadGist(
@@ -62,7 +61,7 @@ class CreateGistFragment : Fragment(), FilesAdapter.FilesListener {
                         !binding.publicSwitch.isChecked,
                         filesAdapter.allNotEmptyFile(), token)
             } ?: (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
-        })
+        }
 
         loadingState.nonNullObserve(this@CreateGistFragment) {
             binding.loadingDialog.run {

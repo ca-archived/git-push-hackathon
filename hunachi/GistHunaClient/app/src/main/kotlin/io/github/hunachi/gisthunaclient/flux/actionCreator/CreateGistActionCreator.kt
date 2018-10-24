@@ -1,7 +1,6 @@
 package io.github.hunachi.gisthunaclient.flux.actionCreator
 
 import io.github.hunachi.gist_usecase.GistPostUserCase
-import io.github.hunachi.gist_usecase.GistUseCase
 import io.github.hunachi.gisthunaclient.flux.action.CreateGistAction
 import io.github.hunachi.model.DraftGist
 import io.github.hunachi.model.File

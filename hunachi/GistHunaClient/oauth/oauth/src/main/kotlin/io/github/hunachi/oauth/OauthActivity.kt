@@ -48,9 +48,9 @@ class OauthActivity : AppCompatActivity() {
                 binding.loadingDialog.apply { isVisible = it }.run { if (it) show() else hide() }
             }
 
-            errorState.observe(this@OauthActivity, Observer {
+            errorState.nonNullObserve(this@OauthActivity) {
                 toastNetworkError(it)
-            })
+            }
 
             oauthUrlState.nonNullObserve(this@OauthActivity) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
