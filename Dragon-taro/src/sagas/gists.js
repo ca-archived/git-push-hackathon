@@ -103,9 +103,11 @@ function* handleSubmitGist(history) {
     const { resp, error } = yield call(api, path, method, body);
 
     if (!error) {
+      const key = method == "POST" ? "create" : id;
+
       yield put(setOneGist(reshapeGist(resp)));
       yield call(history.push, `/gists/${resp.id}`);
-      localStorage.removeItem("editor");
+      localStorage.removeItem(key);
       yield put(setEditorState(initEditorState));
     } else {
       toastr.error(error);

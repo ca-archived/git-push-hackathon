@@ -31,6 +31,7 @@ function* handleInitEditor() {
     const {
       payload: { type, id }
     } = yield take(INIT_EDITOR);
+
     if (type == "edit") {
       const gist = yield select(selectGist);
       const { useDraft, buckupedGist } = getBackup(type, id);
