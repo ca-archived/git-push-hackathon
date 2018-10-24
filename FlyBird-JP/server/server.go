@@ -1,7 +1,9 @@
 package main
 
 import(
+	"fmt"
 	"os"
+	"flag"
 	"strings"
 	"strconv"
 	"net/http"
@@ -18,8 +20,7 @@ const(
 	clientIdPath = "../env/client_id.txt"
 	certPath =  "../env/cert.pem"
 	keyPath =  "../env/key.pem"
-	rootPath = "../client"
-	port = 49650
+	documentRoot = "../client"
 )
 
 var github *oauth2.Config
@@ -55,10 +56,14 @@ func main(){
 	router.HandleFunc("/token/{service}", token).Methods("POST")
 	router.NotFoundHandler = http.HandlerFunc(handler)
 
-	http.ListenAndServeTLS(":" + strconv.Itoa(port), certPath, keyPath, router)
+	port := flag.Int("port", 49650, "port number")
+	flag.Parse()
+
+	fmt.Println("This app is available at https://localhost:" + strconv.Itoa(*port) + "/")
+	http.ListenAndServeTLS(":" + strconv.Itoa(*port), certPath, keyPath, router)
 }
 
-var fileServer http.Handler = http.FileServer(http.Dir(rootPath))
+var fileServer http.Handler = http.FileServer(http.Dir(documentRoot))
 
 func getClientId(req *http.Request) (string){
 	return strings.Split(req.RemoteAddr, ":")[0] + "_git-push-hackathon_" + req.Header.Get("User-Agent")
@@ -70,10 +75,10 @@ func Exists(path string) bool {
 }
 
 func handler(res http.ResponseWriter, req *http.Request) {
-	if Exists(rootPath + req.URL.Path) {
+	if Exists(documentRoot + req.URL.Path) {
 		fileServer.ServeHTTP(res, req)
 	} else {
-		http.ServeFile(res, req, rootPath + "/index.html")
+		http.ServeFile(res, req, documentRoot + "/index.html")
 	}
 }
 
