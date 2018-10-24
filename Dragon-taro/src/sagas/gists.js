@@ -142,16 +142,18 @@ function* handleInitEditor() {
       } else {
         targetGist = gist[id];
       }
-      yield put(setOneGist({ ...gist, [id]: targetGist }));
+
+      const newGist = { ...gist, [id]: targetGist };
+      yield put(setOneGist(newGist));
       yield put(setEditorState(targetGist));
     } else {
-      const editor = yield JSON.parse(localStorage.getItem("editor")) ||
-        select(selectEditor);
+      const editor = JSON.parse(localStorage.getItem("editor"));
 
       const hasDraft =
-        editor.description ||
-        editor.files[0].filename ||
-        editor.files[0].filename;
+        editor &&
+        (editor.description ||
+          editor.files[0].filename ||
+          editor.files[0].filename);
       const useDraft = hasDraft ? confirm("Use your gist draft?") : false;
 
       if (!useDraft) {
