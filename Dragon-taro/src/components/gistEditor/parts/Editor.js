@@ -5,7 +5,7 @@ import Loader from "../../parts/Loader";
 import Dropzone from "react-dropzone";
 
 const overlayStyle = {
-  position: "absolute",
+  position: "fixed",
   top: 0,
   right: 0,
   bottom: 0,
@@ -65,17 +65,28 @@ class Editor extends Component {
 
   onDrop(files) {
     files.forEach(file => {
-      const reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = () => {
-        const content = reader.result;
-        this.addFile(file.name, content);
-      };
+      if (file.size < 10000) {
+        this.parseFile(file);
+      }
     });
 
     this.setState({
       dropzoneActive: false
     });
+  }
+
+  handleUploadFile(e) {
+    const file = e.target.files[0]; // なぜかforEachが効かない
+    this.parseFile(file);
+  }
+
+  parseFile(file) {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = e => {
+      const content = e.target.result;
+      this.addFile(file.name, content);
+    };
   }
 
   handleChange(keyValue) {
@@ -151,16 +162,6 @@ class Editor extends Component {
     return fileEditorList;
   }
 
-  handleFile(e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = e => {
-      const content = e.target.result;
-      this.addFile(file.name, content);
-    };
-  }
-
   render() {
     const {
       editor: { description },
@@ -177,6 +178,7 @@ class Editor extends Component {
         <Loader message={loadMessage} />
         <Dropzone
           disableClick
+          accept="text/*"
           style={{ position: "relative" }}
           onDrop={files => this.onDrop(files)}
           onDragEnter={() => this.onDragEnter()}
@@ -214,7 +216,7 @@ class Editor extends Component {
                     <input
                       type="file"
                       id="file"
-                      onChange={e => this.handleFile(e)}
+                      onChange={e => this.handleUploadFile(e)}
                     />
                   </label>
                 </button>
