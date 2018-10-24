@@ -30,7 +30,7 @@ export function gists(state = initial.gists, { type, payload }) {
 export function gist(state = initial.gist, { type, payload }) {
   switch (type) {
     case SET_ONE_GIST:
-      return { ...state, [payload.id]: payload };
+      return payload;
     case FAILURE_LOGIN:
       return initial.gist;
   }

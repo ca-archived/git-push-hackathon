@@ -89,7 +89,8 @@ function* handleGetOneGist() {
 
     const { resp, error } = yield call(api, `gists/${id}`);
     if (!error) {
-      yield put(setOneGist(reshapeGist(resp)));
+      const gist = yield select(selectGist);
+      yield put(setOneGist({ ...gist, [resp.id]: reshapeGist(resp) }));
     } else {
       toastr.error(error);
     }
@@ -141,7 +142,7 @@ function* handleInitEditor() {
       } else {
         targetGist = gist[id];
       }
-      yield put(setOneGist(targetGist));
+      yield put(setOneGist({ ...gist, [id]: targetGist }));
       yield put(setEditorState(targetGist));
     } else {
       const editor = yield JSON.parse(localStorage.getItem("editor")) ||
@@ -184,6 +185,11 @@ function* handleDeleteGist(history) {
 
     const { error } = yield call(api, `gists/${id}`, "DELETE");
     if (!error) {
+      const gist = yield select(selectGist);
+      let newGist = { ...gist };
+      delete newGist[id];
+
+      yield put(setOneGist(newGist));
       yield call(history.push, "/");
     } else {
       toastr.error(error);
