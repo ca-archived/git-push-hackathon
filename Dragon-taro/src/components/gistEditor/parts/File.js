@@ -80,7 +80,7 @@ class File extends Component {
           name="content"
           value={content}
           className={isBlankContent ? "invalid" : ""}
-          onKeyDown={e => this.handleKeyDown(e)}
+          onChange={e => this.handleChangeValue(e)}
           placeholder="Content"
         />
       </div>

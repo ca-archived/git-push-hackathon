@@ -2,10 +2,27 @@ import React, { Component } from "react";
 import File from "./File";
 import { If } from "../../parts/If";
 import Loader from "../../parts/Loader";
+import Dropzone from "react-dropzone";
+
+const overlayStyle = {
+  position: "absolute",
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  padding: "2.5em 0",
+  background: "rgba(0,0,0,0.5)",
+  textAlign: "center",
+  color: "#fff"
+};
 
 class Editor extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      files: [],
+      dropzoneActive: false
+    };
 
     props.actions.loading();
   }
@@ -32,6 +49,33 @@ class Editor extends Component {
     return files.every(
       e => e.filename && e.content && e.filename.indexOf("/") == -1
     );
+  }
+
+  onDragEnter() {
+    this.setState({
+      dropzoneActive: true
+    });
+  }
+
+  onDragLeave() {
+    this.setState({
+      dropzoneActive: false
+    });
+  }
+
+  onDrop(files) {
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = () => {
+        const content = reader.result;
+        this.addFile(file.name, content);
+      };
+    });
+
+    this.setState({
+      dropzoneActive: false
+    });
   }
 
   handleChange(keyValue) {
@@ -131,51 +175,62 @@ class Editor extends Component {
     return (
       <div>
         <Loader message={loadMessage} />
-        <If condition={!isLoading}>
-          <div className="m-editor">
-            <div className="description">
-              <input
-                type="text"
-                value={description}
-                placeholder="description"
-                name="description"
-                onChange={e =>
-                  this.handleChange({ description: e.target.value })
-                }
-              />
-            </div>
-            <ul>{this.fileEditors()}</ul>
-            <div className="button-zone">
-              <If condition={this.isEdit()}>
-                <button
-                  className="p-button red"
-                  onClick={() => deleteGist({ id: params.id })}
-                >
-                  <span>Delete Gist</span>
+        <Dropzone
+          disableClick
+          style={{ position: "relative" }}
+          onDrop={files => this.onDrop(files)}
+          onDragEnter={() => this.onDragEnter()}
+          onDragLeave={() => this.onDragLeave()}
+        >
+          {this.state.dropzoneActive && (
+            <div style={overlayStyle}>Drop files...</div>
+          )}
+          <If condition={!isLoading}>
+            <div className="m-editor">
+              <div className="description">
+                <input
+                  type="text"
+                  value={description}
+                  placeholder="description"
+                  name="description"
+                  onChange={e =>
+                    this.handleChange({ description: e.target.value })
+                  }
+                />
+              </div>
+              <ul>{this.fileEditors()}</ul>
+              <div className="button-zone">
+                <If condition={this.isEdit()}>
+                  <button
+                    className="p-button red"
+                    onClick={() => deleteGist({ id: params.id })}
+                  >
+                    <span>Delete Gist</span>
+                  </button>
+                </If>
+                <button className="p-button">
+                  <label htmlFor="file">
+                    <span>Upload File</span>
+                    <input
+                      type="file"
+                      id="file"
+                      onChange={e => this.handleFile(e)}
+                    />
+                  </label>
                 </button>
-              </If>
-              <button className="p-button">
-                <label htmlFor="file">
-                  <span>Upload File</span>
-                  <input
-                    type="file"
-                    id="file"
-                    onChange={e => this.handleFile(e)}
-                  />
-                </label>
-              </button>
-              <button className="p-button" onClick={() => this.addFile()}>
-                <span>Add File</span>
-              </button>
-              <button
-                className={this.isValid() ? "p-button" : "p-button invalid"}
-                onClick={() => this.handleSubmit()}
-              >
-                <span>{buttonMessage}</span>
-              </button>
+                <button className="p-button" onClick={() => this.addFile()}>
+                  <span>Add File</span>
+                </button>
+                <button
+                  className={this.isValid() ? "p-button" : "p-button invalid"}
+                  onClick={() => this.handleSubmit()}
+                >
+                  <span>{buttonMessage}</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </If>
+          </If>
+        </Dropzone>
       </div>
     );
   }
