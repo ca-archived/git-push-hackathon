@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Loader from "../parts/Loader";
 import { If } from "../parts/If";
 import File from "./File";
+import hljs from "highlight.js";
+import marked from "marked";
 
 class Gist extends Component {
   constructor() {
@@ -15,6 +17,15 @@ class Gist extends Component {
     if (!gist) {
       this.props.actions.getOneGist({ id: id });
     }
+  }
+
+  componentDidUpdate() {
+    hljs.initHighlightingOnLoad();
+    marked.setOptions({
+      highlight: function(code, lang) {
+        return hljs.highlightAuto(code, [lang]).value;
+      }
+    });
   }
 
   getGist() {

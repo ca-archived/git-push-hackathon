@@ -25,22 +25,6 @@ class File extends Component {
     this.handleChange(keyValue, e);
   }
 
-  handleKeyDown(e) {
-    if (e.key === "Tab" && e.keyCode !== 229) {
-      e.preventDefault();
-      const { selectionStart, selectionEnd, value } = e.target;
-      const newValue =
-        value.substring(0, selectionStart) +
-        "  " +
-        value.substring(selectionEnd, value.length);
-      const keyValue = { [e.target.name]: newValue };
-      this.handleChange(keyValue, e);
-
-      // うまく作動しない→カーソル位置をstate管理してもいいかも
-      e.target.setSelectionRange(selectionStart + 2, selectionStart + 2);
-    }
-  }
-
   isValid() {
     const { filename, content } = this.props;
     const { isEdit } = this.state;
@@ -96,7 +80,6 @@ class File extends Component {
           name="content"
           value={content}
           className={isBlankContent ? "invalid" : ""}
-          onChange={e => this.handleChangeValue(e)}
           onKeyDown={e => this.handleKeyDown(e)}
           placeholder="Content"
         />

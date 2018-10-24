@@ -56,11 +56,15 @@ class Editor extends Component {
     this.handleChange({ files: newFiles });
   }
 
-  addFile() {
+  addFile(filename = "", content = "") {
     const {
       editor: { files }
     } = this.props;
-    const newFile = { index: files.length, filename: "", content: "" };
+    const newFile = {
+      index: files.length,
+      filename: filename,
+      content: content
+    };
     const newFiles = files.concat(newFile);
     this.handleChange({ files: newFiles });
   }
@@ -103,6 +107,16 @@ class Editor extends Component {
     return fileEditorList;
   }
 
+  handleFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = e => {
+      const content = e.target.result;
+      this.addFile(file.name, content);
+    };
+  }
+
   render() {
     const {
       editor: { description },
@@ -140,6 +154,16 @@ class Editor extends Component {
                   <span>Delete Gist</span>
                 </button>
               </If>
+              <button className="p-button">
+                <label htmlFor="file">
+                  <span>Upload File</span>
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={e => this.handleFile(e)}
+                  />
+                </label>
+              </button>
               <button className="p-button" onClick={() => this.addFile()}>
                 <span>Add File</span>
               </button>
