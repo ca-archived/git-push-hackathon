@@ -319,13 +319,6 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		64584990217AE83000BB9A19 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		64584997217AEBF600BB9A19 /* Color */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,7 +493,6 @@
 			children = (
 				64584982217AE20A00BB9A19 /* Root */,
 				6458498F217AE82900BB9A19 /* Modules */,
-				64584990217AE83000BB9A19 /* Models */,
 				645849DD217B2A2D00BB9A19 /* API */,
 				6458498E217AE81000BB9A19 /* Utilties */,
 				645849BE217B0B3700BB9A19 /* Components */,
