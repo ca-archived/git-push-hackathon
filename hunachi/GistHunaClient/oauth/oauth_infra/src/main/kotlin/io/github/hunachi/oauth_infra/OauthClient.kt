@@ -7,7 +7,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-interface OauthClient {
+internal interface OauthClient {
 
     @FormUrlEncoded
     @Headers("Accept: application/json")

@@ -5,11 +5,10 @@ import org.koin.dsl.module.module
 
 val oauthModule = module {
     val OAUTH_URL = "oauthUri"
-    val OAUTH_CLIENT = "oauthClient"
 
-    factory(OAUTH_CLIENT) { OauthClientFactory.oauthClientInstance() }
+    factory { OauthClientFactory.oauthClientInstance() }
 
-    factory { OauthUseCaseImpl(get(OAUTH_CLIENT), get(OAUTH_URL)) as OauthUseCase }
+    factory { OauthUseCaseImpl(get(), get(OAUTH_URL)) as OauthUseCase }
 
     factory(name = OAUTH_URL) { OauthClientFactory.url }
 }

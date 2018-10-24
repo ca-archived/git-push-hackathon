@@ -12,7 +12,7 @@ object OauthClientFactory {
             "client_id=" + clientId +
             "&scope=" + scopes
 
-    fun oauthClientInstance(): OauthClient = createClient(
-            isLenientMode = true,
-            baseUrl = "https://github.com/login/oauth/")
+    fun oauthClientInstance() = OauthRepository(
+            createClient(isLenientMode = true, baseUrl = "https://github.com/login/oauth/")
+    )
 }
