@@ -14,7 +14,7 @@ if ('IntersectionObserver' in window) {
 }
 
 export default {
-    props: ['url', 'id', 'detail', 'token', 'me'],
+    props: ['url', 'id', 'detail', 'me'],
     watch: {
         'id': function (newVal, oldVal) {
             this.reset()
@@ -26,7 +26,7 @@ export default {
         }
     },
     template: `<div class='gist-item' v-bind:class='{"detail":detail != null}'>
-                    <div class='root' v-if='(url != null || id != null) && gist != null && log.length == 0'>
+                    <div class='root' v-if='gist != null && log.length == 0'>
                         <a v-bind:href='gist.owner.html_url' class='icon'>
                             <img v-bind:data-url='gist.owner.avatar_url' v-if='lazyLoad' />
                             <img v-bind:src='gist.owner.avatar_url' v-if='!lazyLoad' />
@@ -72,6 +72,7 @@ export default {
     created: function () {
         this.lazyLoad = imageObserver != null
         this.isAuth = this.token != null
+
         this.print()
     },
     methods: {

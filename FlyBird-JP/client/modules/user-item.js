@@ -12,9 +12,9 @@ if ('IntersectionObserver' in window) {
 }
 
 export default {
-    props: ['url'],
+    props: ['url', 'username'],
     template: `<div class='user-item'>
-                    <div class='root' v-if='url != null && user != null'>
+                    <div class='root' v-if='user != null && log.length == 0'>
                         <a v-bind:href='user.html_url' class='icon'>
                             <img v-bind:data-url='user.avatar_url' v-if='lazyLoad' />
                             <img v-bind:src='user.avatar_url' v-if='!lazyLoad' />
@@ -26,22 +26,33 @@ export default {
                             <slot name='link'><a v-bind:href='user.html_url'>Gistを見る</a></slot>
                         </div>
                     </div>
+                    <div class='message center' v-if='log.length > 0'>{{ log }}</div>
                 </div>`,
     data: function () {
         return {
             'user': null,
-            'lazyLoad': false
+            'lazyLoad': false,
+            'log': ''
         }
     },
     created: function () {
         this.lazyLoad = imageObserver != null
-        if (this.url != null) {
-            fetch(this.url)
+        if (this.url != null || this.username != null) {
+            const url = this.url || `https://api.github.com/users/${this.username}`
+            fetch(url)
                 .then((response) => {
-                    if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
-                    return response.json()
+                    if (response.ok) {
+                        if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
+                        return response.json()
+                    }
+                    else throw new Error(`${response.status} ${response.statusText}`)
                 })
                 .then(this.setUser)
+                .catch((err) => {
+                    this.log = err.toString()
+                })
+        } else {
+            this.log = '属性が不正です。'
         }
     },
     methods: {

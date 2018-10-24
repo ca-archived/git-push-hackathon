@@ -14,7 +14,7 @@ if ('IntersectionObserver' in window) {
 export default {
     props: ['url'],
     template: `<div class='github-event'>
-                    <div class='root' v-if='url != null && user != null'>
+                    <div class='root' v-if='user != null && log.length == 0'>
                         <a v-bind:href='user.page'>
                             <img v-bind:data-url='user.img' v-if='lazyLoad' />
                             <img v-bind:src='user.img' v-if='!lazyLoad' />
@@ -24,6 +24,7 @@ export default {
                         <span class='action' v-html='action'></span>
                         <span class='target' v-html='target'></span>
                     </div>
+                    <div class='message center' v-if='log.length > 0'>{{ log }}</div>
                 </div>`,
     data: function () {
         return {
@@ -31,7 +32,8 @@ export default {
             'action': '',
             'target': '',
             'date': new Date().toLocaleDateString(),
-            'lazyLoad': false
+            'lazyLoad': false,
+            'log': ''
         }
     },
     created: function () {
@@ -39,10 +41,18 @@ export default {
         if (this.url != null) {
             fetch(this.url)
                 .then((response) => {
-                    if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
-                    return response.json()
+                    if (response.ok) {
+                        if (this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
+                        return response.json()
+                    }
+                    else throw new Error(`${response.status} ${response.statusText}`)
                 })
                 .then(this.setEvent)
+                .catch((err) => {
+                    this.log = err.toString()
+                })
+        } else {
+            this.log = '属性が不正です。'
         }
     },
     methods: {

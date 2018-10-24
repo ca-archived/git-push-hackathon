@@ -40,7 +40,6 @@ export default [
                 path: '',
                 name: 'yours',
                 component: GistList,
-                props: { 'token': localStorage.getItem('accessToken') },
                 meta: { 'requiresAuth': true }
             },
             {
@@ -48,7 +47,6 @@ export default [
                 name: 'starred',
                 component: GistList,
                 props: {
-                    'token': localStorage.getItem('accessToken'),
                     'starred': 'starred'
                 },
                 meta: { 'requiresAuth': true }
@@ -58,7 +56,6 @@ export default [
                 name: 'public',
                 component: GistList,
                 props: {
-                    'token': localStorage.getItem('accessToken'),
                     'user': 'public'
                 },
                 meta: { 'requiresAuth': false }
@@ -88,7 +85,6 @@ export default [
                         component: GistList,
                         props: (route) => {
                             return {
-                                'token': localStorage.getItem('accessToken'),
                                 'user': 'user',
                                 'name': route.params.username
                             }
@@ -142,7 +138,6 @@ export default [
         component: {
             data: function () {
                 return {
-                    'token': localStorage.getItem('accessToken'),
                     'me': localStorage.getItem('username')
                 }
             },

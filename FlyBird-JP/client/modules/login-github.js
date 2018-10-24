@@ -3,7 +3,6 @@ import EventList from '/modules/event-list.js'
 import UserList from '/modules/user-list.js'
 
 export default {
-    props: ['token'],
     template: `<div class='login-github'>
                     <div class='button' v-on:click='login()' v-if='user == null'>
                         <img class='icon' src='https://flybird.jp:49650/images/GitHub-Mark-120px-plus.png' />
@@ -18,15 +17,15 @@ export default {
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
                         <div class='list' v-if='user != null'>
                             <h2 class='accordion' v-on:click='isShowFollowing = !isShowFollowing' v-bind:class='{"open":isShowFollowing}'>フォロー中ユーザー</h2>
-                            <user-list v-bind:username='user.login' v-bind:token='token' v-show='isShowFollowing'></user-list>
-                            <event-list v-bind:url='user.received_events_url' v-bind:token='token' v-show='isActive'></event-list>
+                            <user-list v-bind:username='user.login' v-show='isShowFollowing'></user-list>
+                            <event-list v-bind:url='user.received_events_url' v-show='isActive'></event-list>
                         </div>
                         <div class='buttons'>
                             <div class='button' v-on:click='jump()'>Github.comで見る</div>
                             <div class='button negative' v-on:click='logout()'>ログアウトする</div>
                         </div>
                     </div>
-                    <div v-if='isActive' class='backdrop'></div>
+                    <div v-if='isActive' class='backdrop' v-on:click='isActive = false'></div>
                     <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {

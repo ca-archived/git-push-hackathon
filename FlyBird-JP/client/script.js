@@ -1,6 +1,8 @@
 'use strict'
 import routes from '/routes.js'
 
+Vue.prototype.token = localStorage.getItem('accessToken')
+
 const router = new VueRouter({
     'routes': routes,
     'mode': 'history',
@@ -28,9 +30,6 @@ router.beforeEach((to, from, next) => {
 
 window.addEventListener('load', (e) => {
     window.vm = new Vue({
-        router: router,
-        data:{
-            token:localStorage.getItem('accessToken')
-        }
+        router: router
     }).$mount('#content')
 })
