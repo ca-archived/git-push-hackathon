@@ -59,11 +59,6 @@ input, button {
     width: 100%;
     height: 100%;
 }
-#root{
-    width: 100%;
-    height: calc(100% - 60px);
-    animation: fadein 0.5s ease-in-out;
-}
 header {
     width: 100%;
     height: 60px;
@@ -103,11 +98,17 @@ header .add {
     font-size: xx-large;
     cursor: pointer;
     padding: 0;
+    margin-right: 0.5rem;
+    transition: color ease-in-out 0.3s;
+}
+header .add:hover {
+    color: #999;
 }
 main {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
     overflow: hidden;
+    animation: fadein 0.5s ease-in-out;
 }
 main > .tab_area {
     width: 100%;
@@ -236,7 +237,7 @@ main > .content > h2 {
    width: 175px;
    height: 60px;
    display: grid;
-   grid-template-columns: calc(60px - 1em) 1fr;
+   grid-template-columns: calc(60px - 1rem) 1fr;
    grid-template-rows: 3fr 2fr;
    align-items: center;
    padding: 0.5em;
@@ -290,9 +291,37 @@ main > .content > h2 {
     border-bottom: solid 0.5px #ccc;
     line-height: 60px;
     font-weight: 500;
-    font-size: larger;
+    font-size: large;
     padding-left: 1rem;
+}
+.login-github > .dashboard > .list > .accordion {
     cursor: pointer;
+    transition: background ease-in-out 0.3s;
+}
+.login-github > .dashboard > .list > .accordion:hover {
+    background:#fafafa;
+}
+.login-github > .dashboard > .list > .accordion::before {
+    content: 'add';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+    background: #2A2A32;
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+}
+.login-github > .dashboard > .list > .accordion.open {
+    background:#fafafa;
+}
+.login-github > .dashboard > .list > .accordion.open::before {
+    content: 'close ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
 }
 .login-github > .dashboard > .list > .event-list {
     height: calc(100% - 60px);
@@ -636,7 +665,6 @@ main > .content > h2 {
     line-height: 2rem;
     border-radius: 3px;
     border: solid 0.5px #ccc;
-    margin: 1rem 0 0 0;
     padding-left: 1rem;
 }
 .gist-editor > .editor >.desc, .gist-editor > .editor > .file > .filename {
@@ -678,25 +706,29 @@ main > .content > h2 {
     margin-top: 1rem;
 }
 .gist-editor > .editor > .buttons .button {
-    border: solid 1px #ddd;
-    background: #fff;
+    border: none;
+    background: #2A2A32;
+    color: #fff;
+    font-weight: 700;
     border-radius: 3px;
     line-height: 2rem;
     padding: 0 1rem;
     cursor: pointer;
-    transition: border-color ease-in-out 0.3s;
+    transition: background ease-in-out 0.3s;
 }
 .gist-editor > .editor > .buttons > div {
     display: flex;
 }
-.gist-editor > .editor > .buttons > div > .button.secret {
-    background: #faf6c0;
+.gist-editor > .editor > .buttons > div > .button.public {
+    background: #fff;
+    color: #333;
+    border: solid 1px #ddd;
 }
 .gist-editor > .editor > .buttons > div > .button:first-child {
     margin-right: 1rem;
 }
 .gist-editor > .editor > .buttons .button:hover {
-    border-color: #999;
+    background: #000;
 }
 .gist-editor > .message {
     width: 100%;

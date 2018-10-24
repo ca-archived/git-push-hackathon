@@ -23,7 +23,7 @@ export default {
                             <a v-bind:href='user.html_url'>{{ user.login }}</a>
                         </div>
                         <div class='open'>
-                            <router-link v-bind:to='"/users/" + user.login + "/gists"'>Gistを見る</router-link>
+                            <slot name='link'><a v-bind:href='user.html_url'>Gistを見る</a></slot>
                         </div>
                     </div>
                 </div>`,

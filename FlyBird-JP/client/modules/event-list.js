@@ -7,23 +7,21 @@ export default {
             type: Number,
             default: 20
         },
-        'username': {
-            type: String
-        },
-        'url': {
-            type: String
-        }
+        'username': String,
+        'url': String,
+        'token': String
     },
     template: `<div class='event-list' v-if='username != null || url != null'>
                     <div class='root' v-if='log.length == 0'>
                         <github-event 
                             v-for='event in events'
-                            v-bind:url='event'
+                            v-bind:key='event.id'
+                            v-bind:url='event.url'
                         ></github-event>
                         <button class='load' v-on:click='print(nextUrl)' v-if='!infiniteScroll && nextUrl != null'>さらに読み込む</button>
                     </div>
                     <div class='message center' v-if='log.length > 0'>{{ log }}</div>
-                    <my-dialog></my-dialog>
+                    <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {
         'github-event': GithubEvent,
@@ -62,7 +60,7 @@ export default {
                         }
                     }
                 }
-            })).observe(this.$el.getElementsByClassName('root')[0], { 'childList': true });
+            })).observe(this.$el.getElementsByClassName('root')[0], { 'childList': true })
         }
 
         this.print(this.url || `https://api.github.com/users/${this.username}/received_events?per_page=${this.limit}`)
@@ -72,12 +70,16 @@ export default {
             this.load(url)
                 .then(this.addEvent)
                 .catch((err) => {
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                    this.$refs.dialog.alert('エラーが発生しました。', err.toString())
                     this.log = err.toString()
                 })
         },
         load: async function (url) {
-            const response = await fetch(url)
+            const headers = new Headers()
+            if (this.token != null) {
+                headers.append('Authorization', ` token ${this.token}`)
+            }
+            const response = await fetch(url, { 'headers': headers })
             if (response.ok) {
                 this.nextUrl = null
                 if (response.headers.has('Link')) {
@@ -100,7 +102,10 @@ export default {
             const events = []
             for (let item of json) {
                 const blob = new Blob([JSON.stringify(item)], { type: 'application/json' })
-                events.push(URL.createObjectURL(blob))
+                events.push({
+                    'id': item.id,
+                    'url': URL.createObjectURL(blob)
+                })
             }
             if (this.events == null) this.events = []
             this.events = this.events.concat(events)

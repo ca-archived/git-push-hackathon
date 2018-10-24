@@ -3,10 +3,8 @@ import UserItem from '/modules/user-item.js'
 
 export default {
     props: {
-        'username': {
-            type: String,
-            default: localStorage.getItem('username')
-        },
+        'url': String,
+        'username': String,
         'type': {
             type: String,
             default: 'following'
@@ -14,18 +12,22 @@ export default {
         'limit': {
             type: Number,
             default: 30
-        }
+        },
+        'token': String
     },
     template: `<div class='user-list' v-if='username != null'>
                     <div class='root' v-if='log.length == 0'>
                         <user-item 
                             v-for='user in users'
-                            v-bind:url='user'
-                        ></user-item>
+                            v-bind:key='user.id'
+                            v-bind:url='user.url'
+                        >
+                            <router-link v-bind:to='"/users/" + user.name + "/gists"' slot='link'>Gistを見る</router-link>
+                        </user-item>
                         <button class='load' v-on:click='print(nextUrl)' v-if='users != null && users.length > 0 && !infiniteScroll && nextUrl != null'>さらに読み込む</button>
                     </div>
                     <div class='message center' v-if='log.length > 0'>{{ log }}</div>
-                    <my-dialog></my-dialog>
+                    <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {
         'my-dialog': MyDialog,
@@ -68,35 +70,35 @@ export default {
         }
         if (this.username != null) this.print(this.getUrl())
         else {
-            this.$el.getElementsByClassName('my-dialog')[0].__vue__.prompt('ユーザー名を入力してください。', '', (input) => {
+            this.$refs.dialog.prompt('ユーザー名を入力してください。', '', (input) => {
                 this.username = input
             })
         }
     },
     methods: {
         print: function (url) {
-            if(url != null){
-            this.load(url)
-                .then(this.addUser)
-                .catch((err) => {
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
-                    this.log = err.toString()
-                })
+            if (url != null) {
+                this.load(url)
+                    .then(this.addUser)
+                    .catch((err) => {
+                        this.$refs.dialog.alert('エラーが発生しました。', err.toString())
+                        this.log = err.toString()
+                    })
             }
         },
         getUrl: function () {
             const types = ['following', 'followers']
             let type = this.type
-
             if (!types.includes(type)) type = 'following'
-            return `https://api.github.com/users/${this.username}/${type}?per_page=${this.limit}`
+
+            return this.url || `https://api.github.com/users/${this.username}/${type}?per_page=${this.limit}`
         },
         load: async function (url) {
             const headers = new Headers()
-            if (this.isAuth) {
-                headers.append('Authorization', ` token ${localStorage.getItem('accessToken')}`)
+            if (this.token != null) {
+                headers.append('Authorization', ` token ${this.token}`)
             }
-            const response = await fetch(url, { 'headers': headers, 'cache': 'no-cache' })
+            const response = await fetch(url, { 'headers': headers })
             if (response.ok) {
                 this.nextUrl = null
                 if (response.headers.has('Link')) {
@@ -118,7 +120,11 @@ export default {
             const users = []
             for (let item of json) {
                 const blob = new Blob([JSON.stringify(item)], { type: 'application/json' })
-                users.push(URL.createObjectURL(blob))
+                users.push({
+                    'id': item.id,
+                    'name': item.login,
+                    'url': URL.createObjectURL(blob)
+                })
             }
             if (this.users == null) this.users = []
             this.users = this.users.concat(users)

@@ -3,9 +3,6 @@
 import LoginGithub from '/modules/login-github.js'
 Vue.component('login-github', LoginGithub)
 
-import GistList from '/modules/gist-list.js'
-Vue.component('gist-list', GistList)
-
 import MyDialog from '/modules/my-dialog.js'
 Vue.component('my-dialog', MyDialog)
 

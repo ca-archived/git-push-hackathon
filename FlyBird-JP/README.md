@@ -1,5 +1,5 @@
 #### LiveDemo
-以下のアドレスで実際に利用できます。(サーバー証明書取得の手順は異なります。)  
+以下のアドレスで実際に利用できます。
 https://flybird.jp:49650/
 
 #### 必要な環境
@@ -58,3 +58,4 @@ https://ホスト名:指定したポート番号/callback_auth/github
 - [Vue Router](https://router.vuejs.org/)
 - [SpinKit](https://github.com/tobiasahlin/SpinKit)
 - [GitHub Logo](https://github.com/logos)
+- [Material icons](https://material.io/tools/icons/)

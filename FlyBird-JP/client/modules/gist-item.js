@@ -14,7 +14,7 @@ if ('IntersectionObserver' in window) {
 }
 
 export default {
-    props: ['url', 'id', 'detail'],
+    props: ['url', 'id', 'detail', 'token', 'me'],
     watch: {
         'id': function (newVal, oldVal) {
             this.reset()
@@ -38,11 +38,11 @@ export default {
                         <span class='desc'>{{ gist.description || "No description." }}</span>
                         <span class='comments' v-if='detail != null'>コメント：<a v-bind:href='gist.html_url + "#comments"'>{{ gist.comments }}件</a></span>
                         <div v-if='!detail' class='open'>
-                            <router-link v-bind:to='"/gists/" + gist.id'>詳しく見る</router-link>
+                            <slot name='link'><a v-bind:href='gist.html_url'>詳しく見る</a></slot>
                         </div>
-                        <div v-if='detail && isAuth' class='buttons'>
+                        <div v-if='detail && token != null' class='buttons'>
                             <button class='star' v-bind:class='{"starred":starred}' v-on:click='star()'>Star</button>
-                            <button v-if='editable && !confirmFlag' class='delete' v-on:click='confirm()'>Delete</button>
+                            <button v-if='editable && !confirmFlag' class='delete' v-on:click='confirm()'>削除</button>
                             <button v-if='editable && confirmFlag' class='delete confirm' v-on:click='del()'>よろしいですか？</button>
                             <button v-if='!editable && !forked' class='forks' v-on:click='fork()'>Fork : {{ gist.forks.length }}</button>
                             <button v-if='!editable && forked' class='forks'>しばらくお待ちください...</button>
@@ -52,7 +52,7 @@ export default {
                         </div>
                     </div>
                     <div class='message center' v-if='log.length > 0'>{{ log }}</div>
-                    <my-dialog></my-dialog>
+                    <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {
         'my-dialog': MyDialog
@@ -62,17 +62,16 @@ export default {
             'gist': null,
             'lazyLoad': false,
             'editable': false,
-            'isAuth': false,
             'starred': false,
             'forked': false,
             'confirmFlag': false,
-            'iframeLoaded': 0,
+            'iframeLoaded': false,
             'log': ''
         }
     },
     created: function () {
         this.lazyLoad = imageObserver != null
-        this.isAuth = 'accessToken' in localStorage
+        this.isAuth = this.token != null
         this.print()
     },
     methods: {
@@ -81,15 +80,15 @@ export default {
                 .then(this.setGist)
                 .catch((err) => {
                     this.log = err.toString()
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                    this.$refs.dialog.alert('エラーが発生しました。', err.toString())
                 })
         },
         getGist: async function () {
             if (this.url != null || this.id != null) {
                 const url = this.url || `https://api.github.com/gists/${this.id}`
                 const headers = new Headers()
-                if (!url.startsWith('blob') && this.isAuth) {
-                    headers.append('Authorization', ` token ${localStorage.getItem('accessToken')}`)
+                if (!url.startsWith('blob') && this.token != null) {
+                    headers.append('Authorization', ` token ${this.token}`)
                 }
                 const response = await fetch(url, {
                     'headers': headers
@@ -104,7 +103,7 @@ export default {
         },
         setGist: function (json) {
             this.gist = json
-            this.editable = this.gist.owner.login == localStorage.getItem('username')
+            this.editable = this.gist.owner.login == this.me
             if (this.lazyLoad) {
                 this.$nextTick().then(() => {
                     imageObserver.observe(this.$el.getElementsByTagName('img')[0])
@@ -122,7 +121,7 @@ export default {
                             this.starred = starred
                         })
                         .catch((err) => {
-                            this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                            this.$refs.dialog.alert('エラーが発生しました。', err.toString())
                         })
                 }
             }
@@ -156,7 +155,7 @@ export default {
                     if (response.status == 204) this.starred = !this.starred
                     else throw new Error(`${response.status} ${response.statusText}`)
                 }).catch((err) => {
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                    this.$refs.dialog.alert('エラーが発生しました。', err.toString())
                 })
         },
         fork: function () {
@@ -173,7 +172,7 @@ export default {
                     this.$router.push(`/gists/${json.id}`)
                 })
                 .catch((err) => {
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                    this.$refs.dialog.alert('エラーが発生しました。', err.toString())
                 })
         },
         del: function () {
@@ -183,14 +182,14 @@ export default {
             })
                 .then((response) => {
                     if (response.status == 204) {
-                        this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('削除しました。', 'トップページへ戻ります。', () => {
+                        this.$refs.dialog.alert('削除しました。', 'トップページへ戻ります。', () => {
                             this.$router.push('/')
                         })
                     }
                     else throw new Error(`${response.status} ${response.statusText}`)
                 })
                 .catch((err) => {
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
+                    this.$refs.dialog.alert('エラーが発生しました。', err.toString())
                 })
         },
         confirm: function () {
@@ -202,6 +201,7 @@ export default {
         reset: function () {
             this.gist = null
             this.editable = this.starred = this.forked = false
+            this.log = ''
         },
         showContnet: function () {
             const iframe = document.createElement('iframe')

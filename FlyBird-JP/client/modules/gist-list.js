@@ -1,44 +1,45 @@
 import MyDialog from '/modules/my-dialog.js'
 import GistItem from '/modules/gist-item.js'
 
-const urls = {
-    'mine': 'https://api.github.com/gists',
-    'user': 'https://api.github.com/users',
-    'public': 'https://api.github.com/gists/public',
-    'starred': 'https://api.github.com/gists/starred',
-}
-
 export default {
     props: {
         'user': {
             type: String,
-            default: 'mine'
+            default: 'me'
         },
-        'name': {
-            type: String
-        },
+        'starred': [String, Number],
+        'name': String,
         'limit': {
             type: Number,
             default: 20
-        }
+        },
+        'token': String
     },
     watch: {
+        'user': function (newVal, oldVal) {
+            this.reset()
+        },
         'name': function (newVal, oldVal) {
-            this.gists = []
-            this.isLast = false
-            this.print(this.getUrl())
+            this.reset()
+        },
+        'starred': function (newVal, oldVal) {
+            this.reset()
         }
     },
     template: `<div class='gist-list'>
                     <div class='root' v-if='log.length == 0'>
                         <gist-item 
                             v-for='gist in gists'
-                            v-bind:url='gist'
-                        ></gist-item>
+                            v-bind:url='gist.url'
+                            v-bind:key='gist.id'
+                            v-bind:token='token'
+                        >
+                            <router-link v-bind:to='"/gists/" + gist.id' slot='link'>詳しく見る</router-link>
+                        </gist-item>
                         <button class='load' v-on:click='print(nextUrl)' v-if='gists != null && gists.length > 0 && !infiniteScroll && nextUrl != null'>さらに読み込む</button>
                     </div>
                     <div class='message center' v-if='log.length > 0'>{{ log }}</div>
-                    <my-dialog></my-dialog>
+                    <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {
         'gist-item': GistItem,
@@ -83,32 +84,32 @@ export default {
     },
     methods: {
         print: function (url) {
-            if (url != null) {
-                this.load(url)
-                    .then(this.addGist)
-                    .catch((err) => {
-                        this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString())
-                        this.log = err.toString()
-                    })
-            }
+            this.load(url)
+                .then(this.addGist)
+                .catch((err) => {
+                    this.$refs.dialog.alert('エラーが発生しました。', err.toString())
+                    this.log = err.toString()
+                })
         },
         getUrl: function () {
-            this.isAuth = 'accessToken' in localStorage
-            if (!(this.user in urls)) this.url = urls['public']
-            else if (this.name != null) {
-                this.url = `${urls['user']}/${this.name}/gists`
-            }
-            else if (this.isAuth) {
-                this.url = urls[this.user]
-            }
-            else this.url = urls['public']
+            let url
 
-            return `${this.url}?per_page=${this.limit}`
+            if (this.user == 'user' && this.name != null) {
+                if (this.starred == null) url = `https://api.github.com/users/${this.name}/gists`
+                else url = `https://api.github.com/users/${this.name}/gists/starred`
+            }
+            else if (this.user == 'me' && this.token != null) {
+                if (this.starred == null) url = `https://api.github.com/gists`
+                else url = `https://api.github.com/gists/starred`
+            }
+            else url = 'https://api.github.com/gists/public'
+
+            return `${url}?per_page=${this.limit}`
         },
         load: async function (url) {
             const headers = new Headers()
-            if (this.isAuth) {
-                headers.append('Authorization', ` token ${localStorage.getItem('accessToken')}`)
+            if (this.token != null) {
+                headers.append('Authorization', ` token ${this.token}`)
             }
             const response = await fetch(url, { 'headers': headers, 'cache': 'no-cache' })
             if (response.ok) {
@@ -133,11 +134,21 @@ export default {
             const gists = []
             for (let item of json) {
                 const blob = new Blob([JSON.stringify(item)], { type: 'application/json' })
-                gists.push(URL.createObjectURL(blob))
+                gists.push({
+                    'id': item.id,
+                    'url': URL.createObjectURL(blob)
+                })
             }
             if (this.gists == null) this.gists = []
             this.gists = this.gists.concat(gists)
+
             if (this.gists.length == 0) this.log = '表示できるGistは今のところありません。'
+        },
+        reset: function () {
+            this.gists = null
+            this.isLast = false
+            this.log = ''
+            this.print(this.getUrl())
         }
     }
 }

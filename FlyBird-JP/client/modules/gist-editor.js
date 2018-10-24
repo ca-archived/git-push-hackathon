@@ -41,26 +41,26 @@ script.src = `${codeMirrorPath}/codemirror.min.js`
 document.body.appendChild(script)
 
 export default {
-    props: [],
+    props: ['token'],
     template: `<div class='gist-editor'>
                     <div class='editor' v-if='!isSended'>
                         <input type='text' placeholder='Gist description...' class='desc' v-model="description"></input>
-                        <div class='file' v-for="(file, index) in files">
+                        <div class='file' v-for="file in files" v-bind:key='file.id'>
                             <input type='text' placeholder='Filename including extention...' class='filename' v-on:input='loadMode(file.id, $event)' v-model="file.name"></input>
                             <textarea v-bind:class='"editor" + file.id'></textarea>
-                            <div v-if='index == files.length - 1 && index > 0' v-on:click='del(file.id)' class='button delete'>Delete</div>
+                            <div v-if='files.length > 1' v-on:click='del(file.id)' class='button delete'>削除</div>
                         </div>
                         <div class='buttons'>
-                            <div class='button' v-on:click='add()'>Add file</div>
+                            <div class='button' v-on:click='add()'>ファイルを追加</div>
                             <div>
-                                <div class='button' v-if='isPublic' v-on:click='isPublic = !isPublic'>Publicにする</div>
-                                <div class='button secret' v-else='v-else' v-on:click='isPublic = !isPublic'>Secretにする</div>
-                                <div class='button' v-on:click='send()'>Create gist</div>
+                                <div class='button public' v-if='isPublic' v-on:click='isPublic = !isPublic'>Public</div>
+                                <div class='button' v-else='v-else' v-on:click='isPublic = !isPublic'>Secret</div>
+                                <div class='button' v-on:click='send()'>作成する</div>
                             </div>
                         </div>
                     </div>
                     <div class='spinner center' v-if='isSended'></div>
-                    <my-dialog></my-dialog>
+                    <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {
         'my-dialog': MyDialog
@@ -145,25 +145,25 @@ export default {
                     'body': JSON.stringify(json),
                     'headers': new Headers({
                         'Content-type': 'application/json',
-                        'Authorization': ` token ${localStorage.getItem('accessToken')}`
+                        'Authorization': ` token ${this.token}`
                     })
                 }).then((response) => {
                     if (response.status == 201) {
                         response.json()
                             .then((json) => {
-                                this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('作成しました。', '作成したGistを表示します。', () => {
+                                this.$refs.dialog.alert('作成しました。', '作成したGistを表示します。', () => {
                                     this.$router.push(`/gists/${json.id}`)
                                 })
                             })
                     } else throw new Error(`${response.status} ${response.statusText}`)
                 })
                     .catch((err) => {
-                        this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', err.toString(), () => {
-                            this.$router.push('/')
+                        this.$refs.dialog.alert('エラーが発生しました。', err.toString(), () => {
+                            this.isSended = false
                         })
                     })
             } else {
-                this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('入力内容がありません。', '')
+                this.$refs.dialog.alert('入力内容がありません。', '')
             }
         }
     }

@@ -3,6 +3,7 @@ import EventList from '/modules/event-list.js'
 import UserList from '/modules/user-list.js'
 
 export default {
+    props: ['token'],
     template: `<div class='login-github'>
                     <div class='button' v-on:click='login()' v-if='user == null'>
                         <img class='icon' src='https://flybird.jp:49650/images/GitHub-Mark-120px-plus.png' />
@@ -16,9 +17,9 @@ export default {
                     </div>
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
                         <div class='list' v-if='user != null'>
-                            <h2 v-on:click='isShowFollowing = !isShowFollowing'>フォロー中ユーザー<span v-show='!isShowFollowing'>を見る</span><span v-show='isShowFollowing'>を閉じる</span></h2>
-                            <user-list v-bind:username='user.login' v-show='isShowFollowing'></user-list>
-                            <event-list v-bind:url='user.received_events_url'></event-list>
+                            <h2 class='accordion' v-on:click='isShowFollowing = !isShowFollowing' v-bind:class='{"open":isShowFollowing}'>フォロー中ユーザー</h2>
+                            <user-list v-bind:username='user.login' v-bind:token='token' v-show='isShowFollowing'></user-list>
+                            <event-list v-bind:url='user.received_events_url' v-bind:token='token' v-show='isActive'></event-list>
                         </div>
                         <div class='buttons'>
                             <div class='button' v-on:click='jump()'>Github.comで見る</div>
@@ -26,7 +27,7 @@ export default {
                         </div>
                     </div>
                     <div v-if='isActive' class='backdrop'></div>
-                    <my-dialog></my-dialog>
+                    <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {
         'my-dialog': MyDialog,
@@ -37,12 +38,11 @@ export default {
         return {
             'isActive': false,
             'user': null,
-            'events': null,
-            'isShowFollowing' :false
+            'isShowFollowing': false
         }
     },
     created: function () {
-        if ('accessToken' in localStorage) {
+        if (this.token != null) {
             this.getUser()
                 .then((user) => {
                     this.user = user
@@ -54,7 +54,7 @@ export default {
                     })
                 })
                 .catch((err) => {
-                    this.$el.getElementsByClassName('my-dialog')[0].__vue__.alert('エラーが発生しました。', `${err.toString()}\nログアウトします。`, () => {
+                    this.$refs.dialog.alert('エラーが発生しました。', `${err.toString()}\nログアウトします。`, () => {
                         this.logout()
                     })
                 })
@@ -94,7 +94,7 @@ export default {
             }
         },
         getUser: async function () {
-            const response = await fetch('https://api.github.com/user', { 'headers': new Headers({ 'Authorization': ` token ${localStorage.getItem('accessToken')}` }) })
+            const response = await fetch('https://api.github.com/user', { 'headers': new Headers({ 'Authorization': ` token ${this.token}` }) })
             if (response.status == 401) {
                 const json = await response.json()
                 throw new Error(`${response.status} ${response.statusText} with ${json.message}`)

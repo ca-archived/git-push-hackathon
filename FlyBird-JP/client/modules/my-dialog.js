@@ -3,10 +3,10 @@ export default {
                     <div class='dialog'>
                         <h2>{{ title }}</h2>
                         <p v-bind:class='{"min":mode == "prompt"}'>{{ message }}</p>
-                        <input v-if='["prompt"].includes(mode)' type='text' v-model='input' v-on:keyup.enter='enter()'></input>
+                        <input v-if='["prompt"].includes(mode)' type='text' v-model='input' ref='input' v-on:keyup.enter='enter()'></input>
                         <div class='buttons'>
-                            <button class='button negative' v-on:click='negative()' v-if='mode != "alert"'>キャンセル</button>
                             <button class='button positive' v-on:click='positive()'>OK</button>
+                            <button class='button negative' v-on:click='negative()' v-if='mode != "alert"'>キャンセル</button>
                         </div>
                     </div>
                 </div>`,
@@ -36,6 +36,9 @@ export default {
             this.message = message
             this.callback = callback
             this.mode = 'prompt'
+            this.$nextTick().then(() => {
+                this.$refs.input.focus()
+            })
         },
         negative: function () {
             if (this.callback != null) {

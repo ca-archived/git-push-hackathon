@@ -13,9 +13,8 @@ const router = new VueRouter({
     }
 })
 
-const needAuthPaths = ['/', '/gists/new', '/gists/starred']
 router.beforeEach((to, from, next) => {
-    if (!('accessToken' in localStorage) && needAuthPaths.includes(to.path)) {
+    if (!('accessToken' in localStorage) && to.meta.requiresAuth) {
         if (to.path == '/') {
             next('/gists/public')
         }
@@ -24,39 +23,14 @@ router.beforeEach((to, from, next) => {
             next(false)
         }
     }
-    else {
-        switch (to.path) {
-            case '/':
-                if (from.path == '/gists/new') {
-                    document.getElementById('dialog').__vue__.confirm('このページを離れてもよろしいですか？', '作成途中の場合、その内容は失われてしまいます。', (bool) => {
-                        if (bool) next()
-                        else next(false)
-                    })
-                }
-                else next()
-                break;
-            case '/users':
-                document.getElementById('dialog').__vue__.prompt('ユーザー名を入力してください。', '指定したユーザーのGistを表示します。', (input) => {
-                    if (input != null) next(`/users/${input.trim()}/gists`)
-                    else next(false)
-                })
-                break;
-            case '/logout':
-                localStorage.clear(`accessToken`)
-                localStorage.clear(`username`)
-                location.href = '/'
-                break;
-            default: next()
-                break;
-        }
-    }
-
-    if (to.path.startsWith('/callback_auth')) document.getElementById('buttons').style.visibility = 'hidden'
-    if (from.path.startsWith('/callback_auth')) document.getElementById('buttons').style.visibility = 'visible'
+    else next()
 })
 
 window.addEventListener('load', (e) => {
     window.vm = new Vue({
-        'router': router
+        router: router,
+        data:{
+            token:localStorage.getItem('accessToken')
+        }
     }).$mount('#content')
 })
