@@ -131,6 +131,7 @@ export default {
             for (let file of this.files) {
                 const content = file.cm.getValue()
                 if (content.length > 0) {
+                    if(file.name.length == 0) file.name = `gistfile${Object.keys(json.files).length + 1}.txt`
                     json.files[file.name] = {
                         'content': content
                     }
