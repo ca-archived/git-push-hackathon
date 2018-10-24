@@ -22,7 +22,6 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
 
     private lateinit var mainSubscriber: ReceiveChannel<MainAction>
     private lateinit var gistListSubscriber: ReceiveChannel<GistListAction>
-    private lateinit var gistCreateSubscriber: ReceiveChannel<CreateGistAction>
     private var job: MutableList<Job> = mutableListOf()
 
     private val _gistResultState = MutableLiveData<GistResult>()
@@ -45,13 +44,9 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
     private val _finishState = SingleLiveEvent<Nothing>()
     val finishState: LiveData<Nothing> = _finishState
 
-    private val _refreshListState = SingleLiveEvent<Nothing>()
-    val refreshListState: LiveData<Nothing> = _refreshListState
-
     override fun onCreate() {
         mainSubscriber = dispatcher.asChannel()
         gistListSubscriber = dispatcher.asChannel()
-        gistCreateSubscriber = dispatcher.asChannel()
 
         job.add(CoroutineScope(Dispatchers.Main).launch {
             gistListSubscriber.consumeEach {
@@ -66,13 +61,6 @@ class GistListStore(private val dispatcher: Dispatcher) : Store() {
                     is MainAction.ClickedFAB -> _startCreateGistState.call()
 
                     is MainAction.ClickedBack -> _finishState.call()
-                }
-            }
-        })
-        job.add(CoroutineScope(Dispatchers.Main).launch {
-            gistCreateSubscriber.consumeEach {
-                when (it) {
-                    is CreateGistAction.SuccessPostGist -> _refreshListState.call()
                 }
             }
         })
