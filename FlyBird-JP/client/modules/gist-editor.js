@@ -41,6 +41,7 @@ script.src = `${codeMirrorPath}/codemirror.min.js`
 document.body.appendChild(script)
 
 export default {
+    props: ['token'],
     template: `<div class='gist-editor' v-if='token != null'>
                     <div class='editor' v-if='!isSended'>
                         <input type='text' placeholder='Gist description...' class='desc' v-model="description"></input>

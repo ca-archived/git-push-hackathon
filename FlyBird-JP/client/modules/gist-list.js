@@ -12,7 +12,8 @@ export default {
         'limit': {
             type: Number,
             default: 20
-        }
+        },
+        'token': String
     },
     watch: {
         'user': function (newVal, oldVal) {
@@ -31,6 +32,7 @@ export default {
                             v-for='gist in gists'
                             v-bind:url='gist.url'
                             v-bind:key='gist.id'
+                            v-bind:token='token'
                         >
                             <router-link v-bind:to='"/gists/" + gist.id' slot='link'>詳しく見る</router-link>
                         </gist-item>

@@ -12,9 +12,10 @@ export default {
         'limit': {
             type: Number,
             default: 30
-        }
+        },
+        'token': String
     },
-    template: `<div class='user-list'>
+    template: `<div class='user-list' v-if='username != null'>
                     <div class='root' v-if='log.length == 0'>
                         <user-item 
                             v-for='user in users'
@@ -86,14 +87,11 @@ export default {
             }
         },
         getUrl: function () {
-            if (this.url != null || this.username != null) {
-                const types = ['following', 'followers']
-                let type = this.type
-                if (!types.includes(type)) type = 'following'
+            const types = ['following', 'followers']
+            let type = this.type
+            if (!types.includes(type)) type = 'following'
 
-                return this.url || `https://api.github.com/users/${this.username}/${type}?per_page=${this.limit}`
-            }
-            else throw new Error('属性が不正です。')
+            return this.url || `https://api.github.com/users/${this.username}/${type}?per_page=${this.limit}`
         },
         load: async function (url) {
             const headers = new Headers()

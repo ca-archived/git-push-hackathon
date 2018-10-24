@@ -8,16 +8,17 @@ export default {
             default: 20
         },
         'username': String,
-        'url': String
+        'url': String,
+        'token': String
     },
-    template: `<div class='event-list'>
+    template: `<div class='event-list' v-if='username != null || url != null'>
                     <div class='root' v-if='log.length == 0'>
                         <github-event 
                             v-for='event in events'
                             v-bind:key='event.id'
                             v-bind:url='event.url'
                         ></github-event>
-                        <button class='load' v-on:click='print(nextUrl)' v-if='events != null && events.length > 0 && !infiniteScroll && nextUrl != null'>さらに読み込む</button>
+                        <button class='load' v-on:click='print(nextUrl)' v-if='!infiniteScroll && nextUrl != null'>さらに読み込む</button>
                     </div>
                     <div class='message center' v-if='log.length > 0'>{{ log }}</div>
                     <my-dialog ref='dialog'></my-dialog>
