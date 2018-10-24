@@ -16,8 +16,8 @@ export default {
                     </div>
                     <div class='dashboard' v-bind:class='{visible:isActive}'>
                         <div class='list' v-if='user != null'>
-                            <h2 class='accordion' v-on:click='isShowFollowing = !isShowFollowing' v-bind:class='{"open":isShowFollowing}'>フォロー中ユーザー</h2>
-                            <user-list v-bind:username='user.login' v-show='isShowFollowing'></user-list>
+                            <h2 class='accordion' v-on:click='isShowUsers = !isShowUsers' v-bind:class='{"opened":isShowUsers}'>フォロー中ユーザー</h2>
+                            <user-list v-bind:username='user.login' v-show='isShowUsers'></user-list>
                             <event-list v-bind:url='user.received_events_url' v-show='isActive'></event-list>
                         </div>
                         <div class='buttons'>
@@ -37,7 +37,7 @@ export default {
         return {
             'isActive': false,
             'user': null,
-            'isShowFollowing': false
+            'isShowUsers': false
         }
     },
     created: function () {

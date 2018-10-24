@@ -81,7 +81,7 @@ export default [
                     },
                     {
                         path: ':username/gists',
-                        name: "users gists",
+                        name: 'users gists',
                         component: GistList,
                         props: (route) => {
                             return {
@@ -116,9 +116,7 @@ export default [
                         </div>
                     </div>
                     <div class='content with_tab with_padding'>
-                        <gist-editor
-                            v-bind:token='token'
-                        ></gist-editor>
+                        <gist-editor></gist-editor>
                     </div>
                 </main>`,
             beforeRouteLeave: function (to, from, next) {
@@ -147,7 +145,6 @@ export default [
                         <gist-item
                             v-bind:id='this.$route.params.id'
                             detail='detail'
-                            v-bind:token='token'
                             v-bind:me='me'
                         ></gist-item>
                     </div>

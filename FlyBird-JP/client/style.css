@@ -315,10 +315,10 @@ main > .content > h2 {
     text-align: center;
     color: #fff;
 }
-.login-github > .dashboard > .list > .accordion.open {
+.login-github > .dashboard > .list > .accordion.opened {
     background:#fafafa;
 }
-.login-github > .dashboard > .list > .accordion.open::before {
+.login-github > .dashboard > .list > .accordion.opened::before {
     content: 'close ';
     font-family: 'Material Icons';
     vertical-align: middle;
