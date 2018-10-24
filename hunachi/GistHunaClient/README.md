@@ -16,7 +16,7 @@ CLIENT_SECRET=hogehoge
 
 | 認証前Home | 認証の仕方 | 認証後Home | Gist作成画面 |
 |:-----------:|:------------:|:------------:|:----:|
-| <img src="https://user-images.githubusercontent.com/16878520/47428189-7a01b580-d7cd-11e8-9be9-7fde24cb769c.png" width="100"> | <img src="https://user-images.githubusercontent.com/16878520/47428187-7706c500-d7cd-11e8-9a90-c84fff962640.png" width="100"> | <img src="https://user-images.githubusercontent.com/16878520/47428197-7f5f0000-d7cd-11e8-9009-c0d209c43450.png" width="100"> | <img src="https://user-images.githubusercontent.com/16878520/47428195-7cfca600-d7cd-11e8-9b68-10683d3eaea5.png" width="100"> |
+| <img src="https://user-images.githubusercontent.com/16878520/47428189-7a01b580-d7cd-11e8-9be9-7fde24cb769c.png" width="150"> | <img src="https://user-images.githubusercontent.com/16878520/47428187-7706c500-d7cd-11e8-9a90-c84fff962640.png" width="150"> | <img src="https://user-images.githubusercontent.com/16878520/47428197-7f5f0000-d7cd-11e8-9009-c0d209c43450.png" width="150"> | <img src="https://user-images.githubusercontent.com/16878520/47428195-7cfca600-d7cd-11e8-9b68-10683d3eaea5.png" width="150"> |
 | 初めてアプリを開いた時の状態です.最初は，世界中の人のpublicなgistsが表示されています． | 認証は，App Bar右上に表示されているアイコンをクリックすると，「OAuth認証をする！」というアイテムが表示されるのでそれをタップして下さい．認証画面に移動します． | 認証後は，自分のGists一覧が表示されます．また，右下のfabを押すとGist作成画面に遷移します． | Gistを投稿する事ができます．➕のついたボタンをタップする事で添付できるFile数を増やせます．内容の入力が終わり，投稿する際は，下の黄色のfabを押して下さい．|
 
 
@@ -61,7 +61,7 @@ Paging Library ✖ Room (✖ Github Api )を使うことで，簡潔な実装の
 
 また，ネット環境がない状態でもCacheされたデータが表示されるのでUXの向上にも繋がっています．
 
-以下の画像を参考にして下さい．
+以下の画像のような動きをします．
 
 ![image](https://user-images.githubusercontent.com/16878520/47431375-a241e200-d7d6-11e8-9572-319b6823bdeb.png)
 
@@ -75,7 +75,7 @@ FragmentやActivity間のActionの通知も，楽に行えます．
 
 ##### Infra & UseCase周り
 
-Layered Architecture（もどき）の実装 & internal（moduleわけの恩恵）を使うことでカプセル化を行うことができました．
+Layered Architecture（もどき）の実装 & internal（module分割の恩恵）を使うことでカプセル化を行うことができました．
 それにより可読性が高く，安全に扱えるコードが実現できました．
 
 基本的なデータ伝達の流れは以下の通りです．
@@ -100,7 +100,6 @@ Github Api -> Client -> Repository -> UseCase -> UI
 <img src="https://user-images.githubusercontent.com/16878520/47427040-2477d980-d7ca-11e8-8a5f-c06606bd3eef.png" width="200">
 
 
----
 ## 時間があったらしたかった事
 
 - gist詳細画面の実装．
