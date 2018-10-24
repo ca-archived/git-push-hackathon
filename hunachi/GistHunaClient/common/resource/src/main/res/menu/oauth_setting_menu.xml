@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/invite_oauth"
-        android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/invite_oauth_text"
         app:actionViewClass="android.widget.SearchView" />
 </menu>
