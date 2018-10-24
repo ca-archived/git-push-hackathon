@@ -41,27 +41,28 @@ final class API: NSObject {
                           encoding: request.encoding,
                           headers: request.headers)
             .responseJSON { result in
-            
-            guard let data = result.data else { fatalError("invalid json type") }
-            
-            if R.Response.self == Authorization.self {
+                guard let data = result.data else { fatalError("invalid json type") }
                 
-                guard let dataString = String(data: data, encoding: .utf8) else { return }
-                if let response: R.Response = getAccessCode(from: dataString) {
-                    handler(.success(response))
-                } else {
-                    // TODO: Error
-                }
+//                print(result.result.value)
                 
-            } else {
-                do {
-                    let response: R.Response = try JSONDecoder().decode(R.Response.self, from: data)
-                    handler(.success(response))
+                if R.Response.self == Authorization.self {
                     
-                } catch let error {
-                    handler(.failure(error))
+                    guard let dataString = String(data: data, encoding: .utf8) else { return }
+                    if let response: R.Response = getAccessCode(from: dataString) {
+                        handler(.success(response))
+                    } else {
+                        // TODO: Error
+                    }
+                    
+                } else {
+                    do {
+                        let response: R.Response = try JSONDecoder().decode(R.Response.self, from: data)
+                        handler(.success(response))
+                        
+                    } catch let error {
+                        handler(.failure(error))
+                    }
                 }
-            }
         }
     }
 }

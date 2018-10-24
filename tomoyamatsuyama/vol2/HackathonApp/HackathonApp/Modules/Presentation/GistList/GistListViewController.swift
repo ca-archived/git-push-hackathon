@@ -16,11 +16,6 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
     
     @IBOutlet private weak var createButton: UIBarButtonItem!
     
-//    private let loadingView: LoadingView = {
-//        let view = LoadingView()
-//        return view
-//    }()
-    
     private var presenter: GistListPresenterProtocol!
     
     private let disposeBag = DisposeBag()
@@ -35,26 +30,23 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
     }
     private let presentRelay = PublishRelay<GistListRouter.Route>()
     
-    private(set) var dismissTrigger = PublishRelay<Void>()
-    
     func inject(_ presenter: GistListPresenterProtocol) {
         self.presenter = presenter
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        setUpLoadingView()
-        
-//        presenter.isLoading
-//            .subscribeOn(MainScheduler.instance)
-//            .bind(to: loadingView.rx.isHidden)
-//            .disposed(by: disposeBag)
+
+        let notification = Notification.Name(NotificationName.dismissGistCreate.name)
+        NotificationCenter.default.rx.notification(notification)
+            .map { _ in }
+            .bind(to: refreshRelay)
+            .disposed(by: disposeBag)
         
         presenter.viewModel
-            .subscribeOn(MainScheduler.instance)
+            .debug("presenter.viewModel")
             .map { $0.gists }
-            // TODO: should create extension of nib
+            .subscribeOn(MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: GistCell.self)) { _, gist, cell in
                 cell.configure(gist)
             }
@@ -69,19 +61,10 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
             .disposed(by: disposeBag)
 
         rx.sentMessage(#selector(viewWillAppear(_:)))
-            .take(1)
             .map { _ in }
             .bind(to: refreshRelay)
             .disposed(by: disposeBag)
     }
-    
-//    private func setUpLoadingView() {
-//        view.addSubview(loadingView)
-//
-//        constrain(view, loadingView) { view, loadingView in
-//            view.edges == loadingView.edges
-//        }
-//    }
 }
 
 extension GistListViewController: UITableViewDelegate {

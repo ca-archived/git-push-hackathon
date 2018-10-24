@@ -23,17 +23,13 @@ final class GistListPresenter: GistListPresenterProtocol {
         self.isLoading = _isLoading.asObservable()
         self.viewModel = _viewModel.asObservable()
         
-        Observable
-            .of(view.refreshTrigger.asObservable(), view.dismissTrigger.asObservable())
-            .merge()
+        view.refreshTrigger
+            .debug("view.refreshTrigger")
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                
-//                self._isLoading.accept(true)
-                
                 interactor.fetchAllGists()
+                    .debug("interactor.fetchAll")
                     .flatMap { response -> Observable<GistListViewModel> in
-//                        self._isLoading.accept(false)
                         let vm = GistListTranslator.translate(from: response)
                         return .just(vm)
                     }
@@ -52,9 +48,7 @@ final class GistListPresenter: GistListPresenterProtocol {
 
 struct GistListTranslator {
     static func translate(from model: GistList) -> GistListViewModel {
-        
         let gists = model.map { GistListViewModel.Gist(title: $0.files.first!.key, createdAt: $0.createdAt, description: $0.description, userIcon: $0.owner.avatarURL) }
-        
         let result = GistListViewModel(gists: gists)
         
         return result

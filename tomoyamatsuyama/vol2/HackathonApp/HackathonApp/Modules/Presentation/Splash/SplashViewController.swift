@@ -70,14 +70,5 @@ final class SplashViewController: UIViewController, SplashViewProtocol, Storyboa
                 }
             })
             .disposed(by: disposeBag)
-        
-        // network状態の確認
-            // ok
-                // indicator ぐるぐる
-                    // UserDefaultsにログイン情報があるか確認する。
-                        // ある場合 -> GistListViewContoroller
-                        // ない場合 -> LoginViewController
-                // indicator ストップ
-            // no -> showAlert
     }
 }

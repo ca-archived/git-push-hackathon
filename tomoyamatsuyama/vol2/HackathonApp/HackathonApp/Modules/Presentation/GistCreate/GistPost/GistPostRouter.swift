@@ -14,10 +14,10 @@ final class GistPostRouter: GistPostRouterProtocol {
     func transition(_ route: Route) {
         switch route {
         case .gistList:
-//            let targetViewController = GistCreateViewBuilder.build()
             view.dismiss(animated: true) {
-                let parentView = self.view.presentingViewController as? GistListViewProtocol
-                parentView?.dismissTrigger.accept(())
+                let notification = Notification.Name(NotificationName.dismissGistCreate.name)
+                
+                NotificationCenter.default.post(name: notification, object: nil)
             }
         }
     }

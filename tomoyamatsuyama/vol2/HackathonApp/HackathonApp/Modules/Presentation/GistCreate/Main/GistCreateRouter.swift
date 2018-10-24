@@ -14,6 +14,7 @@ final class GistCreateRouter: GistCreateRouterProtocol {
         switch route {
         case .dismiss:
             view.dismiss(animated: true, completion: nil)
+            
         case .addFile(let viewModel):
             let viewController = AddFileViewBuilder.build(with: viewModel)
             view.navigationController?.pushViewController(viewController, animated: true)

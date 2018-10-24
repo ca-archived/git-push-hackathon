@@ -6,7 +6,6 @@ import UIKit
 protocol GistListViewProtocol: class {
     var refreshTrigger: Signal<Void> { get }
     var present: Signal<GistListRouter.Route> { get }
-    var dismissTrigger: PublishRelay<Void> { get }
 }
 
 protocol GistListPresenterProtocol: class {

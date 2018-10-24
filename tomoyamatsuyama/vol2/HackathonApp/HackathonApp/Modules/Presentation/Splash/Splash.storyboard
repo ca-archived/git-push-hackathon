@@ -16,7 +16,19 @@
                     <view key="view" contentMode="scaleToFill" id="cik-hk-yrS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultIcon" translatesAutoresizingMaskIntoConstraints="NO" id="BRo-F6-wLW">
+                                <rect key="frame" x="112" y="258.5" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Vcr-DK-QQ7"/>
+                                    <constraint firstAttribute="width" constant="150" id="eqb-A3-9zg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="BRo-F6-wLW" firstAttribute="centerY" secondItem="cik-hk-yrS" secondAttribute="centerY" id="eQ8-PS-jGN"/>
+                            <constraint firstItem="BRo-F6-wLW" firstAttribute="centerX" secondItem="cik-hk-yrS" secondAttribute="centerX" id="z67-EQ-3LV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Je1-0a-t8o"/>
                     </view>
                     <navigationItem key="navigationItem" id="sma-Kc-7Xa"/>
@@ -45,4 +57,7 @@
             <point key="canvasLocation" x="148" y="145.27736131934034"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="defaultIcon" width="128" height="128"/>
+    </resources>
 </document>
