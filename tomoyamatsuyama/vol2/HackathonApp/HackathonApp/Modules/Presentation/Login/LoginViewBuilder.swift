@@ -6,6 +6,7 @@ import UIKit
 struct LoginViewBuilder {
     static func build() -> LoginViewController {
         let viewController: LoginViewController = .instantiate()
+        viewController.navigationItem.setHidesBackButton(true, animated: false)
         
         // Data
         let localDataStore = OAuthLocalDataStore()

@@ -8,6 +8,13 @@ final class GistCreateViewController: UIViewController, GistCreateViewProtocol, 
     @IBOutlet private weak var dismissButton: UIBarButtonItem!
     @IBOutlet private weak var nextViewButton: UIBarButtonItem!
     @IBOutlet private weak var descriptionTextView: UITextView!
+    @IBOutlet private weak var borderView: UIView! {
+        didSet {
+            borderView.layer.cornerRadius = Const.cornerRadius
+            borderView.layer.borderColor = Const.borderColor
+            borderView.layer.borderWidth = Const.borderWidth
+        }
+    }
     
     private let disposeBag = DisposeBag()
     private var presenter: GistCreatePresenterProtocol!
@@ -57,5 +64,13 @@ final class GistCreateViewController: UIViewController, GistCreateViewProtocol, 
                 descriptionTextView.becomeFirstResponder()
             })
             .disposed(by: disposeBag)
+    }
+}
+
+private extension GistCreateViewController {
+    enum Const {
+        static let cornerRadius: CGFloat = 9
+        static let borderColor = UIColor.gray.cgColor
+        static let borderWidth: CGFloat = 0.3
     }
 }

@@ -1,8 +1,10 @@
 import UIKit
 
 struct SplashViewBuilder {
-    static func build() -> SplashViewController {
-        let viewController: SplashViewController = .instantiate()
+    static func build() -> UINavigationController {
+        let navigationController = SplashViewController.instantiateNavigationController()
+        
+        let viewController = navigationController.viewControllers.first as! SplashViewController
         
         // Data
         let localDataStore = OAuthLocalDataStore()
@@ -20,6 +22,6 @@ struct SplashViewBuilder {
         // DI
         viewController.inject(presenter)
         
-        return viewController
+        return navigationController
     }
 }

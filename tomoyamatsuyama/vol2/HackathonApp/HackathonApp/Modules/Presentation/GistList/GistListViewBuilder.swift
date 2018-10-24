@@ -7,6 +7,7 @@ struct GistListViewBuilder {
     static func build() -> GistListViewController {
         
         let viewController: GistListViewController = .instantiate()
+        viewController.navigationItem.setHidesBackButton(true, animated: false)
         
         // Data
         let localDataStore = GistLocalDataStore()

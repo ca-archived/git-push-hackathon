@@ -3,6 +3,8 @@ import RxCocoa
 import Foundation
 import UIKit
 
+// Realm使う
+
 protocol GistLocalDataStoreProtocol {
     
 }

@@ -1,9 +1,11 @@
 import Alamofire
+import Cartography
 import RxCocoa
 import RxSwift
 import UIKit
 
 final class GistListViewController: UIViewController, GistListViewProtocol, StoryboardInstantiatable {
+    
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(UINib(nibName: String(describing: GistCell.self), bundle: nil), forCellReuseIdentifier: "cell")
@@ -13,6 +15,12 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
     }
     
     @IBOutlet private weak var createButton: UIBarButtonItem!
+    
+//    private let loadingView: LoadingView = {
+//        let view = LoadingView()
+//        return view
+//    }()
+    
     private var presenter: GistListPresenterProtocol!
     
     private let disposeBag = DisposeBag()
@@ -27,12 +35,21 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
     }
     private let presentRelay = PublishRelay<GistListRouter.Route>()
     
+    private(set) var dismissTrigger = PublishRelay<Void>()
+    
     func inject(_ presenter: GistListPresenterProtocol) {
         self.presenter = presenter
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        setUpLoadingView()
+        
+//        presenter.isLoading
+//            .subscribeOn(MainScheduler.instance)
+//            .bind(to: loadingView.rx.isHidden)
+//            .disposed(by: disposeBag)
         
         presenter.viewModel
             .subscribeOn(MainScheduler.instance)
@@ -57,6 +74,14 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
             .bind(to: refreshRelay)
             .disposed(by: disposeBag)
     }
+    
+//    private func setUpLoadingView() {
+//        view.addSubview(loadingView)
+//
+//        constrain(view, loadingView) { view, loadingView in
+//            view.edges == loadingView.edges
+//        }
+//    }
 }
 
 extension GistListViewController: UITableViewDelegate {

@@ -8,6 +8,8 @@ protocol APIRequestable {
     var method: HTTPMethod { get }
     var host: Host { get }
     var path: String { get }
+    var encoding: ParameterEncoding { get }
+    var headers: HTTPHeaders? { get }
     var parameters: [String: Any] { get }
 }
 
@@ -32,32 +34,18 @@ final class API: NSObject {
     static func send<R: APIRequestable>(to request: R, handler: @escaping ((Result<R.Response>) -> Void)) {
         
         let url = API.scheme + request.host.value + API.domain + request.path
-        var headers: HTTPHeaders? = nil
-        var encoding: ParameterEncoding = URLEncoding.default
-
-        if request.path == "/gists" && request.method == .post {
-            encoding = Alamofire.JSONEncoding.default
-            
-            if let accessToken = OAuth.accessToken.value {
-                headers = ["Content-Type": "application/json",
-                           "Authorization": "token \(accessToken)"]
-            }
-        }
         
-        print(url)
-        print(request.parameters)
-        Alamofire.request(url, method: request.method, parameters: request.parameters,encoding: encoding, headers: headers).responseJSON { result in
+        Alamofire.request(url,
+                          method: request.method,
+                          parameters: request.parameters,
+                          encoding: request.encoding,
+                          headers: request.headers)
+            .responseJSON { result in
             
             guard let data = result.data else { fatalError("invalid json type") }
-            print(result.request?.allHTTPHeaderFields)
-            print(result.request?.url)
-            print(result.request?.httpBody)
-            
-            
-            print(result.result.value)
-            
             
             if R.Response.self == Authorization.self {
+                
                 guard let dataString = String(data: data, encoding: .utf8) else { return }
                 if let response: R.Response = getAccessCode(from: dataString) {
                     handler(.success(response))

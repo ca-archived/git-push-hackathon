@@ -10,12 +10,12 @@ protocol GistPostViewProtocol: class {
 }
 
 protocol GistPostPresenterProtocol: class {
-    var isLoading: Observable<Bool> { get }
+//    var isLoading: Observable<Bool> { get }
     var viewModel: GistCreateModel { get }
 }
 
 protocol GistPostInteractorProtocol: class {
-    func post(_ gist: GistCreateModel) -> Completable
+    func post(_ gist: GistCreateModel) -> Observable<GistList>
 }
 
 protocol GistPostRouterProtocol {

@@ -4,7 +4,7 @@ import UIKit
 
 protocol GistRepositoryProtocol {
     func fetchAllGists() -> Observable<GistList>
-    func post(_ gist: GistCreateModel) -> Completable
+    func post(_ gist: GistCreateModel) -> Observable<GistList>
 }
 
 final class GistRepository: GistRepositoryProtocol {
@@ -18,10 +18,11 @@ final class GistRepository: GistRepositoryProtocol {
     }
     
     func fetchAllGists() -> Observable<GistList> {
+        // localのキャッシュを先に
         return remoteDataStore.fetchAllGists()
     }
     
-    func post(_ gist: GistCreateModel) -> Completable {
+    func post(_ gist: GistCreateModel) -> Observable<GistList> {
         return remoteDataStore.post(gist)
     }
 }

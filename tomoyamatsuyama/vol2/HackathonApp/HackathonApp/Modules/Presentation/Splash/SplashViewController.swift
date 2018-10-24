@@ -47,14 +47,14 @@ final class SplashViewController: UIViewController, SplashViewProtocol, Storyboa
             .disposed(by: disposeBag)
         
 //        presenter.isConnectNetWork
-//            .subscribeOn(MainScheduler.instance)
+//            .subscribeOn(ConcurrentMainScheduler.instance)
 //            .filter { $0 }
 //            .map { _ in }
 //            .bind(to: refreshRelay)
 //            .disposed(by: disposeBag)
         
         presenter.isLoading
-            .subscribeOn(MainScheduler.instance)
+            .observeOn(ConcurrentMainScheduler.instance)
             .map { !$0 }
             .bind(to: loadingView.rx.isHidden)
             .disposed(by: disposeBag)

@@ -1,5 +1,7 @@
 import UIKit
 
+// リファクタリング対象
+
 final class RootViewController: UIViewController, StoryboardInstantiatable {
     
     override func viewDidLoad() {
@@ -16,7 +18,7 @@ final class RootViewController: UIViewController, StoryboardInstantiatable {
         let splashViewController = SplashViewBuilder.build()
         
 //        UserDefaults.standard.removeObject(forKey: OAuth.accessToken.key)
-        navigationController?.pushViewController(splashViewController, animated: false)
+        navigationController?.present(splashViewController, animated: true, completion: nil)
     }
 }
 

@@ -9,8 +9,8 @@ final class GistPostPresenter: GistPostPresenterProtocol {
     private var interactor: GistPostInteractorProtocol
     private var router: GistPostRouterProtocol
     
-    let isLoading: Observable<Bool>
-    private let _isLoading = PublishRelay<Bool>()
+//    let isLoading: Observable<Bool>
+//    private let _isLoading = PublishRelay<Bool>()
     
     var viewModel: GistCreateModel
     
@@ -21,7 +21,7 @@ final class GistPostPresenter: GistPostPresenterProtocol {
         self.interactor = interactor
         self.router = router
         
-        self.isLoading = _isLoading.asObservable()
+//        self.isLoading = _isLoading.asObservable()
         self.viewModel = viewModel
         
         view.updateSwitchTrigger
@@ -36,8 +36,8 @@ final class GistPostPresenter: GistPostPresenterProtocol {
                 guard let `self` = self else { return }
                 
                 interactor.post(self.viewModel)
-                    .subscribe(onCompleted: {
-                        self._isLoading.accept(false)
+                    .subscribe({ _ in
+                        router.transition(.gistList)
                     })
                     .disposed(by: self.disposeBag)
             })

@@ -3,7 +3,7 @@ import RxSwift
 import UIKit
 
 protocol GistPostUseCaseProtocol {
-    func post(_ gist: GistCreateModel) -> Completable
+    func post(_ gist: GistCreateModel) -> Observable<GistList>
 }
 
 final class GistPostUseCase: GistPostUseCaseProtocol {
@@ -13,7 +13,7 @@ final class GistPostUseCase: GistPostUseCaseProtocol {
         self.repository = repository
     }
     
-    func post(_ gist: GistCreateModel) -> Completable {
+    func post(_ gist: GistCreateModel) -> Observable<GistList> {
         return repository.post(gist)
     }
 }

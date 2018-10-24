@@ -2,27 +2,32 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class AddFileViewController: UIViewController, StoryboardInstantiatable {
+final class AddFileViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet private weak var nextViewButton: UIBarButtonItem!
     @IBOutlet private weak var titleTextField: UITextField!
     @IBOutlet private weak var contentBaseView: UIView! {
         didSet {
-            contentBaseView.layer.cornerRadius = 12
-            contentBaseView.layer.borderColor = UIColor.gray.cgColor
-            contentBaseView.layer.borderWidth = 0.3
+            contentBaseView.layer.cornerRadius = Const.cornerRadius
+            contentBaseView.layer.borderColor = Const.borderColor
+            contentBaseView.layer.borderWidth = Const.borderWidth
         }
     }
     @IBOutlet private weak var contentTextView: UITextView!
     
-    fileprivate var viewModel: GistCreateModel?
+    fileprivate var viewModel: GistCreateModel!
     
     private let disposeBag = DisposeBag()
+    
+    func inject(_ viewModel: GistCreateModel) {
+        self.viewModel = viewModel
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Observable
-            .combineLatest(titleTextField.rx.text.orEmpty.asObservable(), contentTextView.rx.text.orEmpty.asObservable())
+            .combineLatest(titleTextField.rx.text.orEmpty.asObservable(),
+                           contentTextView.rx.text.orEmpty.asObservable())
             .map { !($0.0.isEmpty || $0.1.isEmpty) }
             .bind(to: nextViewButton.rx.isEnabled)
             .disposed(by: disposeBag)
@@ -30,10 +35,9 @@ class AddFileViewController: UIViewController, StoryboardInstantiatable {
         nextViewButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                guard var viewModel = self.viewModel else { return }
-                viewModel.title = self.titleTextField.text
-                viewModel.content = self.contentTextView.text
-                let viewController = GistPostViewBuilder.build(with: viewModel)
+                self.viewModel.title = self.titleTextField.text
+                self.viewModel.content = self.contentTextView.text
+                let viewController = GistPostViewBuilder.build(with: self.viewModel)
                 self.navigationController?.pushViewController(viewController, animated: true)
             })
             .disposed(by: disposeBag)
@@ -41,10 +45,10 @@ class AddFileViewController: UIViewController, StoryboardInstantiatable {
 
 }
 
-struct AddFileViewBuilder {
-    static func build(with viewModel: GistCreateModel) -> AddFileViewController {
-        let viewController: AddFileViewController = .instantiate()
-        viewController.viewModel = viewModel
-        return viewController
+private extension AddFileViewController {
+    enum Const {
+        static let cornerRadius: CGFloat = 9
+        static let borderColor = UIColor.gray.cgColor
+        static let borderWidth: CGFloat = 0.3
     }
 }
