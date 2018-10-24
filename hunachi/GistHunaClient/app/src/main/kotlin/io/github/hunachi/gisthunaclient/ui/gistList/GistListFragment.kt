@@ -69,13 +69,17 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
             finishState.observe(this@GistListFragment) {
                 (activity as? MainActivity)?.finish()
             }
+
+            refreshListState.observe(this@GistListFragment) {
+                refreshList()
+            }
         }.run {
             onCreate()
         }
     }
 
     private fun refreshList() {
-        if(preference.login() && preference.token() == null) (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
+        if (preference.login() && preference.token() == null) (activity as? MainActivity)?.tokenIsDuplicatedOrFailed()
         else gistListActionCreator.updateList(preference.ownerName(), preference.token())
     }
 

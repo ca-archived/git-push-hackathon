@@ -8,16 +8,17 @@ project(':database').projectDir = new File(commonModule, 'database')
 project(':resource').projectDir = new File(commonModule, 'resource')
 
 def gistModule = new File('gist')
-include ':gistnetwork', ':gist'
-project(':gistnetwork').projectDir = new File(gistModule, 'gistnetwork')
-project(':gist').projectDir = new File(gistModule, 'gist')
+include ':gist_infra', ':gist_usecase'
+project(':gist_infra').projectDir = new File(gistModule, 'gist_infra')
+project(':gist_usecase').projectDir = new File(gistModule, 'gist_usecase')
 
 def userModule = new File('user')
-include ':user', ':usernetwork'
-project(':usernetwork').projectDir = new File(userModule, 'usernetwork')
-project(':user').projectDir = new File(userModule, 'user')
+include ':user_usecase', ':user_infra'
+project(':user_infra').projectDir = new File(userModule, 'user_infra')
+project(':user_usecase').projectDir = new File(userModule, 'user_usecase')
 
 def oauthModule = new File('oauth')
-include ':oauth', ':oauthnetwork'
-project(':oauthnetwork').projectDir = new File(oauthModule, 'oauthnetwork')
+include ':oauth', ':oauth_infra', ':oauth_usecase'
+project(':oauth_infra').projectDir = new File(oauthModule, 'oauth_infra')
+project(':oauth_usecase').projectDir = new File(oauthModule, 'oauth_usecase')
 project(':oauth').projectDir = new File(oauthModule, 'oauth')

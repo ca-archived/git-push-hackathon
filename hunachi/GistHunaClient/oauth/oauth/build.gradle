@@ -46,8 +46,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':shared')
-    implementation project(':oauthnetwork')
-    implementation project(':user')
+    implementation project(':oauth_usecase')
+    implementation project(':user_usecase')
     implementation project(':model')
     implementation project(':resource')
 

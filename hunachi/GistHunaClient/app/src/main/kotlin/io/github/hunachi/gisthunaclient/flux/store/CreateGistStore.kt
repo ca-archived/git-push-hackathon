@@ -3,7 +3,7 @@ package io.github.hunachi.gisthunaclient.flux.store
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import io.github.hunachi.gist.model.GistPostResult
+import io.github.hunachi.gist_usecase.model.GistPostResult
 import io.github.hunachi.gisthunaclient.flux.action.CreateGistAction
 import io.github.hunachi.gisthunaclient.flux.action.MainAction
 import io.github.hunachi.shared.SingleLiveEvent
@@ -41,6 +41,8 @@ class CreateGistStore(dispatcher: Dispatcher) : Store() {
             createGistSubscriber.consumeEach {
                 when (it) {
                     is CreateGistAction.UploadGist -> _gistPostResultState.value = it.postResult
+
+                    is CreateGistAction.SuccessPostGist -> _finishState.call()
                 }.checkAllMatched
             }
         })

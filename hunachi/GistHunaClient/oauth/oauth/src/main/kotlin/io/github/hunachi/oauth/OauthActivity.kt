@@ -10,10 +10,11 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import io.github.hunachi.oauth.databinding.ActivityOauthBinding
-import io.github.hunachi.oauth.di.oauthModule
+import io.github.hunachi.oauth.di.oauthUiModule
+import io.github.hunachi.oauth_usecase.oauthModule
 import io.github.hunachi.shared.*
 import io.github.hunachi.shared.network.NetWorkError
-import io.github.hunachi.user.di.userModule
+import io.github.hunachi.user_usecase.di.userModule
 
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,7 +33,7 @@ class OauthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        loadKoinModules(listOf(oauthModule, userModule))
+        loadKoinModules(listOf(oauthModule, userModule, oauthUiModule))
 
         binding.authButton.setOnClickListener {
             if (netWorkCheck()) oauthActionCreator.igniteOauth()
@@ -56,7 +57,7 @@ class OauthActivity : AppCompatActivity() {
             }
 
             tokenState.nonNullObserve(this@OauthActivity) {
-                preference.token(it.token)
+                preference.token(it)
                 preference.token()?.let { oauthActionCreator.loadUser(it) }
             }
 

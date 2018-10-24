@@ -5,12 +5,12 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.hunachi.model.User
-import io.github.hunachi.oauthnetwork.model.Token
+import io.github.hunachi.oauth_usecase.OauthResult
 import io.github.hunachi.shared.*
 import io.github.hunachi.shared.flux.Dispatcher
 import io.github.hunachi.shared.flux.Store
 import io.github.hunachi.shared.network.NetWorkError
-import io.github.hunachi.user.model.UserResult
+import io.github.hunachi.user_usecase.model.UserResult
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job
@@ -31,7 +31,7 @@ internal class OAuthStore(dispatcher: Dispatcher) : Store() {
         it.loadingState
     }
 
-    val tokenState: LiveData<Token> = Transformations.switchMap(_oauthResultState) {
+    val tokenState: LiveData<String> = Transformations.switchMap(_oauthResultState) {
         it.tokenState
     }
 

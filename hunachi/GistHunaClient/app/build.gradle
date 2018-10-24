@@ -46,7 +46,7 @@ dependencies {
     implementation project(':oauth')
     implementation project(':shared')
     implementation project(':model')
-    implementation project(':gist')
+    implementation project(':gist_usecase')
     implementation project(':database')
     implementation project(':resource')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

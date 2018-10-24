@@ -13,12 +13,13 @@
             <option value="$PROJECT_DIR$/common/model" />
             <option value="$PROJECT_DIR$/common/resource" />
             <option value="$PROJECT_DIR$/common/shared" />
-            <option value="$PROJECT_DIR$/gist/gist" />
-            <option value="$PROJECT_DIR$/gist/gistnetwork" />
+            <option value="$PROJECT_DIR$/gist/gist_infra" />
+            <option value="$PROJECT_DIR$/gist/gist_usecase" />
             <option value="$PROJECT_DIR$/oauth/oauth" />
-            <option value="$PROJECT_DIR$/oauth/oauthnetwork" />
-            <option value="$PROJECT_DIR$/user/user" />
-            <option value="$PROJECT_DIR$/user/usernetwork" />
+            <option value="$PROJECT_DIR$/oauth/oauth_infra" />
+            <option value="$PROJECT_DIR$/oauth/oauth_usecase" />
+            <option value="$PROJECT_DIR$/user/user_infra" />
+            <option value="$PROJECT_DIR$/user/user_usecase" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

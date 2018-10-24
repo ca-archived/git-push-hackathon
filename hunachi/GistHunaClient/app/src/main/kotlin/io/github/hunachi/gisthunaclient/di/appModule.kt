@@ -13,7 +13,7 @@ val appModule = module {
     viewModel { GistListStore(get()) }
     factory { GistListActionCreator(get(), get()) }
 
-    factory { MainActionCreator(get(), get()) }
+    factory { MainActionCreator(get()) }
 
     viewModel { CreateGistStore(get()) }
     factory { CreateGistActionCreator(get(), get()) }
