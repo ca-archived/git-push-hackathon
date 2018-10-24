@@ -1,6 +1,6 @@
 # git-push-hackathon :computer: vol.2
 
-git submodule で成果物を提出します。以後、submodule 側のリポジトリについて説明します。
+git submodule で成果物を提出します。submodule を更新してください。以後、submodule 側のリポジトリについて説明します。
 
 ## 開発環境
 
@@ -116,4 +116,4 @@ GitHub API アクセスの非同期処理は、Next.js から提供される `ge
 
 本家 [https://gist.github.com/](https://gist.github.com/) の劣化版になっています。差別化としてオフラインで動作する機能があればな〜とか考えていましたが、考えただけでした。
 
-ログインしたユーザーだと他人の gist 編集ページに移動できる(更新はできない)、など致命的な問題点もありますが、評価をよろしくお願いします :pray:
+評価をよろしくお願いします :pray:
