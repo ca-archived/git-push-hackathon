@@ -23,12 +23,9 @@
 
     </div>
 
-    <div v-show="searchState" class="card search-box">
-      <search-box @search="search" />
-        <search-result :result="result" :searching="searching" />
-    </div>
+    <search-box v-show="searchState" :result="result" :searching="searching" @search="search"/>
 
-    <user-menu v-show="menuState" :username="login.login" />
+      <user-menu v-show="menuState" :username="login.login" />
 
   </div>
 </template>
@@ -36,7 +33,6 @@
 <script>
 import {mapState} from 'vuex'
 import SearchBox from '../parts/SearchBox'
-import SearchResultBox from '../parts/SearchResultBox'
 import Menu from '../parts/Menu'
 const endpoint = process.env.OAUTH_ENDPOINT
 
@@ -79,7 +75,6 @@ export default {
   },
   components: {
     'search-box': SearchBox,
-    'search-result': SearchResultBox,
     'user-menu': Menu
   },
   watch: {
@@ -125,10 +120,6 @@ export default {
 .search-icon {
   width: 40px;
   height: 40px;
-}
-.search-box {
-  text-align: center;
-  margin: auto;
 }
 .logo {
   width: 120px;

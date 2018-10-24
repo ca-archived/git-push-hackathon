@@ -2,11 +2,13 @@
   <div>
     <div v-if=withCard>
       <div class="card">
-        <div id="loading"></div>
+        <div class="loading"></div>
       </div>
     </div>
     <div v-else>
-      <div id="loading"></div>
+      <div class="wrap">
+        <div class="loading"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +24,12 @@ export default {
 </script>
 
 <style scoped>
-#loading {
+
+.wrap {
+  margin: 40px auto 40px auto;
+}
+
+.loading {
   margin: auto;
   width: 24px;
   height: 24px;

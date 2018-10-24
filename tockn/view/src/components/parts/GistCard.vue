@@ -120,7 +120,7 @@ p {
 
 .gist-enter-active{
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateX(500px);
   transition-property: transform, opacity;
   transition-duration       : 0.3s;
   transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
