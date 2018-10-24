@@ -41,7 +41,6 @@ function* handleInitEditor() {
         const { resp, error } = yield call(api, `gists/${id}`);
         if (!error) {
           targetGist = useDraft ? buckupedGist : reshapeGist(resp);
-          console.log(targetGist);
 
           yield put(setOneGist({ ...gist, [id]: targetGist }));
         }
