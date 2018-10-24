@@ -68,10 +68,6 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
             finishState.observe(this@GistListFragment) {
                 (activity as? MainActivity)?.finish()
             }
-
-            refreshListState.observe(this@GistListFragment) {
-                refreshList()
-            }
         }.run {
             onCreate()
         }
@@ -83,8 +79,7 @@ class GistListFragment : Fragment(), GistListAdapter.GistListListener {
     }
 
     override fun onClickItem(): (String) -> Unit = {
-        // todo
-        Log.d(it, it)
+        // 詳細画面にいく．
     }
 
     companion object {

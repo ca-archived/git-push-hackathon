@@ -16,7 +16,7 @@ CLIENT_SECRET=hogehoge
 
 | 認証前Home | 認証の仕方 | 認証後Home | Gist作成画面 |
 |:-----------:|:------------:|:------------:|:----:|
-| <img src="https://user-images.githubusercontent.com/16878520/47428189-7a01b580-d7cd-11e8-9be9-7fde24cb769c.png" width="150"> | <img src="https://user-images.githubusercontent.com/16878520/47428187-7706c500-d7cd-11e8-9a90-c84fff962640.png" width="150"> | <img src="https://user-images.githubusercontent.com/16878520/47428197-7f5f0000-d7cd-11e8-9009-c0d209c43450.png" width="150"> | <img src="https://user-images.githubusercontent.com/16878520/47428195-7cfca600-d7cd-11e8-9b68-10683d3eaea5.png" width="150"> |
+| <img src="https://user-images.githubusercontent.com/16878520/47428189-7a01b580-d7cd-11e8-9be9-7fde24cb769c.png" width="120"> | <img src="https://user-images.githubusercontent.com/16878520/47428187-7706c500-d7cd-11e8-9a90-c84fff962640.png" width="120"> | <img src="https://user-images.githubusercontent.com/16878520/47428197-7f5f0000-d7cd-11e8-9009-c0d209c43450.png" width="120"> | <img src="https://user-images.githubusercontent.com/16878520/47428195-7cfca600-d7cd-11e8-9b68-10683d3eaea5.png" width="120"> |
 | 初めてアプリを開いた時の状態です.最初は，世界中の人のpublicなgistsが表示されています． | 認証は，App Bar右上に表示されているアイコンをクリックすると，「OAuth認証をする！」というアイテムが表示されるのでそれをタップして下さい．認証画面に移動します． | 認証後は，自分のGists一覧が表示されます．また，右下のfabを押すとGist作成画面に遷移します． | Gistを投稿する事ができます．➕のついたボタンをタップする事で添付できるFile数を増やせます．内容の入力が終わり，投稿する際は，下の黄色のfabを押して下さい．|
 
 
@@ -98,10 +98,3 @@ Github Api -> Client -> Repository -> UseCase -> UI
 <img src="https://user-images.githubusercontent.com/16878520/47426883-94399480-d7c9-11e8-8d23-45fb734e6e66.png" width="200">
 <img src="https://user-images.githubusercontent.com/16878520/47427035-204bbc00-d7ca-11e8-9570-c0f29d1476e3.png" width="200">
 <img src="https://user-images.githubusercontent.com/16878520/47427040-2477d980-d7ca-11e8-8a5f-c06606bd3eef.png" width="200">
-
-
-## 時間があったらしたかった事
-
-- gist詳細画面の実装．
-- 一定以上更新されてないgistのcacheを消す処理を入れる．
-- dependences.gradleでversion管理．

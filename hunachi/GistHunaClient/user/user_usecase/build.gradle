@@ -33,6 +33,8 @@ android {
 }
 
 dependencies {
+    def koin_version = "1.0.1"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':model')
     implementation project(':shared')
@@ -47,8 +49,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 
     // koin
-    implementation 'org.koin:koin-android:1.0.1'
-    implementation 'org.koin:koin-androidx-viewmodel:1.0.1'
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-core-ext:$koin_version"
 
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2'

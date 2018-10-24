@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    def koin_version = "1.0.1"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':shared')
     implementation project(':oauth_infra')
@@ -52,7 +53,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 
-    def koin_version = "1.0.1"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
