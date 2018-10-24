@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>client_secret</key>
+	<string>c7c0e8951efaf9df57d4127f11f8e039b56f5c93</string>
+	<key>client_id</key>
+	<string>b5107ed03329a1ff1b6f</string>
+	<key>scope</key>
+	<string>gist</string>
+	<key>redirect_uri</key>
+	<string>hackathon://</string>
+</dict>
+</plist>
