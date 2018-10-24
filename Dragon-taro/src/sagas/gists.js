@@ -4,7 +4,8 @@ import {
   GET_ONE_GIST,
   SUBMIT_GIST,
   INIT_EDITOR,
-  HANDLE_CHANGE_EDITOR
+  HANDLE_CHANGE_EDITOR,
+  DELETE_GIST
 } from "../actions/constants";
 import api from "./api";
 import {
@@ -176,11 +177,18 @@ function* createBackUp() {
 }
 
 function* handleDeleteGist(history) {
-  // while (true) {
-  //   const {
-  //     payload: { id }
-  //   } = take(DELETE_GIST);
-  // }
+  while (true) {
+    const {
+      payload: { id }
+    } = yield take(DELETE_GIST);
+
+    const { error } = yield call(api, `gists/${id}`, "DELETE");
+    if (!error) {
+      yield call(history.push, "/");
+    } else {
+      toastr.error(error);
+    }
+  }
 }
 
 export default function* rootSaga(history) {

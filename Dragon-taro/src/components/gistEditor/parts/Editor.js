@@ -103,8 +103,11 @@ class Editor extends Component {
   render() {
     const {
       editor: { description },
-      load: { isLoading }
+      load: { isLoading },
+      actions: { deleteGist },
+      match: { params }
     } = this.props;
+
     const buttonMessage = this.isEdit() ? "Edit" : "Create";
     const loadMessage = this.isEdit() ? "Updating..." : "Creating...";
 
@@ -126,6 +129,14 @@ class Editor extends Component {
             </div>
             <ul>{this.fileEditors()}</ul>
             <div className="button-zone">
+              <If condition={this.isEdit()}>
+                <button
+                  className="p-button red"
+                  onClick={() => deleteGist({ id: params.id })}
+                >
+                  <span>Delete Gist</span>
+                </button>
+              </If>
               <button className="p-button" onClick={() => this.addFile()}>
                 <span>Add File</span>
               </button>

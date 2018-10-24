@@ -5,6 +5,10 @@ import Loader from "./parts/Loader";
 import { If } from "./parts/If";
 
 class Home extends Component {
+  componentDidMount() {
+    if (this.props.oauth.isAuthorized) this.props.actions.getGists();
+  }
+
   getGist(id) {
     const gist = this.props.gist[id];
     if (!gist) {

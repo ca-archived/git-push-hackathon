@@ -20,6 +20,7 @@ function api(path, method = "GET", data = "null") {
   return fetch(url(path), options(method, data))
     .then(res => {
       if (!res.ok) throw new Error(res.statusText);
+      if (res.status == 204) return;
 
       return res.json();
     })
