@@ -3,8 +3,6 @@ import {
   GET_GISTS,
   GET_ONE_GIST,
   SUBMIT_GIST,
-  INIT_EDITOR,
-  HANDLE_CHANGE_EDITOR,
   DELETE_GIST
 } from "../actions/constants";
 import api from "./api";
@@ -124,61 +122,6 @@ function* handleSubmitGist(history) {
   }
 }
 
-function* handleInitEditor() {
-  while (true) {
-    const {
-      payload: { type, id }
-    } = yield take(INIT_EDITOR);
-
-    if (type == "edit") {
-      const gist = yield select(selectGist);
-      let targetGist = {};
-
-      if (!gist[id]) {
-        const { resp, error } = yield call(api, `gists/${id}`);
-        if (!error) {
-          targetGist = reshapeGist(resp);
-        }
-      } else {
-        targetGist = gist[id];
-      }
-
-      const newGist = { ...gist, [id]: targetGist };
-      yield put(setOneGist(newGist));
-      yield put(setEditorState(targetGist));
-    } else {
-      const editor = JSON.parse(localStorage.getItem("editor"));
-
-      const hasDraft =
-        editor &&
-        (editor.description ||
-          editor.files[0].filename ||
-          editor.files[0].filename);
-      const useDraft = hasDraft ? confirm("Use your gist draft?") : false;
-
-      if (!useDraft) {
-        yield put(setEditorState(initEditorState));
-      } else {
-        yield put(setEditorState(editor));
-      }
-    }
-    yield put(loaded());
-  }
-}
-
-function* createBackUp() {
-  while (true) {
-    const {
-      payload: { type }
-    } = yield take(HANDLE_CHANGE_EDITOR);
-
-    if (type == "create") {
-      const editor = yield select(selectEditor);
-      localStorage.setItem("editor", JSON.stringify(editor));
-    }
-  }
-}
-
 function* handleDeleteGist(history) {
   while (true) {
     const {
@@ -203,7 +146,5 @@ export default function* rootSaga(history) {
   yield fork(handleGetGists, history);
   yield fork(handleGetOneGist, history);
   yield fork(handleSubmitGist, history);
-  yield fork(handleInitEditor, history);
   yield fork(handleDeleteGist, history);
-  yield fork(createBackUp, history);
 }
