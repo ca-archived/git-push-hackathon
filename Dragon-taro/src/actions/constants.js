@@ -16,6 +16,7 @@ export const SET_GISTS = "SET_GISTS";
 export const GET_ONE_GIST = "GET_ONE_GIST";
 export const SET_ONE_GIST = "SET_ONE_GIST";
 export const SUBMIT_GIST = "SUBMIT_GIST";
+export const DELETE_GIST = "DELETE_GIST";
 
 // Editor周り
 export const INIT_EDITOR = "INIT_EDITOR";

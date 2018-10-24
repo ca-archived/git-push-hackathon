@@ -1,27 +1,23 @@
 const accessToken = sessionStorage.getItem("access_token");
 const url = path => `https://api.github.com/${path}`;
 const headers = { Authorization: `token ${accessToken}` };
+const isRequireBody = method => method == "POST" || method == "PATCH";
 
-export function Get(path) {
-  return fetch(url(path), {
-    method: "GET",
-    mode: "cors",
-    headers: headers
-  })
-    .then(res => {
-      if (!res.ok) throw new Error(res.statusText);
-      return res.json();
-    })
-    .then(resp => ({ resp }))
-    .catch(error => ({ error }));
+function options(method, data) {
+  return isRequireBody(method)
+    ? {
+        method: method,
+        headers: headers,
+        body: JSON.stringify(data)
+      }
+    : {
+        method: method,
+        headers: headers
+      };
 }
 
-export function Send(path, data, method) {
-  return fetch(url(path), {
-    method: method,
-    headers: headers,
-    body: JSON.stringify(data)
-  })
+function api(path, method = "GET", data = "null") {
+  return fetch(url(path), options(method, data))
     .then(res => {
       if (!res.ok) throw new Error(res.statusText);
 
@@ -30,3 +26,5 @@ export function Send(path, data, method) {
     .then(resp => ({ resp }))
     .catch(error => ({ error }));
 }
+
+export default api;

@@ -6,7 +6,7 @@ import {
   INIT_EDITOR,
   HANDLE_CHANGE_EDITOR
 } from "../actions/constants";
-import { Get, Send } from "./api";
+import api from "./api";
 import {
   setGists,
   setOneGist,
@@ -47,7 +47,6 @@ function updateBody(data, gist) {
   filenames.map(filename => {
     files[filename] = files[filename] || null;
   });
-  console.log(files);
 
   return { description: data.description, public: data.public, files };
 }
@@ -71,7 +70,7 @@ function* handleGetGists() {
     yield take(GET_GISTS);
 
     yield put(loading());
-    const { resp, error } = yield call(Get, "gists");
+    const { resp, error } = yield call(api, "gists");
     if (!error) {
       yield put(setGists(resp));
     } else {
@@ -87,7 +86,7 @@ function* handleGetOneGist() {
       payload: { id }
     } = yield take(GET_ONE_GIST);
 
-    const { resp, error } = yield call(Get, `gists/${id}`);
+    const { resp, error } = yield call(api, `gists/${id}`);
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
     } else {
@@ -109,7 +108,7 @@ function* handleSubmitGist(history) {
     const path = method == "POST" ? "gists" : `gists/${editor.id}`;
     const body =
       method == "POST" ? createBody(editor) : updateBody(editor, gist);
-    const { resp, error } = yield call(Send, path, body, method);
+    const { resp, error } = yield call(api, path, method, body);
 
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
@@ -134,7 +133,7 @@ function* handleInitEditor() {
       let targetGist = {};
 
       if (!gist[id]) {
-        const { resp, error } = yield call(Get, `gists/${id}`);
+        const { resp, error } = yield call(api, `gists/${id}`);
         if (!error) {
           targetGist = reshapeGist(resp);
         }
@@ -176,10 +175,19 @@ function* createBackUp() {
   }
 }
 
+function* handleDeleteGist(history) {
+  // while (true) {
+  //   const {
+  //     payload: { id }
+  //   } = take(DELETE_GIST);
+  // }
+}
+
 export default function* rootSaga(history) {
   yield fork(handleGetGists, history);
   yield fork(handleGetOneGist, history);
   yield fork(handleSubmitGist, history);
   yield fork(handleInitEditor, history);
+  yield fork(handleDeleteGist, history);
   yield fork(createBackUp, history);
 }

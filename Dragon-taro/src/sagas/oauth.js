@@ -7,7 +7,7 @@ import {
 } from "../actions/constants";
 import { OAuth } from "oauthio-web";
 import { ACCESS_TOKEN } from "../secret";
-import { Get } from "./api";
+import api from "./api";
 import {
   successLogin,
   failureLogin,
@@ -55,7 +55,7 @@ function* getUserInfo() {
   while (true) {
     yield take(GET_USER);
 
-    const { resp, error } = yield call(Get, "user");
+    const { resp, error } = yield call(api, "user");
     if (!error) {
       yield put(setUser(resp));
     } else {
@@ -67,7 +67,7 @@ function* getUserInfo() {
 // 初期化したときにすでにログイン済みだったらUser情報を取得
 function* handleInitialize(history) {
   yield put(loading());
-  const { error } = yield call(Get, "");
+  const { error } = yield call(api, "");
 
   if (!error) {
     yield put(successLogin());

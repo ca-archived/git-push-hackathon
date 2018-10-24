@@ -17,7 +17,8 @@ import {
   LOADING,
   LOADED,
   LOGOUT,
-  INITIALIZE
+  INITIALIZE,
+  DELETE_GIST
 } from "./constants";
 
 // 認証周り
@@ -38,6 +39,7 @@ export const setGists = createAction(SET_GISTS);
 export const getOneGist = createAction(GET_ONE_GIST);
 export const setOneGist = createAction(SET_ONE_GIST);
 export const submitGist = createAction(SUBMIT_GIST);
+export const deleteGist = createAction(DELETE_GIST);
 
 // Editor周り
 export const initEditor = createAction(INIT_EDITOR);
