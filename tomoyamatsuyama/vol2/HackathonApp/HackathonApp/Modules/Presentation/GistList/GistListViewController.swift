@@ -9,12 +9,15 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(UINib(nibName: String(describing: GistCell.self), bundle: nil), forCellReuseIdentifier: "cell")
+            tableView.refreshControl = refreshControl
             tableView.delegate = self
             tableView.tableFooterView = UIView()
         }
     }
     
     @IBOutlet private weak var createButton: UIBarButtonItem!
+    
+    private let refreshControl = UIRefreshControl()
     
     private var presenter: GistListPresenterProtocol!
     
@@ -36,6 +39,8 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl.addTarget(self, action: #selector(refreshControlValueChanged(sender:)), for: .valueChanged)
 
         let notification = Notification.Name(NotificationName.dismissGistCreate.name)
         NotificationCenter.default.rx.notification(notification)
@@ -44,7 +49,6 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
             .disposed(by: disposeBag)
         
         presenter.viewModel
-            .debug("presenter.viewModel")
             .map { $0.gists }
             .subscribeOn(MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: GistCell.self)) { _, gist, cell in
@@ -64,6 +68,13 @@ final class GistListViewController: UIViewController, GistListViewProtocol, Stor
             .map { _ in }
             .bind(to: refreshRelay)
             .disposed(by: disposeBag)
+    }
+    
+    @objc func refreshControlValueChanged(sender: UIRefreshControl) {
+        refreshRelay.accept(())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            sender.endRefreshing()
+        }
     }
 }
 

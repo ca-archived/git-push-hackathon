@@ -23,12 +23,15 @@ final class GistListPresenter: GistListPresenterProtocol {
         self.isLoading = _isLoading.asObservable()
         self.viewModel = _viewModel.asObservable()
         
+        
+        // TODO:
+        
         view.refreshTrigger
-            .debug("view.refreshTrigger")
-            .subscribe(onNext: { [weak self] _ in
+            .emit(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                
                 interactor.fetchAllGists()
-                    .debug("interactor.fetchAll")
+                    .observeOn(ConcurrentMainScheduler.instance)
                     .flatMap { response -> Observable<GistListViewModel> in
                         let vm = GistListTranslator.translate(from: response)
                         return .just(vm)

@@ -11,7 +11,6 @@ final class GistListInteractor: GistListInteractorProtocol {
         self.useCase = useCase
     }
     
-    
     func fetchAllGists() -> Observable<GistList> {
         return useCase.fetchAllGists()
     }

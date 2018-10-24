@@ -43,8 +43,6 @@ final class API: NSObject {
             .responseJSON { result in
                 guard let data = result.data else { fatalError("invalid json type") }
                 
-//                print(result.result.value)
-                
                 if R.Response.self == Authorization.self {
                     
                     guard let dataString = String(data: data, encoding: .utf8) else { return }
