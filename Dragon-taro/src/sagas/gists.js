@@ -14,6 +14,7 @@ import {
   loaded
 } from "../actions/actions";
 import toastr from "toastr";
+import reshapeGist from "./utils/reshapeGist";
 
 const initEditorState = {
   description: "",
@@ -42,18 +43,12 @@ function updateBody(data, gist) {
   return { description: data.description, public: data.public, files };
 }
 
-function reshapeGist(gist) {
-  let files = [];
-  let index = 0;
-  for (let name in gist.files) {
-    const file = {
-      ...gist.files[name],
-      index: index
-    };
-    files.push(file);
-    index++;
-  }
-  return { ...gist, files: files };
+function reshapeFiles(files) {
+  let newFiles = {};
+  files.map(f => {
+    newFiles[f.filename] = { content: f.content };
+  });
+  return newFiles;
 }
 
 function* handleGetGists() {
@@ -103,7 +98,7 @@ function* handleSubmitGist(history) {
     const { resp, error } = yield call(api, path, method, body);
 
     if (!error) {
-      const key = method == "POST" ? "create" : id;
+      const key = method == "POST" ? "create" : resp.id;
 
       yield put(setOneGist(reshapeGist(resp)));
       yield call(history.push, `/gists/${resp.id}`);

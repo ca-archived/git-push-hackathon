@@ -37,12 +37,12 @@ function* handleInitEditor() {
       const { useDraft, buckupedGist } = getBackup(type, id);
       let targetGist = {};
 
-      if (useDraft) {
-        targetGist = buckupedGist;
-      } else if (!gist[id]) {
+      if (!gist[id]) {
         const { resp, error } = yield call(api, `gists/${id}`);
         if (!error) {
-          targetGist = reshapeGist(resp);
+          targetGist = useDraft ? buckupedGist : reshapeGist(resp);
+          console.log(targetGist);
+
           yield put(setOneGist({ ...gist, [id]: targetGist }));
         }
       } else {
