@@ -1,0 +1,4 @@
+<resources>
+    <string name="gopher_image">gopher_image</string>
+    <string name="auth_text">認証</string>
+</resources>

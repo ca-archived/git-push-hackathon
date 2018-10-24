@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common/database" />
+            <option value="$PROJECT_DIR$/common/model" />
+            <option value="$PROJECT_DIR$/common/resource" />
+            <option value="$PROJECT_DIR$/common/shared" />
+            <option value="$PROJECT_DIR$/gist/gist_infra" />
+            <option value="$PROJECT_DIR$/gist/gist_usecase" />
+            <option value="$PROJECT_DIR$/oauth/oauth" />
+            <option value="$PROJECT_DIR$/oauth/oauth_infra" />
+            <option value="$PROJECT_DIR$/oauth/oauth_usecase" />
+            <option value="$PROJECT_DIR$/user/user_infra" />
+            <option value="$PROJECT_DIR$/user/user_usecase" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

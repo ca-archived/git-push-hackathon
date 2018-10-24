@@ -1,0 +1,16 @@
+<resources>
+    <string name="private_text">private</string>
+    <string name="app_name">GistHunaClient</string>
+    <string name="sorry_oauth_toast_text">ごめんなさい，もう一度認証をしてください！</string>
+    <string name="description">description</string>
+    <string name="write_code_or_text_here">write code or text here.</string>
+    <string name="file_name">file name</string>
+    <string name="language">language</string>
+    <string name="cant_upload_file_is_empty">ファイルが一つ以上ないとupload出来ないにゃ！</string>
+    <string name="gopher_image">gopher_image</string>
+    <string name="auth_text">認証</string>
+    <string name="success_post_gist">Gitsの投稿に成功しました！</string>
+    <string name="invite_oauth_text">Oauth認証をする！</string>
+    <string name="have_to_login_alart_text">Oauth認証する必要があります！</string>
+    <string name="already_login_text">もう認証されてます！</string>
+</resources>
