@@ -18,6 +18,7 @@ oauth.io での設定の際に scope の設定で gist を設定するのを忘�
 
 ```shell
 npm install
+npm run build-css
 npm run start
 ```
 
