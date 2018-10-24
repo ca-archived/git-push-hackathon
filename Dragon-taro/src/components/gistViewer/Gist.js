@@ -21,7 +21,7 @@ class Gist extends Component {
     const {
       params: { id }
     } = this.props.match;
-    const gist = this.props.gist[id] || false; // ここを綺麗にかけるようにしたい
+    const gist = this.props.gist[id] || false;
     return { id, gist };
   }
 

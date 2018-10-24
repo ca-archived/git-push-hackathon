@@ -25,11 +25,30 @@ const initEditorState = {
 const selectGist = state => state.gist;
 const selectEditor = state => state.editor;
 
-function createBody(data) {
-  let files = {};
-  data.files.map(f => {
-    files[f.filename] = { content: f.content };
+function reshapeFiles(files) {
+  let newFiles = {};
+  files.map(f => {
+    newFiles[f.filename] = { content: f.content };
   });
+  return newFiles;
+}
+
+function createBody(data) {
+  return {
+    description: data.description,
+    public: data.public,
+    files: reshapeFiles(data.files)
+  };
+}
+
+function updateBody(data, gist) {
+  const filenames = gist[data.id].files.map(f => f.filename);
+  let files = reshapeFiles(data.files);
+  filenames.map(filename => {
+    files[filename] = files[filename] || null;
+  });
+  console.log(files);
+
   return { description: data.description, public: data.public, files };
 }
 
@@ -86,8 +105,11 @@ function* handleSubmitGist(history) {
 
     yield put(loading());
     const editor = yield select(selectEditor);
+    const gist = yield select(selectGist);
     const path = method == "POST" ? "gists" : `gists/${editor.id}`;
-    const { resp, error } = yield call(Send, path, createBody(editor), method);
+    const body =
+      method == "POST" ? createBody(editor) : updateBody(editor, gist);
+    const { resp, error } = yield call(Send, path, body, method);
 
     if (!error) {
       yield put(setOneGist(reshapeGist(resp)));
@@ -119,7 +141,7 @@ function* handleInitEditor() {
       } else {
         targetGist = gist[id];
       }
-
+      yield put(setOneGist(targetGist));
       yield put(setEditorState(targetGist));
     } else {
       const editor = yield JSON.parse(localStorage.getItem("editor")) ||
