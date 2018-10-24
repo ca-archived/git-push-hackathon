@@ -93,7 +93,6 @@ export default {
         },
         getUrl: function () {
             let url
-
             if (this.user == 'user' && this.name != null) {
                 if (this.starred == null) url = `https://api.github.com/users/${this.name}/gists`
                 else url = `https://api.github.com/users/${this.name}/gists/starred`
