@@ -39,7 +39,7 @@ dependencies {
     implementation project(':model')
     implementation project(':shared')
     implementation project(':gist_infra')
-    implementation project(':database') //todo
+    implementation project(':database')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'

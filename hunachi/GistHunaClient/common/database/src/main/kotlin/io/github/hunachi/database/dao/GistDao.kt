@@ -13,7 +13,6 @@ interface GistDao {
     @Query("select * from gist order by updated_at desc")
     fun findGists(): DataSource.Factory<Int, Gist>
 
-    // 分けた方がいい．
     @Query("select * from gist where ownerName = :name order by updated_at desc")
     fun findUserGists(name: String): DataSource.Factory<Int, Gist>
 
