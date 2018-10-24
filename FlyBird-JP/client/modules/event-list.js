@@ -8,14 +8,14 @@ export default {
             default: 20
         },
         'username': String,
-        'url': String
+        'src': String
     },
     template: `<div class='event-list'>
                     <div class='root' v-if='log.length == 0'>
                         <github-event 
                             v-for='event in events'
                             v-bind:key='event.id'
-                            v-bind:url='event.url'
+                            v-bind:src='event.url'
                         ></github-event>
                         <button class='load' v-on:click='print(nextUrl)' v-if='events != null && events.length > 0 && !infiniteScroll && nextUrl != null'>さらに読み込む</button>
                     </div>
@@ -62,7 +62,7 @@ export default {
             })).observe(this.$el.getElementsByClassName('root')[0], { 'childList': true })
         }
 
-        this.print(this.url || `https://api.github.com/users/${this.username}/received_events?per_page=${this.limit}`)
+        this.print(this.src || `https://api.github.com/users/${this.username}/received_events?per_page=${this.limit}`)
     },
     methods: {
         print: function (url) {

@@ -14,13 +14,13 @@ if ('IntersectionObserver' in window) {
 }
 
 export default {
-    props: ['url', 'id', 'detail', 'me'],
+    props: ['src', 'id', 'detail', 'me'],
     watch: {
         'id': function (newVal, oldVal) {
             this.reset()
             this.print()
         },
-        'url': function (newVal, oldVal) {
+        'src': function (newVal, oldVal) {
             this.reset()
             this.print()
         }
@@ -85,8 +85,8 @@ export default {
                 })
         },
         getGist: async function () {
-            if (this.url != null || this.id != null) {
-                const url = this.url || `https://api.github.com/gists/${this.id}`
+            if (this.src != null || this.id != null) {
+                const url = this.src || `https://api.github.com/gists/${this.id}`
                 const headers = new Headers()
                 if (!url.startsWith('blob') && this.token != null) {
                     headers.append('Authorization', ` token ${this.token}`)
@@ -95,7 +95,7 @@ export default {
                     'headers': headers
                 })
                 if (response.ok) {
-                    if (this.url != null && this.url.startsWith('blob')) URL.revokeObjectURL(this.url)
+                    if (this.src != null && this.src.startsWith('blob')) URL.revokeObjectURL(this.src)
                     return await response.json()
                 }
                 else throw new Error(`${response.status} ${response.statusText}`)

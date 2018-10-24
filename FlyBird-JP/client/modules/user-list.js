@@ -3,7 +3,7 @@ import UserItem from '/modules/user-item.js'
 
 export default {
     props: {
-        'url': String,
+        'src': String,
         'username': String,
         'type': {
             type: String,
@@ -19,7 +19,7 @@ export default {
                         <user-item 
                             v-for='user in users'
                             v-bind:key='user.id'
-                            v-bind:url='user.url'
+                            v-bind:src='user.url'
                         >
                             <router-link v-bind:to='"/users/" + user.name + "/gists"' slot='link'>Gistを見る</router-link>
                         </user-item>
@@ -86,12 +86,12 @@ export default {
             }
         },
         getUrl: function () {
-            if (this.url != null || this.username != null) {
+            if (this.src != null || this.username != null) {
                 const types = ['following', 'followers']
                 let type = this.type
                 if (!types.includes(type)) type = 'following'
 
-                return this.url || `https://api.github.com/users/${this.username}/${type}?per_page=${this.limit}`
+                return this.src || `https://api.github.com/users/${this.username}/${type}?per_page=${this.limit}`
             }
             else throw new Error('属性が不正です。')
         },

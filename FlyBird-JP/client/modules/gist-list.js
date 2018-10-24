@@ -29,7 +29,7 @@ export default {
                     <div class='root' v-if='log.length == 0'>
                         <gist-item 
                             v-for='gist in gists'
-                            v-bind:url='gist.url'
+                            v-bind:src='gist.url'
                             v-bind:key='gist.id'
                         >
                             <router-link v-bind:to='"/gists/" + gist.id' slot='link'>詳しく見る</router-link>
