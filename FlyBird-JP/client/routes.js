@@ -1,4 +1,10 @@
-import GistList from '/modules/gist-list.js'
+function openGist(event) {
+    if (event.srcElement.classList.contains('gist-item')) {
+        const username = event.srcElement.__vue__.gist.owner.login
+        const id = event.srcElement.__vue__.gist.id
+        router.push(`/users/${username}/gists/${id}`)
+    }
+}
 
 export default [
     {
@@ -22,8 +28,9 @@ export default [
                             <h2 class='tab' v-bind:class='{"active":$route.name == "starred"}'>
                                 <router-link to='/gists/starred'>Starred</router-link>
                             </h2>
-                            <h2 class='tab' v-bind:class='{"active":$route.name == "public"}'>                                    <router-link to='/gists/public'>Public</router-link>
-                                </h2>
+                            <h2 class='tab' v-bind:class='{"active":$route.name == "public"}'>                               
+                                <router-link to='/gists/public'>Public</router-link>
+                            </h2>
                             <h2 class='tab' v-bind:class='{"active":["usres", "users gists"].includes($route.name)}'>
                                 <router-link to='/users' v-if='!["usres", "users gists"].includes($route.name)'>入力する</router-link>
                                 <router-link v-bind:to='$route.path' v-if='$route.name == "users gists"'>{{$route.params.username}}</router-link>
@@ -39,24 +46,33 @@ export default [
             {
                 path: '',
                 name: 'yours',
-                component: GistList,
+                component: {
+                    template: `<gist-list ref='list'></gist-list>`,
+                    mounted: function () {
+                        this.$refs.list.$el.addEventListener('click', openGist)
+                    }
+                },
                 meta: { 'requiresAuth': true }
             },
             {
                 path: 'gists/starred',
                 name: 'starred',
-                component: GistList,
-                props: {
-                    'starred': 'starred'
+                component: {
+                    template: `<gist-list starred='starred' ref='list'></gist-list>`,
+                    mounted: function () {
+                        this.$refs.list.$el.addEventListener('click', openGist)
+                    }
                 },
                 meta: { 'requiresAuth': true }
             },
             {
                 path: 'gists/public',
                 name: 'public',
-                component: GistList,
-                props: {
-                    'user': 'public'
+                component: {
+                    template: `<gist-list user='public' ref='list'></gist-list>`,
+                    mounted: function () {
+                        this.$refs.list.$el.addEventListener('click', openGist)
+                    }
                 },
                 meta: { 'requiresAuth': false }
             },
@@ -82,11 +98,10 @@ export default [
                     {
                         path: ':username/gists',
                         name: 'users gists',
-                        component: GistList,
-                        props: (route) => {
-                            return {
-                                'user': 'user',
-                                'name': route.params.username
+                        component: {
+                            template: `<gist-list user='user' v-bind:name='$route.params.username' ref='list'></gist-list>`,
+                            mounted: function () {
+                                this.$refs.list.$el.addEventListener('click', openGist)
                             }
                         },
                         beforeEnter: function (to, from, next) {
@@ -132,23 +147,40 @@ export default [
         meta: { 'requiresAuth': true }
     },
     {
-        path: '/gists/:id',
+        path: '/users/:username/gists/:id',
         component: {
-            data: function () {
-                return {
-                    'me': localStorage.getItem('username')
-                }
-            },
             template:
                 `<main>
                     <div class='content'>
                         <gist-item
                             v-bind:id='this.$route.params.id'
-                            detail='detail'
-                            v-bind:me='me'
                         ></gist-item>
+                        <div class="iframe"></div>
                     </div>
-                </main>`
+                </main>`,
+            mounted: function () {
+                const iframe = document.createElement('iframe')
+                this.$el.getElementsByClassName('iframe')[0].appendChild(iframe)
+                const iframeDoc = iframe.contentWindow.document
+                const html = `<body style='margin:0;overflow-y:hidden;'>
+                        <script src="https://gist.github.com/${this.$route.params.username}/${this.$route.params.id}.js"></script>
+                    </body>`
+                iframeDoc.open()
+                iframeDoc.write(html)
+                iframe.addEventListener('load', (event) => {
+                    const doc = iframe.contentWindow.document
+                    if (doc.getElementsByClassName('gist').length > 0) {
+                        iframe.style.height = `${doc.documentElement.scrollHeight}px`
+                    }
+                    iframe.contentWindow.addEventListener('click', (event) => {
+                        if (event.srcElement.tagName.toLowerCase() == 'a') {
+                            location.href = event.srcElement.href
+                            event.preventDefault()
+                        }
+                    })
+                })
+                iframeDoc.close()
+            }
         },
         meta: { 'requiresAuth': false }
     },

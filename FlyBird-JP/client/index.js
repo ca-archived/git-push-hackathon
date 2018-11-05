@@ -9,8 +9,12 @@ Vue.component('my-dialog', MyDialog)
 import GistEditor from '/modules/gist-editor.js'
 Vue.component('gist-editor', GistEditor)
 
+import GistList from '/modules/gist-list.js'
+Vue.component('gist-list', GistList)
+
 import GistItem from '/modules/gist-item.js'
 Vue.component('gist-item', GistItem)
+
 
 Vue.filter('dateFormat', (date) => {
     let differ = (new Date() - new Date(date)) / 1000

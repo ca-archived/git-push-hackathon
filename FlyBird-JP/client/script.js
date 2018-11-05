@@ -3,7 +3,7 @@ import routes from '/routes.js'
 
 Vue.prototype.token = localStorage.getItem('accessToken')
 
-const router = new VueRouter({
+window.router = new VueRouter({
     'routes': routes,
     'mode': 'history',
     'scrollBehavior': (to, from, savedPosition) => {

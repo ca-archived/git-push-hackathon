@@ -462,9 +462,6 @@ main > .content > h2 {
     color: #333;
     text-decoration: none;
 }
-.gist-list > a > .gist-item {
-    border-bottom: solid 0.5px #ccc;
-}
 .gist-list > .message {
     width: 100%;
     height: 2rem;
@@ -490,24 +487,37 @@ main > .content > h2 {
     background: #fafafa;
     border-color: #999;
 }
+.gist-list .gist-item {
+    cursor: pointer;
+    border-bottom: solid 0.5px #ddd;
+}
+.gist-list .gist-item:hover {
+    background: #fafafa;
+}
+.gist-list .gist-item * {
+    pointer-events: none;
+}
+.gist-list .gist-item a{
+    pointer-events: auto;
+}
 
 /* gist-item */
 .gist-item {
     width: 100%;
-    height: 7rem;
+    min-height: 7rem;
     position: relative;
+    transition: background ease-in-out 0.3s;
 }
 .gist-item > .root {
     width: 100%;
-    border-bottom: solid 0.5px #ddd;
     padding: 1rem;
     display: grid;
-    grid-template-columns: 4.5rem 1rem 1fr 6rem;
-    grid-template-rows: max-content max-content max-content max-content 1fr;
+    grid-template-columns: 4.5rem [padding] 1rem 1fr max-content;
+    grid-auto-rows: max-content;
     line-height: 1.5rem;
     animation: popup 0.3s ease-in-out;
 }
-.gist-item > .root > span, .gist-item > .root > div {
+.gist-item.min > .root > span, .gist-item.min > .root > div {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -543,38 +553,9 @@ main > .content > h2 {
     grid-column: 3 / -1;
     grid-row: 2;
 }
-.gist-item > .root > .open {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    text-align: center;
-}
-
-.gist-item.detail {
-    height: 100%;
-}
-.gist-item.detail > .root {
-    width: 100%;
-    height: 100%;
-    border-bottom: none;
-}
-.gist-item.detail > .root > .comments {
+.gist-item > .root > .comments {
     grid-column: 3;
     grid-row: 3;
-}
-.gist-item.detail > .root > .gist {
-    grid-column: 1 / -1;
-    grid-row: 5;
-    position: relative;
-}
-.gist-item.detail > .root > .gist > iframe {
-    width: 100%;
-    margin-top: 1rem;
-    border: none;
-}
-.gist-item.detail > .root > div, .gist-item.detail > .root > span {
-    text-overflow: initial;
-    overflow: initial;
-    white-space: initial;
 }
 .gist-item > .root > .buttons {
     grid-column: 1 / -1;
@@ -652,12 +633,15 @@ main > .content > h2 {
 /* gist-editor */
 .gist-editor {
     width: 100%;
-    height: calc(100% - 6rem);
+    height: 100%;
     position: relative;
 }
 .gist-editor input {
     font-size: medium;
     -webkit-appearance: none; 
+}
+.gist-editor > .editor{
+    height: calc(100% - 6rem);
 }
 .gist-editor > .editor > .desc {
     width: 100%;
@@ -672,6 +656,9 @@ main > .content > h2 {
 }
 .gist-editor > .editor > .desc:focus, .gist-editor > .editor > .file > .filename:focus {
     border-color: #2196f3;
+}
+.gist-editor > .editor > .file {
+    height: calc(100% - 2rem);
 }
 .gist-editor > .editor > .file > .button {
     margin-top: 1rem;
@@ -744,6 +731,7 @@ main > .content > h2 {
     border: solid 0.5px #ccc;
     border-top: none;
     cursor: text;
+    height: calc(100% - 6rem)!important;
 }
 .CodeMirror-gutters {
     background: #fff!important;
@@ -894,7 +882,7 @@ main > .content > h2 {
     grid-template-rows: 2rem 2rem;
     line-height: 1.5rem;
     animation: slide 0.3s ease-in-out;
-    line-height: 3rem;
+    line-height: 2rem;
 }
 .user-item > .root > a.icon {
     grid-column: 1;
@@ -918,4 +906,15 @@ main > .content > h2 {
     grid-row: 2;
     font-weight: 700;
     text-align: center;
+}
+
+.iframe {
+    padding: 0 1rem;
+}
+.iframe > iframe {
+    width: 100%;
+    border: none;
+}
+.iframe > iframe .gist {
+    -webkit-overflow-scrolling: touch;
 }

@@ -18,14 +18,14 @@ export default {
                         <div class='list' v-if='user != null'>
                             <h2 class='accordion' v-on:click='isShowUsers = !isShowUsers' v-bind:class='{"opened":isShowUsers}'>フォロー中ユーザー</h2>
                             <user-list v-bind:username='user.login' v-show='isShowUsers'></user-list>
-                            <event-list v-bind:url='user.received_events_url' v-show='isActive'></event-list>
+                            <event-list v-bind:src='user.received_events_url' v-show='isActive && !isShowUsers'></event-list>
                         </div>
                         <div class='buttons'>
                             <div class='button' v-on:click='jump()'>Github.comで見る</div>
                             <div class='button negative' v-on:click='logout()'>ログアウトする</div>
                         </div>
+                        <div v-if='isActive' class='backdrop' v-on:click='isActive = false'></div>
                     </div>
-                    <div v-if='isActive' class='backdrop' v-on:click='isActive = false'></div>
                     <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {

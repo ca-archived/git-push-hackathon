@@ -14,7 +14,7 @@ if ('IntersectionObserver' in window) {
 }
 
 export default {
-    props: ['src', 'id', 'detail', 'me'],
+    props: ['src', 'id', 'min', 'me'],
     watch: {
         'id': function (newVal, oldVal) {
             this.reset()
@@ -25,7 +25,7 @@ export default {
             this.print()
         }
     },
-    template: `<div class='gist-item' v-bind:class='{"detail":detail != null}'>
+    template: `<div class='gist-item' v-bind:class='{"min":min != null}'>
                     <div class='root' v-if='gist != null && log.length == 0'>
                         <a v-bind:href='gist.owner.html_url' class='icon'>
                             <img v-bind:data-url='gist.owner.avatar_url' v-if='lazyLoad' />
@@ -36,19 +36,13 @@ export default {
                         </div>
                         <span class='date'>{{ gist.created_at | dateFormat }}</span>
                         <span class='desc'>{{ gist.description || "No description." }}</span>
-                        <span class='comments' v-if='detail != null'>コメント：<a v-bind:href='gist.html_url + "#comments"'>{{ gist.comments }}件</a></span>
-                        <div v-if='!detail' class='open'>
-                            <slot name='link'><a v-bind:href='gist.html_url'>詳しく見る</a></slot>
-                        </div>
-                        <div v-if='detail && token != null' class='buttons'>
+                        <span class='comments'>コメント：<a v-bind:href='gist.html_url + "#comments"'>{{ gist.comments }}件</a></span>
+                        <div v-if='min == null && token != null' class='buttons'>
                             <button class='star' v-bind:class='{"starred":starred}' v-on:click='star()'>Star</button>
                             <button v-if='editable && !confirmFlag' class='delete' v-on:click='confirm()'>削除</button>
                             <button v-if='editable && confirmFlag' class='delete confirm' v-on:click='del()'>よろしいですか？</button>
                             <button v-if='!editable && !forked' class='forks' v-on:click='fork()'>Fork : {{ gist.forks.length }}</button>
                             <button v-if='!editable && forked' class='forks'>しばらくお待ちください...</button>
-                        </div>
-                        <div class='gist' v-if='detail != null'>
-                            <div class='spinner center' v-if='!iframeLoaded'></div>
                         </div>
                     </div>
                     <div class='message center' v-if='log.length > 0'>{{ log }}</div>
@@ -65,7 +59,6 @@ export default {
             'starred': false,
             'forked': false,
             'confirmFlag': false,
-            'iframeLoaded': false,
             'log': ''
         }
     },
@@ -203,30 +196,6 @@ export default {
             this.gist = null
             this.editable = this.starred = this.forked = false
             this.log = ''
-        },
-        showContnet: function () {
-            const iframe = document.createElement('iframe')
-            this.$el.getElementsByClassName('gist')[0].appendChild(iframe)
-            const iframeDoc = iframe.contentWindow.document
-            const html = `<body style='margin:0;overflow-y:hidden;'>
-                                    <script src="https://gist.github.com/${this.gist.owner.login}/${this.gist.id}.js"></script>
-                                </body>`
-            iframeDoc.open()
-            iframeDoc.write(html)
-            iframe.addEventListener('load', (event) => {
-                const doc = iframe.contentWindow.document
-                if (doc.getElementsByClassName('gist').length > 0) {
-                    iframe.style.height = `${doc.documentElement.scrollHeight}px`
-                }
-                iframe.contentWindow.addEventListener('click', (event) => {
-                    if (event.srcElement.tagName.toLowerCase() == 'a') {
-                        location.href = event.srcElement.href
-                        event.preventDefault()
-                    }
-                })
-                this.iframeLoaded = true
-            })
-            iframeDoc.close()
         }
     }
 }

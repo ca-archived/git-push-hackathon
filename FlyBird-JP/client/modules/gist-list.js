@@ -31,8 +31,8 @@ export default {
                             v-for='gist in gists'
                             v-bind:src='gist.url'
                             v-bind:key='gist.id'
+                            min='min'
                         >
-                            <router-link v-bind:to='"/gists/" + gist.id' slot='link'>詳しく見る</router-link>
                         </gist-item>
                         <button class='load' v-on:click='print(nextUrl)' v-if='gists != null && gists.length > 0 && !infiniteScroll && nextUrl != null'>さらに読み込む</button>
                     </div>
