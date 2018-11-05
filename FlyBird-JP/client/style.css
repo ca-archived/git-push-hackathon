@@ -407,15 +407,15 @@ main > .content > h2 {
 .github-event > div {
     width: 100%;
     display: grid;
-    grid-template-columns: 4.5rem 1rem 1fr 6rem;
-    grid-template-rows: 1.5rem 1.5rem 1.5rem;
+    grid-template-columns: 4.5rem [padding] 1rem 1fr max-content;
+    grid-auto-rows: max-content;
     box-sizing: border-box;
     padding: 1rem;
     border-bottom: solid 0.5px #ccc;
     animation: slide 0.3s ease-in-out;
 }
 .github-event > div > a {
-    grid-row: 1 / -1;
+    grid-row: 1 / 4;
     grid-column: 1;
     border-radius: 50%;
 }
@@ -878,15 +878,14 @@ main > .content > h2 {
     border-bottom: solid 0.5px #ddd;
     padding: 1rem;
     display: grid;
-    grid-template-columns: 4rem 1rem 1fr;
-    grid-template-rows: 2rem 2rem;
-    line-height: 1.5rem;
+    grid-template-columns: 5rem [padding] 1rem 1fr max-content;
+    grid-template-rows: 2.5rem 2.5rem;
+    line-height: 2.5rem;
     animation: slide 0.3s ease-in-out;
-    line-height: 2rem;
 }
 .user-item > .root > a.icon {
     grid-column: 1;
-    grid-row: 1 / -1;
+    grid-row: 1 / 3;
     border-radius: 50%;
 }
 .user-item > .root > a > img {
