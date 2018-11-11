@@ -1,0 +1,49 @@
+.github-event {
+    width: 100%;
+    height: 7rem;
+}
+.github-event > div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4.5rem [padding] 1rem 1fr max-content;
+    grid-auto-rows: max-content;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-bottom: solid 0.5px #ccc;
+    animation: slide 0.3s ease-in-out;
+}
+.github-event > div > a {
+    grid-row: 1 / 4;
+    grid-column: 1;
+    border-radius: 50%;
+}
+.github-event > div > a > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+}
+.github-event > div > span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.github-event > div > .name {
+    grid-column: 3;
+    grid-row: 1;
+    font-weight: 700;
+}
+.github-event > div > .date {
+    text-align: right;
+    grid-column: 4;
+    grid-row: 1;
+}
+.github-event > div > .action {
+    grid-column: 3 / -1;
+    grid-row: 2;
+}
+.github-event > div > .target {
+    grid-column: 3 / -1;
+    grid-row: 3;
+}

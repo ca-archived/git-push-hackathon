@@ -135,6 +135,7 @@ export default [
                     </div>
                 </main>`,
             beforeRouteLeave: function (to, from, next) {
+                console.log(to)
                 if (to.path == '/') {
                     document.getElementById('dialog').__vue__.confirm('このページを離れてもよろしいですか？', '作成途中の場合、その内容は失われてしまいます。', (bool) => {
                         if (bool) next()
@@ -154,10 +155,16 @@ export default [
                     <div class='content'>
                         <gist-item
                             v-bind:id='this.$route.params.id'
+                            v-bind:me='me'
                         ></gist-item>
                         <div class="iframe"></div>
                     </div>
                 </main>`,
+            data: function () {
+                return {
+                    'me': localStorage.getItem('username')
+                }
+            },
             mounted: function () {
                 const iframe = document.createElement('iframe')
                 this.$el.getElementsByClassName('iframe')[0].appendChild(iframe)

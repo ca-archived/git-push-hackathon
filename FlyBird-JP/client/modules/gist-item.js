@@ -72,6 +72,13 @@ export default {
         print: function () {
             this.getGist()
                 .then(this.setGist)
+                .then(() => {
+                    if (this.min == null && this.token != null) {
+                        this.isStarred().then((bool) => {
+                            this.starred = bool
+                        })
+                    }
+                })
                 .catch((err) => {
                     this.log = err.toString()
                     this.$refs.dialog.alert('エラーが発生しました。', err.toString())
@@ -102,22 +109,6 @@ export default {
                 this.$nextTick().then(() => {
                     imageObserver.observe(this.$el.getElementsByTagName('img')[0])
                 })
-            }
-
-            if (this.detail != null) {
-                this.$nextTick().then(() => {
-                    this.showContnet()
-                })
-
-                if (this.isAuth) {
-                    this.isStarred(this.gist.id)
-                        .then((starred) => {
-                            this.starred = starred
-                        })
-                        .catch((err) => {
-                            this.$refs.dialog.alert('エラーが発生しました。', err.toString())
-                        })
-                }
             }
         },
         isStarred: async function () {

@@ -152,7 +152,7 @@ export default {
                         response.json()
                             .then((json) => {
                                 this.$refs.dialog.alert('作成しました。', '作成したGistを表示します。', () => {
-                                    this.$router.push(`/gists/${json.id}`)
+                                    this.$router.push(`/users/${json.owner.login}/gists/${json.id}`)
                                 })
                             })
                     } else throw new Error(`${response.status} ${response.statusText}`)

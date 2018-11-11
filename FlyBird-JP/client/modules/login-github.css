@@ -1,0 +1,142 @@
+.login-github {
+    display: flex;
+    min-width: 175px;
+    flex-wrap: wrap;
+    height: 100%;
+    box-sizing: border-box;
+    transition: background ease-in-out 0.3s;
+}
+.login-github:hover {
+    background: #fff;
+    color: #333;
+}
+.login-github > .button {
+   width: 175px;
+   height: 60px;
+   display: grid;
+   grid-template-columns: calc(60px - 1rem) 1fr;
+   grid-template-rows: 3fr 2fr;
+   align-items: center;
+   padding: 0.5em;
+   cursor: pointer;
+   margin: auto 0;
+}
+.login-github > .button.disabled {
+    display:none;
+}
+.login-github > .button > .icon{
+   grid-column: 1;
+   grid-row: 1 / 3;
+   border-radius: 50%;
+   width: auto;
+   height: 100%;
+   background: #fff;
+}
+.login-github > .button > .label {
+   grid-column: 2;
+   grid-row: 1;
+   text-align: center;
+}
+.login-github > .button > .desc {
+   font-size: x-small;
+   grid-column: 2;
+   grid-row: 2;
+   text-align: center;
+}
+.login-github > .dashboard {
+   position: fixed;
+   width: 450px;
+   height: calc(100% - 60px);
+   transform: translateX(450px);
+   transition: transform ease-in-out 0.3s;
+   background: #fff;
+   bottom: 0; 
+   right: 0;
+   z-index: 500;
+   color: #000;
+   border: solid 0.5px #ccc;
+}
+.login-github > .dashboard.visible{
+   transform: translateX(0);
+}
+.login-github > .dashboard > .list{
+    height: calc(100% - 60px);
+    overflow: hidden;
+}
+.login-github > .dashboard > .list > h2 {
+    margin: 0;
+    border-bottom: solid 0.5px #ccc;
+    line-height: 60px;
+    font-weight: 500;
+    font-size: large;
+    padding-left: 1rem;
+}
+.login-github > .dashboard > .list > .accordion {
+    cursor: pointer;
+    transition: background ease-in-out 0.3s;
+}
+.login-github > .dashboard > .list > .accordion:hover {
+    background:#fafafa;
+}
+.login-github > .dashboard > .list > .accordion::before {
+    content: 'add';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+    background: #2A2A32;
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+}
+.login-github > .dashboard > .list > .accordion.opened {
+    background:#fafafa;
+}
+.login-github > .dashboard > .list > .accordion.opened::before {
+    content: 'close ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.login-github > .dashboard > .list > .event-list {
+    height: calc(100% - 60px);
+}
+.login-github > .dashboard > .list > .user-list {
+    height: calc(100% - 60px);
+}
+.login-github > .dashboard > .buttons {
+   width: 100%;
+   display: flex;
+   border-top: solid 0.5px #ccc;
+}
+.login-github > .dashboard > .buttons > .button {
+   width: 50%;
+   height: 60px;
+   text-align: center;
+   line-height: 60px;
+   cursor: pointer;
+   transition: border-color ease-in-out 0.3s;
+   font-weight: 700;
+   border: solid 0.5px #ccc;
+   user-select: none;
+}
+.login-github > .dashboard > .buttons > .button:hover {
+    border-color: #999;
+}
+.login-github > .dashboard > .buttons > .negative.button {
+    color: #f00;
+}
+.login-github > .dashboard > .buttons > .negative.button:hover {
+    border-color: #f00;
+}
+.login-github > .backdrop {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+}

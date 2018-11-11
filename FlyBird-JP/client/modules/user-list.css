@@ -1,0 +1,34 @@
+.user-list {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    border-bottom: solid 0.5px #ccc;
+    -webkit-overflow-scrolling: touch;
+}
+.user-list > .message {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+.user-list > .root > .load {
+    width: calc(100% - 2rem);
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    box-sizing: border-box;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    text-align: center;
+    background: #fff;
+    margin: 1rem auto;
+    font-weight: bold;
+    transition: background ease-in-out 0.3s;
+    cursor: pointer;
+}
+.user-list > .root > .load:hover {
+    background: #fafafa;
+    border-color: #999;
+}

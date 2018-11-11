@@ -24,8 +24,8 @@ export default {
                             <div class='button' v-on:click='jump()'>Github.comで見る</div>
                             <div class='button negative' v-on:click='logout()'>ログアウトする</div>
                         </div>
-                        <div v-if='isActive' class='backdrop' v-on:click='isActive = false'></div>
                     </div>
+                    <div v-if='isActive' class='backdrop' v-on:click='isActive = false'></div>
                     <my-dialog ref='dialog'></my-dialog>
                 </div>`,
     components: {

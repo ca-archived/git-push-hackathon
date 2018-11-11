@@ -1,0 +1,127 @@
+.gist-item {
+    width: 100%;
+    min-height: 7rem;
+    position: relative;
+    transition: background ease-in-out 0.3s;
+}
+.gist-item > .root {
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 4.5rem [padding] 1rem 1fr max-content;
+    grid-auto-rows: max-content;
+    line-height: 1.5rem;
+    animation: popup 0.3s ease-in-out;
+}
+.gist-item.min > .root > span, .gist-item.min > .root > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.gist-item > .root > a.icon {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    border-radius: 50%;
+}
+.gist-item > .root > a > img {
+    width: 100%;
+    height: 4.5rem;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+}
+.gist-item > .root > div {
+    grid-column: 3;
+    grid-row: 1;
+    font-weight: 700;
+}
+.gist-item > .root > .secret::before {
+    content: 'lock ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .date {
+    grid-column: 4;
+    grid-row: 1;
+    text-align: right;
+}
+.gist-item > .root > .desc {
+    grid-column: 3 / -1;
+    grid-row: 2;
+}
+.gist-item > .root > .comments {
+    grid-column: 3;
+    grid-row: 3;
+}
+.gist-item > .root > .buttons {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    display: flex;
+    justify-content: space-between;
+}
+.gist-item > .root > .buttons > button {
+    background: #fff;
+    border: solid 1px;
+    border-radius: 3px;
+    width: calc(50% - 0.5rem);
+    height: 2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.gist-item > .root > .buttons > .star, .gist-item > .root > .buttons > .forks {
+    border-color: #ddd;
+}
+.gist-item > .root > .buttons > .star, .gist-item > .root > .buttons > .forks:hover {
+    transition: border-color ease-in-out 0.3s;
+}
+.gist-item > .root > .buttons > .star:hover, .gist-item > .root > .buttons > .forks:hover {
+    border-color: #999;
+}
+.gist-item > .root > .buttons > .star::before {
+    content: 'star_border ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .buttons > .star.starred {
+    border-color: #FFC107;
+    color: #FFC107;
+}
+.gist-item > .root > .buttons > .star.starred::before {
+    content: 'star ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .buttons > .delete {
+    color: #f00;
+    border-color: #ddd;
+    transition: background ease-in-out 0.3s;
+}
+.gist-item > .root > .buttons > .delete:hover {
+    color: #fff;
+    font-weight: 700;
+    background: #f00;
+    border-color:  #f00;
+}
+.gist-item > .root > .buttons > .delete::before{
+    content: 'delete_outline ';
+    font-family: 'Material Icons';
+    vertical-align: middle;
+}
+.gist-item > .root > .buttons > .delete:hover::before{
+    content: 'delete ';
+}
+.gist-item > .root > .buttons > .delete.confirm {
+    color: #fff;
+    font-weight: 700;
+    background: #f00;
+    border-color:  #f00;
+}
+.gist-item > .root > .buttons > .delete.confirm::before{
+    content: none;
+}
+.gist-item > .message {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
