@@ -2,12 +2,12 @@
 
 Read this in other languages: [English](./README.en-US.md)
 
-株式会社サイバーエージェントが主催する、Webフロントエンドエンジニア向け学生限定ハッカソンです。  
+株式会社サイバーエージェントが主催する、Web / iOS / Androidエンジニア向け学生限定ハッカソンです。  
 成果物をレポジトリにpushするだけのリモート参加型のイベントです。
 
 ## エントリー方法
 
-こちらの[エントリーフォーム](https://forms.gle/CWjUiBPri1EKheNA6)を記載して送信するだけでエントリー完了になります。  
+こちらの[エントリーフォーム](https://goo.gl/forms/RnCT5dQ1ERvgTmz23)を記載して送信するだけでエントリー完了になります。  
 参加対象者は、学生のみとなりますので学校のメールアドレスが必要となります。学生以外の方は受け付けておりませんので、あらかじめご了承ください。
 
 ## ハッカソン参加の流れ
@@ -22,11 +22,14 @@ Read this in other languages: [English](./README.en-US.md)
 
 ## お題
 
-※開催前に公開いたします
+指定のGitHub APIを使用して、GitHubクライアントアプリケーションを開発してください。
 
 ### 最低要件
 
-※開催前に公開いたします
+- GitHubのOAuthを用いたログインができる
+- [/gists API](https://developer.github.com/v3/gists/)を用いた機能がある
+  - gistの一覧表示ができる
+  - gistを投稿できる
 
 ### 開発について
 
@@ -38,10 +41,23 @@ Read this in other languages: [English](./README.en-US.md)
 評価のためにビルドする際は、こちらで作成したものを使いますのでリポジトリに含めないようにし、READMEにClient IDやClient Secretを記載するべき箇所、またはファイル名を記載してください。  
 **Client Secretをコミットしないようにお気をつけください**
 
+### 開発について
+
+評価のためにこちらでプロジェクトをビルドする際、依存解決などの工程が必要な場合は、自身のフォルダにREADMEを作成し工程を記載してください。  
+ツールなどによって作成された依存パッケージは、リポジトリに含めなくても構いません。  
+こちらでビルドする際に、**依存を解決できなかった場合も審査対象になりません** のでご注意ください。  
+
+アプリの作成に使用するClient IDやClient Secretは、ご自身で作成してください。  
+評価のためにビルドする際は、こちらで作成したものを使いますのでリポジトリに含めないようにし、READMEにClient IDやClient Secretを記載するべき箇所、またはファイル名を記載してください。  
+
 ## 期間
 
-- 募集期間: **2020/01/27 00:00:00 +09:00 ~ 2020/02/26 00:00:00 +09:00**
-- 開催期間: **2020/02/12 00:00:00 +09:00 ~ 2020/02/26 00:00:00 +09:00**
+- ~募集期間: **2018/09/07 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**~
+- 募集期間: **2018/09/07 12:00:00 +09:00 ~ 2018/10/24 23:59:59 +09:00**
+- ~開催期間: **2018/10/09 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**~
+- 開催期間: **2018/10/09 12:00:00 +09:00 ~ 2018/10/24 23:59:59 +09:00**
+
+GitHubの障害により期間を延長しました: https://blog.github.com/2018-10-21-october21-incident-report/
 
 ※ 募集期間内であれば参加いただけます。  
 ※ 開催期間を過ぎたプルリクエストは対象外とさせていただきます。
@@ -85,4 +101,8 @@ Read this in other languages: [English](./README.en-US.md)
 
 ### 主催者
 
-- [RyotaSugawara](https://github.com/RyotaSugawara)
+- [kaelaela](https://github.com/kaelaela)
+- [shaunkawano](https://github.com/shaunkawano)
+- [shoheiyokoyama](https://github.com/shoheiyokoyama)
+- [ryo_suga](https://github.com/RyotaSugawara)
+

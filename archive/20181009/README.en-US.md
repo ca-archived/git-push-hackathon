@@ -6,7 +6,7 @@ Git Push Hackathon is a remote hackathon event for students, hosted by CyberAgen
 
 In order to confirm that you are student, you must provide your email address provided from your school; We only accept applications from students.
 
-Just fill out [the application](https://forms.gle/bV26GoWeBJyTtT627) and send it to us.
+Just fill out [the application](https://goo.gl/forms/dCJPL6Py4A6m5t172) and send it to us.
 
 ## What to do?
 
@@ -20,11 +20,14 @@ Just fill out [the application](https://forms.gle/bV26GoWeBJyTtT627) and send it
 
 ## Requirements
 
-To be published before event start.
+Develop a GitHub client-side mobile application using [GitHub API](https://developer.github.com/v3/)s.
 
 ### Minimum requirements
 
-To be published before event start.
+- "Sign in" functionality using OAuth authentication
+- Using [/gists API](https://developer.github.com/v3/gists/)
+  - Show a list of User's gists
+  - Post a new gist
 
 ### Note
 
@@ -39,8 +42,12 @@ You may need to generate any variable necessary when devleoping an application(e
 
 ## Deadline
 
-- Application period: **2020/01/27 00:00:00 +09:00 ~ 2020/02/26 00:00:00 +09:00**
-- Deadline: **2020/02/12 00:00:00 +09:00 ~ 2020/02/26 00:00:00 +09:00**
+- ~Application period: **2018/09/07 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**~
+- Application period: **2018/09/07 12:00:00 +09:00 ~ 2018/10/24 23:59:59 +09:00**
+- ~Deadline: **2018/10/09 12:00:00 +09:00 ~ 2018/10/23 11:59:59 +09:00**~
+- Deadline: **2018/10/09 12:00:00 +09:00 ~ 2018/10/24 23:59:59 +09:00**
+
+We decided to extend the deadline: https://blog.github.com/2018-10-21-october21-incident-report/
 
 ## Evaluation
 
@@ -81,4 +88,8 @@ If you have any question, check [questions in the past](https://github.com/Cyber
 
 ### Organizers
 
-- [RyotaSugawara](https://github.com/RyotaSugawara)
+- [kaelaela](https://github.com/kaelaela)
+- [shaunkawano](https://github.com/shaunkawano)
+- [shoheiyokoyama](https://github.com/shoheiyokoyama)
+- [ryo_suga](https://github.com/RyotaSugawara)
+
