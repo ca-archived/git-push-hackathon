@@ -20,11 +20,19 @@ Just fill out [the application](https://forms.gle/bV26GoWeBJyTtT627) and send it
 
 ## Requirements
 
-To be published before event start.
+Develop a Web Application using YouTube Playlist’s APIs.
+
+- https://developers.google.com/youtube/v3/docs/playlists
+- https://developers.google.com/youtube/v3/docs/playlistItems
 
 ### Minimum requirements
 
-To be published before event start.
+- List the YouTube Playlists.
+- Create new playlist.
+- List the Videos in Playlist.
+- Add Video to Playlist.
+
+(API requires [Authentication](https://developers.google.com/youtube/v3/docs))
 
 ### Note
 

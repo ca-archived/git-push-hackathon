@@ -22,11 +22,19 @@ Read this in other languages: [English](./README.en-US.md)
 
 ## お題
 
-※開催前に公開いたします
+YouTubeのプレイリストAPIを用いたWebアプリケーション開発
+
+- https://developers.google.com/youtube/v3/docs/playlists
+- https://developers.google.com/youtube/v3/docs/playlistItems
 
 ### 最低要件
 
-※開催前に公開いたします
+- YouTubeのプレイリスト一覧を表示できる
+- プレイリストを追加することができる
+- プレイリストに入ってる動画を一覧表示できる
+- プレイリストに動画を追加できる
+
+(APIには[認証](https://developers.google.com/youtube/v3/docs)が必要となります)
 
 ### 開発について
 
