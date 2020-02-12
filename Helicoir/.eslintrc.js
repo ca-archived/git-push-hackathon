@@ -19,5 +19,11 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'prettier/prettier': ['error', {
+      'singleQuote': true
+    }],
+    'indent': ['error', 2],
+    'no-unused-vars': 1
   }
 }
+
