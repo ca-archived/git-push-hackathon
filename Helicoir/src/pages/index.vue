@@ -20,16 +20,26 @@
           GitHub
         </a>
       </div>
+      <p>{{ items }}</p>
     </div>
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
+import { getRelatedVideos } from '~/services'
 
 export default {
   components: {
     Logo
+  },
+  data() {
+    return {
+      items: []
+    }
+  },
+  created() {
+    getRelatedVideos('dn8ZiVT6r6U').then((res) => this.items.push(res.data))
   }
 }
 </script>

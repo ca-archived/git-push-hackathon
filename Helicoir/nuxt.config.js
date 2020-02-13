@@ -14,45 +14,32 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-  /*
-   ** Customize the progress-bar color
-   */
   loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
   css: [
     { src: '~/assets/css/html5-reset.css', lang: 'css' },
     { src: '~/assets/scss/common.scss', lang: 'scss' }
   ],
-  /*
-   ** Plugins to load before mounting the App
-   */
   plugins: [],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
-  /*
-   ** Nuxt.js modules
-   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
-  /*
-   ** Build configuration
-   */
+  axios: {
+    proxy: true,
+    prefix: 'https://www.googleapis.com/youtube/v3/'
+  },
+  proxy: {
+    '/api/': 'https://www.googleapis.com/youtube/v3/'
+  },
+  env: {
+    API_KEY: process.env.API_KEY
+  },
   build: {
     /*
      ** You can extend webpack config here
