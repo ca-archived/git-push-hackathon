@@ -2,7 +2,7 @@ export default {
   mode: 'universal',
   srcDir: 'src/',
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.npm_package_name || 'Curio!',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -17,14 +17,17 @@ export default {
   loading: { color: '#fff' },
   css: [
     { src: '~/assets/css/html5-reset.css', lang: 'css' },
-    { src: '~/assets/scss/common.scss', lang: 'scss' }
+    { src: '~/assets/scss/mixins.scss', lang: 'scss' }
   ],
-  plugins: [],
+  plugins: [
+    '~/plugins/composition-api'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build'
   ],
   modules: [
     '@nuxtjs/axios',
@@ -32,10 +35,15 @@ export default {
   ],
   axios: {
     proxy: true,
-    prefix: 'https://www.googleapis.com/youtube/v3/'
+    prefix: '/api'
   },
   proxy: {
-    '/api/': 'https://www.googleapis.com/youtube/v3/'
+    '/api': {
+      target: 'https://www.googleapis.com/youtube/v3/',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
   },
   env: {
     API_KEY: process.env.API_KEY

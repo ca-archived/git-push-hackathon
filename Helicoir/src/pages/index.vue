@@ -1,45 +1,22 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        Git-push-hackathon
-      </h1>
-      <h2 class="subtitle">
-        by Helicoir
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-      <p>{{ items }}</p>
-    </div>
+    <p>welcome!</p>
+    <a href="/playlists">プレイリスト</a>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import { getRelatedVideos } from '~/services'
+import services from '~/services'
 
 export default {
-  components: {
-    Logo
-  },
+  components: {},
   data() {
     return {
       items: []
     }
   },
   created() {
-    getRelatedVideos('dn8ZiVT6r6U').then((res) => this.items.push(res.data))
+    services.getOwnPlaylists().then((res) => this.items.push(res.data))
   }
 }
 </script>

@@ -12,7 +12,8 @@ module.exports = {
     'prettier',
     'prettier/vue',
     'plugin:prettier/recommended',
-    'plugin:nuxt/recommended'
+    'plugin:nuxt/recommended',
+    '@nuxtjs/eslint-config-typescript'
   ],
   plugins: [
     'prettier'
@@ -23,7 +24,9 @@ module.exports = {
       'singleQuote': true
     }],
     'indent': ['error', 2],
-    'no-unused-vars': 1
+    'no-unused-vars': 1,
+    '@typescript-eslint/no-unused-vars': 1
+    'space-before-function-paren': 1
   }
 }
 
