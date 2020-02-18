@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import Caption from '~/components/atoms/Caption'
-import Thumbnail from '~/components/atoms/Thumbnail'
+import Caption from '~/components/atoms/Caption/index.vue'
+import Thumbnail from '~/components/atoms/Thumbnail/index.vue'
 
 export default {
   props: ['title', 'description', 'channel', 'image', 'link', 'id'],
