@@ -7,6 +7,7 @@
       :image="item.thumbnails.high.url"
     />
     <p>here: {{ items }}</p>
+    <button @click="tokenclick('this!')">this!</button>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import { createComponent, ref } from '@vue/composition-api'
 import services from '../../services'
 import ItemCard from '~/components/molecules/ItemCard/index.vue'
+import Cookies from 'js-cookie'
 
 // 0auth認証の実装について
 /*
@@ -22,14 +24,38 @@ import ItemCard from '~/components/molecules/ItemCard/index.vue'
 その際は認証用ページへのURLを添付できるといい
 */
 
+/*#access_token=ya29.Il-9B_NKnpJhiVtITkKTzrSF6RErcWy4NsI2vF6QJr5R22Njzm9K2tv2EEsPFwvthsseVigo-S6T7GS9lIRu50sIZQWwxWHp3PfQvcpK8ggqhD_MYEyrax5uyii7EubtKw&
+token_type=Bearer&
+expires_in=3599&
+scope=https://www.googleapis.com/auth/youtube */
+
 export default createComponent({
   components: {
     ItemCard
   },
+  mounted() {
+    // this.$store.actions.saveTokenInStorage()
+    if (process.browser) {
+      const hashes = window.location.hash
+      const tokenString_end = hashes.indexOf('&')
+      const token = hashes.slice(14, tokenString_end)
+      console.log(token)
+      if (hashes) {
+        this.$accessor.commitToken(token)
+      }
+    }
+  },
+  methods: {
+    tokenclick(e) {
+      console.log(Cookies.getJSON('cookieState'))
+    }
+  },
   setup() {
     // const items = ref(services.getOwnPlaylists())
     return {
-      items: ref(services.getOwnPlaylists())
+      items: ref(
+        'a' /*services.getOwnPlaylists(localStorage.getItem('token'))*/
+      )
     }
   }
 })

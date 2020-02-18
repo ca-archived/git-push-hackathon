@@ -11,14 +11,14 @@ const services = {
     }
     return axios.get('/api/search', { params })
   },
-  getOwnPlaylists(pageToken) {
+  getOwnPlaylists(token) {
     const params = {
       part: 'snippet',
       key: process.env.API_KEY,
       mine: true,
       maxResults: 50
     }
-    return axios.get('/api/playlists', { params })
+    return axios.get('/api/playlists', { params, headers: { Autorization: `Bearer ${token}` } })
   },
   getChannelPlaylists(channelId, pageToken) {
     const params = {
@@ -39,7 +39,22 @@ const services = {
       maxResults: 30
     }
     return axios.get('/api/playlistItems', { params })
-  }
+  },
   /* ==== POST REQUESTS ==== */
+  /* ==== AUTHENTICATION ==== */
+  // authMethod() {
+  //   const params = {
+  //     client_id:
+  //       '278812716718-0c8fieggnimq47pmo1ucepfc3855apae.apps.googleusercontent.com',
+  //     redirect_uri: 'http://localhost:5884',
+  //     response_type: 'token',
+  //     scope: 'https://www.googleapis.com/auth/youtube'
+  //   }
+  //   $router.push(
+  //     `https://accounts.google.com/o/oauth2/auth?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}&scope=${scope}`,
+  //     '_blank'
+  //   )
+  // }
 }
+
 export default services

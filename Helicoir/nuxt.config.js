@@ -20,14 +20,16 @@ export default {
     { src: '~/assets/scss/mixins.scss', lang: 'scss' }
   ],
   plugins: [
-    '~/plugins/composition-api'
+    '~/plugins/composition-api',
+    '~/plugins/persistedStorage.js'
   ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     '@nuxtjs/eslint-module',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    'nuxt-typed-vuex'
   ],
   modules: [
     '@nuxtjs/axios',
@@ -49,6 +51,9 @@ export default {
     API_KEY: process.env.API_KEY
   },
   build: {
+    transpile: [
+      /typed-vuex/,
+    ],
     /*
      ** You can extend webpack config here
      */

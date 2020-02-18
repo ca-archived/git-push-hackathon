@@ -15,10 +15,13 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@vue/composition-api": "^0.3.4",
+    "js-cookie": "^2.2.1",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
+    "nuxt-typed-vuex": "^0.1.16",
     "prettier": "^1.19.1",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "^8.0.2",
+    "vuex-persistedstate": "^2.7.1"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.6",
