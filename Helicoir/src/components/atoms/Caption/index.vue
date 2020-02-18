@@ -11,11 +11,11 @@ import { createComponent } from '@vue/composition-api'
 export default createComponent({
   props: {
     title: {
-      type: String,
+      type: String | Boolean,
       default: false
     },
     description: {
-      type: String,
+      type: String | Boolean,
       default: false
     }
   }

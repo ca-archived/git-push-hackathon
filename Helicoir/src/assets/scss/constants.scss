@@ -1,0 +1,20 @@
+$__mainColor: #128473;
+$__accentColor: #e2bc1e;
+$__gray: #a3a3a3;
+$__textColor: #2e2e2e;
+$__mask: rgba(0, 0, 0, 0.4);
+
+$breakpoints: (
+  mobile: screen and (max-width: 460px),
+  tablet: screen and (max-width: 1024px),
+  pc: screen and (max-width: 1920px),
+  lgpc: screen and (min-width: 1920px)
+);
+
+@mixin bp($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)}{
+    @content
+  }
+};
+
+// styled-components を使う！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！

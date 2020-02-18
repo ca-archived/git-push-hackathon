@@ -1,19 +1,18 @@
 <template>
   <div class="container">
     <ItemCard
-      v-for="item in items.items"
-      :key="item"
-      :title="item.title"
-      :image="item.thumbnails.high.url"
+      v-for="item in items"
+      :key="item.id"
+      :title="item.snippet.title"
+      :image="item.snippet.thumbnails.high.url"
     />
-    <p>here: {{ items }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { createComponent, ref, computed } from '@vue/composition-api'
 import services from '../../services'
-import ItemCard from '~/components/molecules/ItemCard/index.vue'
+import ItemCard from '@/components/molecules/ItemCard/index.vue'
 import Cookies from 'js-cookie'
 
 export default createComponent({
@@ -37,8 +36,8 @@ export default createComponent({
       }
     }
     services.getOwnPlaylists(this.$accessor.token).then((res) => {
-      this.items.push(res.data.items[0].kind)
-      console.log(res)
+      this.items = res.data.items
+      console.log(res.data.items)
     })
   }
 })

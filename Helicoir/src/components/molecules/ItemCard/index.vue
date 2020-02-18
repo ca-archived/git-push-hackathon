@@ -1,12 +1,12 @@
 <template>
-  <div class="item-card">
+  <a class="item-card" :href="link">
     <div class="item-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
     <div class="item-card__description">
-      <Caption :text="title" />
+      <Caption :title="title" />
     </div>
-  </div>
+  </a>
 </template>
 
 <script lang="ts">
@@ -21,3 +21,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.item-card {
+  display: block;
+  width: 300px;
+  cursor: pointer;
+  // @include bp(tablet){
+  //   width: 10vmin;
+  // }
+  &__description {
+    padding: 10px 0;
+  }
+}
+</style>

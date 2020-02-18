@@ -17,3 +17,9 @@ export default createComponent({
   setup(props: Props) {}
 })
 </script>
+
+<style lang="scss" scoped>
+.thumbnail{
+  width: 300px;
+}
+</style>
