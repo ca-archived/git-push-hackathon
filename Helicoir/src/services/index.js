@@ -13,12 +13,12 @@ const services = {
   },
   getOwnPlaylists(token) {
     const params = {
+      access_token: token,
       part: 'snippet',
-      key: process.env.API_KEY,
       mine: true,
       maxResults: 50
     }
-    return axios.get('/api/playlists', { params, headers: { Autorization: `Bearer ${token}` } })
+    return axios.get('/api/playlists', { params })
   },
   getChannelPlaylists(channelId, pageToken) {
     const params = {
