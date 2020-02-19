@@ -5,8 +5,8 @@
   "author": "kobakakzu0429 <kobakazu10@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --color --progress --config ./config/webpack.config.prod.js",
-    "dev": "webpack-dev-server --config ./config/webpack.config.dev.js",
+    "build": "NODE_ENV=production webpack --color --progress --config ./config/webpack.config.prod.js",
+    "dev": "NODE_ENV=development webpack-dev-server --config ./config/webpack.config.dev.js",
     "lint": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'"
   },
   "lint-staged": {
@@ -17,6 +17,12 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.isarray": "^4.0.0",
+    "lodash.isobject": "^3.0.2",
+    "lodash.mapkeys": "^4.6.0",
+    "lodash.mapvalues": "^4.6.0",
+    "lodash.snakecase": "^4.1.1",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -25,6 +31,12 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "@types/lodash.camelcase": "^4.3.6",
+    "@types/lodash.isarray": "^4.0.6",
+    "@types/lodash.isobject": "^3.0.6",
+    "@types/lodash.mapkeys": "^4.6.6",
+    "@types/lodash.mapvalues": "^4.6.6",
+    "@types/lodash.snakecase": "^4.1.6",
     "@types/node": "12.12.27",
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5",
