@@ -4,6 +4,7 @@
   "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rules": {
     "curly": [true, "ignore-same-line"],
+    "no-empty": false,
     "no-console": false,
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "variable-name": [
