@@ -6,7 +6,7 @@ const services = {
     const params = {
       part: 'snippet',
       type: 'video',
-      key: process.env.API_KEY,
+      access_token: token,
       relatedToVideoId: videoID
     }
     return axios.get('/api/search', { params })
@@ -20,26 +20,27 @@ const services = {
     }
     return axios.get('/api/playlists', { params })
   },
-  getChannelPlaylists(channelId, pageToken) {
+  getChannelPlaylists(channelId, token) {
     const params = {
       part: 'snippet',
-      key: process.env.API_KEY,
+      access_token: token,
       channelId,
       pageToken,
       maxResults: 50
     }
     return axios.get('/api/playlists', { params })
   },
-  getPlaylistItems(playlistId, pageToken) {
+  getPlaylistItems(token, paramater) {
     const params = {
       part: 'snippet',
-      key: process.env.API_KEY,
-      playlistId,
-      pageToken,
+      access_token: token,
+      playlistId: paramater.id,
+      // pageToken: params.pageToken,
       maxResults: 30
     }
+    console.log(params)
     return axios.get('/api/playlistItems', { params })
-  },
+  }
   /* ==== POST REQUESTS ==== */
   /* ==== AUTHENTICATION ==== */
   // authMethod() {

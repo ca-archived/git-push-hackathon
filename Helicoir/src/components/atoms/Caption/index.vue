@@ -1,7 +1,7 @@
 <template>
   <div class="caption-area">
-    <h3 v-if="title">{{ title }}</h3>
-    <p v-if="description">{{ text }}</p>
+    <h3 class="caption-area__text title" v-if="title">{{ title }}</h3>
+    <p class="caption-area__text text" v-if="description">{{ text }}</p>
   </div>
 </template>
 
@@ -22,4 +22,20 @@ export default createComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.caption-area {
+  width: 300px;
+
+  &__text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    &.title {
+      font-size: 24px;
+    }
+    &.text {
+      font-size: 16px;
+    }
+  }
+}
+</style>

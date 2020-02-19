@@ -17,9 +17,9 @@ export default {
   loading: { color: '#fff' },
   css: [
     { src: '~/assets/css/html5-reset.css', lang: 'css' },
-    { src: '~/assets/scss/constants.scss', lang: 'scss' },
-    { src: '~/assets/scss/includes.scss', lang: 'scss' },
-    { src: '~/assets/scss/common.scss', lang: 'scss' }
+    // { src: '~/assets/scss/constants.scss', lang: 'scss' },
+    // { src: '~/assets/scss/includes.scss', lang: 'scss' },
+    // { src: '~/assets/scss/common.scss', lang: 'scss' }
   ],
   plugins: [
     '~/plugins/composition-api',
@@ -35,7 +35,8 @@ export default {
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/style-resources'
   ],
   axios: {
     proxy: true,
@@ -48,6 +49,14 @@ export default {
         '^/api': '/'
       }
     }
+  },
+  styleResources: {
+    scss: [
+      '~/assets/scss/mixins.scss',
+      '~/assets/scss/constants.scss',
+      '~/assets/scss/includes.scss',
+      '~/assets/scss/common.scss'
+    ]
   },
   env: {
     API_KEY: process.env.API_KEY

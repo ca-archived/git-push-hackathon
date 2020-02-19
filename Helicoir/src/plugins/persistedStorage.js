@@ -18,11 +18,9 @@ export default ({ store, require, isDevepelopmentMode }) => {
         }
       },
       setItem: (key, value) => {
-        console.log('run setItem')
         Cookies.set(key, value, { expires: 3, secure: false })
       },
       removeItem: (key) => {
-        console.log('run removeItem')
         Cookies.remove(key)
       }
     }
