@@ -1,0 +1,52 @@
+{
+  "defaultSeverity": "error",
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "curly": [true, "ignore-same-line"],
+    "no-console": false,
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "interface-name": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "prefer-const": false,
+    "quotemark": [true, "double"],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+          "constructor",
+          "static-field",
+          "public-static-field",
+          "private-static-field",
+          "protected-static-field",
+          "public-static-method",
+          "private-static-method",
+          "protected-static-method",
+          "static-method",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "instance-field",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "prettier": true
+  },
+  "jsRules": {
+    "object-literal-sort-keys": false
+  }
+}
