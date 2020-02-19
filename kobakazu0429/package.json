@@ -23,6 +23,8 @@
     "lodash.mapkeys": "^4.6.0",
     "lodash.mapvalues": "^4.6.0",
     "lodash.snakecase": "^4.1.1",
+    "mobx": "^5.15.4",
+    "mobx-react-lite": "^1.5.2",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
