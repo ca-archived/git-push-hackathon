@@ -1,24 +1,34 @@
 import React, { FC } from "react";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import { GlobalStyle } from "@/theme/GlobalStyle";
-import { createRouter } from "@/routes";
+import { createRouter, AuthRouteProps } from "@/routes";
+import { RootContextProvider } from "@/contexts/RootContext";
+import RootStore from "@/stores/RootStore";
 import { TopPage } from "@/pages/TopPage";
+import { SignInPage } from "@/pages/SignInPage";
 
-const routes = [
+const routes: AuthRouteProps[] = [
   {
     exact: true,
     path: "/",
-    component: TopPage
+    component: TopPage,
+    auth: "Google"
+  },
+  {
+    exact: true,
+    path: "/sign_in",
+    component: SignInPage
   }
 ];
 
 const Router = createRouter({ routes });
-
 export const App: FC = () => {
   return (
     <ThemeProvider themeName="default">
       <GlobalStyle />
-      {Router}
+      <RootContextProvider value={new RootStore()}>
+        {Router}
+      </RootContextProvider>
     </ThemeProvider>
   );
 };
