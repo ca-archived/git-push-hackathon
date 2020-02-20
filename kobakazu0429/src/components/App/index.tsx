@@ -7,6 +7,7 @@ import RootStore from "@/stores/RootStore";
 import { TopPage } from "@/pages/TopPage";
 import { PlayerPage } from "@/pages/PlayerPage";
 import { SignInPage } from "@/pages/SignInPage";
+import { ModalProvider } from "@/utils/customHooks/useModal";
 
 const routes: AuthRouteProps[] = [
   {
@@ -33,7 +34,7 @@ export const App: FC = () => {
     <ThemeProvider themeName="default">
       <GlobalStyle />
       <RootContextProvider value={new RootStore()}>
-        {Router}
+        <ModalProvider>{Router}</ModalProvider>
       </RootContextProvider>
     </ThemeProvider>
   );
