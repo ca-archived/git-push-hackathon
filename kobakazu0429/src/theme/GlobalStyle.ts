@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { fonts } from "./font";
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -7,10 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   };
 
-  html,
-  body {
-    overflow: hidden;
-  };
+  ${fonts}
 
   ul, li {
     margin: 0;
@@ -34,4 +32,12 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   };
+
+  hr {
+    border-style: solid;
+    background:#999;
+    border-width: 0px;
+    height: 1px;
+    width: 100%
+  }
 `;

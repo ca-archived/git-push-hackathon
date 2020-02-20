@@ -21,7 +21,7 @@ const theme: Theme = {
       secondary: "#fefefe"
     },
     accent: "#7fffd4",
-    divider: "#BDBDBD"
+    divider: "#e6ecf0"
   }
 };
 
