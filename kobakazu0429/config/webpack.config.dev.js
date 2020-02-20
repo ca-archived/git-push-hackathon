@@ -11,6 +11,7 @@ module.exports = merge(common, {
   devServer: {
     host: "0.0.0.0",
     port: 5000,
+    useLocalIp: true,
     disableHostCheck: true,
     contentBase: path.resolve(__dirname, "../public"),
     watchContentBase: true,
