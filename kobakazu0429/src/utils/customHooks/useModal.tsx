@@ -1,7 +1,15 @@
-import React, { FC, useState, useCallback, createContext } from "react";
+import React, {
+  FC,
+  useState,
+  useCallback,
+  createContext,
+  ReactNode
+} from "react";
 import { Modal } from "@/components/Modal";
 
 interface IModalContext {
+  content: ReactNode;
+  setContent: React.Dispatch<React.SetStateAction<ReactNode>>;
   isShowingModal: boolean;
   openModal: () => void;
   closeModal: () => void;
@@ -16,13 +24,14 @@ export const ModalProvider: FC = ({ children }) => {
   return (
     <ModalContext.Provider value={modal}>
       {children}
-      <Modal />
+      <Modal>{modal.content}</Modal>
     </ModalContext.Provider>
   );
 };
 
 const useModal = () => {
   const [isShowingModal, setIsShowingModal] = useState(false);
+  const [content, setContent] = useState<ReactNode>(null);
 
   const openModal = useCallback(() => {
     // scroll disabled
@@ -41,6 +50,8 @@ const useModal = () => {
   }, []);
 
   return {
+    content,
+    setContent,
     isShowingModal,
     openModal,
     closeModal,
