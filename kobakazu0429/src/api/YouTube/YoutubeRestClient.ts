@@ -1,9 +1,10 @@
 import { RestClient } from "@/api/restClient";
-import { isDevelopment } from "@/utils/environment";
+import { isDevelopment, useMockApi } from "@/utils/environment";
 
-const apiUrl = isDevelopment()
-  ? process.env.MOCK_API_ENDPOINT || ""
-  : "https://www.googleapis.com/youtube/v3";
+const apiUrl =
+  isDevelopment() && useMockApi()
+    ? process.env.MOCK_API_ENDPOINT || ""
+    : "https://www.googleapis.com/youtube/v3";
 
 export class YoutubeRestClient {
   constructor(bearerToekn: string) {
