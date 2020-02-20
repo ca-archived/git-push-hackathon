@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import RootContext from "@/contexts/RootContext";
-import { MovieItem } from "@/components/App/MovieItem";
+import { MovieItem } from "@/components/MovieItem";
 
 export const TopPage: FC = observer(() => {
   const { youtubeStore } = useContext(RootContext);
@@ -19,7 +19,7 @@ export const TopPage: FC = observer(() => {
   return (
     <Wrapper>
       {youtubeStore.playlists.map(({ id, snippet }) => (
-        <Link to={`/player?playlistId=${id}`}>
+        <Link to={`/player?playlistId=${id}`} key={id}>
           <MovieItem
             title={snippet?.title ?? ""}
             thumbnail={snippet?.thumbnails.standard}
