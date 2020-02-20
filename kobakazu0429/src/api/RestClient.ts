@@ -31,7 +31,6 @@ export class RestClient {
 
     this.axios = axios.create(axiosConfig);
 
-    // TODO: Productionではログを流さないようにする
     this.axios.interceptors.response.use(
       response => {
         const { config, data, status } = response;
