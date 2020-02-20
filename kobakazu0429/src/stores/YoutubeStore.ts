@@ -8,11 +8,9 @@ type Playlists = PlaylistsResponse["items"];
 type PlaylistItems = PlaylistItemsResponse["items"];
 
 export class YoutubeStore {
-  constructor(bearerToekn?: string) {
-    if (bearerToekn) {
-      this.playlistsApi = new YoutubePlaylistsApi(bearerToekn);
-      this.playlistItemsApi = new YoutubePlaylistItemsApi(bearerToekn);
-    }
+  constructor(bearerToekn: string = "") {
+    this.playlistsApi = new YoutubePlaylistsApi(bearerToekn);
+    this.playlistItemsApi = new YoutubePlaylistItemsApi(bearerToekn);
 
     this.playlists = [];
     this.playlistItems = [];
