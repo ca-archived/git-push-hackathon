@@ -35,7 +35,7 @@ export class YoutubeStore {
   }
 
   @action private setPlaylists(ps: Playlists) {
-    this.playlistItems.length = 0;
+    this.playlists.length = 0;
     this.playlists.push(...ps);
   }
   @action private setPlaylistItems(ps: PlaylistItems) {
