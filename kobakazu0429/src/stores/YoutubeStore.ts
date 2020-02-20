@@ -18,9 +18,9 @@ export class YoutubeStore {
 
   @observable public playlists: Playlists;
   @observable public playlistItems: PlaylistItems;
+  public playlistItemsApi?: YoutubePlaylistItemsApi;
 
   private playlistsApi?: YoutubePlaylistsApi;
-  private playlistItemsApi?: YoutubePlaylistItemsApi;
 
   public fetchPlaylists() {
     this.playlistsApi

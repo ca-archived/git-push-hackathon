@@ -8,4 +8,19 @@ export class YoutubePlaylistItemsApi extends YoutubeRestClient {
       playlistId
     });
   }
+
+  public async insertPlaylistItems(playlistId: string, videoId: string) {
+    return await this.restClient.post<PlaylistItemsResponse>(
+      "/playlistItems?part=snippet",
+      {
+        snippet: {
+          playlistId,
+          resourceId: {
+            kind: "youtube#video",
+            videoId
+          }
+        }
+      }
+    );
+  }
 }
