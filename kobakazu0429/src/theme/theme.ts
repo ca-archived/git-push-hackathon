@@ -10,8 +10,16 @@ export interface Theme {
     };
     accent: string;
     divider: string;
+    error: string;
+  };
+  utils: {
+    unit: (amount: number) => number;
+    unitPx: (amount: number) => string;
   };
 }
+
+const UNIT = 8; // px
+const unit = (amount: number) => UNIT * amount;
 
 const theme: Theme = {
   color: {
@@ -21,7 +29,12 @@ const theme: Theme = {
       secondary: "#fefefe"
     },
     accent: "#7fffd4",
-    divider: "#e6ecf0"
+    divider: "#e6ecf0",
+    error: "#ff4b42"
+  },
+  utils: {
+    unit,
+    unitPx: (amount: number) => `${unit(amount)}px`
   }
 };
 
