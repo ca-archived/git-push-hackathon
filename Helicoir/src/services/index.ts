@@ -2,7 +2,16 @@ import axios from 'axios'
 
 const services = {
   /* ==== GET REQUESTS ==== */
-  getRelatedVideos(videoID) {
+  getOneVideo(token: string, videoID: string) {
+    const params = {
+      part: 'snippet',
+      type: 'video',
+      access_token: token,
+      id: videoID
+    }
+    return axios.get('/api/search', { params })
+  },
+  getRelatedVideos(token: string, videoID: string) {
     const params = {
       part: 'snippet',
       type: 'video',
@@ -11,7 +20,7 @@ const services = {
     }
     return axios.get('/api/search', { params })
   },
-  getOwnPlaylists(token) {
+  getOwnPlaylists(token: string) {
     const params = {
       access_token: token,
       part: 'snippet',
@@ -20,21 +29,20 @@ const services = {
     }
     return axios.get('/api/playlists', { params })
   },
-  getChannelPlaylists(channelId, token) {
+  getChannelPlaylists(token: string, channelId: string) {
     const params = {
       part: 'snippet',
       access_token: token,
       channelId,
-      pageToken,
       maxResults: 50
     }
     return axios.get('/api/playlists', { params })
   },
-  getPlaylistItems(token, paramater) {
+  getPlaylistItems(token: string, playlistId: string) {
     const params = {
       part: 'snippet',
       access_token: token,
-      playlistId: paramater.id,
+      playlistId,
       // pageToken: params.pageToken,
       maxResults: 30
     }

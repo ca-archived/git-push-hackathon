@@ -30,13 +30,16 @@ export default {
    */
   buildModules: [
     '@nuxtjs/eslint-module',
-    '@nuxt/typescript-build',
+    ['@nuxt/typescript-build', {
+      typeCheck: true
+    }],
     'nuxt-typed-vuex'
   ],
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'nuxt-client-init-module'
   ],
   axios: {
     proxy: true,

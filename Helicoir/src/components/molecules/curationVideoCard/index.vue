@@ -1,12 +1,15 @@
 <template>
   <nuxt-link class="item-card" :to="link">
-    <div class="item-card__thumbnail">
+    <div class="video-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
-    <div class="item-card__description">
+    <div class="video-card__description">
       <Caption :title="title" />
+      <div class="video-card__description__channel">
+        <div class="videocard__description__bar" />
+        <span class="videocard__description__channelName">{{ channel }}</span>
+      </div>
     </div>
-    <a v-if="mouseover" class="item-card__link"></a>
   </nuxt-link>
 </template>
 
@@ -20,17 +23,12 @@ export default {
     Caption,
     Thumbnail
   },
-  methods: {
-    toggleMouseover() {
-      this.mouseover = !this.mouseover
-    },
-    stay() {this.mouseover = true}
-  }
+  methods: {}
 }
 </script>
 
 <style lang="scss" scoped>
-.item-card {
+.video-card {
   position: relative;
   display: block;
   width: 300px;
@@ -40,15 +38,25 @@ export default {
     width: 10vmin;
   }
   &__description {
-    padding: 10px 0;
-  }
-  &__link {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    background: black;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 0;
+    background: $__mask;
+
+    &__channel {
+      display: flex;
+      align-items: center;
+    }
+    &__bar {
+      height: 1px;
+      background: $__subGrayColor;
+    }
+    &__channelName {
+      color: $__subGrayColor;
+    }
   }
 }
 </style>

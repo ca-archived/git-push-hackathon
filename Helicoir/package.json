@@ -5,23 +5,27 @@
   "author": "Helicoir",
   "private": true,
   "scripts": {
-    "dev": "nuxt --port 5884 && node -r dotenv/config services/index.js",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "nuxt-ts --port 5884 && node -r dotenv/config services/index.js tsconfig-paths/register ./node_modules/@nuxt/typescript-runtime/bin/nuxt-ts.js",
+    "build": "nuxt-ts build && node -r dotenv/config services/index.js tsconfig-paths/register ./node_modules/@nuxt/typescript-runtime/bin/nuxt-ts.js",
+    "start": "nuxt-ts start && node -r dotenv/config services/index.js tsconfig-paths/register ./node_modules/@nuxt/typescript-runtime/bin/nuxt-ts.js",
+    "generate": "nuxt-ts generate && node -r dotenv/config services/index.js tsconfig-paths/register ./node_modules/@nuxt/typescript-runtime/bin/nuxt-ts.js",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@nuxt/typescript-runtime": "^0.3.9",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/style-resources": "^1.0.0",
+    "@types/js-cookie": "^2.2.4",
     "@vue/composition-api": "^0.3.4",
     "js-cookie": "^2.2.1",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
+    "nuxt-client-init-module": "^0.1.8",
     "nuxt-typed-vuex": "^0.1.16",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
+    "tsconfig-paths": "^3.9.0",
     "vuex-persistedstate": "^2.7.1"
   },
   "devDependencies": {
