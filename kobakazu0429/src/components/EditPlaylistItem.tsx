@@ -26,7 +26,7 @@ export const EditPlaylistItem: FC = () => {
 };
 
 const Wrapper = styled.div`
-  width: 80%;
+  width: 90%;
   height: 200px;
   padding: 10px;
   background-color: #fff;

@@ -25,15 +25,17 @@ export const AddPlaylists: FC = () => {
 
   return (
     <Wrapper>
-      <label htmlFor="insertPlaylistsUrlForm">
-        プレイリストの名前を入力してください
-      </label>
-      <TextField
-        name="insertPlaylistsUrlForm"
-        placeholder="お気に入りMusicリスト"
-        value={playlistName}
-        onChange={setPlaylistName}
-      />
+      <Inline>
+        <label htmlFor="insertPlaylistsUrlForm">
+          プレイリストの名前を入力してください
+        </label>
+        <TextField
+          name="insertPlaylistsUrlForm"
+          placeholder="お気に入りMusicリスト"
+          value={playlistName}
+          onChange={setPlaylistName}
+        />
+      </Inline>
       <Controlls>
         <BrandButton maxWidth="50%" onClick={handleAddPlaylistItem}>
           追加する
@@ -47,16 +49,25 @@ export const AddPlaylists: FC = () => {
 };
 
 const Wrapper = styled.div`
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
   height: 200px;
   padding: 10px;
   background-color: #fff;
   border-radius: 10px;
 `;
 
+const Inline = styled.div`
+  width: 100%;
+`;
+
 const Controlls = styled.div`
   display: flex;
   flex-direction: row-reverse;
+  width: 100%;
 
   button:first-child {
     margin-left: 5px;

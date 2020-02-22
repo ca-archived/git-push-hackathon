@@ -29,15 +29,17 @@ export const AddPlaylistItem: FC = () => {
 
   return (
     <Wrapper>
-      <label htmlFor="insertPlaylistItemUrlForm">
-        追加したい動画のURLを入力してください
-      </label>
-      <TextField
-        name="insertPlaylistItemUrlForm"
-        placeholder="https://youtube.com/watch?v=40dJS_LC6S8"
-        value={url}
-        onChange={setUrl}
-      />
+      <Inline>
+        <label htmlFor="insertPlaylistItemUrlForm">
+          追加したい動画のURLを入力してください
+        </label>
+        <TextField
+          name="insertPlaylistItemUrlForm"
+          placeholder="https://youtube.com/watch?v=40dJS_LC6S8"
+          value={url}
+          onChange={setUrl}
+        />
+      </Inline>
       <Controlls>
         <BrandButton maxWidth="50%" onClick={handleAddPlaylistItem}>
           追加する
@@ -51,16 +53,25 @@ export const AddPlaylistItem: FC = () => {
 };
 
 const Wrapper = styled.div`
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
   height: 200px;
   padding: 10px;
   background-color: #fff;
   border-radius: 10px;
 `;
 
+const Inline = styled.div`
+  width: 100%;
+`;
+
 const Controlls = styled.div`
   display: flex;
   flex-direction: row-reverse;
+  width: 100%;
 
   button:first-child {
     margin-left: 5px;
