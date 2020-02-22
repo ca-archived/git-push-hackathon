@@ -1,6 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useCallback, useContext } from "react";
 import styled from "styled-components";
+import { FiMoreVertical } from "react-icons/fi";
+import { ModalContext } from "@/utils/customHooks/useModal";
 import { Thumbnails } from "youtube/v3/playlistItems";
+import { zIndex } from "@/constants/zIndex";
+import { EditPlaylistItem } from "@/components/EditPlaylistItem";
 
 interface Props {
   title: string;
@@ -11,6 +15,13 @@ const placeholdImage =
   "http://placehold.jp/F0F0F0/8E8E8E/345x260.png?text=No image available";
 
 export const MovieItem: FC<Props> = ({ title, thumbnail }) => {
+  const { openModal, setContent } = useContext(ModalContext);
+
+  const insertAddPlaylistItem2Modal = useCallback(() => {
+    setContent(<EditPlaylistItem />);
+    openModal();
+  }, []);
+
   return (
     <Wrapper>
       <CompactYoutubeThumbnail
@@ -19,7 +30,13 @@ export const MovieItem: FC<Props> = ({ title, thumbnail }) => {
         // @ts-ignore
         loading="lazy"
       ></CompactYoutubeThumbnail>
-      <Musictitle>{title}</Musictitle>
+      <Inline>
+        <Musictitle>{title}</Musictitle>
+        <FiMoreVertical
+          style={{ marginLeft: "auto", marginRight: "5px", fontSize: "1.2rem" }}
+          onClick={insertAddPlaylistItem2Modal}
+        />
+      </Inline>
     </Wrapper>
   );
 };
@@ -33,6 +50,8 @@ const Wrapper = styled.div`
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.color.divider};
   margin: 20px 0;
+  user-select: none;
+  z-index: ${zIndex.item};
 `;
 
 const CompactYoutubeThumbnail = styled.img`
@@ -41,6 +60,7 @@ const CompactYoutubeThumbnail = styled.img`
   /* NOTE: provide thumbnail by youtube api has letterbox the top and bottom of it. */
   clip-path: inset(13% 0 13% 0);
   margin: -12% 0;
+  z-index: ${zIndex.item + 1};
 `;
 
 const Musictitle = styled.h3`
@@ -51,4 +71,12 @@ const Musictitle = styled.h3`
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   font-weight: normal;
+  user-select: text;
+`;
+
+const Inline = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: ${zIndex.item + 2};
 `;
