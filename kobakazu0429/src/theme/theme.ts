@@ -10,7 +10,7 @@ export interface Theme {
     };
     accent: string;
     divider: string;
-    error: string;
+    warning: string;
   };
   utils: {
     unit: (amount: number) => number;
@@ -30,7 +30,7 @@ const theme: Theme = {
     },
     accent: "#7fffd4",
     divider: "#e6ecf0",
-    error: "#ff4b42"
+    warning: "#e31c3d"
   },
   utils: {
     unit,

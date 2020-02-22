@@ -116,7 +116,7 @@ const style = css<{ validationError: boolean }>`
   width: 100%;
   border: 2px solid
     ${({ theme, validationError }) =>
-      validationError ? theme.color.error : theme.color.brand};
+      validationError ? theme.color.warning : theme.color.brand};
   border-radius: 1.5rem;
   ::placeholder {
     color: ${({ theme }) => theme.color.divider};
