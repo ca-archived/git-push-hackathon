@@ -55,6 +55,7 @@ const Wrapper = styled.div`
   height: 200px;
   padding: 10px;
   background-color: #fff;
+  border-radius: 10px;
 `;
 
 const Controlls = styled.div`
