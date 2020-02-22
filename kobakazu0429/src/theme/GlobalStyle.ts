@@ -8,6 +8,10 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   };
 
+  html, body {
+    color: ${({ theme }) => theme.color.text.primary};
+  }
+
   ${fonts}
 
   ul, li {
