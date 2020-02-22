@@ -8,4 +8,15 @@ export class YoutubePlaylistsApi extends YoutubeRestClient {
       part: "snippet"
     });
   }
+
+  public async insertPlaylists(playlistName: string) {
+    return await this.restClient.post<PlaylistsResponse>(
+      "/playlists?part=snippet",
+      {
+        snippet: {
+          title: playlistName
+        }
+      }
+    );
+  }
 }
