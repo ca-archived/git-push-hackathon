@@ -20,3 +20,16 @@ export const BrandButton = styled(BaseButton)`
           background-color: ${({ theme }) => theme.color.brand};
         `}
 `;
+
+export const WarningButton = styled(BaseButton)`
+  ${({ inverse }) =>
+    inverse
+      ? css`
+          color: ${({ theme }) => theme.color.warning};
+          border: 1px solid ${({ theme }) => theme.color.warning};
+        `
+      : css`
+          color: #fff;
+          background-color: ${({ theme }) => theme.color.warning};
+        `}
+`;
