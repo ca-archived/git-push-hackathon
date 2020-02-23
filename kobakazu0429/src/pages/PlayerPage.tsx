@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import RootContext from "@/contexts/RootContext";
-import { MovieItem } from "@/components/MovieItem";
+import { Video } from "@/components/Video";
 import { MoviePlayer } from "@/components/MoviePlayer";
 import { BrandButton } from "@/components/Button";
 import { AddPlaylistItem } from "@/components/AddPlaylistItem";
@@ -31,7 +31,7 @@ export const PlayerPage: FC = observer(() => {
       <MoviePlayer playlistId={playlistId} />
       <Wrapper>
         {youtubeStore.playlistItems.map(({ id, snippet }) => (
-          <MovieItem
+          <Video
             title={snippet?.title ?? ""}
             thumbnail={snippet?.thumbnails.standard}
             videoId={id}

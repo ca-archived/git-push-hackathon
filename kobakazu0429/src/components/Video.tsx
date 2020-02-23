@@ -15,10 +15,10 @@ interface Props {
 const placeholdImage =
   "http://placehold.jp/F0F0F0/8E8E8E/345x260.png?text=No image available";
 
-export const MovieItem: FC<Props> = ({ title, thumbnail, videoId }) => {
+export const Video: FC<Props> = ({ title, thumbnail, videoId }) => {
   const { openModal, setContent } = useContext(ModalContext);
 
-  const insertAddPlaylistItem2Modal = useCallback(
+  const insertEditPlaylistItem2Modal = useCallback(
     (e: React.MouseEvent<SVGElement, MouseEvent>) => {
       e.preventDefault();
       e.stopPropagation();
@@ -38,7 +38,7 @@ export const MovieItem: FC<Props> = ({ title, thumbnail, videoId }) => {
       ></CompactYoutubeThumbnail>
       <Inline>
         <Musictitle>{title}</Musictitle>
-        <MoreButton onClick={insertAddPlaylistItem2Modal} />
+        <MoreButton onClick={insertEditPlaylistItem2Modal} />
       </Inline>
     </Wrapper>
   );

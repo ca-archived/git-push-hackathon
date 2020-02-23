@@ -15,7 +15,7 @@ export const EditPlaylistItem: FC<Props> = ({ videoId }) => {
   const { closeModal } = useContext(ModalContext);
 
   const deleteVideo = useCallback(() => {
-    youtubeStore.deletePlaylistItems(videoId);
+    youtubeStore.deletePlaylistItem(videoId);
     closeModal();
   }, [videoId, youtubeStore.playlistItems]);
 
