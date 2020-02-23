@@ -19,4 +19,8 @@ export class YoutubePlaylistsApi extends YoutubeRestClient {
       }
     );
   }
+
+  public async deletePlaylist(playlistId: string) {
+    return await this.restClient.delete(`/playlists?id=${playlistId}`);
+  }
 }
