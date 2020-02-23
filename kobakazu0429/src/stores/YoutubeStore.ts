@@ -34,8 +34,8 @@ export class YoutubeStore {
       .then(res => this.setPlaylistItems(res.data.items));
   }
 
-  public deletePlaylistItems(videoId: string) {
-    this.playlistItemsApi?.deletePlaylistItems(videoId);
+  public deletePlaylistItem(videoId: string) {
+    this.playlistItemsApi?.deletePlaylistItem(videoId);
     this.setPlaylistItems(this.playlistItems.filter(v => v.id !== videoId));
   }
 
