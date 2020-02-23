@@ -1,4 +1,4 @@
-import { RestClient } from "@/api/restClient";
+import { RestClient } from "@/api/RestClient";
 import { isDevelopment, useMockApi } from "@/utils/environment";
 
 const apiUrl =
