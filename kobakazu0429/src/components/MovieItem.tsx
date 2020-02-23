@@ -17,10 +17,15 @@ const placeholdImage =
 export const MovieItem: FC<Props> = ({ title, thumbnail }) => {
   const { openModal, setContent } = useContext(ModalContext);
 
-  const insertAddPlaylistItem2Modal = useCallback(() => {
-    setContent(<EditPlaylistItem />);
-    openModal();
-  }, []);
+  const insertAddPlaylistItem2Modal = useCallback(
+    (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setContent(<EditPlaylistItem />);
+      openModal();
+    },
+    []
+  );
 
   return (
     <Wrapper>
@@ -32,10 +37,7 @@ export const MovieItem: FC<Props> = ({ title, thumbnail }) => {
       ></CompactYoutubeThumbnail>
       <Inline>
         <Musictitle>{title}</Musictitle>
-        <FiMoreVertical
-          style={{ marginLeft: "auto", marginRight: "5px", fontSize: "1.2rem" }}
-          onClick={insertAddPlaylistItem2Modal}
-        />
+        <MoreButton onClick={insertAddPlaylistItem2Modal} />
       </Inline>
     </Wrapper>
   );
@@ -61,6 +63,7 @@ const CompactYoutubeThumbnail = styled.img`
   clip-path: inset(13% 0 13% 0);
   margin: -12% 0;
   z-index: ${zIndex.item + 1};
+  pointer-events: none;
 `;
 
 const Musictitle = styled.h3`
@@ -72,6 +75,16 @@ const Musictitle = styled.h3`
   text-overflow: ellipsis;
   font-weight: normal;
   user-select: text;
+`;
+
+const MoreButton = styled(FiMoreVertical)`
+  margin-left: auto;
+  margin-right: calc(5px - 16px);
+  font-size: 20px;
+  padding: 16px;
+  line-height: 100%;
+  height: 52px;
+  width: 52px;
 `;
 
 const Inline = styled.div`
