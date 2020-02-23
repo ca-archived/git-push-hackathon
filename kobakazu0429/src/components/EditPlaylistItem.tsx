@@ -6,14 +6,23 @@ import { BrandButton, WarningButton } from "@/components/Button";
 import RootContext from "@/contexts/RootContext";
 import { ModalContext } from "@/utils/customHooks/useModal";
 
-export const EditPlaylistItem: FC = () => {
+interface Props {
+  videoId: string;
+}
+
+export const EditPlaylistItem: FC<Props> = ({ videoId }) => {
   const { youtubeStore } = useContext(RootContext);
   const { closeModal } = useContext(ModalContext);
+
+  const deleteVideo = useCallback(() => {
+    youtubeStore.deletePlaylistItems(videoId);
+    closeModal();
+  }, [videoId, youtubeStore.playlistItems]);
 
   return (
     <Wrapper>
       <Controlls>
-        <WarningButton maxWidth="50%" inverse>
+        <WarningButton maxWidth="50%" inverse onClick={deleteVideo}>
           <TrashIcon />
           削除する
         </WarningButton>

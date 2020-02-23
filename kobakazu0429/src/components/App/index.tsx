@@ -19,7 +19,8 @@ const routes: AuthRouteProps[] = [
   {
     exact: true,
     path: "/player",
-    component: PlayerPage
+    component: PlayerPage,
+    auth: "Google"
   },
   {
     exact: true,

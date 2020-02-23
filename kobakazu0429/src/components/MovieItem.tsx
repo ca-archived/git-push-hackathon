@@ -9,19 +9,20 @@ import { EditPlaylistItem } from "@/components/EditPlaylistItem";
 interface Props {
   title: string;
   thumbnail?: Thumbnails["default"];
+  videoId: string;
 }
 
 const placeholdImage =
   "http://placehold.jp/F0F0F0/8E8E8E/345x260.png?text=No image available";
 
-export const MovieItem: FC<Props> = ({ title, thumbnail }) => {
+export const MovieItem: FC<Props> = ({ title, thumbnail, videoId }) => {
   const { openModal, setContent } = useContext(ModalContext);
 
   const insertAddPlaylistItem2Modal = useCallback(
     (e: React.MouseEvent<SVGElement, MouseEvent>) => {
       e.preventDefault();
       e.stopPropagation();
-      setContent(<EditPlaylistItem />);
+      setContent(<EditPlaylistItem videoId={videoId} />);
       openModal();
     },
     []

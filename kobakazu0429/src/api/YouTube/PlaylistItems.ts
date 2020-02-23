@@ -23,4 +23,8 @@ export class YoutubePlaylistItemsApi extends YoutubeRestClient {
       }
     );
   }
+
+  public async deletePlaylistItems(videoId: string) {
+    return await this.restClient.delete(`/playlistItems?id=${videoId}`);
+  }
 }

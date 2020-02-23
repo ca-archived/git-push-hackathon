@@ -19,7 +19,7 @@ export const PlayerPage: FC = observer(() => {
 
   useEffect(() => {
     youtubeStore.fetchPlaylistItems(playlistId);
-  }, []);
+  }, [playlistId, youtubeStore.playlistItems]);
 
   const insertAddPlaylistItem2Modal = useCallback(() => {
     setContent(<AddPlaylistItem />);
@@ -34,6 +34,7 @@ export const PlayerPage: FC = observer(() => {
           <MovieItem
             title={snippet?.title ?? ""}
             thumbnail={snippet?.thumbnails.standard}
+            videoId={id}
             key={id}
           />
         ))}
