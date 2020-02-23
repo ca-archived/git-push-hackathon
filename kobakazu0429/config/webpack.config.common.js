@@ -21,7 +21,9 @@ module.exports = {
       workers: 1,
       tslint: true
     }),
-    new Dotenv()
+    new Dotenv({
+      systemvars: true
+    })
   ],
 
   module: {
