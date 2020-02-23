@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import RootContext from "@/contexts/RootContext";
-import { MovieItem } from "@/components/MovieItem";
+import { Playlist } from "@/components/Playlist";
 import { BrandButton } from "@/components/Button";
 import { ModalContext } from "@/utils/customHooks/useModal";
 import { AddPlaylists } from "@/components/AddPlaylists";
@@ -26,9 +26,10 @@ export const TopPage: FC = observer(() => {
       <Wrapper>
         {youtubeStore.playlists.map(({ id, snippet }) => (
           <Link to={`/player?playlistId=${id}`} key={id}>
-            <MovieItem
+            <Playlist
               title={snippet?.title ?? ""}
               thumbnail={snippet?.thumbnails.standard}
+              playlistId={id}
             />
           </Link>
         ))}
