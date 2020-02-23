@@ -47,7 +47,7 @@ declare module "youtube/v3/playlistItems" {
   export interface Item {
     kind: string;
     etag: string;
-    id?: string;
+    id: string;
     snippet?: Snippet;
     contentDetails?: ContentDetails;
     status?: Status;
