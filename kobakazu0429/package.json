@@ -5,9 +5,9 @@
   "author": "kobakakzu0429 <kobakazu10@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "npx webpack --color --progress --config ./config/webpack.config.prod.js",
-    "dev": "npx webpack-dev-server --config ./config/webpack.config.dev.js",
-    "lint": "npx tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'"
+    "build": "webpack --color --progress --config ./config/webpack.config.prod.js",
+    "dev": "webpack-dev-server --config ./config/webpack.config.dev.js",
+    "lint": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
