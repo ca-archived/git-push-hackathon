@@ -13,7 +13,7 @@ interface AddPlaylistBody {
   youtubePlaylistId: UserPlaylist["youtubePlaylistId"];
 }
 
-@JsonController("/api/v1/users_playlists")
+@JsonController("/api/v1/user_playlists")
 export class UsersPlaylistController {
   @Get("/")
   async getByGoogleId(@QueryParam("googleId") googleId: User["googleId"]) {
