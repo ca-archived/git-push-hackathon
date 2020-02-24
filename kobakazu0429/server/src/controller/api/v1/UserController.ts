@@ -3,7 +3,8 @@ import {
   Get,
   Post,
   Body,
-  QueryParam
+  QueryParam,
+  NotFoundError
 } from "routing-controllers";
 
 import { User } from "@/entity/User";
@@ -13,6 +14,7 @@ export class UserController {
   @Get("/")
   async getById(@QueryParam("id") id: number) {
     const user = await User.findOne(id);
+    if (!user) throw new NotFoundError();
     return user;
   }
 
