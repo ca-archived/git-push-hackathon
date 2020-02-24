@@ -1,18 +1,22 @@
 {
-   "name": "server",
-   "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
-   "devDependencies": {
-      "ts-node": "3.3.0",
-      "@types/node": "^8.0.29",
-      "typescript": "3.3.3333"
-   },
-   "dependencies": {
-      "typeorm": "0.2.22",
-      "reflect-metadata": "^0.1.10",
-      "sqlite3": "^4.0.3"
-   },
-   "scripts": {
-      "start": "ts-node src/index.ts"
-   }
+  "name": "server",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "devDependencies": {
+    "@types/node": "^8.0.29",
+    "prettier": "^1.19.1",
+    "ts-node": "3.3.0",
+    "tslint": "^6.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.1.0",
+    "typescript": "3.3.3333"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.10",
+    "sqlite3": "^4.0.3",
+    "typeorm": "0.2.22"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  }
 }
