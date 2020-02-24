@@ -1,18 +1,23 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany
+} from "typeorm";
+import { UserPlaylist } from "@/entity/UsersPlaylist";
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({ type: "varchar", length: 255, nullable: false })
+  googleId!: string;
 
-    @Column()
-    firstName: string;
-
-    @Column()
-    lastName: string;
-
-    @Column()
-    age: number;
-
+  @OneToMany(
+    _type => UserPlaylist,
+    playlist => playlist.user
+  )
+  playlists!: UserPlaylist[];
 }
