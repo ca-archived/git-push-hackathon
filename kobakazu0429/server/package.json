@@ -8,6 +8,7 @@
     "@types/multer": "^1.4.2",
     "@types/node": "^8.0.29",
     "prettier": "^1.19.1",
+    "strong-error-handler": "^3.4.0",
     "ts-node": "3.3.0",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
