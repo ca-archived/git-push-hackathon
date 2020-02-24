@@ -22,8 +22,7 @@ export default {
     // { src: '~/assets/scss/common.scss', lang: 'scss' }
   ],
   plugins: [
-    '~/plugins/composition-api',
-    '~/plugins/persistedStorage.js'
+    '~/plugins/composition-api'
   ],
   /*
    ** Nuxt.js dev-modules

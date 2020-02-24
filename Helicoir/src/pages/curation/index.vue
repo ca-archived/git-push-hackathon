@@ -1,32 +1,67 @@
 <template>
   <div class="container">
-    <ItemCard
-      v-for="item in items"
-      :key="item.id"
-      :title="item.snippet.title"
-      :image="item.snippet.thumbnails.high.url"
-      :link="`/curation?id=${item.id}`"
-    />
+    <div slot="heading">
+    </div>
+    <CurationListContainer>
+      <CurationVideoCard
+        v-for="item in result"
+        :key="item.id"
+        :title="item.snippet.title"
+        :image="item.snippet.thumbnails.high.url"
+      />
+    </CurationListContainer>
   </div>
 </template>
 
 <script lang="ts">
-import { createComponent, ref, computed } from '@vue/composition-api'
+import { createComponent, ref, onMounted } from '@vue/composition-api'
 import services from '../../services'
-import ListContainer from '~/components/organisms/ListContainer/index.vue'
-import ItemCard from '@/components/molecules/ItemCard/index.vue'
+import { formatCurationMixin } from '../../mappers'
+import CurationListContainer from '~/components/organisms/CurationListContainer/index.vue'
+import CurationVideoCard from '@/components/molecules/CurationVideoCard/index.vue'
 import Cookies from 'js-cookie'
 
 export default createComponent({
   setup(props, context) {
-    const result = []
+    let result: [] = []
+    const getItem = (token: string, id: string): CurationVideoType[] => {
+      services
+        .getRelatedVideos(token, id)
+        .then((res): VideoType[] => {
+          console.log('achieved!')
+          const raw = res.data
+          console.log(raw)
+          raw.items.forEach((el: CurationVideoType) => {
+            if (context.root.$accessor.curationItems.items) {
+              el.isDuplicated = context.root.$accessor.curationItems.items.find(
+                (item) => item.snippet.id === el.id
+              )
+            } else {
+              el.isDuplicated = false
+            }
+            console.log(el)
+            result.push(el)
+          })
+          console.log(result)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    onMounted(() => {
+      getItem(
+        context.root.$accessor.token,
+        context.root.$accessor.curationItems.search.id
+      )
+      console.log(result)
+    })
     return {
-      items: ref(result)
+      result
     }
   },
   components: {
-    ItemCard,
-    ListContainer
+    CurationVideoCard,
+    CurationListContainer
   },
   mounted() {
     console.log(Cookies.get())

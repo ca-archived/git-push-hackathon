@@ -59,6 +59,13 @@ a {
     background:transparent;
 }
 
+button{
+    border: none;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+}
+
 /* change colours to suit your needs */
 ins {
     background-color:#ff9;

@@ -1,32 +1,45 @@
 import { getAccessorType } from 'typed-vuex'
+import { Modal } from '~/types/modal'
 
-type Curated =
-  | []
-  | [
-      {
+type Curation =
+  | {}
+  | {
+      search?: {
         id: string
         title: string
         thumbnail: string
       }
-    ]
+      items?: [
+        {
+          id: string
+          title: string
+          thumbnail: string
+        }
+      ]
+    }
 
 type State = {
   authenticated: boolean
   token?: string
-  curatedItem: Curated
+  curationItems?: Curation
+}
+type LocalStorage = {
+  token?: string
+  snapshot?: Curation
 }
 
 export const state = (): State => ({
   authenticated: false,
   token: '',
-  curatedItem: [{ id: 'test', title: 'test', thumbnail: 'test' }]
+  curationItems: {}
 })
 
 export const mutations = {
-  commitLocalStorage(state: State, value: State): void {
-    state = value
+  commitState(state: State, value: LocalStorage): void {
+    state.token = value.token
+    state.curationItems = value.snapshot
     localStorage.setItem('token', JSON.stringify(value.token))
-    localStorage.setItem('snapshot', JSON.stringify(value.curatedItem))
+    localStorage.setItem('snapshot', JSON.stringify(value.snapshot))
   },
   commitToken(state: State, value: string): void {
     state.token = value
@@ -35,9 +48,13 @@ export const mutations = {
   commitAuthenticated(state: State, value: boolean): void {
     state.authenticated = value
   },
-  commitSnapshot(state: State, value: Curated): void {
-    state.curatedItem = value
-  }
+  commitSnapshot(state: State, value: Curation): void {
+    console.log('run commitSnapshot')
+    console.log(value)
+    state.curationItems = value
+    console.log(state.curationItems)
+    localStorage.setItem('snapshot', JSON.stringify(value))
+  },
 }
 
 export const actions = {
@@ -45,15 +62,21 @@ export const actions = {
   nuxtClientInit({ commit }: any, context: any): void {
     const tokenItem = JSON.parse(localStorage.getItem('token'))
     const snapshotItem = JSON.parse(localStorage.getItem('snapshot'))
+    console.log(snapshotItem.search)
     const localstorageItems = {
       token: tokenItem,
       snapshot: snapshotItem
     }
-    commit('commitLocalStorage', localstorageItems)
+    if (snapshotItem) {
+      commit('commitState', localstorageItems)
+    } else {
+      commit('commitToken', tokenItem)
+    }
   }
 }
 
 export const accessorType: State = getAccessorType({
   state,
-  mutations
+  mutations,
+  actions
 })

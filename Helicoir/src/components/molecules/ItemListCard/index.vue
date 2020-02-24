@@ -1,20 +1,18 @@
 <template>
   <nuxt-link v-if="link" class="itemlist-card" :to="link">
-    <slot name="modal" />
-    <div class="item-card__thumbnail">
+    <div class="itemlist-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
-    <div class="item-card__description">
+    <div class="itemlist-card__description">
       <Caption :title="title" />
     </div>
   </nuxt-link>
 
-  <div v-else class="item-card" @click="emitEvent">
-    <slot name="modal" />
-    <div class="item-card__thumbnail">
+  <div v-else class="itemlist-card" @click="emitEvent">
+    <div class="itemlist-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
-    <div class="item-card__description">
+    <div class="itemlist-card__description">
       <Caption :title="title" />
     </div>
   </div>
@@ -39,9 +37,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item-card {
-  display: block;
-  width: 300px;
+.itemlist-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
   margin: 40px;
   cursor: pointer;
   @include bp(tablet) {

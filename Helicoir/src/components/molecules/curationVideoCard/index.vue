@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link class="item-card" :to="link">
+  <nuxt-link v-if="link" class="item-card" :to="link">
     <div class="video-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
@@ -11,6 +11,18 @@
       </div>
     </div>
   </nuxt-link>
+  <a v-else class="item-card" >
+    <div class="video-card__thumbnail">
+      <Thumbnail :source="image" />
+    </div>
+    <div class="video-card__description">
+      <Caption :title="title" />
+      <div class="video-card__description__channel">
+        <div class="videocard__description__bar" />
+        <span class="videocard__description__channelName">{{ channel }}</span>
+      </div>
+    </div>
+  </a>
 </template>
 
 <script lang="ts">
@@ -18,7 +30,7 @@ import Caption from '~/components/atoms/Caption/index.vue'
 import Thumbnail from '~/components/atoms/Thumbnail/index.vue'
 
 export default {
-  props: ['title', 'description', 'channel', 'image', 'link', 'id'],
+  props: ['title', 'channel', 'image', 'id', 'tags'],
   components: {
     Caption,
     Thumbnail

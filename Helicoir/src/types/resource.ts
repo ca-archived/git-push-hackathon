@@ -52,4 +52,9 @@ export interface VideoType extends ResourceElement {
     tags?: [string]
     categoryId?: string
   }
+  isSelected?: boolean
+}
+
+export type CurationVideoType = VideoType & {
+  isDuplicated?: boolean
 }

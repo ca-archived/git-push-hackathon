@@ -25,8 +25,7 @@
     "nuxt-typed-vuex": "^0.1.16",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
-    "tsconfig-paths": "^3.9.0",
-    "vuex-persistedstate": "^2.7.1"
+    "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.6",
