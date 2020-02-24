@@ -13,6 +13,7 @@
     "strong-error-handler": "^3.4.0",
     "ts-node": "3.3.0",
     "ts-node-dev": "^1.0.0-pre.44",
+    "tsconfig-paths": "^3.9.0",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
@@ -31,7 +32,7 @@
     "typeorm": "0.2.22"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts"
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpileOnly ./src/index.ts"
   }
 }
