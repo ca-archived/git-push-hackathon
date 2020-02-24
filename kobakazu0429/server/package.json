@@ -11,6 +11,7 @@
     "prettier": "^1.19.1",
     "strong-error-handler": "^3.4.0",
     "ts-node": "3.3.0",
+    "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
