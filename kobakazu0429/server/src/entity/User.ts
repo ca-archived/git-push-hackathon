@@ -12,7 +12,7 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: "varchar", length: 255, nullable: false })
+  @Column({ type: "varchar", length: 255, nullable: false, unique: true })
   googleId!: string;
 
   @OneToMany(
