@@ -59,7 +59,6 @@ export default createComponent({
           id: 'no-items'
         }]
       })
-      console.log(context.root.$accessor.curationItems)
       context.root.$router.push(`/curation`)
     }
     return {

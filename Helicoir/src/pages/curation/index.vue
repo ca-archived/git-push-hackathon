@@ -1,7 +1,18 @@
 <template>
   <div class="container">
-    <div slot="heading"></div>
     <CurationListContainer>
+      <div slot="heading" class="curation__heading">
+        <h3>動画を選ぶ</h3>
+        <div class="curation__buttons">
+          <Modal :show="modal"
+          @enter="goResultPage"
+          @close="closeConfirmModal">
+          <div slot="content">
+            <input type="text" v-model="playlistTitle">
+          </div>
+          </Modal>
+        </div>
+      </div>
       <transition-group
         name="list"
         tag="div"
@@ -40,9 +51,7 @@
               :channel="item.snippet.channelTitle"
               :image="item.snippet.thumbnails.high.url"
             />
-            <p slot="text" style="line-height: 1.4;">
-              {{ item.snippet.description }}
-            </p>
+            <p slot="text" style="line-height: 1.4;">{{ item.snippet.description }}</p>
           </Modal>
         </CurationVideoCard>
       </transition-group>
@@ -64,11 +73,12 @@ import CurationListContainer from '~/components/organisms/CurationListContainer/
 import Modal from '~/components/independents/Modal/index.vue'
 import CurationVideoCard from '@/components/molecules/CurationVideoCard/index.vue'
 import ItemListCard from '~/components/molecules/ItemListCard/index.vue'
-import Cookies from 'js-cookie'
+import Button from '~/components/atoms/Button/index.vue'
 
 export default createComponent({
   setup(props, context) {
     let render = true
+    let modal = false
     let result: [] | CurationVideoType[] = []
     const alt = computed(() => result)
     const getItem = (token: string, id: string): void => {
@@ -78,9 +88,6 @@ export default createComponent({
           const raw = res.data
           const sts: any = []
           raw.items.forEach((el: CurationVideoType) => {
-            // el.isDuplicated = context.root.$accessor.curationItems.items.find(
-            //   (item) => item.snippet.id === el.id
-            // )
             el.isSelected = false
             sts.push(el)
           })
@@ -98,41 +105,68 @@ export default createComponent({
     }
     const addItem = (params) => {
       context.root.$accessor.commitItem(params)
-      console.log(context.root.$accessor.curationItems.items)
+    }
+    const deleteItem = () => {
+      context.root.$accessor.commitDeleteItem()
+    }
+    const openConfirmModal = () => {
+      modal = true
+    }
+    const closeConfirmModal = () => {
+      modal = false
+    }
+    const goResultPage = () => {
+      services.postPlaylist(context.root.$accessor.token, {}
+)
     }
     const next = (params) => {
-      console.log(params)
       context.root.$accessor.commitSearch(params)
       getItem(
         context.root.$accessor.token,
         context.root.$accessor.curationItems.search.id
       )
-      console.log(result)
     }
     onMounted(() => {
       getItem(
         context.root.$accessor.token,
         context.root.$accessor.curationItems.search.id
-      ),
-        console.log(alt.value)
+      )
     })
     return {
       render,
       result: alt.value,
       addItem,
-      next
+      deleteItem,
+      next,
+      modal,
+      openConfirmModal,
+      closeConfirmModal
     }
   },
   components: {
     CurationVideoCard,
     CurationListContainer,
     ItemListCard,
-    Modal
-  }
+    Modal,
+    Button
+  },
+  layout: 'curation'
 })
 </script>
 
 <style lang="scss" scoped>
+.curation{
+  &__heading{
+    display: flex;
+  }
+  &__buttons{
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    margin: 0 50px;
+  }
+}
+
 .list {
   &-enter-active,
   &-leave-active {

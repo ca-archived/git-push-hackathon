@@ -1,25 +1,25 @@
 <template>
-  <nuxt-link v-if="link" class="button" @click="emitEvent">
+  <nuxt-link v-if="link" class="button">
     <slot />
   </nuxt-link>
-    <a v-else class="button" @click="emitEvent">
+  <a v-else class="button" @click="emitEvent">
     <slot />
   </a>
 </template>
 
 <script>
-export default ({
+export default {
   props: ['link'],
   methods: {
     emitEvent() {
       this.$emit('event')
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>
-.button{
+.button {
   display: flex;
   justify-content: center;
   min-width: 100px;
@@ -27,5 +27,6 @@ export default ({
   color: $__mainColor;
   font-weight: bold;
   background: white;
+  cursor: pointer;
 }
 </style>

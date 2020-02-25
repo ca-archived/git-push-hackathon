@@ -2,6 +2,7 @@
 <header class="header">
   <div class="header__wrap">
     <h1 class="header__logo">CURIO!</h1>
+    <slot />
     <Menu />
   </div>
 </header>

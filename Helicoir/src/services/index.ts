@@ -48,8 +48,22 @@ const services = {
     }
     console.log(params)
     return axios.get('/api/playlistItems', { params })
-  }
+  },
   /* ==== POST REQUESTS ==== */
+  postPlaylist(token: string, params: any) {
+    const paramaters = {
+      access_token: token,
+      part: 'snippet',
+      snippet: {
+        title: params.title,
+        description: params.description
+      },
+      status: {
+        privacyStatus: 'private'
+      }
+    }
+    return axios.post('/api/playlists', { paramaters })
+  }
   /* ==== AUTHENTICATION ==== */
   // authMethod() {
   //   const params = {

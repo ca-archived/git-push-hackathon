@@ -59,7 +59,7 @@ export const mutations = {
   },
   commitItem(state: State, value: any): void {
     state.curationItems.items[0].id === 'no-items'
-      ? (state.curationItems.items = [])
+      ? (state.curationItems.items.splice(0, 1))
       : {}
     state.curationItems.items.push(value)
   },

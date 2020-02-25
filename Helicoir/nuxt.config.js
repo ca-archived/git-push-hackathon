@@ -55,7 +55,6 @@ export default {
   },
   styleResources: {
     scss: [
-      '~/assets/scss/mixins.scss',
       '~/assets/scss/constants.scss',
       '~/assets/scss/includes.scss',
       '~/assets/scss/common.scss'
