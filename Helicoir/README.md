@@ -1,22 +1,16 @@
 # Git-push-hackathon
 
-> by Helicoir
+id: gphackathontest@gmail.com.com
+pw: gphack-test
 
-## Build Setup
+で認証時は通ってください
 
-``` bash
-# install dependencies
-$ yarn install
+## build
 
-# serve with hot reload at localhost:3000
+ローカルに保存後、
+$ yarn 
 $ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+の順でコマンドを実行すると、5884番ポートにて開けます
 
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+（開発が終わらなかったため、せめてもの努力の証としてプルリクを出します）
