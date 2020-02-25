@@ -2,7 +2,7 @@ import React, { FC, useState, useCallback, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { ValidationMethod, ValidationResult } from "@/utils/validation";
 
-type TextInputType = "text" | "password" | "email";
+type TextInputType = "text" | "number" | "password" | "email";
 
 export interface Props {
   value?: string;
