@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <div slot="heading">
-    </div>
+    <div slot="heading"></div>
     <CurationListContainer>
       <CurationVideoCard
         v-for="item in result"
@@ -17,17 +16,19 @@
 import { createComponent, ref, onMounted } from '@vue/composition-api'
 import services from '../../services'
 import { formatCurationMixin } from '../../mappers'
+import { VideoType, CurationVideoType } from '../../types/resource'
 import CurationListContainer from '~/components/organisms/CurationListContainer/index.vue'
 import CurationVideoCard from '@/components/molecules/CurationVideoCard/index.vue'
 import Cookies from 'js-cookie'
 
 export default createComponent({
   setup(props, context) {
-    let result: [] = []
-    const getItem = (token: string, id: string): CurationVideoType[] => {
+    let result: [] | CurationVideoType[] = []
+    console.log(context.root.$accessor.token)
+    const getItem = (token: string, id: string): void => {
       services
         .getRelatedVideos(token, id)
-        .then((res): VideoType[] => {
+        .then((res): void => {
           console.log('achieved!')
           const raw = res.data
           console.log(raw)
@@ -44,8 +45,14 @@ export default createComponent({
           })
           console.log(result)
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
+          window.alert(
+            '時間経過によりログイン状態は解除されました。Googleアカウントを選択してください。'
+          )
+          const send: any = window.open(
+            `https://accounts.google.com/o/oauth2/auth?client_id=278812716718-0c8fieggnimq47pmo1ucepfc3855apae.apps.googleusercontent.com&redirect_uri=http://localhost:5884/curation&response_type=token&scope=https://www.googleapis.com/auth/youtube`
+          )
+          setTimeout(send, 3000)
         })
     }
     onMounted(() => {
@@ -62,12 +69,6 @@ export default createComponent({
   components: {
     CurationVideoCard,
     CurationListContainer
-  },
-  mounted() {
-    console.log(Cookies.get())
-    services.getOwnPlaylists(this.$accessor.token).then((res) => {
-      this.items = res.data.items
-    })
   }
 })
 </script>

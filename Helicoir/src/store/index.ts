@@ -54,15 +54,19 @@ export const mutations = {
     state.curationItems = value
     console.log(state.curationItems)
     localStorage.setItem('snapshot', JSON.stringify(value))
-  },
+  }
 }
 
 export const actions = {
   // 認証永続化とcuratedアイテムの一時保存（認証回復時に内容を保って復帰する）
   nuxtClientInit({ commit }: any, context: any): void {
-    const tokenItem = JSON.parse(localStorage.getItem('token'))
+    console.log(context.route.hash)
+    console.log(context.route.hash.slice(14, context.route.hash.indexOf('&')))
+    const tokenItem = context.route.hash
+      ? context.route.hash.slice(14, context.route.hash.indexOf('&'))
+      : JSON.parse(localStorage.getItem('token'))
     const snapshotItem = JSON.parse(localStorage.getItem('snapshot'))
-    console.log(snapshotItem.search)
+    console.log(tokenItem)
     const localstorageItems = {
       token: tokenItem,
       snapshot: snapshotItem

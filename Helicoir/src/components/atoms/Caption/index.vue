@@ -24,14 +24,14 @@ export default createComponent({
 
 <style lang="scss" scoped>
 .caption-area {
-  width: 300px;
+  width: 100%;
 
   &__text {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     &.title {
-      font-size: 24px;
+      font-size: calc(16px + .6vmin);
     }
     &.text {
       font-size: 16px;

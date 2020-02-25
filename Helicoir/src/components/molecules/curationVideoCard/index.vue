@@ -1,25 +1,29 @@
 <template>
-  <nuxt-link v-if="link" class="item-card" :to="link">
+  <nuxt-link v-if="link" class="video-card" :to="link">
     <div class="video-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
-    <div class="video-card__description">
-      <Caption :title="title" />
-      <div class="video-card__description__channel">
-        <div class="videocard__description__bar" />
-        <span class="videocard__description__channelName">{{ channel }}</span>
+    <div class="video-card__mask">
+      <div class="video-card__description">
+        <Caption :title="title" />
+        <div class="video-card__description__channel">
+          <div class="videocard__description__bar" />
+          <span class="videocard__description__channelName">{{ channel }}</span>
+        </div>
       </div>
     </div>
   </nuxt-link>
-  <a v-else class="item-card" >
+  <a v-else class="video-card">
     <div class="video-card__thumbnail">
       <Thumbnail :source="image" />
     </div>
-    <div class="video-card__description">
-      <Caption :title="title" />
-      <div class="video-card__description__channel">
-        <div class="videocard__description__bar" />
-        <span class="videocard__description__channelName">{{ channel }}</span>
+    <div class="video-card__mask">
+      <div class="video-card__description">
+        <Caption :title="title" />
+        <div class="video-card__description__channel">
+          <div class="videocard__description__bar" />
+          <span class="videocard__description__channelName">{{ channel }}</span>
+        </div>
       </div>
     </div>
   </a>
@@ -43,20 +47,26 @@ export default {
 .video-card {
   position: relative;
   display: block;
-  width: 300px;
-  margin: 40px;
+  width: calc(120px + 36vmin);
+  margin: 10px 4vmin;
   cursor: pointer;
   @include bp(tablet) {
     width: 10vmin;
   }
-  &__description {
+  &__mask{
     position: absolute;
-    top: 0;
+    bottom: 0px;
     left: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    width: inherit;
+    height: 150px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1))
+  }
+  &__description {
     display: flex;
     align-items: flex-end;
     padding: 10px 0;
-    background: $__mask;
 
     &__channel {
       display: flex;

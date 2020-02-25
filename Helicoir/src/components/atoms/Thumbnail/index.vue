@@ -5,21 +5,19 @@
 <script lang="ts">
 import { createComponent } from '@vue/composition-api'
 
-type Props = {
-  source: string
-}
-
 export default createComponent({
   props: {
     source: String,
     size: String
-  },
-  setup(props: Props) {}
+  }
 })
 </script>
 
 <style lang="scss" scoped>
 .thumbnail{
-  width: 300px;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  background: black;
 }
 </style>
