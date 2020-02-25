@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
 
   html, body {
     color: ${({ theme }) => theme.color.text.primary};
+    #root {
+      max-width: 350px;
+      margin: 0 auto;
+    }
   }
 
   ${fonts}
