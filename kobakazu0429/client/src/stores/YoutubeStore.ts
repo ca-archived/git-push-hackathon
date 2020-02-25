@@ -29,9 +29,10 @@ export class YoutubeStore {
   }
 
   public fetchPlaylistItems(playlistId: string) {
-    this.playlistItemsApi
-      ?.fetchPlaylistItems(playlistId)
-      .then(res => this.setPlaylistItems(res.data.items));
+    return this.playlistItemsApi?.fetchPlaylistItems(playlistId).then(res => {
+      this.setPlaylistItems(res.data.items);
+      return res.data.items;
+    });
   }
 
   public deletePlaylist(playlistId: string) {

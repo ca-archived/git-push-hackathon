@@ -11,14 +11,24 @@ import { useQuery } from "@/utils/customHooks/useQuery";
 import { ModalContext } from "@/utils/customHooks/useModal";
 
 export const PlayerPage: FC = observer(() => {
-  const { youtubeStore } = useContext(RootContext);
+  const { youtubeStore, timeStore } = useContext(RootContext);
   const { openModal, setContent } = useContext(ModalContext);
   const query = useQuery();
   const playlistId = query.get("playlistId");
   if (!playlistId) return <Redirect to="/" />;
 
   useEffect(() => {
-    youtubeStore.fetchPlaylistItems(playlistId);
+    youtubeStore.fetchPlaylistItems(playlistId)?.then(videos =>
+      timeStore.setVideoss(
+        videos.map(v => {
+          return {
+            youtubeVideoId: v.id,
+            start: null,
+            end: null
+          };
+        })
+      )
+    );
   }, [playlistId, youtubeStore.playlistItems]);
 
   const insertAddPlaylistItem2Modal = useCallback(() => {
