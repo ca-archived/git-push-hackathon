@@ -2,12 +2,46 @@
   <div class="container">
     <div slot="heading"></div>
     <CurationListContainer>
-      <CurationVideoCard
-        v-for="item in result"
-        :key="item.id"
-        :title="item.snippet.title"
-        :image="item.snippet.thumbnails.high.url"
-      />
+      <transition-group
+        name="list"
+        tag="div"
+        style="display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;"
+      >
+        <CurationVideoCard
+          v-for="item in result"
+          :key="item.snippet.title"
+          :id="item.id.videoId"
+          :title="item.snippet.title"
+          :image="item.snippet.thumbnails.high.url"
+          :channel="item.snippet.channelTitle"
+          :tags="item.snippet.tags"
+          :isSelected="item.isSelected"
+          @showModal="
+            () => {
+              item.isSelected = true
+            }
+          "
+        >
+          <Modal
+            :show="item.isSelected"
+            @close="
+              () => {
+                item.isSelected = false
+              }
+            "
+          >
+            <ItemListCard
+              slot="content"
+              :title="item.snippet.title"
+              :channel="item.snippet.channelTitle"
+              :image="item.snippet.thumbnails.high.url"
+            />
+            <p slot="text" style="line-height: 1.4;">{{ item.snippet.description }}</p>
+          </Modal>
+        </CurationVideoCard>
+      </transition-group>
     </CurationListContainer>
   </div>
 </template>
@@ -18,20 +52,19 @@ import services from '../../services'
 import { formatCurationMixin } from '../../mappers'
 import { VideoType, CurationVideoType } from '../../types/resource'
 import CurationListContainer from '~/components/organisms/CurationListContainer/index.vue'
+import Modal from '~/components/independents/Modal/index.vue'
 import CurationVideoCard from '@/components/molecules/CurationVideoCard/index.vue'
+import ItemListCard from '~/components/molecules/ItemListCard/index.vue'
 import Cookies from 'js-cookie'
 
 export default createComponent({
   setup(props, context) {
     let result: [] | CurationVideoType[] = []
-    console.log(context.root.$accessor.token)
     const getItem = (token: string, id: string): void => {
       services
         .getRelatedVideos(token, id)
         .then((res): void => {
-          console.log('achieved!')
           const raw = res.data
-          console.log(raw)
           raw.items.forEach((el: CurationVideoType) => {
             if (context.root.$accessor.curationItems.items) {
               el.isDuplicated = context.root.$accessor.curationItems.items.find(
@@ -40,10 +73,9 @@ export default createComponent({
             } else {
               el.isDuplicated = false
             }
-            console.log(el)
+            el.isSelected = false
             result.push(el)
           })
-          console.log(result)
         })
         .catch(() => {
           window.alert(
@@ -54,6 +86,9 @@ export default createComponent({
           )
           setTimeout(send, 3000)
         })
+    }
+    const getNewItem = (params) => {
+      result = []
     }
     onMounted(() => {
       getItem(
@@ -68,7 +103,23 @@ export default createComponent({
   },
   components: {
     CurationVideoCard,
-    CurationListContainer
+    CurationListContainer,
+    ItemListCard,
+    Modal
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.list {
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.3s;
+  }
+  &-enter,
+  &-leave-to {
+    opacity: 0.2;
+    transform: translateY(10px);
+  }
+}
+</style>

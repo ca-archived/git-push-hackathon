@@ -57,4 +57,5 @@ export interface VideoType extends ResourceElement {
 
 export type CurationVideoType = VideoType & {
   isDuplicated?: boolean
+  isSelected?: boolean
 }

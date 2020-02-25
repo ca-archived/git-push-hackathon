@@ -38,7 +38,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
-    'nuxt-client-init-module'
+    'nuxt-client-init-module',
+    'nuxt-fontawesome'
   ],
   axios: {
     proxy: true,
@@ -58,6 +59,14 @@ export default {
       '~/assets/scss/constants.scss',
       '~/assets/scss/includes.scss',
       '~/assets/scss/common.scss'
+    ]
+  },
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
     ]
   },
   env: {

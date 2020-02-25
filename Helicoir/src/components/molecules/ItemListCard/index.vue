@@ -13,7 +13,7 @@
       <Thumbnail :source="image" />
     </div>
     <div class="itemlist-card__description">
-      <Caption :title="title" />
+      <Caption :title="title" :text="channel" />
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
     width: 10vmin;
   }
   &__description {
-    padding: 10px 0;
+    padding: 10px 20px;
   }
 }
 </style>

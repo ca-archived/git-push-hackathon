@@ -72,7 +72,6 @@ export default createComponent({
   },
   mounted() {
     this.items = formatVideos(this.$accessor.token, this.$route.query.id)
-    console.log(this.items)
   },
   methods: {}
 })

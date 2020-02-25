@@ -5,9 +5,7 @@ import {
   PlaylistType,
   CurationVideoType
 } from '~/types/resource'
-import { useAccessor } from 'nuxt-typed-vuex'
-import { mapState } from 'vuex'
-import { createComponent, reactive } from '@vue/composition-api'
+import { createComponent } from '@vue/composition-api'
 
 export const formatPlaylists = (token: string): PlaylistType[] => {
   let result: [] = []
