@@ -1,4 +1,11 @@
-import React, { FC, useState, useCallback, useContext, useRef } from "react";
+import React, {
+  FC,
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+  useRef
+} from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import styled from "styled-components";
 import RootContext from "@/contexts/RootContext";
@@ -28,12 +35,7 @@ interface OnProgress {
   loadedSeconds: number;
 }
 
-type PlayingState =
-  | "playingForStart"
-  | "waitForStart"
-  | "playing"
-  | "end"
-  | undefined;
+type PlayingState = "prepare" | "ready" | "playing" | "end";
 
 interface PlayerState extends Pick<ReactPlayerProps, "playing" | "muted"> {
   index: number;
@@ -41,7 +43,8 @@ interface PlayerState extends Pick<ReactPlayerProps, "playing" | "muted"> {
   playingState?: PlayingState;
 }
 
-let playingState: PlayingState = "playingForStart";
+let playingStateA: PlayingState = "prepare";
+let playingStateB: PlayingState = "prepare";
 
 export const MoviePlayer: FC<Props> = ({ playlistId }) => {
   const { youtubeStore, timeStore } = useContext(RootContext);
@@ -73,57 +76,109 @@ export const MoviePlayer: FC<Props> = ({ playlistId }) => {
     player.playVideoAt(playerAState.index + 1);
   }, [refPlayerB.current, playerAState]);
 
-  const handleTimePlayerA = (state: OnProgress) => {
+  useEffect(() => {
+    if (!refPlayerA.current) return;
     const player = refPlayerA.current?.getInternalPlayer("player") as Player;
+    if (!player) return;
     const playlistIndex = player.getPlaylistIndex();
     const videoId = youtubeStore.playlistItems[playlistIndex].id;
     const targetVideo = timeStore.videos.find(
       v => v.youtubeVideoId === videoId
     );
 
-    if (playingState === "playingForStart") {
-      if (targetVideo?.start && playlistIndex === 0) {
-        playingState = "playing";
-        refPlayerA.current?.seekTo(targetVideo.start, "seconds");
-      } else if (
-        targetVideo?.start &&
-        targetVideo.start <= state.playedSeconds
-      ) {
-        playingState = "playing";
+    if (
+      playingStateA === "prepare" &&
+      targetVideo?.start &&
+      playlistIndex === 0
+    ) {
+      refPlayerA.current?.seekTo(targetVideo.start, "seconds");
+      playingStateA = "ready";
+      // player.playVideo();
+    }
+  }, [timeStore.videos]);
+
+  const handleTimePlayerA = (state: OnProgress) => {
+    if (!refPlayerA.current) return;
+    const player = refPlayerA.current.getInternalPlayer("player") as Player;
+    if (!player) return;
+    const playlistIndex = player.getPlaylistIndex();
+    const videoId = youtubeStore.playlistItems[playlistIndex].id;
+    const targetVideo = timeStore.videos.find(
+      v => v.youtubeVideoId === videoId
+    );
+
+    if (playingStateA === "prepare" && playlistIndex > 0) {
+      playingStateA = "ready";
+      if (targetVideo?.start) {
+        refPlayerA.current.seekTo(targetVideo.start, "seconds");
         player.pauseVideo();
       }
-    } else if (playingState === "playing") {
+    }
+
+    if (playingStateA === "playing") {
       if (targetVideo?.end && targetVideo.end <= state.playedSeconds) {
-        playingState = undefined;
-        player.pauseVideo();
+        playingStateA = "end";
+        player.stopVideo();
+        nextVideoB();
       }
     }
   };
 
-  const handleTimePlayerB = (_state: OnProgress) => {};
+  const handleTimePlayerB = (state: OnProgress) => {
+    if (!refPlayerB.current) return;
+    const player = refPlayerB.current.getInternalPlayer("player") as Player;
+    if (!player) return;
+    const playlistIndex = player.getPlaylistIndex();
+    const videoId = youtubeStore.playlistItems[playlistIndex].id;
+    const targetVideo = timeStore.videos.find(
+      v => v.youtubeVideoId === videoId
+    );
+
+    if (playingStateB === "prepare" && playlistIndex > 0) {
+      playingStateB = "ready";
+      if (targetVideo?.start) {
+        refPlayerB.current.seekTo(targetVideo.start, "seconds");
+        player.pauseVideo();
+      }
+    }
+
+    if (playingStateB === "playing") {
+      if (targetVideo?.end && targetVideo.end <= state.playedSeconds) {
+        playingStateB = "end";
+        player.pauseVideo();
+        nextVideoA();
+      }
+    }
+  };
 
   return (
     <>
-      <PlayerA
+      <ReactPlayer
         url={`https://youtube.com/playlist?list=${playlistId}`}
         width="100%"
         height="40vh"
+        controls
         ref={refPlayerA}
         playing={playerAState.playing}
         progressInterval={progressInterval}
         isdisplay={playerAState.isdisplay.toString()}
         onProgress={handleTimePlayerA}
+        onPlay={() => (playingStateA = "playing")}
+        onEnded={() => (playingStateA = "end")}
         muted={!playerAState.isdisplay}
       />
       <PlayerB
         url={`https://youtube.com/playlist?list=${playlistId}`}
         width="100%"
         height="40vh"
+        controls
         ref={refPlayerB}
         playing={playerBState.playing}
         progressInterval={progressInterval}
         isdisplay={playerBState.isdisplay.toString()}
         onProgress={handleTimePlayerB}
+        onPlay={() => (playingStateB = "playing")}
+        onEnded={() => (playingStateB = "end")}
         muted={!playerBState.isdisplay}
       />
       <div>
