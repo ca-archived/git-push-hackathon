@@ -54,9 +54,12 @@ export default createComponent({
           id: params.id,
           title: params.title,
           thumbnail: params.thumbnail
-        }
+        },
+        items: [{
+          id: 'no-items'
+        }]
       })
-      console.log(context.root.$accessor.commitSnapshot)
+      console.log(context.root.$accessor.curationItems)
       context.root.$router.push(`/curation`)
     }
     return {

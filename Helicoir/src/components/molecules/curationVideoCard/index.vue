@@ -66,7 +66,13 @@ export default {
         title: this.title
       })
     },
-    event__next() {}
+    event__next() {
+      this.$emit('next', {
+        id: this.id,
+        thumbnail: this.image,
+        title: this.title
+      })
+    }
   }
 }
 </script>

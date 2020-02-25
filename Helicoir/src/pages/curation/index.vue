@@ -11,7 +11,7 @@
       >
         <CurationVideoCard
           v-for="item in result"
-          :key="item.snippet.title"
+          :key="item.id.videoId"
           :id="item.id.videoId"
           :title="item.snippet.title"
           :image="item.snippet.thumbnails.high.url"
@@ -23,6 +23,8 @@
               item.isSelected = true
             }
           "
+          @addItem="addItem"
+          @next="next"
         >
           <Modal
             :show="item.isSelected"
@@ -38,7 +40,9 @@
               :channel="item.snippet.channelTitle"
               :image="item.snippet.thumbnails.high.url"
             />
-            <p slot="text" style="line-height: 1.4;">{{ item.snippet.description }}</p>
+            <p slot="text" style="line-height: 1.4;">
+              {{ item.snippet.description }}
+            </p>
           </Modal>
         </CurationVideoCard>
       </transition-group>
@@ -47,7 +51,12 @@
 </template>
 
 <script lang="ts">
-import { createComponent, ref, onMounted } from '@vue/composition-api'
+import {
+  createComponent,
+  onMounted,
+  reactive,
+  computed
+} from '@vue/composition-api'
 import services from '../../services'
 import { formatCurationMixin } from '../../mappers'
 import { VideoType, CurationVideoType } from '../../types/resource'
@@ -59,23 +68,23 @@ import Cookies from 'js-cookie'
 
 export default createComponent({
   setup(props, context) {
+    let render = true
     let result: [] | CurationVideoType[] = []
+    const alt = computed(() => result)
     const getItem = (token: string, id: string): void => {
       services
         .getRelatedVideos(token, id)
         .then((res): void => {
           const raw = res.data
+          const sts: any = []
           raw.items.forEach((el: CurationVideoType) => {
-            if (context.root.$accessor.curationItems.items) {
-              el.isDuplicated = context.root.$accessor.curationItems.items.find(
-                (item) => item.snippet.id === el.id
-              )
-            } else {
-              el.isDuplicated = false
-            }
+            // el.isDuplicated = context.root.$accessor.curationItems.items.find(
+            //   (item) => item.snippet.id === el.id
+            // )
             el.isSelected = false
-            result.push(el)
+            sts.push(el)
           })
+          result.splice(0, result.length, ...sts)
         })
         .catch(() => {
           window.alert(
@@ -87,18 +96,31 @@ export default createComponent({
           setTimeout(send, 3000)
         })
     }
-    const getNewItem = (params) => {
-      result = []
+    const addItem = (params) => {
+      context.root.$accessor.commitItem(params)
+      console.log(context.root.$accessor.curationItems.items)
     }
-    onMounted(() => {
+    const next = (params) => {
+      console.log(params)
+      context.root.$accessor.commitSearch(params)
       getItem(
         context.root.$accessor.token,
         context.root.$accessor.curationItems.search.id
       )
       console.log(result)
+    }
+    onMounted(() => {
+      getItem(
+        context.root.$accessor.token,
+        context.root.$accessor.curationItems.search.id
+      ),
+        console.log(alt.value)
     })
     return {
-      result
+      render,
+      result: alt.value,
+      addItem,
+      next
     }
   },
   components: {

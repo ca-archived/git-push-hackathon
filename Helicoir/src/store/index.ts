@@ -1,41 +1,49 @@
 import { getAccessorType } from 'typed-vuex'
-import { Modal } from '~/types/modal'
 
-type Curation =
-  | {}
-  | {
-      search?: {
+type Curation = {
+  search:
+    | {}
+    | {
         id: string
         title: string
         thumbnail: string
       }
-      items?: [
+  items:
+    | []
+    | [
         {
           id: string
           title: string
           thumbnail: string
         }
       ]
-    }
+}
 
 type State = {
-  authenticated: boolean
-  token?: string
-  curationItems?: Curation
+  token: string
+  curationItems: Curation
 }
 type LocalStorage = {
-  token?: string
-  snapshot?: Curation
+  token: string
+  snapshot: Curation
 }
 
 export const state = (): State => ({
-  authenticated: false,
   token: '',
-  curationItems: {}
+  curationItems: {
+    search: {},
+    items: [
+      {
+        id: 'no-items',
+        title: 'no-items',
+        thumbnail: 'no-items'
+      }
+    ]
+  }
 })
 
 export const mutations = {
-  commitState(state: State, value: LocalStorage): void {
+  commitStateSync(state: State, value: LocalStorage): void {
     state.token = value.token
     state.curationItems = value.snapshot
     localStorage.setItem('token', JSON.stringify(value.token))
@@ -45,36 +53,41 @@ export const mutations = {
     state.token = value
     localStorage.setItem('token', JSON.stringify(value))
   },
-  commitAuthenticated(state: State, value: boolean): void {
-    state.authenticated = value
-  },
   commitSnapshot(state: State, value: Curation): void {
-    console.log('run commitSnapshot')
-    console.log(value)
     state.curationItems = value
-    console.log(state.curationItems)
     localStorage.setItem('snapshot', JSON.stringify(value))
+  },
+  commitItem(state: State, value: any): void {
+    state.curationItems.items[0].id === 'no-items'
+      ? (state.curationItems.items = [])
+      : {}
+    state.curationItems.items.push(value)
+  },
+  commitSearch(state: State, value: any) {
+    state.curationItems.search = value
+    localStorage.setItem('snapshot', JSON.stringify(state.curationItems))
   }
 }
 
 export const actions = {
   // 認証永続化とcuratedアイテムの一時保存（認証回復時に内容を保って復帰する）
   nuxtClientInit({ commit }: any, context: any): void {
-    console.log(context.route.hash)
-    console.log(context.route.hash.slice(14, context.route.hash.indexOf('&')))
     const tokenItem = context.route.hash
       ? context.route.hash.slice(14, context.route.hash.indexOf('&'))
       : JSON.parse(localStorage.getItem('token'))
     const snapshotItem = JSON.parse(localStorage.getItem('snapshot'))
-    console.log(tokenItem)
     const localstorageItems = {
       token: tokenItem,
       snapshot: snapshotItem
     }
     if (snapshotItem) {
-      commit('commitState', localstorageItems)
+      commit('commitStateSync', localstorageItems)
     } else {
       commit('commitToken', tokenItem)
+      localStorage.setItem(
+        'snapshot',
+        JSON.stringify(context.store.state.curationItems)
+      )
     }
   }
 }
