@@ -28,7 +28,12 @@ interface OnProgress {
   loadedSeconds: number;
 }
 
-type PlayingState = "playingForStart" | "waitForStart" | "playing" | "end";
+type PlayingState =
+  | "playingForStart"
+  | "waitForStart"
+  | "playing"
+  | "end"
+  | undefined;
 
 interface PlayerState extends Pick<ReactPlayerProps, "playing" | "muted"> {
   index: number;
@@ -40,13 +45,33 @@ let playingState: PlayingState = "playingForStart";
 
 export const MoviePlayer: FC<Props> = ({ playlistId }) => {
   const { youtubeStore, timeStore } = useContext(RootContext);
+  const refPlayerA = useRef<ReactPlayer>(null);
+  const refPlayerB = useRef<ReactPlayer>(null);
 
   const [playerAState, setPlayerAState] = useState<PlayerState>({
     index: initializeIndex,
     isdisplay: true
   });
+  const [playerBState, setPlayerBState] = useState<PlayerState>({
+    index: initializeIndex + 1,
+    isdisplay: true
+  });
 
-  const refPlayerA = useRef<ReactPlayer>(null);
+  const nextVideoA = useCallback(() => {
+    const player = refPlayerA.current?.getInternalPlayer("player") as
+      | Player
+      | undefined;
+    if (!player) return;
+    player.playVideoAt(playerBState.index + 1);
+  }, [refPlayerA.current, playerBState]);
+
+  const nextVideoB = useCallback(() => {
+    const player = refPlayerB.current?.getInternalPlayer("player") as
+      | Player
+      | undefined;
+    if (!player) return;
+    player.playVideoAt(playerAState.index + 1);
+  }, [refPlayerB.current, playerAState]);
 
   const handleTimePlayerA = (state: OnProgress) => {
     const player = refPlayerA.current?.getInternalPlayer("player") as Player;
@@ -57,7 +82,13 @@ export const MoviePlayer: FC<Props> = ({ playlistId }) => {
     );
 
     if (playingState === "playingForStart") {
-      if (targetVideo?.start && targetVideo.start <= state.playedSeconds) {
+      if (targetVideo?.start && playlistIndex === 0) {
+        playingState = "playing";
+        refPlayerA.current?.seekTo(targetVideo.start, "seconds");
+      } else if (
+        targetVideo?.start &&
+        targetVideo.start <= state.playedSeconds
+      ) {
         playingState = "playing";
         player.pauseVideo();
       }
@@ -68,6 +99,8 @@ export const MoviePlayer: FC<Props> = ({ playlistId }) => {
       }
     }
   };
+
+  const handleTimePlayerB = (_state: OnProgress) => {};
 
   return (
     <>
@@ -82,8 +115,29 @@ export const MoviePlayer: FC<Props> = ({ playlistId }) => {
         onProgress={handleTimePlayerA}
         muted={!playerAState.isdisplay}
       />
+      <PlayerB
+        url={`https://youtube.com/playlist?list=${playlistId}`}
+        width="100%"
+        height="40vh"
+        ref={refPlayerB}
+        playing={playerBState.playing}
+        progressInterval={progressInterval}
+        isdisplay={playerBState.isdisplay.toString()}
+        onProgress={handleTimePlayerB}
+        muted={!playerBState.isdisplay}
+      />
+      <div>
+        <button onClick={nextVideoA}>buttonA</button>
+        <button onClick={nextVideoB}>buttonB</button>
+      </div>
     </>
   );
 };
 
-const PlayerA = styled(ReactPlayer)``;
+const PlayerA = styled(ReactPlayer)<{ isdisplay: boolean }>`
+  display: ${({ isdisplay }) => (isdisplay ? "block" : "none")};
+`;
+
+const PlayerB = styled(ReactPlayer)<{ isdisplay: boolean }>`
+  display: ${({ isdisplay }) => (isdisplay ? "block" : "none")};
+`;
