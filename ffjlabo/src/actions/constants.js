@@ -1,0 +1,2 @@
+export const GET_PLAYLISTS = 'GET_PLAYLISTS';
+export const GET_PLAYLIST_ITEMS = 'GET_PLAYLIST_ITEMS';
