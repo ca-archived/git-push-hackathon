@@ -41,8 +41,8 @@ app.get(
   (req, res) => {
     const {accessToken} = req.user;
     res.cookie('access_token', accessToken, {
-      expires: new Date(Date.now() + 60000),
-      maxAge: 60000,
+      expires: new Date(Date.now() + 24 * 3600000),
+      maxAge: 24 * 3600000,
       httpOnly: false,
     });
     res.redirect(viewEndpoint);
