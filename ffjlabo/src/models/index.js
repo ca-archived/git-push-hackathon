@@ -1,4 +1,4 @@
-import {getPlaylists} from './playlist';
+import {getPlaylists, addPlaylist} from './playlist';
 import {getPlaylistItems} from './playlistItems';
 
-export {getPlaylists, getPlaylistItems};
+export {getPlaylists, addPlaylist, getPlaylistItems};

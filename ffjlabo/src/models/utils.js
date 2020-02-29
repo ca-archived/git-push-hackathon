@@ -4,6 +4,9 @@ const axios = require('axios');
 
 export const client = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3',
+  params: {
+    part: 'snippet',
+  },
   timeout: 1000,
   headers: {Authorization: `Bearer ${accessToken}`},
 });
