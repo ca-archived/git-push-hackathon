@@ -14,8 +14,9 @@ passport.use(
       callbackURL: `${apiEndpoint}/auth/callback`,
       scope: ['https://www.googleapis.com/auth/youtube'],
     },
-    (accessToken, refreshToken, profile, done) => {
-      return done(null, {accessToken});
+    (accessToken, refreshToken, params, profile, done) => {
+      const {expires_in} = params;
+      return done(null, {accessToken, expires_in});
     }
   )
 );
@@ -39,10 +40,10 @@ app.get(
     failureRedirect: `${viewEndpoint}`,
   }),
   (req, res) => {
-    const {accessToken} = req.user;
+    const {accessToken, expires_in} = req.user;
     res.cookie('access_token', accessToken, {
-      expires: new Date(Date.now() + 24 * 3600000),
-      maxAge: 24 * 3600000,
+      expires: new Date(Date.now() + expires_in * 1000),
+      maxAge: expires_in * 1000,
       httpOnly: false,
     });
     res.redirect(viewEndpoint);
