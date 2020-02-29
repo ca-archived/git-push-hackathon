@@ -1,20 +1,20 @@
-import {GET_PLAYLISTS, GET_PLAYLIST_ITEMS} from '../actions/constants';
+import {GET_PLAYLIST_ITEMS} from '../actions/constants';
 import {client} from './utils';
 
-export const getPlaylists = () => {
+export const getPlaylistItems = (playlistId = '') => {
   return async dispatch => {
     try {
-      const response = await client.get('/playlists', {
+      const response = await client.get('/playlistItems', {
         params: {
           part: 'snippet',
-          mine: 'true',
+          playlistId: playlistId,
         },
       });
       const {items} = response.data;
       dispatch({
-        type: GET_PLAYLISTS,
+        type: GET_PLAYLIST_ITEMS,
         payload: {
-          playlists: items,
+          playlistItems: items,
         },
       });
 
