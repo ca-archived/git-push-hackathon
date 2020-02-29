@@ -15,6 +15,7 @@ const AddPlaylistForm = ({addPlaylist}) => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
+        placeholder="プレイリスト名"
         onChange={e => {
           setText(e.target.value);
         }}
