@@ -7,10 +7,8 @@ import {createStore, applyMiddleware} from 'redux';
 import Cookies from 'js-cookie';
 
 import Reducers from './reducers';
-import Home from './components/pages/Home';
 import Playlist from './components/pages/Playlist';
 import PlaylistItems from './components/pages/PlaylistItems';
-import Header from './components/Header';
 import Login from './components/pages/Login';
 
 const store = createStore(Reducers, applyMiddleware(thunk));
@@ -24,9 +22,8 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Playlist} />
         <Route exact path="/playlist" component={Playlist} />
         <Route path="/playlist/:playlistId" component={PlaylistItems} />
       </Switch>
