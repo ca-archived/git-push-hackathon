@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import Playlist from './Playlist';
-import {getPlaylists} from '../../../models';
+import {getPlaylists, addPlaylist} from '../../../models';
 
 const PlaylistContainer = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,14 @@ const PlaylistContainer = () => {
     dispatch(getPlaylists());
   }, [JSON.stringify(playlists)]);
 
-  return <Playlist {...playlists} />;
+  const _props = {
+    ...playlists,
+    addPlaylist: (title = '') => {
+      dispatch(addPlaylist(title));
+    },
+  };
+
+  return <Playlist {..._props} />;
 };
 
 export default PlaylistContainer;
