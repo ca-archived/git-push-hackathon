@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import PlaylistItems from './PlaylistItems';
-import {getPlaylistItems} from '../../../models';
+import {getPlaylistItems, addPlaylistItem} from '../../../models';
 
 const PlaylistItemsContainer = ({match}) => {
   const dispatch = useDispatch();
@@ -10,7 +10,14 @@ const PlaylistItemsContainer = ({match}) => {
   useEffect(() => {
     dispatch(getPlaylistItems(playlistId));
   }, [JSON.stringify(playlistItems)]);
-  return <PlaylistItems {...playlistItems} />;
+
+  const _props = {
+    ...playlistItems,
+    addPlaylistItem: (videoId = '') => {
+      dispatch(addPlaylistItem(playlistId, videoId));
+    },
+  };
+  return <PlaylistItems {..._props} />;
 };
 
 export default PlaylistItemsContainer;
